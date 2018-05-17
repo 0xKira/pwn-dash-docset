@@ -1,0 +1,144 @@
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-671"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/XLAT%2FXLATB"></a><title>XLAT/XLATB</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>March 2018</li></ul></nav></header><h1>XLAT/XLATB
+		&mdash; Table Look-up Translation</h1>
+
+
+<table>
+<tbody><tr>
+<th>Opcode</th>
+<th>Instruction</th>
+<th>Op/En</th>
+<th>64-Bit Mode</th>
+<th>Compat/Leg Mode</th>
+<th>Description</th></tr>
+<tr>
+<td>D7</td>
+<td>XLAT <em>m8</em></td>
+<td>ZO</td>
+<td>Valid</td>
+<td>Valid</td>
+<td>Set AL to memory byte DS:[(E)BX + unsigned AL].</td></tr>
+<tr>
+<td>D7</td>
+<td>XLATB</td>
+<td>ZO</td>
+<td>Valid</td>
+<td>Valid</td>
+<td>Set AL to memory byte DS:[(E)BX + unsigned AL].</td></tr>
+<tr>
+<td>REX.W + D7</td>
+<td>XLATB</td>
+<td>ZO</td>
+<td>Valid</td>
+<td>N.E.</td>
+<td>Set AL to memory byte [RBX + unsigned AL].</td></tr></tbody></table>
+<h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="./XLAT:XLATB.html#instruction-operand-encoding">
+			&para;
+		</a></h2>
+<table>
+<tbody><tr>
+<td>Op/En</td>
+<td>Operand 1</td>
+<td>Operand 2</td>
+<td>Operand 3</td>
+<td>Operand 4</td></tr>
+<tr>
+<td>ZO</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td></tr></tbody></table>
+<h2 id="description">Description<a class="anchor" href="./XLAT:XLATB.html#description">
+			&para;
+		</a></h2>
+<p>Locates a byte entry in a table in memory, using the contents of the AL register as a table index, then copies the contents of the table entry back into the AL register. The index in the AL register is treated as an unsigned integer. The XLAT and XLATB instructions get the base address of the table in memory from either the DS:EBX or the DS:BX registers (depending on the address-size attribute of the instruction, 32 or 16, respectively). (The DS segment may be overridden with a segment override prefix.)</p>
+<p>At the assembly-code level, two forms of this instruction are allowed: the &ldquo;explicit-operand&rdquo; form and the &ldquo;no-operand&rdquo; form. The explicit-operand form (specified with the XLAT mnemonic) allows the base address of the table to be specified explicitly with a symbol. This explicit-operands form is provided to allow documentation; however, note that the documentation provided by this form can be misleading. That is, the symbol does not have to specify the correct base address. The base address is always specified by the DS:(E)BX registers, which must be loaded correctly before the XLAT instruction is executed.</p>
+<p>The no-operands form (XLATB) provides a &ldquo;short form&rdquo; of the XLAT instructions. Here also the processor assumes that the DS:(E)BX registers contain the base address of the table.</p>
+<p>In 64-bit mode, operation is similar to that in legacy or compatibility mode. AL is used to specify the table index (the operand size is fixed at 8 bits). RBX, however, is used to specify the table&rsquo;s base address. See the summary chart at the beginning of this section for encoding data and limits.</p>
+<h2 id="operation">Operation<a class="anchor" href="./XLAT:XLATB.html#operation">
+			&para;
+		</a></h2>
+<pre>IF AddressSize = 16
+    THEN
+        AL &larr; (DS:BX + ZeroExtend(AL));
+    ELSE IF (AddressSize = 32)
+        AL &larr; (DS:EBX + ZeroExtend(AL)); FI;
+    ELSE (AddressSize = 64)
+        AL &larr; (RBX + ZeroExtend(AL));
+FI;
+</pre>
+<h2 id="flags-affected">Flags Affected<a class="anchor" href="./XLAT:XLATB.html#flags-affected">
+			&para;
+		</a></h2>
+<p>None.</p>
+<h2 class="exceptions" id="protected-mode-exceptions">Protected Mode Exceptions<a class="anchor" href="./XLAT:XLATB.html#protected-mode-exceptions">
+			&para;
+		</a></h2>
+<table>
+<tbody><tr>
+<td rowspan="2">#GP(0)</td>
+<td>If a memory operand effective address is outside the CS, DS, ES, FS, or GS segment limit.</td></tr>
+<tr>
+<td>If the DS, ES, FS, or GS register contains a NULL segment selector.</td></tr>
+<tr>
+<td>#SS(0)</td>
+<td>If a memory operand effective address is outside the SS segment limit.</td></tr>
+<tr>
+<td>#PF(fault-code)</td>
+<td>If a page fault occurs.</td></tr>
+<tr>
+<td>#UD</td>
+<td>If the LOCK prefix is used.</td></tr></tbody></table>
+<h2 class="exceptions" id="real-address-mode-exceptions">Real-Address Mode Exceptions<a class="anchor" href="./XLAT:XLATB.html#real-address-mode-exceptions">
+			&para;
+		</a></h2>
+<table>
+<tbody><tr>
+<td>#GP</td>
+<td>If a memory operand effective address is outside the CS, DS, ES, FS, or GS segment limit.</td></tr>
+<tr>
+<td>#SS</td>
+<td>If a memory operand effective address is outside the SS segment limit.</td></tr>
+<tr>
+<td>#UD</td>
+<td>If the LOCK prefix is used.</td></tr></tbody></table>
+<h2 class="exceptions" id="virtual-8086-mode-exceptions">Virtual-8086 Mode Exceptions<a class="anchor" href="./XLAT:XLATB.html#virtual-8086-mode-exceptions">
+			&para;
+		</a></h2>
+<table>
+<tbody><tr>
+<td>#GP(0)</td>
+<td>If a memory operand effective address is outside the CS, DS, ES, FS, or GS segment limit.</td></tr>
+<tr>
+<td>#SS(0)</td>
+<td>If a memory operand effective address is outside the SS segment limit.</td></tr>
+<tr>
+<td>#PF(fault-code)</td>
+<td>If a page fault occurs.</td></tr>
+<tr>
+<td>#UD</td>
+<td>If the LOCK prefix is used.</td></tr></tbody></table>
+<h2 class="exceptions" id="compatibility-mode-exceptions">Compatibility Mode Exceptions<a class="anchor" href="./XLAT:XLATB.html#compatibility-mode-exceptions">
+			&para;
+		</a></h2>
+<p>Same exceptions as in protected mode.</p>
+<h2 class="exceptions" id="64-bit-mode-exceptions">64-Bit Mode Exceptions<a class="anchor" href="./XLAT:XLATB.html#64-bit-mode-exceptions">
+			&para;
+		</a></h2>
+<table>
+<tbody><tr>
+<td>#SS(0)</td>
+<td>If a memory address referencing the SS segment is in a non-canonical form.</td></tr>
+<tr>
+<td>#GP(0)</td>
+<td>If the memory address is in a non-canonical form.</td></tr>
+<tr>
+<td>#PF(fault-code)</td>
+<td>If a page fault occurs.</td></tr>
+<tr>
+<td>#UD</td>
+<td>If the LOCK prefix is used.</td></tr></tbody></table><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+	</p></footer>
+</body></html>

@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]--><!--[if gt IE 8]><!--><html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>pwnlib.tubes.process — Processes — pwntools 3.14.0dev documentation</title>
+<link href="../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../about.html" rel="author" title="About these documents"/>
+<link href="../search.html" rel="search" title="Search"/>
+<link href="serial.html" rel="next" title="pwnlib.tubes.serialtube — Serial Ports"/>
+<link href="../tubes.html" rel="prev" title="pwnlib.tubes — Talking to the World!"/>
+<script src="../_static/js/modernizr.min.js"></script>
+</head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../index.html"> pwntools
+          
+
+          
+          </a>
+<div class="version">
+                3.14
+              </div>
+<div role="search">
+<form action="../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">About pwntools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../globals.html"><code class="docutils literal"><span class="pre">from</span> <span class="pre">pwn</span> <span class="pre">import</span> <span class="pre">*</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../commandline.html">Command Line Tools</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../adb.html"><code class="docutils literal"><span class="pre">pwnlib.adb</span></code> — Android Debug Bridge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../args.html"><code class="docutils literal"><span class="pre">pwnlib.args</span></code> — Magic Command-Line Arguments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../asm.html"><code class="docutils literal"><span class="pre">pwnlib.asm</span></code> — Assembler functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../atexception.html"><code class="docutils literal"><span class="pre">pwnlib.atexception</span></code> — Callbacks on unhandled exception</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../atexit.html"><code class="docutils literal"><span class="pre">pwnlib.atexit</span></code> — Replacement for atexit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../constants.html"><code class="docutils literal"><span class="pre">pwnlib.constants</span></code> — Easy access to header file constants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../config.html"><code class="docutils literal"><span class="pre">pwnlib.config</span></code> — Pwntools Configuration File</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../context.html"><code class="docutils literal"><span class="pre">pwnlib.context</span></code> — Setting runtime variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dynelf.html"><code class="docutils literal"><span class="pre">pwnlib.dynelf</span></code> — Resolving remote functions using leaks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../encoders.html"><code class="docutils literal"><span class="pre">pwnlib.encoders</span></code> — Encoding Shellcode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../elf.html"><code class="docutils literal"><span class="pre">pwnlib.elf</span></code> — ELF Executables and Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../exception.html"><code class="docutils literal"><span class="pre">pwnlib.exception</span></code> — Pwnlib exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../flag.html"><code class="docutils literal"><span class="pre">pwnlib.flag</span></code> — CTF Flag Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fmtstr.html"><code class="docutils literal"><span class="pre">pwnlib.fmtstr</span></code> — Format string bug exploitation tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gdb.html"><code class="docutils literal"><span class="pre">pwnlib.gdb</span></code> — Working with GDB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../libcdb.html"><code class="docutils literal"><span class="pre">pwnlib.libcdb</span></code> — Libc Database</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../log.html"><code class="docutils literal"><span class="pre">pwnlib.log</span></code> — Logging stuff</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../memleak.html"><code class="docutils literal"><span class="pre">pwnlib.memleak</span></code> — Helper class for leaking memory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../protocols.html"><code class="docutils literal"><span class="pre">pwnlib.protocols</span></code> — Wire Protocols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qemu.html"><code class="docutils literal"><span class="pre">pwnlib.qemu</span></code> — QEMU Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../replacements.html"><code class="docutils literal"><span class="pre">pwnlib.replacements</span></code> — Replacements for various functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rop.html"><code class="docutils literal"><span class="pre">pwnlib.rop</span></code> — Return Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rop/rop.html"><code class="docutils literal"><span class="pre">pwnlib.rop.rop</span></code> — Return Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rop/srop.html"><code class="docutils literal"><span class="pre">pwnlib.rop.srop</span></code> — Sigreturn Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../runner.html"><code class="docutils literal"><span class="pre">pwnlib.runner</span></code> — Running Shellcode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shellcraft.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft</span></code> — Shellcode generation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shellcraft/aarch64.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.aarch64</span></code> — Shellcode for AArch64</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shellcraft/amd64.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.amd64</span></code> — Shellcode for AMD64</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shellcraft/arm.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.arm</span></code> — Shellcode for ARM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shellcraft/common.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.common</span></code> — Shellcode common to all architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shellcraft/i386.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.i386</span></code> — Shellcode for Intel 80386</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shellcraft/mips.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.mips</span></code> — Shellcode for MIPS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shellcraft/regsort.html"><code class="docutils literal"><span class="pre">pwnlib.regsort</span></code> — Register sorting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shellcraft/thumb.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.thumb</span></code> — Shellcode for Thumb Mode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../term.html"><code class="docutils literal"><span class="pre">pwnlib.term</span></code> — Terminal handling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../timeout.html"><code class="docutils literal"><span class="pre">pwnlib.timeout</span></code> — Timeout handling</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../tubes.html"><code class="docutils literal"><span class="pre">pwnlib.tubes</span></code> — Talking to the World!</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../tubes.html#types-of-tubes">Types of Tubes</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#"><code class="docutils literal"><span class="pre">pwnlib.tubes.process</span></code> — Processes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="serial.html"><code class="docutils literal"><span class="pre">pwnlib.tubes.serialtube</span></code> — Serial Ports</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sockets.html"><code class="docutils literal"><span class="pre">pwnlib.tubes.sock</span></code> — Sockets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ssh.html"><code class="docutils literal"><span class="pre">pwnlib.tubes.ssh</span></code> — SSH</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tubes.html#module-pwnlib.tubes.tube"><code class="docutils literal"><span class="pre">pwnlib.tubes.tube</span></code> — Common Functionality</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="docutils literal"><span class="pre">pwnlib.tubes.process</span></code> — Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="serial.html"><code class="docutils literal"><span class="pre">pwnlib.tubes.serialtube</span></code> — Serial Ports</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sockets.html"><code class="docutils literal"><span class="pre">pwnlib.tubes.sock</span></code> — Sockets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ssh.html"><code class="docutils literal"><span class="pre">pwnlib.tubes.ssh</span></code> — SSH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ui.html"><code class="docutils literal"><span class="pre">pwnlib.ui</span></code> — Functions for user interaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../update.html"><code class="docutils literal"><span class="pre">pwnlib.update</span></code> — Updating Pwntools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../useragents.html"><code class="docutils literal"><span class="pre">pwnlib.useragents</span></code> — A database of useragent strings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../util/crc.html"><code class="docutils literal"><span class="pre">pwnlib.util.crc</span></code> — Calculating CRC-sums</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../util/cyclic.html"><code class="docutils literal"><span class="pre">pwnlib.util.cyclic</span></code> — Generation of unique sequences</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../util/fiddling.html"><code class="docutils literal"><span class="pre">pwnlib.util.fiddling</span></code> — Utilities bit fiddling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../util/hashes.html"><code class="docutils literal"><span class="pre">pwnlib.util.hashes</span></code> — Hashing functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../util/iters.html"><code class="docutils literal"><span class="pre">pwnlib.util.iters</span></code> — Extension of standard module <code class="docutils literal"><span class="pre">itertools</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../util/lists.html"><code class="docutils literal"><span class="pre">pwnlib.util.lists</span></code> — Operations on lists</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../util/misc.html"><code class="docutils literal"><span class="pre">pwnlib.util.misc</span></code> — We could not fit it any other place</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../util/net.html"><code class="docutils literal"><span class="pre">pwnlib.util.net</span></code> — Networking interfaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../util/packing.html"><code class="docutils literal"><span class="pre">pwnlib.util.packing</span></code> — Packing and unpacking of strings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../util/proc.html"><code class="docutils literal"><span class="pre">pwnlib.util.proc</span></code> — Working with <code class="docutils literal"><span class="pre">/proc/</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../util/safeeval.html"><code class="docutils literal"><span class="pre">pwnlib.util.safeeval</span></code> — Safe evaluation of python code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../util/sh_string.html"><code class="docutils literal"><span class="pre">pwnlib.util.sh_string</span></code> — Shell Expansion is Hard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../util/web.html"><code class="docutils literal"><span class="pre">pwnlib.util.web</span></code> — Utilities for working with the WWW</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../testexample.html"><code class="docutils literal"><span class="pre">pwnlib.testexample</span></code> — Example Test Module</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../index.html">pwntools</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a href="../index.html">Docs</a> »</li>
+<li><a href="../tubes.html"><code class="docutils literal"><span class="pre">pwnlib.tubes</span></code> — Talking to the World!</a> »</li>
+<li><code class="docutils literal"><span class="pre">pwnlib.tubes.process</span></code> — Processes</li>
+<li class="wy-breadcrumbs-aside">
+<a href="../_sources/tubes/processes.rst.txt" rel="nofollow"> View page source</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div class="section" id="module-pwnlib.tubes.process">
+<span id="pwnlib-tubes-process-processes"></span><h1><a name="//apple_ref/cpp/Module/pwnlib.tubes.process"></a><a class="reference internal" href="#module-pwnlib.tubes.process" title="pwnlib.tubes.process"><code class="xref py py-mod docutils literal"><span class="pre">pwnlib.tubes.process</span></code></a> — Processes<a class="headerlink" href="#module-pwnlib.tubes.process" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="pwnlib.tubes.process.process"><a name="//apple_ref/cpp/Class/pwnlib.tubes.process.process"></a>
+<em class="property">class </em><code class="descclassname">pwnlib.tubes.process.</code><code class="descname">process</code><span class="sig-paren">(</span><em>argv=None</em>, <em>shell=False</em>, <em>executable=None</em>, <em>cwd=None</em>, <em>env=None</em>, <em>stdin=-1</em>, <em>stdout=&lt;pwnlib.tubes.process.PTY object&gt;</em>, <em>stderr=-2</em>, <em>close_fds=True</em>, <em>preexec_fn=&lt;function &lt;lambda&gt;&gt;</em>, <em>raw=True</em>, <em>aslr=None</em>, <em>setuid=None</em>, <em>where=’local’</em>, <em>display=None</em>, <em>alarm=None</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.process.process" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../tubes.html#pwnlib.tubes.tube.tube" title="pwnlib.tubes.tube.tube"><code class="xref py py-class docutils literal"><span class="pre">pwnlib.tubes.tube.tube</span></code></a></p>
+<p>Spawns a new process, and wraps it with a tube for communication.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>argv</strong> (<a class="reference internal" href="../protocols/adb.html#pwnlib.protocols.adb.AdbClient.list" title="pwnlib.protocols.adb.AdbClient.list"><em>list</em></a>) – List of arguments to pass to the spawned process.</li>
+<li><strong>shell</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – Set to <cite>True</cite> to interpret <cite>argv</cite> as a string
+to pass to the shell for interpretation instead of as argv.</li>
+<li><strong>executable</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Path to the binary to execute.  If <code class="xref py py-const docutils literal"><span class="pre">None</span></code>, uses <code class="docutils literal"><span class="pre">argv[0]</span></code>.
+Cannot be used with <code class="docutils literal"><span class="pre">shell</span></code>.</li>
+<li><strong>cwd</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Working directory.  Uses the current working directory by default.</li>
+<li><strong>env</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) – Environment variables.  By default, inherits from Python’s environment.</li>
+<li><strong>stdin</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – File object or file descriptor number to use for <code class="docutils literal"><span class="pre">stdin</span></code>.
+By default, a pipe is used.  A pty can be used instead by setting
+this to <code class="docutils literal"><span class="pre">PTY</span></code>.  This will cause programs to behave in an
+interactive manner (e.g.., <code class="docutils literal"><span class="pre">python</span></code> will show a <code class="docutils literal"><span class="pre">&gt;&gt;&gt;</span></code> prompt).
+If the application reads from <code class="docutils literal"><span class="pre">/dev/tty</span></code> directly, use a pty.</li>
+<li><strong>stdout</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – File object or file descriptor number to use for <code class="docutils literal"><span class="pre">stdout</span></code>.
+By default, a pty is used so that any stdout buffering by libc
+routines is disabled.
+May also be <code class="docutils literal"><span class="pre">PIPE</span></code> to use a normal pipe.</li>
+<li><strong>stderr</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – File object or file descriptor number to use for <code class="docutils literal"><span class="pre">stderr</span></code>.
+By default, <code class="docutils literal"><span class="pre">STDOUT</span></code> is used.
+May also be <code class="docutils literal"><span class="pre">PIPE</span></code> to use a separate pipe,
+although the <a class="reference internal" href="../tubes.html#pwnlib.tubes.tube.tube" title="pwnlib.tubes.tube.tube"><code class="xref py py-class docutils literal"><span class="pre">pwnlib.tubes.tube.tube</span></code></a> wrapper will not be able to read this data.</li>
+<li><strong>close_fds</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – Close all open file descriptors except stdin, stdout, stderr.
+By default, <code class="xref py py-const docutils literal"><span class="pre">True</span></code> is used.</li>
+<li><strong>preexec_fn</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#callable" title="(in Python v2.7)"><em>callable</em></a>) – Callable to invoke immediately before calling <code class="docutils literal"><span class="pre">execve</span></code>.</li>
+<li><strong>raw</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – Set the created pty to raw mode (i.e. disable echo and control
+characters).  <code class="xref py py-const docutils literal"><span class="pre">True</span></code> by default.  If no pty is created, this
+has no effect.</li>
+<li><strong>aslr</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – <p>If set to <code class="xref py py-const docutils literal"><span class="pre">False</span></code>, disable ASLR via <code class="docutils literal"><span class="pre">personality</span></code> (<code class="docutils literal"><span class="pre">setarch</span> <span class="pre">-R</span></code>)
+and <code class="docutils literal"><span class="pre">setrlimit</span></code> (<code class="docutils literal"><span class="pre">ulimit</span> <span class="pre">-s</span> <span class="pre">unlimited</span></code>).</p>
+<p>This disables ASLR for the target process.  However, the <code class="docutils literal"><span class="pre">setarch</span></code>
+changes are lost if a <code class="docutils literal"><span class="pre">setuid</span></code> binary is executed.</p>
+<p>The default value is inherited from <code class="docutils literal"><span class="pre">context.aslr</span></code>.
+See <code class="docutils literal"><span class="pre">setuid</span></code> below for additional options and information.</p>
+</li>
+<li><strong>setuid</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – <p>Used to control <cite>setuid</cite> status of the target binary, and the
+corresponding actions taken.</p>
+<p>By default, this value is <code class="xref py py-const docutils literal"><span class="pre">None</span></code>, so no assumptions are made.</p>
+<p>If <code class="xref py py-const docutils literal"><span class="pre">True</span></code>, treat the target binary as <code class="docutils literal"><span class="pre">setuid</span></code>.
+This modifies the mechanisms used to disable ASLR on the process if
+<code class="docutils literal"><span class="pre">aslr=False</span></code>.
+This is useful for debugging locally, when the exploit is a
+<code class="docutils literal"><span class="pre">setuid</span></code> binary.</p>
+<p>If <code class="xref py py-const docutils literal"><span class="pre">False</span></code>, prevent <code class="docutils literal"><span class="pre">setuid</span></code> bits from taking effect on the
+target binary.  This is only supported on Linux, with kernels v3.5
+or greater.</p>
+</li>
+<li><strong>where</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Where the process is running, used for logging purposes.</li>
+<li><strong>display</strong> (<a class="reference internal" href="../protocols/adb.html#pwnlib.protocols.adb.AdbClient.list" title="pwnlib.protocols.adb.AdbClient.list"><em>list</em></a>) – List of arguments to display, instead of the main executable name.</li>
+<li><strong>alarm</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – Set a SIGALRM alarm timeout on the process.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">p</span> <span class="o">=</span> <span class="n">process</span><span class="p">(</span><span class="s1">'python2'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="s2">"print 'Hello world'"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="s2">"print 'Wow, such data'"</span><span class="p">);</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">''</span> <span class="o">==</span> <span class="n">p</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">shutdown</span><span class="p">(</span><span class="s1">'send'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">proc</span><span class="o">.</span><span class="n">stdin</span><span class="o">.</span><span class="n">closed</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">connected</span><span class="p">(</span><span class="s1">'send'</span><span class="p">)</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">recvline</span><span class="p">()</span>
+<span class="go">'Hello world\n'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="s1">','</span><span class="p">)</span>
+<span class="go">'Wow,'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">recvregex</span><span class="p">(</span><span class="s1">'.*data'</span><span class="p">)</span>
+<span class="go">' such data'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">recv</span><span class="p">()</span>
+<span class="go">'\n'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">recv</span><span class="p">()</span> 
+<span class="gt">Traceback (most recent call last):</span>
+<span class="c">...</span>
+<span class="gr">EOFError</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">p</span> <span class="o">=</span> <span class="n">process</span><span class="p">(</span><span class="s1">'cat'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">'/dev/urandom'</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">4096</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="go">''</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">recvrepeat</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span> <span class="o">==</span> <span class="n">d</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="go">''</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">shutdown</span><span class="p">(</span><span class="s1">'send'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">wait_for_close</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">poll</span><span class="p">()</span>
+<span class="go">0</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">p</span> <span class="o">=</span> <span class="n">process</span><span class="p">(</span><span class="s1">'cat /dev/zero | head -c8'</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">stderr</span><span class="o">=</span><span class="nb">open</span><span class="p">(</span><span class="s1">'/dev/null'</span><span class="p">,</span> <span class="s1">'w+'</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">recv</span><span class="p">()</span>
+<span class="go">'\x00\x00\x00\x00\x00\x00\x00\x00'</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">p</span> <span class="o">=</span> <span class="n">process</span><span class="p">([</span><span class="s1">'python'</span><span class="p">,</span><span class="s1">'-c'</span><span class="p">,</span><span class="s1">'import os; print os.read(2,1024)'</span><span class="p">],</span>
+<span class="gp">... </span>            <span class="n">preexec_fn</span> <span class="o">=</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">dup2</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="s1">'hello'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">recvline</span><span class="p">()</span>
+<span class="go">'hello\n'</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">stack_smashing</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'python'</span><span class="p">,</span><span class="s1">'-c'</span><span class="p">,</span><span class="s1">'open("/dev/tty","wb").write("stack smashing detected")'</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">process</span><span class="p">(</span><span class="n">stack_smashing</span><span class="p">)</span><span class="o">.</span><span class="n">recvall</span><span class="p">()</span>
+<span class="go">'stack smashing detected'</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">process</span><span class="p">(</span><span class="n">stack_smashing</span><span class="p">,</span> <span class="n">stdout</span><span class="o">=</span><span class="n">PIPE</span><span class="p">)</span><span class="o">.</span><span class="n">recvall</span><span class="p">()</span>
+<span class="go">''</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">getpass</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'python'</span><span class="p">,</span><span class="s1">'-c'</span><span class="p">,</span><span class="s1">'import getpass; print getpass.getpass("XXX")'</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span> <span class="o">=</span> <span class="n">process</span><span class="p">(</span><span class="n">getpass</span><span class="p">,</span> <span class="n">stdin</span><span class="o">=</span><span class="n">PTY</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">recv</span><span class="p">()</span>
+<span class="go">'XXX'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="s1">'hunter2'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">recvall</span><span class="p">()</span>
+<span class="go">'\nhunter2\n'</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">process</span><span class="p">(</span><span class="s1">'echo hello 1&gt;&amp;2'</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">recvall</span><span class="p">()</span>
+<span class="go">'hello\n'</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">process</span><span class="p">(</span><span class="s1">'echo hello 1&gt;&amp;2'</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">stderr</span><span class="o">=</span><span class="n">PIPE</span><span class="p">)</span><span class="o">.</span><span class="n">recvall</span><span class="p">()</span>
+<span class="go">''</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">process</span><span class="p">([</span><span class="s1">'cat'</span><span class="p">,</span> <span class="s1">'/proc/self/maps'</span><span class="p">])</span><span class="o">.</span><span class="n">recvall</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="n">process</span><span class="p">([</span><span class="s1">'cat'</span><span class="p">,</span> <span class="s1">'/proc/self/maps'</span><span class="p">],</span> <span class="n">aslr</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">recvall</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">context</span><span class="o">.</span><span class="n">local</span><span class="p">(</span><span class="n">aslr</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="gp">... </span>   <span class="n">c</span> <span class="o">=</span> <span class="n">process</span><span class="p">([</span><span class="s1">'cat'</span><span class="p">,</span> <span class="s1">'/proc/self/maps'</span><span class="p">])</span><span class="o">.</span><span class="n">recvall</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">==</span> <span class="n">b</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">==</span> <span class="n">c</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">process</span><span class="p">([</span><span class="s1">'sh'</span><span class="p">,</span><span class="s1">'-c'</span><span class="p">,</span><span class="s1">'ulimit -s'</span><span class="p">],</span> <span class="n">aslr</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">recvline</span><span class="p">()</span>
+<span class="go">'unlimited\n'</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">io</span> <span class="o">=</span> <span class="n">process</span><span class="p">([</span><span class="s1">'sh'</span><span class="p">,</span><span class="s1">'-c'</span><span class="p">,</span><span class="s1">'sleep 10; exit 7'</span><span class="p">],</span> <span class="n">alarm</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">io</span><span class="o">.</span><span class="n">poll</span><span class="p">(</span><span class="n">block</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">==</span> <span class="o">-</span><span class="n">signal</span><span class="o">.</span><span class="n">SIGALRM</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">binary</span> <span class="o">=</span> <span class="n">ELF</span><span class="o">.</span><span class="n">from_assembly</span><span class="p">(</span><span class="s1">'nop'</span><span class="p">,</span> <span class="n">arch</span><span class="o">=</span><span class="s1">'mips'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span> <span class="o">=</span> <span class="n">process</span><span class="p">(</span><span class="n">binary</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="method">
+<dt id="pwnlib.tubes.process.process.communicate"><a name="//apple_ref/cpp/Method/pwnlib.tubes.process.process.communicate"></a>
+<code class="descname">communicate</code><span class="sig-paren">(</span><em>stdin = None</em><span class="sig-paren">)</span> → str<a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/process.py#L663-669"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.process.process.communicate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calls <a class="reference external" href="https://docs.python.org/2.7/library/subprocess.html#subprocess.Popen.communicate" title="(in Python v2.7)"><code class="xref py py-meth docutils literal"><span class="pre">subprocess.Popen.communicate()</span></code></a> method on the process.</p>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.tubes.process.process.kill"><a name="//apple_ref/cpp/Method/pwnlib.tubes.process.process.kill"></a>
+<code class="descname">kill</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/process.py#L624-629"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.process.process.kill" title="Permalink to this definition">¶</a></dt>
+<dd><p>Kills the process.</p>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.tubes.process.process.leak"><a name="//apple_ref/cpp/Method/pwnlib.tubes.process.process.leak"></a>
+<code class="descname">leak</code><span class="sig-paren">(</span><em>address</em>, <em>count=1</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/process.py#L926-956"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.process.process.leak" title="Permalink to this definition">¶</a></dt>
+<dd><p>Leaks memory within the process at the specified address.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>address</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – Address to leak memory at</li>
+<li><strong>count</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – Number of bytes to leak at that address.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Example</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">e</span> <span class="o">=</span> <span class="n">ELF</span><span class="p">(</span><span class="s1">'/bin/sh'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span> <span class="o">=</span> <span class="n">process</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In order to make sure there’s not a race condition against
+the process getting set up…</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="s1">'echo hello'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="s1">'hello'</span><span class="p">)</span>
+<span class="go">'hello'</span>
+</pre></div>
+</div>
+<p>Now we can leak some data!</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">leak</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">address</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="go">'\x7fELF'</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.tubes.process.process.libs"><a name="//apple_ref/cpp/Method/pwnlib.tubes.process.process.libs"></a>
+<code class="descname">libs</code><span class="sig-paren">(</span><span class="sig-paren">)</span> → dict<a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/process.py#L829-866"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.process.process.libs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a dictionary mapping the path of each shared library loaded
+by the process to the address it is loaded at in the process’ address
+space.</p>
+<p>If <code class="docutils literal"><span class="pre">/proc/$PID/maps</span></code> for the process cannot be accessed, the output
+of <code class="docutils literal"><span class="pre">ldd</span></code> alone is used.  This may give inaccurate results if ASLR
+is enabled.</p>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.tubes.process.process.poll"><a name="//apple_ref/cpp/Method/pwnlib.tubes.process.process.poll"></a>
+<code class="descname">poll</code><span class="sig-paren">(</span><em>block = False</em><span class="sig-paren">)</span> → int<a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/process.py#L631-661"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.process.process.poll" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>block</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – Wait for the process to exit</td>
+</tr>
+</tbody>
+</table>
+<p>Poll the exit code of the process. Will return None, if the
+process has not yet finished and the exit code otherwise.</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.tubes.process.process.alarm"><a name="//apple_ref/cpp/Attribute/pwnlib.tubes.process.process.alarm"></a>
+<code class="descname">alarm</code><em class="property"> = None</em><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.process.process.alarm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alarm timeout of the process</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.tubes.process.process.argv"><a name="//apple_ref/cpp/Attribute/pwnlib.tubes.process.process.argv"></a>
+<code class="descname">argv</code><em class="property"> = None</em><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.process.process.argv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Arguments passed on argv</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.tubes.process.process.aslr"><a name="//apple_ref/cpp/Attribute/pwnlib.tubes.process.process.aslr"></a>
+<code class="descname">aslr</code><em class="property"> = None</em><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.process.process.aslr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether ASLR should be left on</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.tubes.process.process.corefile"><a name="//apple_ref/cpp/Attribute/pwnlib.tubes.process.process.corefile"></a>
+<code class="descname">corefile</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.process.process.corefile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a corefile for the process.</p>
+<p>If the process is alive, attempts to create a coredump with GDB.</p>
+<p>If the process is dead, attempts to locate the coredump created
+by the kernel.</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.tubes.process.process.cwd"><a name="//apple_ref/cpp/Attribute/pwnlib.tubes.process.process.cwd"></a>
+<code class="descname">cwd</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.process.process.cwd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Directory that the process is working in.</p>
+<p class="rubric">Example</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">p</span> <span class="o">=</span> <span class="n">process</span><span class="p">(</span><span class="s1">'sh'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="s1">'cd /tmp; echo AAA'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">_</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="s1">'AAA'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">cwd</span> <span class="o">==</span> <span class="s1">'/tmp'</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="s1">'cd /proc; echo BBB;'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">_</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="s1">'BBB'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">cwd</span>
+<span class="go">'/proc'</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.tubes.process.process.elf"><a name="//apple_ref/cpp/Attribute/pwnlib.tubes.process.process.elf"></a>
+<code class="descname">elf</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.process.process.elf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns an ELF file for the executable that launched the process.</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.tubes.process.process.env"><a name="//apple_ref/cpp/Attribute/pwnlib.tubes.process.process.env"></a>
+<code class="descname">env</code><em class="property"> = None</em><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.process.process.env" title="Permalink to this definition">¶</a></dt>
+<dd><p>Environment passed on envp</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.tubes.process.process.executable"><a name="//apple_ref/cpp/Attribute/pwnlib.tubes.process.process.executable"></a>
+<code class="descname">executable</code><em class="property"> = None</em><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.process.process.executable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Full path to the executable</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.tubes.process.process.libc"><a name="//apple_ref/cpp/Attribute/pwnlib.tubes.process.process.libc"></a>
+<code class="descname">libc</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.process.process.libc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns an ELF for the libc for the current process.
+If possible, it is adjusted to the correct address
+automatically.</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.tubes.process.process.proc"><a name="//apple_ref/cpp/Attribute/pwnlib.tubes.process.process.proc"></a>
+<code class="descname">proc</code><em class="property"> = None</em><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.process.process.proc" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference external" href="https://docs.python.org/2.7/library/subprocess.html#subprocess.Popen" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">subprocess.Popen</span></code></a> object that backs this process</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.tubes.process.process.program"><a name="//apple_ref/cpp/Attribute/pwnlib.tubes.process.process.program"></a>
+<code class="descname">program</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.process.process.program" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for <code class="docutils literal"><span class="pre">executable</span></code>, for backward compatibility.</p>
+<p class="rubric">Example</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">p</span> <span class="o">=</span> <span class="n">process</span><span class="p">(</span><span class="s1">'true'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">executable</span> <span class="o">==</span> <span class="s1">'/bin/true'</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">executable</span> <span class="o">==</span> <span class="n">p</span><span class="o">.</span><span class="n">program</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.tubes.process.process.pty"><a name="//apple_ref/cpp/Attribute/pwnlib.tubes.process.process.pty"></a>
+<code class="descname">pty</code><em class="property"> = None</em><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.process.process.pty" title="Permalink to this definition">¶</a></dt>
+<dd><p>Which file descriptor is the controlling TTY</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.tubes.process.process.raw"><a name="//apple_ref/cpp/Attribute/pwnlib.tubes.process.process.raw"></a>
+<code class="descname">raw</code><em class="property"> = None</em><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.process.process.raw" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether the controlling TTY is set to raw mode</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.tubes.process.process.stderr"><a name="//apple_ref/cpp/Attribute/pwnlib.tubes.process.process.stderr"></a>
+<code class="descname">stderr</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.process.process.stderr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Shorthand for <code class="docutils literal"><span class="pre">self.proc.stderr</span></code></p>
+<p>See: <a class="reference internal" href="#pwnlib.tubes.process.process.proc" title="pwnlib.tubes.process.process.proc"><code class="xref py py-obj docutils literal"><span class="pre">process.proc</span></code></a></p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.tubes.process.process.stdin"><a name="//apple_ref/cpp/Attribute/pwnlib.tubes.process.process.stdin"></a>
+<code class="descname">stdin</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.process.process.stdin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Shorthand for <code class="docutils literal"><span class="pre">self.proc.stdin</span></code></p>
+<p>See: <a class="reference internal" href="#pwnlib.tubes.process.process.proc" title="pwnlib.tubes.process.process.proc"><code class="xref py py-obj docutils literal"><span class="pre">process.proc</span></code></a></p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.tubes.process.process.stdout"><a name="//apple_ref/cpp/Attribute/pwnlib.tubes.process.process.stdout"></a>
+<code class="descname">stdout</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/process.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.process.process.stdout" title="Permalink to this definition">¶</a></dt>
+<dd><p>Shorthand for <code class="docutils literal"><span class="pre">self.proc.stdout</span></code></p>
+<p>See: <a class="reference internal" href="#pwnlib.tubes.process.process.proc" title="pwnlib.tubes.process.process.proc"><code class="xref py py-obj docutils literal"><span class="pre">process.proc</span></code></a></p>
+</dd></dl>
+</dd></dl>
+</div>
+</div>
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a accesskey="n" class="btn btn-neutral float-right" href="serial.html" rel="next" title="pwnlib.tubes.serialtube — Serial Ports">Next <span class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral" href="../tubes.html" rel="prev" title="pwnlib.tubes — Talking to the World!"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © Copyright 2016, Gallopsled et al..
+
+    </p>
+</div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'3.14.0dev',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+<script src="../_static/jquery.js" type="text/javascript"></script>
+<script src="../_static/underscore.js" type="text/javascript"></script>
+<script src="../_static/doctools.js" type="text/javascript"></script>
+<script src="../_static/js/theme.js" type="text/javascript"></script>
+<script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>

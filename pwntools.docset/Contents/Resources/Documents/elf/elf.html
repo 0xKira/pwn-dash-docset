@@ -1,0 +1,1191 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]--><!--[if gt IE 8]><!--><html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>pwnlib.elf.elf — ELF Files — pwntools 3.14.0dev documentation</title>
+<link href="../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../about.html" rel="author" title="About these documents"/>
+<link href="../search.html" rel="search" title="Search"/>
+<link href="config.html" rel="next" title="pwnlib.elf.config — Kernel Config Parsing"/>
+<link href="../elf.html" rel="prev" title="pwnlib.elf — ELF Executables and Libraries"/>
+<script src="../_static/js/modernizr.min.js"></script>
+</head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../index.html"> pwntools
+          
+
+          
+          </a>
+<div class="version">
+                3.14
+              </div>
+<div role="search">
+<form action="../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">About pwntools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../globals.html"><code class="docutils literal"><span class="pre">from</span> <span class="pre">pwn</span> <span class="pre">import</span> <span class="pre">*</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../commandline.html">Command Line Tools</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../adb.html"><code class="docutils literal"><span class="pre">pwnlib.adb</span></code> — Android Debug Bridge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../args.html"><code class="docutils literal"><span class="pre">pwnlib.args</span></code> — Magic Command-Line Arguments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../asm.html"><code class="docutils literal"><span class="pre">pwnlib.asm</span></code> — Assembler functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../atexception.html"><code class="docutils literal"><span class="pre">pwnlib.atexception</span></code> — Callbacks on unhandled exception</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../atexit.html"><code class="docutils literal"><span class="pre">pwnlib.atexit</span></code> — Replacement for atexit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../constants.html"><code class="docutils literal"><span class="pre">pwnlib.constants</span></code> — Easy access to header file constants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../config.html"><code class="docutils literal"><span class="pre">pwnlib.config</span></code> — Pwntools Configuration File</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../context.html"><code class="docutils literal"><span class="pre">pwnlib.context</span></code> — Setting runtime variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dynelf.html"><code class="docutils literal"><span class="pre">pwnlib.dynelf</span></code> — Resolving remote functions using leaks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../encoders.html"><code class="docutils literal"><span class="pre">pwnlib.encoders</span></code> — Encoding Shellcode</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../elf.html"><code class="docutils literal"><span class="pre">pwnlib.elf</span></code> — ELF Executables and Libraries</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../elf.html#elf-modules">ELF Modules</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#"><code class="docutils literal"><span class="pre">pwnlib.elf.elf</span></code> — ELF Files</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#example-usage">Example Usage</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-members">Module Members</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="config.html"><code class="docutils literal"><span class="pre">pwnlib.elf.config</span></code> — Kernel Config Parsing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="corefile.html"><code class="docutils literal"><span class="pre">pwnlib.elf.corefile</span></code> — Core Files</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../exception.html"><code class="docutils literal"><span class="pre">pwnlib.exception</span></code> — Pwnlib exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../flag.html"><code class="docutils literal"><span class="pre">pwnlib.flag</span></code> — CTF Flag Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fmtstr.html"><code class="docutils literal"><span class="pre">pwnlib.fmtstr</span></code> — Format string bug exploitation tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gdb.html"><code class="docutils literal"><span class="pre">pwnlib.gdb</span></code> — Working with GDB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../libcdb.html"><code class="docutils literal"><span class="pre">pwnlib.libcdb</span></code> — Libc Database</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../log.html"><code class="docutils literal"><span class="pre">pwnlib.log</span></code> — Logging stuff</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../memleak.html"><code class="docutils literal"><span class="pre">pwnlib.memleak</span></code> — Helper class for leaking memory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../protocols.html"><code class="docutils literal"><span class="pre">pwnlib.protocols</span></code> — Wire Protocols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qemu.html"><code class="docutils literal"><span class="pre">pwnlib.qemu</span></code> — QEMU Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../replacements.html"><code class="docutils literal"><span class="pre">pwnlib.replacements</span></code> — Replacements for various functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rop.html"><code class="docutils literal"><span class="pre">pwnlib.rop</span></code> — Return Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rop/rop.html"><code class="docutils literal"><span class="pre">pwnlib.rop.rop</span></code> — Return Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rop/srop.html"><code class="docutils literal"><span class="pre">pwnlib.rop.srop</span></code> — Sigreturn Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../runner.html"><code class="docutils literal"><span class="pre">pwnlib.runner</span></code> — Running Shellcode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shellcraft.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft</span></code> — Shellcode generation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shellcraft/aarch64.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.aarch64</span></code> — Shellcode for AArch64</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shellcraft/amd64.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.amd64</span></code> — Shellcode for AMD64</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shellcraft/arm.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.arm</span></code> — Shellcode for ARM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shellcraft/common.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.common</span></code> — Shellcode common to all architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shellcraft/i386.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.i386</span></code> — Shellcode for Intel 80386</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shellcraft/mips.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.mips</span></code> — Shellcode for MIPS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shellcraft/regsort.html"><code class="docutils literal"><span class="pre">pwnlib.regsort</span></code> — Register sorting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shellcraft/thumb.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.thumb</span></code> — Shellcode for Thumb Mode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../term.html"><code class="docutils literal"><span class="pre">pwnlib.term</span></code> — Terminal handling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../timeout.html"><code class="docutils literal"><span class="pre">pwnlib.timeout</span></code> — Timeout handling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tubes.html"><code class="docutils literal"><span class="pre">pwnlib.tubes</span></code> — Talking to the World!</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tubes/processes.html"><code class="docutils literal"><span class="pre">pwnlib.tubes.process</span></code> — Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tubes/serial.html"><code class="docutils literal"><span class="pre">pwnlib.tubes.serialtube</span></code> — Serial Ports</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tubes/sockets.html"><code class="docutils literal"><span class="pre">pwnlib.tubes.sock</span></code> — Sockets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tubes/ssh.html"><code class="docutils literal"><span class="pre">pwnlib.tubes.ssh</span></code> — SSH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ui.html"><code class="docutils literal"><span class="pre">pwnlib.ui</span></code> — Functions for user interaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../update.html"><code class="docutils literal"><span class="pre">pwnlib.update</span></code> — Updating Pwntools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../useragents.html"><code class="docutils literal"><span class="pre">pwnlib.useragents</span></code> — A database of useragent strings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../util/crc.html"><code class="docutils literal"><span class="pre">pwnlib.util.crc</span></code> — Calculating CRC-sums</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../util/cyclic.html"><code class="docutils literal"><span class="pre">pwnlib.util.cyclic</span></code> — Generation of unique sequences</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../util/fiddling.html"><code class="docutils literal"><span class="pre">pwnlib.util.fiddling</span></code> — Utilities bit fiddling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../util/hashes.html"><code class="docutils literal"><span class="pre">pwnlib.util.hashes</span></code> — Hashing functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../util/iters.html"><code class="docutils literal"><span class="pre">pwnlib.util.iters</span></code> — Extension of standard module <code class="docutils literal"><span class="pre">itertools</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../util/lists.html"><code class="docutils literal"><span class="pre">pwnlib.util.lists</span></code> — Operations on lists</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../util/misc.html"><code class="docutils literal"><span class="pre">pwnlib.util.misc</span></code> — We could not fit it any other place</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../util/net.html"><code class="docutils literal"><span class="pre">pwnlib.util.net</span></code> — Networking interfaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../util/packing.html"><code class="docutils literal"><span class="pre">pwnlib.util.packing</span></code> — Packing and unpacking of strings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../util/proc.html"><code class="docutils literal"><span class="pre">pwnlib.util.proc</span></code> — Working with <code class="docutils literal"><span class="pre">/proc/</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../util/safeeval.html"><code class="docutils literal"><span class="pre">pwnlib.util.safeeval</span></code> — Safe evaluation of python code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../util/sh_string.html"><code class="docutils literal"><span class="pre">pwnlib.util.sh_string</span></code> — Shell Expansion is Hard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../util/web.html"><code class="docutils literal"><span class="pre">pwnlib.util.web</span></code> — Utilities for working with the WWW</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../testexample.html"><code class="docutils literal"><span class="pre">pwnlib.testexample</span></code> — Example Test Module</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../index.html">pwntools</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a href="../index.html">Docs</a> »</li>
+<li><a href="../elf.html"><code class="docutils literal"><span class="pre">pwnlib.elf</span></code> — ELF Executables and Libraries</a> »</li>
+<li><code class="docutils literal"><span class="pre">pwnlib.elf.elf</span></code> — ELF Files</li>
+<li class="wy-breadcrumbs-aside">
+<a href="../_sources/elf/elf.rst.txt" rel="nofollow"> View page source</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div class="section" id="module-pwnlib.elf.elf">
+<span id="pwnlib-elf-elf-elf-files"></span><h1><a name="//apple_ref/cpp/Module/pwnlib.elf.elf"></a><a class="reference internal" href="#module-pwnlib.elf.elf" title="pwnlib.elf.elf"><code class="xref py py-mod docutils literal"><span class="pre">pwnlib.elf.elf</span></code></a> — ELF Files<a class="headerlink" href="#module-pwnlib.elf.elf" title="Permalink to this headline">¶</a></h1>
+<p>Exposes functionality for manipulating ELF files</p>
+<p>Stop hard-coding things!  Look them up at runtime with <a class="reference internal" href="../elf.html#module-pwnlib.elf" title="pwnlib.elf"><code class="xref py py-mod docutils literal"><span class="pre">pwnlib.elf</span></code></a>.</p>
+<div class="section" id="example-usage">
+<h2>Example Usage<a class="headerlink" href="#example-usage" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">e</span> <span class="o">=</span> <span class="n">ELF</span><span class="p">(</span><span class="s1">'/bin/cat'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="nb">hex</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">address</span><span class="p">)</span> 
+<span class="go">0x400000</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="nb">hex</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">symbols</span><span class="p">[</span><span class="s1">'write'</span><span class="p">])</span> 
+<span class="go">0x401680</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="nb">hex</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">got</span><span class="p">[</span><span class="s1">'write'</span><span class="p">])</span> 
+<span class="go">0x60b070</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="nb">hex</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">plt</span><span class="p">[</span><span class="s1">'write'</span><span class="p">])</span> 
+<span class="go">0x401680</span>
+</pre></div>
+</div>
+<p>You can even patch and save the files.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">e</span> <span class="o">=</span> <span class="n">ELF</span><span class="p">(</span><span class="s1">'/bin/cat'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">e</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">address</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="go">'ELF'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">e</span><span class="o">.</span><span class="n">asm</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">address</span><span class="p">,</span> <span class="s1">'ret'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">e</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">'/tmp/quiet-cat'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">disasm</span><span class="p">(</span><span class="nb">file</span><span class="p">(</span><span class="s1">'/tmp/quiet-cat'</span><span class="p">,</span><span class="s1">'rb'</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+<span class="go">'   0:   c3                      ret'</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="module-members">
+<h2>Module Members<a class="headerlink" href="#module-members" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pwnlib.elf.elf.ELF"><a name="//apple_ref/cpp/Class/pwnlib.elf.elf.ELF"></a>
+<em class="property">class </em><code class="descclassname">pwnlib.elf.elf.</code><code class="descname">ELF</code><span class="sig-paren">(</span><em>path</em>, <em>checksec=True</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">elftools.elf.elffile.ELFFile</span></code></p>
+<p>Encapsulates information about an ELF file.</p>
+<p class="rubric">Example</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bash</span> <span class="o">=</span> <span class="n">ELF</span><span class="p">(</span><span class="n">which</span><span class="p">(</span><span class="s1">'bash'</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">hex</span><span class="p">(</span><span class="n">bash</span><span class="o">.</span><span class="n">symbols</span><span class="p">[</span><span class="s1">'read'</span><span class="p">])</span>
+<span class="go">0x41dac0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">hex</span><span class="p">(</span><span class="n">bash</span><span class="o">.</span><span class="n">plt</span><span class="p">[</span><span class="s1">'read'</span><span class="p">])</span>
+<span class="go">0x41dac0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">u32</span><span class="p">(</span><span class="n">bash</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">bash</span><span class="o">.</span><span class="n">got</span><span class="p">[</span><span class="s1">'read'</span><span class="p">],</span> <span class="mi">4</span><span class="p">))</span>
+<span class="go">0x41dac6</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">bash</span><span class="o">.</span><span class="n">disasm</span><span class="p">(</span><span class="n">bash</span><span class="o">.</span><span class="n">plt</span><span class="o">.</span><span class="n">read</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span>
+<span class="go">0:   ff 25 1a 18 2d 00       jmp    QWORD PTR [rip+0x2d181a]        # 0x2d1820</span>
+<span class="go">6:   68 59 00 00 00          push   0x59</span>
+<span class="go">b:   e9 50 fa ff ff          jmp    0xfffffffffffffa60</span>
+</pre></div>
+</div>
+<dl class="method">
+<dt id="pwnlib.elf.elf.ELF.asm"><a name="//apple_ref/cpp/Method/pwnlib.elf.elf.ELF.asm"></a>
+<code class="descname">asm</code><span class="sig-paren">(</span><em>address</em>, <em>assembly</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py#L1237-1247"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.asm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Assembles the specified instructions and inserts them
+into the ELF at the specified address.</p>
+<p>This modifies the ELF in-pace.
+The resulting binary can be saved with <a class="reference internal" href="#pwnlib.elf.elf.ELF.save" title="pwnlib.elf.elf.ELF.save"><code class="xref py py-meth docutils literal"><span class="pre">ELF.save()</span></code></a></p>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.elf.elf.ELF.bss"><a name="//apple_ref/cpp/Method/pwnlib.elf.elf.ELF.bss"></a>
+<code class="descname">bss</code><span class="sig-paren">(</span><em>offset=0</em><span class="sig-paren">)</span> → int<a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py#L1249-1257"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.bss" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Address of the <code class="docutils literal"><span class="pre">.bss</span></code> section, plus the specified offset.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.elf.elf.ELF.checksec"><a name="//apple_ref/cpp/Method/pwnlib.elf.elf.ELF.checksec"></a>
+<code class="descname">checksec</code><span class="sig-paren">(</span><em>banner=True</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py#L1528-1621"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.checksec" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prints out information in the binary, similar to <code class="docutils literal"><span class="pre">checksec.sh</span></code>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>banner</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – Whether to print the path to the ELF binary.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.elf.elf.ELF.debug"><a name="//apple_ref/cpp/Method/pwnlib.elf.elf.ELF.debug"></a>
+<code class="descname">debug</code><span class="sig-paren">(</span><em>argv=[]</em>, <em>*a</em>, <em>**kw</em><span class="sig-paren">)</span> → tube<a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py#L419-433"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.debug" title="Permalink to this definition">¶</a></dt>
+<dd><p>Debug the ELF with <a class="reference internal" href="../gdb.html#pwnlib.gdb.debug" title="pwnlib.gdb.debug"><code class="xref py py-func docutils literal"><span class="pre">gdb.debug()</span></code></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>argv</strong> (<a class="reference internal" href="../protocols/adb.html#pwnlib.protocols.adb.AdbClient.list" title="pwnlib.protocols.adb.AdbClient.list"><em>list</em></a>) – List of arguments to the binary</li>
+<li><strong>*args</strong> – Extra arguments to <a class="reference internal" href="../gdb.html#pwnlib.gdb.debug" title="pwnlib.gdb.debug"><code class="xref py py-func docutils literal"><span class="pre">gdb.debug()</span></code></a></li>
+<li><strong>**kwargs</strong> – Extra arguments to <a class="reference internal" href="../gdb.html#pwnlib.gdb.debug" title="pwnlib.gdb.debug"><code class="xref py py-func docutils literal"><span class="pre">gdb.debug()</span></code></a></li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><a class="reference internal" href="../tubes.html#pwnlib.tubes.tube.tube" title="pwnlib.tubes.tube.tube"><code class="xref py py-class docutils literal"><span class="pre">tube</span></code></a> – See <a class="reference internal" href="../gdb.html#pwnlib.gdb.debug" title="pwnlib.gdb.debug"><code class="xref py py-func docutils literal"><span class="pre">gdb.debug()</span></code></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.elf.elf.ELF.disable_nx"><a name="//apple_ref/cpp/Method/pwnlib.elf.elf.ELF.disable_nx"></a>
+<code class="descname">disable_nx</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py#L1758-1783"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.disable_nx" title="Permalink to this definition">¶</a></dt>
+<dd><p>Disables NX for the ELF.</p>
+<p>Zeroes out the <code class="docutils literal"><span class="pre">PT_GNU_STACK</span></code> program header <code class="docutils literal"><span class="pre">p_type</span></code> field.</p>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.elf.elf.ELF.disasm"><a name="//apple_ref/cpp/Method/pwnlib.elf.elf.ELF.disasm"></a>
+<code class="descname">disasm</code><span class="sig-paren">(</span><em>address</em>, <em>n_bytes</em><span class="sig-paren">)</span> → str<a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py#L1225-1235"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.disasm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a string of disassembled instructions at
+the specified virtual memory address</p>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.elf.elf.ELF.dynamic_by_tag"><a name="//apple_ref/cpp/Method/pwnlib.elf.elf.ELF.dynamic_by_tag"></a>
+<code class="descname">dynamic_by_tag</code><span class="sig-paren">(</span><em>tag</em><span class="sig-paren">)</span> → tag<a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py#L1262-1282"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.dynamic_by_tag" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>tag</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Named <code class="docutils literal"><span class="pre">DT_XXX</span></code> tag (e.g. <code class="docutils literal"><span class="pre">'DT_STRTAB'</span></code>).</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><code class="xref py py-class docutils literal"><span class="pre">elftools.elf.dynamic.DynamicTag</span></code></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.elf.elf.ELF.dynamic_string"><a name="//apple_ref/cpp/Method/pwnlib.elf.elf.ELF.dynamic_string"></a>
+<code class="descname">dynamic_string</code><span class="sig-paren">(</span><em>offset</em><span class="sig-paren">)</span> → bytes<a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py#L1296-1317"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.dynamic_string" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fetches an enumerated string from the <code class="docutils literal"><span class="pre">DT_STRTAB</span></code> table.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>offset</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – String index</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a> – String from the table as raw bytes.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.elf.elf.ELF.dynamic_value_by_tag"><a name="//apple_ref/cpp/Method/pwnlib.elf.elf.ELF.dynamic_value_by_tag"></a>
+<code class="descname">dynamic_value_by_tag</code><span class="sig-paren">(</span><em>tag</em><span class="sig-paren">)</span> → int<a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py#L1284-1294"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.dynamic_value_by_tag" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the value from a dynamic tag a la <code class="docutils literal"><span class="pre">DT_XXX</span></code>.</p>
+<p>If the tag is missing, returns <code class="docutils literal"><span class="pre">None</span></code>.</p>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.elf.elf.ELF.fit"><a name="//apple_ref/cpp/Method/pwnlib.elf.elf.ELF.fit"></a>
+<code class="descname">fit</code><span class="sig-paren">(</span><em>address</em>, <em>*a</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py#L1748-1753"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.fit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes fitted data into the specified address.</p>
+<p>See: <a class="reference internal" href="../util/packing.html#pwnlib.util.packing.fit" title="pwnlib.util.packing.fit"><code class="xref py py-func docutils literal"><span class="pre">packing.fit()</span></code></a></p>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.elf.elf.ELF.flat"><a name="//apple_ref/cpp/Method/pwnlib.elf.elf.ELF.flat"></a>
+<code class="descname">flat</code><span class="sig-paren">(</span><em>address</em>, <em>*a</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py#L1741-1746"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.flat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes a full array of values to the specified address.</p>
+<p>See: <a class="reference internal" href="../util/packing.html#pwnlib.util.packing.flat" title="pwnlib.util.packing.flat"><code class="xref py py-func docutils literal"><span class="pre">packing.flat()</span></code></a></p>
+</dd></dl>
+<dl class="staticmethod">
+<dt id="pwnlib.elf.elf.ELF.from_assembly"><a name="//apple_ref/cpp/Method/pwnlib.elf.elf.ELF.from_assembly"></a>
+<em class="property">static </em><code class="descname">from_assembly</code><span class="sig-paren">(</span><em>assembly</em><span class="sig-paren">)</span> → ELF<a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py#L1390-1397"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.from_assembly" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given an assembly listing, return a fully loaded ELF object
+which contains that assembly at its entry point.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>assembly</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Assembly language listing</li>
+<li><strong>vma</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – Address of the entry point and the module’s base address.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Example</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">e</span> <span class="o">=</span> <span class="n">ELF</span><span class="o">.</span><span class="n">from_assembly</span><span class="p">(</span><span class="s1">'nop; foo: int 0x80'</span><span class="p">,</span> <span class="n">vma</span> <span class="o">=</span> <span class="mh">0x400000</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">e</span><span class="o">.</span><span class="n">symbols</span><span class="p">[</span><span class="s1">'foo'</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x400001</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">e</span><span class="o">.</span><span class="n">disasm</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">entry</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="go">'  400000:       90                      nop'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">e</span><span class="o">.</span><span class="n">disasm</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">symbols</span><span class="p">[</span><span class="s1">'foo'</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span>
+<span class="go">'  400001:       cd 80                   int    0x80'</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="staticmethod">
+<dt id="pwnlib.elf.elf.ELF.from_bytes"><a name="//apple_ref/cpp/Method/pwnlib.elf.elf.ELF.from_bytes"></a>
+<em class="property">static </em><code class="descname">from_bytes</code><span class="sig-paren">(</span><em>bytes</em><span class="sig-paren">)</span> → ELF<a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py#L1390-1397"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.from_bytes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a sequence of bytes, return a fully loaded ELF object
+which contains those bytes at its entry point.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>bytes</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Shellcode byte string</li>
+<li><strong>vma</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – Desired base address for the ELF.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Example</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">e</span> <span class="o">=</span> <span class="n">ELF</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="s1">'</span><span class="se">\x90\xcd\x80</span><span class="s1">'</span><span class="p">,</span> <span class="n">vma</span><span class="o">=</span><span class="mh">0xc000</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">disasm</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">entry</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="go">    c000:       90                      nop</span>
+<span class="go">    c001:       cd 80                   int    0x80</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.elf.elf.ELF.get_section_by_name"><a name="//apple_ref/cpp/Method/pwnlib.elf.elf.ELF.get_section_by_name"></a>
+<code class="descname">get_section_by_name</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py#L85-97"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.get_section_by_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a section from the file, by name. Return None if no such
+section exists.</p>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.elf.elf.ELF.iter_segments_by_type"><a name="//apple_ref/cpp/Method/pwnlib.elf.elf.ELF.iter_segments_by_type"></a>
+<code class="descname">iter_segments_by_type</code><span class="sig-paren">(</span><em>t</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py#L478-485"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.iter_segments_by_type" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Yields:</th><td class="field-body">Segments matching the specified type.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.elf.elf.ELF.num_sections"><a name="//apple_ref/cpp/Method/pwnlib.elf.elf.ELF.num_sections"></a>
+<code class="descname">num_sections</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py#L73-76"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.num_sections" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of sections in the file</p>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.elf.elf.ELF.num_segments"><a name="//apple_ref/cpp/Method/pwnlib.elf.elf.ELF.num_segments"></a>
+<code class="descname">num_segments</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py#L105-108"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.num_segments" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of segments in the file</p>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.elf.elf.ELF.offset_to_vaddr"><a name="//apple_ref/cpp/Method/pwnlib.elf.elf.ELF.offset_to_vaddr"></a>
+<code class="descname">offset_to_vaddr</code><span class="sig-paren">(</span><em>offset</em><span class="sig-paren">)</span> → int<a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py#L941-975"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.offset_to_vaddr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Translates the specified offset to a virtual address.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>offset</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – Offset to translate</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><cite>int</cite> – Virtual address which corresponds to the file offset, or
+<code class="xref py py-const docutils literal"><span class="pre">None</span></code>.</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<p>This example shows that regardless of changes to the virtual
+address layout by modifying <a class="reference internal" href="#pwnlib.elf.elf.ELF.address" title="pwnlib.elf.elf.ELF.address"><code class="xref py py-attr docutils literal"><span class="pre">ELF.address</span></code></a>, the offset
+for any given address doesn’t change.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bash</span> <span class="o">=</span> <span class="n">ELF</span><span class="p">(</span><span class="s1">'/bin/bash'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bash</span><span class="o">.</span><span class="n">address</span> <span class="o">==</span> <span class="n">bash</span><span class="o">.</span><span class="n">offset_to_vaddr</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bash</span><span class="o">.</span><span class="n">address</span> <span class="o">+=</span> <span class="mh">0x123456</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bash</span><span class="o">.</span><span class="n">address</span> <span class="o">==</span> <span class="n">bash</span><span class="o">.</span><span class="n">offset_to_vaddr</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.elf.elf.ELF.p16"><a name="//apple_ref/cpp/Method/pwnlib.elf.elf.ELF.p16"></a>
+<code class="descname">p16</code><span class="sig-paren">(</span><em>address</em>, <em>data</em>, <em>*a</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py#L1672-1675"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.p16" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes a 16-bit integer <code class="docutils literal"><span class="pre">data</span></code> to the specified <code class="docutils literal"><span class="pre">address</span></code></p>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.elf.elf.ELF.p32"><a name="//apple_ref/cpp/Method/pwnlib.elf.elf.ELF.p32"></a>
+<code class="descname">p32</code><span class="sig-paren">(</span><em>address</em>, <em>data</em>, <em>*a</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py#L1667-1670"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.p32" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes a 32-bit integer <code class="docutils literal"><span class="pre">data</span></code> to the specified <code class="docutils literal"><span class="pre">address</span></code></p>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.elf.elf.ELF.p64"><a name="//apple_ref/cpp/Method/pwnlib.elf.elf.ELF.p64"></a>
+<code class="descname">p64</code><span class="sig-paren">(</span><em>address</em>, <em>data</em>, <em>*a</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py#L1662-1665"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.p64" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes a 64-bit integer <code class="docutils literal"><span class="pre">data</span></code> to the specified <code class="docutils literal"><span class="pre">address</span></code></p>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.elf.elf.ELF.p8"><a name="//apple_ref/cpp/Method/pwnlib.elf.elf.ELF.p8"></a>
+<code class="descname">p8</code><span class="sig-paren">(</span><em>address</em>, <em>data</em>, <em>*a</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py#L1677-1680"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.p8" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes a 8-bit integer <code class="docutils literal"><span class="pre">data</span></code> to the specified <code class="docutils literal"><span class="pre">address</span></code></p>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.elf.elf.ELF.pack"><a name="//apple_ref/cpp/Method/pwnlib.elf.elf.ELF.pack"></a>
+<code class="descname">pack</code><span class="sig-paren">(</span><em>address</em>, <em>data</em>, <em>*a</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py#L1682-1685"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.pack" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes a packed integer <code class="docutils literal"><span class="pre">data</span></code> to the specified <code class="docutils literal"><span class="pre">address</span></code></p>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.elf.elf.ELF.process"><a name="//apple_ref/cpp/Method/pwnlib.elf.elf.ELF.process"></a>
+<code class="descname">process</code><span class="sig-paren">(</span><em>argv=[]</em>, <em>*a</em>, <em>**kw</em><span class="sig-paren">)</span> → process<a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py#L399-417"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.process" title="Permalink to this definition">¶</a></dt>
+<dd><p>Execute the binary with <a class="reference internal" href="../tubes/processes.html#pwnlib.tubes.process.process" title="pwnlib.tubes.process.process"><code class="xref py py-class docutils literal"><span class="pre">process</span></code></a>.  Note that <code class="docutils literal"><span class="pre">argv</span></code>
+is a list of arguments, and should not include <code class="docutils literal"><span class="pre">argv[0]</span></code>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>argv</strong> (<a class="reference internal" href="../protocols/adb.html#pwnlib.protocols.adb.AdbClient.list" title="pwnlib.protocols.adb.AdbClient.list"><em>list</em></a>) – List of arguments to the binary</li>
+<li><strong>*args</strong> – Extra arguments to <a class="reference internal" href="../tubes/processes.html#pwnlib.tubes.process.process" title="pwnlib.tubes.process.process"><code class="xref py py-class docutils literal"><span class="pre">process</span></code></a></li>
+<li><strong>**kwargs</strong> – Extra arguments to <a class="reference internal" href="../tubes/processes.html#pwnlib.tubes.process.process" title="pwnlib.tubes.process.process"><code class="xref py py-class docutils literal"><span class="pre">process</span></code></a></li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><a class="reference internal" href="../tubes/processes.html#pwnlib.tubes.process.process" title="pwnlib.tubes.process.process"><code class="xref py py-class docutils literal"><span class="pre">process</span></code></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.elf.elf.ELF.read"><a name="//apple_ref/cpp/Method/pwnlib.elf.elf.ELF.read"></a>
+<code class="descname">read</code><span class="sig-paren">(</span><em>address</em>, <em>count</em><span class="sig-paren">)</span> → bytes<a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py#L1047-1161"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.read" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read data from the specified virtual address</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>address</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – Virtual address to read</li>
+<li><strong>count</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – Number of bytes to read</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a> object, or <code class="xref py py-const docutils literal"><span class="pre">None</span></code>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<p>The simplest example is just to read the ELF header.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bash</span> <span class="o">=</span> <span class="n">ELF</span><span class="p">(</span><span class="n">which</span><span class="p">(</span><span class="s1">'bash'</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bash</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">bash</span><span class="o">.</span><span class="n">address</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="go">'\x7fELF'</span>
+</pre></div>
+</div>
+<p>ELF segments do not have to contain all of the data on-disk
+that gets loaded into memory.</p>
+<p>First, let’s create an ELF file has some code in two sections.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">assembly</span> <span class="o">=</span> <span class="s1">'''</span>
+<span class="gp">... </span><span class="s1">.section .A,"awx"</span>
+<span class="gp">... </span><span class="s1">.global A</span>
+<span class="gp">... </span><span class="s1">A: nop</span>
+<span class="gp">... </span><span class="s1">.section .B,"awx"</span>
+<span class="gp">... </span><span class="s1">.global B</span>
+<span class="gp">... </span><span class="s1">B: int3</span>
+<span class="gp">... </span><span class="s1">'''</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">e</span> <span class="o">=</span> <span class="n">ELF</span><span class="o">.</span><span class="n">from_assembly</span><span class="p">(</span><span class="n">assembly</span><span class="p">,</span> <span class="n">vma</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>By default, these come right after eachother in memory.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">e</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">symbols</span><span class="o">.</span><span class="n">A</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="go">'\x90\xcc'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">e</span><span class="o">.</span><span class="n">symbols</span><span class="o">.</span><span class="n">B</span> <span class="o">-</span> <span class="n">e</span><span class="o">.</span><span class="n">symbols</span><span class="o">.</span><span class="n">A</span>
+<span class="go">1</span>
+</pre></div>
+</div>
+<p>Let’s move the sections so that B is a little bit further away.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">objcopy</span> <span class="o">=</span> <span class="n">pwnlib</span><span class="o">.</span><span class="n">asm</span><span class="o">.</span><span class="n">_objcopy</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">objcopy</span> <span class="o">+=</span> <span class="p">[</span>
+<span class="gp">... </span>    <span class="s1">'--change-section-vma'</span><span class="p">,</span> <span class="s1">'.B+5'</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="s1">'--change-section-lma'</span><span class="p">,</span> <span class="s1">'.B+5'</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">e</span><span class="o">.</span><span class="n">path</span>
+<span class="gp">... </span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">subprocess</span><span class="o">.</span><span class="n">check_call</span><span class="p">(</span><span class="n">objcopy</span><span class="p">)</span>
+<span class="go">0</span>
+</pre></div>
+</div>
+<p>Now let’s re-load the ELF, and check again</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">e</span> <span class="o">=</span> <span class="n">ELF</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">e</span><span class="o">.</span><span class="n">symbols</span><span class="o">.</span><span class="n">B</span> <span class="o">-</span> <span class="n">e</span><span class="o">.</span><span class="n">symbols</span><span class="o">.</span><span class="n">A</span>
+<span class="go">6</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">e</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">symbols</span><span class="o">.</span><span class="n">A</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="go">'\x90\x00'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">e</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">symbols</span><span class="o">.</span><span class="n">A</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
+<span class="go">'\x90\x00\x00\x00\x00\x00\xcc'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">e</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">symbols</span><span class="o">.</span><span class="n">A</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="go">'\x90\x00\x00\x00\x00\x00\xcc\x00\x00\x00'</span>
+</pre></div>
+</div>
+<p>Everything is relative to the user-selected base address, so moving
+things around keeps everything working.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">e</span><span class="o">.</span><span class="n">address</span> <span class="o">+=</span> <span class="mh">0x1000</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">e</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">symbols</span><span class="o">.</span><span class="n">A</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="go">'\x90\x00\x00\x00\x00\x00\xcc\x00\x00\x00'</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.elf.elf.ELF.save"><a name="//apple_ref/cpp/Method/pwnlib.elf.elf.ELF.save"></a>
+<code class="descname">save</code><span class="sig-paren">(</span><em>path=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py#L1190-1202"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save the ELF to a file</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bash</span> <span class="o">=</span> <span class="n">ELF</span><span class="p">(</span><span class="n">which</span><span class="p">(</span><span class="s1">'bash'</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bash</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">'/tmp/bash_copy'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">copy</span> <span class="o">=</span> <span class="n">file</span><span class="p">(</span><span class="s1">'/tmp/bash_copy'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bash</span> <span class="o">=</span> <span class="n">file</span><span class="p">(</span><span class="n">which</span><span class="p">(</span><span class="s1">'bash'</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bash</span><span class="o">.</span><span class="n">read</span><span class="p">()</span> <span class="o">==</span> <span class="n">copy</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.elf.elf.ELF.search"><a name="//apple_ref/cpp/Method/pwnlib.elf.elf.ELF.search"></a>
+<code class="descname">search</code><span class="sig-paren">(</span><em>needle</em>, <em>writable = False</em><span class="sig-paren">)</span> → generator<a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py#L887-939"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.search" title="Permalink to this definition">¶</a></dt>
+<dd><p>Search the ELF’s virtual address space for the specified string.</p>
+<p class="rubric">Notes</p>
+<p>Does not search empty space between segments, or uninitialized
+data.  This will only return data that actually exists in the
+ELF file.  Searching for a long string of NULL bytes probably
+won’t work.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>needle</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – String to search for.</li>
+<li><strong>writable</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – Search only writable sections.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Yields:</th><td class="field-body"><p class="first last">An iterator for each virtual address that matches.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<p>An ELF header starts with the bytes <code class="docutils literal"><span class="pre">\x7fELF</span></code>, so we
+sould be able to find it easily.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bash</span> <span class="o">=</span> <span class="n">ELF</span><span class="p">(</span><span class="s1">'/bin/bash'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bash</span><span class="o">.</span><span class="n">address</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">==</span> <span class="nb">next</span><span class="p">(</span><span class="n">bash</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">'ELF'</span><span class="p">))</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<p>We can also search for string the binary.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">bash</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">'GNU bash'</span><span class="p">)))</span> <span class="o">&gt;</span> <span class="mi">0</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.elf.elf.ELF.section"><a name="//apple_ref/cpp/Method/pwnlib.elf.elf.ELF.section"></a>
+<code class="descname">section</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span> → bytes<a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py#L555-566"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.section" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets data for the named section</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Name of the section</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a> – String containing the bytes for that section</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.elf.elf.ELF.string"><a name="//apple_ref/cpp/Method/pwnlib.elf.elf.ELF.string"></a>
+<code class="descname">string</code><span class="sig-paren">(</span><em>address</em><span class="sig-paren">)</span> → str<a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py#L1712-1739"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.string" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads a null-terminated string from the specified <code class="docutils literal"><span class="pre">address</span></code></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A <code class="docutils literal"><span class="pre">str</span></code> with the string contents (NUL terminator is omitted),
+or an empty string if no NUL terminator could be found.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.elf.elf.ELF.u16"><a name="//apple_ref/cpp/Method/pwnlib.elf.elf.ELF.u16"></a>
+<code class="descname">u16</code><span class="sig-paren">(</span><em>address</em>, <em>*a</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py#L1697-1700"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.u16" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unpacks an integer from the specified <code class="docutils literal"><span class="pre">address</span></code>.</p>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.elf.elf.ELF.u32"><a name="//apple_ref/cpp/Method/pwnlib.elf.elf.ELF.u32"></a>
+<code class="descname">u32</code><span class="sig-paren">(</span><em>address</em>, <em>*a</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py#L1692-1695"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.u32" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unpacks an integer from the specified <code class="docutils literal"><span class="pre">address</span></code>.</p>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.elf.elf.ELF.u64"><a name="//apple_ref/cpp/Method/pwnlib.elf.elf.ELF.u64"></a>
+<code class="descname">u64</code><span class="sig-paren">(</span><em>address</em>, <em>*a</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py#L1687-1690"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.u64" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unpacks an integer from the specified <code class="docutils literal"><span class="pre">address</span></code>.</p>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.elf.elf.ELF.u8"><a name="//apple_ref/cpp/Method/pwnlib.elf.elf.ELF.u8"></a>
+<code class="descname">u8</code><span class="sig-paren">(</span><em>address</em>, <em>*a</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py#L1702-1705"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.u8" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unpacks an integer from the specified <code class="docutils literal"><span class="pre">address</span></code>.</p>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.elf.elf.ELF.unpack"><a name="//apple_ref/cpp/Method/pwnlib.elf.elf.ELF.unpack"></a>
+<code class="descname">unpack</code><span class="sig-paren">(</span><em>address</em>, <em>*a</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py#L1707-1710"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.unpack" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unpacks an integer from the specified <code class="docutils literal"><span class="pre">address</span></code>.</p>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.elf.elf.ELF.vaddr_to_offset"><a name="//apple_ref/cpp/Method/pwnlib.elf.elf.ELF.vaddr_to_offset"></a>
+<code class="descname">vaddr_to_offset</code><span class="sig-paren">(</span><em>address</em><span class="sig-paren">)</span> → int<a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py#L1012-1045"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.vaddr_to_offset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Translates the specified virtual address to a file offset</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>address</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – Virtual address to translate</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><em>int</em> – Offset within the ELF file which corresponds to the address,
+or <code class="xref py py-const docutils literal"><span class="pre">None</span></code>.</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bash</span> <span class="o">=</span> <span class="n">ELF</span><span class="p">(</span><span class="n">which</span><span class="p">(</span><span class="s1">'bash'</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bash</span><span class="o">.</span><span class="n">vaddr_to_offset</span><span class="p">(</span><span class="n">bash</span><span class="o">.</span><span class="n">address</span><span class="p">)</span>
+<span class="go">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bash</span><span class="o">.</span><span class="n">address</span> <span class="o">+=</span> <span class="mh">0x123456</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bash</span><span class="o">.</span><span class="n">vaddr_to_offset</span><span class="p">(</span><span class="n">bash</span><span class="o">.</span><span class="n">address</span><span class="p">)</span>
+<span class="go">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bash</span><span class="o">.</span><span class="n">vaddr_to_offset</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.elf.elf.ELF.write"><a name="//apple_ref/cpp/Method/pwnlib.elf.elf.ELF.write"></a>
+<code class="descname">write</code><span class="sig-paren">(</span><em>address</em>, <em>data</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py#L1163-1188"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.write" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes data to the specified virtual address</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>address</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – Virtual address to write</li>
+<li><strong>data</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Bytes to write</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This routine does not check the bounds on the write to ensure
+that it stays in the same segment.</p>
+</div>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bash</span> <span class="o">=</span> <span class="n">ELF</span><span class="p">(</span><span class="n">which</span><span class="p">(</span><span class="s1">'bash'</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bash</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">bash</span><span class="o">.</span><span class="n">address</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="go">'ELF'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bash</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">bash</span><span class="o">.</span><span class="n">address</span><span class="p">,</span> <span class="s2">"HELO"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bash</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">bash</span><span class="o">.</span><span class="n">address</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="go">'HELO'</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.elf.elf.ELF.address"><a name="//apple_ref/cpp/Attribute/pwnlib.elf.elf.ELF.address"></a>
+<code class="descname">address</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.address" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a> – Address of the lowest segment loaded in the ELF.</p>
+<p>When updated, the addresses of the following fields are also updated:</p>
+<ul class="simple">
+<li><a class="reference internal" href="#pwnlib.elf.elf.ELF.symbols" title="pwnlib.elf.elf.ELF.symbols"><code class="xref py py-attr docutils literal"><span class="pre">symbols</span></code></a></li>
+<li><a class="reference internal" href="#pwnlib.elf.elf.ELF.got" title="pwnlib.elf.elf.ELF.got"><code class="xref py py-attr docutils literal"><span class="pre">got</span></code></a></li>
+<li><a class="reference internal" href="#pwnlib.elf.elf.ELF.plt" title="pwnlib.elf.elf.ELF.plt"><code class="xref py py-attr docutils literal"><span class="pre">plt</span></code></a></li>
+<li><a class="reference internal" href="#pwnlib.elf.elf.ELF.functions" title="pwnlib.elf.elf.ELF.functions"><code class="xref py py-attr docutils literal"><span class="pre">functions</span></code></a></li>
+</ul>
+<p>However, the following fields are <strong>NOT</strong> updated:</p>
+<ul class="simple">
+<li><a class="reference internal" href="#pwnlib.elf.elf.ELF.segments" title="pwnlib.elf.elf.ELF.segments"><code class="xref py py-attr docutils literal"><span class="pre">segments</span></code></a></li>
+<li><a class="reference internal" href="#pwnlib.elf.elf.ELF.sections" title="pwnlib.elf.elf.ELF.sections"><code class="xref py py-attr docutils literal"><span class="pre">sections</span></code></a></li>
+</ul>
+<p class="rubric">Example</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bash</span> <span class="o">=</span> <span class="n">ELF</span><span class="p">(</span><span class="s1">'/bin/bash'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">read</span> <span class="o">=</span> <span class="n">bash</span><span class="o">.</span><span class="n">symbols</span><span class="p">[</span><span class="s1">'read'</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">text</span> <span class="o">=</span> <span class="n">bash</span><span class="o">.</span><span class="n">get_section_by_name</span><span class="p">(</span><span class="s1">'.text'</span><span class="p">)</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">sh_addr</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bash</span><span class="o">.</span><span class="n">address</span> <span class="o">+=</span> <span class="mh">0x1000</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">read</span> <span class="o">+</span> <span class="mh">0x1000</span> <span class="o">==</span> <span class="n">bash</span><span class="o">.</span><span class="n">symbols</span><span class="p">[</span><span class="s1">'read'</span><span class="p">]</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">text</span> <span class="o">==</span> <span class="n">bash</span><span class="o">.</span><span class="n">get_section_by_name</span><span class="p">(</span><span class="s1">'.text'</span><span class="p">)</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">sh_addr</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.elf.elf.ELF.arch"><a name="//apple_ref/cpp/Attribute/pwnlib.elf.elf.ELF.arch"></a>
+<code class="descname">arch</code><em class="property"> = None</em><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.arch" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a> – Architecture of the file (e.g. <code class="docutils literal"><span class="pre">'i386'</span></code>, <code class="docutils literal"><span class="pre">'arm'</span></code>).</p>
+<p>See: <a class="reference internal" href="../context.html#pwnlib.context.ContextType.arch" title="pwnlib.context.ContextType.arch"><code class="xref py py-attr docutils literal"><span class="pre">ContextType.arch</span></code></a></p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.elf.elf.ELF.asan"><a name="//apple_ref/cpp/Attribute/pwnlib.elf.elf.ELF.asan"></a>
+<code class="descname">asan</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.asan" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a> – Whether the current binary was built with
+Address Sanitizer (<code class="docutils literal"><span class="pre">ASAN</span></code>).</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.elf.elf.ELF.aslr"><a name="//apple_ref/cpp/Attribute/pwnlib.elf.elf.ELF.aslr"></a>
+<code class="descname">aslr</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.aslr" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a> – Whether the current binary is position-independent.</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.elf.elf.ELF.bits"><a name="//apple_ref/cpp/Attribute/pwnlib.elf.elf.ELF.bits"></a>
+<code class="descname">bits</code><em class="property"> = 32</em><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.bits" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a> – Bit-ness of the file</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.elf.elf.ELF.build"><a name="//apple_ref/cpp/Attribute/pwnlib.elf.elf.ELF.build"></a>
+<code class="descname">build</code><em class="property"> = None</em><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.build" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a> – Linux kernel build commit, if this is a Linux kernel image</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.elf.elf.ELF.buildid"><a name="//apple_ref/cpp/Attribute/pwnlib.elf.elf.ELF.buildid"></a>
+<code class="descname">buildid</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.buildid" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a> – GNU Build ID embedded into the binary</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.elf.elf.ELF.bytes"><a name="//apple_ref/cpp/Attribute/pwnlib.elf.elf.ELF.bytes"></a>
+<code class="descname">bytes</code><em class="property"> = 4</em><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.bytes" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a> – Pointer width, in bytes</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.elf.elf.ELF.canary"><a name="//apple_ref/cpp/Attribute/pwnlib.elf.elf.ELF.canary"></a>
+<code class="descname">canary</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.canary" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a> – Whether the current binary uses stack canaries.</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.elf.elf.ELF.config"><a name="//apple_ref/cpp/Attribute/pwnlib.elf.elf.ELF.config"></a>
+<code class="descname">config</code><em class="property"> = None</em><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.config" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference external" href="https://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a> – Linux kernel configuration, if this is a Linux kernel image</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.elf.elf.ELF.data"><a name="//apple_ref/cpp/Attribute/pwnlib.elf.elf.ELF.data"></a>
+<code class="descname">data</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.data" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a> – Raw data of the ELF file.</p>
+<dl class="docutils">
+<dt>See:</dt>
+<dd><code class="xref py py-meth docutils literal"><span class="pre">get_data()</span></code></dd>
+</dl>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.elf.elf.ELF.dwarf"><a name="//apple_ref/cpp/Attribute/pwnlib.elf.elf.ELF.dwarf"></a>
+<code class="descname">dwarf</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.dwarf" title="Permalink to this definition">¶</a></dt>
+<dd><p>DWARF info for the elf</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.elf.elf.ELF.elftype"><a name="//apple_ref/cpp/Attribute/pwnlib.elf.elf.ELF.elftype"></a>
+<code class="descname">elftype</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.elftype" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a> – ELF type (<code class="docutils literal"><span class="pre">EXEC</span></code>, <code class="docutils literal"><span class="pre">DYN</span></code>, etc)</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.elf.elf.ELF.endian"><a name="//apple_ref/cpp/Attribute/pwnlib.elf.elf.ELF.endian"></a>
+<code class="descname">endian</code><em class="property"> = ‘little’</em><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.endian" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a> – Endianness of the file (e.g. <code class="docutils literal"><span class="pre">'big'</span></code>, <code class="docutils literal"><span class="pre">'little'</span></code>)</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.elf.elf.ELF.entry"><a name="//apple_ref/cpp/Attribute/pwnlib.elf.elf.ELF.entry"></a>
+<code class="descname">entry</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.entry" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a> – Address of the entry point for the ELF</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.elf.elf.ELF.entrypoint"><a name="//apple_ref/cpp/Attribute/pwnlib.elf.elf.ELF.entrypoint"></a>
+<code class="descname">entrypoint</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.entrypoint" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a> – Address of the entry point for the ELF</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.elf.elf.ELF.execstack"><a name="//apple_ref/cpp/Attribute/pwnlib.elf.elf.ELF.execstack"></a>
+<code class="descname">execstack</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.execstack" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a> – Whether the current binary uses an executable stack.</p>
+<p>This is based on the presence of a program header <a class="reference external" href="https://refspecs.linuxbase.org/LSB_3.0.0/LSB-PDA/LSB-PDA/progheader.html">PT_GNU_STACK</a>
+being present, and its setting.</p>
+<blockquote>
+<div><p><code class="docutils literal"><span class="pre">PT_GNU_STACK</span></code></p>
+<p>The p_flags member specifies the permissions on the segment
+containing the stack and is used to indicate wether the stack
+should be executable. The absense of this header indicates
+that the stack will be executable.</p>
+</div></blockquote>
+<p>In particular, if the header is missing the stack is executable.
+If the header is present, it may <strong>explicitly</strong> mark that the stack is
+executable.</p>
+<p>This is only somewhat accurate.  When using the GNU Linker, it usees
+<a class="reference external" href="https://github.com/bminor/glibc/blob/glibc-2.25/elf/dl-load.c#L1036-L1038">DEFAULT_STACK_PERMS</a> to decide whether a lack of <code class="docutils literal"><span class="pre">PT_GNU_STACK</span></code>
+should mark the stack as executable:</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="cm">/* On most platforms presume that PT_GNU_STACK is absent and the stack is</span>
+<span class="cm"> * executable.  Other platforms default to a nonexecutable stack and don't</span>
+<span class="cm"> * need PT_GNU_STACK to do so.  */</span>
+<span class="kt">uint_fast16_t</span> <span class="n">stack_flags</span> <span class="o">=</span> <span class="n">DEFAULT_STACK_PERMS</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>By searching the source for <code class="docutils literal"><span class="pre">DEFAULT_STACK_PERMS</span></code>, we can see which
+architectures have which settings.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ git grep '#define DEFAULT_STACK_PERMS' | grep -v PF_X
+sysdeps/aarch64/stackinfo.h:31:#define DEFAULT_STACK_PERMS (PF_R|PF_W)
+sysdeps/nios2/stackinfo.h:31:#define DEFAULT_STACK_PERMS (PF_R|PF_W)
+sysdeps/tile/stackinfo.h:31:#define DEFAULT_STACK_PERMS (PF_R|PF_W)
+</pre></div>
+</div>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.elf.elf.ELF.executable"><a name="//apple_ref/cpp/Attribute/pwnlib.elf.elf.ELF.executable"></a>
+<code class="descname">executable</code><em class="property"> = None</em><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.executable" title="Permalink to this definition">¶</a></dt>
+<dd><p><code class="docutils literal"><span class="pre">True</span></code> if the ELF is an executable</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.elf.elf.ELF.executable_segments"><a name="//apple_ref/cpp/Attribute/pwnlib.elf.elf.ELF.executable_segments"></a>
+<code class="descname">executable_segments</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.executable_segments" title="Permalink to this definition">¶</a></dt>
+<dd><p><code class="xref py py-class docutils literal"><span class="pre">list</span></code> – List of all segments which are executable.</p>
+<dl class="docutils">
+<dt>See:</dt>
+<dd><a class="reference internal" href="#pwnlib.elf.elf.ELF.segments" title="pwnlib.elf.elf.ELF.segments"><code class="xref py py-attr docutils literal"><span class="pre">ELF.segments</span></code></a></dd>
+</dl>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.elf.elf.ELF.file"><a name="//apple_ref/cpp/Attribute/pwnlib.elf.elf.ELF.file"></a>
+<code class="descname">file</code><em class="property"> = None</em><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.file" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference internal" href="#pwnlib.elf.elf.ELF.file" title="pwnlib.elf.elf.ELF.file"><code class="xref py py-class docutils literal"><span class="pre">file</span></code></a> – Open handle to the ELF file on disk</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.elf.elf.ELF.fortify"><a name="//apple_ref/cpp/Attribute/pwnlib.elf.elf.ELF.fortify"></a>
+<code class="descname">fortify</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.fortify" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a> – Whether the current binary was built with
+Fortify Source (<code class="docutils literal"><span class="pre">-DFORTIFY</span></code>).</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.elf.elf.ELF.functions"><a name="//apple_ref/cpp/Attribute/pwnlib.elf.elf.ELF.functions"></a>
+<code class="descname">functions</code><em class="property"> = {}</em><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.functions" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference internal" href="#pwnlib.elf.elf.dotdict" title="pwnlib.elf.elf.dotdict"><code class="xref py py-class docutils literal"><span class="pre">dotdict</span></code></a> of <code class="docutils literal"><span class="pre">name</span></code> to <a class="reference internal" href="#pwnlib.elf.elf.Function" title="pwnlib.elf.elf.Function"><code class="xref py py-class docutils literal"><span class="pre">Function</span></code></a> for each function in the ELF</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.elf.elf.ELF.got"><a name="//apple_ref/cpp/Attribute/pwnlib.elf.elf.ELF.got"></a>
+<code class="descname">got</code><em class="property"> = {}</em><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.got" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference internal" href="#pwnlib.elf.elf.dotdict" title="pwnlib.elf.elf.dotdict"><code class="xref py py-class docutils literal"><span class="pre">dotdict</span></code></a> of <code class="docutils literal"><span class="pre">name</span></code> to <code class="docutils literal"><span class="pre">address</span></code> for all Global Offset Table (GOT) entries</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.elf.elf.ELF.libc"><a name="//apple_ref/cpp/Attribute/pwnlib.elf.elf.ELF.libc"></a>
+<code class="descname">libc</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.libc" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference internal" href="#pwnlib.elf.elf.ELF" title="pwnlib.elf.elf.ELF"><code class="xref py py-class docutils literal"><span class="pre">ELF</span></code></a> – If this <a class="reference internal" href="#pwnlib.elf.elf.ELF" title="pwnlib.elf.elf.ELF"><code class="xref py py-class docutils literal"><span class="pre">ELF</span></code></a> imports any libraries which contain <code class="docutils literal"><span class="pre">'libc[.-]</span></code>,
+and we can determine the appropriate path to it on the local
+system, returns a new <a class="reference internal" href="#pwnlib.elf.elf.ELF" title="pwnlib.elf.elf.ELF"><code class="xref py py-class docutils literal"><span class="pre">ELF</span></code></a> object pertaining to that library.</p>
+<p>If not found, the value will be <code class="xref py py-const docutils literal"><span class="pre">None</span></code>.</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.elf.elf.ELF.library"><a name="//apple_ref/cpp/Attribute/pwnlib.elf.elf.ELF.library"></a>
+<code class="descname">library</code><em class="property"> = None</em><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.library" title="Permalink to this definition">¶</a></dt>
+<dd><p><code class="docutils literal"><span class="pre">True</span></code> if the ELF is a shared library</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.elf.elf.ELF.linker"><a name="//apple_ref/cpp/Attribute/pwnlib.elf.elf.ELF.linker"></a>
+<code class="descname">linker</code><em class="property"> = None</em><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.linker" title="Permalink to this definition">¶</a></dt>
+<dd><p>Path to the linker for the ELF</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.elf.elf.ELF.memory"><a name="//apple_ref/cpp/Attribute/pwnlib.elf.elf.ELF.memory"></a>
+<code class="descname">memory</code><em class="property"> = None</em><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.memory" title="Permalink to this definition">¶</a></dt>
+<dd><p>IntervalTree which maps all of the loaded memory segments</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.elf.elf.ELF.mmap"><a name="//apple_ref/cpp/Attribute/pwnlib.elf.elf.ELF.mmap"></a>
+<code class="descname">mmap</code><em class="property"> = None</em><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.mmap" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference external" href="https://docs.python.org/2.7/library/mmap.html#mmap.mmap" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">mmap.mmap</span></code></a> – Memory-mapped copy of the ELF file on disk</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.elf.elf.ELF.msan"><a name="//apple_ref/cpp/Attribute/pwnlib.elf.elf.ELF.msan"></a>
+<code class="descname">msan</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.msan" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a> – Whether the current binary was built with
+Memory Sanitizer (<code class="docutils literal"><span class="pre">MSAN</span></code>).</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.elf.elf.ELF.native"><a name="//apple_ref/cpp/Attribute/pwnlib.elf.elf.ELF.native"></a>
+<code class="descname">native</code><em class="property"> = None</em><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.native" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether this ELF should be able to run natively</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.elf.elf.ELF.non_writable_segments"><a name="//apple_ref/cpp/Attribute/pwnlib.elf.elf.ELF.non_writable_segments"></a>
+<code class="descname">non_writable_segments</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.non_writable_segments" title="Permalink to this definition">¶</a></dt>
+<dd><p><code class="xref py py-class docutils literal"><span class="pre">list</span></code> – List of all segments which are NOT writeable.</p>
+<dl class="docutils">
+<dt>See:</dt>
+<dd><a class="reference internal" href="#pwnlib.elf.elf.ELF.segments" title="pwnlib.elf.elf.ELF.segments"><code class="xref py py-attr docutils literal"><span class="pre">ELF.segments</span></code></a></dd>
+</dl>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.elf.elf.ELF.nx"><a name="//apple_ref/cpp/Attribute/pwnlib.elf.elf.ELF.nx"></a>
+<code class="descname">nx</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.nx" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a> – Whether the current binary uses NX protections.</p>
+<p>Specifically, we are checking for <code class="docutils literal"><span class="pre">READ_IMPLIES_EXEC</span></code> being set
+by the kernel, as a result of honoring <code class="docutils literal"><span class="pre">PT_GNU_STACK</span></code> in the kernel.</p>
+<p>The <strong>Linux kernel</strong> directly honors <code class="docutils literal"><span class="pre">PT_GNU_STACK</span></code> to <a class="reference external" href="https://github.com/torvalds/linux/blob/v4.9/fs/binfmt_elf.c#L784-L789">mark the
+stack as executable.</a></p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">case</span> <span class="nl">PT_GNU_STACK</span><span class="p">:</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">elf_ppnt</span><span class="o">-&gt;</span><span class="n">p_flags</span> <span class="o">&amp;</span> <span class="n">PF_X</span><span class="p">)</span>
+        <span class="n">executable_stack</span> <span class="o">=</span> <span class="n">EXSTACK_ENABLE_X</span><span class="p">;</span>
+    <span class="k">else</span>
+        <span class="n">executable_stack</span> <span class="o">=</span> <span class="n">EXSTACK_DISABLE_X</span><span class="p">;</span>
+    <span class="k">break</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Additionally, it then sets <code class="docutils literal"><span class="pre">read_implies_exec</span></code>, so that <a class="reference external" href="https://github.com/torvalds/linux/blob/v4.9/fs/binfmt_elf.c#L849-L850">all readable pages
+are executable</a>.</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="n">elf_read_implies_exec</span><span class="p">(</span><span class="n">loc</span><span class="o">-&gt;</span><span class="n">elf_ex</span><span class="p">,</span> <span class="n">executable_stack</span><span class="p">))</span>
+    <span class="n">current</span><span class="o">-&gt;</span><span class="n">personality</span> <span class="o">|=</span> <span class="n">READ_IMPLIES_EXEC</span><span class="p">;</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.elf.elf.ELF.os"><a name="//apple_ref/cpp/Attribute/pwnlib.elf.elf.ELF.os"></a>
+<code class="descname">os</code><em class="property"> = None</em><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.os" title="Permalink to this definition">¶</a></dt>
+<dd><p>Operating system of the ELF</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.elf.elf.ELF.packed"><a name="//apple_ref/cpp/Attribute/pwnlib.elf.elf.ELF.packed"></a>
+<code class="descname">packed</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.packed" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a> – Whether the current binary is packed with UPX.</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.elf.elf.ELF.path"><a name="//apple_ref/cpp/Attribute/pwnlib.elf.elf.ELF.path"></a>
+<code class="descname">path</code><em class="property"> = ‘/path/to/the/file’</em><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.path" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a> – Path to the file</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.elf.elf.ELF.pie"><a name="//apple_ref/cpp/Attribute/pwnlib.elf.elf.ELF.pie"></a>
+<code class="descname">pie</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.pie" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a> – Whether the current binary is position-independent.</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.elf.elf.ELF.plt"><a name="//apple_ref/cpp/Attribute/pwnlib.elf.elf.ELF.plt"></a>
+<code class="descname">plt</code><em class="property"> = {}</em><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.plt" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference internal" href="#pwnlib.elf.elf.dotdict" title="pwnlib.elf.elf.dotdict"><code class="xref py py-class docutils literal"><span class="pre">dotdict</span></code></a> of <code class="docutils literal"><span class="pre">name</span></code> to <code class="docutils literal"><span class="pre">address</span></code> for all Procedure Linkate Table (PLT) entries</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.elf.elf.ELF.relro"><a name="//apple_ref/cpp/Attribute/pwnlib.elf.elf.ELF.relro"></a>
+<code class="descname">relro</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.relro" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a> – Whether the current binary uses RELRO protections.</p>
+<p>This requires both presence of the dynamic tag <code class="docutils literal"><span class="pre">DT_BIND_NOW</span></code>, and
+a <code class="docutils literal"><span class="pre">GNU_RELRO</span></code> program header.</p>
+<p>The <a class="reference external" href="https://refspecs.linuxbase.org/elf/elf.pdf">ELF Specification</a> describes how the linker should resolve
+symbols immediately, as soon as a binary is loaded.  This can be
+emulated with the <code class="docutils literal"><span class="pre">LD_BIND_NOW=1</span></code> environment variable.</p>
+<blockquote>
+<div><p><code class="docutils literal"><span class="pre">DT_BIND_NOW</span></code></p>
+<p>If present in a shared object or executable, this entry instructs
+the dynamic linker to process all relocations for the object
+containing this entry before transferring control to the program.
+The presence of this entry takes precedence over a directive to use
+lazy binding for this object when specified through the environment
+or via <code class="docutils literal"><span class="pre">dlopen(BA_LIB)</span></code>.</p>
+<p>(<a class="reference external" href="https://refspecs.linuxbase.org/elf/elf.pdf#page=81">page 81</a>)</p>
+</div></blockquote>
+<p>Separately, an extension to the GNU linker allows a binary to specify
+a <a class="reference external" href="https://refspecs.linuxbase.org/LSB_3.1.1/LSB-Core-generic/LSB-Core-generic.html#PROGHEADER">PT_GNU_RELRO</a> program header, which describes the <em>region of memory
+which is to be made read-only after relocations are complete.</em></p>
+<p>Finally, a new-ish extension which doesn’t seem to have a canonical
+source of documentation is <a class="reference external" href="http://refspecs.linuxbase.org/elf/gabi4+/ch5.dynamic.html#df_bind_now">DF_BIND_NOW</a>, which has supposedly superceded
+<code class="docutils literal"><span class="pre">DT_BIND_NOW</span></code>.</p>
+<blockquote>
+<div><p><code class="docutils literal"><span class="pre">DF_BIND_NOW</span></code></p>
+<p>If set in a shared object or executable, this flag instructs the
+dynamic linker to process all relocations for the object containing
+this entry before transferring control to the program. The presence
+of this entry takes precedence over a directive to use lazy binding
+for this object when specified through the environment or via
+<code class="docutils literal"><span class="pre">dlopen(BA_LIB)</span></code>.</p>
+</div></blockquote>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">path</span> <span class="o">=</span> <span class="n">pwnlib</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">elf</span><span class="o">.</span><span class="n">relro</span><span class="o">.</span><span class="n">path</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">test</span> <span class="ow">in</span> <span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">'test-*'</span><span class="p">)):</span>
+<span class="gp">... </span>    <span class="n">e</span> <span class="o">=</span> <span class="n">ELF</span><span class="p">(</span><span class="n">test</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">expected</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">test</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'-'</span><span class="p">)[</span><span class="mi">2</span><span class="p">]</span>
+<span class="gp">... </span>    <span class="n">actual</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">relro</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+<span class="gp">... </span>    <span class="k">assert</span> <span class="n">actual</span> <span class="o">==</span> <span class="n">expected</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.elf.elf.ELF.rpath"><a name="//apple_ref/cpp/Attribute/pwnlib.elf.elf.ELF.rpath"></a>
+<code class="descname">rpath</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.rpath" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a> – Whether the current binary has an <code class="docutils literal"><span class="pre">RPATH</span></code>.</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.elf.elf.ELF.runpath"><a name="//apple_ref/cpp/Attribute/pwnlib.elf.elf.ELF.runpath"></a>
+<code class="descname">runpath</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.runpath" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a> – Whether the current binary has a <code class="docutils literal"><span class="pre">RUNPATH</span></code>.</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.elf.elf.ELF.rwx_segments"><a name="//apple_ref/cpp/Attribute/pwnlib.elf.elf.ELF.rwx_segments"></a>
+<code class="descname">rwx_segments</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.rwx_segments" title="Permalink to this definition">¶</a></dt>
+<dd><p><code class="xref py py-class docutils literal"><span class="pre">list</span></code> – List of all segments which are writeable and executable.</p>
+<dl class="docutils">
+<dt>See:</dt>
+<dd><a class="reference internal" href="#pwnlib.elf.elf.ELF.segments" title="pwnlib.elf.elf.ELF.segments"><code class="xref py py-attr docutils literal"><span class="pre">ELF.segments</span></code></a></dd>
+</dl>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.elf.elf.ELF.sections"><a name="//apple_ref/cpp/Attribute/pwnlib.elf.elf.ELF.sections"></a>
+<code class="descname">sections</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.sections" title="Permalink to this definition">¶</a></dt>
+<dd><p><code class="xref py py-class docutils literal"><span class="pre">list</span></code> – A list of <code class="xref py py-class docutils literal"><span class="pre">elftools.elf.sections.Section</span></code> objects
+for the segments in the ELF.</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.elf.elf.ELF.segments"><a name="//apple_ref/cpp/Attribute/pwnlib.elf.elf.ELF.segments"></a>
+<code class="descname">segments</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.segments" title="Permalink to this definition">¶</a></dt>
+<dd><p><code class="xref py py-class docutils literal"><span class="pre">list</span></code> – A list of <code class="xref py py-class docutils literal"><span class="pre">elftools.elf.segments.Segment</span></code> objects
+for the segments in the ELF.</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.elf.elf.ELF.start"><a name="//apple_ref/cpp/Attribute/pwnlib.elf.elf.ELF.start"></a>
+<code class="descname">start</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.start" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a> – Address of the entry point for the ELF</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.elf.elf.ELF.statically_linked"><a name="//apple_ref/cpp/Attribute/pwnlib.elf.elf.ELF.statically_linked"></a>
+<code class="descname">statically_linked</code><em class="property"> = None</em><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.statically_linked" title="Permalink to this definition">¶</a></dt>
+<dd><p><code class="docutils literal"><span class="pre">True</span></code> if the ELF is statically linked</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.elf.elf.ELF.sym"><a name="//apple_ref/cpp/Attribute/pwnlib.elf.elf.ELF.sym"></a>
+<code class="descname">sym</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.sym" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference internal" href="#pwnlib.elf.elf.dotdict" title="pwnlib.elf.elf.dotdict"><code class="xref py py-class docutils literal"><span class="pre">dotdict</span></code></a> – Alias for <a class="reference internal" href="#pwnlib.elf.elf.ELF.symbols" title="pwnlib.elf.elf.ELF.symbols"><code class="xref py py-attr docutils literal"><span class="pre">ELF.symbols</span></code></a></p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.elf.elf.ELF.symbols"><a name="//apple_ref/cpp/Attribute/pwnlib.elf.elf.ELF.symbols"></a>
+<code class="descname">symbols</code><em class="property"> = {}</em><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.symbols" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference internal" href="#pwnlib.elf.elf.dotdict" title="pwnlib.elf.elf.dotdict"><code class="xref py py-class docutils literal"><span class="pre">dotdict</span></code></a> of <code class="docutils literal"><span class="pre">name</span></code> to <code class="docutils literal"><span class="pre">address</span></code> for all symbols in the ELF</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.elf.elf.ELF.ubsan"><a name="//apple_ref/cpp/Attribute/pwnlib.elf.elf.ELF.ubsan"></a>
+<code class="descname">ubsan</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.ubsan" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a> – Whether the current binary was built with
+Undefined Behavior Sanitizer (<code class="docutils literal"><span class="pre">UBSAN</span></code>).</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.elf.elf.ELF.version"><a name="//apple_ref/cpp/Attribute/pwnlib.elf.elf.ELF.version"></a>
+<code class="descname">version</code><em class="property"> = None</em><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.version" title="Permalink to this definition">¶</a></dt>
+<dd><p><code class="xref py py-class docutils literal"><span class="pre">tuple</span></code> – Linux kernel version, if this is a Linux kernel image</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.elf.elf.ELF.writable_segments"><a name="//apple_ref/cpp/Attribute/pwnlib.elf.elf.ELF.writable_segments"></a>
+<code class="descname">writable_segments</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.ELF.writable_segments" title="Permalink to this definition">¶</a></dt>
+<dd><p><code class="xref py py-class docutils literal"><span class="pre">list</span></code> – List of all segments which are writeable.</p>
+<dl class="docutils">
+<dt>See:</dt>
+<dd><a class="reference internal" href="#pwnlib.elf.elf.ELF.segments" title="pwnlib.elf.elf.ELF.segments"><code class="xref py py-attr docutils literal"><span class="pre">ELF.segments</span></code></a></dd>
+</dl>
+</dd></dl>
+</dd></dl>
+<dl class="class">
+<dt id="pwnlib.elf.elf.Function"><a name="//apple_ref/cpp/Class/pwnlib.elf.elf.Function"></a>
+<em class="property">class </em><code class="descclassname">pwnlib.elf.elf.</code><code class="descname">Function</code><span class="sig-paren">(</span><em>name</em>, <em>address</em>, <em>size</em>, <em>elf=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.Function" title="Permalink to this definition">¶</a></dt>
+<dd><p>Encapsulates information about a function in an <a class="reference internal" href="#pwnlib.elf.elf.ELF" title="pwnlib.elf.elf.ELF"><code class="xref py py-class docutils literal"><span class="pre">ELF</span></code></a> binary.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Name of the function</li>
+<li><strong>address</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – Address of the function</li>
+<li><strong>size</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – Size of the function, in bytes</li>
+<li><strong>elf</strong> (<a class="reference internal" href="#pwnlib.elf.elf.ELF" title="pwnlib.elf.elf.ELF"><em>ELF</em></a>) – Encapsulating ELF object</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="pwnlib.elf.elf.Function.address"><a name="//apple_ref/cpp/Attribute/pwnlib.elf.elf.Function.address"></a>
+<code class="descname">address</code><em class="property"> = None</em><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.Function.address" title="Permalink to this definition">¶</a></dt>
+<dd><p>Address of the function in the encapsulating ELF</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.elf.elf.Function.elf"><a name="//apple_ref/cpp/Attribute/pwnlib.elf.elf.Function.elf"></a>
+<code class="descname">elf</code><em class="property"> = None</em><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.Function.elf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Encapsulating ELF object</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.elf.elf.Function.name"><a name="//apple_ref/cpp/Attribute/pwnlib.elf.elf.Function.name"></a>
+<code class="descname">name</code><em class="property"> = None</em><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.Function.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Name of the function</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.elf.elf.Function.size"><a name="//apple_ref/cpp/Attribute/pwnlib.elf.elf.Function.size"></a>
+<code class="descname">size</code><em class="property"> = None</em><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.Function.size" title="Permalink to this definition">¶</a></dt>
+<dd><p>Size of the function, in bytes</p>
+</dd></dl>
+</dd></dl>
+<dl class="class">
+<dt id="pwnlib.elf.elf.dotdict"><a name="//apple_ref/cpp/Class/pwnlib.elf.elf.dotdict"></a>
+<em class="property">class </em><code class="descclassname">pwnlib.elf.elf.</code><code class="descname">dotdict</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/elf/elf.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.elf.elf.dotdict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wrapper to allow dotted access to dictionary elements.</p>
+<p>Is a real <a class="reference external" href="https://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a> object, but also serves up keys as attributes
+when reading attributes.</p>
+<p>Supports recursive instantiation for keys which contain dots.</p>
+<p class="rubric">Example</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">pwnlib</span><span class="o">.</span><span class="n">elf</span><span class="o">.</span><span class="n">elf</span><span class="o">.</span><span class="n">dotdict</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="p">[</span><span class="s1">'foo'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">.</span><span class="n">foo</span>
+<span class="go">3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="p">[</span><span class="s1">'bar.baz'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">.</span><span class="n">bar</span><span class="o">.</span><span class="n">baz</span>
+<span class="go">4</span>
+</pre></div>
+</div>
+</dd></dl>
+</div>
+</div>
+</div>
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a accesskey="n" class="btn btn-neutral float-right" href="config.html" rel="next" title="pwnlib.elf.config — Kernel Config Parsing">Next <span class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral" href="../elf.html" rel="prev" title="pwnlib.elf — ELF Executables and Libraries"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © Copyright 2016, Gallopsled et al..
+
+    </p>
+</div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'3.14.0dev',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+<script src="../_static/jquery.js" type="text/javascript"></script>
+<script src="../_static/underscore.js" type="text/javascript"></script>
+<script src="../_static/doctools.js" type="text/javascript"></script>
+<script src="../_static/js/theme.js" type="text/javascript"></script>
+<script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>

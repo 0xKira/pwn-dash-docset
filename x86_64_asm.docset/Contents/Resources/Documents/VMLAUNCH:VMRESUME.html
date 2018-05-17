@@ -1,0 +1,130 @@
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-556"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/VMLAUNCH%2FVMRESUME"></a><title>VMLAUNCH/VMRESUME</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>March 2018</li></ul></nav></header><h1>VMLAUNCH/VMRESUME
+		&mdash; Launch/Resume Virtual Machine</h1>
+
+
+<table>
+<tbody><tr>
+<td><strong>Opcode Instruction Description</strong> 0F 01 C2 VMLAUNCH Launch virtual machine managed by current VMCS<em>.</em> 0F 01 C3 VMRESUME Resume virtual machine managed by current VMCS<em>.</em></td></tr></tbody></table>
+<h2 id="description">Description<a class="anchor" href="./VMLAUNCH:VMRESUME.html#description">
+			&para;
+		</a></h2>
+<p>Effects a VM entry managed by the current VMCS.</p>
+<ul>
+<li>VMLAUNCH fails if the launch state of current VMCS is not &ldquo;clear&rdquo;. If the instruction is successful, it sets the launch state to &ldquo;launched.&rdquo;</li>
+<li>VMRESUME fails if the launch state of the current VMCS is not &ldquo;launched.&rdquo;</li></ul>
+<p>If VM entry is attempted, the logical processor performs a series of consistency checks as detailed in Chapter 26, &ldquo;VM Entries&rdquo;. Failure to pass checks on the VMX controls or on the host-state area passes control to the instruction following the VMLAUNCH or VMRESUME instruction. If these pass but checks on the guest-state area fail, the logical processor loads state from the host-state area of the VMCS, passing control to the instruction referenced by the RIP field in the host-state area.</p>
+<p>VM entry is not allowed when events are blocked by MOV SS or POP SS. Neither VMLAUNCH nor VMRESUME should be used immediately after either MOV to SS or POP to SS.</p>
+<h2 id="operation">Operation<a class="anchor" href="./VMLAUNCH:VMRESUME.html#operation">
+			&para;
+		</a></h2>
+<pre>IF (not in VMX operation) or (CR0.PE = 0) or (RFLAGS.VM = 1) or (IA32_EFER.LMA = 1 and CS.L = 0)
+    THEN #UD;
+ELSIF in VMX non-root operation
+    THEN VMexit;
+ELSIF CPL &gt; 0
+    THEN #GP(0);
+ELSIF current-VMCS pointer is not valid
+    THEN VMfailInvalid;
+ELSIF events are being blocked by MOV SS
+    THEN VMfailValid(VM entry with events blocked by MOV SS);
+ELSIF (VMLAUNCH and launch state of current VMCS is not &ldquo;clear&rdquo;)
+    THEN VMfailValid(VMLAUNCH with non-clear VMCS);
+ELSIF (VMRESUME and launch state of current VMCS is not &ldquo;launched&rdquo;)
+    THEN VMfailValid(VMRESUME with non-launched VMCS);
+    ELSE
+        Check settings of VMX controls and host-state area;
+        IF invalid settings
+            THEN VMfailValid(VM entry with invalid VMX-control field(s)) or
+                    VMfailValid(VM entry with invalid host-state field(s)) or
+                    VMfailValid(VM entry with invalid executive-VMCS pointer)) or
+                    VMfailValid(VM entry with non-launched executive VMCS) or
+                    VMfailValid(VM entry with executive-VMCS pointer not VMXON pointer) or
+                    VMfailValid(VM entry with invalid VM-execution control fields in executive
+                    VMCS)
+                    as appropriate;
+            ELSE
+                Attempt to load guest state and PDPTRs as appropriate;
+                clear address-range monitoring;
+                IF failure in checking guest state or PDPTRs
+                    THEN VM entry fails (see Section 26.7);
+                    ELSE
+                        Attempt to load MSRs from VM-entry MSR-load area;
+                        IF failure
+                            THEN VM entry fails
+                            (see Section 26.7);
+                            ELSE
+                                IF VMLAUNCH
+                                    THEN launch state of VMCS &larr; &ldquo;launched&rdquo;;
+                                FI;
+                                IF in SMM and &ldquo;entry to SMM&rdquo; VM-entry control is 0
+                                    THEN
+                                        IF &ldquo;deactivate dual-monitor treatment&rdquo; VM-entry
+                                        control is 0
+                                            THEN SMM-transfer VMCS pointer &larr;
+                                            current-VMCS pointer;
+                                        FI;
+                                        IF executive-VMCS pointer is VMXON pointer
+                                            THEN current-VMCS pointer &larr;
+                                            VMCS-link pointer;
+                                            ELSE current-VMCS pointer &larr;
+                                            executive-VMCS pointer;
+                                        FI;
+                                        leave SMM;
+                                FI;
+                                VM entry succeeds;
+                        FI;
+                FI;
+        FI;
+FI;
+Further details of the operation of the VM-entry appear in Chapter 26.
+</pre>
+<h2 id="flags-affected">Flags Affected<a class="anchor" href="./VMLAUNCH:VMRESUME.html#flags-affected">
+			&para;
+		</a></h2>
+<p>See the operation section and Section 30.2.</p>
+<h2 class="exceptions" id="protected-mode-exceptions">Protected Mode Exceptions<a class="anchor" href="./VMLAUNCH:VMRESUME.html#protected-mode-exceptions">
+			&para;
+		</a></h2>
+<table>
+<tbody><tr>
+<td>#GP(0)</td>
+<td>If the current privilege level is not 0.</td></tr>
+<tr>
+<td>#UD</td>
+<td>If executed outside VMX operation.</td></tr></tbody></table>
+<h2 class="exceptions" id="real-address-mode-exceptions">Real-Address Mode Exceptions<a class="anchor" href="./VMLAUNCH:VMRESUME.html#real-address-mode-exceptions">
+			&para;
+		</a></h2>
+<table>
+<tbody><tr>
+<td>#UD</td>
+<td>The VMLAUNCH and VMRESUME instructions are not recognized in real-address mode.</td></tr></tbody></table>
+<h2 class="exceptions" id="virtual-8086-mode-exceptions">Virtual-8086 Mode Exceptions<a class="anchor" href="./VMLAUNCH:VMRESUME.html#virtual-8086-mode-exceptions">
+			&para;
+		</a></h2>
+<table>
+<tbody><tr>
+<td>#UD</td>
+<td>The VMLAUNCH and VMRESUME instructions are not recognized in virtual-8086 mode.</td></tr></tbody></table>
+<h2 class="exceptions" id="compatibility-mode-exceptions">Compatibility Mode Exceptions<a class="anchor" href="./VMLAUNCH:VMRESUME.html#compatibility-mode-exceptions">
+			&para;
+		</a></h2>
+<table>
+<tbody><tr>
+<td>#UD</td>
+<td>The VMLAUNCH and VMRESUME instructions are not recognized in compatibility mode.</td></tr></tbody></table>
+<h2 class="exceptions" id="64-bit-mode-exceptions">64-Bit Mode Exceptions<a class="anchor" href="./VMLAUNCH:VMRESUME.html#64-bit-mode-exceptions">
+			&para;
+		</a></h2>
+<table>
+<tbody><tr>
+<td>#GP(0)</td>
+<td>If the current privilege level is not 0.</td></tr>
+<tr>
+<td>#UD</td>
+<td>If executed outside VMX operation.</td></tr></tbody></table><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+	</p></footer>
+</body></html>

@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]--><!--[if gt IE 8]><!--><html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>pwnlib.tubes.ssh — SSH — pwntools 3.14.0dev documentation</title>
+<link href="../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../about.html" rel="author" title="About these documents"/>
+<link href="../search.html" rel="search" title="Search"/>
+<link href="../ui.html" rel="next" title="pwnlib.ui — Functions for user interaction"/>
+<link href="sockets.html" rel="prev" title="pwnlib.tubes.sock — Sockets"/>
+<script src="../_static/js/modernizr.min.js"></script>
+</head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../index.html"> pwntools
+          
+
+          
+          </a>
+<div class="version">
+                3.14
+              </div>
+<div role="search">
+<form action="../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">About pwntools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../globals.html"><code class="docutils literal"><span class="pre">from</span> <span class="pre">pwn</span> <span class="pre">import</span> <span class="pre">*</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../commandline.html">Command Line Tools</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../adb.html"><code class="docutils literal"><span class="pre">pwnlib.adb</span></code> — Android Debug Bridge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../args.html"><code class="docutils literal"><span class="pre">pwnlib.args</span></code> — Magic Command-Line Arguments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../asm.html"><code class="docutils literal"><span class="pre">pwnlib.asm</span></code> — Assembler functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../atexception.html"><code class="docutils literal"><span class="pre">pwnlib.atexception</span></code> — Callbacks on unhandled exception</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../atexit.html"><code class="docutils literal"><span class="pre">pwnlib.atexit</span></code> — Replacement for atexit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../constants.html"><code class="docutils literal"><span class="pre">pwnlib.constants</span></code> — Easy access to header file constants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../config.html"><code class="docutils literal"><span class="pre">pwnlib.config</span></code> — Pwntools Configuration File</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../context.html"><code class="docutils literal"><span class="pre">pwnlib.context</span></code> — Setting runtime variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dynelf.html"><code class="docutils literal"><span class="pre">pwnlib.dynelf</span></code> — Resolving remote functions using leaks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../encoders.html"><code class="docutils literal"><span class="pre">pwnlib.encoders</span></code> — Encoding Shellcode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../elf.html"><code class="docutils literal"><span class="pre">pwnlib.elf</span></code> — ELF Executables and Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../exception.html"><code class="docutils literal"><span class="pre">pwnlib.exception</span></code> — Pwnlib exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../flag.html"><code class="docutils literal"><span class="pre">pwnlib.flag</span></code> — CTF Flag Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fmtstr.html"><code class="docutils literal"><span class="pre">pwnlib.fmtstr</span></code> — Format string bug exploitation tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gdb.html"><code class="docutils literal"><span class="pre">pwnlib.gdb</span></code> — Working with GDB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../libcdb.html"><code class="docutils literal"><span class="pre">pwnlib.libcdb</span></code> — Libc Database</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../log.html"><code class="docutils literal"><span class="pre">pwnlib.log</span></code> — Logging stuff</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../memleak.html"><code class="docutils literal"><span class="pre">pwnlib.memleak</span></code> — Helper class for leaking memory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../protocols.html"><code class="docutils literal"><span class="pre">pwnlib.protocols</span></code> — Wire Protocols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qemu.html"><code class="docutils literal"><span class="pre">pwnlib.qemu</span></code> — QEMU Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../replacements.html"><code class="docutils literal"><span class="pre">pwnlib.replacements</span></code> — Replacements for various functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rop.html"><code class="docutils literal"><span class="pre">pwnlib.rop</span></code> — Return Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rop/rop.html"><code class="docutils literal"><span class="pre">pwnlib.rop.rop</span></code> — Return Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rop/srop.html"><code class="docutils literal"><span class="pre">pwnlib.rop.srop</span></code> — Sigreturn Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../runner.html"><code class="docutils literal"><span class="pre">pwnlib.runner</span></code> — Running Shellcode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shellcraft.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft</span></code> — Shellcode generation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shellcraft/aarch64.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.aarch64</span></code> — Shellcode for AArch64</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shellcraft/amd64.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.amd64</span></code> — Shellcode for AMD64</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shellcraft/arm.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.arm</span></code> — Shellcode for ARM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shellcraft/common.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.common</span></code> — Shellcode common to all architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shellcraft/i386.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.i386</span></code> — Shellcode for Intel 80386</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shellcraft/mips.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.mips</span></code> — Shellcode for MIPS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shellcraft/regsort.html"><code class="docutils literal"><span class="pre">pwnlib.regsort</span></code> — Register sorting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shellcraft/thumb.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.thumb</span></code> — Shellcode for Thumb Mode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../term.html"><code class="docutils literal"><span class="pre">pwnlib.term</span></code> — Terminal handling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../timeout.html"><code class="docutils literal"><span class="pre">pwnlib.timeout</span></code> — Timeout handling</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../tubes.html"><code class="docutils literal"><span class="pre">pwnlib.tubes</span></code> — Talking to the World!</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../tubes.html#types-of-tubes">Types of Tubes</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="processes.html"><code class="docutils literal"><span class="pre">pwnlib.tubes.process</span></code> — Processes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="serial.html"><code class="docutils literal"><span class="pre">pwnlib.tubes.serialtube</span></code> — Serial Ports</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sockets.html"><code class="docutils literal"><span class="pre">pwnlib.tubes.sock</span></code> — Sockets</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#"><code class="docutils literal"><span class="pre">pwnlib.tubes.ssh</span></code> — SSH</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tubes.html#module-pwnlib.tubes.tube"><code class="docutils literal"><span class="pre">pwnlib.tubes.tube</span></code> — Common Functionality</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="processes.html"><code class="docutils literal"><span class="pre">pwnlib.tubes.process</span></code> — Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="serial.html"><code class="docutils literal"><span class="pre">pwnlib.tubes.serialtube</span></code> — Serial Ports</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sockets.html"><code class="docutils literal"><span class="pre">pwnlib.tubes.sock</span></code> — Sockets</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="docutils literal"><span class="pre">pwnlib.tubes.ssh</span></code> — SSH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ui.html"><code class="docutils literal"><span class="pre">pwnlib.ui</span></code> — Functions for user interaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../update.html"><code class="docutils literal"><span class="pre">pwnlib.update</span></code> — Updating Pwntools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../useragents.html"><code class="docutils literal"><span class="pre">pwnlib.useragents</span></code> — A database of useragent strings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../util/crc.html"><code class="docutils literal"><span class="pre">pwnlib.util.crc</span></code> — Calculating CRC-sums</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../util/cyclic.html"><code class="docutils literal"><span class="pre">pwnlib.util.cyclic</span></code> — Generation of unique sequences</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../util/fiddling.html"><code class="docutils literal"><span class="pre">pwnlib.util.fiddling</span></code> — Utilities bit fiddling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../util/hashes.html"><code class="docutils literal"><span class="pre">pwnlib.util.hashes</span></code> — Hashing functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../util/iters.html"><code class="docutils literal"><span class="pre">pwnlib.util.iters</span></code> — Extension of standard module <code class="docutils literal"><span class="pre">itertools</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../util/lists.html"><code class="docutils literal"><span class="pre">pwnlib.util.lists</span></code> — Operations on lists</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../util/misc.html"><code class="docutils literal"><span class="pre">pwnlib.util.misc</span></code> — We could not fit it any other place</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../util/net.html"><code class="docutils literal"><span class="pre">pwnlib.util.net</span></code> — Networking interfaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../util/packing.html"><code class="docutils literal"><span class="pre">pwnlib.util.packing</span></code> — Packing and unpacking of strings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../util/proc.html"><code class="docutils literal"><span class="pre">pwnlib.util.proc</span></code> — Working with <code class="docutils literal"><span class="pre">/proc/</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../util/safeeval.html"><code class="docutils literal"><span class="pre">pwnlib.util.safeeval</span></code> — Safe evaluation of python code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../util/sh_string.html"><code class="docutils literal"><span class="pre">pwnlib.util.sh_string</span></code> — Shell Expansion is Hard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../util/web.html"><code class="docutils literal"><span class="pre">pwnlib.util.web</span></code> — Utilities for working with the WWW</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../testexample.html"><code class="docutils literal"><span class="pre">pwnlib.testexample</span></code> — Example Test Module</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../index.html">pwntools</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a href="../index.html">Docs</a> »</li>
+<li><a href="../tubes.html"><code class="docutils literal"><span class="pre">pwnlib.tubes</span></code> — Talking to the World!</a> »</li>
+<li><code class="docutils literal"><span class="pre">pwnlib.tubes.ssh</span></code> — SSH</li>
+<li class="wy-breadcrumbs-aside">
+<a href="../_sources/tubes/ssh.rst.txt" rel="nofollow"> View page source</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div class="section" id="module-pwnlib.tubes.ssh">
+<span id="pwnlib-tubes-ssh-ssh"></span><h1><a name="//apple_ref/cpp/Module/pwnlib.tubes.ssh"></a><a class="reference internal" href="#module-pwnlib.tubes.ssh" title="pwnlib.tubes.ssh"><code class="xref py py-mod docutils literal"><span class="pre">pwnlib.tubes.ssh</span></code></a> — SSH<a class="headerlink" href="#module-pwnlib.tubes.ssh" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="pwnlib.tubes.ssh.ssh"><a name="//apple_ref/cpp/Class/pwnlib.tubes.ssh.ssh"></a>
+<em class="property">class </em><code class="descclassname">pwnlib.tubes.ssh.</code><code class="descname">ssh</code><span class="sig-paren">(</span><em>user</em>, <em>host</em>, <em>port=22</em>, <em>password=None</em>, <em>key=None</em>, <em>keyfile=None</em>, <em>proxy_command=None</em>, <em>proxy_sock=None</em>, <em>level=None</em>, <em>cache=True</em>, <em>ssh_agent=False</em>, <em>*a</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/ssh.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.ssh.ssh" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a new ssh connection.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>user</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – The username to log in with</li>
+<li><strong>host</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – The hostname to connect to</li>
+<li><strong>port</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – The port to connect to</li>
+<li><strong>password</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Try to authenticate using this password</li>
+<li><strong>key</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Try to authenticate using this private key. The string should be the actual private key.</li>
+<li><strong>keyfile</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Try to authenticate using this private key. The string should be a filename.</li>
+<li><strong>proxy_command</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Use this as a proxy command. It has approximately the same semantics as ProxyCommand from ssh(1).</li>
+<li><strong>proxy_sock</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Use this socket instead of connecting to the host.</li>
+<li><strong>timeout</strong> – Timeout, in seconds</li>
+<li><strong>level</strong> – Log level</li>
+<li><strong>cache</strong> – Cache downloaded files (by hash/size/timestamp)</li>
+<li><strong>ssh_agent</strong> – If <code class="xref py py-const docutils literal"><span class="pre">True</span></code>, enable usage of keys via ssh-agent</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>NOTE: The proxy_command and proxy_sock arguments is only available if a
+fairly new version of paramiko is used.</p>
+<dl class="method">
+<dt id="pwnlib.tubes.ssh.ssh.checksec"><a name="//apple_ref/cpp/Method/pwnlib.tubes.ssh.ssh.checksec"></a>
+<code class="descname">checksec</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/ssh.py#L2002-2036"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.ssh.ssh.checksec" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prints a helpful message about the remote system.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>banner</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – Whether to print the path to the ELF binary.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.tubes.ssh.ssh.close"><a name="//apple_ref/cpp/Method/pwnlib.tubes.ssh.ssh.close"></a>
+<code class="descname">close</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/ssh.py#L1280-1285"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.ssh.ssh.close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Close the connection.</p>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.tubes.ssh.ssh.connect_remote"><a name="//apple_ref/cpp/Method/pwnlib.tubes.ssh.ssh.connect_remote"></a>
+<code class="descname">connect_remote</code><span class="sig-paren">(</span><em>host</em>, <em>port</em>, <em>timeout = Timeout.default</em><span class="sig-paren">)</span> → ssh_connecter<a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/ssh.py#L1154-1175"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.ssh.ssh.connect_remote" title="Permalink to this definition">¶</a></dt>
+<dd><p>Connects to a host through an SSH connection. This is equivalent to
+using the <code class="docutils literal"><span class="pre">-L</span></code> flag on <code class="docutils literal"><span class="pre">ssh</span></code>.</p>
+<p>Returns a <a class="reference internal" href="#pwnlib.tubes.ssh.ssh_connecter" title="pwnlib.tubes.ssh.ssh_connecter"><code class="xref py py-class docutils literal"><span class="pre">pwnlib.tubes.ssh.ssh_connecter</span></code></a> object.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pwn</span> <span class="k">import</span> <span class="o">*</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">l</span> <span class="o">=</span> <span class="n">listen</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span>  <span class="n">ssh</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s1">'example.pwnme'</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="n">user</span><span class="o">=</span><span class="s1">'travis'</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="n">password</span><span class="o">=</span><span class="s1">'demopass'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">connect_remote</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">host</span><span class="p">,</span> <span class="n">l</span><span class="o">.</span><span class="n">lport</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="n">l</span><span class="o">.</span><span class="n">wait_for_connection</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="s1">'Hello'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="nb">repr</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">recvline</span><span class="p">())</span>
+<span class="go">'Hello\n'</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.tubes.ssh.ssh.connected"><a name="//apple_ref/cpp/Method/pwnlib.tubes.ssh.ssh.connected"></a>
+<code class="descname">connected</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/ssh.py#L1264-1278"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.ssh.ssh.connected" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns True if we are connected.</p>
+<p class="rubric">Example</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span>  <span class="n">ssh</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s1">'example.pwnme'</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="n">user</span><span class="o">=</span><span class="s1">'travis'</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="n">password</span><span class="o">=</span><span class="s1">'demopass'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">connected</span><span class="p">()</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">connected</span><span class="p">()</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.tubes.ssh.ssh.download"><a name="//apple_ref/cpp/Method/pwnlib.tubes.ssh.ssh.download"></a>
+<code class="descname">download</code><span class="sig-paren">(</span><em>file_or_directory</em>, <em>local=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/ssh.py#L1624-1640"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.ssh.ssh.download" title="Permalink to this definition">¶</a></dt>
+<dd><p>Download a file or directory from the remote host.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>file_or_directory</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Path to the file or directory to download.</li>
+<li><strong>local</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Local path to store the data.
+By default, uses the current directory.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.tubes.ssh.ssh.download_data"><a name="//apple_ref/cpp/Method/pwnlib.tubes.ssh.ssh.download_data"></a>
+<code class="descname">download_data</code><span class="sig-paren">(</span><em>remote</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/ssh.py#L1411-1435"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.ssh.ssh.download_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Downloads a file from the remote server and returns it as a string.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>remote</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – The remote filename to download.</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">file</span><span class="p">(</span><span class="s1">'/tmp/bar'</span><span class="p">,</span><span class="s1">'w+'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">'Hello, world'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span>  <span class="n">ssh</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s1">'example.pwnme'</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="n">user</span><span class="o">=</span><span class="s1">'travis'</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="n">password</span><span class="o">=</span><span class="s1">'demopass'</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="n">cache</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">download_data</span><span class="p">(</span><span class="s1">'/tmp/bar'</span><span class="p">)</span>
+<span class="go">'Hello, world'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">_sftp</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">_tried_sftp</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">download_data</span><span class="p">(</span><span class="s1">'/tmp/bar'</span><span class="p">)</span>
+<span class="go">'Hello, world'</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.tubes.ssh.ssh.download_dir"><a name="//apple_ref/cpp/Method/pwnlib.tubes.ssh.ssh.download_dir"></a>
+<code class="descname">download_dir</code><span class="sig-paren">(</span><em>remote=None</em>, <em>local=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/ssh.py#L1462-1501"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.ssh.ssh.download_dir" title="Permalink to this definition">¶</a></dt>
+<dd><p>Recursively downloads a directory from the remote server</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>local</strong> – Local directory</li>
+<li><strong>remote</strong> – Remote directory</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.tubes.ssh.ssh.download_file"><a name="//apple_ref/cpp/Method/pwnlib.tubes.ssh.ssh.download_file"></a>
+<code class="descname">download_file</code><span class="sig-paren">(</span><em>remote</em>, <em>local=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/ssh.py#L1437-1460"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.ssh.ssh.download_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Downloads a file from the remote server.</p>
+<p>The file is cached in /tmp/pwntools-ssh-cache using a hash of the file, so
+calling the function twice has little overhead.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>remote</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – The remote filename to download</li>
+<li><strong>local</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – The local filename to save it to. Default is to infer it from the remote filename.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.tubes.ssh.ssh.get"><a name="//apple_ref/cpp/Method/pwnlib.tubes.ssh.ssh.get"></a>
+<code class="descname">get</code><span class="sig-paren">(</span><em>file_or_directory</em>, <em>local=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/ssh.py#L1624-1640"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.ssh.ssh.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>download(file_or_directory, local=None)</p>
+<p>Download a file or directory from the remote host.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>file_or_directory</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Path to the file or directory to download.</li>
+<li><strong>local</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Local path to store the data.
+By default, uses the current directory.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.tubes.ssh.ssh.getenv"><a name="//apple_ref/cpp/Method/pwnlib.tubes.ssh.ssh.getenv"></a>
+<code class="descname">getenv</code><span class="sig-paren">(</span><em>variable</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/ssh.py#L1101-1128"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.ssh.ssh.getenv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the address of an environment variable on the remote
+system.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The exact address will differ based on what other environment
+variables are set, as well as argv[0].  In order to ensure that
+the path is <em>exactly</em> the same, it is recommended to invoke the
+process with <code class="docutils literal"><span class="pre">argv=[]</span></code>.</p>
+</div>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.tubes.ssh.ssh.interactive"><a name="//apple_ref/cpp/Method/pwnlib.tubes.ssh.ssh.interactive"></a>
+<code class="descname">interactive</code><span class="sig-paren">(</span><em>shell=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/ssh.py#L1696-1710"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.ssh.ssh.interactive" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create an interactive session.</p>
+<p>This is a simple wrapper for creating a new
+<a class="reference internal" href="#pwnlib.tubes.ssh.ssh_channel" title="pwnlib.tubes.ssh.ssh_channel"><code class="xref py py-class docutils literal"><span class="pre">pwnlib.tubes.ssh.ssh_channel</span></code></a> object and calling
+<a class="reference internal" href="#pwnlib.tubes.ssh.ssh_channel.interactive" title="pwnlib.tubes.ssh.ssh_channel.interactive"><code class="xref py py-meth docutils literal"><span class="pre">pwnlib.tubes.ssh.ssh_channel.interactive()</span></code></a> on it.</p>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.tubes.ssh.ssh.libs"><a name="//apple_ref/cpp/Method/pwnlib.tubes.ssh.ssh.libs"></a>
+<code class="descname">libs</code><span class="sig-paren">(</span><em>remote</em>, <em>directory=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/ssh.py#L1658-1694"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.ssh.ssh.libs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Downloads the libraries referred to by a file.</p>
+<p>This is done by running ldd on the remote server, parsing the output
+and downloading the relevant files.</p>
+<p>The directory argument specified where to download the files. This defaults
+to ‘./$HOSTNAME’ where $HOSTNAME is the hostname of the remote server.</p>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.tubes.ssh.ssh.listen"><a name="//apple_ref/cpp/Method/pwnlib.tubes.ssh.ssh.listen"></a>
+<code class="descname">listen</code><span class="sig-paren">(</span><em>port=0</em>, <em>bind_address=’‘</em>, <em>timeout=pwnlib.timeout.Timeout.default</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/ssh.py#L1179-1201"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.ssh.ssh.listen" title="Permalink to this definition">¶</a></dt>
+<dd><p>listen_remote(port = 0, bind_address = ‘’, timeout = Timeout.default) -&gt; ssh_connecter</p>
+<p>Listens remotely through an SSH connection. This is equivalent to
+using the <code class="docutils literal"><span class="pre">-R</span></code> flag on <code class="docutils literal"><span class="pre">ssh</span></code>.</p>
+<p>Returns a <a class="reference internal" href="#pwnlib.tubes.ssh.ssh_listener" title="pwnlib.tubes.ssh.ssh_listener"><code class="xref py py-class docutils literal"><span class="pre">pwnlib.tubes.ssh.ssh_listener</span></code></a> object.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pwn</span> <span class="k">import</span> <span class="o">*</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span>  <span class="n">ssh</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s1">'example.pwnme'</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="n">user</span><span class="o">=</span><span class="s1">'travis'</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="n">password</span><span class="o">=</span><span class="s1">'demopass'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">l</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">listen_remote</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">remote</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">host</span><span class="p">,</span> <span class="n">l</span><span class="o">.</span><span class="n">port</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="n">l</span><span class="o">.</span><span class="n">wait_for_connection</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="s1">'Hello'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="nb">repr</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">recvline</span><span class="p">())</span>
+<span class="go">'Hello\n'</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.tubes.ssh.ssh.listen_remote"><a name="//apple_ref/cpp/Method/pwnlib.tubes.ssh.ssh.listen_remote"></a>
+<code class="descname">listen_remote</code><span class="sig-paren">(</span><em>port = 0</em>, <em>bind_address = ‘’</em>, <em>timeout = Timeout.default</em><span class="sig-paren">)</span> → ssh_connecter<a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/ssh.py#L1179-1201"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.ssh.ssh.listen_remote" title="Permalink to this definition">¶</a></dt>
+<dd><p>Listens remotely through an SSH connection. This is equivalent to
+using the <code class="docutils literal"><span class="pre">-R</span></code> flag on <code class="docutils literal"><span class="pre">ssh</span></code>.</p>
+<p>Returns a <a class="reference internal" href="#pwnlib.tubes.ssh.ssh_listener" title="pwnlib.tubes.ssh.ssh_listener"><code class="xref py py-class docutils literal"><span class="pre">pwnlib.tubes.ssh.ssh_listener</span></code></a> object.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pwn</span> <span class="k">import</span> <span class="o">*</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span>  <span class="n">ssh</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s1">'example.pwnme'</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="n">user</span><span class="o">=</span><span class="s1">'travis'</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="n">password</span><span class="o">=</span><span class="s1">'demopass'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">l</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">listen_remote</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">remote</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">host</span><span class="p">,</span> <span class="n">l</span><span class="o">.</span><span class="n">port</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="n">l</span><span class="o">.</span><span class="n">wait_for_connection</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="s1">'Hello'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="nb">repr</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">recvline</span><span class="p">())</span>
+<span class="go">'Hello\n'</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.tubes.ssh.ssh.process"><a name="//apple_ref/cpp/Method/pwnlib.tubes.ssh.ssh.process"></a>
+<code class="descname">process</code><span class="sig-paren">(</span><em>argv=None</em>, <em>executable=None</em>, <em>tty=True</em>, <em>cwd=None</em>, <em>env=None</em>, <em>timeout=pwnlib.timeout.Timeout.default</em>, <em>run=True</em>, <em>stdin=0</em>, <em>stdout=1</em>, <em>stderr=2</em>, <em>preexec_fn=None</em>, <em>preexec_args=[]</em>, <em>raw=True</em>, <em>aslr=None</em>, <em>setuid=None</em>, <em>shell=False</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/ssh.py#L676-1048"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.ssh.ssh.process" title="Permalink to this definition">¶</a></dt>
+<dd><p>Executes a process on the remote server, in the same fashion
+as pwnlib.tubes.process.process.</p>
+<p>To achieve this, a Python script is created to call <code class="docutils literal"><span class="pre">os.execve</span></code>
+with the appropriate arguments.</p>
+<p>As an added bonus, the <code class="docutils literal"><span class="pre">ssh_channel</span></code> object returned has a
+<code class="docutils literal"><span class="pre">pid</span></code> property for the process pid.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>argv</strong> (<a class="reference internal" href="../protocols/adb.html#pwnlib.protocols.adb.AdbClient.list" title="pwnlib.protocols.adb.AdbClient.list"><em>list</em></a>) – List of arguments to pass into the process</li>
+<li><strong>executable</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Path to the executable to run.
+If <code class="xref py py-const docutils literal"><span class="pre">None</span></code>, <code class="docutils literal"><span class="pre">argv[0]</span></code> is used.</li>
+<li><strong>tty</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – Request a <cite>tty</cite> from the server.  This usually fixes buffering problems
+by causing <cite>libc</cite> to write data immediately rather than buffering it.
+However, this disables interpretation of control codes (e.g. Ctrl+C)
+and breaks <cite>.shutdown</cite>.</li>
+<li><strong>cwd</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Working directory.  If <code class="xref py py-const docutils literal"><span class="pre">None</span></code>, uses the working directory specified
+on <a class="reference internal" href="#pwnlib.tubes.ssh.ssh.cwd" title="pwnlib.tubes.ssh.ssh.cwd"><code class="xref py py-attr docutils literal"><span class="pre">cwd</span></code></a> or set via <a class="reference internal" href="#pwnlib.tubes.ssh.ssh.set_working_directory" title="pwnlib.tubes.ssh.ssh.set_working_directory"><code class="xref py py-meth docutils literal"><span class="pre">set_working_directory()</span></code></a>.</li>
+<li><strong>env</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) – Environment variables to set in the child.  If <code class="xref py py-const docutils literal"><span class="pre">None</span></code>, inherits the
+default environment.</li>
+<li><strong>timeout</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – Timeout to set on the <cite>tube</cite> created to interact with the process.</li>
+<li><strong>run</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – Set to <code class="xref py py-const docutils literal"><span class="pre">True</span></code> to run the program (default).
+If <code class="xref py py-const docutils literal"><span class="pre">False</span></code>, returns the path to an executable Python script on the
+remote server which, when executed, will do it.</li>
+<li><strong>stdin</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – If an integer, replace stdin with the numbered file descriptor.
+If a string, a open a file with the specified path and replace
+stdin with its file descriptor.  May also be one of <code class="docutils literal"><span class="pre">sys.stdin</span></code>,
+<code class="docutils literal"><span class="pre">sys.stdout</span></code>, <code class="docutils literal"><span class="pre">sys.stderr</span></code>.  If <code class="xref py py-const docutils literal"><span class="pre">None</span></code>, the file descriptor is closed.</li>
+<li><strong>stdout</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – See <code class="docutils literal"><span class="pre">stdin</span></code>.</li>
+<li><strong>stderr</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – See <code class="docutils literal"><span class="pre">stdin</span></code>.</li>
+<li><strong>preexec_fn</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#callable" title="(in Python v2.7)"><em>callable</em></a>) – Function which is executed on the remote side before execve().
+This <strong>MUST</strong> be a self-contained function – it must perform
+all of its own imports, and cannot refer to variables outside
+its scope.</li>
+<li><strong>preexec_args</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#object" title="(in Python v2.7)"><em>object</em></a>) – Argument passed to <code class="docutils literal"><span class="pre">preexec_fn</span></code>.
+This <strong>MUST</strong> only consist of native Python objects.</li>
+<li><strong>raw</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – If <code class="xref py py-const docutils literal"><span class="pre">True</span></code>, disable TTY control code interpretation.</li>
+<li><strong>aslr</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – See <a class="reference internal" href="processes.html#pwnlib.tubes.process.process" title="pwnlib.tubes.process.process"><code class="xref py py-class docutils literal"><span class="pre">pwnlib.tubes.process.process</span></code></a> for more information.</li>
+<li><strong>setuid</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – See <a class="reference internal" href="processes.html#pwnlib.tubes.process.process" title="pwnlib.tubes.process.process"><code class="xref py py-class docutils literal"><span class="pre">pwnlib.tubes.process.process</span></code></a> for more information.</li>
+<li><strong>shell</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – Pass the command-line arguments to the shell.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A new SSH channel, or a path to a script if <code class="docutils literal"><span class="pre">run=False</span></code>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>Requires Python on the remote server.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">ssh</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s1">'example.pwnme'</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="n">user</span><span class="o">=</span><span class="s1">'travis'</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="n">password</span><span class="o">=</span><span class="s1">'demopass'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sh</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="s1">'/bin/sh'</span><span class="p">,</span> <span class="n">env</span><span class="o">=</span><span class="p">{</span><span class="s1">'PS1'</span><span class="p">:</span><span class="s1">''</span><span class="p">})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sh</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="s1">'echo Hello; exit'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sh</span><span class="o">.</span><span class="n">recvall</span><span class="p">()</span>
+<span class="go">'Hello\n'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">process</span><span class="p">([</span><span class="s1">'/bin/echo'</span><span class="p">,</span> <span class="s1">'</span><span class="se">\xff</span><span class="s1">'</span><span class="p">])</span><span class="o">.</span><span class="n">recvall</span><span class="p">()</span>
+<span class="go">'\xff\n'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">process</span><span class="p">([</span><span class="s1">'readlink'</span><span class="p">,</span> <span class="s1">'/proc/self/exe'</span><span class="p">])</span><span class="o">.</span><span class="n">recvall</span><span class="p">()</span>
+<span class="go">'/bin/readlink\n'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">process</span><span class="p">([</span><span class="s1">'LOLOLOL'</span><span class="p">,</span> <span class="s1">'/proc/self/exe'</span><span class="p">],</span> <span class="n">executable</span><span class="o">=</span><span class="s1">'readlink'</span><span class="p">)</span><span class="o">.</span><span class="n">recvall</span><span class="p">()</span>
+<span class="go">'/bin/readlink\n'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">process</span><span class="p">([</span><span class="s1">'LOLOLOL</span><span class="se">\x00</span><span class="s1">'</span><span class="p">,</span> <span class="s1">'/proc/self/cmdline'</span><span class="p">],</span> <span class="n">executable</span><span class="o">=</span><span class="s1">'cat'</span><span class="p">)</span><span class="o">.</span><span class="n">recvall</span><span class="p">()</span>
+<span class="go">'LOLOLOL\x00/proc/self/cmdline\x00'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sh</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="n">executable</span><span class="o">=</span><span class="s1">'/bin/sh'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sh</span><span class="o">.</span><span class="n">pid</span> <span class="ow">in</span> <span class="n">pidof</span><span class="p">(</span><span class="s1">'sh'</span><span class="p">)</span> 
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">process</span><span class="p">([</span><span class="s1">'pwd'</span><span class="p">],</span> <span class="n">cwd</span><span class="o">=</span><span class="s1">'/tmp'</span><span class="p">)</span><span class="o">.</span><span class="n">recvall</span><span class="p">()</span>
+<span class="go">'/tmp\n'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">process</span><span class="p">([</span><span class="s1">'python'</span><span class="p">,</span><span class="s1">'-c'</span><span class="p">,</span><span class="s1">'import os; print os.read(2, 1024)'</span><span class="p">],</span> <span class="n">stderr</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s1">'hello'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">recv</span><span class="p">()</span>
+<span class="go">'hello\n'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">process</span><span class="p">([</span><span class="s1">'/bin/echo'</span><span class="p">,</span> <span class="s1">'hello'</span><span class="p">])</span><span class="o">.</span><span class="n">recvall</span><span class="p">()</span>
+<span class="go">'hello\n'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">process</span><span class="p">([</span><span class="s1">'/bin/echo'</span><span class="p">,</span> <span class="s1">'hello'</span><span class="p">],</span> <span class="n">stdout</span><span class="o">=</span><span class="s1">'/dev/null'</span><span class="p">)</span><span class="o">.</span><span class="n">recvall</span><span class="p">()</span>
+<span class="go">''</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">process</span><span class="p">([</span><span class="s1">'/usr/bin/env'</span><span class="p">],</span> <span class="n">env</span><span class="o">=</span><span class="p">{})</span><span class="o">.</span><span class="n">recvall</span><span class="p">()</span>
+<span class="go">''</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="s1">'/usr/bin/env'</span><span class="p">,</span> <span class="n">env</span><span class="o">=</span><span class="p">{</span><span class="s1">'A'</span><span class="p">:</span><span class="s1">'B'</span><span class="p">})</span><span class="o">.</span><span class="n">recvall</span><span class="p">()</span>
+<span class="go">'A=B\n'</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="s1">'false'</span><span class="p">,</span> <span class="n">preexec_fn</span><span class="o">=</span><span class="mi">1234</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="c">...</span>
+<span class="gr">PwnlibException</span>: <span class="n">preexec_fn must be a function</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="s1">'false'</span><span class="p">,</span> <span class="n">preexec_fn</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="mi">1234</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="c">...</span>
+<span class="gr">PwnlibException</span>: <span class="n">preexec_fn cannot be a lambda</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">uses_globals</span><span class="p">():</span>
+<span class="gp">... </span>    <span class="n">foo</span> <span class="o">=</span> <span class="n">bar</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">s</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="s1">'false'</span><span class="p">,</span> <span class="n">preexec_fn</span><span class="o">=</span><span class="n">uses_globals</span><span class="p">)</span><span class="o">.</span><span class="n">recvall</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> 
+<span class="gt">Traceback (most recent call last):</span>
+<span class="c">...</span>
+<span class="gr">NameError</span>: <span class="n">global name 'bar' is not defined</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="s1">'echo hello'</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">recvall</span><span class="p">()</span>
+<span class="go">'hello\n'</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.tubes.ssh.ssh.put"><a name="//apple_ref/cpp/Method/pwnlib.tubes.ssh.ssh.put"></a>
+<code class="descname">put</code><span class="sig-paren">(</span><em>file_or_directory</em>, <em>remote=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/ssh.py#L1601-1621"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.ssh.ssh.put" title="Permalink to this definition">¶</a></dt>
+<dd><p>upload(file_or_directory, remote=None)</p>
+<p>Upload a file or directory to the remote host.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>file_or_directory</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Path to the file or directory to download.</li>
+<li><strong>remote</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Local path to store the data.
+By default, uses the working directory.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.tubes.ssh.ssh.read"><a name="//apple_ref/cpp/Method/pwnlib.tubes.ssh.ssh.read"></a>
+<code class="descname">read</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/ssh.py#L1801-1803"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.ssh.ssh.read" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wrapper around download_data to match <a class="reference internal" href="../util/misc.html#pwnlib.util.misc.read" title="pwnlib.util.misc.read"><code class="xref py py-func docutils literal"><span class="pre">pwnlib.util.misc.read()</span></code></a></p>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.tubes.ssh.ssh.remote"><a name="//apple_ref/cpp/Method/pwnlib.tubes.ssh.ssh.remote"></a>
+<code class="descname">remote</code><span class="sig-paren">(</span><em>host</em>, <em>port</em>, <em>timeout=pwnlib.timeout.Timeout.default</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/ssh.py#L1154-1175"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.ssh.ssh.remote" title="Permalink to this definition">¶</a></dt>
+<dd><p>connect_remote(host, port, timeout = Timeout.default) -&gt; ssh_connecter</p>
+<p>Connects to a host through an SSH connection. This is equivalent to
+using the <code class="docutils literal"><span class="pre">-L</span></code> flag on <code class="docutils literal"><span class="pre">ssh</span></code>.</p>
+<p>Returns a <a class="reference internal" href="#pwnlib.tubes.ssh.ssh_connecter" title="pwnlib.tubes.ssh.ssh_connecter"><code class="xref py py-class docutils literal"><span class="pre">pwnlib.tubes.ssh.ssh_connecter</span></code></a> object.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pwn</span> <span class="k">import</span> <span class="o">*</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">l</span> <span class="o">=</span> <span class="n">listen</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span>  <span class="n">ssh</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s1">'example.pwnme'</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="n">user</span><span class="o">=</span><span class="s1">'travis'</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="n">password</span><span class="o">=</span><span class="s1">'demopass'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">connect_remote</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">host</span><span class="p">,</span> <span class="n">l</span><span class="o">.</span><span class="n">lport</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="n">l</span><span class="o">.</span><span class="n">wait_for_connection</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="s1">'Hello'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="nb">repr</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">recvline</span><span class="p">())</span>
+<span class="go">'Hello\n'</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.tubes.ssh.ssh.run"><a name="//apple_ref/cpp/Method/pwnlib.tubes.ssh.ssh.run"></a>
+<code class="descname">run</code><span class="sig-paren">(</span><em>process</em>, <em>tty=True</em>, <em>wd=None</em>, <em>env=None</em>, <em>timeout=None</em>, <em>raw=True</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/ssh.py#L1067-1096"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.ssh.ssh.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Backward compatibility.  Use <a class="reference internal" href="#pwnlib.tubes.ssh.ssh.system" title="pwnlib.tubes.ssh.ssh.system"><code class="xref py py-meth docutils literal"><span class="pre">system()</span></code></a></p>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.tubes.ssh.ssh.run_to_end"><a name="//apple_ref/cpp/Method/pwnlib.tubes.ssh.ssh.run_to_end"></a>
+<code class="descname">run_to_end</code><span class="sig-paren">(</span><em>process</em>, <em>tty = False</em>, <em>timeout = Timeout.default</em>, <em>env = None</em><span class="sig-paren">)</span> → str<a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/ssh.py#L1132-1152"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.ssh.ssh.run_to_end" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run a command on the remote server and return a tuple with
+(data, exit_status). If <cite>tty</cite> is True, then the command is run inside
+a TTY on the remote server.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span>  <span class="n">ssh</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s1">'example.pwnme'</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="n">user</span><span class="o">=</span><span class="s1">'travis'</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="n">password</span><span class="o">=</span><span class="s1">'demopass'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">s</span><span class="o">.</span><span class="n">run_to_end</span><span class="p">(</span><span class="s1">'echo Hello; exit 17'</span><span class="p">)</span>
+<span class="go">('Hello\n', 17)</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.tubes.ssh.ssh.set_working_directory"><a name="//apple_ref/cpp/Method/pwnlib.tubes.ssh.ssh.set_working_directory"></a>
+<code class="descname">set_working_directory</code><span class="sig-paren">(</span><em>wd=None</em>, <em>symlink=False</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/ssh.py#L1712-1795"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.ssh.ssh.set_working_directory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the working directory in which future commands will
+be run (via ssh.run) and to which files will be uploaded/downloaded
+from if no path is provided</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>This uses <code class="docutils literal"><span class="pre">mktemp</span> <span class="pre">-d</span></code> under the covers, sets permissions
+on the directory to <code class="docutils literal"><span class="pre">0700</span></code>.  This means that setuid binaries
+will <strong>not</strong> be able to access files created in this directory.</p>
+<p class="last">In order to work around this, we also <code class="docutils literal"><span class="pre">chmod</span> <span class="pre">+x</span></code> the directory.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>wd</strong> (<a class="reference internal" href="../elf/elf.html#pwnlib.elf.elf.ELF.string" title="pwnlib.elf.elf.ELF.string"><em>string</em></a>) – Working directory.  Default is to auto-generate a directory
+based on the result of running ‘mktemp -d’ on the remote machine.</li>
+<li><strong>symlink</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a><em>,</em><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – <p>Create symlinks in the new directory.</p>
+<p>The default value, <code class="docutils literal"><span class="pre">False</span></code>, implies that no symlinks should be
+created.</p>
+<p>A string value is treated as a path that should be symlinked.
+It is passed directly to the shell on the remote end for expansion,
+so wildcards work.</p>
+<p>Any other value is treated as a boolean, where <code class="docutils literal"><span class="pre">True</span></code> indicates
+that all files in the “old” working directory should be symlinked.</p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span>  <span class="n">ssh</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s1">'example.pwnme'</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="n">user</span><span class="o">=</span><span class="s1">'travis'</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="n">password</span><span class="o">=</span><span class="s1">'demopass'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cwd</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">set_working_directory</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">ls</span><span class="p">()</span>
+<span class="go">''</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">pwd</span><span class="p">()</span> <span class="o">==</span> <span class="n">cwd</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span>  <span class="n">ssh</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s1">'example.pwnme'</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="n">user</span><span class="o">=</span><span class="s1">'travis'</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="n">password</span><span class="o">=</span><span class="s1">'demopass'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">homedir</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">pwd</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">_</span><span class="o">=</span><span class="n">s</span><span class="o">.</span><span class="n">touch</span><span class="p">(</span><span class="s1">'foo'</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">_</span><span class="o">=</span><span class="n">s</span><span class="o">.</span><span class="n">set_working_directory</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">s</span><span class="o">.</span><span class="n">ls</span><span class="p">()</span> <span class="o">==</span> <span class="s1">''</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">_</span><span class="o">=</span><span class="n">s</span><span class="o">.</span><span class="n">set_working_directory</span><span class="p">(</span><span class="n">homedir</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="s1">'foo'</span> <span class="ow">in</span> <span class="n">s</span><span class="o">.</span><span class="n">ls</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">_</span><span class="o">=</span><span class="n">s</span><span class="o">.</span><span class="n">set_working_directory</span><span class="p">(</span><span class="n">symlink</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="s1">'foo'</span> <span class="ow">in</span> <span class="n">s</span><span class="o">.</span><span class="n">ls</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">homedir</span> <span class="o">!=</span> <span class="n">s</span><span class="o">.</span><span class="n">pwd</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">symlink</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">homedir</span><span class="p">,</span><span class="s1">'*'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">_</span><span class="o">=</span><span class="n">s</span><span class="o">.</span><span class="n">set_working_directory</span><span class="p">(</span><span class="n">symlink</span><span class="o">=</span><span class="n">symlink</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="s1">'foo'</span> <span class="ow">in</span> <span class="n">s</span><span class="o">.</span><span class="n">ls</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">homedir</span> <span class="o">!=</span> <span class="n">s</span><span class="o">.</span><span class="n">pwd</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.tubes.ssh.ssh.shell"><a name="//apple_ref/cpp/Method/pwnlib.tubes.ssh.ssh.shell"></a>
+<code class="descname">shell</code><span class="sig-paren">(</span><em>shell = None</em>, <em>tty = True</em>, <em>timeout = Timeout.default</em><span class="sig-paren">)</span> → ssh_channel<a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/ssh.py#L652-674"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.ssh.ssh.shell" title="Permalink to this definition">¶</a></dt>
+<dd><p>Open a new channel with a shell inside.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>shell</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Path to the shell program to run.
+If <code class="xref py py-const docutils literal"><span class="pre">None</span></code>, uses the default shell for the logged in user.</li>
+<li><strong>tty</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – If <code class="xref py py-const docutils literal"><span class="pre">True</span></code>, then a TTY is requested on the remote server.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Return a <a class="reference internal" href="#pwnlib.tubes.ssh.ssh_channel" title="pwnlib.tubes.ssh.ssh_channel"><code class="xref py py-class docutils literal"><span class="pre">pwnlib.tubes.ssh.ssh_channel</span></code></a> object.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span>  <span class="n">ssh</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s1">'example.pwnme'</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="n">user</span><span class="o">=</span><span class="s1">'travis'</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="n">password</span><span class="o">=</span><span class="s1">'demopass'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sh</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">shell</span><span class="p">(</span><span class="s1">'/bin/sh'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sh</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="s1">'echo Hello; exit'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="s1">'Hello'</span> <span class="ow">in</span> <span class="n">sh</span><span class="o">.</span><span class="n">recvall</span><span class="p">()</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.tubes.ssh.ssh.system"><a name="//apple_ref/cpp/Method/pwnlib.tubes.ssh.ssh.system"></a>
+<code class="descname">system</code><span class="sig-paren">(</span><em>process</em>, <em>tty = True</em>, <em>wd = None</em>, <em>env = None</em>, <em>timeout = Timeout.default</em>, <em>raw = True</em><span class="sig-paren">)</span> → ssh_channel<a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/ssh.py#L1067-1096"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.ssh.ssh.system" title="Permalink to this definition">¶</a></dt>
+<dd><p>Open a new channel with a specific process inside. If <cite>tty</cite> is True,
+then a TTY is requested on the remote server.</p>
+<p>If <cite>raw</cite> is True, terminal control codes are ignored and input is not
+echoed back.</p>
+<p>Return a <a class="reference internal" href="#pwnlib.tubes.ssh.ssh_channel" title="pwnlib.tubes.ssh.ssh_channel"><code class="xref py py-class docutils literal"><span class="pre">pwnlib.tubes.ssh.ssh_channel</span></code></a> object.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span>  <span class="n">ssh</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s1">'example.pwnme'</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="n">user</span><span class="o">=</span><span class="s1">'travis'</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="n">password</span><span class="o">=</span><span class="s1">'demopass'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">py</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s1">'python -i'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">_</span> <span class="o">=</span> <span class="n">py</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="s1">'&gt;&gt;&gt; '</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">py</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="s1">'print 2+2'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">py</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="s1">'exit'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="nb">repr</span><span class="p">(</span><span class="n">py</span><span class="o">.</span><span class="n">recvline</span><span class="p">())</span>
+<span class="go">'4\n'</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.tubes.ssh.ssh.unlink"><a name="//apple_ref/cpp/Method/pwnlib.tubes.ssh.ssh.unlink"></a>
+<code class="descname">unlink</code><span class="sig-paren">(</span><em>file</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/ssh.py#L1645-1656"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.ssh.ssh.unlink" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete the file on the remote host</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>file</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Path to the file</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.tubes.ssh.ssh.upload"><a name="//apple_ref/cpp/Method/pwnlib.tubes.ssh.ssh.upload"></a>
+<code class="descname">upload</code><span class="sig-paren">(</span><em>file_or_directory</em>, <em>remote=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/ssh.py#L1601-1621"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.ssh.ssh.upload" title="Permalink to this definition">¶</a></dt>
+<dd><p>Upload a file or directory to the remote host.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>file_or_directory</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Path to the file or directory to download.</li>
+<li><strong>remote</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Local path to store the data.
+By default, uses the working directory.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.tubes.ssh.ssh.upload_data"><a name="//apple_ref/cpp/Method/pwnlib.tubes.ssh.ssh.upload_data"></a>
+<code class="descname">upload_data</code><span class="sig-paren">(</span><em>data</em>, <em>remote</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/ssh.py#L1504-1543"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.ssh.ssh.upload_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Uploads some data into a file on the remote server.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>data</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – The data to upload.</li>
+<li><strong>remote</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – The filename to upload it to.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Example</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span>  <span class="n">ssh</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s1">'example.pwnme'</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="n">user</span><span class="o">=</span><span class="s1">'travis'</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="n">password</span><span class="o">=</span><span class="s1">'demopass'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">upload_data</span><span class="p">(</span><span class="s1">'Hello, world'</span><span class="p">,</span> <span class="s1">'/tmp/upload_foo'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">file</span><span class="p">(</span><span class="s1">'/tmp/upload_foo'</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="go">Hello, world</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">_sftp</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">_tried_sftp</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">upload_data</span><span class="p">(</span><span class="s1">'Hello, world'</span><span class="p">,</span> <span class="s1">'/tmp/upload_bar'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">file</span><span class="p">(</span><span class="s1">'/tmp/upload_bar'</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="go">Hello, world</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.tubes.ssh.ssh.upload_dir"><a name="//apple_ref/cpp/Method/pwnlib.tubes.ssh.ssh.upload_dir"></a>
+<code class="descname">upload_dir</code><span class="sig-paren">(</span><em>local</em>, <em>remote=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/ssh.py#L1566-1599"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.ssh.ssh.upload_dir" title="Permalink to this definition">¶</a></dt>
+<dd><p>Recursively uploads a directory onto the remote server</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>local</strong> – Local directory</li>
+<li><strong>remote</strong> – Remote directory</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.tubes.ssh.ssh.upload_file"><a name="//apple_ref/cpp/Method/pwnlib.tubes.ssh.ssh.upload_file"></a>
+<code class="descname">upload_file</code><span class="sig-paren">(</span><em>filename</em>, <em>remote=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/ssh.py#L1545-1564"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.ssh.ssh.upload_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Uploads a file to the remote server. Returns the remote filename.</p>
+<p>Arguments:
+filename(str): The local filename to download
+remote(str): The remote filename to save it to. Default is to infer it from the local filename.</p>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.tubes.ssh.ssh.which"><a name="//apple_ref/cpp/Method/pwnlib.tubes.ssh.ssh.which"></a>
+<code class="descname">which</code><span class="sig-paren">(</span><em>program</em><span class="sig-paren">)</span> → str<a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/ssh.py#L1050-1065"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.ssh.ssh.which" title="Permalink to this definition">¶</a></dt>
+<dd><p>Minor modification to just directly invoking <code class="docutils literal"><span class="pre">which</span></code> on the remote
+system which adds the current working directory to the end of <code class="docutils literal"><span class="pre">$PATH</span></code>.</p>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.tubes.ssh.ssh.write"><a name="//apple_ref/cpp/Method/pwnlib.tubes.ssh.ssh.write"></a>
+<code class="descname">write</code><span class="sig-paren">(</span><em>path</em>, <em>data</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/ssh.py#L1797-1799"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.ssh.ssh.write" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wrapper around upload_data to match <a class="reference internal" href="../util/misc.html#pwnlib.util.misc.write" title="pwnlib.util.misc.write"><code class="xref py py-func docutils literal"><span class="pre">pwnlib.util.misc.write()</span></code></a></p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.tubes.ssh.ssh.arch"><a name="//apple_ref/cpp/Attribute/pwnlib.tubes.ssh.ssh.arch"></a>
+<code class="descname">arch</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/ssh.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.ssh.ssh.arch" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a> – CPU Architecture of the remote machine.</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.tubes.ssh.ssh.aslr"><a name="//apple_ref/cpp/Attribute/pwnlib.tubes.ssh.ssh.aslr"></a>
+<code class="descname">aslr</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/ssh.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.ssh.ssh.aslr" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a> – Whether ASLR is enabled on the system.</p>
+<p class="rubric">Example</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">ssh</span><span class="p">(</span><span class="s2">"travis"</span><span class="p">,</span> <span class="s2">"example.pwnme"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">aslr</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.tubes.ssh.ssh.aslr_ulimit"><a name="//apple_ref/cpp/Attribute/pwnlib.tubes.ssh.ssh.aslr_ulimit"></a>
+<code class="descname">aslr_ulimit</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/ssh.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.ssh.ssh.aslr_ulimit" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a> – Whether the entropy of 32-bit processes can be reduced with ulimit.</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.tubes.ssh.ssh.bits"><a name="//apple_ref/cpp/Attribute/pwnlib.tubes.ssh.ssh.bits"></a>
+<code class="descname">bits</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/ssh.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.ssh.ssh.bits" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a> – Pointer size of the remote machine.</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.tubes.ssh.ssh.cache"><a name="//apple_ref/cpp/Attribute/pwnlib.tubes.ssh.ssh.cache"></a>
+<code class="descname">cache</code><em class="property"> = True</em><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/ssh.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.ssh.ssh.cache" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enable caching of SSH downloads (<code class="docutils literal"><span class="pre">bool</span></code>)</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.tubes.ssh.ssh.client"><a name="//apple_ref/cpp/Attribute/pwnlib.tubes.ssh.ssh.client"></a>
+<code class="descname">client</code><em class="property"> = None</em><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/ssh.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.ssh.ssh.client" title="Permalink to this definition">¶</a></dt>
+<dd><p>Paramiko SSHClient which backs this object</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.tubes.ssh.ssh.cwd"><a name="//apple_ref/cpp/Attribute/pwnlib.tubes.ssh.ssh.cwd"></a>
+<code class="descname">cwd</code><em class="property"> = None</em><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/ssh.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.ssh.ssh.cwd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Working directory (<code class="docutils literal"><span class="pre">str</span></code>)</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.tubes.ssh.ssh.distro"><a name="//apple_ref/cpp/Attribute/pwnlib.tubes.ssh.ssh.distro"></a>
+<code class="descname">distro</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/ssh.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.ssh.ssh.distro" title="Permalink to this definition">¶</a></dt>
+<dd><p><code class="xref py py-class docutils literal"><span class="pre">tuple</span></code> – Linux distribution name and release.</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.tubes.ssh.ssh.host"><a name="//apple_ref/cpp/Attribute/pwnlib.tubes.ssh.ssh.host"></a>
+<code class="descname">host</code><em class="property"> = None</em><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/ssh.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.ssh.ssh.host" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remote host name (<code class="docutils literal"><span class="pre">str</span></code>)</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.tubes.ssh.ssh.os"><a name="//apple_ref/cpp/Attribute/pwnlib.tubes.ssh.ssh.os"></a>
+<code class="descname">os</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/ssh.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.ssh.ssh.os" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a> – Operating System of the remote machine.</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.tubes.ssh.ssh.pid"><a name="//apple_ref/cpp/Attribute/pwnlib.tubes.ssh.ssh.pid"></a>
+<code class="descname">pid</code><em class="property"> = None</em><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/ssh.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.ssh.ssh.pid" title="Permalink to this definition">¶</a></dt>
+<dd><p>PID of the remote <code class="docutils literal"><span class="pre">sshd</span></code> process servicing this connection.</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.tubes.ssh.ssh.port"><a name="//apple_ref/cpp/Attribute/pwnlib.tubes.ssh.ssh.port"></a>
+<code class="descname">port</code><em class="property"> = None</em><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/ssh.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.ssh.ssh.port" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remote port (<code class="docutils literal"><span class="pre">int</span></code>)</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.tubes.ssh.ssh.sftp"><a name="//apple_ref/cpp/Attribute/pwnlib.tubes.ssh.ssh.sftp"></a>
+<code class="descname">sftp</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/ssh.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.ssh.ssh.sftp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Paramiko SFTPClient object which is used for file transfers.
+Set to <code class="xref py py-const docutils literal"><span class="pre">None</span></code> to disable <code class="docutils literal"><span class="pre">sftp</span></code>.</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.tubes.ssh.ssh.version"><a name="//apple_ref/cpp/Attribute/pwnlib.tubes.ssh.ssh.version"></a>
+<code class="descname">version</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/ssh.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.ssh.ssh.version" title="Permalink to this definition">¶</a></dt>
+<dd><p><code class="xref py py-class docutils literal"><span class="pre">tuple</span></code> – Kernel version of the remote machine.</p>
+</dd></dl>
+</dd></dl>
+<dl class="class">
+<dt id="pwnlib.tubes.ssh.ssh_channel"><a name="//apple_ref/cpp/Class/pwnlib.tubes.ssh.ssh_channel"></a>
+<em class="property">class </em><code class="descclassname">pwnlib.tubes.ssh.</code><code class="descname">ssh_channel</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/ssh.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.ssh.ssh_channel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="sockets.html#pwnlib.tubes.sock.sock" title="pwnlib.tubes.sock.sock"><code class="xref py py-class docutils literal"><span class="pre">pwnlib.tubes.sock.sock</span></code></a></p>
+<dl class="method">
+<dt id="pwnlib.tubes.ssh.ssh_channel.interactive"><a name="//apple_ref/cpp/Method/pwnlib.tubes.ssh.ssh_channel.interactive"></a>
+<code class="descname">interactive</code><span class="sig-paren">(</span><em>prompt = pwnlib.term.text.bold_red(‘$’) + ‘ ‘</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/ssh.py#L189-264"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.ssh.ssh_channel.interactive" title="Permalink to this definition">¶</a></dt>
+<dd><p>If not in TTY-mode, this does exactly the same as
+meth:<cite>pwnlib.tubes.tube.tube.interactive</cite>, otherwise
+it does mostly the same.</p>
+<p>An SSH connection in TTY-mode will typically supply its own prompt,
+thus the prompt argument is ignored in this case.
+We also have a few SSH-specific hacks that will ideally be removed
+once the <a class="reference internal" href="../term.html#module-pwnlib.term" title="pwnlib.term"><code class="xref py py-mod docutils literal"><span class="pre">pwnlib.term</span></code></a> is more mature.</p>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.tubes.ssh.ssh_channel.kill"><a name="//apple_ref/cpp/Method/pwnlib.tubes.ssh.ssh_channel.kill"></a>
+<code class="descname">kill</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/ssh.py#L136-142"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.ssh.ssh_channel.kill" title="Permalink to this definition">¶</a></dt>
+<dd><p>Kills the process.</p>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.tubes.ssh.ssh_channel.poll"><a name="//apple_ref/cpp/Method/pwnlib.tubes.ssh.ssh_channel.poll"></a>
+<code class="descname">poll</code><span class="sig-paren">(</span><span class="sig-paren">)</span> → int<a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/ssh.py#L166-179"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.ssh.ssh_channel.poll" title="Permalink to this definition">¶</a></dt>
+<dd><p>Poll the exit code of the process. Will return None, if the
+process has not yet finished and the exit code otherwise.</p>
+</dd></dl>
+</dd></dl>
+<dl class="class">
+<dt id="pwnlib.tubes.ssh.ssh_connecter"><a name="//apple_ref/cpp/Class/pwnlib.tubes.ssh.ssh_connecter"></a>
+<em class="property">class </em><code class="descclassname">pwnlib.tubes.ssh.</code><code class="descname">ssh_connecter</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/ssh.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.ssh.ssh_connecter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="sockets.html#pwnlib.tubes.sock.sock" title="pwnlib.tubes.sock.sock"><code class="xref py py-class docutils literal"><span class="pre">pwnlib.tubes.sock.sock</span></code></a></p>
+</dd></dl>
+<dl class="class">
+<dt id="pwnlib.tubes.ssh.ssh_listener"><a name="//apple_ref/cpp/Class/pwnlib.tubes.ssh.ssh_listener"></a>
+<em class="property">class </em><code class="descclassname">pwnlib.tubes.ssh.</code><code class="descname">ssh_listener</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/ssh.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.ssh.ssh_listener" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="sockets.html#pwnlib.tubes.sock.sock" title="pwnlib.tubes.sock.sock"><code class="xref py py-class docutils literal"><span class="pre">pwnlib.tubes.sock.sock</span></code></a></p>
+</dd></dl>
+</div>
+</div>
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a accesskey="n" class="btn btn-neutral float-right" href="../ui.html" rel="next" title="pwnlib.ui — Functions for user interaction">Next <span class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral" href="sockets.html" rel="prev" title="pwnlib.tubes.sock — Sockets"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © Copyright 2016, Gallopsled et al..
+
+    </p>
+</div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'3.14.0dev',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+<script src="../_static/jquery.js" type="text/javascript"></script>
+<script src="../_static/underscore.js" type="text/javascript"></script>
+<script src="../_static/doctools.js" type="text/javascript"></script>
+<script src="../_static/js/theme.js" type="text/javascript"></script>
+<script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>

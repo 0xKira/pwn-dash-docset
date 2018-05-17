@@ -1,0 +1,199 @@
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-193"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/FYL2XP1"></a><title>FYL2XP1</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>March 2018</li></ul></nav></header><h1>FYL2XP1
+		&mdash; Compute y &lowast; log2(x +1)</h1>
+
+<table>
+<tbody><tr>
+<th>Opcode</th>
+<th>Instruction</th>
+<th>64-Bit Mode</th>
+<th>Compat/Leg Mode</th>
+<th>Description</th></tr>
+<tr>
+<td>D9 F9</td>
+<td>FYL2XP1</td>
+<td>Valid</td>
+<td>Valid</td>
+<td>Replace ST(1) with ST(1) &lowast; log<sub>2</sub>(ST(0) + 1.0) and pop the register stack.</td></tr></tbody></table>
+<h2 id="description">Description<a class="anchor" href="FYL2XP1.html#description">
+			&para;
+		</a></h2>
+<p>Computes (ST(1) &lowast; log<sub>2</sub>(ST(0) + 1.0)), stores the result in register ST(1), and pops the FPU register stack. The source operand in ST(0) must be in the range:</p>
+<svg style="width: 135.7400592pt; height: 12.744pt" viewBox="61.278836 0.0 118.116716 15.62">
+<g xmlns="http://www.w3.org/2000/svg" style="fill: none; stroke: none">
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 99.18 0.480000000000018 L 99.18 0.0 L 94.98 0.0 L 94.92 0.180000000000064 L 95.16 0.480000000000018"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 92.4 10.3200000000001 L 92.34 10.5600000000001 L 91.86 10.4400000000001 L 91.92 10.2"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 95.4 0.300000000000068 L 94.92 0.180000000000064 L 91.92 10.2 L 92.4 10.3200000000001"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 91.98 10.4400000000001 L 92.1 10.62 L 92.52 10.3200000000001 L 92.4 10.1400000000001"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 91.98 10.4400000000001 L 92.4 10.1400000000001 L 90.42 7.2600000000001 L 90.24 6.96000000000004 L 90.0 7.2600000000001 L 90.0 7.56000000000006"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 89.4 9.0 L 89.28 9.17999999999995 L 88.86 8.88 L 88.98 8.70000000000005"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 90.42 7.56000000000006 L 90.0 7.2600000000001 L 88.98 8.70000000000005 L 89.4 9.00000000000011"></path>
+<text x="63.778836" textLength="113.116716" y="12.1563281250001" lengthAdjust="spacingAndGlyphs" style="font-size: 11.850688125pt; fill: #000">&ndash;(1&ndash; 2&frasl;2))to(1&ndash; 2&frasl;2)</text></g></svg>
+<p>The source operand in ST(1) can range from &minus;&infin; to +&infin;. If the ST(0) operand is outside of its acceptable range, the result is undefined and software should not rely on an exception being generated. Under some circumstances exceptions may be generated when ST(0) is out of range, but this behavior is implementation specific and not guaranteed.</p>
+<p>The following table shows the results obtained when taking the log epsilon of various classes of numbers, assuming that underflow does not occur.</p>
+<figure id="tbl-3-49">
+<svg style="width: 610.272048pt; height: 173.376012pt" viewBox="44.66 0.0 513.56004 149.48001">
+<g xmlns="http://www.w3.org/2000/svg" style="fill: none; stroke: none">
+<rect height="143.52" x="47.16" style="fill: rgb(0%, 0%, 0%)" y="0.480009999999993" width="0.47998"></rect>
+<rect height="127.5" x="102.06" style="fill: rgb(0%, 0%, 0%)" y="16.98001" width="1.5"></rect>
+<rect height="129.0" x="150.24" style="fill: rgb(0%, 0%, 0%)" y="15.48001" width="1.5"></rect>
+<rect height="129.0" x="275.94" style="fill: rgb(0%, 0%, 0%)" y="15.48001" width="0.48001"></rect>
+<rect height="129.0" x="324.12" style="fill: rgb(0%, 0%, 0%)" y="15.48001" width="0.48001"></rect>
+<rect height="129.0" x="372.24" style="fill: rgb(0%, 0%, 0%)" y="15.48001" width="0.47998"></rect>
+<rect height="129.0" x="497.46" style="fill: rgb(0%, 0%, 0%)" y="15.48001" width="0.47998"></rect>
+<rect height="143.52" x="555.24" style="fill: rgb(0%, 0%, 0%)" y="0.480009999999993" width="0.48004"></rect>
+<rect height="0.48001" x="47.16" style="fill: rgb(0%, 0%, 0%)" y="0.0" width="508.56"></rect>
+<rect height="1.5" x="102.06" style="fill: rgb(0%, 0%, 0%)" y="15.54001" width="453.66"></rect>
+<rect height="1.5" x="102.06" style="fill: rgb(0%, 0%, 0%)" y="31.50001" width="453.66"></rect>
+<rect height="0.48001" x="102.06" style="fill: rgb(0%, 0%, 0%)" y="48.0" width="453.66"></rect>
+<rect height="0.48001" x="102.06" style="fill: rgb(0%, 0%, 0%)" y="64.02" width="453.66"></rect>
+<rect height="0.47998" x="102.06" style="fill: rgb(0%, 0%, 0%)" y="79.98003" width="453.66"></rect>
+<rect height="0.48001" x="102.06" style="fill: rgb(0%, 0%, 0%)" y="96.0" width="453.66"></rect>
+<rect height="0.48001" x="102.06" style="fill: rgb(0%, 0%, 0%)" y="112.02" width="453.66"></rect>
+<rect height="0.47998" x="102.06" style="fill: rgb(0%, 0%, 0%)" y="127.98003" width="453.66"></rect>
+<rect height="0.48001" x="47.16" style="fill: rgb(0%, 0%, 0%)" y="144.0" width="508.56"></rect>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 211.02 20.28001 L 211.02 19.92001 L 207.66 19.92001 L 207.6 20.04001 L 207.78 20.28001"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 205.56 28.14001 L 205.5 28.32001 L 205.14 28.20001 L 205.2 28.02001"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 207.96 20.16001 L 207.6 20.04001 L 205.2 28.02001 L 205.56 28.14001"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 205.26 28.20001 L 205.32 28.32001 L 205.62 28.14001 L 205.56 28.02001"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 205.26 28.20001 L 205.56 28.02001 L 204.0 25.74001 L 203.82 25.50001 L 203.7 25.68001 L 203.7 25.92001"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 203.16 27.06001 L 203.04 27.18001 L 202.74 26.94001 L 202.86 26.82001"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 204.0 25.92001 L 203.7 25.68001 L 202.86 26.82001 L 203.16 27.06001"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 453.78 20.28001 L 453.78 19.92001 L 450.48 19.92001 L 450.42 20.04001 L 450.6 20.28001"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 448.38 28.14001 L 448.32 28.32001 L 447.96 28.20001 L 448.02 28.02001"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 450.78 20.16001 L 450.42 20.04001 L 448.02 28.02001 L 448.38 28.14001"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 448.08 28.20001 L 448.14 28.32001 L 448.44 28.14001 L 448.38 28.02001"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 448.08 28.20001 L 448.38 28.02001 L 446.76 25.74001 L 446.64 25.50001 L 446.46 25.74001 L 446.46 25.92001"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 445.98 27.06001 L 445.92 27.18001 L 445.62 27.00001 L 445.68 26.88001"></path>
+<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 446.76 25.92001 L 446.46 25.74001 L 445.68 26.88001 L 445.98 27.06001"></path>
+<text x="313.62" textLength="21.4254" y="13.16401" lengthAdjust="spacingAndGlyphs" style="font-size: 11.277pt; fill: #000">ST(0)</text>
+<text x="295.38" textLength="9.81360000000001" y="29.12101" lengthAdjust="spacingAndGlyphs" style="font-size: 10.926pt; fill: #000">-0</text>
+<text x="341.892" textLength="13.0896" y="29.12101" lengthAdjust="spacingAndGlyphs" style="font-size: 10.926pt; fill: #000">+0</text>
+<text x="173.4" textLength="38.37" y="29.929463125" lengthAdjust="spacingAndGlyphs" style="font-size: 10.886219125pt; fill: #000">&minus;(1&minus;( 2</text>
+<text x="213.780162" textLength="39.9556412" y="29.929463125" lengthAdjust="spacingAndGlyphs" style="font-size: 10.886219125pt; fill: #000">&frasl;2 ))to&minus;0</text>
+<text x="396.1197" textLength="45.72790916" y="29.929463125" lengthAdjust="spacingAndGlyphs" style="font-size: 10.886219125pt; fill: #000">+0 to +(1 - (</text>
+<text x="450.6" textLength="23.5374328799999" y="29.6246584375" lengthAdjust="spacingAndGlyphs" style="font-size: 10.5814144375pt; fill: #000">2 &frasl; 2 ))</text>
+<text x="517.62105008" textLength="17.9966564" y="29.1510792" lengthAdjust="spacingAndGlyphs" style="font-size: 10.1078352pt; fill: #000">NaN</text>
+<text x="297.42" textLength="5.72399999999999" y="45.14101" lengthAdjust="spacingAndGlyphs" style="font-size: 10.926pt; fill: #000">*</text>
+<text x="345.5421" textLength="5.72399999999999" y="45.14101" lengthAdjust="spacingAndGlyphs" style="font-size: 10.926pt; fill: #000">*</text>
+<text x="517.6199" textLength="17.9966564" y="45.1710792" lengthAdjust="spacingAndGlyphs" style="font-size: 10.1078352pt; fill: #000">NaN</text>
+<text x="206.76" textLength="13.64148" y="46.236338125" lengthAdjust="spacingAndGlyphs" style="font-size: 10.996228125pt; fill: #000">+&infin;</text>
+<text x="119.58" textLength="14.5416" y="46.236338125" lengthAdjust="spacingAndGlyphs" style="font-size: 9.95999999999998pt; fill: #000">&minus;&infin;</text>
+<text x="427.8003" textLength="14.5413" y="46.236338125" lengthAdjust="spacingAndGlyphs" style="font-size: 9.95999999999998pt; fill: #000">&minus;&infin;</text>
+<text x="64.38" textLength="21.4911" y="61.16401" lengthAdjust="spacingAndGlyphs" style="font-size: 11.277pt; fill: #000">ST(1)</text>
+<text x="120.2403" textLength="13.2795" y="61.909463125" lengthAdjust="spacingAndGlyphs" style="font-size: 11.734453125pt; fill: #000">&minus;F</text>
+<text x="207.3072" textLength="12.5514" y="61.10101" lengthAdjust="spacingAndGlyphs" style="font-size: 10.926pt; fill: #000">+F</text>
+<text x="293.7063" textLength="13.1004" y="61.10101" lengthAdjust="spacingAndGlyphs" style="font-size: 10.926pt; fill: #000">+0</text>
+<text x="343.5051" textLength="9.80279999999999" y="61.10101" lengthAdjust="spacingAndGlyphs" style="font-size: 10.926pt; fill: #000">-0</text>
+<text x="428.4606" textLength="13.2795" y="61.909463125" lengthAdjust="spacingAndGlyphs" style="font-size: 11.734453125pt; fill: #000">&minus;F</text>
+<text x="517.6199" textLength="17.9966564" y="61.1310792" lengthAdjust="spacingAndGlyphs" style="font-size: 10.1078352pt; fill: #000">NaN</text>
+<text x="120.0" textLength="13.8285" y="77.929463125" lengthAdjust="spacingAndGlyphs" style="font-size: 11.734453125pt; fill: #000">&minus;0</text>
+<text x="207.0669" textLength="13.041" y="77.12101" lengthAdjust="spacingAndGlyphs" style="font-size: 10.926pt; fill: #000">+0</text>
+<text x="293.7063" textLength="13.1004" y="77.12101" lengthAdjust="spacingAndGlyphs" style="font-size: 10.926pt; fill: #000">+0</text>
+<text x="343.5051" textLength="9.80279999999999" y="77.12101" lengthAdjust="spacingAndGlyphs" style="font-size: 10.926pt; fill: #000">-0</text>
+<text x="428.2203" textLength="13.7682" y="77.929463125" lengthAdjust="spacingAndGlyphs" style="font-size: 11.734453125pt; fill: #000">&minus;0</text>
+<text x="517.6199" textLength="17.9966564" y="77.1510792" lengthAdjust="spacingAndGlyphs" style="font-size: 10.1078352pt; fill: #000">NaN</text>
+<text x="120.36" textLength="13.041" y="93.1410099999999" lengthAdjust="spacingAndGlyphs" style="font-size: 10.926pt; fill: #000">+0</text>
+<text x="206.6403" textLength="13.8276" y="93.949463125" lengthAdjust="spacingAndGlyphs" style="font-size: 11.734453125pt; fill: #000">&minus;0</text>
+<text x="293.34" textLength="13.8285" y="93.949463125" lengthAdjust="spacingAndGlyphs" style="font-size: 11.734453125pt; fill: #000">&minus;0</text>
+<text x="341.8869" textLength="13.1004" y="93.1410099999999" lengthAdjust="spacingAndGlyphs" style="font-size: 10.926pt; fill: #000">+0</text>
+<text x="428.5857" textLength="13.041" y="93.1410099999999" lengthAdjust="spacingAndGlyphs" style="font-size: 10.926pt; fill: #000">+0</text>
+<text x="517.6199" textLength="17.9966564" y="93.1710792" lengthAdjust="spacingAndGlyphs" style="font-size: 10.1078352pt; fill: #000">NaN</text>
+<text x="120.6" textLength="12.5514" y="109.10101" lengthAdjust="spacingAndGlyphs" style="font-size: 10.926pt; fill: #000">+F</text>
+<text x="206.9397" textLength="13.2795" y="109.909463125" lengthAdjust="spacingAndGlyphs" style="font-size: 11.734453125pt; fill: #000">&minus;F</text>
+<text x="293.3397" textLength="13.8285" y="109.909463125" lengthAdjust="spacingAndGlyphs" style="font-size: 11.734453125pt; fill: #000">&minus;0</text>
+<text x="341.8866" textLength="13.1004" y="109.10101" lengthAdjust="spacingAndGlyphs" style="font-size: 10.926pt; fill: #000">+0</text>
+<text x="428.8257" textLength="12.5514" y="109.10101" lengthAdjust="spacingAndGlyphs" style="font-size: 10.926pt; fill: #000">+F</text>
+<text x="517.6199" textLength="17.9966564" y="109.1310792" lengthAdjust="spacingAndGlyphs" style="font-size: 10.1078352pt; fill: #000">NaN</text>
+<text x="119.64" textLength="14.48148" y="126.216338125" lengthAdjust="spacingAndGlyphs" style="font-size: 12.021328125pt; fill: #000">+&infin;</text>
+<text x="297.42" textLength="5.72399999999999" y="125.12101" lengthAdjust="spacingAndGlyphs" style="font-size: 10.926pt; fill: #000">*</text>
+<text x="345.5421" textLength="5.72399999999999" y="125.12101" lengthAdjust="spacingAndGlyphs" style="font-size: 10.926pt; fill: #000">*</text>
+<text x="427.8642" textLength="14.47728" y="126.216338125" lengthAdjust="spacingAndGlyphs" style="font-size: 12.021328125pt; fill: #000">+&infin;</text>
+<text x="517.6199" textLength="17.9966564" y="125.1510792" lengthAdjust="spacingAndGlyphs" style="font-size: 10.1078352pt; fill: #000">NaN</text>
+<text x="206.28" textLength="14.54136" y="126.216338125" lengthAdjust="spacingAndGlyphs" style="font-size: 9.95999999999998pt; fill: #000">&minus;&infin;</text>
+<text x="117.48" textLength="18.8568" y="141.14101" lengthAdjust="spacingAndGlyphs" style="font-size: 10.926pt; fill: #000">NaN</text>
+<text x="204.1248" textLength="18.9153" y="141.14101" lengthAdjust="spacingAndGlyphs" style="font-size: 10.926pt; fill: #000">NaN</text>
+<text x="290.8281" textLength="18.8568" y="141.14101" lengthAdjust="spacingAndGlyphs" style="font-size: 10.926pt; fill: #000">NaN</text>
+<text x="339.0123" textLength="18.8523" y="141.14101" lengthAdjust="spacingAndGlyphs" style="font-size: 10.926pt; fill: #000">NaN</text>
+<text x="425.712" textLength="18.8568" y="141.14101" lengthAdjust="spacingAndGlyphs" style="font-size: 10.926pt; fill: #000">NaN</text>
+<text x="517.6199" textLength="17.9966564" y="141.1710792" lengthAdjust="spacingAndGlyphs" style="font-size: 10.1078352pt; fill: #000">NaN</text></g></svg>
+<figcaption><a href="FYL2XP1.html#tbl-3-49">Table 3-49</a>. FYL2XP1 Results</figcaption></figure>
+<blockquote>
+<p>F Means finite floating-point value.</p>
+<p>* Indicatesfloating-pointinvalid-operation(#IA)exception.</p></blockquote>
+<p>This instruction provides optimal accuracy for values of epsilon [the value in register ST(0)] that are close to 0. For small epsilon (&epsilon;) values, more significant digits can be retained by using the FYL2XP1 instruction than by using (&epsilon;+1) as an argument to the FYL2X instruction. The (&epsilon;+1) expression is commonly found in compound interest and annuity calculations. The result can be simply converted into a value in another logarithm base by including a scale factor in the ST(1) source operand. The following equation is used to calculate the scale factor for a particular logarithm base, where n is the logarithm base desired for the result of the FYL2XP1 instruction:</p>
+<p>scale factor &larr; log<sub>n</sub> 2</p>
+<p>This instruction&rsquo;s operation is the same in non-64-bit modes and 64-bit mode.</p>
+<h2 id="operation">Operation<a class="anchor" href="FYL2XP1.html#operation">
+			&para;
+		</a></h2>
+<pre>ST(1) &larr; ST(1) &lowast; log<sub>2</sub>(ST(0) + 1.0);
+PopRegisterStack;
+</pre>
+<h2 id="fpu-flags-affected">FPU Flags Affected<a class="anchor" href="FYL2XP1.html#fpu-flags-affected">
+			&para;
+		</a></h2>
+<table>
+<tbody><tr>
+<td rowspan="2">C1</td>
+<td>Set to 0 if stack underflow occurred.</td></tr>
+<tr>
+<td>Set if result was rounded up; cleared otherwise.</td></tr>
+<tr>
+<td>C0, C2, C3</td>
+<td>Undefined.</td></tr></tbody></table>
+<h2 class="exceptions" id="floating-point-exceptions">Floating-Point Exceptions<a class="anchor" href="FYL2XP1.html#floating-point-exceptions">
+			&para;
+		</a></h2>
+<table>
+<tbody><tr>
+<td>#IS</td>
+<td>Stack underflow occurred.</td></tr>
+<tr>
+<td>#IA</td>
+<td>Either operand is an SNaN value or unsupported format.</td></tr>
+<tr>
+<td>#D</td>
+<td>Source operand is a denormal value.</td></tr>
+<tr>
+<td>#U</td>
+<td>Result is too small for destination format.</td></tr>
+<tr>
+<td>#O</td>
+<td>Result is too large for destination format.</td></tr>
+<tr>
+<td>#P</td>
+<td>Value cannot be represented exactly in destination format.</td></tr></tbody></table>
+<h2 class="exceptions" id="protected-mode-exceptions">Protected Mode Exceptions<a class="anchor" href="FYL2XP1.html#protected-mode-exceptions">
+			&para;
+		</a></h2>
+<table>
+<tbody><tr>
+<td>#NM</td>
+<td>CR0.EM[bit 2] or CR0.TS[bit 3] = 1.</td></tr>
+<tr>
+<td>#MF</td>
+<td>If there is a pending x87 FPU exception.</td></tr>
+<tr>
+<td>#UD</td>
+<td>If the LOCK prefix is used.</td></tr></tbody></table>
+<h2 class="exceptions" id="real-address-mode-exceptions">Real-Address Mode Exceptions<a class="anchor" href="FYL2XP1.html#real-address-mode-exceptions">
+			&para;
+		</a></h2>
+<p>Same exceptions as in protected mode.</p>
+<h2 class="exceptions" id="virtual-8086-mode-exceptions">Virtual-8086 Mode Exceptions<a class="anchor" href="FYL2XP1.html#virtual-8086-mode-exceptions">
+			&para;
+		</a></h2>
+<p>Same exceptions as in protected mode.</p>
+<h2 class="exceptions" id="compatibility-mode-exceptions">Compatibility Mode Exceptions<a class="anchor" href="FYL2XP1.html#compatibility-mode-exceptions">
+			&para;
+		</a></h2>
+<p>Same exceptions as in protected mode.</p>
+<h2 class="exceptions" id="64-bit-mode-exceptions">64-Bit Mode Exceptions<a class="anchor" href="FYL2XP1.html#64-bit-mode-exceptions">
+			&para;
+		</a></h2>
+<p>Same exceptions as in protected mode.</p><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+	</p></footer>
+</body></html>

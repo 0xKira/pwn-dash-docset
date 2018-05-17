@@ -1,0 +1,294 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Search &mdash; pwntools 3.14.0dev documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="search" title="Search" href="#" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> pwntools
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                3.14
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="#" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About pwntools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="globals.html"><code class="docutils literal"><span class="pre">from</span> <span class="pre">pwn</span> <span class="pre">import</span> <span class="pre">*</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="commandline.html">Command Line Tools</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="adb.html"><code class="docutils literal"><span class="pre">pwnlib.adb</span></code> — Android Debug Bridge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="args.html"><code class="docutils literal"><span class="pre">pwnlib.args</span></code> — Magic Command-Line Arguments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="asm.html"><code class="docutils literal"><span class="pre">pwnlib.asm</span></code> — Assembler functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="atexception.html"><code class="docutils literal"><span class="pre">pwnlib.atexception</span></code> — Callbacks on unhandled exception</a></li>
+<li class="toctree-l1"><a class="reference internal" href="atexit.html"><code class="docutils literal"><span class="pre">pwnlib.atexit</span></code> — Replacement for atexit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="constants.html"><code class="docutils literal"><span class="pre">pwnlib.constants</span></code> — Easy access to header file constants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config.html"><code class="docutils literal"><span class="pre">pwnlib.config</span></code> — Pwntools Configuration File</a></li>
+<li class="toctree-l1"><a class="reference internal" href="context.html"><code class="docutils literal"><span class="pre">pwnlib.context</span></code> — Setting runtime variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dynelf.html"><code class="docutils literal"><span class="pre">pwnlib.dynelf</span></code> — Resolving remote functions using leaks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="encoders.html"><code class="docutils literal"><span class="pre">pwnlib.encoders</span></code> — Encoding Shellcode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="elf.html"><code class="docutils literal"><span class="pre">pwnlib.elf</span></code> — ELF Executables and Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exception.html"><code class="docutils literal"><span class="pre">pwnlib.exception</span></code> — Pwnlib exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="flag.html"><code class="docutils literal"><span class="pre">pwnlib.flag</span></code> — CTF Flag Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fmtstr.html"><code class="docutils literal"><span class="pre">pwnlib.fmtstr</span></code> — Format string bug exploitation tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gdb.html"><code class="docutils literal"><span class="pre">pwnlib.gdb</span></code> — Working with GDB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libcdb.html"><code class="docutils literal"><span class="pre">pwnlib.libcdb</span></code> — Libc Database</a></li>
+<li class="toctree-l1"><a class="reference internal" href="log.html"><code class="docutils literal"><span class="pre">pwnlib.log</span></code> — Logging stuff</a></li>
+<li class="toctree-l1"><a class="reference internal" href="memleak.html"><code class="docutils literal"><span class="pre">pwnlib.memleak</span></code> — Helper class for leaking memory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="protocols.html"><code class="docutils literal"><span class="pre">pwnlib.protocols</span></code> — Wire Protocols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qemu.html"><code class="docutils literal"><span class="pre">pwnlib.qemu</span></code> — QEMU Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="replacements.html"><code class="docutils literal"><span class="pre">pwnlib.replacements</span></code> — Replacements for various functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rop.html"><code class="docutils literal"><span class="pre">pwnlib.rop</span></code> — Return Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rop/rop.html"><code class="docutils literal"><span class="pre">pwnlib.rop.rop</span></code> — Return Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rop/srop.html"><code class="docutils literal"><span class="pre">pwnlib.rop.srop</span></code> — Sigreturn Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="runner.html"><code class="docutils literal"><span class="pre">pwnlib.runner</span></code> — Running Shellcode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shellcraft.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft</span></code> — Shellcode generation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shellcraft/aarch64.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.aarch64</span></code> — Shellcode for AArch64</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shellcraft/amd64.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.amd64</span></code> — Shellcode for AMD64</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shellcraft/arm.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.arm</span></code> — Shellcode for ARM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shellcraft/common.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.common</span></code> — Shellcode common to all architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shellcraft/i386.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.i386</span></code> — Shellcode for Intel 80386</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shellcraft/mips.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.mips</span></code> — Shellcode for MIPS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shellcraft/regsort.html"><code class="docutils literal"><span class="pre">pwnlib.regsort</span></code> — Register sorting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shellcraft/thumb.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.thumb</span></code> — Shellcode for Thumb Mode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="term.html"><code class="docutils literal"><span class="pre">pwnlib.term</span></code> — Terminal handling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="timeout.html"><code class="docutils literal"><span class="pre">pwnlib.timeout</span></code> — Timeout handling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tubes.html"><code class="docutils literal"><span class="pre">pwnlib.tubes</span></code> — Talking to the World!</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tubes/processes.html"><code class="docutils literal"><span class="pre">pwnlib.tubes.process</span></code> — Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tubes/serial.html"><code class="docutils literal"><span class="pre">pwnlib.tubes.serialtube</span></code> — Serial Ports</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tubes/sockets.html"><code class="docutils literal"><span class="pre">pwnlib.tubes.sock</span></code> — Sockets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tubes/ssh.html"><code class="docutils literal"><span class="pre">pwnlib.tubes.ssh</span></code> — SSH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ui.html"><code class="docutils literal"><span class="pre">pwnlib.ui</span></code> — Functions for user interaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="update.html"><code class="docutils literal"><span class="pre">pwnlib.update</span></code> — Updating Pwntools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="useragents.html"><code class="docutils literal"><span class="pre">pwnlib.useragents</span></code> — A database of useragent strings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/crc.html"><code class="docutils literal"><span class="pre">pwnlib.util.crc</span></code> — Calculating CRC-sums</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/cyclic.html"><code class="docutils literal"><span class="pre">pwnlib.util.cyclic</span></code> — Generation of unique sequences</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/fiddling.html"><code class="docutils literal"><span class="pre">pwnlib.util.fiddling</span></code> — Utilities bit fiddling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/hashes.html"><code class="docutils literal"><span class="pre">pwnlib.util.hashes</span></code> — Hashing functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/iters.html"><code class="docutils literal"><span class="pre">pwnlib.util.iters</span></code> — Extension of standard module <code class="docutils literal"><span class="pre">itertools</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/lists.html"><code class="docutils literal"><span class="pre">pwnlib.util.lists</span></code> — Operations on lists</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/misc.html"><code class="docutils literal"><span class="pre">pwnlib.util.misc</span></code> — We could not fit it any other place</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/net.html"><code class="docutils literal"><span class="pre">pwnlib.util.net</span></code> — Networking interfaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/packing.html"><code class="docutils literal"><span class="pre">pwnlib.util.packing</span></code> — Packing and unpacking of strings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/proc.html"><code class="docutils literal"><span class="pre">pwnlib.util.proc</span></code> — Working with <code class="docutils literal"><span class="pre">/proc/</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/safeeval.html"><code class="docutils literal"><span class="pre">pwnlib.util.safeeval</span></code> — Safe evaluation of python code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/sh_string.html"><code class="docutils literal"><span class="pre">pwnlib.util.sh_string</span></code> — Shell Expansion is Hard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/web.html"><code class="docutils literal"><span class="pre">pwnlib.util.web</span></code> — Utilities for working with the WWW</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="testexample.html"><code class="docutils literal"><span class="pre">pwnlib.testexample</span></code> — Example Test Module</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">pwntools</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Search</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <noscript>
+  <div id="fallback" class="admonition warning">
+    <p class="last">
+      Please activate JavaScript to enable the search
+      functionality.
+    </p>
+  </div>
+  </noscript>
+
+  
+  <div id="search-results">
+  
+  </div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Gallopsled et al..
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'3.14.0dev',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/searchtools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+  <script type="text/javascript">
+    jQuery(function() { Search.loadIndex("searchindex.js"); });
+  </script>
+  
+  <script type="text/javascript" id="searchindexloader"></script>
+   
+
+
+</body>
+</html>

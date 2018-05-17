@@ -1,0 +1,14 @@
+{
+    "name": "x86_64 assembly language",
+    "package": "x86_64_asm",
+    "index": "index.html",
+    "selectors": {
+        "title": "Instruction"
+    },
+    "ignore": [
+        "ABOUT"
+    ],
+    "icon32x32": "",
+    "allowJS": false,
+    "ExternalURL": ""
+}

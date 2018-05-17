@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]--><!--[if gt IE 8]><!--><html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>pwnlib.timeout — Timeout handling — pwntools 3.14.0dev documentation</title>
+<link href="_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="about.html" rel="author" title="About these documents"/>
+<link href="search.html" rel="search" title="Search"/>
+<link href="tubes.html" rel="next" title="pwnlib.tubes — Talking to the World!"/>
+<link href="term.html" rel="prev" title="pwnlib.term — Terminal handling"/>
+<script src="_static/js/modernizr.min.js"></script>
+</head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="index.html"> pwntools
+          
+
+          
+          </a>
+<div class="version">
+                3.14
+              </div>
+<div role="search">
+<form action="search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About pwntools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="globals.html"><code class="docutils literal"><span class="pre">from</span> <span class="pre">pwn</span> <span class="pre">import</span> <span class="pre">*</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="commandline.html">Command Line Tools</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="adb.html"><code class="docutils literal"><span class="pre">pwnlib.adb</span></code> — Android Debug Bridge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="args.html"><code class="docutils literal"><span class="pre">pwnlib.args</span></code> — Magic Command-Line Arguments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="asm.html"><code class="docutils literal"><span class="pre">pwnlib.asm</span></code> — Assembler functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="atexception.html"><code class="docutils literal"><span class="pre">pwnlib.atexception</span></code> — Callbacks on unhandled exception</a></li>
+<li class="toctree-l1"><a class="reference internal" href="atexit.html"><code class="docutils literal"><span class="pre">pwnlib.atexit</span></code> — Replacement for atexit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="constants.html"><code class="docutils literal"><span class="pre">pwnlib.constants</span></code> — Easy access to header file constants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config.html"><code class="docutils literal"><span class="pre">pwnlib.config</span></code> — Pwntools Configuration File</a></li>
+<li class="toctree-l1"><a class="reference internal" href="context.html"><code class="docutils literal"><span class="pre">pwnlib.context</span></code> — Setting runtime variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dynelf.html"><code class="docutils literal"><span class="pre">pwnlib.dynelf</span></code> — Resolving remote functions using leaks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="encoders.html"><code class="docutils literal"><span class="pre">pwnlib.encoders</span></code> — Encoding Shellcode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="elf.html"><code class="docutils literal"><span class="pre">pwnlib.elf</span></code> — ELF Executables and Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exception.html"><code class="docutils literal"><span class="pre">pwnlib.exception</span></code> — Pwnlib exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="flag.html"><code class="docutils literal"><span class="pre">pwnlib.flag</span></code> — CTF Flag Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fmtstr.html"><code class="docutils literal"><span class="pre">pwnlib.fmtstr</span></code> — Format string bug exploitation tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gdb.html"><code class="docutils literal"><span class="pre">pwnlib.gdb</span></code> — Working with GDB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libcdb.html"><code class="docutils literal"><span class="pre">pwnlib.libcdb</span></code> — Libc Database</a></li>
+<li class="toctree-l1"><a class="reference internal" href="log.html"><code class="docutils literal"><span class="pre">pwnlib.log</span></code> — Logging stuff</a></li>
+<li class="toctree-l1"><a class="reference internal" href="memleak.html"><code class="docutils literal"><span class="pre">pwnlib.memleak</span></code> — Helper class for leaking memory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="protocols.html"><code class="docutils literal"><span class="pre">pwnlib.protocols</span></code> — Wire Protocols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qemu.html"><code class="docutils literal"><span class="pre">pwnlib.qemu</span></code> — QEMU Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="replacements.html"><code class="docutils literal"><span class="pre">pwnlib.replacements</span></code> — Replacements for various functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rop.html"><code class="docutils literal"><span class="pre">pwnlib.rop</span></code> — Return Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rop/rop.html"><code class="docutils literal"><span class="pre">pwnlib.rop.rop</span></code> — Return Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rop/srop.html"><code class="docutils literal"><span class="pre">pwnlib.rop.srop</span></code> — Sigreturn Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="runner.html"><code class="docutils literal"><span class="pre">pwnlib.runner</span></code> — Running Shellcode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shellcraft.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft</span></code> — Shellcode generation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shellcraft/aarch64.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.aarch64</span></code> — Shellcode for AArch64</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shellcraft/amd64.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.amd64</span></code> — Shellcode for AMD64</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shellcraft/arm.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.arm</span></code> — Shellcode for ARM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shellcraft/common.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.common</span></code> — Shellcode common to all architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shellcraft/i386.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.i386</span></code> — Shellcode for Intel 80386</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shellcraft/mips.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.mips</span></code> — Shellcode for MIPS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shellcraft/regsort.html"><code class="docutils literal"><span class="pre">pwnlib.regsort</span></code> — Register sorting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shellcraft/thumb.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.thumb</span></code> — Shellcode for Thumb Mode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="term.html"><code class="docutils literal"><span class="pre">pwnlib.term</span></code> — Terminal handling</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="docutils literal"><span class="pre">pwnlib.timeout</span></code> — Timeout handling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tubes.html"><code class="docutils literal"><span class="pre">pwnlib.tubes</span></code> — Talking to the World!</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tubes/processes.html"><code class="docutils literal"><span class="pre">pwnlib.tubes.process</span></code> — Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tubes/serial.html"><code class="docutils literal"><span class="pre">pwnlib.tubes.serialtube</span></code> — Serial Ports</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tubes/sockets.html"><code class="docutils literal"><span class="pre">pwnlib.tubes.sock</span></code> — Sockets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tubes/ssh.html"><code class="docutils literal"><span class="pre">pwnlib.tubes.ssh</span></code> — SSH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ui.html"><code class="docutils literal"><span class="pre">pwnlib.ui</span></code> — Functions for user interaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="update.html"><code class="docutils literal"><span class="pre">pwnlib.update</span></code> — Updating Pwntools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="useragents.html"><code class="docutils literal"><span class="pre">pwnlib.useragents</span></code> — A database of useragent strings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/crc.html"><code class="docutils literal"><span class="pre">pwnlib.util.crc</span></code> — Calculating CRC-sums</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/cyclic.html"><code class="docutils literal"><span class="pre">pwnlib.util.cyclic</span></code> — Generation of unique sequences</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/fiddling.html"><code class="docutils literal"><span class="pre">pwnlib.util.fiddling</span></code> — Utilities bit fiddling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/hashes.html"><code class="docutils literal"><span class="pre">pwnlib.util.hashes</span></code> — Hashing functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/iters.html"><code class="docutils literal"><span class="pre">pwnlib.util.iters</span></code> — Extension of standard module <code class="docutils literal"><span class="pre">itertools</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/lists.html"><code class="docutils literal"><span class="pre">pwnlib.util.lists</span></code> — Operations on lists</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/misc.html"><code class="docutils literal"><span class="pre">pwnlib.util.misc</span></code> — We could not fit it any other place</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/net.html"><code class="docutils literal"><span class="pre">pwnlib.util.net</span></code> — Networking interfaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/packing.html"><code class="docutils literal"><span class="pre">pwnlib.util.packing</span></code> — Packing and unpacking of strings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/proc.html"><code class="docutils literal"><span class="pre">pwnlib.util.proc</span></code> — Working with <code class="docutils literal"><span class="pre">/proc/</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/safeeval.html"><code class="docutils literal"><span class="pre">pwnlib.util.safeeval</span></code> — Safe evaluation of python code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/sh_string.html"><code class="docutils literal"><span class="pre">pwnlib.util.sh_string</span></code> — Shell Expansion is Hard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/web.html"><code class="docutils literal"><span class="pre">pwnlib.util.web</span></code> — Utilities for working with the WWW</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="testexample.html"><code class="docutils literal"><span class="pre">pwnlib.testexample</span></code> — Example Test Module</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="index.html">pwntools</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a href="index.html">Docs</a> »</li>
+<li><code class="docutils literal"><span class="pre">pwnlib.timeout</span></code> — Timeout handling</li>
+<li class="wy-breadcrumbs-aside">
+<a href="_sources/timeout.rst.txt" rel="nofollow"> View page source</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div class="section" id="module-pwnlib.timeout">
+<span id="pwnlib-timeout-timeout-handling"></span><h1><a name="//apple_ref/cpp/Module/pwnlib.timeout"></a><a class="reference internal" href="#module-pwnlib.timeout" title="pwnlib.timeout"><code class="xref py py-mod docutils literal"><span class="pre">pwnlib.timeout</span></code></a> — Timeout handling<a class="headerlink" href="#module-pwnlib.timeout" title="Permalink to this headline">¶</a></h1>
+<p>Timeout encapsulation, complete with countdowns and scope managers.</p>
+<dl class="class">
+<dt id="pwnlib.timeout.Timeout"><a name="//apple_ref/cpp/Class/pwnlib.timeout.Timeout"></a>
+<em class="property">class </em><code class="descclassname">pwnlib.timeout.</code><code class="descname">Timeout</code><span class="sig-paren">(</span><em>timeout=pwnlib.timeout.Timeout.default</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/timeout.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.timeout.Timeout" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implements a basic class which has a timeout, and support for
+scoped timeout countdowns.</p>
+<p>Valid timeout values are:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">Timeout.default</span></code> use the global default value (<code class="docutils literal"><span class="pre">context.default</span></code>)</li>
+<li><code class="docutils literal"><span class="pre">Timeout.forever</span></code> or <code class="xref py py-const docutils literal"><span class="pre">None</span></code> never time out</li>
+<li>Any positive float, indicates timeouts in seconds</li>
+</ul>
+<p class="rubric">Example</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">timeout</span> <span class="o">=</span> <span class="mi">30</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">Timeout</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">timeout</span> <span class="o">==</span> <span class="mi">30</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">Timeout</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">timeout</span> <span class="o">==</span> <span class="mi">5</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">t</span><span class="o">.</span><span class="n">countdown</span><span class="p">():</span>
+<span class="gp">... </span>    <span class="nb">print</span> <span class="p">(</span><span class="mi">4</span> <span class="o">&lt;=</span> <span class="n">t</span><span class="o">.</span><span class="n">timeout</span> <span class="ow">and</span> <span class="n">t</span><span class="o">.</span><span class="n">timeout</span> <span class="o">&lt;=</span> <span class="mi">5</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">t</span><span class="o">.</span><span class="n">countdown</span><span class="p">(</span><span class="mf">0.5</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">while</span> <span class="n">t</span><span class="o">.</span><span class="n">timeout</span><span class="p">:</span>
+<span class="gp">... </span>        <span class="nb">print</span> <span class="nb">round</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">timeout</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="go">0.5</span>
+<span class="go">0.4</span>
+<span class="go">0.3</span>
+<span class="go">0.2</span>
+<span class="go">0.1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">t</span><span class="o">.</span><span class="n">timeout</span>
+<span class="go">5.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">t</span><span class="o">.</span><span class="n">local</span><span class="p">(</span><span class="mf">0.5</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="nb">print</span> <span class="nb">round</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">timeout</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="go">0.5</span>
+<span class="go">0.5</span>
+<span class="go">0.5</span>
+<span class="go">0.5</span>
+<span class="go">0.5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">t</span><span class="o">.</span><span class="n">timeout</span>
+<span class="go">5.0</span>
+</pre></div>
+</div>
+<dl class="method">
+<dt id="pwnlib.timeout.Timeout.countdown"><a name="//apple_ref/cpp/Method/pwnlib.timeout.Timeout.countdown"></a>
+<code class="descname">countdown</code><span class="sig-paren">(</span><em>timeout=pwnlib.timeout.Timeout.default</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/timeout.py#L177-200"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.timeout.Timeout.countdown" title="Permalink to this definition">¶</a></dt>
+<dd><p>Scoped timeout setter.  Sets the timeout within the scope,
+and restores it when leaving the scope.</p>
+<p>When accessing <a class="reference internal" href="#pwnlib.timeout.Timeout.timeout" title="pwnlib.timeout.Timeout.timeout"><code class="xref py py-attr docutils literal"><span class="pre">timeout</span></code></a> within the scope, it will be
+calculated against the time when the scope was entered, in a
+countdown fashion.</p>
+<p>If <code class="xref py py-const docutils literal"><span class="pre">None</span></code> is specified for <code class="docutils literal"><span class="pre">timeout</span></code>, then the current
+timeout is used is made.  This allows <code class="xref py py-const docutils literal"><span class="pre">None</span></code> to be specified
+as a default argument with less complexity.</p>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.timeout.Timeout.local"><a name="//apple_ref/cpp/Method/pwnlib.timeout.Timeout.local"></a>
+<code class="descname">local</code><span class="sig-paren">(</span><em>timeout</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/timeout.py#L202-210"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.timeout.Timeout.local" title="Permalink to this definition">¶</a></dt>
+<dd><p>Scoped timeout setter.  Sets the timeout within the scope,
+and restores it when leaving the scope.</p>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.timeout.Timeout.timeout_change"><a name="//apple_ref/cpp/Method/pwnlib.timeout.Timeout.timeout_change"></a>
+<code class="descname">timeout_change</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/timeout.py#L171-175"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.timeout.Timeout.timeout_change" title="Permalink to this definition">¶</a></dt>
+<dd><p>Callback for subclasses to hook a timeout change.</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.timeout.Timeout.default"><a name="//apple_ref/cpp/Attribute/pwnlib.timeout.Timeout.default"></a>
+<code class="descname">default</code><em class="property"> = pwnlib.timeout.Timeout.default</em><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/timeout.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.timeout.Timeout.default" title="Permalink to this definition">¶</a></dt>
+<dd><p>Value indicating that the timeout should not be changed</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.timeout.Timeout.forever"><a name="//apple_ref/cpp/Attribute/pwnlib.timeout.Timeout.forever"></a>
+<code class="descname">forever</code><em class="property"> = None</em><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/timeout.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.timeout.Timeout.forever" title="Permalink to this definition">¶</a></dt>
+<dd><p>Value indicating that a timeout should not ever occur</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.timeout.Timeout.maximum"><a name="//apple_ref/cpp/Attribute/pwnlib.timeout.Timeout.maximum"></a>
+<code class="descname">maximum</code><em class="property"> = pwnlib.timeout.maximum</em><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/timeout.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.timeout.Timeout.maximum" title="Permalink to this definition">¶</a></dt>
+<dd><p>Maximum value for a timeout.  Used to get around platform issues
+with very large timeouts.</p>
+<p>OSX does not permit setting socket timeouts to 2**22.
+Assume that if we receive a timeout of 2**21 or greater,
+that the value is effectively infinite.</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.timeout.Timeout.timeout"><a name="//apple_ref/cpp/Attribute/pwnlib.timeout.Timeout.timeout"></a>
+<code class="descname">timeout</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/timeout.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.timeout.Timeout.timeout" title="Permalink to this definition">¶</a></dt>
+<dd><p>Timeout for obj operations.  By default, uses <code class="docutils literal"><span class="pre">context.timeout</span></code>.</p>
+</dd></dl>
+</dd></dl>
+</div>
+</div>
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a accesskey="n" class="btn btn-neutral float-right" href="tubes.html" rel="next" title="pwnlib.tubes — Talking to the World!">Next <span class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral" href="term.html" rel="prev" title="pwnlib.term — Terminal handling"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © Copyright 2016, Gallopsled et al..
+
+    </p>
+</div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'3.14.0dev',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+<script src="_static/jquery.js" type="text/javascript"></script>
+<script src="_static/underscore.js" type="text/javascript"></script>
+<script src="_static/doctools.js" type="text/javascript"></script>
+<script src="_static/js/theme.js" type="text/javascript"></script>
+<script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>

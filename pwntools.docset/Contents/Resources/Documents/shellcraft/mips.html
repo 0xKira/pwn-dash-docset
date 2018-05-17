@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]--><!--[if gt IE 8]><!--><html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>pwnlib.shellcraft.mips — Shellcode for MIPS — pwntools 3.14.0dev documentation</title>
+<link href="../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../about.html" rel="author" title="About these documents"/>
+<link href="../search.html" rel="search" title="Search"/>
+<link href="regsort.html" rel="next" title="pwnlib.regsort — Register sorting"/>
+<link href="i386.html" rel="prev" title="pwnlib.shellcraft.i386 — Shellcode for Intel 80386"/>
+<script src="../_static/js/modernizr.min.js"></script>
+</head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../index.html"> pwntools
+          
+
+          
+          </a>
+<div class="version">
+                3.14
+              </div>
+<div role="search">
+<form action="../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">About pwntools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../globals.html"><code class="docutils literal"><span class="pre">from</span> <span class="pre">pwn</span> <span class="pre">import</span> <span class="pre">*</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../commandline.html">Command Line Tools</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../adb.html"><code class="docutils literal"><span class="pre">pwnlib.adb</span></code> — Android Debug Bridge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../args.html"><code class="docutils literal"><span class="pre">pwnlib.args</span></code> — Magic Command-Line Arguments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../asm.html"><code class="docutils literal"><span class="pre">pwnlib.asm</span></code> — Assembler functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../atexception.html"><code class="docutils literal"><span class="pre">pwnlib.atexception</span></code> — Callbacks on unhandled exception</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../atexit.html"><code class="docutils literal"><span class="pre">pwnlib.atexit</span></code> — Replacement for atexit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../constants.html"><code class="docutils literal"><span class="pre">pwnlib.constants</span></code> — Easy access to header file constants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../config.html"><code class="docutils literal"><span class="pre">pwnlib.config</span></code> — Pwntools Configuration File</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../context.html"><code class="docutils literal"><span class="pre">pwnlib.context</span></code> — Setting runtime variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dynelf.html"><code class="docutils literal"><span class="pre">pwnlib.dynelf</span></code> — Resolving remote functions using leaks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../encoders.html"><code class="docutils literal"><span class="pre">pwnlib.encoders</span></code> — Encoding Shellcode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../elf.html"><code class="docutils literal"><span class="pre">pwnlib.elf</span></code> — ELF Executables and Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../exception.html"><code class="docutils literal"><span class="pre">pwnlib.exception</span></code> — Pwnlib exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../flag.html"><code class="docutils literal"><span class="pre">pwnlib.flag</span></code> — CTF Flag Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fmtstr.html"><code class="docutils literal"><span class="pre">pwnlib.fmtstr</span></code> — Format string bug exploitation tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gdb.html"><code class="docutils literal"><span class="pre">pwnlib.gdb</span></code> — Working with GDB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../libcdb.html"><code class="docutils literal"><span class="pre">pwnlib.libcdb</span></code> — Libc Database</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../log.html"><code class="docutils literal"><span class="pre">pwnlib.log</span></code> — Logging stuff</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../memleak.html"><code class="docutils literal"><span class="pre">pwnlib.memleak</span></code> — Helper class for leaking memory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../protocols.html"><code class="docutils literal"><span class="pre">pwnlib.protocols</span></code> — Wire Protocols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qemu.html"><code class="docutils literal"><span class="pre">pwnlib.qemu</span></code> — QEMU Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../replacements.html"><code class="docutils literal"><span class="pre">pwnlib.replacements</span></code> — Replacements for various functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rop.html"><code class="docutils literal"><span class="pre">pwnlib.rop</span></code> — Return Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rop/rop.html"><code class="docutils literal"><span class="pre">pwnlib.rop.rop</span></code> — Return Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rop/srop.html"><code class="docutils literal"><span class="pre">pwnlib.rop.srop</span></code> — Sigreturn Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../runner.html"><code class="docutils literal"><span class="pre">pwnlib.runner</span></code> — Running Shellcode</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../shellcraft.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft</span></code> — Shellcode generation</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../shellcraft.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="aarch64.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.aarch64</span></code> — Shellcode for AArch64</a></li>
+<li class="toctree-l3"><a class="reference internal" href="amd64.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.amd64</span></code> — Shellcode for AMD64</a></li>
+<li class="toctree-l3"><a class="reference internal" href="arm.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.arm</span></code> — Shellcode for ARM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="common.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.common</span></code> — Shellcode common to all architecture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="i386.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.i386</span></code> — Shellcode for Intel 80386</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.mips</span></code> — Shellcode for MIPS</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#module-pwnlib.shellcraft.mips"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.mips</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-pwnlib.shellcraft.mips.linux"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.mips.linux</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="regsort.html"><code class="docutils literal"><span class="pre">pwnlib.regsort</span></code> — Register sorting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="thumb.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.thumb</span></code> — Shellcode for Thumb Mode</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="aarch64.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.aarch64</span></code> — Shellcode for AArch64</a></li>
+<li class="toctree-l1"><a class="reference internal" href="amd64.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.amd64</span></code> — Shellcode for AMD64</a></li>
+<li class="toctree-l1"><a class="reference internal" href="arm.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.arm</span></code> — Shellcode for ARM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="common.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.common</span></code> — Shellcode common to all architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="i386.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.i386</span></code> — Shellcode for Intel 80386</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.mips</span></code> — Shellcode for MIPS</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-pwnlib.shellcraft.mips"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.mips</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pwnlib.shellcraft.mips.linux"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.mips.linux</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="regsort.html"><code class="docutils literal"><span class="pre">pwnlib.regsort</span></code> — Register sorting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="thumb.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.thumb</span></code> — Shellcode for Thumb Mode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../term.html"><code class="docutils literal"><span class="pre">pwnlib.term</span></code> — Terminal handling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../timeout.html"><code class="docutils literal"><span class="pre">pwnlib.timeout</span></code> — Timeout handling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tubes.html"><code class="docutils literal"><span class="pre">pwnlib.tubes</span></code> — Talking to the World!</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tubes/processes.html"><code class="docutils literal"><span class="pre">pwnlib.tubes.process</span></code> — Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tubes/serial.html"><code class="docutils literal"><span class="pre">pwnlib.tubes.serialtube</span></code> — Serial Ports</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tubes/sockets.html"><code class="docutils literal"><span class="pre">pwnlib.tubes.sock</span></code> — Sockets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tubes/ssh.html"><code class="docutils literal"><span class="pre">pwnlib.tubes.ssh</span></code> — SSH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ui.html"><code class="docutils literal"><span class="pre">pwnlib.ui</span></code> — Functions for user interaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../update.html"><code class="docutils literal"><span class="pre">pwnlib.update</span></code> — Updating Pwntools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../useragents.html"><code class="docutils literal"><span class="pre">pwnlib.useragents</span></code> — A database of useragent strings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../util/crc.html"><code class="docutils literal"><span class="pre">pwnlib.util.crc</span></code> — Calculating CRC-sums</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../util/cyclic.html"><code class="docutils literal"><span class="pre">pwnlib.util.cyclic</span></code> — Generation of unique sequences</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../util/fiddling.html"><code class="docutils literal"><span class="pre">pwnlib.util.fiddling</span></code> — Utilities bit fiddling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../util/hashes.html"><code class="docutils literal"><span class="pre">pwnlib.util.hashes</span></code> — Hashing functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../util/iters.html"><code class="docutils literal"><span class="pre">pwnlib.util.iters</span></code> — Extension of standard module <code class="docutils literal"><span class="pre">itertools</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../util/lists.html"><code class="docutils literal"><span class="pre">pwnlib.util.lists</span></code> — Operations on lists</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../util/misc.html"><code class="docutils literal"><span class="pre">pwnlib.util.misc</span></code> — We could not fit it any other place</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../util/net.html"><code class="docutils literal"><span class="pre">pwnlib.util.net</span></code> — Networking interfaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../util/packing.html"><code class="docutils literal"><span class="pre">pwnlib.util.packing</span></code> — Packing and unpacking of strings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../util/proc.html"><code class="docutils literal"><span class="pre">pwnlib.util.proc</span></code> — Working with <code class="docutils literal"><span class="pre">/proc/</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../util/safeeval.html"><code class="docutils literal"><span class="pre">pwnlib.util.safeeval</span></code> — Safe evaluation of python code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../util/sh_string.html"><code class="docutils literal"><span class="pre">pwnlib.util.sh_string</span></code> — Shell Expansion is Hard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../util/web.html"><code class="docutils literal"><span class="pre">pwnlib.util.web</span></code> — Utilities for working with the WWW</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../testexample.html"><code class="docutils literal"><span class="pre">pwnlib.testexample</span></code> — Example Test Module</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../index.html">pwntools</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a href="../index.html">Docs</a> »</li>
+<li><a href="../shellcraft.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft</span></code> — Shellcode generation</a> »</li>
+<li><code class="docutils literal"><span class="pre">pwnlib.shellcraft.mips</span></code> — Shellcode for MIPS</li>
+<li class="wy-breadcrumbs-aside">
+<a href="../_sources/shellcraft/mips.rst.txt" rel="nofollow"> View page source</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div class="section" id="pwnlib-shellcraft-mips-shellcode-for-mips">
+<h1><a class="reference internal" href="#module-pwnlib.shellcraft.mips" title="pwnlib.shellcraft.mips"><code class="xref py py-mod docutils literal"><span class="pre">pwnlib.shellcraft.mips</span></code></a> — Shellcode for MIPS<a class="headerlink" href="#pwnlib-shellcraft-mips-shellcode-for-mips" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-pwnlib.shellcraft.mips">
+<span id="pwnlib-shellcraft-mips"></span><h2><a name="//apple_ref/cpp/Module/pwnlib.shellcraft.mips"></a><a class="reference internal" href="#module-pwnlib.shellcraft.mips" title="pwnlib.shellcraft.mips"><code class="xref py py-mod docutils literal"><span class="pre">pwnlib.shellcraft.mips</span></code></a><a class="headerlink" href="#module-pwnlib.shellcraft.mips" title="Permalink to this headline">¶</a></h2>
+<p>Shellcraft module containing generic MIPS shellcodes.</p>
+<dl class="function">
+<dt id="pwnlib.shellcraft.mips.mov"><a name="//apple_ref/cpp/Function/pwnlib.shellcraft.mips.mov"></a>
+<code class="descclassname">pwnlib.shellcraft.mips.</code><code class="descname">mov</code><span class="sig-paren">(</span><em>dst</em>, <em>src</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/shellcraft/templates/mips/mov.asm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.shellcraft.mips.mov" title="Permalink to this definition">¶</a></dt>
+<dd><p>Move src into dst without newlines and null bytes.</p>
+<p>Registers $t8 and $t9 are not guaranteed to be preserved.</p>
+<p>If src is a string that is not a register, then it will locally set
+<cite>context.arch</cite> to <cite>‘mips’</cite> and use <code class="xref py py-func docutils literal"><span class="pre">pwnlib.constants.eval()</span></code> to evaluate the
+string. Note that this means that this shellcode can change behavior depending
+on the value of <cite>context.os</cite>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>dst</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – The destination register.</li>
+<li><strong>src</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Either the input register, or an immediate value.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Example</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">shellcraft</span><span class="o">.</span><span class="n">mips</span><span class="o">.</span><span class="n">mov</span><span class="p">(</span><span class="s1">'$t0'</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
+<span class="go">    slti $t0, $zero, 0xFFFF /* $t0 = 0 */</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">shellcraft</span><span class="o">.</span><span class="n">mips</span><span class="o">.</span><span class="n">mov</span><span class="p">(</span><span class="s1">'$t2'</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
+<span class="go">    xor $t2, $t2, $t2  /* $t2 = 0 */</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">shellcraft</span><span class="o">.</span><span class="n">mips</span><span class="o">.</span><span class="n">mov</span><span class="p">(</span><span class="s1">'$t0'</span><span class="p">,</span> <span class="mh">0xcafebabe</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
+<span class="go">    li $t0, 0xcafebabe</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">shellcraft</span><span class="o">.</span><span class="n">mips</span><span class="o">.</span><span class="n">mov</span><span class="p">(</span><span class="s1">'$t2'</span><span class="p">,</span> <span class="mh">0xcafebabe</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
+<span class="go">    li $t9, 0xcafebabe</span>
+<span class="go">    add $t2, $t9, $zero</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">shellcraft</span><span class="o">.</span><span class="n">mips</span><span class="o">.</span><span class="n">mov</span><span class="p">(</span><span class="s1">'$s0'</span><span class="p">,</span> <span class="mh">0xca0000be</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
+<span class="go">    li $t9, ~0xca0000be</span>
+<span class="go">    not $s0, $t9</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">shellcraft</span><span class="o">.</span><span class="n">mips</span><span class="o">.</span><span class="n">mov</span><span class="p">(</span><span class="s1">'$s0'</span><span class="p">,</span> <span class="mh">0xca0000ff</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
+<span class="go">    li $t9, 0x1010101 ^ 0xca0000ff</span>
+<span class="go">    li $s0, 0x1010101</span>
+<span class="go">    xor $s0, $t9, $s0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">shellcraft</span><span class="o">.</span><span class="n">mips</span><span class="o">.</span><span class="n">mov</span><span class="p">(</span><span class="s1">'$t9'</span><span class="p">,</span> <span class="mh">0xca0000be</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
+<span class="go">    li $t9, ~0xca0000be</span>
+<span class="go">    not $t9, $t9</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">shellcraft</span><span class="o">.</span><span class="n">mips</span><span class="o">.</span><span class="n">mov</span><span class="p">(</span><span class="s1">'$t2'</span><span class="p">,</span> <span class="mh">0xca0000be</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
+<span class="go">    li $t9, ~0xca0000be</span>
+<span class="go">    not $t9, $t9</span>
+<span class="go">    add $t2, $t9, $0 /* mov $t2, $t9 */</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">shellcraft</span><span class="o">.</span><span class="n">mips</span><span class="o">.</span><span class="n">mov</span><span class="p">(</span><span class="s1">'$t2'</span><span class="p">,</span> <span class="mh">0xca0000ff</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
+<span class="go">    li $t8, 0x1010101 ^ 0xca0000ff</span>
+<span class="go">    li $t9, 0x1010101</span>
+<span class="go">    xor $t9, $t8, $t9</span>
+<span class="go">    add $t2, $t9, $0 /* mov $t2, $t9 */</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">shellcraft</span><span class="o">.</span><span class="n">mips</span><span class="o">.</span><span class="n">mov</span><span class="p">(</span><span class="s1">'$a0'</span><span class="p">,</span> <span class="s1">'$t2'</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
+<span class="go">    add $a0, $t2, $0 /* mov $a0, $t2 */</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">shellcraft</span><span class="o">.</span><span class="n">mips</span><span class="o">.</span><span class="n">mov</span><span class="p">(</span><span class="s1">'$a0'</span><span class="p">,</span> <span class="s1">'$t8'</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
+<span class="go">    sw $t8, -4($sp) /* mov $a0, $t8 */</span>
+<span class="go">    lw $a0, -4($sp)</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="function">
+<dt id="pwnlib.shellcraft.mips.nop"><a name="//apple_ref/cpp/Function/pwnlib.shellcraft.mips.nop"></a>
+<code class="descclassname">pwnlib.shellcraft.mips.</code><code class="descname">nop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/shellcraft/templates/mips/nop.asm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.shellcraft.mips.nop" title="Permalink to this definition">¶</a></dt>
+<dd><p>MIPS nop instruction.</p>
+</dd></dl>
+<dl class="function">
+<dt id="pwnlib.shellcraft.mips.push"><a name="//apple_ref/cpp/Function/pwnlib.shellcraft.mips.push"></a>
+<code class="descclassname">pwnlib.shellcraft.mips.</code><code class="descname">push</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/shellcraft/templates/mips/push.asm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.shellcraft.mips.push" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pushes a value onto the stack.</p>
+</dd></dl>
+<dl class="function">
+<dt id="pwnlib.shellcraft.mips.pushstr"><a name="//apple_ref/cpp/Function/pwnlib.shellcraft.mips.pushstr"></a>
+<code class="descclassname">pwnlib.shellcraft.mips.</code><code class="descname">pushstr</code><span class="sig-paren">(</span><em>string</em>, <em>append_null=True</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/shellcraft/templates/mips/pushstr.asm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.shellcraft.mips.pushstr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pushes a string onto the stack without using
+null bytes or newline characters.</p>
+<p class="rubric">Example</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">shellcraft</span><span class="o">.</span><span class="n">mips</span><span class="o">.</span><span class="n">pushstr</span><span class="p">(</span><span class="s1">''</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
+<span class="go">    /* push '\x00' */</span>
+<span class="go">    sw $zero, -4($sp)</span>
+<span class="go">    addiu $sp, $sp, -4</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">shellcraft</span><span class="o">.</span><span class="n">mips</span><span class="o">.</span><span class="n">pushstr</span><span class="p">(</span><span class="s1">'a'</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
+<span class="go">    /* push 'a\x00' */</span>
+<span class="go">    li $t9, ~0x61</span>
+<span class="go">    not $t1, $t9</span>
+<span class="go">    sw $t1, -4($sp)</span>
+<span class="go">    addiu $sp, $sp, -4</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">shellcraft</span><span class="o">.</span><span class="n">mips</span><span class="o">.</span><span class="n">pushstr</span><span class="p">(</span><span class="s1">'aa'</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
+<span class="go">    /* push 'aa\x00' */</span>
+<span class="go">    ori $t1, $zero, 24929</span>
+<span class="go">    sw $t1, -4($sp)</span>
+<span class="go">    addiu $sp, $sp, -4</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">shellcraft</span><span class="o">.</span><span class="n">mips</span><span class="o">.</span><span class="n">pushstr</span><span class="p">(</span><span class="s1">'aaa'</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
+<span class="go">    /* push 'aaa\x00' */</span>
+<span class="go">    li $t9, ~0x616161</span>
+<span class="go">    not $t1, $t9</span>
+<span class="go">    sw $t1, -4($sp)</span>
+<span class="go">    addiu $sp, $sp, -4</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">shellcraft</span><span class="o">.</span><span class="n">mips</span><span class="o">.</span><span class="n">pushstr</span><span class="p">(</span><span class="s1">'aaaa'</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
+<span class="go">    /* push 'aaaa\x00' */</span>
+<span class="go">    li $t1, 0x61616161</span>
+<span class="go">    sw $t1, -8($sp)</span>
+<span class="go">    sw $zero, -4($sp)</span>
+<span class="go">    addiu $sp, $sp, -8</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">shellcraft</span><span class="o">.</span><span class="n">mips</span><span class="o">.</span><span class="n">pushstr</span><span class="p">(</span><span class="s1">'aaaaa'</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
+<span class="go">    /* push 'aaaaa\x00' */</span>
+<span class="go">    li $t1, 0x61616161</span>
+<span class="go">    sw $t1, -8($sp)</span>
+<span class="go">    li $t9, ~0x61</span>
+<span class="go">    not $t1, $t9</span>
+<span class="go">    sw $t1, -4($sp)</span>
+<span class="go">    addiu $sp, $sp, -8</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">shellcraft</span><span class="o">.</span><span class="n">mips</span><span class="o">.</span><span class="n">pushstr</span><span class="p">(</span><span class="s1">'aaaa'</span><span class="p">,</span> <span class="n">append_null</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
+<span class="go">    /* push 'aaaa' */</span>
+<span class="go">    li $t1, 0x61616161</span>
+<span class="go">    sw $t1, -4($sp)</span>
+<span class="go">    addiu $sp, $sp, -4</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">shellcraft</span><span class="o">.</span><span class="n">mips</span><span class="o">.</span><span class="n">pushstr</span><span class="p">(</span><span class="s1">'</span><span class="se">\xc3</span><span class="s1">'</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
+<span class="go">    /* push '\xc3\x00' */</span>
+<span class="go">    li $t9, ~0xc3</span>
+<span class="go">    not $t1, $t9</span>
+<span class="go">    sw $t1, -4($sp)</span>
+<span class="go">    addiu $sp, $sp, -4</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">shellcraft</span><span class="o">.</span><span class="n">mips</span><span class="o">.</span><span class="n">pushstr</span><span class="p">(</span><span class="s1">'</span><span class="se">\xc3</span><span class="s1">'</span><span class="p">,</span> <span class="n">append_null</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
+<span class="go">    /* push '\xc3' */</span>
+<span class="go">    li $t9, ~0xc3</span>
+<span class="go">    not $t1, $t9</span>
+<span class="go">    sw $t1, -4($sp)</span>
+<span class="go">    addiu $sp, $sp, -4</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">enhex</span><span class="p">(</span><span class="n">asm</span><span class="p">(</span><span class="n">shellcraft</span><span class="o">.</span><span class="n">mips</span><span class="o">.</span><span class="n">pushstr</span><span class="p">(</span><span class="s2">"/bin/sh"</span><span class="p">)))</span>
+<span class="go">696e093c2f622935f8ffa9af97ff193cd08c393727482003fcffa9aff8ffbd27</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">enhex</span><span class="p">(</span><span class="n">asm</span><span class="p">(</span><span class="n">shellcraft</span><span class="o">.</span><span class="n">mips</span><span class="o">.</span><span class="n">pushstr</span><span class="p">(</span><span class="s2">""</span><span class="p">)))</span>
+<span class="go">fcffa0affcffbd27</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">enhex</span><span class="p">(</span><span class="n">asm</span><span class="p">(</span><span class="n">shellcraft</span><span class="o">.</span><span class="n">mips</span><span class="o">.</span><span class="n">pushstr</span><span class="p">(</span><span class="s2">"</span><span class="se">\x00</span><span class="s2">"</span><span class="p">,</span> <span class="kc">False</span><span class="p">)))</span>
+<span class="go">fcffa0affcffbd27</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>string</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – The string to push.</li>
+<li><strong>append_null</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – Whether to append a single NULL-byte before pushing.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+<dl class="function">
+<dt id="pwnlib.shellcraft.mips.pushstr_array"><a name="//apple_ref/cpp/Function/pwnlib.shellcraft.mips.pushstr_array"></a>
+<code class="descclassname">pwnlib.shellcraft.mips.</code><code class="descname">pushstr_array</code><span class="sig-paren">(</span><em>reg</em>, <em>array</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/shellcraft/templates/mips/pushstr_array.asm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.shellcraft.mips.pushstr_array" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pushes an array/envp-style array of pointers onto the stack.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>reg</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Destination register to hold the pointer.</li>
+<li><strong>array</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a><em>,</em><a class="reference internal" href="../protocols/adb.html#pwnlib.protocols.adb.AdbClient.list" title="pwnlib.protocols.adb.AdbClient.list"><em>list</em></a>) – Single argument or list of arguments to push.
+NULL termination is normalized so that each argument
+ends with exactly one NULL byte.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+<dl class="function">
+<dt id="pwnlib.shellcraft.mips.setregs"><a name="//apple_ref/cpp/Function/pwnlib.shellcraft.mips.setregs"></a>
+<code class="descclassname">pwnlib.shellcraft.mips.</code><code class="descname">setregs</code><span class="sig-paren">(</span><em>reg_context</em>, <em>stack_allowed=True</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/shellcraft/templates/mips/setregs.asm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.shellcraft.mips.setregs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets multiple registers, taking any register dependencies into account
+(i.e., given eax=1,ebx=eax, set ebx first).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>reg_context</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) – Desired register context</li>
+<li><strong>stack_allowed</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – Can the stack be used?</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Example</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">shellcraft</span><span class="o">.</span><span class="n">setregs</span><span class="p">({</span><span class="s1">'$t0'</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span> <span class="s1">'$a3'</span><span class="p">:</span><span class="s1">'0'</span><span class="p">})</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
+<span class="go">    slti $a3, $zero, 0xFFFF /* $a3 = 0 */</span>
+<span class="go">    li $t9, ~1</span>
+<span class="go">    not $t0, $t9</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">shellcraft</span><span class="o">.</span><span class="n">setregs</span><span class="p">({</span><span class="s1">'$a0'</span><span class="p">:</span><span class="s1">'$a1'</span><span class="p">,</span> <span class="s1">'$a1'</span><span class="p">:</span><span class="s1">'$a0'</span><span class="p">,</span> <span class="s1">'$a2'</span><span class="p">:</span><span class="s1">'$a1'</span><span class="p">})</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
+<span class="go">    sw $a1, -4($sp) /* mov $a2, $a1 */</span>
+<span class="go">    lw $a2, -4($sp)</span>
+<span class="go">    xor $a1, $a1, $a0 /* xchg $a1, $a0 */</span>
+<span class="go">    xor $a0, $a1, $a0</span>
+<span class="go">    xor $a1, $a1, $a0</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="function">
+<dt id="pwnlib.shellcraft.mips.trap"><a name="//apple_ref/cpp/Function/pwnlib.shellcraft.mips.trap"></a>
+<code class="descclassname">pwnlib.shellcraft.mips.</code><code class="descname">trap</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/shellcraft/templates/mips/trap.asm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.shellcraft.mips.trap" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trap instruction.</p>
+</dd></dl>
+</div>
+<div class="section" id="module-pwnlib.shellcraft.mips.linux">
+<span id="pwnlib-shellcraft-mips-linux"></span><h2><a name="//apple_ref/cpp/Module/pwnlib.shellcraft.mips.linux"></a><a class="reference internal" href="#module-pwnlib.shellcraft.mips.linux" title="pwnlib.shellcraft.mips.linux"><code class="xref py py-mod docutils literal"><span class="pre">pwnlib.shellcraft.mips.linux</span></code></a><a class="headerlink" href="#module-pwnlib.shellcraft.mips.linux" title="Permalink to this headline">¶</a></h2>
+<p>Shellcraft module containing MIPS shellcodes for Linux.</p>
+<dl class="function">
+<dt id="pwnlib.shellcraft.mips.linux.bindsh"><a name="//apple_ref/cpp/Function/pwnlib.shellcraft.mips.linux.bindsh"></a>
+<code class="descclassname">pwnlib.shellcraft.mips.linux.</code><code class="descname">bindsh</code><span class="sig-paren">(</span><em>port</em>, <em>network</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/shellcraft/templates/mips/linux/bindsh.asm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.shellcraft.mips.linux.bindsh" title="Permalink to this definition">¶</a></dt>
+<dd><p>Listens on a TCP port and spawns a shell for the first to connect.
+Port is the TCP port to listen on, network is either ‘ipv4’ or ‘ipv6’.</p>
+</dd></dl>
+<dl class="function">
+<dt id="pwnlib.shellcraft.mips.linux.cat"><a name="//apple_ref/cpp/Function/pwnlib.shellcraft.mips.linux.cat"></a>
+<code class="descclassname">pwnlib.shellcraft.mips.linux.</code><code class="descname">cat</code><span class="sig-paren">(</span><em>filename</em>, <em>fd=1</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/shellcraft/templates/mips/linux/cat.asm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.shellcraft.mips.linux.cat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Opens a file and writes its contents to the specified file descriptor.</p>
+<p class="rubric">Example</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">mktemp</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">write</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="s1">'FLAG'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">asm</span>  <span class="o">=</span> <span class="n">shellcraft</span><span class="o">.</span><span class="n">mips</span><span class="o">.</span><span class="n">linux</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">asm</span> <span class="o">+=</span> <span class="n">shellcraft</span><span class="o">.</span><span class="n">mips</span><span class="o">.</span><span class="n">linux</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">run_assembly</span><span class="p">(</span><span class="n">asm</span><span class="p">)</span><span class="o">.</span><span class="n">recvall</span><span class="p">()</span>
+<span class="go">'FLAG'</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="function">
+<dt id="pwnlib.shellcraft.mips.linux.connect"><a name="//apple_ref/cpp/Function/pwnlib.shellcraft.mips.linux.connect"></a>
+<code class="descclassname">pwnlib.shellcraft.mips.linux.</code><code class="descname">connect</code><span class="sig-paren">(</span><em>host</em>, <em>port</em>, <em>network=’ipv4’</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/shellcraft/templates/mips/linux/connect.asm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.shellcraft.mips.linux.connect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Connects to the host on the specified port.
+Network is either ‘ipv4’ or ‘ipv6’.
+Leaves the connected socket in $s0.</p>
+</dd></dl>
+<dl class="function">
+<dt id="pwnlib.shellcraft.mips.linux.dupsh"><a name="//apple_ref/cpp/Function/pwnlib.shellcraft.mips.linux.dupsh"></a>
+<code class="descclassname">pwnlib.shellcraft.mips.linux.</code><code class="descname">dupsh</code><span class="sig-paren">(</span><em>sock=’$s0’</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/shellcraft/templates/mips/linux/dupsh.asm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.shellcraft.mips.linux.dupsh" title="Permalink to this definition">¶</a></dt>
+<dd><p>Args: [sock (imm/reg) = s0 ]
+Duplicates sock to stdin, stdout and stderr and spawns a shell.</p>
+</dd></dl>
+<dl class="function">
+<dt id="pwnlib.shellcraft.mips.linux.echo"><a name="//apple_ref/cpp/Function/pwnlib.shellcraft.mips.linux.echo"></a>
+<code class="descclassname">pwnlib.shellcraft.mips.linux.</code><code class="descname">echo</code><span class="sig-paren">(</span><em>string</em>, <em>sock=1</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/shellcraft/templates/mips/linux/echo.asm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.shellcraft.mips.linux.echo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes a string to a file descriptor</p>
+</dd></dl>
+<dl class="function">
+<dt id="pwnlib.shellcraft.mips.linux.findpeer"><a name="//apple_ref/cpp/Function/pwnlib.shellcraft.mips.linux.findpeer"></a>
+<code class="descclassname">pwnlib.shellcraft.mips.linux.</code><code class="descname">findpeer</code><span class="sig-paren">(</span><em>port</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/shellcraft/templates/mips/linux/findpeer.asm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.shellcraft.mips.linux.findpeer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds a connected socket. If port is specified it is checked
+against the peer port. Resulting socket is left in $s0.</p>
+</dd></dl>
+<dl class="function">
+<dt id="pwnlib.shellcraft.mips.linux.findpeersh"><a name="//apple_ref/cpp/Function/pwnlib.shellcraft.mips.linux.findpeersh"></a>
+<code class="descclassname">pwnlib.shellcraft.mips.linux.</code><code class="descname">findpeersh</code><span class="sig-paren">(</span><em>port</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/shellcraft/templates/mips/linux/findpeersh.asm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.shellcraft.mips.linux.findpeersh" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds a connected socket. If port is specified it is checked
+against the peer port. A dup2 shell is spawned on it.</p>
+</dd></dl>
+<dl class="function">
+<dt id="pwnlib.shellcraft.mips.linux.forkbomb"><a name="//apple_ref/cpp/Function/pwnlib.shellcraft.mips.linux.forkbomb"></a>
+<code class="descclassname">pwnlib.shellcraft.mips.linux.</code><code class="descname">forkbomb</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/shellcraft/templates/mips/linux/forkbomb.asm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.shellcraft.mips.linux.forkbomb" title="Permalink to this definition">¶</a></dt>
+<dd><p>Performs a forkbomb attack.</p>
+</dd></dl>
+<dl class="function">
+<dt id="pwnlib.shellcraft.mips.linux.forkexit"><a name="//apple_ref/cpp/Function/pwnlib.shellcraft.mips.linux.forkexit"></a>
+<code class="descclassname">pwnlib.shellcraft.mips.linux.</code><code class="descname">forkexit</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/shellcraft/templates/mips/linux/forkexit.asm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.shellcraft.mips.linux.forkexit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Attempts to fork.  If the fork is successful, the parent exits.</p>
+</dd></dl>
+<dl class="function">
+<dt id="pwnlib.shellcraft.mips.linux.killparent"><a name="//apple_ref/cpp/Function/pwnlib.shellcraft.mips.linux.killparent"></a>
+<code class="descclassname">pwnlib.shellcraft.mips.linux.</code><code class="descname">killparent</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/shellcraft/templates/mips/linux/killparent.asm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.shellcraft.mips.linux.killparent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Kills its parent process until whatever the parent is (probably init)
+cannot be killed any longer.</p>
+</dd></dl>
+<dl class="function">
+<dt id="pwnlib.shellcraft.mips.linux.listen"><a name="//apple_ref/cpp/Function/pwnlib.shellcraft.mips.linux.listen"></a>
+<code class="descclassname">pwnlib.shellcraft.mips.linux.</code><code class="descname">listen</code><span class="sig-paren">(</span><em>port</em>, <em>network</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/shellcraft/templates/mips/linux/listen.asm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.shellcraft.mips.linux.listen" title="Permalink to this definition">¶</a></dt>
+<dd><p>Listens on a TCP port, accept a client and leave his socket in $s0.
+Port is the TCP port to listen on, network is either ‘ipv4’ or ‘ipv6’.</p>
+</dd></dl>
+<dl class="function">
+<dt id="pwnlib.shellcraft.mips.linux.readfile"><a name="//apple_ref/cpp/Function/pwnlib.shellcraft.mips.linux.readfile"></a>
+<code class="descclassname">pwnlib.shellcraft.mips.linux.</code><code class="descname">readfile</code><span class="sig-paren">(</span><em>path</em>, <em>dst=’$s0’</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/shellcraft/templates/mips/linux/readfile.asm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.shellcraft.mips.linux.readfile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Args: [path, dst (imm/reg) = $s0 ]
+Opens the specified file path and sends its content to the specified file descriptor.</p>
+</dd></dl>
+<dl class="function">
+<dt id="pwnlib.shellcraft.mips.linux.sh"><a name="//apple_ref/cpp/Function/pwnlib.shellcraft.mips.linux.sh"></a>
+<code class="descclassname">pwnlib.shellcraft.mips.linux.</code><code class="descname">sh</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/shellcraft/templates/mips/linux/sh.asm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.shellcraft.mips.linux.sh" title="Permalink to this definition">¶</a></dt>
+<dd><p>Execute /bin/sh</p>
+<p class="rubric">Example</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">enhex</span><span class="p">(</span><span class="n">asm</span><span class="p">(</span><span class="n">shellcraft</span><span class="o">.</span><span class="n">mips</span><span class="o">.</span><span class="n">sh</span><span class="p">()))</span>
+<span class="go">6269093c2f2f2935f4ffa9af7368093c6e2f2935f8ffa9affcffa0aff4ffbd272020a003fcffa0affcffbd27ffff0628fcffa6affcffbd232030a00373680934fcffa9affcffbd27ffff0528fcffa5affcffbd23fbff1924272820032028bd00fcffa5affcffbd232028a003ab0f02340c010101</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="function">
+<dt id="pwnlib.shellcraft.mips.linux.stager"><a name="//apple_ref/cpp/Function/pwnlib.shellcraft.mips.linux.stager"></a>
+<code class="descclassname">pwnlib.shellcraft.mips.linux.</code><code class="descname">stager</code><span class="sig-paren">(</span><em>sock</em>, <em>size</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/shellcraft/templates/mips/linux/stager.asm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.shellcraft.mips.linux.stager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read ‘size’ bytes from ‘sock’ and place them in an executable buffer and jump to it.
+The socket will be left in $s0.</p>
+</dd></dl>
+<dl class="function">
+<dt id="pwnlib.shellcraft.mips.linux.syscall"><a name="//apple_ref/cpp/Function/pwnlib.shellcraft.mips.linux.syscall"></a>
+<code class="descclassname">pwnlib.shellcraft.mips.linux.</code><code class="descname">syscall</code><span class="sig-paren">(</span><em>syscall=None</em>, <em>arg0=None</em>, <em>arg1=None</em>, <em>arg2=None</em>, <em>arg3=None</em>, <em>arg4=None</em>, <em>arg5=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/shellcraft/templates/mips/linux/syscall.asm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.shellcraft.mips.linux.syscall" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Args: [syscall_number, *args]</dt>
+<dd>Does a syscall</dd>
+</dl>
+<p>Any of the arguments can be expressions to be evaluated by <code class="xref py py-func docutils literal"><span class="pre">pwnlib.constants.eval()</span></code>.</p>
+<p class="rubric">Example</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">pwnlib</span><span class="o">.</span><span class="n">shellcraft</span><span class="o">.</span><span class="n">mips</span><span class="o">.</span><span class="n">linux</span><span class="o">.</span><span class="n">syscall</span><span class="p">(</span><span class="s1">'SYS_execve'</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">'$sp'</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
+<span class="go">    /* call execve(1, '$sp', 2, 0) */</span>
+<span class="go">    li $t9, ~1</span>
+<span class="go">    not $a0, $t9</span>
+<span class="go">    add $a1, $sp, $0 /* mov $a1, $sp */</span>
+<span class="go">    li $t9, ~2</span>
+<span class="go">    not $a2, $t9</span>
+<span class="go">    slti $a3, $zero, 0xFFFF /* $a3 = 0 */</span>
+<span class="go">    ori $v0, $zero, SYS_execve</span>
+<span class="go">    syscall 0x40404</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">pwnlib</span><span class="o">.</span><span class="n">shellcraft</span><span class="o">.</span><span class="n">mips</span><span class="o">.</span><span class="n">linux</span><span class="o">.</span><span class="n">syscall</span><span class="p">(</span><span class="s1">'SYS_execve'</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
+<span class="go">    /* call execve(2, 1, 0, 0x14) */</span>
+<span class="go">    li $t9, ~2</span>
+<span class="go">    not $a0, $t9</span>
+<span class="go">    li $t9, ~1</span>
+<span class="go">    not $a1, $t9</span>
+<span class="go">    slti $a2, $zero, 0xFFFF /* $a2 = 0 */</span>
+<span class="go">    li $t9, ~0x14</span>
+<span class="go">    not $a3, $t9</span>
+<span class="go">    ori $v0, $zero, SYS_execve</span>
+<span class="go">    syscall 0x40404</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">pwnlib</span><span class="o">.</span><span class="n">shellcraft</span><span class="o">.</span><span class="n">mips</span><span class="o">.</span><span class="n">linux</span><span class="o">.</span><span class="n">syscall</span><span class="p">()</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
+<span class="go">    /* call syscall() */</span>
+<span class="go">    syscall 0x40404</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">pwnlib</span><span class="o">.</span><span class="n">shellcraft</span><span class="o">.</span><span class="n">mips</span><span class="o">.</span><span class="n">linux</span><span class="o">.</span><span class="n">syscall</span><span class="p">(</span><span class="s1">'$v0'</span><span class="p">,</span> <span class="s1">'$a0'</span><span class="p">,</span> <span class="s1">'$a1'</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
+<span class="go">    /* call syscall('$v0', '$a0', '$a1') */</span>
+<span class="go">    /* setregs noop */</span>
+<span class="go">    syscall 0x40404</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">pwnlib</span><span class="o">.</span><span class="n">shellcraft</span><span class="o">.</span><span class="n">mips</span><span class="o">.</span><span class="n">linux</span><span class="o">.</span><span class="n">syscall</span><span class="p">(</span><span class="s1">'$a3'</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
+<span class="go">    /* call syscall('$a3', ?, ?, 1) */</span>
+<span class="go">    li $t9, ~1</span>
+<span class="go">    not $a2, $t9</span>
+<span class="go">    sw $a3, -4($sp) /* mov $v0, $a3 */</span>
+<span class="go">    lw $v0, -4($sp)</span>
+<span class="go">    syscall 0x40404</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">pwnlib</span><span class="o">.</span><span class="n">shellcraft</span><span class="o">.</span><span class="n">mips</span><span class="o">.</span><span class="n">linux</span><span class="o">.</span><span class="n">syscall</span><span class="p">(</span>
+<span class="gp">... </span>              <span class="s1">'SYS_mmap2'</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mh">0x1000</span><span class="p">,</span>
+<span class="gp">... </span>              <span class="s1">'PROT_READ | PROT_WRITE | PROT_EXEC'</span><span class="p">,</span>
+<span class="gp">... </span>              <span class="s1">'MAP_PRIVATE | MAP_ANONYMOUS'</span><span class="p">,</span>
+<span class="gp">... </span>              <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
+<span class="go">    /* call mmap2(0, 0x1000, 'PROT_READ | PROT_WRITE | PROT_EXEC', 'MAP_PRIVATE | MAP_ANONYMOUS', -1, 0) */</span>
+<span class="go">    slti $a0, $zero, 0xFFFF /* $a0 = 0 */</span>
+<span class="go">    li $t9, ~0x1000</span>
+<span class="go">    not $a1, $t9</span>
+<span class="go">    li $t9, ~(PROT_READ | PROT_WRITE | PROT_EXEC) /* 7 */</span>
+<span class="go">    not $a2, $t9</span>
+<span class="go">    ori $a3, $zero, (MAP_PRIVATE | MAP_ANONYMOUS)</span>
+<span class="go">    ori $v0, $zero, SYS_mmap2</span>
+<span class="go">    syscall 0x40404</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">pwnlib</span><span class="o">.</span><span class="n">shellcraft</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">'/home/pwn/flag'</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
+<span class="go">    /* open(file='/home/pwn/flag', oflag=0, mode=0) */</span>
+<span class="go">    /* push '/home/pwn/flag\x00' */</span>
+<span class="go">    li $t1, 0x6d6f682f</span>
+<span class="go">    sw $t1, -16($sp)</span>
+<span class="go">    li $t1, 0x77702f65</span>
+<span class="go">    sw $t1, -12($sp)</span>
+<span class="go">    li $t1, 0x6c662f6e</span>
+<span class="go">    sw $t1, -8($sp)</span>
+<span class="go">    ori $t1, $zero, 26465</span>
+<span class="go">    sw $t1, -4($sp)</span>
+<span class="go">    addiu $sp, $sp, -16</span>
+<span class="go">    add $a0, $sp, $0 /* mov $a0, $sp */</span>
+<span class="go">    slti $a1, $zero, 0xFFFF /* $a1 = 0 */</span>
+<span class="go">    slti $a2, $zero, 0xFFFF /* $a2 = 0 */</span>
+<span class="go">    /* call open() */</span>
+<span class="go">    ori $v0, $zero, SYS_open</span>
+<span class="go">    syscall 0x40404</span>
+</pre></div>
+</div>
+</dd></dl>
+</div>
+</div>
+</div>
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a accesskey="n" class="btn btn-neutral float-right" href="regsort.html" rel="next" title="pwnlib.regsort — Register sorting">Next <span class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral" href="i386.html" rel="prev" title="pwnlib.shellcraft.i386 — Shellcode for Intel 80386"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © Copyright 2016, Gallopsled et al..
+
+    </p>
+</div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'3.14.0dev',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+<script src="../_static/jquery.js" type="text/javascript"></script>
+<script src="../_static/underscore.js" type="text/javascript"></script>
+<script src="../_static/doctools.js" type="text/javascript"></script>
+<script src="../_static/js/theme.js" type="text/javascript"></script>
+<script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>

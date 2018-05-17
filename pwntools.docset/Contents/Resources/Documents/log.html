@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]--><!--[if gt IE 8]><!--><html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>pwnlib.log — Logging stuff — pwntools 3.14.0dev documentation</title>
+<link href="_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="about.html" rel="author" title="About these documents"/>
+<link href="search.html" rel="search" title="Search"/>
+<link href="memleak.html" rel="next" title="pwnlib.memleak — Helper class for leaking memory"/>
+<link href="libcdb.html" rel="prev" title="pwnlib.libcdb — Libc Database"/>
+<script src="_static/js/modernizr.min.js"></script>
+</head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="index.html"> pwntools
+          
+
+          
+          </a>
+<div class="version">
+                3.14
+              </div>
+<div role="search">
+<form action="search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About pwntools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="globals.html"><code class="docutils literal"><span class="pre">from</span> <span class="pre">pwn</span> <span class="pre">import</span> <span class="pre">*</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="commandline.html">Command Line Tools</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="adb.html"><code class="docutils literal"><span class="pre">pwnlib.adb</span></code> — Android Debug Bridge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="args.html"><code class="docutils literal"><span class="pre">pwnlib.args</span></code> — Magic Command-Line Arguments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="asm.html"><code class="docutils literal"><span class="pre">pwnlib.asm</span></code> — Assembler functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="atexception.html"><code class="docutils literal"><span class="pre">pwnlib.atexception</span></code> — Callbacks on unhandled exception</a></li>
+<li class="toctree-l1"><a class="reference internal" href="atexit.html"><code class="docutils literal"><span class="pre">pwnlib.atexit</span></code> — Replacement for atexit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="constants.html"><code class="docutils literal"><span class="pre">pwnlib.constants</span></code> — Easy access to header file constants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config.html"><code class="docutils literal"><span class="pre">pwnlib.config</span></code> — Pwntools Configuration File</a></li>
+<li class="toctree-l1"><a class="reference internal" href="context.html"><code class="docutils literal"><span class="pre">pwnlib.context</span></code> — Setting runtime variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dynelf.html"><code class="docutils literal"><span class="pre">pwnlib.dynelf</span></code> — Resolving remote functions using leaks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="encoders.html"><code class="docutils literal"><span class="pre">pwnlib.encoders</span></code> — Encoding Shellcode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="elf.html"><code class="docutils literal"><span class="pre">pwnlib.elf</span></code> — ELF Executables and Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exception.html"><code class="docutils literal"><span class="pre">pwnlib.exception</span></code> — Pwnlib exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="flag.html"><code class="docutils literal"><span class="pre">pwnlib.flag</span></code> — CTF Flag Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fmtstr.html"><code class="docutils literal"><span class="pre">pwnlib.fmtstr</span></code> — Format string bug exploitation tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gdb.html"><code class="docutils literal"><span class="pre">pwnlib.gdb</span></code> — Working with GDB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libcdb.html"><code class="docutils literal"><span class="pre">pwnlib.libcdb</span></code> — Libc Database</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="docutils literal"><span class="pre">pwnlib.log</span></code> — Logging stuff</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#exploit-developers">Exploit Developers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pwnlib-developers">Pwnlib Developers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#technical-details">Technical details</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="memleak.html"><code class="docutils literal"><span class="pre">pwnlib.memleak</span></code> — Helper class for leaking memory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="protocols.html"><code class="docutils literal"><span class="pre">pwnlib.protocols</span></code> — Wire Protocols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qemu.html"><code class="docutils literal"><span class="pre">pwnlib.qemu</span></code> — QEMU Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="replacements.html"><code class="docutils literal"><span class="pre">pwnlib.replacements</span></code> — Replacements for various functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rop.html"><code class="docutils literal"><span class="pre">pwnlib.rop</span></code> — Return Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rop/rop.html"><code class="docutils literal"><span class="pre">pwnlib.rop.rop</span></code> — Return Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rop/srop.html"><code class="docutils literal"><span class="pre">pwnlib.rop.srop</span></code> — Sigreturn Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="runner.html"><code class="docutils literal"><span class="pre">pwnlib.runner</span></code> — Running Shellcode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shellcraft.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft</span></code> — Shellcode generation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shellcraft/aarch64.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.aarch64</span></code> — Shellcode for AArch64</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shellcraft/amd64.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.amd64</span></code> — Shellcode for AMD64</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shellcraft/arm.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.arm</span></code> — Shellcode for ARM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shellcraft/common.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.common</span></code> — Shellcode common to all architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shellcraft/i386.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.i386</span></code> — Shellcode for Intel 80386</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shellcraft/mips.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.mips</span></code> — Shellcode for MIPS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shellcraft/regsort.html"><code class="docutils literal"><span class="pre">pwnlib.regsort</span></code> — Register sorting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shellcraft/thumb.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.thumb</span></code> — Shellcode for Thumb Mode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="term.html"><code class="docutils literal"><span class="pre">pwnlib.term</span></code> — Terminal handling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="timeout.html"><code class="docutils literal"><span class="pre">pwnlib.timeout</span></code> — Timeout handling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tubes.html"><code class="docutils literal"><span class="pre">pwnlib.tubes</span></code> — Talking to the World!</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tubes/processes.html"><code class="docutils literal"><span class="pre">pwnlib.tubes.process</span></code> — Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tubes/serial.html"><code class="docutils literal"><span class="pre">pwnlib.tubes.serialtube</span></code> — Serial Ports</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tubes/sockets.html"><code class="docutils literal"><span class="pre">pwnlib.tubes.sock</span></code> — Sockets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tubes/ssh.html"><code class="docutils literal"><span class="pre">pwnlib.tubes.ssh</span></code> — SSH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ui.html"><code class="docutils literal"><span class="pre">pwnlib.ui</span></code> — Functions for user interaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="update.html"><code class="docutils literal"><span class="pre">pwnlib.update</span></code> — Updating Pwntools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="useragents.html"><code class="docutils literal"><span class="pre">pwnlib.useragents</span></code> — A database of useragent strings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/crc.html"><code class="docutils literal"><span class="pre">pwnlib.util.crc</span></code> — Calculating CRC-sums</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/cyclic.html"><code class="docutils literal"><span class="pre">pwnlib.util.cyclic</span></code> — Generation of unique sequences</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/fiddling.html"><code class="docutils literal"><span class="pre">pwnlib.util.fiddling</span></code> — Utilities bit fiddling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/hashes.html"><code class="docutils literal"><span class="pre">pwnlib.util.hashes</span></code> — Hashing functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/iters.html"><code class="docutils literal"><span class="pre">pwnlib.util.iters</span></code> — Extension of standard module <code class="docutils literal"><span class="pre">itertools</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/lists.html"><code class="docutils literal"><span class="pre">pwnlib.util.lists</span></code> — Operations on lists</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/misc.html"><code class="docutils literal"><span class="pre">pwnlib.util.misc</span></code> — We could not fit it any other place</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/net.html"><code class="docutils literal"><span class="pre">pwnlib.util.net</span></code> — Networking interfaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/packing.html"><code class="docutils literal"><span class="pre">pwnlib.util.packing</span></code> — Packing and unpacking of strings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/proc.html"><code class="docutils literal"><span class="pre">pwnlib.util.proc</span></code> — Working with <code class="docutils literal"><span class="pre">/proc/</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/safeeval.html"><code class="docutils literal"><span class="pre">pwnlib.util.safeeval</span></code> — Safe evaluation of python code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/sh_string.html"><code class="docutils literal"><span class="pre">pwnlib.util.sh_string</span></code> — Shell Expansion is Hard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/web.html"><code class="docutils literal"><span class="pre">pwnlib.util.web</span></code> — Utilities for working with the WWW</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="testexample.html"><code class="docutils literal"><span class="pre">pwnlib.testexample</span></code> — Example Test Module</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="index.html">pwntools</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a href="index.html">Docs</a> »</li>
+<li><code class="docutils literal"><span class="pre">pwnlib.log</span></code> — Logging stuff</li>
+<li class="wy-breadcrumbs-aside">
+<a href="_sources/log.rst.txt" rel="nofollow"> View page source</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div class="section" id="module-pwnlib.log">
+<span id="pwnlib-log-logging-stuff"></span><h1><a name="//apple_ref/cpp/Module/pwnlib.log"></a><a class="reference internal" href="#module-pwnlib.log" title="pwnlib.log"><code class="xref py py-mod docutils literal"><span class="pre">pwnlib.log</span></code></a> — Logging stuff<a class="headerlink" href="#module-pwnlib.log" title="Permalink to this headline">¶</a></h1>
+<p>Logging module for printing status during an exploit, and internally
+within <code class="docutils literal"><span class="pre">pwntools</span></code>.</p>
+<div class="section" id="exploit-developers">
+<h2>Exploit Developers<a class="headerlink" href="#exploit-developers" title="Permalink to this headline">¶</a></h2>
+<p>By using the standard <code class="docutils literal"><span class="pre">from</span> <span class="pre">pwn</span> <span class="pre">import</span> <span class="pre">*</span></code>, an object named <code class="docutils literal"><span class="pre">log</span></code> will
+be inserted into the global namespace.  You can use this to print out
+status messages during exploitation.</p>
+<p>For example,:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">'Hello, world!'</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>prints:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>[*] Hello, world!
+</pre></div>
+</div>
+<p>Additionally, there are some nifty mechanisms for performing status updates
+on a running job (e.g. when brute-forcing).:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">p</span> <span class="o">=</span> <span class="n">log</span><span class="o">.</span><span class="n">progress</span><span class="p">(</span><span class="s1">'Working'</span><span class="p">)</span>
+<span class="n">p</span><span class="o">.</span><span class="n">status</span><span class="p">(</span><span class="s1">'Reticulating splines'</span><span class="p">)</span>
+<span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">p</span><span class="o">.</span><span class="n">success</span><span class="p">(</span><span class="s1">'Got a shell!'</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The verbosity of logging can be most easily controlled by setting
+<code class="docutils literal"><span class="pre">log_level</span></code> on the global <code class="docutils literal"><span class="pre">context</span></code> object.:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"No you see me"</span><span class="p">)</span>
+<span class="n">context</span><span class="o">.</span><span class="n">log_level</span> <span class="o">=</span> <span class="s1">'error'</span>
+<span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Now you don't"</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The purpose of this attribute is to control what gets printed to the screen,
+not what gets emitted. This means that you can put all logging events into
+a log file, while only wanting to see a small subset of them on your screen.</p>
+</div>
+<div class="section" id="pwnlib-developers">
+<h2>Pwnlib Developers<a class="headerlink" href="#pwnlib-developers" title="Permalink to this headline">¶</a></h2>
+<p>A module-specific logger can be imported into the module via:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pwnlib.log</span> <span class="k">import</span> <span class="n">getLogger</span>
+<span class="n">log</span> <span class="o">=</span> <span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This provides an easy way to filter logging programmatically
+or via a configuration file for debugging.</p>
+<p>When using <code class="docutils literal"><span class="pre">progress</span></code>, you should use the <code class="docutils literal"><span class="pre">with</span></code>
+keyword to manage scoping, to ensure the spinner stops if an
+exception is thrown.</p>
+</div>
+<div class="section" id="technical-details">
+<h2>Technical details<a class="headerlink" href="#technical-details" title="Permalink to this headline">¶</a></h2>
+<p>Familiarity with the <a class="reference external" href="https://docs.python.org/2.7/library/logging.html#module-logging" title="(in Python v2.7)"><code class="xref py py-mod docutils literal"><span class="pre">logging</span></code></a> module is assumed.</p>
+<p>A pwnlib root logger named ‘pwnlib’ is created and a custom handler and
+formatter is installed for it.  The handler determines its logging level from
+<code class="xref py py-data docutils literal"><span class="pre">context.log_level</span></code>.</p>
+<p>Ideally <code class="xref py py-data docutils literal"><span class="pre">context.log_level</span></code> should only affect which records will be
+emitted by the handler such that e.g. logging to a file will not be changed by
+it. But for performance reasons it is not feasible log everything in the normal
+case. In particular there are tight loops inside <a class="reference internal" href="tubes.html#module-pwnlib.tubes.tube" title="pwnlib.tubes.tube"><code class="xref py py-mod docutils literal"><span class="pre">pwnlib.tubes.tube</span></code></a>, which
+we would like to be able to debug, but if we are not debugging them, they should
+not spit out messages (even to a log file). For this reason there are a few places
+inside pwnlib, that will not even emit a record without <code class="xref py py-data docutils literal"><span class="pre">context.log_level</span></code>
+being set to <cite>logging.DEBUG</cite> or below.</p>
+<p>Log records created by <code class="docutils literal"><span class="pre">Progress</span></code> and <code class="docutils literal"><span class="pre">Logger</span></code> objects will set
+<code class="docutils literal"><span class="pre">'pwnlib_msgtype'</span></code> on the <code class="docutils literal"><span class="pre">extra</span></code> field to signal which kind of message was
+generated.  This information is used by the formatter to prepend a symbol to the
+message, e.g. <code class="docutils literal"><span class="pre">'[+]</span> <span class="pre">'</span></code> in <code class="docutils literal"><span class="pre">'[+]</span> <span class="pre">got</span> <span class="pre">a</span> <span class="pre">shell!'</span></code></p>
+<p>This field is ignored when using the <code class="docutils literal"><span class="pre">logging</span></code> module’s standard formatters.</p>
+<p>All status updates (which are not dropped due to throttling) on progress loggers
+result in a log record being created.  The <code class="docutils literal"><span class="pre">extra</span></code> field then carries a
+reference to the <code class="docutils literal"><span class="pre">Progress</span></code> logger as <code class="docutils literal"><span class="pre">'pwnlib_progress'</span></code>.</p>
+<p>If the custom handler determines that <code class="xref py py-data docutils literal"><span class="pre">term.term_mode</span></code> is enabled, log
+records that have a <code class="docutils literal"><span class="pre">'pwnlib_progess'</span></code> in their <code class="docutils literal"><span class="pre">extra</span></code> field will not
+result in a message being emitted but rather an animated progress line (with a
+spinner!) being created.  Note that other handlers will still see a meaningful
+log record.</p>
+<p>The custom handler will only handle log records whith a level of at least
+<code class="xref py py-data docutils literal"><span class="pre">context.log_level</span></code>.  Thus if e.g. the level for the
+<code class="docutils literal"><span class="pre">'pwnlib.tubes.ssh'</span></code> is set to <code class="docutils literal"><span class="pre">'DEBUG'</span></code> no additional output will show up
+unless <code class="xref py py-data docutils literal"><span class="pre">context.log_level</span></code> is also set to <code class="docutils literal"><span class="pre">'DEBUG'</span></code>.  Other handlers
+will however see the extra log records generated by the <code class="docutils literal"><span class="pre">'pwnlib.tubes.ssh'</span></code>
+logger.</p>
+<dl class="function">
+<dt id="pwnlib.log.install_default_handler"><a name="//apple_ref/cpp/Function/pwnlib.log.install_default_handler"></a>
+<code class="descclassname">pwnlib.log.</code><code class="descname">install_default_handler</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/log.py#L667-680"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.log.install_default_handler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Instantiates a <a class="reference internal" href="#pwnlib.log.Handler" title="pwnlib.log.Handler"><code class="xref py py-class docutils literal"><span class="pre">Handler</span></code></a> and <a class="reference internal" href="#pwnlib.log.Formatter" title="pwnlib.log.Formatter"><code class="xref py py-class docutils literal"><span class="pre">Formatter</span></code></a> and installs them for
+the <code class="docutils literal"><span class="pre">pwnlib</span></code> root logger.  This function is automatically called from when
+importing <a class="reference internal" href="about.html#module-pwn" title="pwn"><code class="xref py py-mod docutils literal"><span class="pre">pwn</span></code></a>.</p>
+</dd></dl>
+</div>
+<dl class="class">
+<dt id="pwnlib.log.Progress"><a name="//apple_ref/cpp/Class/pwnlib.log.Progress"></a>
+<em class="property">class </em><code class="descclassname">pwnlib.log.</code><code class="descname">Progress</code><span class="sig-paren">(</span><em>logger</em>, <em>msg</em>, <em>status</em>, <em>level</em>, <em>args</em>, <em>kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/log.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.log.Progress" title="Permalink to this definition">¶</a></dt>
+<dd><p>Progress logger used to generate log records associated with some running
+job.  Instances can be used as context managers which will automatically
+declare the running job a success upon exit or a failure upon a thrown
+exception.  After <a class="reference internal" href="#pwnlib.log.Progress.success" title="pwnlib.log.Progress.success"><code class="xref py py-meth docutils literal"><span class="pre">success()</span></code></a> or <a class="reference internal" href="#pwnlib.log.Progress.failure" title="pwnlib.log.Progress.failure"><code class="xref py py-meth docutils literal"><span class="pre">failure()</span></code></a> is called the status
+can no longer be updated.</p>
+<p>This class is intended for internal use.  Progress loggers should be created
+using <a class="reference internal" href="#pwnlib.log.Logger.progress" title="pwnlib.log.Logger.progress"><code class="xref py py-meth docutils literal"><span class="pre">Logger.progress()</span></code></a>.</p>
+<dl class="method">
+<dt id="pwnlib.log.Progress.status"><a name="//apple_ref/cpp/Method/pwnlib.log.Progress.status"></a>
+<code class="descname">status</code><span class="sig-paren">(</span><em>status</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/log.py#L196-209"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.log.Progress.status" title="Permalink to this definition">¶</a></dt>
+<dd><p>Logs a status update for the running job.</p>
+<p>If the progress logger is animated the status line will be updated in
+place.</p>
+<p>Status updates are throttled at one update per 100ms.</p>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.log.Progress.success"><a name="//apple_ref/cpp/Method/pwnlib.log.Progress.success"></a>
+<code class="descname">success</code><span class="sig-paren">(</span><em>status = ‘Done’</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/log.py#L211-220"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.log.Progress.success" title="Permalink to this definition">¶</a></dt>
+<dd><p>Logs that the running job succeeded.  No further status updates are
+allowed.</p>
+<p>If the Logger is animated, the animation is stopped.</p>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.log.Progress.failure"><a name="//apple_ref/cpp/Method/pwnlib.log.Progress.failure"></a>
+<code class="descname">failure</code><span class="sig-paren">(</span><em>message</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/log.py#L222-231"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.log.Progress.failure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Logs that the running job failed.  No further status updates are
+allowed.</p>
+<p>If the Logger is animated, the animation is stopped.</p>
+</dd></dl>
+</dd></dl>
+<dl class="class">
+<dt id="pwnlib.log.Logger"><a name="//apple_ref/cpp/Class/pwnlib.log.Logger"></a>
+<em class="property">class </em><code class="descclassname">pwnlib.log.</code><code class="descname">Logger</code><span class="sig-paren">(</span><em>logger=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/log.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.log.Logger" title="Permalink to this definition">¶</a></dt>
+<dd><p>A class akin to the <a class="reference external" href="https://docs.python.org/2.7/library/logging.html#logging.LoggerAdapter" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">logging.LoggerAdapter</span></code></a> class.  All public
+methods defined on <a class="reference external" href="https://docs.python.org/2.7/library/logging.html#logging.Logger" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">logging.Logger</span></code></a> instances are defined on this
+class.</p>
+<p>Also adds some <code class="docutils literal"><span class="pre">pwnlib</span></code> flavor:</p>
+<ul class="simple">
+<li><a class="reference internal" href="#pwnlib.log.Logger.progress" title="pwnlib.log.Logger.progress"><code class="xref py py-meth docutils literal"><span class="pre">progress()</span></code></a> (alias <a class="reference internal" href="#pwnlib.log.Logger.waitfor" title="pwnlib.log.Logger.waitfor"><code class="xref py py-meth docutils literal"><span class="pre">waitfor()</span></code></a>)</li>
+<li><a class="reference internal" href="#pwnlib.log.Logger.success" title="pwnlib.log.Logger.success"><code class="xref py py-meth docutils literal"><span class="pre">success()</span></code></a></li>
+<li><a class="reference internal" href="#pwnlib.log.Logger.failure" title="pwnlib.log.Logger.failure"><code class="xref py py-meth docutils literal"><span class="pre">failure()</span></code></a></li>
+<li><a class="reference internal" href="#pwnlib.log.Logger.indented" title="pwnlib.log.Logger.indented"><code class="xref py py-meth docutils literal"><span class="pre">indented()</span></code></a></li>
+<li><a class="reference internal" href="#pwnlib.log.Logger.info_once" title="pwnlib.log.Logger.info_once"><code class="xref py py-meth docutils literal"><span class="pre">info_once()</span></code></a></li>
+<li><a class="reference internal" href="#pwnlib.log.Logger.warning_once" title="pwnlib.log.Logger.warning_once"><code class="xref py py-meth docutils literal"><span class="pre">warning_once()</span></code></a> (alias <a class="reference internal" href="#pwnlib.log.Logger.warn_once" title="pwnlib.log.Logger.warn_once"><code class="xref py py-meth docutils literal"><span class="pre">warn_once()</span></code></a>)</li>
+</ul>
+<p>Adds <code class="docutils literal"><span class="pre">pwnlib</span></code>-specific information for coloring, indentation and progress
+logging via log records <code class="docutils literal"><span class="pre">extra</span></code> field.</p>
+<p>Loggers instantiated with <code class="xref py py-func docutils literal"><span class="pre">getLogger()</span></code> will be of this class.</p>
+<dl class="method">
+<dt id="pwnlib.log.Logger.progress"><a name="//apple_ref/cpp/Method/pwnlib.log.Logger.progress"></a>
+<code class="descname">progress</code><span class="sig-paren">(</span><em>message</em>, <em>status = ‘’</em>, <em>*args</em>, <em>level = logging.INFO</em>, <em>**kwargs</em><span class="sig-paren">)</span> → Progress<a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/log.py#L294-317"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.log.Logger.progress" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a new progress logger which creates log records with log level
+<cite>level</cite>.</p>
+<p>Progress status can be updated using <a class="reference internal" href="#pwnlib.log.Progress.status" title="pwnlib.log.Progress.status"><code class="xref py py-meth docutils literal"><span class="pre">Progress.status()</span></code></a> and stopped
+using <a class="reference internal" href="#pwnlib.log.Progress.success" title="pwnlib.log.Progress.success"><code class="xref py py-meth docutils literal"><span class="pre">Progress.success()</span></code></a> or <a class="reference internal" href="#pwnlib.log.Progress.failure" title="pwnlib.log.Progress.failure"><code class="xref py py-meth docutils literal"><span class="pre">Progress.failure()</span></code></a>.</p>
+<p>If <cite>term.term_mode</cite> is enabled the progress logger will be animated.</p>
+<p>The progress manager also functions as a context manager.  Using context
+managers ensures that animations stop even if an exception is raised.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">log</span><span class="o">.</span><span class="n">progress</span><span class="p">(</span><span class="s1">'Trying something...'</span><span class="p">)</span> <span class="k">as</span> <span class="n">p</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">status</span><span class="p">(</span><span class="s2">"At </span><span class="si">%i</span><span class="s2">"</span> <span class="o">%</span> <span class="n">i</span><span class="p">)</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="mi">0</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.log.Logger.waitfor"><a name="//apple_ref/cpp/Method/pwnlib.log.Logger.waitfor"></a>
+<code class="descname">waitfor</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/log.py#L319-321"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.log.Logger.waitfor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for <a class="reference internal" href="#pwnlib.log.Logger.progress" title="pwnlib.log.Logger.progress"><code class="xref py py-meth docutils literal"><span class="pre">progress()</span></code></a>.</p>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.log.Logger.indented"><a name="//apple_ref/cpp/Method/pwnlib.log.Logger.indented"></a>
+<code class="descname">indented</code><span class="sig-paren">(</span><em>message</em>, <em>*args</em>, <em>level = logging.INFO</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/log.py#L323-333"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.log.Logger.indented" title="Permalink to this definition">¶</a></dt>
+<dd><p>Log a message but don’t put a line prefix on it.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>level</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – Alternate log level at which to set the indented
+message.  Defaults to <code class="xref py py-const docutils literal"><span class="pre">logging.INFO</span></code>.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.log.Logger.success"><a name="//apple_ref/cpp/Method/pwnlib.log.Logger.success"></a>
+<code class="descname">success</code><span class="sig-paren">(</span><em>message</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/log.py#L335-340"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.log.Logger.success" title="Permalink to this definition">¶</a></dt>
+<dd><p>Logs a success message.</p>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.log.Logger.failure"><a name="//apple_ref/cpp/Method/pwnlib.log.Logger.failure"></a>
+<code class="descname">failure</code><span class="sig-paren">(</span><em>message</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/log.py#L342-347"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.log.Logger.failure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Logs a failure message.</p>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.log.Logger.info_once"><a name="//apple_ref/cpp/Method/pwnlib.log.Logger.info_once"></a>
+<code class="descname">info_once</code><span class="sig-paren">(</span><em>message</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/log.py#L349-358"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.log.Logger.info_once" title="Permalink to this definition">¶</a></dt>
+<dd><p>Logs an info message.  The same message is never printed again.</p>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.log.Logger.warning_once"><a name="//apple_ref/cpp/Method/pwnlib.log.Logger.warning_once"></a>
+<code class="descname">warning_once</code><span class="sig-paren">(</span><em>message</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/log.py#L360-369"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.log.Logger.warning_once" title="Permalink to this definition">¶</a></dt>
+<dd><p>Logs a warning message.  The same message is never printed again.</p>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.log.Logger.warn_once"><a name="//apple_ref/cpp/Method/pwnlib.log.Logger.warn_once"></a>
+<code class="descname">warn_once</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/log.py#L371-373"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.log.Logger.warn_once" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for <a class="reference internal" href="#pwnlib.log.Logger.warning_once" title="pwnlib.log.Logger.warning_once"><code class="xref py py-meth docutils literal"><span class="pre">warning_once()</span></code></a>.</p>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.log.Logger.debug"><a name="//apple_ref/cpp/Method/pwnlib.log.Logger.debug"></a>
+<code class="descname">debug</code><span class="sig-paren">(</span><em>message</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/log.py#L377-382"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.log.Logger.debug" title="Permalink to this definition">¶</a></dt>
+<dd><p>Logs a debug message.</p>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.log.Logger.info"><a name="//apple_ref/cpp/Method/pwnlib.log.Logger.info"></a>
+<code class="descname">info</code><span class="sig-paren">(</span><em>message</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/log.py#L384-389"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.log.Logger.info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Logs an info message.</p>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.log.Logger.warning"><a name="//apple_ref/cpp/Method/pwnlib.log.Logger.warning"></a>
+<code class="descname">warning</code><span class="sig-paren">(</span><em>message</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/log.py#L399-404"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.log.Logger.warning" title="Permalink to this definition">¶</a></dt>
+<dd><p>Logs a warning message.</p>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.log.Logger.warn"><a name="//apple_ref/cpp/Method/pwnlib.log.Logger.warn"></a>
+<code class="descname">warn</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/log.py#L406-408"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.log.Logger.warn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for <a class="reference internal" href="#pwnlib.log.Logger.warning" title="pwnlib.log.Logger.warning"><code class="xref py py-meth docutils literal"><span class="pre">warning()</span></code></a>.</p>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.log.Logger.error"><a name="//apple_ref/cpp/Method/pwnlib.log.Logger.error"></a>
+<code class="descname">error</code><span class="sig-paren">(</span><em>message</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/log.py#L410-418"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.log.Logger.error" title="Permalink to this definition">¶</a></dt>
+<dd><p>To be called outside an exception handler.</p>
+<p>Logs an error message, then raises a <code class="docutils literal"><span class="pre">PwnlibException</span></code>.</p>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.log.Logger.exception"><a name="//apple_ref/cpp/Method/pwnlib.log.Logger.exception"></a>
+<code class="descname">exception</code><span class="sig-paren">(</span><em>message</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/log.py#L420-429"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.log.Logger.exception" title="Permalink to this definition">¶</a></dt>
+<dd><p>To be called from an exception handler.</p>
+<p>Logs a error message, then re-raises the current exception.</p>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.log.Logger.critical"><a name="//apple_ref/cpp/Method/pwnlib.log.Logger.critical"></a>
+<code class="descname">critical</code><span class="sig-paren">(</span><em>message</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/log.py#L431-436"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.log.Logger.critical" title="Permalink to this definition">¶</a></dt>
+<dd><p>Logs a critical message.</p>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.log.Logger.log"><a name="//apple_ref/cpp/Method/pwnlib.log.Logger.log"></a>
+<code class="descname">log</code><span class="sig-paren">(</span><em>level</em>, <em>message</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/log.py#L438-444"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.log.Logger.log" title="Permalink to this definition">¶</a></dt>
+<dd><p>Logs a message with log level <cite>level</cite>.  The <code class="docutils literal"><span class="pre">pwnlib</span></code> formatter will
+use the default <a class="reference external" href="https://docs.python.org/2.7/library/logging.html#module-logging" title="(in Python v2.7)"><code class="xref py py-mod docutils literal"><span class="pre">logging</span></code></a> formater to format this message.</p>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.log.Logger.isEnabledFor"><a name="//apple_ref/cpp/Method/pwnlib.log.Logger.isEnabledFor"></a>
+<code class="descname">isEnabledFor</code><span class="sig-paren">(</span><em>level</em><span class="sig-paren">)</span> → bool<a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/log.py#L446-455"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.log.Logger.isEnabledFor" title="Permalink to this definition">¶</a></dt>
+<dd><p>See if the underlying logger is enabled for the specified level.</p>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.log.Logger.setLevel"><a name="//apple_ref/cpp/Method/pwnlib.log.Logger.setLevel"></a>
+<code class="descname">setLevel</code><span class="sig-paren">(</span><em>level</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/log.py#L457-463"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.log.Logger.setLevel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the logging level for the underlying logger.</p>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.log.Logger.addHandler"><a name="//apple_ref/cpp/Method/pwnlib.log.Logger.addHandler"></a>
+<code class="descname">addHandler</code><span class="sig-paren">(</span><em>handler</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/log.py#L465-470"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.log.Logger.addHandler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add the specified handler to the underlying logger.</p>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.log.Logger.removeHandler"><a name="//apple_ref/cpp/Method/pwnlib.log.Logger.removeHandler"></a>
+<code class="descname">removeHandler</code><span class="sig-paren">(</span><em>handler</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/log.py#L472-477"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.log.Logger.removeHandler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove the specified handler from the underlying logger.</p>
+</dd></dl>
+</dd></dl>
+<dl class="class">
+<dt id="pwnlib.log.Handler"><a name="//apple_ref/cpp/Class/pwnlib.log.Handler"></a>
+<em class="property">class </em><code class="descclassname">pwnlib.log.</code><code class="descname">Handler</code><span class="sig-paren">(</span><em>stream=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/log.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.log.Handler" title="Permalink to this definition">¶</a></dt>
+<dd><p>A custom handler class.  This class will report whatever
+<code class="xref py py-data docutils literal"><span class="pre">context.log_level</span></code> is currently set to as its log level.</p>
+<p>If <code class="xref py py-data docutils literal"><span class="pre">term.term_mode</span></code> is enabled log records originating from a progress
+logger will not be emitted but rather an animated progress line will be
+created.</p>
+<p>An instance of this handler is added to the <code class="docutils literal"><span class="pre">'pwnlib'</span></code> logger.</p>
+<p>Initialize the handler.</p>
+<p>If stream is not specified, sys.stderr is used.</p>
+<dl class="method">
+<dt id="pwnlib.log.Handler.emit"><a name="//apple_ref/cpp/Method/pwnlib.log.Handler.emit"></a>
+<code class="descname">emit</code><span class="sig-paren">(</span><em>record</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/log.py#L505-572"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.log.Handler.emit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Emit a log record or create/update an animated progress logger
+depending on whether <code class="xref py py-data docutils literal"><span class="pre">term.term_mode</span></code> is enabled.</p>
+</dd></dl>
+</dd></dl>
+<dl class="class">
+<dt id="pwnlib.log.Formatter"><a name="//apple_ref/cpp/Class/pwnlib.log.Formatter"></a>
+<em class="property">class </em><code class="descclassname">pwnlib.log.</code><code class="descname">Formatter</code><span class="sig-paren">(</span><em>fmt=None</em>, <em>datefmt=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/log.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.log.Formatter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Logging formatter which performs custom formatting for log records
+containing the <code class="docutils literal"><span class="pre">'pwnlib_msgtype'</span></code> attribute.  Other records are formatted
+using the <cite>logging</cite> modules default formatter.</p>
+<p>If <code class="docutils literal"><span class="pre">'pwnlib_msgtype'</span></code> is set, it performs the following actions:</p>
+<ul class="simple">
+<li>A prefix looked up in <cite>_msgtype_prefixes</cite> is prepended to the message.</li>
+<li>The message is prefixed such that it starts on column four.</li>
+<li>If the message spans multiple lines they are split, and all subsequent
+lines are indented.</li>
+</ul>
+<p>This formatter is used by the handler installed on the <code class="docutils literal"><span class="pre">'pwnlib'</span></code> logger.</p>
+<p>Initialize the formatter with specified format strings.</p>
+<p>Initialize the formatter either with the specified format string, or a
+default as described above. Allow for specialized date formatting with
+the optional datefmt argument (if omitted, you get the ISO8601 format).</p>
+</dd></dl>
+</div>
+</div>
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a accesskey="n" class="btn btn-neutral float-right" href="memleak.html" rel="next" title="pwnlib.memleak — Helper class for leaking memory">Next <span class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral" href="libcdb.html" rel="prev" title="pwnlib.libcdb — Libc Database"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © Copyright 2016, Gallopsled et al..
+
+    </p>
+</div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'3.14.0dev',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+<script src="_static/jquery.js" type="text/javascript"></script>
+<script src="_static/underscore.js" type="text/javascript"></script>
+<script src="_static/doctools.js" type="text/javascript"></script>
+<script src="_static/js/theme.js" type="text/javascript"></script>
+<script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>

@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]--><!--[if gt IE 8]><!--><html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>pwnlib.util.cyclic — Generation of unique sequences — pwntools 3.14.0dev documentation</title>
+<link href="../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../about.html" rel="author" title="About these documents"/>
+<link href="../search.html" rel="search" title="Search"/>
+<link href="fiddling.html" rel="next" title="pwnlib.util.fiddling — Utilities bit fiddling"/>
+<link href="crc.html" rel="prev" title="pwnlib.util.crc — Calculating CRC-sums"/>
+<script src="../_static/js/modernizr.min.js"></script>
+</head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../index.html"> pwntools
+          
+
+          
+          </a>
+<div class="version">
+                3.14
+              </div>
+<div role="search">
+<form action="../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">About pwntools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../globals.html"><code class="docutils literal"><span class="pre">from</span> <span class="pre">pwn</span> <span class="pre">import</span> <span class="pre">*</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../commandline.html">Command Line Tools</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../adb.html"><code class="docutils literal"><span class="pre">pwnlib.adb</span></code> — Android Debug Bridge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../args.html"><code class="docutils literal"><span class="pre">pwnlib.args</span></code> — Magic Command-Line Arguments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../asm.html"><code class="docutils literal"><span class="pre">pwnlib.asm</span></code> — Assembler functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../atexception.html"><code class="docutils literal"><span class="pre">pwnlib.atexception</span></code> — Callbacks on unhandled exception</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../atexit.html"><code class="docutils literal"><span class="pre">pwnlib.atexit</span></code> — Replacement for atexit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../constants.html"><code class="docutils literal"><span class="pre">pwnlib.constants</span></code> — Easy access to header file constants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../config.html"><code class="docutils literal"><span class="pre">pwnlib.config</span></code> — Pwntools Configuration File</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../context.html"><code class="docutils literal"><span class="pre">pwnlib.context</span></code> — Setting runtime variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dynelf.html"><code class="docutils literal"><span class="pre">pwnlib.dynelf</span></code> — Resolving remote functions using leaks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../encoders.html"><code class="docutils literal"><span class="pre">pwnlib.encoders</span></code> — Encoding Shellcode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../elf.html"><code class="docutils literal"><span class="pre">pwnlib.elf</span></code> — ELF Executables and Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../exception.html"><code class="docutils literal"><span class="pre">pwnlib.exception</span></code> — Pwnlib exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../flag.html"><code class="docutils literal"><span class="pre">pwnlib.flag</span></code> — CTF Flag Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fmtstr.html"><code class="docutils literal"><span class="pre">pwnlib.fmtstr</span></code> — Format string bug exploitation tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gdb.html"><code class="docutils literal"><span class="pre">pwnlib.gdb</span></code> — Working with GDB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../libcdb.html"><code class="docutils literal"><span class="pre">pwnlib.libcdb</span></code> — Libc Database</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../log.html"><code class="docutils literal"><span class="pre">pwnlib.log</span></code> — Logging stuff</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../memleak.html"><code class="docutils literal"><span class="pre">pwnlib.memleak</span></code> — Helper class for leaking memory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../protocols.html"><code class="docutils literal"><span class="pre">pwnlib.protocols</span></code> — Wire Protocols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qemu.html"><code class="docutils literal"><span class="pre">pwnlib.qemu</span></code> — QEMU Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../replacements.html"><code class="docutils literal"><span class="pre">pwnlib.replacements</span></code> — Replacements for various functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rop.html"><code class="docutils literal"><span class="pre">pwnlib.rop</span></code> — Return Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rop/rop.html"><code class="docutils literal"><span class="pre">pwnlib.rop.rop</span></code> — Return Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rop/srop.html"><code class="docutils literal"><span class="pre">pwnlib.rop.srop</span></code> — Sigreturn Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../runner.html"><code class="docutils literal"><span class="pre">pwnlib.runner</span></code> — Running Shellcode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shellcraft.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft</span></code> — Shellcode generation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shellcraft/aarch64.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.aarch64</span></code> — Shellcode for AArch64</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shellcraft/amd64.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.amd64</span></code> — Shellcode for AMD64</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shellcraft/arm.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.arm</span></code> — Shellcode for ARM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shellcraft/common.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.common</span></code> — Shellcode common to all architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shellcraft/i386.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.i386</span></code> — Shellcode for Intel 80386</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shellcraft/mips.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.mips</span></code> — Shellcode for MIPS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shellcraft/regsort.html"><code class="docutils literal"><span class="pre">pwnlib.regsort</span></code> — Register sorting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shellcraft/thumb.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.thumb</span></code> — Shellcode for Thumb Mode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../term.html"><code class="docutils literal"><span class="pre">pwnlib.term</span></code> — Terminal handling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../timeout.html"><code class="docutils literal"><span class="pre">pwnlib.timeout</span></code> — Timeout handling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tubes.html"><code class="docutils literal"><span class="pre">pwnlib.tubes</span></code> — Talking to the World!</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tubes/processes.html"><code class="docutils literal"><span class="pre">pwnlib.tubes.process</span></code> — Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tubes/serial.html"><code class="docutils literal"><span class="pre">pwnlib.tubes.serialtube</span></code> — Serial Ports</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tubes/sockets.html"><code class="docutils literal"><span class="pre">pwnlib.tubes.sock</span></code> — Sockets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tubes/ssh.html"><code class="docutils literal"><span class="pre">pwnlib.tubes.ssh</span></code> — SSH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ui.html"><code class="docutils literal"><span class="pre">pwnlib.ui</span></code> — Functions for user interaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../update.html"><code class="docutils literal"><span class="pre">pwnlib.update</span></code> — Updating Pwntools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../useragents.html"><code class="docutils literal"><span class="pre">pwnlib.useragents</span></code> — A database of useragent strings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="crc.html"><code class="docutils literal"><span class="pre">pwnlib.util.crc</span></code> — Calculating CRC-sums</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="docutils literal"><span class="pre">pwnlib.util.cyclic</span></code> — Generation of unique sequences</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fiddling.html"><code class="docutils literal"><span class="pre">pwnlib.util.fiddling</span></code> — Utilities bit fiddling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hashes.html"><code class="docutils literal"><span class="pre">pwnlib.util.hashes</span></code> — Hashing functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="iters.html"><code class="docutils literal"><span class="pre">pwnlib.util.iters</span></code> — Extension of standard module <code class="docutils literal"><span class="pre">itertools</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="lists.html"><code class="docutils literal"><span class="pre">pwnlib.util.lists</span></code> — Operations on lists</a></li>
+<li class="toctree-l1"><a class="reference internal" href="misc.html"><code class="docutils literal"><span class="pre">pwnlib.util.misc</span></code> — We could not fit it any other place</a></li>
+<li class="toctree-l1"><a class="reference internal" href="net.html"><code class="docutils literal"><span class="pre">pwnlib.util.net</span></code> — Networking interfaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="packing.html"><code class="docutils literal"><span class="pre">pwnlib.util.packing</span></code> — Packing and unpacking of strings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="proc.html"><code class="docutils literal"><span class="pre">pwnlib.util.proc</span></code> — Working with <code class="docutils literal"><span class="pre">/proc/</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="safeeval.html"><code class="docutils literal"><span class="pre">pwnlib.util.safeeval</span></code> — Safe evaluation of python code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sh_string.html"><code class="docutils literal"><span class="pre">pwnlib.util.sh_string</span></code> — Shell Expansion is Hard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="web.html"><code class="docutils literal"><span class="pre">pwnlib.util.web</span></code> — Utilities for working with the WWW</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../testexample.html"><code class="docutils literal"><span class="pre">pwnlib.testexample</span></code> — Example Test Module</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../index.html">pwntools</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a href="../index.html">Docs</a> »</li>
+<li><code class="docutils literal"><span class="pre">pwnlib.util.cyclic</span></code> — Generation of unique sequences</li>
+<li class="wy-breadcrumbs-aside">
+<a href="../_sources/util/cyclic.rst.txt" rel="nofollow"> View page source</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div class="section" id="module-pwnlib.util.cyclic">
+<span id="pwnlib-util-cyclic-generation-of-unique-sequences"></span><h1><a name="//apple_ref/cpp/Module/pwnlib.util.cyclic"></a><a class="reference internal" href="#module-pwnlib.util.cyclic" title="pwnlib.util.cyclic"><code class="xref py py-mod docutils literal"><span class="pre">pwnlib.util.cyclic</span></code></a> — Generation of unique sequences<a class="headerlink" href="#module-pwnlib.util.cyclic" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="pwnlib.util.cyclic.cyclic"><a name="//apple_ref/cpp/Function/pwnlib.util.cyclic.cyclic"></a>
+<code class="descclassname">pwnlib.util.cyclic.</code><code class="descname">cyclic</code><span class="sig-paren">(</span><em>length = None</em>, <em>alphabet = None</em>, <em>n = None</em><span class="sig-paren">)</span> → list/str<a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/util/cyclic.py#L48-139"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.util.cyclic.cyclic" title="Permalink to this definition">¶</a></dt>
+<dd><p>A simple wrapper over <a class="reference internal" href="#pwnlib.util.cyclic.de_bruijn" title="pwnlib.util.cyclic.de_bruijn"><code class="xref py py-func docutils literal"><span class="pre">de_bruijn()</span></code></a>. This function returns at most
+<cite>length</cite> elements.</p>
+<p>If the given alphabet is a string, a string is returned from this function. Otherwise
+a list is returned.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>length</strong> – The desired length of the list or None if the entire sequence is desired.</li>
+<li><strong>alphabet</strong> – List or string to generate the sequence over.</li>
+<li><strong>n</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – The length of subsequences that should be unique.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>The maximum length is <cite>len(alphabet)**n</cite>.</p>
+<p>The default values for <cite>alphabet</cite> and <cite>n</cite> restrict the total space to ~446KB.</p>
+<p>If you need to generate a longer cyclic pattern, provide a longer <cite>alphabet</cite>,
+or if possible a larger <cite>n</cite>.</p>
+<p class="rubric">Example</p>
+<p>Cyclic patterns are usually generated by providing a specific <cite>length</cite>.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cyclic</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+<span class="go">'aaaabaaacaaadaaaeaaa'</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cyclic</span><span class="p">(</span><span class="mi">32</span><span class="p">)</span>
+<span class="go">'aaaabaaacaaadaaaeaaafaaagaaahaaa'</span>
+</pre></div>
+</div>
+<p>The <cite>alphabet</cite> and <cite>n</cite> arguments will control the actual output of the pattern</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cyclic</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="n">alphabet</span><span class="o">=</span><span class="n">string</span><span class="o">.</span><span class="n">ascii_uppercase</span><span class="p">)</span>
+<span class="go">'AAAABAAACAAADAAAEAAA'</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cyclic</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span class="go">'aaaaaaaabaaaaaaacaaa'</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cyclic</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="go">'aabacadaeafagahaiaja'</span>
+</pre></div>
+</div>
+<p>The size of <cite>n</cite> and <cite>alphabet</cite> limit the maximum length that can be generated.
+Without providing <cite>length</cite>, the entire possible cyclic space is generated.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cyclic</span><span class="p">(</span><span class="n">alphabet</span> <span class="o">=</span> <span class="s2">"ABC"</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">3</span><span class="p">)</span>
+<span class="go">'AAABAACABBABCACBACCBBBCBCCC'</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cyclic</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span> <span class="n">alphabet</span> <span class="o">=</span> <span class="s2">"ABC"</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">3</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="c">...</span>
+<span class="gr">PwnlibException</span>: <span class="n">Can't create a pattern length=512 with len(alphabet)==3 and n==3</span>
+</pre></div>
+</div>
+<p>The <cite>alphabet</cite> can be set in <cite>context</cite>, which is useful for circumstances
+when certain characters are not allowed.  See <code class="xref py py-obj docutils literal"><span class="pre">context.cyclic_alphabet</span></code>.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">cyclic_alphabet</span> <span class="o">=</span> <span class="s2">"ABC"</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cyclic</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="go">'AAAABAAACA'</span>
+</pre></div>
+</div>
+<p>The original values can always be restored with:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The following just a test to make sure the length is correct.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">alphabet</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">30</span><span class="p">),</span> <span class="mi">3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">alphabet</span><span class="p">)</span><span class="o">**</span><span class="n">n</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">cyclic</span><span class="p">(</span><span class="n">alphabet</span> <span class="o">=</span> <span class="n">alphabet</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="n">n</span><span class="p">))</span>
+<span class="go">(27000, 27000)</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="function">
+<dt id="pwnlib.util.cyclic.cyclic_find"><a name="//apple_ref/cpp/Function/pwnlib.util.cyclic.cyclic_find"></a>
+<code class="descclassname">pwnlib.util.cyclic.</code><code class="descname">cyclic_find</code><span class="sig-paren">(</span><em>subseq</em>, <em>alphabet = None</em>, <em>n = None</em><span class="sig-paren">)</span> → int<a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/util/cyclic.py#L1390-1397"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.util.cyclic.cyclic_find" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the position of a substring into a De Bruijn sequence.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>subseq</strong> – The subsequence to look for. This can be a string, a list or an
+integer. If an integer is provided it will be packed as a
+little endian integer.</li>
+<li><strong>alphabet</strong> – List or string to generate the sequence over.
+By default, uses <code class="xref py py-obj docutils literal"><span class="pre">context.cyclic_alphabet</span></code>.</li>
+<li><strong>n</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – The length of subsequences that should be unique.
+By default, uses <code class="xref py py-obj docutils literal"><span class="pre">context.cyclic_size</span></code>.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<p>Let’s generate an example cyclic pattern.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cyclic</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span>
+<span class="go">'aaaabaaacaaadaaa'</span>
+</pre></div>
+</div>
+<p>Note that ‘baaa’ starts at offset 4.  The <cite>cyclic_find</cite> routine shows us this:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cyclic_find</span><span class="p">(</span><span class="s1">'baaa'</span><span class="p">)</span>
+<span class="go">4</span>
+</pre></div>
+</div>
+<p>The <em>default</em> length of a subsequence generated by <cite>cyclic</cite> is <cite>4</cite>.
+If a longer value is submitted, it is automatically truncated to four bytes.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cyclic_find</span><span class="p">(</span><span class="s1">'baaacaaa'</span><span class="p">)</span>
+<span class="go">4</span>
+</pre></div>
+</div>
+<p>If you provided e.g. <cite>n=8</cite> to <cite>cyclic</cite> to generate larger subsequences,
+you must explicitly provide that argument.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cyclic_find</span><span class="p">(</span><span class="s1">'baaacaaa'</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span class="go">3515208</span>
+</pre></div>
+</div>
+<p>We can generate a large cyclic pattern, and grab a subset of it to
+check a deeper offset.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cyclic_find</span><span class="p">(</span><span class="n">cyclic</span><span class="p">(</span><span class="mi">1000</span><span class="p">)[</span><span class="mi">514</span><span class="p">:</span><span class="mi">518</span><span class="p">])</span>
+<span class="go">514</span>
+</pre></div>
+</div>
+<p>Instead of passing in the byte representation of the pattern, you can
+also pass in the integer value.  Note that this is sensitive to the
+selected endianness via <cite>context.endian</cite>.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cyclic_find</span><span class="p">(</span><span class="mh">0x61616162</span><span class="p">)</span>
+<span class="go">4</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cyclic_find</span><span class="p">(</span><span class="mh">0x61616162</span><span class="p">,</span> <span class="n">endian</span><span class="o">=</span><span class="s1">'big'</span><span class="p">)</span>
+<span class="go">1</span>
+</pre></div>
+</div>
+<p>You can use anything for the cyclic pattern, including non-printable
+characters.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cyclic_find</span><span class="p">(</span><span class="mh">0x00000000</span><span class="p">,</span> <span class="n">alphabet</span><span class="o">=</span><span class="n">unhex</span><span class="p">(</span><span class="s1">'DEADBEEF00'</span><span class="p">))</span>
+<span class="go">621</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="function">
+<dt id="pwnlib.util.cyclic.cyclic_metasploit"><a name="//apple_ref/cpp/Function/pwnlib.util.cyclic.cyclic_metasploit"></a>
+<code class="descclassname">pwnlib.util.cyclic.</code><code class="descname">cyclic_metasploit</code><span class="sig-paren">(</span><em>length = None, sets = [ string.ascii_uppercase, string.ascii_lowercase, string.digits ]</em><span class="sig-paren">)</span> → str<a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/util/cyclic.py#L262-297"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.util.cyclic.cyclic_metasploit" title="Permalink to this definition">¶</a></dt>
+<dd><p>A simple wrapper over <a class="reference internal" href="#pwnlib.util.cyclic.metasploit_pattern" title="pwnlib.util.cyclic.metasploit_pattern"><code class="xref py py-func docutils literal"><span class="pre">metasploit_pattern()</span></code></a>. This function returns a
+string of length <cite>length</cite>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>length</strong> – The desired length of the string or None if the entire sequence is desired.</li>
+<li><strong>sets</strong> – List of strings to generate the sequence over.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Example</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cyclic_metasploit</span><span class="p">(</span><span class="mi">32</span><span class="p">)</span>
+<span class="go">'Aa0Aa1Aa2Aa3Aa4Aa5Aa6Aa7Aa8Aa9Ab'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cyclic_metasploit</span><span class="p">(</span><span class="n">sets</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"AB"</span><span class="p">,</span><span class="s2">"ab"</span><span class="p">,</span><span class="s2">"12"</span><span class="p">])</span>
+<span class="go">'Aa1Aa2Ab1Ab2Ba1Ba2Bb1Bb2'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cyclic_metasploit</span><span class="p">()[</span><span class="mi">1337</span><span class="p">:</span><span class="mi">1341</span><span class="p">]</span>
+<span class="go">'5Bs6'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">cyclic_metasploit</span><span class="p">())</span>
+<span class="go">20280</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="function">
+<dt id="pwnlib.util.cyclic.cyclic_metasploit_find"><a name="//apple_ref/cpp/Function/pwnlib.util.cyclic.cyclic_metasploit_find"></a>
+<code class="descclassname">pwnlib.util.cyclic.</code><code class="descname">cyclic_metasploit_find</code><span class="sig-paren">(</span><em>subseq, sets = [ string.ascii_uppercase, string.ascii_lowercase, string.digits ]</em><span class="sig-paren">)</span> → int<a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/util/cyclic.py#L299-322"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.util.cyclic.cyclic_metasploit_find" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the position of a substring into a Metasploit Pattern sequence.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>subseq</strong> – The subsequence to look for. This can be a string or an
+integer. If an integer is provided it will be packed as a
+little endian integer.</li>
+<li><strong>sets</strong> – List of strings to generate the sequence over.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cyclic_metasploit_find</span><span class="p">(</span><span class="n">cyclic_metasploit</span><span class="p">(</span><span class="mi">1000</span><span class="p">)[</span><span class="mi">514</span><span class="p">:</span><span class="mi">518</span><span class="p">])</span>
+<span class="go">514</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cyclic_metasploit_find</span><span class="p">(</span><span class="mh">0x61413161</span><span class="p">)</span>
+<span class="go">4</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="function">
+<dt id="pwnlib.util.cyclic.de_bruijn"><a name="//apple_ref/cpp/Function/pwnlib.util.cyclic.de_bruijn"></a>
+<code class="descclassname">pwnlib.util.cyclic.</code><code class="descname">de_bruijn</code><span class="sig-paren">(</span><em>alphabet = None</em>, <em>n = None</em><span class="sig-paren">)</span> → generator<a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/util/cyclic.py#L13-46"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.util.cyclic.de_bruijn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generator for a sequence of unique substrings of length <cite>n</cite>. This is implemented using a
+De Bruijn Sequence over the given <cite>alphabet</cite>.</p>
+<p>The returned generator will yield up to <code class="docutils literal"><span class="pre">len(alphabet)**n</span></code> elements.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>alphabet</strong> – List or string to generate the sequence over.</li>
+<li><strong>n</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – The length of subsequences that should be unique.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+<dl class="function">
+<dt id="pwnlib.util.cyclic.metasploit_pattern"><a name="//apple_ref/cpp/Function/pwnlib.util.cyclic.metasploit_pattern"></a>
+<code class="descclassname">pwnlib.util.cyclic.</code><code class="descname">metasploit_pattern</code><span class="sig-paren">(</span><em>sets = [ string.ascii_uppercase, string.ascii_lowercase, string.digits ]</em><span class="sig-paren">)</span> → generator<a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/util/cyclic.py#L234-260"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.util.cyclic.metasploit_pattern" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generator for a sequence of characters as per Metasploit Framework’s
+<cite>Rex::Text.pattern_create</cite> (aka <cite>pattern_create.rb</cite>).</p>
+<p>The returned generator will yield up to
+<code class="docutils literal"><span class="pre">len(sets)</span> <span class="pre">*</span> <span class="pre">reduce(lambda</span> <span class="pre">x,y:</span> <span class="pre">x*y,</span> <span class="pre">map(len,</span> <span class="pre">sets))</span></code> elements.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>sets</strong> – List of strings to generate the sequence over.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+</div>
+</div>
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a accesskey="n" class="btn btn-neutral float-right" href="fiddling.html" rel="next" title="pwnlib.util.fiddling — Utilities bit fiddling">Next <span class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral" href="crc.html" rel="prev" title="pwnlib.util.crc — Calculating CRC-sums"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © Copyright 2016, Gallopsled et al..
+
+    </p>
+</div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'3.14.0dev',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+<script src="../_static/jquery.js" type="text/javascript"></script>
+<script src="../_static/underscore.js" type="text/javascript"></script>
+<script src="../_static/doctools.js" type="text/javascript"></script>
+<script src="../_static/js/theme.js" type="text/javascript"></script>
+<script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>

@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]--><!--[if gt IE 8]><!--><html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>pwnlib.tubes — Talking to the World! — pwntools 3.14.0dev documentation</title>
+<link href="_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="about.html" rel="author" title="About these documents"/>
+<link href="search.html" rel="search" title="Search"/>
+<link href="tubes/processes.html" rel="next" title="pwnlib.tubes.process — Processes"/>
+<link href="timeout.html" rel="prev" title="pwnlib.timeout — Timeout handling"/>
+<script src="_static/js/modernizr.min.js"></script>
+</head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="index.html"> pwntools
+          
+
+          
+          </a>
+<div class="version">
+                3.14
+              </div>
+<div role="search">
+<form action="search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About pwntools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="globals.html"><code class="docutils literal"><span class="pre">from</span> <span class="pre">pwn</span> <span class="pre">import</span> <span class="pre">*</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="commandline.html">Command Line Tools</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="adb.html"><code class="docutils literal"><span class="pre">pwnlib.adb</span></code> — Android Debug Bridge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="args.html"><code class="docutils literal"><span class="pre">pwnlib.args</span></code> — Magic Command-Line Arguments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="asm.html"><code class="docutils literal"><span class="pre">pwnlib.asm</span></code> — Assembler functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="atexception.html"><code class="docutils literal"><span class="pre">pwnlib.atexception</span></code> — Callbacks on unhandled exception</a></li>
+<li class="toctree-l1"><a class="reference internal" href="atexit.html"><code class="docutils literal"><span class="pre">pwnlib.atexit</span></code> — Replacement for atexit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="constants.html"><code class="docutils literal"><span class="pre">pwnlib.constants</span></code> — Easy access to header file constants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config.html"><code class="docutils literal"><span class="pre">pwnlib.config</span></code> — Pwntools Configuration File</a></li>
+<li class="toctree-l1"><a class="reference internal" href="context.html"><code class="docutils literal"><span class="pre">pwnlib.context</span></code> — Setting runtime variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dynelf.html"><code class="docutils literal"><span class="pre">pwnlib.dynelf</span></code> — Resolving remote functions using leaks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="encoders.html"><code class="docutils literal"><span class="pre">pwnlib.encoders</span></code> — Encoding Shellcode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="elf.html"><code class="docutils literal"><span class="pre">pwnlib.elf</span></code> — ELF Executables and Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exception.html"><code class="docutils literal"><span class="pre">pwnlib.exception</span></code> — Pwnlib exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="flag.html"><code class="docutils literal"><span class="pre">pwnlib.flag</span></code> — CTF Flag Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fmtstr.html"><code class="docutils literal"><span class="pre">pwnlib.fmtstr</span></code> — Format string bug exploitation tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gdb.html"><code class="docutils literal"><span class="pre">pwnlib.gdb</span></code> — Working with GDB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libcdb.html"><code class="docutils literal"><span class="pre">pwnlib.libcdb</span></code> — Libc Database</a></li>
+<li class="toctree-l1"><a class="reference internal" href="log.html"><code class="docutils literal"><span class="pre">pwnlib.log</span></code> — Logging stuff</a></li>
+<li class="toctree-l1"><a class="reference internal" href="memleak.html"><code class="docutils literal"><span class="pre">pwnlib.memleak</span></code> — Helper class for leaking memory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="protocols.html"><code class="docutils literal"><span class="pre">pwnlib.protocols</span></code> — Wire Protocols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qemu.html"><code class="docutils literal"><span class="pre">pwnlib.qemu</span></code> — QEMU Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="replacements.html"><code class="docutils literal"><span class="pre">pwnlib.replacements</span></code> — Replacements for various functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rop.html"><code class="docutils literal"><span class="pre">pwnlib.rop</span></code> — Return Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rop/rop.html"><code class="docutils literal"><span class="pre">pwnlib.rop.rop</span></code> — Return Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rop/srop.html"><code class="docutils literal"><span class="pre">pwnlib.rop.srop</span></code> — Sigreturn Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="runner.html"><code class="docutils literal"><span class="pre">pwnlib.runner</span></code> — Running Shellcode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shellcraft.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft</span></code> — Shellcode generation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shellcraft/aarch64.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.aarch64</span></code> — Shellcode for AArch64</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shellcraft/amd64.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.amd64</span></code> — Shellcode for AMD64</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shellcraft/arm.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.arm</span></code> — Shellcode for ARM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shellcraft/common.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.common</span></code> — Shellcode common to all architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shellcraft/i386.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.i386</span></code> — Shellcode for Intel 80386</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shellcraft/mips.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.mips</span></code> — Shellcode for MIPS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shellcraft/regsort.html"><code class="docutils literal"><span class="pre">pwnlib.regsort</span></code> — Register sorting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shellcraft/thumb.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.thumb</span></code> — Shellcode for Thumb Mode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="term.html"><code class="docutils literal"><span class="pre">pwnlib.term</span></code> — Terminal handling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="timeout.html"><code class="docutils literal"><span class="pre">pwnlib.timeout</span></code> — Timeout handling</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="docutils literal"><span class="pre">pwnlib.tubes</span></code> — Talking to the World!</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#types-of-tubes">Types of Tubes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tubes/processes.html"><code class="docutils literal"><span class="pre">pwnlib.tubes.process</span></code> — Processes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tubes/serial.html"><code class="docutils literal"><span class="pre">pwnlib.tubes.serialtube</span></code> — Serial Ports</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tubes/sockets.html"><code class="docutils literal"><span class="pre">pwnlib.tubes.sock</span></code> — Sockets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tubes/ssh.html"><code class="docutils literal"><span class="pre">pwnlib.tubes.ssh</span></code> — SSH</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pwnlib.tubes.tube"><code class="docutils literal"><span class="pre">pwnlib.tubes.tube</span></code> — Common Functionality</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tubes/processes.html"><code class="docutils literal"><span class="pre">pwnlib.tubes.process</span></code> — Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tubes/serial.html"><code class="docutils literal"><span class="pre">pwnlib.tubes.serialtube</span></code> — Serial Ports</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tubes/sockets.html"><code class="docutils literal"><span class="pre">pwnlib.tubes.sock</span></code> — Sockets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tubes/ssh.html"><code class="docutils literal"><span class="pre">pwnlib.tubes.ssh</span></code> — SSH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ui.html"><code class="docutils literal"><span class="pre">pwnlib.ui</span></code> — Functions for user interaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="update.html"><code class="docutils literal"><span class="pre">pwnlib.update</span></code> — Updating Pwntools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="useragents.html"><code class="docutils literal"><span class="pre">pwnlib.useragents</span></code> — A database of useragent strings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/crc.html"><code class="docutils literal"><span class="pre">pwnlib.util.crc</span></code> — Calculating CRC-sums</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/cyclic.html"><code class="docutils literal"><span class="pre">pwnlib.util.cyclic</span></code> — Generation of unique sequences</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/fiddling.html"><code class="docutils literal"><span class="pre">pwnlib.util.fiddling</span></code> — Utilities bit fiddling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/hashes.html"><code class="docutils literal"><span class="pre">pwnlib.util.hashes</span></code> — Hashing functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/iters.html"><code class="docutils literal"><span class="pre">pwnlib.util.iters</span></code> — Extension of standard module <code class="docutils literal"><span class="pre">itertools</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/lists.html"><code class="docutils literal"><span class="pre">pwnlib.util.lists</span></code> — Operations on lists</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/misc.html"><code class="docutils literal"><span class="pre">pwnlib.util.misc</span></code> — We could not fit it any other place</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/net.html"><code class="docutils literal"><span class="pre">pwnlib.util.net</span></code> — Networking interfaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/packing.html"><code class="docutils literal"><span class="pre">pwnlib.util.packing</span></code> — Packing and unpacking of strings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/proc.html"><code class="docutils literal"><span class="pre">pwnlib.util.proc</span></code> — Working with <code class="docutils literal"><span class="pre">/proc/</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/safeeval.html"><code class="docutils literal"><span class="pre">pwnlib.util.safeeval</span></code> — Safe evaluation of python code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/sh_string.html"><code class="docutils literal"><span class="pre">pwnlib.util.sh_string</span></code> — Shell Expansion is Hard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/web.html"><code class="docutils literal"><span class="pre">pwnlib.util.web</span></code> — Utilities for working with the WWW</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="testexample.html"><code class="docutils literal"><span class="pre">pwnlib.testexample</span></code> — Example Test Module</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="index.html">pwntools</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a href="index.html">Docs</a> »</li>
+<li><code class="docutils literal"><span class="pre">pwnlib.tubes</span></code> — Talking to the World!</li>
+<li class="wy-breadcrumbs-aside">
+<a href="_sources/tubes.rst.txt" rel="nofollow"> View page source</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div class="section" id="module-pwnlib.tubes">
+<span id="pwnlib-tubes-talking-to-the-world"></span><h1><a name="//apple_ref/cpp/Module/pwnlib.tubes"></a><a class="reference internal" href="#module-pwnlib.tubes" title="pwnlib.tubes"><code class="xref py py-mod docutils literal"><span class="pre">pwnlib.tubes</span></code></a> — Talking to the World!<a class="headerlink" href="#module-pwnlib.tubes" title="Permalink to this headline">¶</a></h1>
+<p>The pwnlib is not a big truck! It’s a series of tubes!</p>
+<p>This is our library for talking to sockets, processes, ssh connections etc.
+Our goal is to be able to use the same API for e.g. remote TCP servers, local
+TTY-programs and programs run over over SSH.</p>
+<p>It is organized such that the majority of the functionality is implemented
+in <a class="reference internal" href="#module-pwnlib.tubes.tube" title="pwnlib.tubes.tube"><code class="xref py py-class docutils literal"><span class="pre">pwnlib.tubes.tube</span></code></a>. The remaining classes should only implement
+just enough for the class to work and possibly code pertaining only to
+that specific kind of tube.</p>
+<div class="section" id="types-of-tubes">
+<h2>Types of Tubes<a class="headerlink" href="#types-of-tubes" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tubes/processes.html"><code class="docutils literal"><span class="pre">pwnlib.tubes.process</span></code> — Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tubes/serial.html"><code class="docutils literal"><span class="pre">pwnlib.tubes.serialtube</span></code> — Serial Ports</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tubes/sockets.html"><code class="docutils literal"><span class="pre">pwnlib.tubes.sock</span></code> — Sockets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tubes/ssh.html"><code class="docutils literal"><span class="pre">pwnlib.tubes.ssh</span></code> — SSH</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="module-pwnlib.tubes.tube">
+<span id="pwnlib-tubes-tube-common-functionality"></span><h2><a name="//apple_ref/cpp/Module/pwnlib.tubes.tube"></a><a class="reference internal" href="#module-pwnlib.tubes.tube" title="pwnlib.tubes.tube"><code class="xref py py-mod docutils literal"><span class="pre">pwnlib.tubes.tube</span></code></a> — Common Functionality<a class="headerlink" href="#module-pwnlib.tubes.tube" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pwnlib.tubes.tube.tube"><a name="//apple_ref/cpp/Class/pwnlib.tubes.tube.tube"></a>
+<em class="property">class </em><code class="descclassname">pwnlib.tubes.tube.</code><code class="descname">tube</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/tube.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.tube.tube" title="Permalink to this definition">¶</a></dt>
+<dd><p>Container of all the tube functions common to sockets, TTYs and SSH connetions.</p>
+<dl class="method">
+<dt id="pwnlib.tubes.tube.tube.can_recv"><a name="//apple_ref/cpp/Method/pwnlib.tubes.tube.tube.can_recv"></a>
+<code class="descname">can_recv</code><span class="sig-paren">(</span><em>timeout = 0</em><span class="sig-paren">)</span> → bool<a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/tube.py#L1062-1082"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.tube.tube.can_recv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns True, if there is data available within <cite>timeout</cite> seconds.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">time</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">tube</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">can_recv_raw</span> <span class="o">=</span> <span class="k">lambda</span> <span class="o">*</span><span class="n">a</span><span class="p">:</span> <span class="kc">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">can_recv</span><span class="p">()</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">_</span><span class="o">=</span><span class="n">t</span><span class="o">.</span><span class="n">unrecv</span><span class="p">(</span><span class="s1">'data'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">can_recv</span><span class="p">()</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">_</span><span class="o">=</span><span class="n">t</span><span class="o">.</span><span class="n">recv</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">can_recv</span><span class="p">()</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.tubes.tube.tube.clean"><a name="//apple_ref/cpp/Method/pwnlib.tubes.tube.tube.clean"></a>
+<code class="descname">clean</code><span class="sig-paren">(</span><em>timeout = 0.05</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/tube.py#L849-876"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.tube.tube.clean" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes all the buffered data from a tube by calling
+<a class="reference internal" href="#pwnlib.tubes.tube.tube.recv" title="pwnlib.tubes.tube.tube.recv"><code class="xref py py-meth docutils literal"><span class="pre">pwnlib.tubes.tube.tube.recv()</span></code></a> with a low timeout until it fails.</p>
+<p>If <code class="docutils literal"><span class="pre">timeout</span></code> is zero, only cached data will be cleared.</p>
+<p>Note: If timeout is set to zero, the underlying network is
+not actually polled; only the internal buffer is cleared.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">All data received</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">tube</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">unrecv</span><span class="p">(</span><span class="s1">'clean me up'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">clean</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="go">'clean me up'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">buffer</span><span class="p">)</span>
+<span class="go">0</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.tubes.tube.tube.clean_and_log"><a name="//apple_ref/cpp/Method/pwnlib.tubes.tube.tube.clean_and_log"></a>
+<code class="descname">clean_and_log</code><span class="sig-paren">(</span><em>timeout = 0.05</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/tube.py#L878-905"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.tube.tube.clean_and_log" title="Permalink to this definition">¶</a></dt>
+<dd><p>Works exactly as <a class="reference internal" href="#pwnlib.tubes.tube.tube.clean" title="pwnlib.tubes.tube.tube.clean"><code class="xref py py-meth docutils literal"><span class="pre">pwnlib.tubes.tube.tube.clean()</span></code></a>, but logs received
+data with <code class="xref py py-meth docutils literal"><span class="pre">pwnlib.self.info()</span></code>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">All data received</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">recv</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">[</span><span class="s1">''</span><span class="p">,</span> <span class="s1">'hooray_data'</span><span class="p">]):</span>
+<span class="gp">... </span>    <span class="k">while</span> <span class="n">data</span><span class="p">:</span> <span class="k">return</span> <span class="n">data</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">tube</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">recv_raw</span>      <span class="o">=</span> <span class="n">recv</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">connected_raw</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">d</span><span class="p">:</span> <span class="kc">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">fileno</span>        <span class="o">=</span> <span class="k">lambda</span><span class="p">:</span> <span class="mi">1234</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">context</span><span class="o">.</span><span class="n">local</span><span class="p">(</span><span class="n">log_level</span><span class="o">=</span><span class="s1">'info'</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">data</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">clean_and_log</span><span class="p">()</span> 
+<span class="go">[DEBUG] Received 0xb bytes:</span>
+<span class="go">    'hooray_data'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span>
+<span class="go">'hooray_data'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.tubes.tube.tube.close"><a name="//apple_ref/cpp/Method/pwnlib.tubes.tube.tube.close"></a>
+<code class="descname">close</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/tube.py#L1272-1277"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.tube.tube.close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Closes the tube.</p>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.tubes.tube.tube.connect_both"><a name="//apple_ref/cpp/Method/pwnlib.tubes.tube.tube.connect_both"></a>
+<code class="descname">connect_both</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/tube.py#L989-995"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.tube.tube.connect_both" title="Permalink to this definition">¶</a></dt>
+<dd><p>Connects the both ends of this tube object with another tube object.</p>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.tubes.tube.tube.connect_input"><a name="//apple_ref/cpp/Method/pwnlib.tubes.tube.tube.connect_input"></a>
+<code class="descname">connect_input</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/tube.py#L907-962"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.tube.tube.connect_input" title="Permalink to this definition">¶</a></dt>
+<dd><p>Connects the input of this tube to the output of another tube object.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">p</span><span class="p">(</span><span class="n">x</span><span class="p">):</span> <span class="nb">print</span> <span class="n">x</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">recvone</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">[</span><span class="s1">'data'</span><span class="p">]):</span>
+<span class="gp">... </span>    <span class="k">while</span> <span class="n">data</span><span class="p">:</span> <span class="k">return</span> <span class="n">data</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+<span class="gp">... </span>    <span class="k">raise</span> <span class="ne">EOFError</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">tube</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="n">tube</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="o">.</span><span class="n">recv_raw</span> <span class="o">=</span> <span class="n">recvone</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span><span class="o">.</span><span class="n">send_raw</span> <span class="o">=</span> <span class="n">p</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="o">.</span><span class="n">connected_raw</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">d</span><span class="p">:</span> <span class="kc">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span><span class="o">.</span><span class="n">connected_raw</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">d</span><span class="p">:</span> <span class="kc">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="o">.</span><span class="n">shutdown</span>      <span class="o">=</span> <span class="k">lambda</span> <span class="n">d</span><span class="p">:</span> <span class="kc">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span><span class="o">.</span><span class="n">shutdown</span>      <span class="o">=</span> <span class="k">lambda</span> <span class="n">d</span><span class="p">:</span> <span class="kc">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">time</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">_</span><span class="o">=</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">connect_input</span><span class="p">(</span><span class="n">a</span><span class="p">),</span> <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.1</span><span class="p">))</span>
+<span class="go">data</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.tubes.tube.tube.connect_output"><a name="//apple_ref/cpp/Method/pwnlib.tubes.tube.tube.connect_output"></a>
+<code class="descname">connect_output</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/tube.py#L964-987"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.tube.tube.connect_output" title="Permalink to this definition">¶</a></dt>
+<dd><p>Connects the output of this tube to the input of another tube object.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">p</span><span class="p">(</span><span class="n">x</span><span class="p">):</span> <span class="nb">print</span> <span class="n">x</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">recvone</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">[</span><span class="s1">'data'</span><span class="p">]):</span>
+<span class="gp">... </span>    <span class="k">while</span> <span class="n">data</span><span class="p">:</span> <span class="k">return</span> <span class="n">data</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+<span class="gp">... </span>    <span class="k">raise</span> <span class="ne">EOFError</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">tube</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="n">tube</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="o">.</span><span class="n">recv_raw</span> <span class="o">=</span> <span class="n">recvone</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span><span class="o">.</span><span class="n">send_raw</span> <span class="o">=</span> <span class="n">p</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="o">.</span><span class="n">connected_raw</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">d</span><span class="p">:</span> <span class="kc">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span><span class="o">.</span><span class="n">connected_raw</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">d</span><span class="p">:</span> <span class="kc">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="o">.</span><span class="n">shutdown</span>      <span class="o">=</span> <span class="k">lambda</span> <span class="n">d</span><span class="p">:</span> <span class="kc">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span><span class="o">.</span><span class="n">shutdown</span>      <span class="o">=</span> <span class="k">lambda</span> <span class="n">d</span><span class="p">:</span> <span class="kc">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">_</span><span class="o">=</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">connect_output</span><span class="p">(</span><span class="n">b</span><span class="p">),</span> <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.1</span><span class="p">))</span>
+<span class="go">data</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.tubes.tube.tube.connected"><a name="//apple_ref/cpp/Method/pwnlib.tubes.tube.tube.connected"></a>
+<code class="descname">connected</code><span class="sig-paren">(</span><em>direction = ‘any’</em><span class="sig-paren">)</span> → bool<a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/tube.py#L1152-1184"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.tube.tube.connected" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns True if the tube is connected in the specified direction.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>direction</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Can be the string ‘any’, ‘in’, ‘read’, ‘recv’,
+‘out’, ‘write’, ‘send’.</td>
+</tr>
+</tbody>
+</table>
+<p>Doctest:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">p</span><span class="p">(</span><span class="n">x</span><span class="p">):</span> <span class="nb">print</span> <span class="n">x</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">tube</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">connected_raw</span> <span class="o">=</span> <span class="n">p</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">_</span><span class="o">=</span><span class="nb">map</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">connected</span><span class="p">,</span> <span class="p">(</span><span class="s1">'any'</span><span class="p">,</span> <span class="s1">'in'</span><span class="p">,</span> <span class="s1">'read'</span><span class="p">,</span> <span class="s1">'recv'</span><span class="p">,</span> <span class="s1">'out'</span><span class="p">,</span> <span class="s1">'write'</span><span class="p">,</span> <span class="s1">'send'</span><span class="p">))</span>
+<span class="go">any</span>
+<span class="go">recv</span>
+<span class="go">recv</span>
+<span class="go">recv</span>
+<span class="go">send</span>
+<span class="go">send</span>
+<span class="go">send</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">connected</span><span class="p">(</span><span class="s1">'bad_value'</span><span class="p">)</span> 
+<span class="gt">Traceback (most recent call last):</span>
+<span class="c">...</span>
+<span class="gr">KeyError</span>: <span class="n">"direction must be in ['any', 'in', 'out', 'read', 'recv', 'send', 'write']"</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.tubes.tube.tube.fileno"><a name="//apple_ref/cpp/Method/pwnlib.tubes.tube.tube.fileno"></a>
+<code class="descname">fileno</code><span class="sig-paren">(</span><span class="sig-paren">)</span> → int<a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/tube.py#L1282-1288"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.tube.tube.fileno" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the file number used for reading.</p>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.tubes.tube.tube.interactive"><a name="//apple_ref/cpp/Method/pwnlib.tubes.tube.tube.interactive"></a>
+<code class="descname">interactive</code><span class="sig-paren">(</span><em>prompt = pwnlib.term.text.bold_red(‘$’) + ‘ ‘</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/tube.py#L768-818"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.tube.tube.interactive" title="Permalink to this definition">¶</a></dt>
+<dd><p>Does simultaneous reading and writing to the tube. In principle this just
+connects the tube to standard in and standard out, but in practice this
+is much more usable, since we are using <a class="reference internal" href="term.html#module-pwnlib.term" title="pwnlib.term"><code class="xref py py-mod docutils literal"><span class="pre">pwnlib.term</span></code></a> to print a
+floating prompt.</p>
+<p>Thus it only works in while in <a class="reference internal" href="term.html#pwnlib.term.term_mode" title="pwnlib.term.term_mode"><code class="xref py py-data docutils literal"><span class="pre">pwnlib.term.term_mode</span></code></a>.</p>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.tubes.tube.tube.recv"><a name="//apple_ref/cpp/Method/pwnlib.tubes.tube.tube.recv"></a>
+<code class="descname">recv</code><span class="sig-paren">(</span><em>numb = 4096</em>, <em>timeout = default</em><span class="sig-paren">)</span> → str<a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/tube.py#L47-79"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.tube.tube.recv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Receives up to <cite>numb</cite> bytes of data from the tube, and returns
+as soon as any quantity of data is available.</p>
+<p>If the request is not satisfied before <code class="docutils literal"><span class="pre">timeout</span></code> seconds pass,
+all data is buffered and an empty string (<code class="docutils literal"><span class="pre">''</span></code>) is returned.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/2.7/library/exceptions.html#exceptions.EOFError" title="(in Python v2.7)"><code class="xref py py-exc docutils literal"><span class="pre">exceptions.EOFError</span></code></a> – The connection is closed</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A string containing bytes received from the socket,
+or <code class="docutils literal"><span class="pre">''</span></code> if a timeout occurred while waiting.</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">tube</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Fake a data source</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">recv_raw</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="s1">'Hello, world'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">recv</span><span class="p">()</span> <span class="o">==</span> <span class="s1">'Hello, world'</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">unrecv</span><span class="p">(</span><span class="s1">'Woohoo'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">recv</span><span class="p">()</span> <span class="o">==</span> <span class="s1">'Woohoo'</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">context</span><span class="o">.</span><span class="n">local</span><span class="p">(</span><span class="n">log_level</span><span class="o">=</span><span class="s1">'debug'</span><span class="p">):</span>
+<span class="gp">... </span>   <span class="n">_</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">recv</span><span class="p">()</span> 
+<span class="go">[...] Received 0xc bytes:</span>
+<span class="go">    'Hello, world'</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.tubes.tube.tube.recvall"><a name="//apple_ref/cpp/Method/pwnlib.tubes.tube.tube.recvall"></a>
+<code class="descname">recvall</code><span class="sig-paren">(</span><span class="sig-paren">)</span> → str<a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/tube.py#L657-677"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.tube.tube.recvall" title="Permalink to this definition">¶</a></dt>
+<dd><p>Receives data until EOF is reached.</p>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.tubes.tube.tube.recvline"><a name="//apple_ref/cpp/Method/pwnlib.tubes.tube.tube.recvline"></a>
+<code class="descname">recvline</code><span class="sig-paren">(</span><em>keepends = True</em><span class="sig-paren">)</span> → str<a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/tube.py#L393-427"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.tube.tube.recvline" title="Permalink to this definition">¶</a></dt>
+<dd><p>Receive a single line from the tube.</p>
+<p>A “line” is any sequence of bytes terminated by the byte sequence
+set in <a class="reference internal" href="#pwnlib.tubes.tube.tube.newline" title="pwnlib.tubes.tube.tube.newline"><code class="xref py py-attr docutils literal"><span class="pre">newline</span></code></a>, which defaults to <code class="docutils literal"><span class="pre">'\n'</span></code>.</p>
+<p>If the request is not satisfied before <code class="docutils literal"><span class="pre">timeout</span></code> seconds pass,
+all data is buffered and an empty string (<code class="docutils literal"><span class="pre">''</span></code>) is returned.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>keepends</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – Keep the line ending (<code class="xref py py-const docutils literal"><span class="pre">True</span></code>).</li>
+<li><strong>timeout</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – Timeout</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">All bytes received over the tube until the first
+newline <code class="docutils literal"><span class="pre">'\n'</span></code> is received.  Optionally retains
+the ending.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">tube</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">recv_raw</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="s1">'Foo</span><span class="se">\n</span><span class="s1">Bar</span><span class="se">\r\n</span><span class="s1">Baz</span><span class="se">\n</span><span class="s1">'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">recvline</span><span class="p">()</span>
+<span class="go">'Foo\n'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">recvline</span><span class="p">()</span>
+<span class="go">'Bar\r\n'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">recvline</span><span class="p">(</span><span class="n">keepends</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+<span class="go">'Baz'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">newline</span> <span class="o">=</span> <span class="s1">'</span><span class="se">\r\n</span><span class="s1">'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">recvline</span><span class="p">(</span><span class="n">keepends</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+<span class="go">'Foo\nBar'</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.tubes.tube.tube.recvline_contains"><a name="//apple_ref/cpp/Method/pwnlib.tubes.tube.tube.recvline_contains"></a>
+<code class="descname">recvline_contains</code><span class="sig-paren">(</span><em>items</em>, <em>keepends=False</em>, <em>timeout=pwnlib.timeout.Timeout.default</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/tube.py#L477-509"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.tube.tube.recvline_contains" title="Permalink to this definition">¶</a></dt>
+<dd><p>Receive lines until one line is found which contains at least
+one of <cite>items</cite>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>items</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a><em>,</em><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#tuple" title="(in Python v2.7)"><em>tuple</em></a>) – List of strings to search for, or a single string.</li>
+<li><strong>keepends</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – Return lines with newlines if <code class="xref py py-const docutils literal"><span class="pre">True</span></code></li>
+<li><strong>timeout</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – Timeout, in seconds</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">tube</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">recv_raw</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="s2">"Hello</span><span class="se">\n</span><span class="s2">World</span><span class="se">\n</span><span class="s2">Xylophone</span><span class="se">\n</span><span class="s2">"</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">recvline_contains</span><span class="p">(</span><span class="s1">'r'</span><span class="p">)</span>
+<span class="go">'World'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="s2">"cat dog bird</span><span class="se">\n</span><span class="s2">apple pear orange</span><span class="se">\n</span><span class="s2">bicycle car train</span><span class="se">\n</span><span class="s2">"</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">tube</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">recv_raw</span> <span class="o">=</span> <span class="n">f</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">recvline_contains</span><span class="p">(</span><span class="s1">'pear'</span><span class="p">)</span>
+<span class="go">'apple pear orange'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">tube</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">recv_raw</span> <span class="o">=</span> <span class="n">f</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">recvline_contains</span><span class="p">((</span><span class="s1">'car'</span><span class="p">,</span> <span class="s1">'train'</span><span class="p">))</span>
+<span class="go">'bicycle car train'</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.tubes.tube.tube.recvline_endswith"><a name="//apple_ref/cpp/Method/pwnlib.tubes.tube.tube.recvline_endswith"></a>
+<code class="descname">recvline_endswith</code><span class="sig-paren">(</span><em>delims</em>, <em>keepends = False</em>, <em>timeout = default</em><span class="sig-paren">)</span> → str<a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/tube.py#L547-577"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.tube.tube.recvline_endswith" title="Permalink to this definition">¶</a></dt>
+<dd><p>Keep receiving lines until one is found that starts with one of
+<cite>delims</cite>.  Returns the last line received.</p>
+<p>If the request is not satisfied before <code class="docutils literal"><span class="pre">timeout</span></code> seconds pass,
+all data is buffered and an empty string (<code class="docutils literal"><span class="pre">''</span></code>) is returned.</p>
+<p>See <a class="reference internal" href="#pwnlib.tubes.tube.tube.recvline_startswith" title="pwnlib.tubes.tube.tube.recvline_startswith"><code class="xref py py-meth docutils literal"><span class="pre">recvline_startswith()</span></code></a> for more details.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">tube</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">recv_raw</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="s1">'Foo</span><span class="se">\n</span><span class="s1">Bar</span><span class="se">\n</span><span class="s1">Baz</span><span class="se">\n</span><span class="s1">Kaboodle</span><span class="se">\n</span><span class="s1">'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">recvline_endswith</span><span class="p">(</span><span class="s1">'r'</span><span class="p">)</span>
+<span class="go">'Bar'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">recvline_endswith</span><span class="p">(</span><span class="nb">tuple</span><span class="p">(</span><span class="s1">'abcde'</span><span class="p">),</span> <span class="kc">True</span><span class="p">)</span>
+<span class="go">'Kaboodle\n'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">recvline_endswith</span><span class="p">(</span><span class="s1">'oodle'</span><span class="p">)</span>
+<span class="go">'Kaboodle'</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.tubes.tube.tube.recvline_pred"><a name="//apple_ref/cpp/Method/pwnlib.tubes.tube.tube.recvline_pred"></a>
+<code class="descname">recvline_pred</code><span class="sig-paren">(</span><em>pred</em>, <em>keepends = False</em><span class="sig-paren">)</span> → str<a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/tube.py#L429-475"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.tube.tube.recvline_pred" title="Permalink to this definition">¶</a></dt>
+<dd><p>Receive data until <code class="docutils literal"><span class="pre">pred(line)</span></code> returns a truthy value.
+Drop all other data.</p>
+<p>If the request is not satisfied before <code class="docutils literal"><span class="pre">timeout</span></code> seconds pass,
+all data is buffered and an empty string (<code class="docutils literal"><span class="pre">''</span></code>) is returned.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>pred</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#callable" title="(in Python v2.7)"><em>callable</em></a>) – Function to call.  Returns the line for which
+this function returns <code class="xref py py-const docutils literal"><span class="pre">True</span></code>.</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">tube</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">recv_raw</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="s2">"Foo</span><span class="se">\n</span><span class="s2">Bar</span><span class="se">\n</span><span class="s2">Baz</span><span class="se">\n</span><span class="s2">"</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">recvline_pred</span><span class="p">(</span><span class="k">lambda</span> <span class="n">line</span><span class="p">:</span> <span class="n">line</span> <span class="o">==</span> <span class="s2">"Bar</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+<span class="go">'Bar'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">recvline_pred</span><span class="p">(</span><span class="k">lambda</span> <span class="n">line</span><span class="p">:</span> <span class="n">line</span> <span class="o">==</span> <span class="s2">"Bar</span><span class="se">\n</span><span class="s2">"</span><span class="p">,</span> <span class="n">keepends</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">'Bar\n'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">recvline_pred</span><span class="p">(</span><span class="k">lambda</span> <span class="n">line</span><span class="p">:</span> <span class="n">line</span> <span class="o">==</span> <span class="s1">'Nope!'</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="go">''</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.tubes.tube.tube.recvline_regex"><a name="//apple_ref/cpp/Method/pwnlib.tubes.tube.tube.recvline_regex"></a>
+<code class="descname">recvline_regex</code><span class="sig-paren">(</span><em>regex</em>, <em>exact=False</em>, <em>keepends=False</em>, <em>timeout=pwnlib.timeout.Timeout.default</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/tube.py#L602-623"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.tube.tube.recvline_regex" title="Permalink to this definition">¶</a></dt>
+<dd><p>recvregex(regex, exact = False, keepends = False, timeout = default) -&gt; str</p>
+<p>Wrapper around <a class="reference internal" href="#pwnlib.tubes.tube.tube.recvline_pred" title="pwnlib.tubes.tube.tube.recvline_pred"><code class="xref py py-func docutils literal"><span class="pre">recvline_pred()</span></code></a>, which will return when a regex
+matches a line.</p>
+<p>By default <code class="xref py py-func docutils literal"><span class="pre">re.RegexObject.search()</span></code> is used, but if <cite>exact</cite> is
+set to True, then <code class="xref py py-func docutils literal"><span class="pre">re.RegexObject.match()</span></code> will be used instead.</p>
+<p>If the request is not satisfied before <code class="docutils literal"><span class="pre">timeout</span></code> seconds pass,
+all data is buffered and an empty string (<code class="docutils literal"><span class="pre">''</span></code>) is returned.</p>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.tubes.tube.tube.recvline_startswith"><a name="//apple_ref/cpp/Method/pwnlib.tubes.tube.tube.recvline_startswith"></a>
+<code class="descname">recvline_startswith</code><span class="sig-paren">(</span><em>delims</em>, <em>keepends = False</em>, <em>timeout = default</em><span class="sig-paren">)</span> → str<a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/tube.py#L511-545"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.tube.tube.recvline_startswith" title="Permalink to this definition">¶</a></dt>
+<dd><p>Keep receiving lines until one is found that starts with one of
+<cite>delims</cite>.  Returns the last line received.</p>
+<p>If the request is not satisfied before <code class="docutils literal"><span class="pre">timeout</span></code> seconds pass,
+all data is buffered and an empty string (<code class="docutils literal"><span class="pre">''</span></code>) is returned.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>delims</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a><em>,</em><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#tuple" title="(in Python v2.7)"><em>tuple</em></a>) – List of strings to search for, or string of single characters</li>
+<li><strong>keepends</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – Return lines with newlines if <code class="xref py py-const docutils literal"><span class="pre">True</span></code></li>
+<li><strong>timeout</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – Timeout, in seconds</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">The first line received which starts with a delimiter in <code class="docutils literal"><span class="pre">delims</span></code>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">tube</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">recv_raw</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="s2">"Hello</span><span class="se">\n</span><span class="s2">World</span><span class="se">\n</span><span class="s2">Xylophone</span><span class="se">\n</span><span class="s2">"</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">recvline_startswith</span><span class="p">(</span><span class="nb">tuple</span><span class="p">(</span><span class="s1">'WXYZ'</span><span class="p">))</span>
+<span class="go">'World'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">recvline_startswith</span><span class="p">(</span><span class="nb">tuple</span><span class="p">(</span><span class="s1">'WXYZ'</span><span class="p">),</span> <span class="kc">True</span><span class="p">)</span>
+<span class="go">'Xylophone\n'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">recvline_startswith</span><span class="p">(</span><span class="s1">'Wo'</span><span class="p">)</span>
+<span class="go">'World'</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.tubes.tube.tube.recvlines"><a name="//apple_ref/cpp/Method/pwnlib.tubes.tube.tube.recvlines"></a>
+<code class="descname">recvlines</code><span class="sig-paren">(</span><em>numlines</em>, <em>keepends = False</em>, <em>timeout = default</em><span class="sig-paren">)</span> → str list<a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/tube.py#L336-391"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.tube.tube.recvlines" title="Permalink to this definition">¶</a></dt>
+<dd><p>Receive up to <code class="docutils literal"><span class="pre">numlines</span></code> lines.</p>
+<p>A “line” is any sequence of bytes terminated by the byte sequence
+set by <a class="reference internal" href="#pwnlib.tubes.tube.tube.newline" title="pwnlib.tubes.tube.tube.newline"><code class="xref py py-attr docutils literal"><span class="pre">newline</span></code></a>, which defaults to <code class="docutils literal"><span class="pre">'\n'</span></code>.</p>
+<p>If the request is not satisfied before <code class="docutils literal"><span class="pre">timeout</span></code> seconds pass,
+all data is buffered and an empty string (<code class="docutils literal"><span class="pre">''</span></code>) is returned.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>numlines</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – Maximum number of lines to receive</li>
+<li><strong>keepends</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – Keep newlines at the end of each line (<code class="xref py py-const docutils literal"><span class="pre">False</span></code>).</li>
+<li><strong>timeout</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – Maximum timeout</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first"><a class="reference external" href="https://docs.python.org/2.7/library/exceptions.html#exceptions.EOFError" title="(in Python v2.7)"><code class="xref py py-exc docutils literal"><span class="pre">exceptions.EOFError</span></code></a> – The connection closed before the request could be satisfied</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A string containing bytes received from the socket,
+or <code class="docutils literal"><span class="pre">''</span></code> if a timeout occurred while waiting.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">tube</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">recv_raw</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="s1">'</span><span class="se">\n</span><span class="s1">'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">recvlines</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="go">['', '', '']</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">recv_raw</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="s1">'Foo</span><span class="se">\n</span><span class="s1">Bar</span><span class="se">\n</span><span class="s1">Baz</span><span class="se">\n</span><span class="s1">'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">recvlines</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="go">['Foo', 'Bar', 'Baz']</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">recvlines</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+<span class="go">['Foo\n', 'Bar\n', 'Baz\n']</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.tubes.tube.tube.recvn"><a name="//apple_ref/cpp/Method/pwnlib.tubes.tube.tube.recvn"></a>
+<code class="descname">recvn</code><span class="sig-paren">(</span><em>numb</em>, <em>timeout = default</em><span class="sig-paren">)</span> → str<a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/tube.py#L201-245"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.tube.tube.recvn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Receives exactly <cite>n</cite> bytes.</p>
+<p>If the request is not satisfied before <code class="docutils literal"><span class="pre">timeout</span></code> seconds pass,
+all data is buffered and an empty string (<code class="docutils literal"><span class="pre">''</span></code>) is returned.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/2.7/library/exceptions.html#exceptions.EOFError" title="(in Python v2.7)"><code class="xref py py-exc docutils literal"><span class="pre">exceptions.EOFError</span></code></a> – The connection closed before the request could be satisfied</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A string containing bytes received from the socket,
+or <code class="docutils literal"><span class="pre">''</span></code> if a timeout occurred while waiting.</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">tube</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="s1">'hello world'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">recv_raw</span> <span class="o">=</span> <span class="k">lambda</span> <span class="o">*</span><span class="n">a</span><span class="p">:</span> <span class="n">data</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">recvn</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">))</span> <span class="o">==</span> <span class="n">data</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">recvn</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="n">data</span> <span class="o">+</span> <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">recv_raw</span> <span class="o">=</span> <span class="k">lambda</span> <span class="o">*</span><span class="n">a</span><span class="p">:</span> <span class="kc">None</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># The remaining data is buffered</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">recv</span><span class="p">()</span> <span class="o">==</span> <span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">recv_raw</span> <span class="o">=</span> <span class="k">lambda</span> <span class="o">*</span><span class="n">a</span><span class="p">:</span> <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.01</span><span class="p">)</span> <span class="ow">or</span> <span class="s1">'a'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">recvn</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
+<span class="go">''</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">recvn</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mf">0.06</span><span class="p">)</span> 
+<span class="go">'aaaaaa...'</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.tubes.tube.tube.recvpred"><a name="//apple_ref/cpp/Method/pwnlib.tubes.tube.tube.recvpred"></a>
+<code class="descname">recvpred</code><span class="sig-paren">(</span><em>pred</em>, <em>timeout = default</em><span class="sig-paren">)</span> → str<a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/tube.py#L162-199"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.tube.tube.recvpred" title="Permalink to this definition">¶</a></dt>
+<dd><p>Receives one byte at a time from the tube, until <code class="docutils literal"><span class="pre">pred(bytes)</span></code>
+evaluates to True.</p>
+<p>If the request is not satisfied before <code class="docutils literal"><span class="pre">timeout</span></code> seconds pass,
+all data is buffered and an empty string (<code class="docutils literal"><span class="pre">''</span></code>) is returned.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>pred</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#callable" title="(in Python v2.7)"><em>callable</em></a>) – Function to call, with the currently-accumulated data.</li>
+<li><strong>timeout</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – Timeout for the operation</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first"><a class="reference external" href="https://docs.python.org/2.7/library/exceptions.html#exceptions.EOFError" title="(in Python v2.7)"><code class="xref py py-exc docutils literal"><span class="pre">exceptions.EOFError</span></code></a> – The connection is closed</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A string containing bytes received from the socket,
+or <code class="docutils literal"><span class="pre">''</span></code> if a timeout occurred while waiting.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.tubes.tube.tube.recvregex"><a name="//apple_ref/cpp/Method/pwnlib.tubes.tube.tube.recvregex"></a>
+<code class="descname">recvregex</code><span class="sig-paren">(</span><em>regex</em>, <em>exact = False</em>, <em>timeout = default</em><span class="sig-paren">)</span> → str<a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/tube.py#L579-600"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.tube.tube.recvregex" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wrapper around <a class="reference internal" href="#pwnlib.tubes.tube.tube.recvpred" title="pwnlib.tubes.tube.tube.recvpred"><code class="xref py py-func docutils literal"><span class="pre">recvpred()</span></code></a>, which will return when a regex
+matches the string in the buffer.</p>
+<p>By default <code class="xref py py-func docutils literal"><span class="pre">re.RegexObject.search()</span></code> is used, but if <cite>exact</cite> is
+set to True, then <code class="xref py py-func docutils literal"><span class="pre">re.RegexObject.match()</span></code> will be used instead.</p>
+<p>If the request is not satisfied before <code class="docutils literal"><span class="pre">timeout</span></code> seconds pass,
+all data is buffered and an empty string (<code class="docutils literal"><span class="pre">''</span></code>) is returned.</p>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.tubes.tube.tube.recvrepeat"><a name="//apple_ref/cpp/Method/pwnlib.tubes.tube.tube.recvrepeat"></a>
+<code class="descname">recvrepeat</code><span class="sig-paren">(</span><em>timeout = default</em><span class="sig-paren">)</span> → str<a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/tube.py#L625-655"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.tube.tube.recvrepeat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Receives data until a timeout or EOF is reached.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="p">[</span>
+<span class="gp">... </span><span class="s1">'d'</span><span class="p">,</span>
+<span class="gp">... </span><span class="s1">''</span><span class="p">,</span> <span class="c1"># simulate timeout</span>
+<span class="gp">... </span><span class="s1">'c'</span><span class="p">,</span>
+<span class="gp">... </span><span class="s1">'b'</span><span class="p">,</span>
+<span class="gp">... </span><span class="s1">'a'</span><span class="p">,</span>
+<span class="gp">... </span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">delayrecv</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="n">data</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">tube</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">recv_raw</span> <span class="o">=</span> <span class="n">delayrecv</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">recvrepeat</span><span class="p">(</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="go">'abc'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">recv</span><span class="p">()</span>
+<span class="go">'d'</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.tubes.tube.tube.recvuntil"><a name="//apple_ref/cpp/Method/pwnlib.tubes.tube.tube.recvuntil"></a>
+<code class="descname">recvuntil</code><span class="sig-paren">(</span><em>delims</em>, <em>timeout = default</em><span class="sig-paren">)</span> → str<a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/tube.py#L247-334"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.tube.tube.recvuntil" title="Permalink to this definition">¶</a></dt>
+<dd><p>Receive data until one of <cite>delims</cite> is encountered.</p>
+<p>If the request is not satisfied before <code class="docutils literal"><span class="pre">timeout</span></code> seconds pass,
+all data is buffered and an empty string (<code class="docutils literal"><span class="pre">''</span></code>) is returned.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>delims</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a><em>,</em><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#tuple" title="(in Python v2.7)"><em>tuple</em></a>) – String of delimiters characters, or list of delimiter strings.</li>
+<li><strong>drop</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – Drop the ending.  If <code class="xref py py-const docutils literal"><span class="pre">True</span></code> it is removed from the end of the return value.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first"><a class="reference external" href="https://docs.python.org/2.7/library/exceptions.html#exceptions.EOFError" title="(in Python v2.7)"><code class="xref py py-exc docutils literal"><span class="pre">exceptions.EOFError</span></code></a> – The connection closed before the request could be satisfied</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A string containing bytes received from the socket,
+or <code class="docutils literal"><span class="pre">''</span></code> if a timeout occurred while waiting.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">tube</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">recv_raw</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="s2">"Hello World!"</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="s1">' '</span><span class="p">)</span>
+<span class="go">'Hello '</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">_</span><span class="o">=</span><span class="n">t</span><span class="o">.</span><span class="n">clean</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Matches on 'o' in 'Hello'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="nb">tuple</span><span class="p">(</span><span class="s1">' Wor'</span><span class="p">))</span>
+<span class="go">'Hello'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">_</span><span class="o">=</span><span class="n">t</span><span class="o">.</span><span class="n">clean</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Matches expressly full string</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="s1">' Wor'</span><span class="p">)</span>
+<span class="go">'Hello Wor'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">_</span><span class="o">=</span><span class="n">t</span><span class="o">.</span><span class="n">clean</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Matches on full string, drops match</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="s1">' Wor'</span><span class="p">,</span> <span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">'Hello'</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Try with regex special characters</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">tube</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">recv_raw</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="s2">"Hello|World"</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="s1">'|'</span><span class="p">,</span> <span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">'Hello'</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.tubes.tube.tube.send"><a name="//apple_ref/cpp/Method/pwnlib.tubes.tube.tube.send"></a>
+<code class="descname">send</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/tube.py#L679-708"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.tube.tube.send" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sends data.</p>
+<p>If log level <code class="docutils literal"><span class="pre">DEBUG</span></code> is enabled, also prints out the data
+received.</p>
+<p>If it is not possible to send anymore because of a closed
+connection, it raises <code class="docutils literal"><span class="pre">exceptions.EOFError</span></code></p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">p</span><span class="p">(</span><span class="n">x</span><span class="p">):</span> <span class="nb">print</span> <span class="nb">repr</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">tube</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">send_raw</span> <span class="o">=</span> <span class="n">p</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s1">'hello'</span><span class="p">)</span>
+<span class="go">'hello'</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.tubes.tube.tube.sendafter"><a name="//apple_ref/cpp/Method/pwnlib.tubes.tube.tube.sendafter"></a>
+<code class="descname">sendafter</code><span class="sig-paren">(</span><em>delim</em>, <em>data</em>, <em>timeout = default</em><span class="sig-paren">)</span> → str<a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/tube.py#L733-741"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.tube.tube.sendafter" title="Permalink to this definition">¶</a></dt>
+<dd><p>A combination of <code class="docutils literal"><span class="pre">recvuntil(delim,</span> <span class="pre">timeout)</span></code> and <code class="docutils literal"><span class="pre">send(data)</span></code>.</p>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.tubes.tube.tube.sendline"><a name="//apple_ref/cpp/Method/pwnlib.tubes.tube.tube.sendline"></a>
+<code class="descname">sendline</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/tube.py#L710-727"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.tube.tube.sendline" title="Permalink to this definition">¶</a></dt>
+<dd><p>Shorthand for <code class="docutils literal"><span class="pre">t.send(data</span> <span class="pre">+</span> <span class="pre">t.newline)</span></code>.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">p</span><span class="p">(</span><span class="n">x</span><span class="p">):</span> <span class="nb">print</span> <span class="nb">repr</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">tube</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">send_raw</span> <span class="o">=</span> <span class="n">p</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="s1">'hello'</span><span class="p">)</span>
+<span class="go">'hello\n'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">newline</span> <span class="o">=</span> <span class="s1">'</span><span class="se">\r\n</span><span class="s1">'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="s1">'hello'</span><span class="p">)</span>
+<span class="go">'hello\r\n'</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.tubes.tube.tube.sendlineafter"><a name="//apple_ref/cpp/Method/pwnlib.tubes.tube.tube.sendlineafter"></a>
+<code class="descname">sendlineafter</code><span class="sig-paren">(</span><em>delim</em>, <em>data</em>, <em>timeout = default</em><span class="sig-paren">)</span> → str<a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/tube.py#L743-750"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.tube.tube.sendlineafter" title="Permalink to this definition">¶</a></dt>
+<dd><p>A combination of <code class="docutils literal"><span class="pre">recvuntil(delim,</span> <span class="pre">timeout)</span></code> and <code class="docutils literal"><span class="pre">sendline(data)</span></code>.</p>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.tubes.tube.tube.sendlinethen"><a name="//apple_ref/cpp/Method/pwnlib.tubes.tube.tube.sendlinethen"></a>
+<code class="descname">sendlinethen</code><span class="sig-paren">(</span><em>delim</em>, <em>data</em>, <em>timeout = default</em><span class="sig-paren">)</span> → str<a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/tube.py#L760-766"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.tube.tube.sendlinethen" title="Permalink to this definition">¶</a></dt>
+<dd><p>A combination of <code class="docutils literal"><span class="pre">sendline(data)</span></code> and <code class="docutils literal"><span class="pre">recvuntil(delim,</span> <span class="pre">timeout)</span></code>.</p>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.tubes.tube.tube.sendthen"><a name="//apple_ref/cpp/Method/pwnlib.tubes.tube.tube.sendthen"></a>
+<code class="descname">sendthen</code><span class="sig-paren">(</span><em>delim</em>, <em>data</em>, <em>timeout = default</em><span class="sig-paren">)</span> → str<a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/tube.py#L752-758"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.tube.tube.sendthen" title="Permalink to this definition">¶</a></dt>
+<dd><p>A combination of <code class="docutils literal"><span class="pre">send(data)</span></code> and <code class="docutils literal"><span class="pre">recvuntil(delim,</span> <span class="pre">timeout)</span></code>.</p>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.tubes.tube.tube.settimeout"><a name="//apple_ref/cpp/Method/pwnlib.tubes.tube.tube.settimeout"></a>
+<code class="descname">settimeout</code><span class="sig-paren">(</span><em>timeout</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/tube.py#L1084-1100"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.tube.tube.settimeout" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the timeout for receiving operations. If the string “default”
+is given, then <code class="xref py py-data docutils literal"><span class="pre">context.timeout</span></code> will be used. If None is given,
+then there will be no timeout.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">tube</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">settimeout_raw</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="kc">None</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">settimeout</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">timeout</span> <span class="o">==</span> <span class="mi">3</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.tubes.tube.tube.shutdown"><a name="//apple_ref/cpp/Method/pwnlib.tubes.tube.tube.shutdown"></a>
+<code class="descname">shutdown</code><span class="sig-paren">(</span><em>direction = “send”</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/tube.py#L1115-1150"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.tube.tube.shutdown" title="Permalink to this definition">¶</a></dt>
+<dd><p>Closes the tube for futher reading or writing depending on <cite>direction</cite>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>direction</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Which direction to close; “in”, “read” or “recv”
+closes the tube in the ingoing direction, “out”, “write” or “send”
+closes it in the outgoing direction.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><code class="xref py py-const docutils literal"><span class="pre">None</span></code></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">p</span><span class="p">(</span><span class="n">x</span><span class="p">):</span> <span class="nb">print</span> <span class="n">x</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">tube</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">shutdown_raw</span> <span class="o">=</span> <span class="n">p</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">_</span><span class="o">=</span><span class="nb">map</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">shutdown</span><span class="p">,</span> <span class="p">(</span><span class="s1">'in'</span><span class="p">,</span> <span class="s1">'read'</span><span class="p">,</span> <span class="s1">'recv'</span><span class="p">,</span> <span class="s1">'out'</span><span class="p">,</span> <span class="s1">'write'</span><span class="p">,</span> <span class="s1">'send'</span><span class="p">))</span>
+<span class="go">recv</span>
+<span class="go">recv</span>
+<span class="go">recv</span>
+<span class="go">send</span>
+<span class="go">send</span>
+<span class="go">send</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">shutdown</span><span class="p">(</span><span class="s1">'bad_value'</span><span class="p">)</span> 
+<span class="gt">Traceback (most recent call last):</span>
+<span class="c">...</span>
+<span class="gr">KeyError</span>: <span class="n">"direction must be in ['in', 'out', 'read', 'recv', 'send', 'write']"</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.tubes.tube.tube.spawn_process"><a name="//apple_ref/cpp/Method/pwnlib.tubes.tube.tube.spawn_process"></a>
+<code class="descname">spawn_process</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/tube.py#L997-1008"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.tube.tube.spawn_process" title="Permalink to this definition">¶</a></dt>
+<dd><p>Spawns a new process having this tube as stdin, stdout and stderr.</p>
+<p>Takes the same arguments as <a class="reference external" href="https://docs.python.org/2.7/library/subprocess.html#subprocess.Popen" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">subprocess.Popen</span></code></a>.</p>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.tubes.tube.tube.stream"><a name="//apple_ref/cpp/Method/pwnlib.tubes.tube.tube.stream"></a>
+<code class="descname">stream</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/tube.py#L820-847"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.tube.tube.stream" title="Permalink to this definition">¶</a></dt>
+<dd><p>Receive data until the tube exits, and print it to stdout.</p>
+<p>Similar to <a class="reference internal" href="#pwnlib.tubes.tube.tube.interactive" title="pwnlib.tubes.tube.tube.interactive"><code class="xref py py-func docutils literal"><span class="pre">interactive()</span></code></a>, except that no input is sent.</p>
+<p>Similar to <code class="docutils literal"><span class="pre">print</span> <span class="pre">tube.recvall()</span></code> except that data is printed
+as it is received, rather than after all data is received.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>line_mode</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – Whether to receive line-by-line or raw data.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">All data printed.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.tubes.tube.tube.timeout_change"><a name="//apple_ref/cpp/Method/pwnlib.tubes.tube.tube.timeout_change"></a>
+<code class="descname">timeout_change</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/tube.py#L1240-1251"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.tube.tube.timeout_change" title="Permalink to this definition">¶</a></dt>
+<dd><p>Informs the raw layer of the tube that the timeout has changed.</p>
+<p>Should not be called directly.</p>
+<p>Inherited from <code class="xref py py-class docutils literal"><span class="pre">Timeout</span></code>.</p>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.tubes.tube.tube.unrecv"><a name="//apple_ref/cpp/Method/pwnlib.tubes.tube.tube.unrecv"></a>
+<code class="descname">unrecv</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/tube.py#L81-101"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.tube.tube.unrecv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Puts the specified data back at the beginning of the receive
+buffer.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">tube</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">recv_raw</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="s1">'hello'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">recv</span><span class="p">()</span>
+<span class="go">'hello'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">recv</span><span class="p">()</span>
+<span class="go">'hello'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">unrecv</span><span class="p">(</span><span class="s1">'world'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">recv</span><span class="p">()</span>
+<span class="go">'world'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">recv</span><span class="p">()</span>
+<span class="go">'hello'</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.tubes.tube.tube.wait"><a name="//apple_ref/cpp/Method/pwnlib.tubes.tube.tube.wait"></a>
+<code class="descname">wait</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/tube.py#L1054-1058"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.tube.tube.wait" title="Permalink to this definition">¶</a></dt>
+<dd><p>Waits until the tube is closed.</p>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.tubes.tube.tube.wait_for_close"><a name="//apple_ref/cpp/Method/pwnlib.tubes.tube.tube.wait_for_close"></a>
+<code class="descname">wait_for_close</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/tube.py#L1054-1058"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.tube.tube.wait_for_close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Waits until the tube is closed.</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.tubes.tube.tube.newline"><a name="//apple_ref/cpp/Attribute/pwnlib.tubes.tube.tube.newline"></a>
+<code class="descname">newline</code><em class="property"> = ‘\n’</em><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/tube.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.tube.tube.newline" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delimiter to use for <a class="reference internal" href="#pwnlib.tubes.tube.tube.sendline" title="pwnlib.tubes.tube.tube.sendline"><code class="xref py py-meth docutils literal"><span class="pre">sendline()</span></code></a>, <a class="reference internal" href="#pwnlib.tubes.tube.tube.recvline" title="pwnlib.tubes.tube.tube.recvline"><code class="xref py py-meth docutils literal"><span class="pre">recvline()</span></code></a>,
+and related functions.</p>
+</dd></dl>
+</dd></dl>
+</div>
+</div>
+</div>
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a accesskey="n" class="btn btn-neutral float-right" href="tubes/processes.html" rel="next" title="pwnlib.tubes.process — Processes">Next <span class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral" href="timeout.html" rel="prev" title="pwnlib.timeout — Timeout handling"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © Copyright 2016, Gallopsled et al..
+
+    </p>
+</div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'3.14.0dev',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+<script src="_static/jquery.js" type="text/javascript"></script>
+<script src="_static/underscore.js" type="text/javascript"></script>
+<script src="_static/doctools.js" type="text/javascript"></script>
+<script src="_static/js/theme.js" type="text/javascript"></script>
+<script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>

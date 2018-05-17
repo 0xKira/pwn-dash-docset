@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]--><!--[if gt IE 8]><!--><html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>pwnlib.context — Setting runtime variables — pwntools 3.14.0dev documentation</title>
+<link href="_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="about.html" rel="author" title="About these documents"/>
+<link href="search.html" rel="search" title="Search"/>
+<link href="dynelf.html" rel="next" title="pwnlib.dynelf — Resolving remote functions using leaks"/>
+<link href="config.html" rel="prev" title="pwnlib.config — Pwntools Configuration File"/>
+<script src="_static/js/modernizr.min.js"></script>
+</head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="index.html"> pwntools
+          
+
+          
+          </a>
+<div class="version">
+                3.14
+              </div>
+<div role="search">
+<form action="search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About pwntools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="globals.html"><code class="docutils literal"><span class="pre">from</span> <span class="pre">pwn</span> <span class="pre">import</span> <span class="pre">*</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="commandline.html">Command Line Tools</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="adb.html"><code class="docutils literal"><span class="pre">pwnlib.adb</span></code> — Android Debug Bridge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="args.html"><code class="docutils literal"><span class="pre">pwnlib.args</span></code> — Magic Command-Line Arguments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="asm.html"><code class="docutils literal"><span class="pre">pwnlib.asm</span></code> — Assembler functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="atexception.html"><code class="docutils literal"><span class="pre">pwnlib.atexception</span></code> — Callbacks on unhandled exception</a></li>
+<li class="toctree-l1"><a class="reference internal" href="atexit.html"><code class="docutils literal"><span class="pre">pwnlib.atexit</span></code> — Replacement for atexit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="constants.html"><code class="docutils literal"><span class="pre">pwnlib.constants</span></code> — Easy access to header file constants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config.html"><code class="docutils literal"><span class="pre">pwnlib.config</span></code> — Pwntools Configuration File</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="docutils literal"><span class="pre">pwnlib.context</span></code> — Setting runtime variables</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-pwnlib.context">Module Members</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dynelf.html"><code class="docutils literal"><span class="pre">pwnlib.dynelf</span></code> — Resolving remote functions using leaks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="encoders.html"><code class="docutils literal"><span class="pre">pwnlib.encoders</span></code> — Encoding Shellcode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="elf.html"><code class="docutils literal"><span class="pre">pwnlib.elf</span></code> — ELF Executables and Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exception.html"><code class="docutils literal"><span class="pre">pwnlib.exception</span></code> — Pwnlib exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="flag.html"><code class="docutils literal"><span class="pre">pwnlib.flag</span></code> — CTF Flag Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fmtstr.html"><code class="docutils literal"><span class="pre">pwnlib.fmtstr</span></code> — Format string bug exploitation tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gdb.html"><code class="docutils literal"><span class="pre">pwnlib.gdb</span></code> — Working with GDB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libcdb.html"><code class="docutils literal"><span class="pre">pwnlib.libcdb</span></code> — Libc Database</a></li>
+<li class="toctree-l1"><a class="reference internal" href="log.html"><code class="docutils literal"><span class="pre">pwnlib.log</span></code> — Logging stuff</a></li>
+<li class="toctree-l1"><a class="reference internal" href="memleak.html"><code class="docutils literal"><span class="pre">pwnlib.memleak</span></code> — Helper class for leaking memory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="protocols.html"><code class="docutils literal"><span class="pre">pwnlib.protocols</span></code> — Wire Protocols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qemu.html"><code class="docutils literal"><span class="pre">pwnlib.qemu</span></code> — QEMU Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="replacements.html"><code class="docutils literal"><span class="pre">pwnlib.replacements</span></code> — Replacements for various functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rop.html"><code class="docutils literal"><span class="pre">pwnlib.rop</span></code> — Return Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rop/rop.html"><code class="docutils literal"><span class="pre">pwnlib.rop.rop</span></code> — Return Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rop/srop.html"><code class="docutils literal"><span class="pre">pwnlib.rop.srop</span></code> — Sigreturn Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="runner.html"><code class="docutils literal"><span class="pre">pwnlib.runner</span></code> — Running Shellcode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shellcraft.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft</span></code> — Shellcode generation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shellcraft/aarch64.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.aarch64</span></code> — Shellcode for AArch64</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shellcraft/amd64.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.amd64</span></code> — Shellcode for AMD64</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shellcraft/arm.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.arm</span></code> — Shellcode for ARM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shellcraft/common.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.common</span></code> — Shellcode common to all architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shellcraft/i386.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.i386</span></code> — Shellcode for Intel 80386</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shellcraft/mips.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.mips</span></code> — Shellcode for MIPS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shellcraft/regsort.html"><code class="docutils literal"><span class="pre">pwnlib.regsort</span></code> — Register sorting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shellcraft/thumb.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.thumb</span></code> — Shellcode for Thumb Mode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="term.html"><code class="docutils literal"><span class="pre">pwnlib.term</span></code> — Terminal handling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="timeout.html"><code class="docutils literal"><span class="pre">pwnlib.timeout</span></code> — Timeout handling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tubes.html"><code class="docutils literal"><span class="pre">pwnlib.tubes</span></code> — Talking to the World!</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tubes/processes.html"><code class="docutils literal"><span class="pre">pwnlib.tubes.process</span></code> — Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tubes/serial.html"><code class="docutils literal"><span class="pre">pwnlib.tubes.serialtube</span></code> — Serial Ports</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tubes/sockets.html"><code class="docutils literal"><span class="pre">pwnlib.tubes.sock</span></code> — Sockets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tubes/ssh.html"><code class="docutils literal"><span class="pre">pwnlib.tubes.ssh</span></code> — SSH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ui.html"><code class="docutils literal"><span class="pre">pwnlib.ui</span></code> — Functions for user interaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="update.html"><code class="docutils literal"><span class="pre">pwnlib.update</span></code> — Updating Pwntools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="useragents.html"><code class="docutils literal"><span class="pre">pwnlib.useragents</span></code> — A database of useragent strings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/crc.html"><code class="docutils literal"><span class="pre">pwnlib.util.crc</span></code> — Calculating CRC-sums</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/cyclic.html"><code class="docutils literal"><span class="pre">pwnlib.util.cyclic</span></code> — Generation of unique sequences</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/fiddling.html"><code class="docutils literal"><span class="pre">pwnlib.util.fiddling</span></code> — Utilities bit fiddling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/hashes.html"><code class="docutils literal"><span class="pre">pwnlib.util.hashes</span></code> — Hashing functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/iters.html"><code class="docutils literal"><span class="pre">pwnlib.util.iters</span></code> — Extension of standard module <code class="docutils literal"><span class="pre">itertools</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/lists.html"><code class="docutils literal"><span class="pre">pwnlib.util.lists</span></code> — Operations on lists</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/misc.html"><code class="docutils literal"><span class="pre">pwnlib.util.misc</span></code> — We could not fit it any other place</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/net.html"><code class="docutils literal"><span class="pre">pwnlib.util.net</span></code> — Networking interfaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/packing.html"><code class="docutils literal"><span class="pre">pwnlib.util.packing</span></code> — Packing and unpacking of strings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/proc.html"><code class="docutils literal"><span class="pre">pwnlib.util.proc</span></code> — Working with <code class="docutils literal"><span class="pre">/proc/</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/safeeval.html"><code class="docutils literal"><span class="pre">pwnlib.util.safeeval</span></code> — Safe evaluation of python code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/sh_string.html"><code class="docutils literal"><span class="pre">pwnlib.util.sh_string</span></code> — Shell Expansion is Hard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/web.html"><code class="docutils literal"><span class="pre">pwnlib.util.web</span></code> — Utilities for working with the WWW</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="testexample.html"><code class="docutils literal"><span class="pre">pwnlib.testexample</span></code> — Example Test Module</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="index.html">pwntools</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a href="index.html">Docs</a> »</li>
+<li><code class="docutils literal"><span class="pre">pwnlib.context</span></code> — Setting runtime variables</li>
+<li class="wy-breadcrumbs-aside">
+<a href="_sources/context.rst.txt" rel="nofollow"> View page source</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div class="section" id="pwnlib-context-setting-runtime-variables">
+<h1><a class="reference internal" href="#module-pwnlib.context" title="pwnlib.context"><code class="xref py py-mod docutils literal"><span class="pre">pwnlib.context</span></code></a> — Setting runtime variables<a class="headerlink" href="#pwnlib-context-setting-runtime-variables" title="Permalink to this headline">¶</a></h1>
+<p>Many settings in <code class="docutils literal"><span class="pre">pwntools</span></code> are controlled via the global variable <a class="reference internal" href="#pwnlib.context.context" title="pwnlib.context.context"><code class="xref py py-data docutils literal"><span class="pre">context</span></code></a>, such as the selected target operating system, architecture, and bit-width.</p>
+<p>In general, exploits will start with something like:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="n">context</span><span class="o">.</span><span class="n">arch</span> <span class="o">=</span> <span class="s1">'amd64'</span>
+</pre></div>
+</div>
+<p>Which sets up everything in the exploit for exploiting a 64-bit Intel binary.</p>
+<p>The recommended method is to use <code class="docutils literal"><span class="pre">context.binary</span></code>  to automagically set all of the appropriate values.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="n">context</span><span class="o">.</span><span class="n">binary</span> <span class="o">=</span> <span class="s1">'./challenge-binary'</span>
+</pre></div>
+</div>
+<div class="section" id="module-pwnlib.context">
+<span id="module-members"></span><h2><a name="//apple_ref/cpp/Module/pwnlib.context"></a>Module Members<a class="headerlink" href="#module-pwnlib.context" title="Permalink to this headline">¶</a></h2>
+<p>Implements context management so that nested/scoped contexts and threaded
+contexts work properly and as expected.</p>
+<dl class="class">
+<dt id="pwnlib.context.ContextType"><a name="//apple_ref/cpp/Class/pwnlib.context.ContextType"></a>
+<em class="property">class </em><code class="descclassname">pwnlib.context.</code><code class="descname">ContextType</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/context.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.context.ContextType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class for specifying information about the target machine.
+Intended for use as a pseudo-singleton through the global
+variable <a class="reference internal" href="#pwnlib.context.context" title="pwnlib.context.context"><code class="xref py py-data docutils literal"><span class="pre">context</span></code></a>, available via
+<code class="docutils literal"><span class="pre">from</span> <span class="pre">pwn</span> <span class="pre">import</span> <span class="pre">*</span></code> as <code class="docutils literal"><span class="pre">context</span></code>.</p>
+<p>The context is usually specified at the top of the Python file for clarity.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="n">context</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">arch</span><span class="o">=</span><span class="s1">'i386'</span><span class="p">,</span> <span class="n">os</span><span class="o">=</span><span class="s1">'linux'</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Currently supported properties and their defaults are listed below.
+The defaults are inherited from <a class="reference internal" href="#pwnlib.context.ContextType.defaults" title="pwnlib.context.ContextType.defaults"><code class="xref py py-data docutils literal"><span class="pre">pwnlib.context.ContextType.defaults</span></code></a>.</p>
+<p>Additionally, the context is thread-aware when using
+<a class="reference internal" href="#pwnlib.context.Thread" title="pwnlib.context.Thread"><code class="xref py py-class docutils literal"><span class="pre">pwnlib.context.Thread</span></code></a> instead of <a class="reference external" href="https://docs.python.org/2.7/library/threading.html#threading.Thread" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">threading.Thread</span></code></a>
+(all internal <code class="docutils literal"><span class="pre">pwntools</span></code> threads use the former).</p>
+<p>The context is also scope-aware by using the <code class="docutils literal"><span class="pre">with</span></code> keyword.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">os</span><span class="o">=</span><span class="s1">'linux'</span><span class="p">)</span> 
+<span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">os</span> <span class="o">==</span> <span class="s1">'linux'</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">arch</span> <span class="o">=</span> <span class="s1">'arm'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">vars</span><span class="p">(</span><span class="n">context</span><span class="p">)</span> <span class="o">==</span> <span class="p">{</span><span class="s1">'arch'</span><span class="p">:</span> <span class="s1">'arm'</span><span class="p">,</span> <span class="s1">'bits'</span><span class="p">:</span> <span class="mi">32</span><span class="p">,</span> <span class="s1">'endian'</span><span class="p">:</span> <span class="s1">'little'</span><span class="p">,</span> <span class="s1">'os'</span><span class="p">:</span> <span class="s1">'linux'</span><span class="p">}</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">endian</span>
+<span class="go">'little'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">bits</span>
+<span class="go">32</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">nop</span><span class="p">():</span>
+<span class="gp">... </span>  <span class="nb">print</span> <span class="n">pwnlib</span><span class="o">.</span><span class="n">asm</span><span class="o">.</span><span class="n">asm</span><span class="p">(</span><span class="s1">'nop'</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">'hex'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nop</span><span class="p">()</span>
+<span class="go">00f020e3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">context</span><span class="o">.</span><span class="n">local</span><span class="p">(</span><span class="n">arch</span> <span class="o">=</span> <span class="s1">'i386'</span><span class="p">):</span>
+<span class="gp">... </span>  <span class="n">nop</span><span class="p">()</span>
+<span class="go">90</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pwnlib.context</span> <span class="k">import</span> <span class="n">Thread</span> <span class="k">as</span> <span class="n">PwnThread</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">threading</span>      <span class="k">import</span> <span class="n">Thread</span> <span class="k">as</span> <span class="n">NormalThread</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">context</span><span class="o">.</span><span class="n">local</span><span class="p">(</span><span class="n">arch</span> <span class="o">=</span> <span class="s1">'mips'</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">pwnthread</span> <span class="o">=</span> <span class="n">PwnThread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">nop</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">thread</span>    <span class="o">=</span> <span class="n">NormalThread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">nop</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Normal thread uses the default value for arch, 'i386'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">_</span><span class="o">=</span><span class="p">(</span><span class="n">thread</span><span class="o">.</span><span class="n">start</span><span class="p">(),</span> <span class="n">thread</span><span class="o">.</span><span class="n">join</span><span class="p">())</span>
+<span class="go">90</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Pwnthread uses the correct context from creation-time</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">_</span><span class="o">=</span><span class="p">(</span><span class="n">pwnthread</span><span class="o">.</span><span class="n">start</span><span class="p">(),</span> <span class="n">pwnthread</span><span class="o">.</span><span class="n">join</span><span class="p">())</span>
+<span class="go">00000000</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nop</span><span class="p">()</span>
+<span class="go">00f020e3</span>
+</pre></div>
+</div>
+<p>Initialize the ContextType structure.</p>
+<p>All keyword arguments are passed to <a class="reference internal" href="#pwnlib.context.ContextType.update" title="pwnlib.context.ContextType.update"><code class="xref py py-func docutils literal"><span class="pre">update()</span></code></a>.</p>
+<dl class="class">
+<dt id="pwnlib.context.ContextType.Thread"><a name="//apple_ref/cpp/Class/pwnlib.context.ContextType.Thread"></a>
+<em class="property">class </em><code class="descname">Thread</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/context.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.context.ContextType.Thread" title="Permalink to this definition">¶</a></dt>
+<dd><p>Instantiates a context-aware thread, which inherit its context when it is
+instantiated. The class can be accessed both on the context module as
+<cite>pwnlib.context.Thread</cite> and on the context singleton object inside the
+context module as <cite>pwnlib.context.context.Thread</cite>.</p>
+<p>Threads created by using the native :class`threading`.Thread` will have a
+clean (default) context.</p>
+<p>Regardless of the mechanism used to create any thread, the context
+is de-coupled from the parent thread, so changes do not cascade
+to child or parent.</p>
+<p>Saves a copy of the context when instantiated (at <code class="docutils literal"><span class="pre">__init__</span></code>)
+and updates the new thread’s context before passing control
+to the user code via <code class="docutils literal"><span class="pre">run</span></code> or <code class="docutils literal"><span class="pre">target=</span></code>.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">arch</span><span class="o">=</span><span class="s1">'arm'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">p</span><span class="p">():</span>
+<span class="gp">... </span>    <span class="nb">print</span> <span class="n">context</span><span class="o">.</span><span class="n">arch</span>
+<span class="gp">... </span>    <span class="n">context</span><span class="o">.</span><span class="n">arch</span> <span class="o">=</span> <span class="s1">'mips'</span>
+<span class="gp">... </span>    <span class="nb">print</span> <span class="n">context</span><span class="o">.</span><span class="n">arch</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Note that a normal Thread starts with a clean context</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># (i386 is the default architecture)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">p</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">_</span><span class="o">=</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">start</span><span class="p">(),</span> <span class="n">t</span><span class="o">.</span><span class="n">join</span><span class="p">())</span>
+<span class="go">i386</span>
+<span class="go">mips</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Note that the main Thread's context is unchanged</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">context</span><span class="o">.</span><span class="n">arch</span>
+<span class="go">arm</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Note that a context-aware Thread receives a copy of the context</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">pwnlib</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">p</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">_</span><span class="o">=</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">start</span><span class="p">(),</span> <span class="n">t</span><span class="o">.</span><span class="n">join</span><span class="p">())</span>
+<span class="go">arm</span>
+<span class="go">mips</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Again, the main thread is unchanged</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">context</span><span class="o">.</span><span class="n">arch</span>
+<span class="go">arm</span>
+</pre></div>
+</div>
+<p>Implementation Details:</p>
+<blockquote>
+<div><p>This class implemented by hooking the private function
+<code class="xref py py-func docutils literal"><span class="pre">threading.Thread._Thread_bootstrap()</span></code>, which is called before
+passing control to <code class="xref py py-func docutils literal"><span class="pre">threading.Thread.run()</span></code>.</p>
+<p>This could be done by overriding <code class="docutils literal"><span class="pre">run</span></code> itself, but we would have to
+ensure that all uses of the class would only ever use the keyword
+<code class="docutils literal"><span class="pre">target=</span></code> for <code class="docutils literal"><span class="pre">__init__</span></code>, or that all subclasses invoke
+<code class="docutils literal"><span class="pre">super(Subclass.self).set_up_context()</span></code> or similar.</p>
+</div></blockquote>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.context.ContextType.clear"><a name="//apple_ref/cpp/Method/pwnlib.context.ContextType.clear"></a>
+<code class="descname">clear</code><span class="sig-paren">(</span><em>*a</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/context.py#L566-592"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.context.ContextType.clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clears the contents of the context.
+All values are set to their defaults.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>a</strong> – Arguments passed to <code class="docutils literal"><span class="pre">update</span></code></li>
+<li><strong>kw</strong> – Arguments passed to <code class="docutils literal"><span class="pre">update</span></code></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Default value</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">arch</span> <span class="o">==</span> <span class="s1">'i386'</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">arch</span> <span class="o">=</span> <span class="s1">'arm'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">arch</span> <span class="o">==</span> <span class="s1">'i386'</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">arch</span> <span class="o">==</span> <span class="s1">'i386'</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.context.ContextType.copy"><a name="//apple_ref/cpp/Method/pwnlib.context.ContextType.copy"></a>
+<code class="descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span> → dict<a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/context.py#L428-439"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.context.ContextType.copy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a copy of the current context as a dictionary.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">os</span>   <span class="o">=</span> <span class="s1">'linux'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">vars</span><span class="p">(</span><span class="n">context</span><span class="p">)</span> <span class="o">==</span> <span class="p">{</span><span class="s1">'os'</span><span class="p">:</span> <span class="s1">'linux'</span><span class="p">}</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.context.ContextType.local"><a name="//apple_ref/cpp/Method/pwnlib.context.ContextType.local"></a>
+<code class="descname">local</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span> → context manager<a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/context.py#L485-531"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.context.ContextType.local" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a context manager for use with the <code class="docutils literal"><span class="pre">with</span></code> statement.</p>
+<p>For more information, see the example below or PEP 343.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>kwargs</strong> – Variables to be assigned in the new environment.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">ContextType manager for managing the old and new environment.</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">timeout</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">timeout</span> <span class="o">==</span> <span class="mi">1</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">context</span><span class="o">.</span><span class="n">timeout</span>
+<span class="go">1.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">context</span><span class="o">.</span><span class="n">local</span><span class="p">(</span><span class="n">timeout</span> <span class="o">=</span> <span class="mi">2</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="nb">print</span> <span class="n">context</span><span class="o">.</span><span class="n">timeout</span>
+<span class="gp">... </span>    <span class="n">context</span><span class="o">.</span><span class="n">timeout</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="gp">... </span>    <span class="nb">print</span> <span class="n">context</span><span class="o">.</span><span class="n">timeout</span>
+<span class="go">2.0</span>
+<span class="go">3.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">context</span><span class="o">.</span><span class="n">timeout</span>
+<span class="go">1.0</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.context.ContextType.quietfunc"><a name="//apple_ref/cpp/Method/pwnlib.context.ContextType.quietfunc"></a>
+<code class="descname">quietfunc</code><span class="sig-paren">(</span><em>function</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/context.py#L548-557"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.context.ContextType.quietfunc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Similar to <a class="reference internal" href="#pwnlib.context.ContextType.quiet" title="pwnlib.context.ContextType.quiet"><code class="xref py py-attr docutils literal"><span class="pre">quiet</span></code></a>, but wraps a whole function.</p>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.context.ContextType.reset_local"><a name="//apple_ref/cpp/Method/pwnlib.context.ContextType.reset_local"></a>
+<code class="descname">reset_local</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/context.py#L1297-1301"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.context.ContextType.reset_local" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deprecated.  Use <a class="reference internal" href="#pwnlib.context.ContextType.clear" title="pwnlib.context.ContextType.clear"><code class="xref py py-meth docutils literal"><span class="pre">clear()</span></code></a>.</p>
+</dd></dl>
+<dl class="method">
+<dt id="pwnlib.context.ContextType.update"><a name="//apple_ref/cpp/Method/pwnlib.context.ContextType.update"></a>
+<code class="descname">update</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/context.py#L446-479"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.context.ContextType.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convenience function, which is shorthand for setting multiple
+variables at once.</p>
+<p>It is a simple shorthand such that:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">context</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">os</span> <span class="o">=</span> <span class="s1">'linux'</span><span class="p">,</span> <span class="n">arch</span> <span class="o">=</span> <span class="s1">'arm'</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>is equivalent to:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">context</span><span class="o">.</span><span class="n">os</span>   <span class="o">=</span> <span class="s1">'linux'</span>
+<span class="n">context</span><span class="o">.</span><span class="n">arch</span> <span class="o">=</span> <span class="s1">'arm'</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+<p>The following syntax is also valid:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">context</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">'os'</span><span class="p">:</span> <span class="s1">'linux'</span><span class="p">,</span> <span class="s1">'arch'</span><span class="p">:</span> <span class="s1">'arm'</span><span class="p">})</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>kwargs</strong> – Variables to be assigned in the environment.</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">arch</span> <span class="o">=</span> <span class="s1">'i386'</span><span class="p">,</span> <span class="n">os</span> <span class="o">=</span> <span class="s1">'linux'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">arch</span><span class="p">,</span> <span class="n">context</span><span class="o">.</span><span class="n">os</span>
+<span class="go">('i386', 'linux')</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.context.ContextType.adb"><a name="//apple_ref/cpp/Attribute/pwnlib.context.ContextType.adb"></a>
+<code class="descname">adb</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/context.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.context.ContextType.adb" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns an argument array for connecting to adb.</p>
+<p>Unless <code class="docutils literal"><span class="pre">$ADB_PATH</span></code> is set, uses the default <code class="docutils literal"><span class="pre">adb</span></code> binary in <code class="docutils literal"><span class="pre">$PATH</span></code>.</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.context.ContextType.adb_host"><a name="//apple_ref/cpp/Attribute/pwnlib.context.ContextType.adb_host"></a>
+<code class="descname">adb_host</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/context.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.context.ContextType.adb_host" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the target host which is used for ADB.</p>
+<p>This is useful for Android exploitation.</p>
+<p>The default value is inherited from ANDROID_ADB_SERVER_HOST, or set
+to the default ‘localhost’.</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.context.ContextType.adb_port"><a name="//apple_ref/cpp/Attribute/pwnlib.context.ContextType.adb_port"></a>
+<code class="descname">adb_port</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/context.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.context.ContextType.adb_port" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the target port which is used for ADB.</p>
+<p>This is useful for Android exploitation.</p>
+<p>The default value is inherited from ANDROID_ADB_SERVER_PORT, or set
+to the default 5037.</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.context.ContextType.arch"><a name="//apple_ref/cpp/Attribute/pwnlib.context.ContextType.arch"></a>
+<code class="descname">arch</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/context.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.context.ContextType.arch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Target binary architecture.</p>
+<p>Allowed values are listed in <a class="reference internal" href="#pwnlib.context.ContextType.architectures" title="pwnlib.context.ContextType.architectures"><code class="xref py py-attr docutils literal"><span class="pre">pwnlib.context.ContextType.architectures</span></code></a>.</p>
+<p>Side Effects:</p>
+<blockquote>
+<div><p>If an architecture is specified which also implies additional
+attributes (e.g. ‘amd64’ implies 64-bit words, ‘powerpc’ implies
+big-endian), these attributes will be set on the context if a
+user has not already set a value.</p>
+<p>The following properties may be modified.</p>
+<ul class="simple">
+<li><a class="reference internal" href="#pwnlib.context.ContextType.bits" title="pwnlib.context.ContextType.bits"><code class="xref py py-attr docutils literal"><span class="pre">bits</span></code></a></li>
+<li><a class="reference internal" href="#pwnlib.context.ContextType.endian" title="pwnlib.context.ContextType.endian"><code class="xref py py-attr docutils literal"><span class="pre">endian</span></code></a></li>
+</ul>
+</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">AttributeError</span></code> – An invalid architecture was specified</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">arch</span> <span class="o">==</span> <span class="s1">'i386'</span> <span class="c1"># Default architecture</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">arch</span> <span class="o">=</span> <span class="s1">'mips'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">arch</span> <span class="o">==</span> <span class="s1">'mips'</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">arch</span> <span class="o">=</span> <span class="s1">'doge'</span> 
+<span class="gt">Traceback (most recent call last):</span>
+ <span class="c">...</span>
+<span class="gr">AttributeError</span>: <span class="n">arch must be one of ['aarch64', ..., 'thumb']</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">arch</span> <span class="o">=</span> <span class="s1">'ppc'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">arch</span> <span class="o">==</span> <span class="s1">'powerpc'</span> <span class="c1"># Aliased architecture</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">bits</span> <span class="o">==</span> <span class="mi">32</span> <span class="c1"># Default value</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">arch</span> <span class="o">=</span> <span class="s1">'amd64'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">bits</span> <span class="o">==</span> <span class="mi">64</span> <span class="c1"># New value</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<p>Note that expressly setting <a class="reference internal" href="#pwnlib.context.ContextType.bits" title="pwnlib.context.ContextType.bits"><code class="xref py py-attr docutils literal"><span class="pre">bits</span></code></a> means that we use
+that value instead of the default</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">bits</span> <span class="o">=</span> <span class="mi">32</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">arch</span> <span class="o">=</span> <span class="s1">'amd64'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">bits</span> <span class="o">==</span> <span class="mi">32</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<p>Setting the architecture can override the defaults for
+both <a class="reference internal" href="#pwnlib.context.ContextType.endian" title="pwnlib.context.ContextType.endian"><code class="xref py py-attr docutils literal"><span class="pre">endian</span></code></a> and <a class="reference internal" href="#pwnlib.context.ContextType.bits" title="pwnlib.context.ContextType.bits"><code class="xref py py-attr docutils literal"><span class="pre">bits</span></code></a></p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">arch</span> <span class="o">=</span> <span class="s1">'powerpc64'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">vars</span><span class="p">(</span><span class="n">context</span><span class="p">)</span> <span class="o">==</span> <span class="p">{</span><span class="s1">'arch'</span><span class="p">:</span> <span class="s1">'powerpc64'</span><span class="p">,</span> <span class="s1">'bits'</span><span class="p">:</span> <span class="mi">64</span><span class="p">,</span> <span class="s1">'endian'</span><span class="p">:</span> <span class="s1">'big'</span><span class="p">}</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.context.ContextType.architectures"><a name="//apple_ref/cpp/Attribute/pwnlib.context.ContextType.architectures"></a>
+<code class="descname">architectures</code><em class="property"> = OrderedDict([(‘powerpc64’, {‘bits’: 64, ‘endian’: ‘big’}), (‘aarch64’, {‘bits’: 64, ‘endian’: ‘little’}), (‘sparc64’, {‘bits’: 64, ‘endian’: ‘big’}), (‘powerpc’, {‘bits’: 32, ‘endian’: ‘big’}), (‘mips64’, {‘bits’: 64, ‘endian’: ‘little’}), (‘msp430’, {‘bits’: 16, ‘endian’: ‘little’}), (‘thumb’, {‘bits’: 32, ‘endian’: ‘little’}), (‘amd64’, {‘bits’: 64, ‘endian’: ‘little’}), (‘sparc’, {‘bits’: 32, ‘endian’: ‘big’}), (‘alpha’, {‘bits’: 64, ‘endian’: ‘little’}), (‘s390’, {‘bits’: 32, ‘endian’: ‘big’}), (‘i386’, {‘bits’: 32, ‘endian’: ‘little’}), (‘m68k’, {‘bits’: 32, ‘endian’: ‘big’}), (‘mips’, {‘bits’: 32, ‘endian’: ‘little’}), (‘ia64’, {‘bits’: 64, ‘endian’: ‘big’}), (‘cris’, {‘bits’: 32, ‘endian’: ‘little’}), (‘vax’, {‘bits’: 32, ‘endian’: ‘little’}), (‘avr’, {‘bits’: 8, ‘endian’: ‘little’}), (‘arm’, {‘bits’: 32, ‘endian’: ‘little’})])</em><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/context.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.context.ContextType.architectures" title="Permalink to this definition">¶</a></dt>
+<dd><p>Keys are valid values for <a class="reference internal" href="#pwnlib.context.ContextType.arch" title="pwnlib.context.ContextType.arch"><code class="xref py py-meth docutils literal"><span class="pre">pwnlib.context.ContextType.arch()</span></code></a>.
+Values are defaults which are set when
+<a class="reference internal" href="#pwnlib.context.ContextType.arch" title="pwnlib.context.ContextType.arch"><code class="xref py py-attr docutils literal"><span class="pre">pwnlib.context.ContextType.arch</span></code></a> is set</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.context.ContextType.aslr"><a name="//apple_ref/cpp/Attribute/pwnlib.context.ContextType.aslr"></a>
+<code class="descname">aslr</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/context.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.context.ContextType.aslr" title="Permalink to this definition">¶</a></dt>
+<dd><p>ASLR settings for new processes.</p>
+<p>If <code class="xref py py-const docutils literal"><span class="pre">False</span></code>, attempt to disable ASLR in all processes which are
+created via <code class="docutils literal"><span class="pre">personality</span></code> (<code class="docutils literal"><span class="pre">setarch</span> <span class="pre">-R</span></code>) and <code class="docutils literal"><span class="pre">setrlimit</span></code>
+(<code class="docutils literal"><span class="pre">ulimit</span> <span class="pre">-s</span> <span class="pre">unlimited</span></code>).</p>
+<p>The <code class="docutils literal"><span class="pre">setarch</span></code> changes are lost if a <code class="docutils literal"><span class="pre">setuid</span></code> binary is executed.</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.context.ContextType.binary"><a name="//apple_ref/cpp/Attribute/pwnlib.context.ContextType.binary"></a>
+<code class="descname">binary</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/context.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.context.ContextType.binary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Infer target architecture, bit-with, and endianness from a binary file.
+Data type is a <code class="xref py py-class docutils literal"><span class="pre">pwnlib.elf.ELF</span></code> object.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">arch</span><span class="p">,</span> <span class="n">context</span><span class="o">.</span><span class="n">bits</span>
+<span class="go">('i386', 32)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">binary</span> <span class="o">=</span> <span class="s1">'/bin/bash'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">arch</span><span class="p">,</span> <span class="n">context</span><span class="o">.</span><span class="n">bits</span>
+<span class="go">('amd64', 64)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">binary</span>
+<span class="go">ELF('/bin/bash')</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.context.ContextType.bits"><a name="//apple_ref/cpp/Attribute/pwnlib.context.ContextType.bits"></a>
+<code class="descname">bits</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/context.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.context.ContextType.bits" title="Permalink to this definition">¶</a></dt>
+<dd><p>Target machine word size, in bits (i.e. the size of general purpose registers).</p>
+<p>The default value is <code class="docutils literal"><span class="pre">32</span></code>, but changes according to <a class="reference internal" href="#pwnlib.context.ContextType.arch" title="pwnlib.context.ContextType.arch"><code class="xref py py-attr docutils literal"><span class="pre">arch</span></code></a>.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">bits</span> <span class="o">==</span> <span class="mi">32</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">bits</span> <span class="o">=</span> <span class="mi">64</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">bits</span> <span class="o">==</span> <span class="mi">64</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">bits</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span> 
+<span class="gt">Traceback (most recent call last):</span>
+<span class="c">...</span>
+<span class="gr">AttributeError</span>: <span class="n">bits must be &gt; 0 (-1)</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.context.ContextType.buffer_size"><a name="//apple_ref/cpp/Attribute/pwnlib.context.ContextType.buffer_size"></a>
+<code class="descname">buffer_size</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/context.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.context.ContextType.buffer_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>Internal buffer size to use for <a class="reference internal" href="tubes.html#pwnlib.tubes.tube.tube" title="pwnlib.tubes.tube.tube"><code class="xref py py-class docutils literal"><span class="pre">pwnlib.tubes.tube.tube</span></code></a> objects.</p>
+<p>This is not the maximum size of the buffer, but this is the amount of data
+which is passed to each raw <code class="docutils literal"><span class="pre">read</span></code> syscall (or equivalent).</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.context.ContextType.bytes"><a name="//apple_ref/cpp/Attribute/pwnlib.context.ContextType.bytes"></a>
+<code class="descname">bytes</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/context.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.context.ContextType.bytes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Target machine word size, in bytes (i.e. the size of general purpose registers).</p>
+<p>This is a convenience wrapper around <code class="docutils literal"><span class="pre">bits</span> <span class="pre">//</span> <span class="pre">8</span></code>.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">bytes</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">bits</span> <span class="o">==</span> <span class="mi">8</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">bytes</span> <span class="o">=</span> <span class="mi">0</span> 
+<span class="gt">Traceback (most recent call last):</span>
+<span class="c">...</span>
+<span class="gr">AttributeError</span>: <span class="n">bits must be &gt; 0 (0)</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.context.ContextType.cache_dir"><a name="//apple_ref/cpp/Attribute/pwnlib.context.ContextType.cache_dir"></a>
+<code class="descname">cache_dir</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/context.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.context.ContextType.cache_dir" title="Permalink to this definition">¶</a></dt>
+<dd><p>Directory used for caching data.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">May be either a path string, or <code class="xref py py-const docutils literal"><span class="pre">None</span></code>.</p>
+</div>
+<p class="rubric">Example</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cache_dir</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">cache_dir</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cache_dir</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">os</span><span class="o">.</span><span class="n">chmod</span><span class="p">(</span><span class="n">cache_dir</span><span class="p">,</span> <span class="mo">0o000</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">cache_dir</span> <span class="ow">is</span> <span class="kc">None</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">os</span><span class="o">.</span><span class="n">chmod</span><span class="p">(</span><span class="n">cache_dir</span><span class="p">,</span> <span class="mo">0o755</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cache_dir</span> <span class="o">==</span> <span class="n">context</span><span class="o">.</span><span class="n">cache_dir</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.context.ContextType.cyclic_alphabet"><a name="//apple_ref/cpp/Attribute/pwnlib.context.ContextType.cyclic_alphabet"></a>
+<code class="descname">cyclic_alphabet</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/context.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.context.ContextType.cyclic_alphabet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cyclic alphabet.</p>
+<p>Default value is <cite>string.ascii_lowercase</cite>.</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.context.ContextType.cyclic_size"><a name="//apple_ref/cpp/Attribute/pwnlib.context.ContextType.cyclic_size"></a>
+<code class="descname">cyclic_size</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/context.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.context.ContextType.cyclic_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cyclic pattern size.</p>
+<p>Default value is <cite>4</cite>.</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.context.ContextType.defaults"><a name="//apple_ref/cpp/Attribute/pwnlib.context.ContextType.defaults"></a>
+<code class="descname">defaults</code><em class="property"> = {‘kernel’: None, ‘noptrace’: False, ‘delete_corefiles’: False, ‘randomize’: False, ‘binary’: None, ‘log_level’: 20, ‘gdbinit’: ‘’, ‘terminal’: (), ‘bits’: 32, ‘cyclic_size’: 4, ‘rename_corefiles’: True, ‘cyclic_alphabet’: ‘abcdefghijklmnopqrstuvwxyz’, ‘newline’: ‘\n’, ‘proxy’: None, ‘device’: None, ‘buffer_size’: 4096, ‘arch’: ‘i386’, ‘aslr’: True, ‘adb_port’: 5037, ‘signed’: False, ‘adb_host’: ‘localhost’, ‘timeout’: pwnlib.timeout.maximum, ‘endian’: ‘little’, ‘log_file’: &lt;pwnlib.context._devnull object&gt;, ‘os’: ‘linux’, ‘log_console’: &lt;open file ‘&lt;stdout&gt;’, mode ‘w’&gt;}</em><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/context.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.context.ContextType.defaults" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default values for <a class="reference internal" href="#pwnlib.context.ContextType" title="pwnlib.context.ContextType"><code class="xref py py-class docutils literal"><span class="pre">pwnlib.context.ContextType</span></code></a></p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.context.ContextType.delete_corefiles"><a name="//apple_ref/cpp/Attribute/pwnlib.context.ContextType.delete_corefiles"></a>
+<code class="descname">delete_corefiles</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/context.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.context.ContextType.delete_corefiles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether pwntools automatically deletes corefiles after exiting.
+This only affects corefiles accessed via <a class="reference internal" href="tubes/processes.html#pwnlib.tubes.process.process.corefile" title="pwnlib.tubes.process.process.corefile"><code class="xref py py-attr docutils literal"><span class="pre">process.corefile</span></code></a>.</p>
+<p>Default value is <code class="docutils literal"><span class="pre">False</span></code>.</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.context.ContextType.device"><a name="//apple_ref/cpp/Attribute/pwnlib.context.ContextType.device"></a>
+<code class="descname">device</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/context.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.context.ContextType.device" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the device being operated on.</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.context.ContextType.endian"><a name="//apple_ref/cpp/Attribute/pwnlib.context.ContextType.endian"></a>
+<code class="descname">endian</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/context.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.context.ContextType.endian" title="Permalink to this definition">¶</a></dt>
+<dd><p>Endianness of the target machine.</p>
+<p>The default value is <code class="docutils literal"><span class="pre">'little'</span></code>, but changes according to <a class="reference internal" href="#pwnlib.context.ContextType.arch" title="pwnlib.context.ContextType.arch"><code class="xref py py-attr docutils literal"><span class="pre">arch</span></code></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">AttributeError</span></code> – An invalid endianness was provided</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">endian</span> <span class="o">==</span> <span class="s1">'little'</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">endian</span> <span class="o">=</span> <span class="s1">'big'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">endian</span>
+<span class="go">'big'</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">endian</span> <span class="o">=</span> <span class="s1">'be'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">endian</span> <span class="o">==</span> <span class="s1">'big'</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">endian</span> <span class="o">=</span> <span class="s1">'foobar'</span> 
+<span class="gt">Traceback (most recent call last):</span>
+ <span class="c">...</span>
+<span class="gr">AttributeError</span>: <span class="n">endian must be one of ['be', 'big', 'eb', 'el', 'le', 'little']</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.context.ContextType.endianness"><a name="//apple_ref/cpp/Attribute/pwnlib.context.ContextType.endianness"></a>
+<code class="descname">endianness</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/context.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.context.ContextType.endianness" title="Permalink to this definition">¶</a></dt>
+<dd><p>Legacy alias for <a class="reference internal" href="#pwnlib.context.ContextType.endian" title="pwnlib.context.ContextType.endian"><code class="xref py py-attr docutils literal"><span class="pre">endian</span></code></a>.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">endian</span> <span class="o">==</span> <span class="n">context</span><span class="o">.</span><span class="n">endianness</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.context.ContextType.endiannesses"><a name="//apple_ref/cpp/Attribute/pwnlib.context.ContextType.endiannesses"></a>
+<code class="descname">endiannesses</code><em class="property"> = OrderedDict([(‘little’, ‘little’), (‘big’, ‘big’), (‘el’, ‘little’), (‘le’, ‘little’), (‘be’, ‘big’), (‘eb’, ‘big’)])</em><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/context.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.context.ContextType.endiannesses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Valid values for <a class="reference internal" href="#pwnlib.context.ContextType.endian" title="pwnlib.context.ContextType.endian"><code class="xref py py-attr docutils literal"><span class="pre">endian</span></code></a></p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.context.ContextType.gdbinit"><a name="//apple_ref/cpp/Attribute/pwnlib.context.ContextType.gdbinit"></a>
+<code class="descname">gdbinit</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/context.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.context.ContextType.gdbinit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Path to the gdbinit that is used when running GDB locally.</p>
+<p>This is useful if you want pwntools-launched GDB to include some additional modules,
+like PEDA but you do not want to have GDB include them by default.</p>
+<p>The setting will only apply when GDB is launched locally since remote hosts may not have
+the necessary requirements for the gdbinit.</p>
+<p>If set to an empty string, GDB will use the default <cite>~/.gdbinit</cite>.</p>
+<p>Default value is <code class="docutils literal"><span class="pre">""</span></code>.</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.context.ContextType.kernel"><a name="//apple_ref/cpp/Attribute/pwnlib.context.ContextType.kernel"></a>
+<code class="descname">kernel</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/context.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.context.ContextType.kernel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Target machine’s kernel architecture.</p>
+<p>Usually, this is the same as <code class="docutils literal"><span class="pre">arch</span></code>, except when
+running a 32-bit binary on a 64-bit kernel (e.g. i386-on-amd64).</p>
+<p>Even then, this doesn’t matter much – only when the the segment
+registers need to be known</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.context.ContextType.log_console"><a name="//apple_ref/cpp/Attribute/pwnlib.context.ContextType.log_console"></a>
+<code class="descname">log_console</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/context.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.context.ContextType.log_console" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the default logging console target.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">log_level</span> <span class="o">=</span> <span class="s1">'warn'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">log</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">"Hello"</span><span class="p">)</span>
+<span class="go">[!] Hello</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">log_console</span><span class="o">=</span><span class="nb">open</span><span class="p">(</span><span class="s1">'/dev/null'</span><span class="p">,</span> <span class="s1">'w'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">log</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">"Hello"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.context.ContextType.log_file"><a name="//apple_ref/cpp/Attribute/pwnlib.context.ContextType.log_file"></a>
+<code class="descname">log_file</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/context.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.context.ContextType.log_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the target file for all logging output.</p>
+<p>Works in a similar fashion to <a class="reference internal" href="#pwnlib.context.ContextType.log_level" title="pwnlib.context.ContextType.log_level"><code class="xref py py-attr docutils literal"><span class="pre">log_level</span></code></a>.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">log_file</span> <span class="o">=</span> <span class="s1">'foo.txt'</span> 
+<span class="gp">&gt;&gt;&gt; </span><span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">'Hello!'</span><span class="p">)</span> 
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">context</span><span class="o">.</span><span class="n">local</span><span class="p">(</span><span class="n">log_level</span><span class="o">=</span><span class="s1">'ERROR'</span><span class="p">):</span> 
+<span class="gp">... </span>    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">'Hello again!'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">context</span><span class="o">.</span><span class="n">local</span><span class="p">(</span><span class="n">log_file</span><span class="o">=</span><span class="s1">'bar.txt'</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">'Hello from bar!'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">'Hello from foo!'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">file</span><span class="p">(</span><span class="s1">'foo.txt'</span><span class="p">)</span><span class="o">.</span><span class="n">readlines</span><span class="p">()[</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span> 
+<span class="go">'...:DEBUG:...:Hello!\n'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">file</span><span class="p">(</span><span class="s1">'foo.txt'</span><span class="p">)</span><span class="o">.</span><span class="n">readlines</span><span class="p">()[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span> 
+<span class="go">'...:INFO:...:Hello again!\n'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">file</span><span class="p">(</span><span class="s1">'foo.txt'</span><span class="p">)</span><span class="o">.</span><span class="n">readlines</span><span class="p">()[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> 
+<span class="go">'...:INFO:...:Hello from foo!\n'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">file</span><span class="p">(</span><span class="s1">'bar.txt'</span><span class="p">)</span><span class="o">.</span><span class="n">readlines</span><span class="p">()[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> 
+<span class="go">'...:DEBUG:...:Hello from bar!\n'</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.context.ContextType.log_level"><a name="//apple_ref/cpp/Attribute/pwnlib.context.ContextType.log_level"></a>
+<code class="descname">log_level</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/context.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.context.ContextType.log_level" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the verbosity of <code class="docutils literal"><span class="pre">pwntools</span></code> logging mechanism.</p>
+<p>More specifically it controls the filtering of messages that happens
+inside the handler for logging to the screen. So if you want e.g. log
+all messages to a file, then this attribute makes no difference to you.</p>
+<p>Valid values are specified by the standard Python <code class="docutils literal"><span class="pre">logging</span></code> module.</p>
+<p>Default value is set to <code class="docutils literal"><span class="pre">INFO</span></code>.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">log_level</span> <span class="o">=</span> <span class="s1">'error'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">log_level</span> <span class="o">==</span> <span class="n">logging</span><span class="o">.</span><span class="n">ERROR</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">log_level</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">log_level</span> <span class="o">=</span> <span class="s1">'foobar'</span> 
+<span class="gt">Traceback (most recent call last):</span>
+<span class="c">...</span>
+<span class="gr">AttributeError</span>: <span class="n">log_level must be an integer or one of ['CRITICAL', 'DEBUG', 'ERROR', 'INFO', 'NOTSET', 'WARN', 'WARNING']</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.context.ContextType.noptrace"><a name="//apple_ref/cpp/Attribute/pwnlib.context.ContextType.noptrace"></a>
+<code class="descname">noptrace</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/context.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.context.ContextType.noptrace" title="Permalink to this definition">¶</a></dt>
+<dd><p>Disable all actions which rely on ptrace.</p>
+<p>This is useful for switching between local exploitation with a debugger,
+and remote exploitation (without a debugger).</p>
+<p>This option can be set with the <code class="docutils literal"><span class="pre">NOPTRACE</span></code> command-line argument.</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.context.ContextType.os"><a name="//apple_ref/cpp/Attribute/pwnlib.context.ContextType.os"></a>
+<code class="descname">os</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/context.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.context.ContextType.os" title="Permalink to this definition">¶</a></dt>
+<dd><p>Operating system of the target machine.</p>
+<p>The default value is <code class="docutils literal"><span class="pre">linux</span></code>.</p>
+<p>Allowed values are listed in <a class="reference internal" href="#pwnlib.context.ContextType.oses" title="pwnlib.context.ContextType.oses"><code class="xref py py-attr docutils literal"><span class="pre">pwnlib.context.ContextType.oses</span></code></a>.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">os</span> <span class="o">=</span> <span class="s1">'linux'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">os</span> <span class="o">=</span> <span class="s1">'foobar'</span> 
+<span class="gt">Traceback (most recent call last):</span>
+<span class="c">...</span>
+<span class="gr">AttributeError</span>: <span class="n">os must be one of ['android', 'cgc', 'freebsd', 'linux', 'windows']</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.context.ContextType.oses"><a name="//apple_ref/cpp/Attribute/pwnlib.context.ContextType.oses"></a>
+<code class="descname">oses</code><em class="property"> = [‘android’, ‘cgc’, ‘freebsd’, ‘linux’, ‘windows’]</em><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/context.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.context.ContextType.oses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Valid values for <a class="reference internal" href="#pwnlib.context.ContextType.os" title="pwnlib.context.ContextType.os"><code class="xref py py-meth docutils literal"><span class="pre">pwnlib.context.ContextType.os()</span></code></a></p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.context.ContextType.proxy"><a name="//apple_ref/cpp/Attribute/pwnlib.context.ContextType.proxy"></a>
+<code class="descname">proxy</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/context.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.context.ContextType.proxy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default proxy for all socket connections.</p>
+<p>Accepts either a string (hostname or IP address) for a SOCKS5 proxy on
+the default port, <strong>or</strong> a <code class="docutils literal"><span class="pre">tuple</span></code> passed to <code class="docutils literal"><span class="pre">socks.set_default_proxy</span></code>,
+e.g. <code class="docutils literal"><span class="pre">(socks.SOCKS4,</span> <span class="pre">'localhost',</span> <span class="pre">1234)</span></code>.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">proxy</span> <span class="o">=</span> <span class="s1">'localhost'</span> 
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">=</span><span class="n">remote</span><span class="p">(</span><span class="s1">'google.com'</span><span class="p">,</span> <span class="mi">80</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="c">...</span>
+<span class="gr">ProxyConnectionError</span>: <span class="n">Error connecting to SOCKS5 proxy localhost:1080: [Errno 111] Connection refused</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">proxy</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">=</span><span class="n">remote</span><span class="p">(</span><span class="s1">'google.com'</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="s1">'error'</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.context.ContextType.quiet"><a name="//apple_ref/cpp/Attribute/pwnlib.context.ContextType.quiet"></a>
+<code class="descname">quiet</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/context.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.context.ContextType.quiet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Disables all non-error logging within the enclosed scope,
+<em>unless</em> the debugging level is set to ‘debug’ or lower.</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.context.ContextType.randomize"><a name="//apple_ref/cpp/Attribute/pwnlib.context.ContextType.randomize"></a>
+<code class="descname">randomize</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/context.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.context.ContextType.randomize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Global flag that lots of things should be randomized.</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.context.ContextType.rename_corefiles"><a name="//apple_ref/cpp/Attribute/pwnlib.context.ContextType.rename_corefiles"></a>
+<code class="descname">rename_corefiles</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/context.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.context.ContextType.rename_corefiles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether pwntools automatically renames corefiles.</p>
+<p>This is useful for two things:</p>
+<ul class="simple">
+<li>Prevent corefiles from being overwritten, if <code class="docutils literal"><span class="pre">kernel.core_pattern</span></code>
+is something simple like <code class="docutils literal"><span class="pre">"core"</span></code>.</li>
+<li>Ensure corefiles are generated, if <code class="docutils literal"><span class="pre">kernel.core_pattern</span></code> uses <code class="docutils literal"><span class="pre">apport</span></code>,
+which refuses to overwrite any existing files.</li>
+</ul>
+<p>This only affects corefiles accessed via <a class="reference internal" href="tubes/processes.html#pwnlib.tubes.process.process.corefile" title="pwnlib.tubes.process.process.corefile"><code class="xref py py-attr docutils literal"><span class="pre">process.corefile</span></code></a>.</p>
+<p>Default value is <code class="docutils literal"><span class="pre">True</span></code>.</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.context.ContextType.sign"><a name="//apple_ref/cpp/Attribute/pwnlib.context.ContextType.sign"></a>
+<code class="descname">sign</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/context.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.context.ContextType.sign" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for <a class="reference internal" href="#pwnlib.context.ContextType.signed" title="pwnlib.context.ContextType.signed"><code class="xref py py-attr docutils literal"><span class="pre">signed</span></code></a></p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.context.ContextType.signed"><a name="//apple_ref/cpp/Attribute/pwnlib.context.ContextType.signed"></a>
+<code class="descname">signed</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/context.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.context.ContextType.signed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Signed-ness for packing operation when it’s not explicitly set.</p>
+<p>Can be set to any non-string truthy value, or the specific string
+values <code class="docutils literal"><span class="pre">'signed'</span></code> or <code class="docutils literal"><span class="pre">'unsigned'</span></code> which are converted into
+<code class="xref py py-const docutils literal"><span class="pre">True</span></code> and <code class="xref py py-const docutils literal"><span class="pre">False</span></code> correspondingly.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">signed</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">signed</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">signed</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">signed</span> <span class="o">=</span> <span class="s1">'signed'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">signed</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">signed</span> <span class="o">=</span> <span class="s1">'unsigned'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">signed</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">signed</span> <span class="o">=</span> <span class="s1">'foobar'</span> 
+<span class="gt">Traceback (most recent call last):</span>
+<span class="c">...</span>
+<span class="gr">AttributeError</span>: <span class="n">signed must be one of ['no', 'signed', 'unsigned', 'yes'] or a non-string truthy value</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.context.ContextType.signedness"><a name="//apple_ref/cpp/Attribute/pwnlib.context.ContextType.signedness"></a>
+<code class="descname">signedness</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/context.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.context.ContextType.signedness" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for <a class="reference internal" href="#pwnlib.context.ContextType.signed" title="pwnlib.context.ContextType.signed"><code class="xref py py-attr docutils literal"><span class="pre">signed</span></code></a></p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.context.ContextType.signednesses"><a name="//apple_ref/cpp/Attribute/pwnlib.context.ContextType.signednesses"></a>
+<code class="descname">signednesses</code><em class="property"> = {‘yes’: True, ‘unsigned’: False, ‘signed’: True, ‘no’: False}</em><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/context.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.context.ContextType.signednesses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Valid string values for <a class="reference internal" href="#pwnlib.context.ContextType.signed" title="pwnlib.context.ContextType.signed"><code class="xref py py-attr docutils literal"><span class="pre">signed</span></code></a></p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.context.ContextType.silent"><a name="//apple_ref/cpp/Attribute/pwnlib.context.ContextType.silent"></a>
+<code class="descname">silent</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/context.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.context.ContextType.silent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Disable all non-error logging within the enclosed scope.</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.context.ContextType.terminal"><a name="//apple_ref/cpp/Attribute/pwnlib.context.ContextType.terminal"></a>
+<code class="descname">terminal</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/context.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.context.ContextType.terminal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default terminal used by <a class="reference internal" href="util/misc.html#pwnlib.util.misc.run_in_new_terminal" title="pwnlib.util.misc.run_in_new_terminal"><code class="xref py py-meth docutils literal"><span class="pre">pwnlib.util.misc.run_in_new_terminal()</span></code></a>.
+Can be a string or an iterable of strings.  In the latter case the first
+entry is the terminal and the rest are default arguments.</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.context.ContextType.timeout"><a name="//apple_ref/cpp/Attribute/pwnlib.context.ContextType.timeout"></a>
+<code class="descname">timeout</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/context.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.context.ContextType.timeout" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default amount of time to wait for a blocking operation before it times out,
+specified in seconds.</p>
+<p>The default value is to have an infinite timeout.</p>
+<p>See <a class="reference internal" href="timeout.html#pwnlib.timeout.Timeout" title="pwnlib.timeout.Timeout"><code class="xref py py-class docutils literal"><span class="pre">pwnlib.timeout.Timeout</span></code></a> for additional information on
+valid values.</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.context.ContextType.verbose"><a name="//apple_ref/cpp/Attribute/pwnlib.context.ContextType.verbose"></a>
+<code class="descname">verbose</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/context.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.context.ContextType.verbose" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enable all logging within the enclosed scope.</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.context.ContextType.word_size"><a name="//apple_ref/cpp/Attribute/pwnlib.context.ContextType.word_size"></a>
+<code class="descname">word_size</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/context.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.context.ContextType.word_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for <a class="reference internal" href="#pwnlib.context.ContextType.bits" title="pwnlib.context.ContextType.bits"><code class="xref py py-attr docutils literal"><span class="pre">bits</span></code></a></p>
+</dd></dl>
+</dd></dl>
+<dl class="class">
+<dt id="pwnlib.context.Thread"><a name="//apple_ref/cpp/Class/pwnlib.context.Thread"></a>
+<em class="property">class </em><code class="descclassname">pwnlib.context.</code><code class="descname">Thread</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/context.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.context.Thread" title="Permalink to this definition">¶</a></dt>
+<dd><p>Instantiates a context-aware thread, which inherit its context when it is
+instantiated. The class can be accessed both on the context module as
+<cite>pwnlib.context.Thread</cite> and on the context singleton object inside the
+context module as <cite>pwnlib.context.context.Thread</cite>.</p>
+<p>Threads created by using the native :class`threading`.Thread` will have a
+clean (default) context.</p>
+<p>Regardless of the mechanism used to create any thread, the context
+is de-coupled from the parent thread, so changes do not cascade
+to child or parent.</p>
+<p>Saves a copy of the context when instantiated (at <code class="docutils literal"><span class="pre">__init__</span></code>)
+and updates the new thread’s context before passing control
+to the user code via <code class="docutils literal"><span class="pre">run</span></code> or <code class="docutils literal"><span class="pre">target=</span></code>.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">context</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">arch</span><span class="o">=</span><span class="s1">'arm'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">p</span><span class="p">():</span>
+<span class="gp">... </span>    <span class="nb">print</span> <span class="n">context</span><span class="o">.</span><span class="n">arch</span>
+<span class="gp">... </span>    <span class="n">context</span><span class="o">.</span><span class="n">arch</span> <span class="o">=</span> <span class="s1">'mips'</span>
+<span class="gp">... </span>    <span class="nb">print</span> <span class="n">context</span><span class="o">.</span><span class="n">arch</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Note that a normal Thread starts with a clean context</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># (i386 is the default architecture)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">p</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">_</span><span class="o">=</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">start</span><span class="p">(),</span> <span class="n">t</span><span class="o">.</span><span class="n">join</span><span class="p">())</span>
+<span class="go">i386</span>
+<span class="go">mips</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Note that the main Thread's context is unchanged</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">context</span><span class="o">.</span><span class="n">arch</span>
+<span class="go">arm</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Note that a context-aware Thread receives a copy of the context</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">pwnlib</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">p</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">_</span><span class="o">=</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">start</span><span class="p">(),</span> <span class="n">t</span><span class="o">.</span><span class="n">join</span><span class="p">())</span>
+<span class="go">arm</span>
+<span class="go">mips</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Again, the main thread is unchanged</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">context</span><span class="o">.</span><span class="n">arch</span>
+<span class="go">arm</span>
+</pre></div>
+</div>
+<p>Implementation Details:</p>
+<blockquote>
+<div><p>This class implemented by hooking the private function
+<code class="xref py py-func docutils literal"><span class="pre">threading.Thread._Thread_bootstrap()</span></code>, which is called before
+passing control to <code class="xref py py-func docutils literal"><span class="pre">threading.Thread.run()</span></code>.</p>
+<p>This could be done by overriding <code class="docutils literal"><span class="pre">run</span></code> itself, but we would have to
+ensure that all uses of the class would only ever use the keyword
+<code class="docutils literal"><span class="pre">target=</span></code> for <code class="docutils literal"><span class="pre">__init__</span></code>, or that all subclasses invoke
+<code class="docutils literal"><span class="pre">super(Subclass.self).set_up_context()</span></code> or similar.</p>
+</div></blockquote>
+</dd></dl>
+<dl class="data">
+<dt id="pwnlib.context.context"><a name="//apple_ref/cpp/Value/pwnlib.context.context"></a>
+<code class="descclassname">pwnlib.context.</code><code class="descname">context</code><em class="property"> = ContextType()</em><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/context.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.context.context" title="Permalink to this definition">¶</a></dt>
+<dd><p>Global <a class="reference internal" href="#pwnlib.context.ContextType" title="pwnlib.context.ContextType"><code class="xref py py-class docutils literal"><span class="pre">ContextType</span></code></a> object, used to store commonly-used pwntools settings.</p>
+<p>In most cases, the context is used to infer default variables values.
+For example, <a class="reference internal" href="asm.html#pwnlib.asm.asm" title="pwnlib.asm.asm"><code class="xref py py-func docutils literal"><span class="pre">asm()</span></code></a> can take an <code class="docutils literal"><span class="pre">arch</span></code> parameter as a
+keyword argument.</p>
+<p>If it is not supplied, the <code class="docutils literal"><span class="pre">arch</span></code> specified by <code class="docutils literal"><span class="pre">context</span></code> is used instead.</p>
+<p>Consider it a shorthand to passing <code class="docutils literal"><span class="pre">os=</span></code> and <code class="docutils literal"><span class="pre">arch=</span></code> to every single
+function call.</p>
+</dd></dl>
+</div>
+</div>
+</div>
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a accesskey="n" class="btn btn-neutral float-right" href="dynelf.html" rel="next" title="pwnlib.dynelf — Resolving remote functions using leaks">Next <span class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral" href="config.html" rel="prev" title="pwnlib.config — Pwntools Configuration File"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © Copyright 2016, Gallopsled et al..
+
+    </p>
+</div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'3.14.0dev',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+<script src="_static/jquery.js" type="text/javascript"></script>
+<script src="_static/underscore.js" type="text/javascript"></script>
+<script src="_static/doctools.js" type="text/javascript"></script>
+<script src="_static/js/theme.js" type="text/javascript"></script>
+<script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>

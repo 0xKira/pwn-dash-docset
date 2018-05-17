@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]--><!--[if gt IE 8]><!--><html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>pwnlib.util.sh_string — Shell Expansion is Hard — pwntools 3.14.0dev documentation</title>
+<link href="../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../about.html" rel="author" title="About these documents"/>
+<link href="../search.html" rel="search" title="Search"/>
+<link href="web.html" rel="next" title="pwnlib.util.web — Utilities for working with the WWW"/>
+<link href="safeeval.html" rel="prev" title="pwnlib.util.safeeval — Safe evaluation of python code"/>
+<script src="../_static/js/modernizr.min.js"></script>
+</head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../index.html"> pwntools
+          
+
+          
+          </a>
+<div class="version">
+                3.14
+              </div>
+<div role="search">
+<form action="../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">About pwntools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../globals.html"><code class="docutils literal"><span class="pre">from</span> <span class="pre">pwn</span> <span class="pre">import</span> <span class="pre">*</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../commandline.html">Command Line Tools</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../adb.html"><code class="docutils literal"><span class="pre">pwnlib.adb</span></code> — Android Debug Bridge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../args.html"><code class="docutils literal"><span class="pre">pwnlib.args</span></code> — Magic Command-Line Arguments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../asm.html"><code class="docutils literal"><span class="pre">pwnlib.asm</span></code> — Assembler functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../atexception.html"><code class="docutils literal"><span class="pre">pwnlib.atexception</span></code> — Callbacks on unhandled exception</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../atexit.html"><code class="docutils literal"><span class="pre">pwnlib.atexit</span></code> — Replacement for atexit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../constants.html"><code class="docutils literal"><span class="pre">pwnlib.constants</span></code> — Easy access to header file constants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../config.html"><code class="docutils literal"><span class="pre">pwnlib.config</span></code> — Pwntools Configuration File</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../context.html"><code class="docutils literal"><span class="pre">pwnlib.context</span></code> — Setting runtime variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dynelf.html"><code class="docutils literal"><span class="pre">pwnlib.dynelf</span></code> — Resolving remote functions using leaks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../encoders.html"><code class="docutils literal"><span class="pre">pwnlib.encoders</span></code> — Encoding Shellcode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../elf.html"><code class="docutils literal"><span class="pre">pwnlib.elf</span></code> — ELF Executables and Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../exception.html"><code class="docutils literal"><span class="pre">pwnlib.exception</span></code> — Pwnlib exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../flag.html"><code class="docutils literal"><span class="pre">pwnlib.flag</span></code> — CTF Flag Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fmtstr.html"><code class="docutils literal"><span class="pre">pwnlib.fmtstr</span></code> — Format string bug exploitation tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gdb.html"><code class="docutils literal"><span class="pre">pwnlib.gdb</span></code> — Working with GDB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../libcdb.html"><code class="docutils literal"><span class="pre">pwnlib.libcdb</span></code> — Libc Database</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../log.html"><code class="docutils literal"><span class="pre">pwnlib.log</span></code> — Logging stuff</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../memleak.html"><code class="docutils literal"><span class="pre">pwnlib.memleak</span></code> — Helper class for leaking memory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../protocols.html"><code class="docutils literal"><span class="pre">pwnlib.protocols</span></code> — Wire Protocols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qemu.html"><code class="docutils literal"><span class="pre">pwnlib.qemu</span></code> — QEMU Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../replacements.html"><code class="docutils literal"><span class="pre">pwnlib.replacements</span></code> — Replacements for various functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rop.html"><code class="docutils literal"><span class="pre">pwnlib.rop</span></code> — Return Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rop/rop.html"><code class="docutils literal"><span class="pre">pwnlib.rop.rop</span></code> — Return Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rop/srop.html"><code class="docutils literal"><span class="pre">pwnlib.rop.srop</span></code> — Sigreturn Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../runner.html"><code class="docutils literal"><span class="pre">pwnlib.runner</span></code> — Running Shellcode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shellcraft.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft</span></code> — Shellcode generation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shellcraft/aarch64.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.aarch64</span></code> — Shellcode for AArch64</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shellcraft/amd64.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.amd64</span></code> — Shellcode for AMD64</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shellcraft/arm.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.arm</span></code> — Shellcode for ARM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shellcraft/common.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.common</span></code> — Shellcode common to all architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shellcraft/i386.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.i386</span></code> — Shellcode for Intel 80386</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shellcraft/mips.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.mips</span></code> — Shellcode for MIPS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shellcraft/regsort.html"><code class="docutils literal"><span class="pre">pwnlib.regsort</span></code> — Register sorting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shellcraft/thumb.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.thumb</span></code> — Shellcode for Thumb Mode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../term.html"><code class="docutils literal"><span class="pre">pwnlib.term</span></code> — Terminal handling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../timeout.html"><code class="docutils literal"><span class="pre">pwnlib.timeout</span></code> — Timeout handling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tubes.html"><code class="docutils literal"><span class="pre">pwnlib.tubes</span></code> — Talking to the World!</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tubes/processes.html"><code class="docutils literal"><span class="pre">pwnlib.tubes.process</span></code> — Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tubes/serial.html"><code class="docutils literal"><span class="pre">pwnlib.tubes.serialtube</span></code> — Serial Ports</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tubes/sockets.html"><code class="docutils literal"><span class="pre">pwnlib.tubes.sock</span></code> — Sockets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tubes/ssh.html"><code class="docutils literal"><span class="pre">pwnlib.tubes.ssh</span></code> — SSH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ui.html"><code class="docutils literal"><span class="pre">pwnlib.ui</span></code> — Functions for user interaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../update.html"><code class="docutils literal"><span class="pre">pwnlib.update</span></code> — Updating Pwntools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../useragents.html"><code class="docutils literal"><span class="pre">pwnlib.useragents</span></code> — A database of useragent strings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="crc.html"><code class="docutils literal"><span class="pre">pwnlib.util.crc</span></code> — Calculating CRC-sums</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cyclic.html"><code class="docutils literal"><span class="pre">pwnlib.util.cyclic</span></code> — Generation of unique sequences</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fiddling.html"><code class="docutils literal"><span class="pre">pwnlib.util.fiddling</span></code> — Utilities bit fiddling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hashes.html"><code class="docutils literal"><span class="pre">pwnlib.util.hashes</span></code> — Hashing functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="iters.html"><code class="docutils literal"><span class="pre">pwnlib.util.iters</span></code> — Extension of standard module <code class="docutils literal"><span class="pre">itertools</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="lists.html"><code class="docutils literal"><span class="pre">pwnlib.util.lists</span></code> — Operations on lists</a></li>
+<li class="toctree-l1"><a class="reference internal" href="misc.html"><code class="docutils literal"><span class="pre">pwnlib.util.misc</span></code> — We could not fit it any other place</a></li>
+<li class="toctree-l1"><a class="reference internal" href="net.html"><code class="docutils literal"><span class="pre">pwnlib.util.net</span></code> — Networking interfaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="packing.html"><code class="docutils literal"><span class="pre">pwnlib.util.packing</span></code> — Packing and unpacking of strings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="proc.html"><code class="docutils literal"><span class="pre">pwnlib.util.proc</span></code> — Working with <code class="docutils literal"><span class="pre">/proc/</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="safeeval.html"><code class="docutils literal"><span class="pre">pwnlib.util.safeeval</span></code> — Safe evaluation of python code</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="docutils literal"><span class="pre">pwnlib.util.sh_string</span></code> — Shell Expansion is Hard</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#supported-shells">Supported Shells</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#debian-almquist-shell-dash">Debian Almquist shell (Dash)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gnu-bash">GNU Bash</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#z-shell">Z Shell</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#freebsd-shell">FreeBSD Shell</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#openbsd-shell">OpenBSD Shell</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#netbsd-shell">NetBSD Shell</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#android-shells">Android Shells</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#toybox-shell">Toybox Shell</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#busybox-shell">BusyBox Shell</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="web.html"><code class="docutils literal"><span class="pre">pwnlib.util.web</span></code> — Utilities for working with the WWW</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../testexample.html"><code class="docutils literal"><span class="pre">pwnlib.testexample</span></code> — Example Test Module</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../index.html">pwntools</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a href="../index.html">Docs</a> »</li>
+<li><code class="docutils literal"><span class="pre">pwnlib.util.sh_string</span></code> — Shell Expansion is Hard</li>
+<li class="wy-breadcrumbs-aside">
+<a href="../_sources/util/sh_string.rst.txt" rel="nofollow"> View page source</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div class="section" id="module-pwnlib.util.sh_string">
+<span id="pwnlib-util-sh-string-shell-expansion-is-hard"></span><h1><a name="//apple_ref/cpp/Module/pwnlib.util.sh_string"></a><a class="reference internal" href="#module-pwnlib.util.sh_string" title="pwnlib.util.sh_string"><code class="xref py py-mod docutils literal"><span class="pre">pwnlib.util.sh_string</span></code></a> — Shell Expansion is Hard<a class="headerlink" href="#module-pwnlib.util.sh_string" title="Permalink to this headline">¶</a></h1>
+<p>Routines here are for getting any NULL-terminated sequence of bytes evaluated
+intact by any shell.  This includes all variants of quotes, whitespace, and
+non-printable characters.</p>
+<div class="section" id="supported-shells">
+<h2>Supported Shells<a class="headerlink" href="#supported-shells" title="Permalink to this headline">¶</a></h2>
+<p>The following shells have been evaluated:</p>
+<ul class="simple">
+<li>Ubuntu (dash/sh)</li>
+<li>MacOS (GNU Bash)</li>
+<li>Zsh</li>
+<li>FreeBSD (sh)</li>
+<li>OpenBSD (sh)</li>
+<li>NetBSD (sh)</li>
+</ul>
+<div class="section" id="debian-almquist-shell-dash">
+<h3>Debian Almquist shell (Dash)<a class="headerlink" href="#debian-almquist-shell-dash" title="Permalink to this headline">¶</a></h3>
+<p>Ubuntu 14.04 and 16.04 use the Dash shell, and /bin/sh is actually just a
+symlink to /bin/dash.  The feature set supported when invoked as “sh” instead
+of “dash” is different, and we focus exclusively on the “/bin/sh” implementation.</p>
+<p>From the <a class="reference external" href="http://manpages.ubuntu.com/manpages/trusty/man1/dash.1.html">Ubuntu Man Pages</a>, every character except for single-quote
+can be wrapped in single-quotes, and a backslash can be used to escape unquoted
+single-quotes.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>Quoting
+  Quoting is used to remove the special meaning of certain characters or
+  words to the shell, such as operators, whitespace, or keywords.  There
+  are three types of quoting: matched single quotes, matched double quotes,
+  and backslash.
+
+Backslash
+  A backslash preserves the literal meaning of the following character,
+  with the exception of ⟨newline⟩.  A backslash preceding a ⟨newline⟩ is
+  treated as a line continuation.
+
+Single Quotes
+  Enclosing characters in single quotes preserves the literal meaning of
+  all the characters (except single quotes, making it impossible to put
+  single-quotes in a single-quoted string).
+
+Double Quotes
+  Enclosing characters within double quotes preserves the literal meaning
+  of all characters except dollarsign ($), backquote (`), and backslash
+  (\).  The backslash inside double quotes is historically weird, and
+  serves to quote only the following characters:
+        $ ` " \ &lt;newline&gt;.
+  Otherwise it remains literal.
+</pre></div>
+</div>
+</div>
+<div class="section" id="gnu-bash">
+<h3>GNU Bash<a class="headerlink" href="#gnu-bash" title="Permalink to this headline">¶</a></h3>
+<p>The Bash shell is default on many systems, though it is not generally the default
+system-wide shell (i.e., the <cite>system</cite> syscall does not generally invoke it).</p>
+<p>That said, its prevalence suggests that it also be addressed.</p>
+<p>From the <a class="reference external" href="https://www.gnu.org/software/bash/manual/bash.html#Quoting">GNU Bash Manual</a>, every character except for single-quote
+can be wrapped in single-quotes, and a backslash can be used to escape unquoted
+single-quotes.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>3.1.2.1 Escape Character
+
+A non-quoted backslash ‘\’ is the Bash escape character. It preserves the
+literal value of the next character that follows, with the exception of
+newline. If a ``\newline`` pair appears, and the backslash itself is not
+quoted, the ``\newline`` is treated as a line continuation (that is, it
+is removed from the input stream and effectively ignored).
+
+3.1.2.2 Single Quotes
+
+Enclosing characters in single quotes (‘'’) preserves the literal value of
+each character within the quotes. A single quote may not occur between single
+uotes, even when preceded by a backslash.
+
+3.1.2.3 Double Quotes
+
+Enclosing characters in double quotes (‘"’) preserves the literal value of a
+ll characters within the quotes, with the exception of ‘$’, ‘`’, ‘\’, and,
+when history expansion is enabled, ‘!’. The characters ‘$’ and ‘`’ retain their
+pecial meaning within double quotes (see Shell Expansions). The backslash retains
+its special meaning only when followed by one of the following characters:
+‘$’, ‘`’, ‘"’, ‘\’, or newline. Within double quotes, backslashes that are
+followed by one of these characters are removed. Backslashes preceding
+characters without a special meaning are left unmodified. A double quote may
+be quoted within double quotes by preceding it with a backslash. If enabled,
+history expansion will be performed unless an ‘!’ appearing in double quotes
+is escaped using a backslash. The backslash preceding the ‘!’ is not removed.
+
+The special parameters ‘*’ and ‘@’ have special meaning when in double quotes
+see Shell Parameter Expansion).
+</pre></div>
+</div>
+</div>
+<div class="section" id="z-shell">
+<h3>Z Shell<a class="headerlink" href="#z-shell" title="Permalink to this headline">¶</a></h3>
+<p>The Z shell is also a relatively common user shell, even though it’s not generally
+the default system-wide shell.</p>
+<p>From the <a class="reference external" href="http://zsh.sourceforge.net/Doc/Release/Shell-Grammar.html#Quoting">Z Shell Manual</a>, every character except for single-quote
+can be wrapped in single-quotes, and a backslash can be used to escape unquoted
+single-quotes.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>A character may be quoted (that is, made to stand for itself) by preceding
+it with a ‘\’. ‘\’ followed by a newline is ignored.
+
+A string enclosed between ‘$'’ and ‘'’ is processed the same way as the
+string arguments of the print builtin, and the resulting string is considered
+o be entirely quoted. A literal ‘'’ character can be included in the string
+by using the ‘\'’ escape.
+
+All characters enclosed between a pair of single quotes ('') that is not
+preceded by a ‘$’ are quoted. A single quote cannot appear within single
+quotes unless the option RC_QUOTES is set, in which case a pair of single
+quotes are turned into a single quote. For example,
+
+print ''''
+outputs nothing apart from a newline if RC_QUOTES is not set, but one single
+quote if it is set.
+
+Inside double quotes (""), parameter and command substitution occur, and
+‘\’ quotes the characters ‘\’, ‘`’, ‘"’, and ‘$’.
+</pre></div>
+</div>
+</div>
+<div class="section" id="freebsd-shell">
+<h3>FreeBSD Shell<a class="headerlink" href="#freebsd-shell" title="Permalink to this headline">¶</a></h3>
+<p>Compatibility with the FreeBSD shell is included for completeness.</p>
+<p>From the <a class="reference external" href="https://www.freebsd.org/cgi/man.cgi?query=sh">FreeBSD man pages</a>, every character except for single-quote
+can be wrapped in single-quotes, and a backslash can be used to escape unquoted
+single-quotes.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>Quoting is used to remove the special meaning of certain characters or
+words to the shell, such as operators, whitespace, keywords, or alias
+names.
+
+There are four types of quoting: matched single quotes, dollar-single
+quotes, matched double quotes, and backslash.
+
+Single Quotes
+    Enclosing characters in single quotes preserves the literal mean-
+    ing of all the characters (except single quotes, making it impos-
+    sible to put single-quotes in a single-quoted string).
+
+Dollar-Single Quotes
+    Enclosing characters between $' and ' preserves the literal mean-
+    ing of all characters except backslashes and single quotes.  A
+    backslash introduces a C-style escape sequence:
+
+    ...
+
+Double Quotes
+    Enclosing characters within double quotes preserves the literal
+    meaning of all characters except dollar sign (`$'), backquote
+    (``'), and backslash (`\').  The backslash inside double quotes
+    is historically weird.  It remains literal unless it precedes the
+    following characters, which it serves to quote:
+
+      $     `     "     \     \n
+
+Backslash
+    A backslash preserves the literal meaning of the following char-
+    acter, with the exception of the newline character (`\n').  A
+    backslash preceding a newline is treated as a line continuation.
+</pre></div>
+</div>
+</div>
+<div class="section" id="openbsd-shell">
+<h3>OpenBSD Shell<a class="headerlink" href="#openbsd-shell" title="Permalink to this headline">¶</a></h3>
+<p>From the <a class="reference external" href="http://man.openbsd.org/cgi-bin/man.cgi?query=sh#SHELL_GRAMMAR">OpenBSD Man Pages</a>, every character except for single-quote
+can be wrapped in single-quotes, and a backslash can be used to escape unquoted
+single-quotes.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>A backslash (\) can be used to quote any character except a newline.
+If a newline follows a backslash the shell removes them both, effectively
+making the following line part of the current one.
+
+A group of characters can be enclosed within single quotes (') to quote
+every character within the quotes.
+
+A group of characters can be enclosed within double quotes (") to quote
+every character within the quotes except a backquote (`) or a dollar
+sign ($), both of which retain their special meaning. A backslash (\)
+within double quotes retains its special meaning, but only when followed
+by a backquote, dollar sign, double quote, or another backslash.
+An at sign (@) within double quotes has a special meaning
+(see SPECIAL PARAMETERS, below).
+</pre></div>
+</div>
+</div>
+<div class="section" id="netbsd-shell">
+<h3>NetBSD Shell<a class="headerlink" href="#netbsd-shell" title="Permalink to this headline">¶</a></h3>
+<p>The NetBSD shell’s documentation is identical to the Dash documentation.</p>
+</div>
+<div class="section" id="android-shells">
+<h3>Android Shells<a class="headerlink" href="#android-shells" title="Permalink to this headline">¶</a></h3>
+<p>Android has gone through some number of shells.</p>
+<ul class="simple">
+<li>Mksh, a Korn shell, was used with Toolbox releases (5.0 and prior)</li>
+<li>Toybox, also derived from the Almquist Shell (6.0 and newer)</li>
+</ul>
+<p>Notably, the Toolbox implementation is not POSIX compliant
+as it lacks a “printf” builtin (e.g. Android 5.0 emulator images).</p>
+</div>
+<div class="section" id="toybox-shell">
+<h3>Toybox Shell<a class="headerlink" href="#toybox-shell" title="Permalink to this headline">¶</a></h3>
+<p>Android 6.0 (and possibly other versions) use a shell based on <code class="docutils literal"><span class="pre">toybox</span></code>.</p>
+<p>While it does not include a <code class="docutils literal"><span class="pre">printf</span></code> builtin, <code class="docutils literal"><span class="pre">toybox</span></code> itself includes
+a POSIX-compliant <code class="docutils literal"><span class="pre">printf</span></code> binary.</p>
+<p>The Ash shells should be feature-compatible with <code class="docutils literal"><span class="pre">dash</span></code>.</p>
+</div>
+<div class="section" id="busybox-shell">
+<h3>BusyBox Shell<a class="headerlink" href="#busybox-shell" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/BusyBox#Features">BusyBox’s Wikipedia page</a> claims to use an <code class="docutils literal"><span class="pre">ash</span></code>-compliant shell,
+and should therefore be compatible with <code class="docutils literal"><span class="pre">dash</span></code>.</p>
+<dl class="function">
+<dt id="pwnlib.util.sh_string.sh_command_with"><a name="//apple_ref/cpp/Function/pwnlib.util.sh_string.sh_command_with"></a>
+<code class="descclassname">pwnlib.util.sh_string.</code><code class="descname">sh_command_with</code><span class="sig-paren">(</span><em>f</em>, <em>arg0</em>, <em>…</em>, <em>argN</em><span class="sig-paren">)</span> → command<a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/util/sh_string.py#L477-514"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.util.sh_string.sh_command_with" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a command create by evaluating <cite>f(new_arg0, …, new_argN)</cite>
+whenever <cite>f</cite> is a function and <cite>f % (new_arg0, …, new_argN)</cite> otherwise.</p>
+<p>If the arguments are purely alphanumeric, then they are simply passed to
+function. If they are simple to escape, they will be escaped and passed to
+the function.</p>
+<p>If the arguments contain trailing newlines, then it is hard to use them
+directly because of a limitation in the posix shell. In this case the
+output from <cite>f</cite> is prepended with a bit of code to create the variables.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sh_command_with</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="s2">"echo hello"</span><span class="p">)</span>
+<span class="go">'echo hello'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sh_command_with</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="s2">"echo "</span> <span class="o">+</span> <span class="n">x</span><span class="p">,</span> <span class="s2">"hello"</span><span class="p">)</span>
+<span class="go">'echo hello'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sh_command_with</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="s2">"/bin/echo "</span> <span class="o">+</span> <span class="n">x</span><span class="p">,</span> <span class="s2">"</span><span class="se">\\</span><span class="s2">x01"</span><span class="p">)</span>
+<span class="go">"/bin/echo '\\x01'"</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sh_command_with</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="s2">"/bin/echo "</span> <span class="o">+</span> <span class="n">x</span><span class="p">,</span> <span class="s2">"</span><span class="se">\\</span><span class="s2">x01</span><span class="se">\\</span><span class="s2">n"</span><span class="p">)</span>
+<span class="go">"/bin/echo '\\x01\\n'"</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sh_command_with</span><span class="p">(</span><span class="s2">"/bin/echo </span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span> <span class="s2">"</span><span class="se">\\</span><span class="s2">x01</span><span class="se">\\</span><span class="s2">n"</span><span class="p">)</span>
+<span class="go">"/bin/echo '\\x01\\n'"</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="function">
+<dt id="pwnlib.util.sh_string.sh_prepare"><a name="//apple_ref/cpp/Function/pwnlib.util.sh_string.sh_prepare"></a>
+<code class="descclassname">pwnlib.util.sh_string.</code><code class="descname">sh_prepare</code><span class="sig-paren">(</span><em>variables</em>, <em>export=False</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/util/sh_string.py#L428-475"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.util.sh_string.sh_prepare" title="Permalink to this definition">¶</a></dt>
+<dd><p>Outputs a posix compliant shell command that will put the data specified
+by the dictionary into the environment.</p>
+<p>It is assumed that the keys in the dictionary are valid variable names that
+does not need any escaping.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>variables</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) – The variables to set.</li>
+<li><strong>export</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – Should the variables be exported or only stored in the shell environment?</li>
+<li><strong>output</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – A valid posix shell command that will set the given variables.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>It is assumed that <cite>var</cite> is a valid name for a variable in the shell.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sh_prepare</span><span class="p">({</span><span class="s1">'X'</span><span class="p">:</span> <span class="s1">'foobar'</span><span class="p">})</span>
+<span class="go">'X=foobar'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span> <span class="o">=</span> <span class="n">sh_prepare</span><span class="p">({</span><span class="s1">'X'</span><span class="p">:</span> <span class="s1">'foobar'</span><span class="p">,</span> <span class="s1">'Y'</span><span class="p">:</span> <span class="s1">'cookies'</span><span class="p">})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span> <span class="o">==</span> <span class="s1">'X=foobar;Y=cookies'</span> <span class="ow">or</span> <span class="n">r</span> <span class="o">==</span> <span class="s1">'Y=cookies;X=foobar'</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sh_prepare</span><span class="p">({</span><span class="s1">'X'</span><span class="p">:</span> <span class="s1">'foo bar'</span><span class="p">})</span>
+<span class="go">"X='foo bar'"</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sh_prepare</span><span class="p">({</span><span class="s1">'X'</span><span class="p">:</span> <span class="s2">"foo'bar"</span><span class="p">})</span>
+<span class="go">"X='foo'\\''bar'"</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sh_prepare</span><span class="p">({</span><span class="s1">'X'</span><span class="p">:</span> <span class="s2">"foo</span><span class="se">\\\\</span><span class="s2">bar"</span><span class="p">})</span>
+<span class="go">"X='foo\\\\bar'"</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sh_prepare</span><span class="p">({</span><span class="s1">'X'</span><span class="p">:</span> <span class="s2">"foo</span><span class="se">\\\\</span><span class="s2">'bar"</span><span class="p">})</span>
+<span class="go">"X='foo\\\\'\\''bar'"</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sh_prepare</span><span class="p">({</span><span class="s1">'X'</span><span class="p">:</span> <span class="s2">"foo</span><span class="se">\\</span><span class="s2">x01'bar"</span><span class="p">})</span>
+<span class="go">"X='foo\\x01'\\''bar'"</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sh_prepare</span><span class="p">({</span><span class="s1">'X'</span><span class="p">:</span> <span class="s2">"foo</span><span class="se">\\</span><span class="s2">x01'bar"</span><span class="p">},</span> <span class="n">export</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="go">"export X='foo\\x01'\\''bar'"</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sh_prepare</span><span class="p">({</span><span class="s1">'X'</span><span class="p">:</span> <span class="s2">"foo</span><span class="se">\\</span><span class="s2">x01'bar</span><span class="se">\\</span><span class="s2">n"</span><span class="p">})</span>
+<span class="go">"X='foo\\x01'\\''bar\\n'"</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sh_prepare</span><span class="p">({</span><span class="s1">'X'</span><span class="p">:</span> <span class="s2">"foo</span><span class="se">\\</span><span class="s2">x01'bar</span><span class="se">\\</span><span class="s2">n"</span><span class="p">})</span>
+<span class="go">"X='foo\\x01'\\''bar\\n'"</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sh_prepare</span><span class="p">({</span><span class="s1">'X'</span><span class="p">:</span> <span class="s2">"foo</span><span class="se">\\</span><span class="s2">x01'bar</span><span class="se">\\</span><span class="s2">n"</span><span class="p">},</span> <span class="n">export</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="go">"export X='foo\\x01'\\''bar\\n'"</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="function">
+<dt id="pwnlib.util.sh_string.sh_string"><a name="//apple_ref/cpp/Function/pwnlib.util.sh_string.sh_string"></a>
+<code class="descclassname">pwnlib.util.sh_string.</code><code class="descname">sh_string</code><span class="sig-paren">(</span><em>s</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/util/sh_string.py#L360-426"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.util.sh_string.sh_string" title="Permalink to this definition">¶</a></dt>
+<dd><p>Outputs a string in a format that will be understood by /bin/sh.</p>
+<p>If the string does not contain any bad characters, it will simply be
+returned, possibly with quotes. If it contains bad characters, it will
+be escaped in a way which is compatible with most known systems.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This does not play along well with the shell’s built-in “echo”.
+It works exactly as expected to set environment variables and
+arguments, <strong>unless</strong> it’s the shell-builtin echo.</p>
+</div>
+<dl class="docutils">
+<dt>Argument:</dt>
+<dd>s(str): String to escape.</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sh_string</span><span class="p">(</span><span class="s1">'foobar'</span><span class="p">)</span>
+<span class="go">'foobar'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sh_string</span><span class="p">(</span><span class="s1">'foo bar'</span><span class="p">)</span>
+<span class="go">"'foo bar'"</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sh_string</span><span class="p">(</span><span class="s2">"foo'bar"</span><span class="p">)</span>
+<span class="go">"'foo'\\''bar'"</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sh_string</span><span class="p">(</span><span class="s2">"foo</span><span class="se">\\\\</span><span class="s2">bar"</span><span class="p">)</span>
+<span class="go">"'foo\\\\bar'"</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sh_string</span><span class="p">(</span><span class="s2">"foo</span><span class="se">\\\\</span><span class="s2">'bar"</span><span class="p">)</span>
+<span class="go">"'foo\\\\'\\''bar'"</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sh_string</span><span class="p">(</span><span class="s2">"foo</span><span class="se">\\</span><span class="s2">x01'bar"</span><span class="p">)</span>
+<span class="go">"'foo\\x01'\\''bar'"</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="function">
+<dt id="pwnlib.util.sh_string.test"><a name="//apple_ref/cpp/Function/pwnlib.util.sh_string.test"></a>
+<code class="descclassname">pwnlib.util.sh_string.</code><code class="descname">test</code><span class="sig-paren">(</span><em>original</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/util/sh_string.py#L280-342"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.util.sh_string.test" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tests the output provided by a shell interpreting a string</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">test</span><span class="p">(</span><span class="s1">'foobar'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">test</span><span class="p">(</span><span class="s1">'foo bar'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">test</span><span class="p">(</span><span class="s1">'foo bar</span><span class="se">\n</span><span class="s1">'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">test</span><span class="p">(</span><span class="s2">"foo'bar"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">test</span><span class="p">(</span><span class="s2">"foo</span><span class="se">\\\\</span><span class="s2">bar"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">test</span><span class="p">(</span><span class="s2">"foo</span><span class="se">\\\\</span><span class="s2">'bar"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">test</span><span class="p">(</span><span class="s2">"foo</span><span class="se">\\</span><span class="s2">x01'bar"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">test</span><span class="p">(</span><span class="s1">'</span><span class="se">\n</span><span class="s1">'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">test</span><span class="p">(</span><span class="s1">'</span><span class="se">\xff</span><span class="s1">'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">test</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">urandom</span><span class="p">(</span><span class="mi">16</span> <span class="o">*</span> <span class="mi">1024</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">'</span><span class="se">\x00</span><span class="s1">'</span><span class="p">,</span> <span class="s1">''</span><span class="p">))</span>
+</pre></div>
+</div>
+</dd></dl>
+</div>
+</div>
+</div>
+</div>
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a accesskey="n" class="btn btn-neutral float-right" href="web.html" rel="next" title="pwnlib.util.web — Utilities for working with the WWW">Next <span class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral" href="safeeval.html" rel="prev" title="pwnlib.util.safeeval — Safe evaluation of python code"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © Copyright 2016, Gallopsled et al..
+
+    </p>
+</div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'3.14.0dev',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+<script src="../_static/jquery.js" type="text/javascript"></script>
+<script src="../_static/underscore.js" type="text/javascript"></script>
+<script src="../_static/doctools.js" type="text/javascript"></script>
+<script src="../_static/js/theme.js" type="text/javascript"></script>
+<script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>

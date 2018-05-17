@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]--><!--[if gt IE 8]><!--><html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>pwnlib.adb — Android Debug Bridge — pwntools 3.14.0dev documentation</title>
+<link href="_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="about.html" rel="author" title="About these documents"/>
+<link href="search.html" rel="search" title="Search"/>
+<link href="args.html" rel="next" title="pwnlib.args — Magic Command-Line Arguments"/>
+<link href="commandline.html" rel="prev" title="Command Line Tools"/>
+<script src="_static/js/modernizr.min.js"></script>
+</head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="index.html"> pwntools
+          
+
+          
+          </a>
+<div class="version">
+                3.14
+              </div>
+<div role="search">
+<form action="search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About pwntools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="globals.html"><code class="docutils literal"><span class="pre">from</span> <span class="pre">pwn</span> <span class="pre">import</span> <span class="pre">*</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="commandline.html">Command Line Tools</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="docutils literal"><span class="pre">pwnlib.adb</span></code> — Android Debug Bridge</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#using-android-devices-with-pwntools">Using Android Devices with Pwntools</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="args.html"><code class="docutils literal"><span class="pre">pwnlib.args</span></code> — Magic Command-Line Arguments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="asm.html"><code class="docutils literal"><span class="pre">pwnlib.asm</span></code> — Assembler functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="atexception.html"><code class="docutils literal"><span class="pre">pwnlib.atexception</span></code> — Callbacks on unhandled exception</a></li>
+<li class="toctree-l1"><a class="reference internal" href="atexit.html"><code class="docutils literal"><span class="pre">pwnlib.atexit</span></code> — Replacement for atexit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="constants.html"><code class="docutils literal"><span class="pre">pwnlib.constants</span></code> — Easy access to header file constants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config.html"><code class="docutils literal"><span class="pre">pwnlib.config</span></code> — Pwntools Configuration File</a></li>
+<li class="toctree-l1"><a class="reference internal" href="context.html"><code class="docutils literal"><span class="pre">pwnlib.context</span></code> — Setting runtime variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dynelf.html"><code class="docutils literal"><span class="pre">pwnlib.dynelf</span></code> — Resolving remote functions using leaks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="encoders.html"><code class="docutils literal"><span class="pre">pwnlib.encoders</span></code> — Encoding Shellcode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="elf.html"><code class="docutils literal"><span class="pre">pwnlib.elf</span></code> — ELF Executables and Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exception.html"><code class="docutils literal"><span class="pre">pwnlib.exception</span></code> — Pwnlib exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="flag.html"><code class="docutils literal"><span class="pre">pwnlib.flag</span></code> — CTF Flag Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fmtstr.html"><code class="docutils literal"><span class="pre">pwnlib.fmtstr</span></code> — Format string bug exploitation tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gdb.html"><code class="docutils literal"><span class="pre">pwnlib.gdb</span></code> — Working with GDB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libcdb.html"><code class="docutils literal"><span class="pre">pwnlib.libcdb</span></code> — Libc Database</a></li>
+<li class="toctree-l1"><a class="reference internal" href="log.html"><code class="docutils literal"><span class="pre">pwnlib.log</span></code> — Logging stuff</a></li>
+<li class="toctree-l1"><a class="reference internal" href="memleak.html"><code class="docutils literal"><span class="pre">pwnlib.memleak</span></code> — Helper class for leaking memory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="protocols.html"><code class="docutils literal"><span class="pre">pwnlib.protocols</span></code> — Wire Protocols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qemu.html"><code class="docutils literal"><span class="pre">pwnlib.qemu</span></code> — QEMU Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="replacements.html"><code class="docutils literal"><span class="pre">pwnlib.replacements</span></code> — Replacements for various functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rop.html"><code class="docutils literal"><span class="pre">pwnlib.rop</span></code> — Return Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rop/rop.html"><code class="docutils literal"><span class="pre">pwnlib.rop.rop</span></code> — Return Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rop/srop.html"><code class="docutils literal"><span class="pre">pwnlib.rop.srop</span></code> — Sigreturn Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="runner.html"><code class="docutils literal"><span class="pre">pwnlib.runner</span></code> — Running Shellcode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shellcraft.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft</span></code> — Shellcode generation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shellcraft/aarch64.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.aarch64</span></code> — Shellcode for AArch64</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shellcraft/amd64.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.amd64</span></code> — Shellcode for AMD64</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shellcraft/arm.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.arm</span></code> — Shellcode for ARM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shellcraft/common.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.common</span></code> — Shellcode common to all architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shellcraft/i386.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.i386</span></code> — Shellcode for Intel 80386</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shellcraft/mips.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.mips</span></code> — Shellcode for MIPS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shellcraft/regsort.html"><code class="docutils literal"><span class="pre">pwnlib.regsort</span></code> — Register sorting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shellcraft/thumb.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.thumb</span></code> — Shellcode for Thumb Mode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="term.html"><code class="docutils literal"><span class="pre">pwnlib.term</span></code> — Terminal handling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="timeout.html"><code class="docutils literal"><span class="pre">pwnlib.timeout</span></code> — Timeout handling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tubes.html"><code class="docutils literal"><span class="pre">pwnlib.tubes</span></code> — Talking to the World!</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tubes/processes.html"><code class="docutils literal"><span class="pre">pwnlib.tubes.process</span></code> — Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tubes/serial.html"><code class="docutils literal"><span class="pre">pwnlib.tubes.serialtube</span></code> — Serial Ports</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tubes/sockets.html"><code class="docutils literal"><span class="pre">pwnlib.tubes.sock</span></code> — Sockets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tubes/ssh.html"><code class="docutils literal"><span class="pre">pwnlib.tubes.ssh</span></code> — SSH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ui.html"><code class="docutils literal"><span class="pre">pwnlib.ui</span></code> — Functions for user interaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="update.html"><code class="docutils literal"><span class="pre">pwnlib.update</span></code> — Updating Pwntools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="useragents.html"><code class="docutils literal"><span class="pre">pwnlib.useragents</span></code> — A database of useragent strings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/crc.html"><code class="docutils literal"><span class="pre">pwnlib.util.crc</span></code> — Calculating CRC-sums</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/cyclic.html"><code class="docutils literal"><span class="pre">pwnlib.util.cyclic</span></code> — Generation of unique sequences</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/fiddling.html"><code class="docutils literal"><span class="pre">pwnlib.util.fiddling</span></code> — Utilities bit fiddling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/hashes.html"><code class="docutils literal"><span class="pre">pwnlib.util.hashes</span></code> — Hashing functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/iters.html"><code class="docutils literal"><span class="pre">pwnlib.util.iters</span></code> — Extension of standard module <code class="docutils literal"><span class="pre">itertools</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/lists.html"><code class="docutils literal"><span class="pre">pwnlib.util.lists</span></code> — Operations on lists</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/misc.html"><code class="docutils literal"><span class="pre">pwnlib.util.misc</span></code> — We could not fit it any other place</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/net.html"><code class="docutils literal"><span class="pre">pwnlib.util.net</span></code> — Networking interfaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/packing.html"><code class="docutils literal"><span class="pre">pwnlib.util.packing</span></code> — Packing and unpacking of strings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/proc.html"><code class="docutils literal"><span class="pre">pwnlib.util.proc</span></code> — Working with <code class="docutils literal"><span class="pre">/proc/</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/safeeval.html"><code class="docutils literal"><span class="pre">pwnlib.util.safeeval</span></code> — Safe evaluation of python code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/sh_string.html"><code class="docutils literal"><span class="pre">pwnlib.util.sh_string</span></code> — Shell Expansion is Hard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/web.html"><code class="docutils literal"><span class="pre">pwnlib.util.web</span></code> — Utilities for working with the WWW</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="testexample.html"><code class="docutils literal"><span class="pre">pwnlib.testexample</span></code> — Example Test Module</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="index.html">pwntools</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a href="index.html">Docs</a> »</li>
+<li><code class="docutils literal"><span class="pre">pwnlib.adb</span></code> — Android Debug Bridge</li>
+<li class="wy-breadcrumbs-aside">
+<a href="_sources/adb.rst.txt" rel="nofollow"> View page source</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div class="section" id="module-pwnlib.adb.adb"><a name="//apple_ref/cpp/Module/pwnlib.adb.protocol"></a>
+<span id="pwnlib-adb-android-debug-bridge"></span><h1><a name="//apple_ref/cpp/Module/pwnlib.adb.adb"></a><code class="xref py py-mod docutils literal"><span class="pre">pwnlib.adb</span></code> — Android Debug Bridge<a class="headerlink" href="#module-pwnlib.adb.adb" title="Permalink to this headline">¶</a></h1>
+<p>Provides utilities for interacting with Android devices via the Android Debug Bridge.</p>
+<div class="section" id="using-android-devices-with-pwntools">
+<h2>Using Android Devices with Pwntools<a class="headerlink" href="#using-android-devices-with-pwntools" title="Permalink to this headline">¶</a></h2>
+<p>Pwntools tries to be as easy as possible to use with Android devices.</p>
+<p>If you have only one device attached, everything “just works”.</p>
+<p>If you have multiple devices, you have a handful of options to select one, or iterate
+over the devices.</p>
+<p>First and most important is the <code class="docutils literal"><span class="pre">context.device</span></code> property, which declares the “currently”
+selected device in any scope.  It can be set manually to a serial number, or to a <code class="docutils literal"><span class="pre">Device</span></code>
+instance.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Take the first available device</span>
+<span class="n">context</span><span class="o">.</span><span class="n">device</span> <span class="o">=</span> <span class="n">adb</span><span class="o">.</span><span class="n">wait_for_device</span><span class="p">()</span>
+
+<span class="c1"># Set a device by serial number</span>
+<span class="n">context</span><span class="o">.</span><span class="n">device</span> <span class="o">=</span> <span class="s1">'ZX1G22LH8S'</span>
+
+<span class="c1"># Set a device by its product name</span>
+<span class="k">for</span> <span class="n">device</span> <span class="ow">in</span> <span class="n">adb</span><span class="o">.</span><span class="n">devices</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">device</span><span class="o">.</span><span class="n">product</span> <span class="o">==</span> <span class="s1">'shamu'</span><span class="p">:</span>
+        <span class="k">break</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">error</span><span class="p">(</span><span class="s2">"Could not find any shamus!"</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Once a device is selected, you can operate on it with any of the functions in
+the <code class="xref py py-mod docutils literal"><span class="pre">pwnlib.adb</span></code> module.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Get a process listing</span>
+<span class="k">print</span> <span class="n">adb</span><span class="o">.</span><span class="n">process</span><span class="p">([</span><span class="s1">'ps'</span><span class="p">])</span><span class="o">.</span><span class="n">recvall</span><span class="p">()</span>
+
+<span class="c1"># Fetch properties</span>
+<span class="k">print</span> <span class="n">adb</span><span class="o">.</span><span class="n">properties</span><span class="o">.</span><span class="n">ro</span><span class="o">.</span><span class="n">build</span><span class="o">.</span><span class="n">fingerprint</span>
+
+<span class="c1"># Read and write files</span>
+<span class="k">print</span> <span class="n">adb</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s1">'/proc/version'</span><span class="p">)</span>
+<span class="n">adb</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">'/data/local/tmp/foo'</span><span class="p">,</span> <span class="s1">'my data'</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="class">
+<dt id="pwnlib.adb.adb.AdbDevice"><a name="//apple_ref/cpp/Class/pwnlib.adb.adb.AdbDevice"></a>
+<em class="property">class </em><code class="descclassname">pwnlib.adb.adb.</code><code class="descname">AdbDevice</code><span class="sig-paren">(</span><em>serial</em>, <em>type</em>, <em>port=None</em>, <em>product=’unknown’</em>, <em>model=’unknown’</em>, <em>device=’unknown’</em>, <em>features=None</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/adb/adb.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.adb.adb.AdbDevice" title="Permalink to this definition">¶</a></dt>
+<dd><p>Encapsulates information about a connected device.</p>
+<p class="rubric">Example</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span> <span class="o">=</span> <span class="n">adb</span><span class="o">.</span><span class="n">wait_for_device</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">arch</span>
+<span class="go">'arm'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">bits</span>
+<span class="go">32</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">os</span>
+<span class="go">'android'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">product</span>
+<span class="go">'sdk_phone_armv7'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">serial</span>
+<span class="go">'emulator-5554'</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="function">
+<dt id="pwnlib.adb.adb.adb"><a name="//apple_ref/cpp/Function/pwnlib.adb.adb.adb"></a>
+<code class="descclassname">pwnlib.adb.adb.</code><code class="descname">adb</code><span class="sig-paren">(</span><em>argv</em>, <em>*a</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/adb/adb.py#L75-90"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.adb.adb.adb" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the output of an ADB subcommand.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">adb</span><span class="o">.</span><span class="n">adb</span><span class="p">([</span><span class="s1">'get-serialno'</span><span class="p">])</span>
+<span class="go">'emulator-5554\n'</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="function">
+<dt id="pwnlib.adb.adb.boot_time"><a name="//apple_ref/cpp/Function/pwnlib.adb.adb.boot_time"></a>
+<code class="descclassname">pwnlib.adb.adb.</code><code class="descname">boot_time</code><span class="sig-paren">(</span><span class="sig-paren">)</span> → int<a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/adb/adb.py#L128-137"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.adb.adb.boot_time" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Boot time of the device, in Unix time, rounded to the
+nearest second.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+<dl class="function">
+<dt id="pwnlib.adb.adb.build"><a name="//apple_ref/cpp/Function/pwnlib.adb.adb.build"></a>
+<code class="descclassname">pwnlib.adb.adb.</code><code class="descname">build</code><span class="sig-paren">(</span><em>*a</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/adb/adb.py#L128-137"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.adb.adb.build" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the Build ID of the device.</p>
+</dd></dl>
+<dl class="function">
+<dt id="pwnlib.adb.adb.compile"><a name="//apple_ref/cpp/Function/pwnlib.adb.adb.compile"></a>
+<code class="descclassname">pwnlib.adb.adb.</code><code class="descname">compile</code><span class="sig-paren">(</span><em>source</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/adb/adb.py#L1192-1245"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.adb.adb.compile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compile a source file or project with the Android NDK.</p>
+</dd></dl>
+<dl class="function">
+<dt id="pwnlib.adb.adb.current_device"><a name="//apple_ref/cpp/Function/pwnlib.adb.adb.current_device"></a>
+<code class="descclassname">pwnlib.adb.adb.</code><code class="descname">current_device</code><span class="sig-paren">(</span><em>any=False</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/adb/adb.py#L110-125"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.adb.adb.current_device" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns an <code class="docutils literal"><span class="pre">AdbDevice</span></code> instance for the currently-selected device
+(via <code class="docutils literal"><span class="pre">context.device</span></code>).</p>
+<p class="rubric">Example</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span> <span class="o">=</span> <span class="n">adb</span><span class="o">.</span><span class="n">current_device</span><span class="p">(</span><span class="nb">any</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">device</span>
+<span class="go">AdbDevice(serial='emulator-5554', type='device', port='emulator', product='sdk_phone_armv7', model='sdk phone armv7', device='generic')</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">port</span>
+<span class="go">'emulator'</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="function">
+<dt id="pwnlib.adb.adb.devices"><a name="//apple_ref/cpp/Function/pwnlib.adb.adb.devices"></a>
+<code class="descclassname">pwnlib.adb.adb.</code><code class="descname">devices</code><span class="sig-paren">(</span><em>*a</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/adb/adb.py#L550-556"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.adb.adb.devices" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of <code class="docutils literal"><span class="pre">Device</span></code> objects corresponding to the connected devices.</p>
+</dd></dl>
+<dl class="function">
+<dt id="pwnlib.adb.adb.disable_verity"><a name="//apple_ref/cpp/Function/pwnlib.adb.adb.disable_verity"></a>
+<code class="descclassname">pwnlib.adb.adb.</code><code class="descname">disable_verity</code><span class="sig-paren">(</span><em>*a</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/adb/adb.py#L128-137"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.adb.adb.disable_verity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Disables dm-verity on the device.</p>
+</dd></dl>
+<dl class="function">
+<dt id="pwnlib.adb.adb.exists"><a name="//apple_ref/cpp/Function/pwnlib.adb.adb.exists"></a>
+<code class="descclassname">pwnlib.adb.adb.</code><code class="descname">exists</code><span class="sig-paren">(</span><em>*a</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/adb/adb.py#L550-556"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.adb.adb.exists" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return <code class="xref py py-const docutils literal"><span class="pre">True</span></code> if <code class="docutils literal"><span class="pre">path</span></code> exists on the target device.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">adb</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s1">'/'</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">adb</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s1">'/init'</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">adb</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s1">'/does/not/exist'</span><span class="p">)</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="function">
+<dt id="pwnlib.adb.adb.fastboot"><a name="//apple_ref/cpp/Function/pwnlib.adb.adb.fastboot"></a>
+<code class="descclassname">pwnlib.adb.adb.</code><code class="descname">fastboot</code><span class="sig-paren">(</span><em>*a</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/adb/adb.py#L128-137"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.adb.adb.fastboot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Executes a fastboot command.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The command output.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+<dl class="function">
+<dt id="pwnlib.adb.adb.find_ndk_project_root"><a name="//apple_ref/cpp/Function/pwnlib.adb.adb.find_ndk_project_root"></a>
+<code class="descclassname">pwnlib.adb.adb.</code><code class="descname">find_ndk_project_root</code><span class="sig-paren">(</span><em>source</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/adb/adb.py#L1127-1140"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.adb.adb.find_ndk_project_root" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a directory path, find the topmost project root.</p>
+<p>tl;dr “foo/bar/jni/baz.cpp” ==&gt; “foo/bar”</p>
+</dd></dl>
+<dl class="function">
+<dt id="pwnlib.adb.adb.fingerprint"><a name="//apple_ref/cpp/Function/pwnlib.adb.adb.fingerprint"></a>
+<code class="descclassname">pwnlib.adb.adb.</code><code class="descname">fingerprint</code><span class="sig-paren">(</span><em>*a</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/adb/adb.py#L128-137"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.adb.adb.fingerprint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the device build fingerprint.</p>
+</dd></dl>
+<dl class="function">
+<dt id="pwnlib.adb.adb.forward"><a name="//apple_ref/cpp/Function/pwnlib.adb.adb.forward"></a>
+<code class="descclassname">pwnlib.adb.adb.</code><code class="descname">forward</code><span class="sig-paren">(</span><em>*a</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/adb/adb.py#L128-137"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.adb.adb.forward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets up a port to forward to the device.</p>
+</dd></dl>
+<dl class="function">
+<dt id="pwnlib.adb.adb.getprop"><a name="//apple_ref/cpp/Function/pwnlib.adb.adb.getprop"></a>
+<code class="descclassname">pwnlib.adb.adb.</code><code class="descname">getprop</code><span class="sig-paren">(</span><em>*a</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/adb/adb.py#L128-137"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.adb.adb.getprop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads a properties from the system property store.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Optional, read a single property.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">If <code class="docutils literal"><span class="pre">name</span></code> is not specified, a <code class="docutils literal"><span class="pre">dict</span></code> of all properties is returned.
+Otherwise, a string is returned with the contents of the named property.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+<dl class="function">
+<dt id="pwnlib.adb.adb.install"><a name="//apple_ref/cpp/Function/pwnlib.adb.adb.install"></a>
+<code class="descclassname">pwnlib.adb.adb.</code><code class="descname">install</code><span class="sig-paren">(</span><em>apk</em>, <em>*arguments</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/adb/adb.py#L1347-1373"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.adb.adb.install" title="Permalink to this definition">¶</a></dt>
+<dd><p>Install an APK onto the device.</p>
+<p>This is a wrapper around ‘pm install’, which backs ‘adb install’.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>apk</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Path to the APK to intall (e.g. <code class="docutils literal"><span class="pre">'foo.apk'</span></code>)</li>
+<li><strong>arguments</strong> – Supplementary arguments to ‘pm install’,
+e.g. <code class="docutils literal"><span class="pre">'-l',</span> <span class="pre">'-g'</span></code>.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+<dl class="function">
+<dt id="pwnlib.adb.adb.interactive"><a name="//apple_ref/cpp/Function/pwnlib.adb.adb.interactive"></a>
+<code class="descclassname">pwnlib.adb.adb.</code><code class="descname">interactive</code><span class="sig-paren">(</span><em>*a</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/adb/adb.py#L128-137"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.adb.adb.interactive" title="Permalink to this definition">¶</a></dt>
+<dd><p>Spawns an interactive shell.</p>
+</dd></dl>
+<dl class="function">
+<dt id="pwnlib.adb.adb.isdir"><a name="//apple_ref/cpp/Function/pwnlib.adb.adb.isdir"></a>
+<code class="descclassname">pwnlib.adb.adb.</code><code class="descname">isdir</code><span class="sig-paren">(</span><em>*a</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/adb/adb.py#L550-556"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.adb.adb.isdir" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return <code class="xref py py-const docutils literal"><span class="pre">True</span></code> if <code class="docutils literal"><span class="pre">path</span></code> is a on the target device.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">adb</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="s1">'/'</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">adb</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="s1">'/init'</span><span class="p">)</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">adb</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="s1">'/does/not/exist'</span><span class="p">)</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="function">
+<dt id="pwnlib.adb.adb.listdir"><a name="//apple_ref/cpp/Function/pwnlib.adb.adb.listdir"></a>
+<code class="descclassname">pwnlib.adb.adb.</code><code class="descname">listdir</code><span class="sig-paren">(</span><em>*a</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/adb/adb.py#L128-137"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.adb.adb.listdir" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list containing the entries in the provided directory.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>This uses the SYNC LIST functionality, which runs in the adbd
+SELinux context.  If adbd is running in the su domain (‘adb root’),
+this behaves as expected.</p>
+<p class="last">Otherwise, less files may be returned due to restrictive SELinux
+policies on adbd.</p>
+</div>
+</dd></dl>
+<dl class="function">
+<dt id="pwnlib.adb.adb.logcat"><a name="//apple_ref/cpp/Function/pwnlib.adb.adb.logcat"></a>
+<code class="descclassname">pwnlib.adb.adb.</code><code class="descname">logcat</code><span class="sig-paren">(</span><em>*a</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/adb/adb.py#L550-556"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.adb.adb.logcat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads the system log file.</p>
+<p>By default, causes logcat to exit after reading the file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>stream</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – If <code class="xref py py-const docutils literal"><span class="pre">True</span></code>, the contents are streamed rather than
+read in a one-shot manner.  Default is <code class="xref py py-const docutils literal"><span class="pre">False</span></code>.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">If <code class="docutils literal"><span class="pre">stream</span></code> is <code class="xref py py-const docutils literal"><span class="pre">False</span></code>, returns a string containing the log data.
+Otherwise, it returns a <a class="reference internal" href="tubes.html#pwnlib.tubes.tube.tube" title="pwnlib.tubes.tube.tube"><code class="xref py py-class docutils literal"><span class="pre">pwnlib.tubes.tube.tube</span></code></a> connected to the log output.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+<dl class="function">
+<dt id="pwnlib.adb.adb.makedirs"><a name="//apple_ref/cpp/Function/pwnlib.adb.adb.makedirs"></a>
+<code class="descclassname">pwnlib.adb.adb.</code><code class="descname">makedirs</code><span class="sig-paren">(</span><em>*a</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/adb/adb.py#L550-556"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.adb.adb.makedirs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a directory and all parent directories on the target device.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Silently succeeds if the directory already exists.</p>
+</div>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">adb</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="s1">'/data/local/tmp/this/is/a/directory/heirarchy'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">adb</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="s1">'/data/local/tmp/this/is/a/directory'</span><span class="p">)</span>
+<span class="go">['heirarchy']</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="function">
+<dt id="pwnlib.adb.adb.mkdir"><a name="//apple_ref/cpp/Function/pwnlib.adb.adb.mkdir"></a>
+<code class="descclassname">pwnlib.adb.adb.</code><code class="descname">mkdir</code><span class="sig-paren">(</span><em>*a</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/adb/adb.py#L550-556"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.adb.adb.mkdir" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a directory on the target device.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Silently succeeds if the directory already exists.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>path</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Directory to create.</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">adb</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="s1">'/'</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">path</span> <span class="o">=</span> <span class="s1">'/data/local/tmp/mkdir_test'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">adb</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">adb</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">adb</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">adb</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="s1">'/init'</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="c">...</span>
+<span class="gr">PwnlibException</span>: <span class="n">mkdir failed for /init, File exists</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="function">
+<dt id="pwnlib.adb.adb.packages"><a name="//apple_ref/cpp/Function/pwnlib.adb.adb.packages"></a>
+<code class="descclassname">pwnlib.adb.adb.</code><code class="descname">packages</code><span class="sig-paren">(</span><em>*a</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/adb/adb.py#L550-556"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.adb.adb.packages" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of packages installed on the system</p>
+</dd></dl>
+<dl class="function">
+<dt id="pwnlib.adb.adb.pidof"><a name="//apple_ref/cpp/Function/pwnlib.adb.adb.pidof"></a>
+<code class="descclassname">pwnlib.adb.adb.</code><code class="descname">pidof</code><span class="sig-paren">(</span><em>*a</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/adb/adb.py#L128-137"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.adb.adb.pidof" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of PIDs for the named process.</p>
+</dd></dl>
+<dl class="function">
+<dt id="pwnlib.adb.adb.proc_exe"><a name="//apple_ref/cpp/Function/pwnlib.adb.adb.proc_exe"></a>
+<code class="descclassname">pwnlib.adb.adb.</code><code class="descname">proc_exe</code><span class="sig-paren">(</span><em>*a</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/adb/adb.py#L128-137"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.adb.adb.proc_exe" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the full path of the executable for the provided PID.</p>
+</dd></dl>
+<dl class="function">
+<dt id="pwnlib.adb.adb.process"><a name="//apple_ref/cpp/Function/pwnlib.adb.adb.process"></a>
+<code class="descclassname">pwnlib.adb.adb.</code><code class="descname">process</code><span class="sig-paren">(</span><em>*a</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/adb/adb.py#L128-137"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.adb.adb.process" title="Permalink to this definition">¶</a></dt>
+<dd><p>Execute a process on the device.</p>
+<p>See <a class="reference internal" href="tubes/processes.html#pwnlib.tubes.process.process" title="pwnlib.tubes.process.process"><code class="xref py py-class docutils literal"><span class="pre">pwnlib.tubes.process.process</span></code></a> documentation for more info.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A <a class="reference internal" href="tubes/processes.html#pwnlib.tubes.process.process" title="pwnlib.tubes.process.process"><code class="xref py py-class docutils literal"><span class="pre">pwnlib.tubes.process.process</span></code></a> tube.</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">adb</span><span class="o">.</span><span class="n">root</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">adb</span><span class="o">.</span><span class="n">process</span><span class="p">([</span><span class="s1">'cat'</span><span class="p">,</span><span class="s1">'/proc/version'</span><span class="p">])</span><span class="o">.</span><span class="n">recvall</span><span class="p">()</span> 
+<span class="go">Linux version ...</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="function">
+<dt id="pwnlib.adb.adb.product"><a name="//apple_ref/cpp/Function/pwnlib.adb.adb.product"></a>
+<code class="descclassname">pwnlib.adb.adb.</code><code class="descname">product</code><span class="sig-paren">(</span><em>*a</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/adb/adb.py#L128-137"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.adb.adb.product" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the device product identifier.</p>
+</dd></dl>
+<dl class="function">
+<dt id="pwnlib.adb.adb.pull"><a name="//apple_ref/cpp/Function/pwnlib.adb.adb.pull"></a>
+<code class="descclassname">pwnlib.adb.adb.</code><code class="descname">pull</code><span class="sig-paren">(</span><em>*a</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/adb/adb.py#L128-137"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.adb.adb.pull" title="Permalink to this definition">¶</a></dt>
+<dd><p>Download a file from the device.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>remote_path</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Path or directory of the file on the device.</li>
+<li><strong>local_path</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Path to save the file to.
+Uses the file’s name by default.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">The contents of the file.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Example</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">_</span><span class="o">=</span><span class="n">adb</span><span class="o">.</span><span class="n">pull</span><span class="p">(</span><span class="s1">'/proc/version'</span><span class="p">,</span> <span class="s1">'./proc-version'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">read</span><span class="p">(</span><span class="s1">'./proc-version'</span><span class="p">)</span> 
+<span class="go">Linux version ...</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="function">
+<dt id="pwnlib.adb.adb.push"><a name="//apple_ref/cpp/Function/pwnlib.adb.adb.push"></a>
+<code class="descclassname">pwnlib.adb.adb.</code><code class="descname">push</code><span class="sig-paren">(</span><em>*a</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/adb/adb.py#L128-137"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.adb.adb.push" title="Permalink to this definition">¶</a></dt>
+<dd><p>Upload a file to the device.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>local_path</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Path to the local file to push.</li>
+<li><strong>remote_path</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Path or directory to store the file on the device.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Remote path of the file.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Example</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">write</span><span class="p">(</span><span class="s1">'./filename'</span><span class="p">,</span> <span class="s1">'contents'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">adb</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="s1">'./filename'</span><span class="p">,</span> <span class="s1">'/data/local/tmp'</span><span class="p">)</span>
+<span class="go">'/data/local/tmp/filename'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">adb</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s1">'/data/local/tmp/filename'</span><span class="p">)</span>
+<span class="go">'contents'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">adb</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="s1">'./filename'</span><span class="p">,</span> <span class="s1">'/does/not/exist'</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="c">...</span>
+<span class="gr">PwnlibException</span>: <span class="n">Could not stat '/does/not/exist'</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="function">
+<dt id="pwnlib.adb.adb.read"><a name="//apple_ref/cpp/Function/pwnlib.adb.adb.read"></a>
+<code class="descclassname">pwnlib.adb.adb.</code><code class="descname">read</code><span class="sig-paren">(</span><em>*a</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/adb/adb.py#L550-556"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.adb.adb.read" title="Permalink to this definition">¶</a></dt>
+<dd><p>Download a file from the device, and extract its contents.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>path</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Path to the file on the device.</li>
+<li><strong>target</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Optional, location to store the file.
+Uses a temporary file by default.</li>
+<li><strong>callback</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#callable" title="(in Python v2.7)"><em>callable</em></a>) – See the documentation for
+<code class="docutils literal"><span class="pre">adb.protocol.AdbClient.read</span></code>.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">adb</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s1">'/proc/version'</span><span class="p">)</span> 
+<span class="go">Linux version ...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">adb</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s1">'/does/not/exist'</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="c">...</span>
+<span class="gr">PwnlibException</span>: <span class="n">Could not stat '/does/not/exist'</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="function">
+<dt id="pwnlib.adb.adb.reboot"><a name="//apple_ref/cpp/Function/pwnlib.adb.adb.reboot"></a>
+<code class="descclassname">pwnlib.adb.adb.</code><code class="descname">reboot</code><span class="sig-paren">(</span><em>*a</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/adb/adb.py#L164-169"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.adb.adb.reboot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reboots the device.</p>
+</dd></dl>
+<dl class="function">
+<dt id="pwnlib.adb.adb.reboot_bootloader"><a name="//apple_ref/cpp/Function/pwnlib.adb.adb.reboot_bootloader"></a>
+<code class="descclassname">pwnlib.adb.adb.</code><code class="descname">reboot_bootloader</code><span class="sig-paren">(</span><em>*a</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/adb/adb.py#L164-169"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.adb.adb.reboot_bootloader" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reboots the device to the bootloader.</p>
+</dd></dl>
+<dl class="function">
+<dt id="pwnlib.adb.adb.remount"><a name="//apple_ref/cpp/Function/pwnlib.adb.adb.remount"></a>
+<code class="descclassname">pwnlib.adb.adb.</code><code class="descname">remount</code><span class="sig-paren">(</span><em>*a</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/adb/adb.py#L128-137"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.adb.adb.remount" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remounts the filesystem as writable.</p>
+</dd></dl>
+<dl class="function">
+<dt id="pwnlib.adb.adb.root"><a name="//apple_ref/cpp/Function/pwnlib.adb.adb.root"></a>
+<code class="descclassname">pwnlib.adb.adb.</code><code class="descname">root</code><span class="sig-paren">(</span><em>*a</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/adb/adb.py#L128-137"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.adb.adb.root" title="Permalink to this definition">¶</a></dt>
+<dd><p>Restarts adbd as root.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">adb</span><span class="o">.</span><span class="n">root</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="function">
+<dt id="pwnlib.adb.adb.setprop"><a name="//apple_ref/cpp/Function/pwnlib.adb.adb.setprop"></a>
+<code class="descclassname">pwnlib.adb.adb.</code><code class="descname">setprop</code><span class="sig-paren">(</span><em>*a</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/adb/adb.py#L128-137"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.adb.adb.setprop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes a property to the system property store.</p>
+</dd></dl>
+<dl class="function">
+<dt id="pwnlib.adb.adb.shell"><a name="//apple_ref/cpp/Function/pwnlib.adb.adb.shell"></a>
+<code class="descclassname">pwnlib.adb.adb.</code><code class="descname">shell</code><span class="sig-paren">(</span><em>*a</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/adb/adb.py#L128-137"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.adb.adb.shell" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns an interactive shell.</p>
+</dd></dl>
+<dl class="function">
+<dt id="pwnlib.adb.adb.uninstall"><a name="//apple_ref/cpp/Function/pwnlib.adb.adb.uninstall"></a>
+<code class="descclassname">pwnlib.adb.adb.</code><code class="descname">uninstall</code><span class="sig-paren">(</span><em>package</em>, <em>*arguments</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/adb/adb.py#L1375-1386"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.adb.adb.uninstall" title="Permalink to this definition">¶</a></dt>
+<dd><p>Uninstall an APK from the device.</p>
+<p>This is a wrapper around ‘pm uninstall’, which backs ‘adb uninstall’.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>package</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Name of the package to uninstall (e.g. <code class="docutils literal"><span class="pre">'com.foo.MyPackage'</span></code>)</li>
+<li><strong>arguments</strong> – Supplementary arguments to <code class="docutils literal"><span class="pre">'pm</span> <span class="pre">install'</span></code>, e.g. <code class="docutils literal"><span class="pre">'-k'</span></code>.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+<dl class="function">
+<dt id="pwnlib.adb.adb.unlink"><a name="//apple_ref/cpp/Function/pwnlib.adb.adb.unlink"></a>
+<code class="descclassname">pwnlib.adb.adb.</code><code class="descname">unlink</code><span class="sig-paren">(</span><em>*a</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/adb/adb.py#L550-556"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.adb.adb.unlink" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unlinks a file or directory on the target device.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">adb</span><span class="o">.</span><span class="n">unlink</span><span class="p">(</span><span class="s2">"/does/not/exist"</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="c">...</span>
+<span class="gr">PwnlibException</span>: <span class="n">Could not unlink '/does/not/exist': Does not exist</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">filename</span> <span class="o">=</span> <span class="s1">'/data/local/tmp/unlink-test'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">adb</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">'hello'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">adb</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">adb</span><span class="o">.</span><span class="n">unlink</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">adb</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">adb</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">adb</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">filename</span> <span class="o">+</span> <span class="s1">'/contents'</span><span class="p">,</span> <span class="s1">'hello'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">adb</span><span class="o">.</span><span class="n">unlink</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="c">...</span>
+<span class="gr">PwnlibException</span>: <span class="n">Cannot delete non-empty directory '/data/local/tmp/unlink-test' without recursive=True</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">adb</span><span class="o">.</span><span class="n">unlink</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">recursive</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">adb</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="function">
+<dt id="pwnlib.adb.adb.unlock_bootloader"><a name="//apple_ref/cpp/Function/pwnlib.adb.adb.unlock_bootloader"></a>
+<code class="descclassname">pwnlib.adb.adb.</code><code class="descname">unlock_bootloader</code><span class="sig-paren">(</span><em>*a</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/adb/adb.py#L128-137"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.adb.adb.unlock_bootloader" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unlocks the bootloader of the device.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This requires physical interaction with the device.</p>
+</div>
+</dd></dl>
+<dl class="function">
+<dt id="pwnlib.adb.adb.unroot"><a name="//apple_ref/cpp/Function/pwnlib.adb.adb.unroot"></a>
+<code class="descclassname">pwnlib.adb.adb.</code><code class="descname">unroot</code><span class="sig-paren">(</span><em>*a</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/adb/adb.py#L128-137"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.adb.adb.unroot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Restarts adbd as AID_SHELL.</p>
+</dd></dl>
+<dl class="function">
+<dt id="pwnlib.adb.adb.uptime"><a name="//apple_ref/cpp/Function/pwnlib.adb.adb.uptime"></a>
+<code class="descclassname">pwnlib.adb.adb.</code><code class="descname">uptime</code><span class="sig-paren">(</span><span class="sig-paren">)</span> → float<a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/adb/adb.py#L128-137"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.adb.adb.uptime" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Uptime of the device, in seconds</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+<dl class="function">
+<dt id="pwnlib.adb.adb.wait_for_device"><a name="//apple_ref/cpp/Function/pwnlib.adb.adb.wait_for_device"></a>
+<code class="descclassname">pwnlib.adb.adb.</code><code class="descname">wait_for_device</code><span class="sig-paren">(</span><em>*a</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/adb/adb.py#L1390-1397"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.adb.adb.wait_for_device" title="Permalink to this definition">¶</a></dt>
+<dd><p>Waits for a device to be connected.</p>
+<p>By default, waits for the currently-selected device (via <code class="docutils literal"><span class="pre">context.device</span></code>).
+To wait for a specific device, set <code class="docutils literal"><span class="pre">context.device</span></code>.
+To wait for <em>any</em> device, clear <code class="docutils literal"><span class="pre">context.device</span></code>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">An <code class="docutils literal"><span class="pre">AdbDevice</span></code> instance for the device.</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span> <span class="o">=</span> <span class="n">adb</span><span class="o">.</span><span class="n">wait_for_device</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="function">
+<dt id="pwnlib.adb.adb.which"><a name="//apple_ref/cpp/Function/pwnlib.adb.adb.which"></a>
+<code class="descclassname">pwnlib.adb.adb.</code><code class="descname">which</code><span class="sig-paren">(</span><em>*a</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/adb/adb.py#L128-137"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.adb.adb.which" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves the full path to a binary in <code class="docutils literal"><span class="pre">$PATH</span></code> on the device</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Binary name</li>
+<li><strong>all</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – Whether to return all paths, or just the first</li>
+<li><strong>*a</strong> – Additional arguments for <a class="reference internal" href="#pwnlib.adb.adb.process" title="pwnlib.adb.adb.process"><code class="xref py py-func docutils literal"><span class="pre">adb.process()</span></code></a></li>
+<li><strong>**kw</strong> – Additional arguments for <a class="reference internal" href="#pwnlib.adb.adb.process" title="pwnlib.adb.adb.process"><code class="xref py py-func docutils literal"><span class="pre">adb.process()</span></code></a></li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Either a path, or list of paths</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Example</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">adb</span><span class="o">.</span><span class="n">which</span><span class="p">(</span><span class="s1">'sh'</span><span class="p">)</span>
+<span class="go">'/system/bin/sh'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">adb</span><span class="o">.</span><span class="n">which</span><span class="p">(</span><span class="s1">'sh'</span><span class="p">,</span> <span class="nb">all</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">['/system/bin/sh']</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">adb</span><span class="o">.</span><span class="n">which</span><span class="p">(</span><span class="s1">'foobar'</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">adb</span><span class="o">.</span><span class="n">which</span><span class="p">(</span><span class="s1">'foobar'</span><span class="p">,</span> <span class="nb">all</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">[]</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="function">
+<dt id="pwnlib.adb.adb.write"><a name="//apple_ref/cpp/Function/pwnlib.adb.adb.write"></a>
+<code class="descclassname">pwnlib.adb.adb.</code><code class="descname">write</code><span class="sig-paren">(</span><em>*a</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/adb/adb.py#L550-556"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.adb.adb.write" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a file on the device with the provided contents.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>path</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Path to the file on the device</li>
+<li><strong>data</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Contents to store in the file</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">adb</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">'/dev/null'</span><span class="p">,</span> <span class="s1">'data'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">adb</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">'/data/local/tmp/'</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+</div>
+<span class="target" id="module-pwnlib.adb.protocol"></span><p>This file exists only for backward compatibility</p>
+</div>
+</div>
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a accesskey="n" class="btn btn-neutral float-right" href="args.html" rel="next" title="pwnlib.args — Magic Command-Line Arguments">Next <span class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral" href="commandline.html" rel="prev" title="Command Line Tools"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © Copyright 2016, Gallopsled et al..
+
+    </p>
+</div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'3.14.0dev',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+<script src="_static/jquery.js" type="text/javascript"></script>
+<script src="_static/underscore.js" type="text/javascript"></script>
+<script src="_static/doctools.js" type="text/javascript"></script>
+<script src="_static/js/theme.js" type="text/javascript"></script>
+<script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>

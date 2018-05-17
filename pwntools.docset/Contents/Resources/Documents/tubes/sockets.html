@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]--><!--[if gt IE 8]><!--><html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>pwnlib.tubes.sock — Sockets — pwntools 3.14.0dev documentation</title>
+<link href="../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../about.html" rel="author" title="About these documents"/>
+<link href="../search.html" rel="search" title="Search"/>
+<link href="ssh.html" rel="next" title="pwnlib.tubes.ssh — SSH"/>
+<link href="serial.html" rel="prev" title="pwnlib.tubes.serialtube — Serial Ports"/>
+<script src="../_static/js/modernizr.min.js"></script>
+</head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../index.html"> pwntools
+          
+
+          
+          </a>
+<div class="version">
+                3.14
+              </div>
+<div role="search">
+<form action="../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">About pwntools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../globals.html"><code class="docutils literal"><span class="pre">from</span> <span class="pre">pwn</span> <span class="pre">import</span> <span class="pre">*</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../commandline.html">Command Line Tools</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../adb.html"><code class="docutils literal"><span class="pre">pwnlib.adb</span></code> — Android Debug Bridge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../args.html"><code class="docutils literal"><span class="pre">pwnlib.args</span></code> — Magic Command-Line Arguments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../asm.html"><code class="docutils literal"><span class="pre">pwnlib.asm</span></code> — Assembler functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../atexception.html"><code class="docutils literal"><span class="pre">pwnlib.atexception</span></code> — Callbacks on unhandled exception</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../atexit.html"><code class="docutils literal"><span class="pre">pwnlib.atexit</span></code> — Replacement for atexit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../constants.html"><code class="docutils literal"><span class="pre">pwnlib.constants</span></code> — Easy access to header file constants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../config.html"><code class="docutils literal"><span class="pre">pwnlib.config</span></code> — Pwntools Configuration File</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../context.html"><code class="docutils literal"><span class="pre">pwnlib.context</span></code> — Setting runtime variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dynelf.html"><code class="docutils literal"><span class="pre">pwnlib.dynelf</span></code> — Resolving remote functions using leaks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../encoders.html"><code class="docutils literal"><span class="pre">pwnlib.encoders</span></code> — Encoding Shellcode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../elf.html"><code class="docutils literal"><span class="pre">pwnlib.elf</span></code> — ELF Executables and Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../exception.html"><code class="docutils literal"><span class="pre">pwnlib.exception</span></code> — Pwnlib exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../flag.html"><code class="docutils literal"><span class="pre">pwnlib.flag</span></code> — CTF Flag Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fmtstr.html"><code class="docutils literal"><span class="pre">pwnlib.fmtstr</span></code> — Format string bug exploitation tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gdb.html"><code class="docutils literal"><span class="pre">pwnlib.gdb</span></code> — Working with GDB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../libcdb.html"><code class="docutils literal"><span class="pre">pwnlib.libcdb</span></code> — Libc Database</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../log.html"><code class="docutils literal"><span class="pre">pwnlib.log</span></code> — Logging stuff</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../memleak.html"><code class="docutils literal"><span class="pre">pwnlib.memleak</span></code> — Helper class for leaking memory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../protocols.html"><code class="docutils literal"><span class="pre">pwnlib.protocols</span></code> — Wire Protocols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qemu.html"><code class="docutils literal"><span class="pre">pwnlib.qemu</span></code> — QEMU Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../replacements.html"><code class="docutils literal"><span class="pre">pwnlib.replacements</span></code> — Replacements for various functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rop.html"><code class="docutils literal"><span class="pre">pwnlib.rop</span></code> — Return Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rop/rop.html"><code class="docutils literal"><span class="pre">pwnlib.rop.rop</span></code> — Return Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rop/srop.html"><code class="docutils literal"><span class="pre">pwnlib.rop.srop</span></code> — Sigreturn Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../runner.html"><code class="docutils literal"><span class="pre">pwnlib.runner</span></code> — Running Shellcode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shellcraft.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft</span></code> — Shellcode generation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shellcraft/aarch64.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.aarch64</span></code> — Shellcode for AArch64</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shellcraft/amd64.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.amd64</span></code> — Shellcode for AMD64</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shellcraft/arm.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.arm</span></code> — Shellcode for ARM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shellcraft/common.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.common</span></code> — Shellcode common to all architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shellcraft/i386.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.i386</span></code> — Shellcode for Intel 80386</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shellcraft/mips.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.mips</span></code> — Shellcode for MIPS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shellcraft/regsort.html"><code class="docutils literal"><span class="pre">pwnlib.regsort</span></code> — Register sorting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shellcraft/thumb.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.thumb</span></code> — Shellcode for Thumb Mode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../term.html"><code class="docutils literal"><span class="pre">pwnlib.term</span></code> — Terminal handling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../timeout.html"><code class="docutils literal"><span class="pre">pwnlib.timeout</span></code> — Timeout handling</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../tubes.html"><code class="docutils literal"><span class="pre">pwnlib.tubes</span></code> — Talking to the World!</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../tubes.html#types-of-tubes">Types of Tubes</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="processes.html"><code class="docutils literal"><span class="pre">pwnlib.tubes.process</span></code> — Processes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="serial.html"><code class="docutils literal"><span class="pre">pwnlib.tubes.serialtube</span></code> — Serial Ports</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#"><code class="docutils literal"><span class="pre">pwnlib.tubes.sock</span></code> — Sockets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ssh.html"><code class="docutils literal"><span class="pre">pwnlib.tubes.ssh</span></code> — SSH</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tubes.html#module-pwnlib.tubes.tube"><code class="docutils literal"><span class="pre">pwnlib.tubes.tube</span></code> — Common Functionality</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="processes.html"><code class="docutils literal"><span class="pre">pwnlib.tubes.process</span></code> — Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="serial.html"><code class="docutils literal"><span class="pre">pwnlib.tubes.serialtube</span></code> — Serial Ports</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="docutils literal"><span class="pre">pwnlib.tubes.sock</span></code> — Sockets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ssh.html"><code class="docutils literal"><span class="pre">pwnlib.tubes.ssh</span></code> — SSH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ui.html"><code class="docutils literal"><span class="pre">pwnlib.ui</span></code> — Functions for user interaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../update.html"><code class="docutils literal"><span class="pre">pwnlib.update</span></code> — Updating Pwntools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../useragents.html"><code class="docutils literal"><span class="pre">pwnlib.useragents</span></code> — A database of useragent strings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../util/crc.html"><code class="docutils literal"><span class="pre">pwnlib.util.crc</span></code> — Calculating CRC-sums</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../util/cyclic.html"><code class="docutils literal"><span class="pre">pwnlib.util.cyclic</span></code> — Generation of unique sequences</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../util/fiddling.html"><code class="docutils literal"><span class="pre">pwnlib.util.fiddling</span></code> — Utilities bit fiddling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../util/hashes.html"><code class="docutils literal"><span class="pre">pwnlib.util.hashes</span></code> — Hashing functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../util/iters.html"><code class="docutils literal"><span class="pre">pwnlib.util.iters</span></code> — Extension of standard module <code class="docutils literal"><span class="pre">itertools</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../util/lists.html"><code class="docutils literal"><span class="pre">pwnlib.util.lists</span></code> — Operations on lists</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../util/misc.html"><code class="docutils literal"><span class="pre">pwnlib.util.misc</span></code> — We could not fit it any other place</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../util/net.html"><code class="docutils literal"><span class="pre">pwnlib.util.net</span></code> — Networking interfaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../util/packing.html"><code class="docutils literal"><span class="pre">pwnlib.util.packing</span></code> — Packing and unpacking of strings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../util/proc.html"><code class="docutils literal"><span class="pre">pwnlib.util.proc</span></code> — Working with <code class="docutils literal"><span class="pre">/proc/</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../util/safeeval.html"><code class="docutils literal"><span class="pre">pwnlib.util.safeeval</span></code> — Safe evaluation of python code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../util/sh_string.html"><code class="docutils literal"><span class="pre">pwnlib.util.sh_string</span></code> — Shell Expansion is Hard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../util/web.html"><code class="docutils literal"><span class="pre">pwnlib.util.web</span></code> — Utilities for working with the WWW</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../testexample.html"><code class="docutils literal"><span class="pre">pwnlib.testexample</span></code> — Example Test Module</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../index.html">pwntools</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a href="../index.html">Docs</a> »</li>
+<li><a href="../tubes.html"><code class="docutils literal"><span class="pre">pwnlib.tubes</span></code> — Talking to the World!</a> »</li>
+<li><code class="docutils literal"><span class="pre">pwnlib.tubes.sock</span></code> — Sockets</li>
+<li class="wy-breadcrumbs-aside">
+<a href="../_sources/tubes/sockets.rst.txt" rel="nofollow"> View page source</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div class="section" id="module-pwnlib.tubes.sock"><a name="//apple_ref/cpp/Module/pwnlib.tubes.listen"></a><a name="//apple_ref/cpp/Module/pwnlib.tubes.remote"></a><a name="//apple_ref/cpp/Module/pwnlib.tubes.server"></a>
+<span id="pwnlib-tubes-sock-sockets"></span><h1><a name="//apple_ref/cpp/Module/pwnlib.tubes.sock"></a><a class="reference internal" href="#module-pwnlib.tubes.sock" title="pwnlib.tubes.sock"><code class="xref py py-mod docutils literal"><span class="pre">pwnlib.tubes.sock</span></code></a> — Sockets<a class="headerlink" href="#module-pwnlib.tubes.sock" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="pwnlib.tubes.sock.sock"><a name="//apple_ref/cpp/Class/pwnlib.tubes.sock.sock"></a>
+<em class="property">class </em><code class="descclassname">pwnlib.tubes.sock.</code><code class="descname">sock</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/sock.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.sock.sock" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../tubes.html#pwnlib.tubes.tube.tube" title="pwnlib.tubes.tube.tube"><code class="xref py py-class docutils literal"><span class="pre">pwnlib.tubes.tube.tube</span></code></a></p>
+<p>Base type used for <code class="xref py py-class docutils literal"><span class="pre">tubes.remote</span></code> and <code class="xref py py-class docutils literal"><span class="pre">tubes.listen</span></code> classes</p>
+</dd></dl>
+<span class="target" id="module-pwnlib.tubes.remote"></span><dl class="class">
+<dt id="pwnlib.tubes.remote.remote"><a name="//apple_ref/cpp/Class/pwnlib.tubes.remote.remote"></a>
+<em class="property">class </em><code class="descclassname">pwnlib.tubes.remote.</code><code class="descname">remote</code><span class="sig-paren">(</span><em>host</em>, <em>port</em>, <em>fam=’any’</em>, <em>typ=’tcp’</em>, <em>ssl=False</em>, <em>sock=None</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/remote.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.remote.remote" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pwnlib.tubes.sock.sock" title="pwnlib.tubes.sock.sock"><code class="xref py py-class docutils literal"><span class="pre">pwnlib.tubes.sock.sock</span></code></a></p>
+<p>Creates a TCP or UDP-connection to a remote host. It supports
+both IPv4 and IPv6.</p>
+<p>The returned object supports all the methods from
+<a class="reference internal" href="#module-pwnlib.tubes.sock" title="pwnlib.tubes.sock"><code class="xref py py-class docutils literal"><span class="pre">pwnlib.tubes.sock</span></code></a> and <a class="reference internal" href="../tubes.html#module-pwnlib.tubes.tube" title="pwnlib.tubes.tube"><code class="xref py py-class docutils literal"><span class="pre">pwnlib.tubes.tube</span></code></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>host</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – The host to connect to.</li>
+<li><strong>port</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – The port to connect to.</li>
+<li><strong>fam</strong> – The string “any”, “ipv4” or “ipv6” or an integer to pass to <a class="reference external" href="https://docs.python.org/2.7/library/socket.html#socket.getaddrinfo" title="(in Python v2.7)"><code class="xref py py-func docutils literal"><span class="pre">socket.getaddrinfo()</span></code></a>.</li>
+<li><strong>typ</strong> – The string “tcp” or “udp” or an integer to pass to <a class="reference external" href="https://docs.python.org/2.7/library/socket.html#socket.getaddrinfo" title="(in Python v2.7)"><code class="xref py py-func docutils literal"><span class="pre">socket.getaddrinfo()</span></code></a>.</li>
+<li><strong>timeout</strong> – A positive number, None or the string “default”.</li>
+<li><strong>ssl</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – Wrap the socket with SSL</li>
+<li><strong>sock</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/socket.html#socket.socket" title="(in Python v2.7)"><em>socket.socket</em></a>) – Socket to inherit, rather than connecting</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span> <span class="o">=</span> <span class="n">remote</span><span class="p">(</span><span class="s1">'google.com'</span><span class="p">,</span> <span class="mi">443</span><span class="p">,</span> <span class="n">ssl</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s1">'GET /</span><span class="se">\r\n\r\n</span><span class="s1">'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">recvn</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="go">'HTTP'</span>
+</pre></div>
+</div>
+<p>If a connection cannot be made, an exception is raised.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span> <span class="o">=</span> <span class="n">remote</span><span class="p">(</span><span class="s1">'127.0.0.1'</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="c">...</span>
+<span class="gr">PwnlibException</span>: <span class="n">Could not connect to 127.0.0.1 on port 1</span>
+</pre></div>
+</div>
+<p>You can also use <a class="reference internal" href="#pwnlib.tubes.remote.remote.fromsocket" title="pwnlib.tubes.remote.remote.fromsocket"><code class="xref py py-meth docutils literal"><span class="pre">remote.fromsocket()</span></code></a> to wrap an existing socket.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">socket</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">connect</span><span class="p">((</span><span class="s1">'google.com'</span><span class="p">,</span> <span class="mi">80</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s1">'GET /'</span> <span class="o">+</span> <span class="s1">'</span><span class="se">\r\n</span><span class="s1">'</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span>
+<span class="go">9</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span> <span class="o">=</span> <span class="n">remote</span><span class="o">.</span><span class="n">fromsocket</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">recvn</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="go">'HTTP'</span>
+</pre></div>
+</div>
+<dl class="classmethod">
+<dt id="pwnlib.tubes.remote.remote.fromsocket"><a name="//apple_ref/cpp/Method/pwnlib.tubes.remote.remote.fromsocket"></a>
+<em class="property">classmethod </em><code class="descname">fromsocket</code><span class="sig-paren">(</span><em>socket</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/remote.py#L113-127"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.remote.remote.fromsocket" title="Permalink to this definition">¶</a></dt>
+<dd><p>Helper method to wrap a standard python socket.socket with the
+tube APIs.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>socket</strong> – Instance of socket.socket</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Instance of pwnlib.tubes.remote.remote.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+</dd></dl>
+<span class="target" id="module-pwnlib.tubes.listen"></span><dl class="class">
+<dt id="pwnlib.tubes.listen.listen"><a name="//apple_ref/cpp/Class/pwnlib.tubes.listen.listen"></a>
+<em class="property">class </em><code class="descclassname">pwnlib.tubes.listen.</code><code class="descname">listen</code><span class="sig-paren">(</span><em>port=0</em>, <em>bindaddr=‘0.0.0.0’</em>, <em>fam=’any’</em>, <em>typ=’tcp’</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/listen.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.listen.listen" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pwnlib.tubes.sock.sock" title="pwnlib.tubes.sock.sock"><code class="xref py py-class docutils literal"><span class="pre">pwnlib.tubes.sock.sock</span></code></a></p>
+<p>Creates an TCP or UDP-socket to receive data on. It supports
+both IPv4 and IPv6.</p>
+<p>The returned object supports all the methods from
+<a class="reference internal" href="#module-pwnlib.tubes.sock" title="pwnlib.tubes.sock"><code class="xref py py-class docutils literal"><span class="pre">pwnlib.tubes.sock</span></code></a> and <a class="reference internal" href="../tubes.html#module-pwnlib.tubes.tube" title="pwnlib.tubes.tube"><code class="xref py py-class docutils literal"><span class="pre">pwnlib.tubes.tube</span></code></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>port</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – The port to connect to.
+Defaults to a port auto-selected by the operating system.</li>
+<li><strong>bindaddr</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – The address to bind to.
+Defaults to <code class="docutils literal"><span class="pre">0.0.0.0</span></code> / <cite>::</cite>.</li>
+<li><strong>fam</strong> – The string “any”, “ipv4” or “ipv6” or an integer to pass to <a class="reference external" href="https://docs.python.org/2.7/library/socket.html#socket.getaddrinfo" title="(in Python v2.7)"><code class="xref py py-func docutils literal"><span class="pre">socket.getaddrinfo()</span></code></a>.</li>
+<li><strong>typ</strong> – The string “tcp” or “udp” or an integer to pass to <a class="reference external" href="https://docs.python.org/2.7/library/socket.html#socket.getaddrinfo" title="(in Python v2.7)"><code class="xref py py-func docutils literal"><span class="pre">socket.getaddrinfo()</span></code></a>.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">l</span> <span class="o">=</span> <span class="n">listen</span><span class="p">(</span><span class="mi">1234</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span> <span class="o">=</span> <span class="n">remote</span><span class="p">(</span><span class="s1">'localhost'</span><span class="p">,</span> <span class="n">l</span><span class="o">.</span><span class="n">lport</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">_</span> <span class="o">=</span> <span class="n">l</span><span class="o">.</span><span class="n">wait_for_connection</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">l</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="s1">'Hello'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">recvline</span><span class="p">()</span>
+<span class="go">'Hello\n'</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">l</span> <span class="o">=</span> <span class="n">listen</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">l</span><span class="o">.</span><span class="n">spawn_process</span><span class="p">(</span><span class="s1">'/bin/sh'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span> <span class="o">=</span> <span class="n">remote</span><span class="p">(</span><span class="s1">'localhost'</span><span class="p">,</span> <span class="n">l</span><span class="o">.</span><span class="n">lport</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="s1">'echo Goodbye'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">recvline</span><span class="p">()</span>
+<span class="go">'Goodbye\n'</span>
+</pre></div>
+</div>
+<dl class="method">
+<dt id="pwnlib.tubes.listen.listen.wait_for_connection"><a name="//apple_ref/cpp/Method/pwnlib.tubes.listen.listen.wait_for_connection"></a>
+<code class="descname">wait_for_connection</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/listen.py#L146-149"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.listen.listen.wait_for_connection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Blocks until a connection has been established.</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.tubes.listen.listen.canonname"><a name="//apple_ref/cpp/Attribute/pwnlib.tubes.listen.listen.canonname"></a>
+<code class="descname">canonname</code><em class="property"> = None</em><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/listen.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.listen.listen.canonname" title="Permalink to this definition">¶</a></dt>
+<dd><p>Canonical name of the listening interface</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.tubes.listen.listen.family"><a name="//apple_ref/cpp/Attribute/pwnlib.tubes.listen.listen.family"></a>
+<code class="descname">family</code><em class="property"> = None</em><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/listen.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.listen.listen.family" title="Permalink to this definition">¶</a></dt>
+<dd><p>Socket family</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.tubes.listen.listen.lhost"><a name="//apple_ref/cpp/Attribute/pwnlib.tubes.listen.listen.lhost"></a>
+<code class="descname">lhost</code><em class="property"> = None</em><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/listen.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.listen.listen.lhost" title="Permalink to this definition">¶</a></dt>
+<dd><p>Local host</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.tubes.listen.listen.lport"><a name="//apple_ref/cpp/Attribute/pwnlib.tubes.listen.listen.lport"></a>
+<code class="descname">lport</code><em class="property"> = 0</em><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/listen.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.listen.listen.lport" title="Permalink to this definition">¶</a></dt>
+<dd><p>Local port</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.tubes.listen.listen.protocol"><a name="//apple_ref/cpp/Attribute/pwnlib.tubes.listen.listen.protocol"></a>
+<code class="descname">protocol</code><em class="property"> = None</em><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/listen.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.listen.listen.protocol" title="Permalink to this definition">¶</a></dt>
+<dd><p>Socket protocol</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.tubes.listen.listen.sockaddr"><a name="//apple_ref/cpp/Attribute/pwnlib.tubes.listen.listen.sockaddr"></a>
+<code class="descname">sockaddr</code><em class="property"> = None</em><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/listen.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.listen.listen.sockaddr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sockaddr structure that is being listened on</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.tubes.listen.listen.type"><a name="//apple_ref/cpp/Attribute/pwnlib.tubes.listen.listen.type"></a>
+<code class="descname">type</code><em class="property"> = None</em><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/listen.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.listen.listen.type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Socket type (e.g. socket.SOCK_STREAM)</p>
+</dd></dl>
+</dd></dl>
+<span class="target" id="module-pwnlib.tubes.server"></span><dl class="class">
+<dt id="pwnlib.tubes.server.server"><a name="//apple_ref/cpp/Class/pwnlib.tubes.server.server"></a>
+<em class="property">class </em><code class="descclassname">pwnlib.tubes.server.</code><code class="descname">server</code><span class="sig-paren">(</span><em>port=0</em>, <em>bindaddr=‘0.0.0.0’</em>, <em>fam=’any’</em>, <em>typ=’tcp’</em>, <em>callback=None</em>, <em>blocking=False</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/server.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.server.server" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pwnlib.tubes.sock.sock" title="pwnlib.tubes.sock.sock"><code class="xref py py-class docutils literal"><span class="pre">pwnlib.tubes.sock.sock</span></code></a></p>
+<p>Creates an TCP or UDP-server to listen for connections. It supports
+both IPv4 and IPv6.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>port</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – The port to connect to.
+Defaults to a port auto-selected by the operating system.</li>
+<li><strong>bindaddr</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – The address to bind to.
+Defaults to <code class="docutils literal"><span class="pre">0.0.0.0</span></code> / <cite>::</cite>.</li>
+<li><strong>fam</strong> – The string “any”, “ipv4” or “ipv6” or an integer to pass to <a class="reference external" href="https://docs.python.org/2.7/library/socket.html#socket.getaddrinfo" title="(in Python v2.7)"><code class="xref py py-func docutils literal"><span class="pre">socket.getaddrinfo()</span></code></a>.</li>
+<li><strong>typ</strong> – The string “tcp” or “udp” or an integer to pass to <a class="reference external" href="https://docs.python.org/2.7/library/socket.html#socket.getaddrinfo" title="(in Python v2.7)"><code class="xref py py-func docutils literal"><span class="pre">socket.getaddrinfo()</span></code></a>.</li>
+<li><strong>callback</strong> – A function to be started on incoming connections. It should take a <a class="reference internal" href="#module-pwnlib.tubes.remote" title="pwnlib.tubes.remote"><code class="xref py py-class docutils literal"><span class="pre">pwnlib.tubes.remote</span></code></a> as its only argument.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">server</span><span class="p">(</span><span class="mi">8888</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">client_conn</span> <span class="o">=</span> <span class="n">remote</span><span class="p">(</span><span class="s1">'localhost'</span><span class="p">,</span> <span class="n">s</span><span class="o">.</span><span class="n">lport</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">server_conn</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">next_connection</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">client_conn</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="s1">'Hello'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">server_conn</span><span class="o">.</span><span class="n">recvline</span><span class="p">()</span>
+<span class="go">'Hello\n'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">cb</span><span class="p">(</span><span class="n">r</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">client_input</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+<span class="gp">... </span>    <span class="n">r</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">client_input</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">server</span><span class="p">(</span><span class="mi">8889</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="n">cb</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">client_conn</span> <span class="o">=</span> <span class="n">remote</span><span class="p">(</span><span class="s1">'localhost'</span><span class="p">,</span> <span class="n">t</span><span class="o">.</span><span class="n">lport</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">client_conn</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="s1">'callback'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">client_conn</span><span class="o">.</span><span class="n">recv</span><span class="p">()</span>
+<span class="go">'\nkcabllac'</span>
+</pre></div>
+</div>
+<dl class="attribute">
+<dt id="pwnlib.tubes.server.server.canonname"><a name="//apple_ref/cpp/Attribute/pwnlib.tubes.server.server.canonname"></a>
+<code class="descname">canonname</code><em class="property"> = None</em><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/server.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.server.server.canonname" title="Permalink to this definition">¶</a></dt>
+<dd><p>Canonical name of the listening interface</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.tubes.server.server.family"><a name="//apple_ref/cpp/Attribute/pwnlib.tubes.server.server.family"></a>
+<code class="descname">family</code><em class="property"> = None</em><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/server.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.server.server.family" title="Permalink to this definition">¶</a></dt>
+<dd><p>Socket family</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.tubes.server.server.lhost"><a name="//apple_ref/cpp/Attribute/pwnlib.tubes.server.server.lhost"></a>
+<code class="descname">lhost</code><em class="property"> = None</em><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/server.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.server.server.lhost" title="Permalink to this definition">¶</a></dt>
+<dd><p>Local host</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.tubes.server.server.lport"><a name="//apple_ref/cpp/Attribute/pwnlib.tubes.server.server.lport"></a>
+<code class="descname">lport</code><em class="property"> = 0</em><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/server.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.server.server.lport" title="Permalink to this definition">¶</a></dt>
+<dd><p>Local port</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.tubes.server.server.protocol"><a name="//apple_ref/cpp/Attribute/pwnlib.tubes.server.server.protocol"></a>
+<code class="descname">protocol</code><em class="property"> = None</em><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/server.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.server.server.protocol" title="Permalink to this definition">¶</a></dt>
+<dd><p>Socket protocol</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.tubes.server.server.sockaddr"><a name="//apple_ref/cpp/Attribute/pwnlib.tubes.server.server.sockaddr"></a>
+<code class="descname">sockaddr</code><em class="property"> = None</em><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/server.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.server.server.sockaddr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sockaddr structure that is being listened on</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="pwnlib.tubes.server.server.type"><a name="//apple_ref/cpp/Attribute/pwnlib.tubes.server.server.type"></a>
+<code class="descname">type</code><em class="property"> = None</em><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/tubes/server.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.tubes.server.server.type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Socket type (e.g. socket.SOCK_STREAM)</p>
+</dd></dl>
+</dd></dl>
+</div>
+</div>
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a accesskey="n" class="btn btn-neutral float-right" href="ssh.html" rel="next" title="pwnlib.tubes.ssh — SSH">Next <span class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral" href="serial.html" rel="prev" title="pwnlib.tubes.serialtube — Serial Ports"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © Copyright 2016, Gallopsled et al..
+
+    </p>
+</div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'3.14.0dev',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+<script src="../_static/jquery.js" type="text/javascript"></script>
+<script src="../_static/underscore.js" type="text/javascript"></script>
+<script src="../_static/doctools.js" type="text/javascript"></script>
+<script src="../_static/js/theme.js" type="text/javascript"></script>
+<script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>

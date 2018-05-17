@@ -1,0 +1,1081 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Command Line Tools &mdash; pwntools 3.14.0dev documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="pwnlib.adb — Android Debug Bridge" href="adb.html" />
+    <link rel="prev" title="from pwn import *" href="globals.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> pwntools
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                3.14
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="about.html">About pwntools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="globals.html"><code class="docutils literal"><span class="pre">from</span> <span class="pre">pwn</span> <span class="pre">import</span> <span class="pre">*</span></code></a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Command Line Tools</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#pwn">pwn</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pwn-asm">pwn asm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pwn-checksec">pwn checksec</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pwn-constgrep">pwn constgrep</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pwn-cyclic">pwn cyclic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pwn-debug">pwn debug</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pwn-disablenx">pwn disablenx</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pwn-disasm">pwn disasm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pwn-elfdiff">pwn elfdiff</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pwn-elfpatch">pwn elfpatch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pwn-errno">pwn errno</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pwn-hex">pwn hex</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pwn-phd">pwn phd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pwn-pwnstrip">pwn pwnstrip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pwn-scramble">pwn scramble</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pwn-shellcraft">pwn shellcraft</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pwn-template">pwn template</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pwn-unhex">pwn unhex</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pwn-update">pwn update</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="adb.html"><code class="docutils literal"><span class="pre">pwnlib.adb</span></code> — Android Debug Bridge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="args.html"><code class="docutils literal"><span class="pre">pwnlib.args</span></code> — Magic Command-Line Arguments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="asm.html"><code class="docutils literal"><span class="pre">pwnlib.asm</span></code> — Assembler functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="atexception.html"><code class="docutils literal"><span class="pre">pwnlib.atexception</span></code> — Callbacks on unhandled exception</a></li>
+<li class="toctree-l1"><a class="reference internal" href="atexit.html"><code class="docutils literal"><span class="pre">pwnlib.atexit</span></code> — Replacement for atexit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="constants.html"><code class="docutils literal"><span class="pre">pwnlib.constants</span></code> — Easy access to header file constants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config.html"><code class="docutils literal"><span class="pre">pwnlib.config</span></code> — Pwntools Configuration File</a></li>
+<li class="toctree-l1"><a class="reference internal" href="context.html"><code class="docutils literal"><span class="pre">pwnlib.context</span></code> — Setting runtime variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dynelf.html"><code class="docutils literal"><span class="pre">pwnlib.dynelf</span></code> — Resolving remote functions using leaks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="encoders.html"><code class="docutils literal"><span class="pre">pwnlib.encoders</span></code> — Encoding Shellcode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="elf.html"><code class="docutils literal"><span class="pre">pwnlib.elf</span></code> — ELF Executables and Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exception.html"><code class="docutils literal"><span class="pre">pwnlib.exception</span></code> — Pwnlib exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="flag.html"><code class="docutils literal"><span class="pre">pwnlib.flag</span></code> — CTF Flag Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fmtstr.html"><code class="docutils literal"><span class="pre">pwnlib.fmtstr</span></code> — Format string bug exploitation tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gdb.html"><code class="docutils literal"><span class="pre">pwnlib.gdb</span></code> — Working with GDB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libcdb.html"><code class="docutils literal"><span class="pre">pwnlib.libcdb</span></code> — Libc Database</a></li>
+<li class="toctree-l1"><a class="reference internal" href="log.html"><code class="docutils literal"><span class="pre">pwnlib.log</span></code> — Logging stuff</a></li>
+<li class="toctree-l1"><a class="reference internal" href="memleak.html"><code class="docutils literal"><span class="pre">pwnlib.memleak</span></code> — Helper class for leaking memory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="protocols.html"><code class="docutils literal"><span class="pre">pwnlib.protocols</span></code> — Wire Protocols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qemu.html"><code class="docutils literal"><span class="pre">pwnlib.qemu</span></code> — QEMU Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="replacements.html"><code class="docutils literal"><span class="pre">pwnlib.replacements</span></code> — Replacements for various functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rop.html"><code class="docutils literal"><span class="pre">pwnlib.rop</span></code> — Return Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rop/rop.html"><code class="docutils literal"><span class="pre">pwnlib.rop.rop</span></code> — Return Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rop/srop.html"><code class="docutils literal"><span class="pre">pwnlib.rop.srop</span></code> — Sigreturn Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="runner.html"><code class="docutils literal"><span class="pre">pwnlib.runner</span></code> — Running Shellcode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shellcraft.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft</span></code> — Shellcode generation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shellcraft/aarch64.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.aarch64</span></code> — Shellcode for AArch64</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shellcraft/amd64.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.amd64</span></code> — Shellcode for AMD64</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shellcraft/arm.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.arm</span></code> — Shellcode for ARM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shellcraft/common.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.common</span></code> — Shellcode common to all architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shellcraft/i386.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.i386</span></code> — Shellcode for Intel 80386</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shellcraft/mips.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.mips</span></code> — Shellcode for MIPS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shellcraft/regsort.html"><code class="docutils literal"><span class="pre">pwnlib.regsort</span></code> — Register sorting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shellcraft/thumb.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.thumb</span></code> — Shellcode for Thumb Mode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="term.html"><code class="docutils literal"><span class="pre">pwnlib.term</span></code> — Terminal handling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="timeout.html"><code class="docutils literal"><span class="pre">pwnlib.timeout</span></code> — Timeout handling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tubes.html"><code class="docutils literal"><span class="pre">pwnlib.tubes</span></code> — Talking to the World!</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tubes/processes.html"><code class="docutils literal"><span class="pre">pwnlib.tubes.process</span></code> — Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tubes/serial.html"><code class="docutils literal"><span class="pre">pwnlib.tubes.serialtube</span></code> — Serial Ports</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tubes/sockets.html"><code class="docutils literal"><span class="pre">pwnlib.tubes.sock</span></code> — Sockets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tubes/ssh.html"><code class="docutils literal"><span class="pre">pwnlib.tubes.ssh</span></code> — SSH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ui.html"><code class="docutils literal"><span class="pre">pwnlib.ui</span></code> — Functions for user interaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="update.html"><code class="docutils literal"><span class="pre">pwnlib.update</span></code> — Updating Pwntools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="useragents.html"><code class="docutils literal"><span class="pre">pwnlib.useragents</span></code> — A database of useragent strings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/crc.html"><code class="docutils literal"><span class="pre">pwnlib.util.crc</span></code> — Calculating CRC-sums</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/cyclic.html"><code class="docutils literal"><span class="pre">pwnlib.util.cyclic</span></code> — Generation of unique sequences</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/fiddling.html"><code class="docutils literal"><span class="pre">pwnlib.util.fiddling</span></code> — Utilities bit fiddling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/hashes.html"><code class="docutils literal"><span class="pre">pwnlib.util.hashes</span></code> — Hashing functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/iters.html"><code class="docutils literal"><span class="pre">pwnlib.util.iters</span></code> — Extension of standard module <code class="docutils literal"><span class="pre">itertools</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/lists.html"><code class="docutils literal"><span class="pre">pwnlib.util.lists</span></code> — Operations on lists</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/misc.html"><code class="docutils literal"><span class="pre">pwnlib.util.misc</span></code> — We could not fit it any other place</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/net.html"><code class="docutils literal"><span class="pre">pwnlib.util.net</span></code> — Networking interfaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/packing.html"><code class="docutils literal"><span class="pre">pwnlib.util.packing</span></code> — Packing and unpacking of strings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/proc.html"><code class="docutils literal"><span class="pre">pwnlib.util.proc</span></code> — Working with <code class="docutils literal"><span class="pre">/proc/</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/safeeval.html"><code class="docutils literal"><span class="pre">pwnlib.util.safeeval</span></code> — Safe evaluation of python code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/sh_string.html"><code class="docutils literal"><span class="pre">pwnlib.util.sh_string</span></code> — Shell Expansion is Hard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/web.html"><code class="docutils literal"><span class="pre">pwnlib.util.web</span></code> — Utilities for working with the WWW</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="testexample.html"><code class="docutils literal"><span class="pre">pwnlib.testexample</span></code> — Example Test Module</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">pwntools</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Command Line Tools</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/commandline.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="command-line-tools">
+<h1>Command Line Tools<a class="headerlink" href="#command-line-tools" title="Permalink to this headline">¶</a></h1>
+<p>pwntools comes with a handful of useful command-line utilities which serve as wrappers for some of the internal functionality.</p>
+<div class="toctree-wrapper compound">
+</div>
+<div class="section" id="pwn">
+<h2>pwn<a class="headerlink" href="#pwn" title="Permalink to this headline">¶</a></h2>
+<p>Pwntools Command-line Interface</p>
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="go">usage: pwn [-h]</span>
+<span class="go">           {asm,checksec,constgrep,cyclic,debug,disasm,disablenx,elfdiff,elfpatch,errno,hex,phd,pwnstrip,scramble,shellcraft,template,unhex,update}</span>
+<span class="go">           ...</span>
+</pre></div>
+</div>
+<dl class="option">
+<dt id="cmdoption-pwn-h">
+<code class="descname">-h</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--help</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pwn-h" title="Permalink to this definition">¶</a></dt>
+<dd><p>show this help message and exit</p>
+</dd></dl>
+
+<div class="section" id="pwn-asm">
+<h3>pwn asm<a class="headerlink" href="#pwn-asm" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="go">usage: pwn asm [-h] [-f {raw,hex,string,elf}] [-o file] [-c context]</span>
+<span class="go">               [-v AVOID] [-n] [-z] [-d] [-e ENCODER] [-i INFILE] [-r]</span>
+<span class="go">               [line [line ...]]</span>
+</pre></div>
+</div>
+<dl class="option">
+<dt id="cmdoption-pwn-asm-arg-line">
+<code class="descname">line</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pwn-asm-arg-line" title="Permalink to this definition">¶</a></dt>
+<dd><p>Lines to assemble. If none are supplied, use stdin</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-asm-h">
+<code class="descname">-h</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--help</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pwn-asm-h" title="Permalink to this definition">¶</a></dt>
+<dd><p>show this help message and exit</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-asm-f">
+<code class="descname">-f</code><code class="descclassname"> {raw,hex,string,elf}</code><code class="descclassname">, </code><code class="descname">--format</code><code class="descclassname"> {raw,hex,string,elf}</code><a class="headerlink" href="#cmdoption-pwn-asm-f" title="Permalink to this definition">¶</a></dt>
+<dd><p>Output format (defaults to hex for ttys, otherwise raw)</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-asm-o">
+<code class="descname">-o</code><code class="descclassname"> &lt;file&gt;</code><code class="descclassname">, </code><code class="descname">--output</code><code class="descclassname"> &lt;file&gt;</code><a class="headerlink" href="#cmdoption-pwn-asm-o" title="Permalink to this definition">¶</a></dt>
+<dd><p>Output file (defaults to stdout)</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-asm-c">
+<code class="descname">-c</code><code class="descclassname"> {16,32,64,android,cgc,freebsd,linux,windows,powerpc64,aarch64,sparc64,powerpc,mips64,msp430,thumb,amd64,sparc,alpha,s390,i386,m68k,mips,ia64,cris,vax,avr,arm,little,big,el,le,be,eb}</code><code class="descclassname">, </code><code class="descname">--context</code><code class="descclassname"> {16,32,64,android,cgc,freebsd,linux,windows,powerpc64,aarch64,sparc64,powerpc,mips64,msp430,thumb,amd64,sparc,alpha,s390,i386,m68k,mips,ia64,cris,vax,avr,arm,little,big,el,le,be,eb}</code><a class="headerlink" href="#cmdoption-pwn-asm-c" title="Permalink to this definition">¶</a></dt>
+<dd><p>The os/architecture/endianness/bits the shellcode will run in (default: linux/i386), choose from: [‘16’, ‘32’, ‘64’, ‘android’, ‘cgc’, ‘freebsd’, ‘linux’, ‘windows’, ‘powerpc64’, ‘aarch64’, ‘sparc64’, ‘powerpc’, ‘mips64’, ‘msp430’, ‘thumb’, ‘amd64’, ‘sparc’, ‘alpha’, ‘s390’, ‘i386’, ‘m68k’, ‘mips’, ‘ia64’, ‘cris’, ‘vax’, ‘avr’, ‘arm’, ‘little’, ‘big’, ‘el’, ‘le’, ‘be’, ‘eb’]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-asm-v">
+<code class="descname">-v</code><code class="descclassname"> &lt;avoid&gt;</code><code class="descclassname">, </code><code class="descname">--avoid</code><code class="descclassname"> &lt;avoid&gt;</code><a class="headerlink" href="#cmdoption-pwn-asm-v" title="Permalink to this definition">¶</a></dt>
+<dd><p>Encode the shellcode to avoid the listed bytes (provided as hex)</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-asm-n">
+<code class="descname">-n</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--newline</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pwn-asm-n" title="Permalink to this definition">¶</a></dt>
+<dd><p>Encode the shellcode to avoid newlines</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-asm-z">
+<code class="descname">-z</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--zero</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pwn-asm-z" title="Permalink to this definition">¶</a></dt>
+<dd><p>Encode the shellcode to avoid NULL bytes</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-asm-d">
+<code class="descname">-d</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--debug</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pwn-asm-d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Debug the shellcode with GDB</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-asm-e">
+<code class="descname">-e</code><code class="descclassname"> &lt;encoder&gt;</code><code class="descclassname">, </code><code class="descname">--encoder</code><code class="descclassname"> &lt;encoder&gt;</code><a class="headerlink" href="#cmdoption-pwn-asm-e" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specific encoder to use</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-asm-i">
+<code class="descname">-i</code><code class="descclassname"> &lt;infile&gt;</code><code class="descclassname">, </code><code class="descname">--infile</code><code class="descclassname"> &lt;infile&gt;</code><a class="headerlink" href="#cmdoption-pwn-asm-i" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specify input file</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-asm-r">
+<code class="descname">-r</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--run</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pwn-asm-r" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run output</p>
+</dd></dl>
+
+</div>
+<div class="section" id="pwn-checksec">
+<h3>pwn checksec<a class="headerlink" href="#pwn-checksec" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="go">usage: pwn checksec [-h] [--file [elf [elf ...]]] [elf [elf ...]]</span>
+</pre></div>
+</div>
+<dl class="option">
+<dt id="cmdoption-pwn-checksec-arg-elf">
+<code class="descname">elf</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pwn-checksec-arg-elf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Files to check</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-checksec-h">
+<code class="descname">-h</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--help</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pwn-checksec-h" title="Permalink to this definition">¶</a></dt>
+<dd><p>show this help message and exit</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-checksec-file">
+<code class="descname">--file</code><code class="descclassname"> &lt;elf&gt;</code><a class="headerlink" href="#cmdoption-pwn-checksec-file" title="Permalink to this definition">¶</a></dt>
+<dd><p>File to check (for compatibility with checksec.sh)</p>
+</dd></dl>
+
+</div>
+<div class="section" id="pwn-constgrep">
+<h3>pwn constgrep<a class="headerlink" href="#pwn-constgrep" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="go">usage: pwn constgrep [-h] [-e constant] [-i] [-m] [-c arch_or_os]</span>
+<span class="go">                     [regex] [constant]</span>
+</pre></div>
+</div>
+<dl class="option">
+<dt id="cmdoption-pwn-constgrep-arg-regex">
+<code class="descname">regex</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pwn-constgrep-arg-regex" title="Permalink to this definition">¶</a></dt>
+<dd><p>The regex matching constant you want to find</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-constgrep-arg-constant">
+<code class="descname">constant</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pwn-constgrep-arg-constant" title="Permalink to this definition">¶</a></dt>
+<dd><p>The constant to find</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-constgrep-h">
+<code class="descname">-h</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--help</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pwn-constgrep-h" title="Permalink to this definition">¶</a></dt>
+<dd><p>show this help message and exit</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-constgrep-e">
+<code class="descname">-e</code><code class="descclassname"> &lt;constant&gt;</code><code class="descclassname">, </code><code class="descname">--exact</code><code class="descclassname"> &lt;constant&gt;</code><a class="headerlink" href="#cmdoption-pwn-constgrep-e" title="Permalink to this definition">¶</a></dt>
+<dd><p>Do an exact match for a constant instead of searching for a regex</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-constgrep-i">
+<code class="descname">-i</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--case-insensitive</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pwn-constgrep-i" title="Permalink to this definition">¶</a></dt>
+<dd><p>Search case insensitive</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-constgrep-m">
+<code class="descname">-m</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--mask-mode</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pwn-constgrep-m" title="Permalink to this definition">¶</a></dt>
+<dd><p>Instead of searching for a specific constant value, search for values not containing strictly less bits that the given value.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-constgrep-c">
+<code class="descname">-c</code><code class="descclassname"> {16,32,64,android,cgc,freebsd,linux,windows,powerpc64,aarch64,sparc64,powerpc,mips64,msp430,thumb,amd64,sparc,alpha,s390,i386,m68k,mips,ia64,cris,vax,avr,arm,little,big,el,le,be,eb}</code><code class="descclassname">, </code><code class="descname">--context</code><code class="descclassname"> {16,32,64,android,cgc,freebsd,linux,windows,powerpc64,aarch64,sparc64,powerpc,mips64,msp430,thumb,amd64,sparc,alpha,s390,i386,m68k,mips,ia64,cris,vax,avr,arm,little,big,el,le,be,eb}</code><a class="headerlink" href="#cmdoption-pwn-constgrep-c" title="Permalink to this definition">¶</a></dt>
+<dd><p>The os/architecture/endianness/bits the shellcode will run in (default: linux/i386), choose from: [‘16’, ‘32’, ‘64’, ‘android’, ‘cgc’, ‘freebsd’, ‘linux’, ‘windows’, ‘powerpc64’, ‘aarch64’, ‘sparc64’, ‘powerpc’, ‘mips64’, ‘msp430’, ‘thumb’, ‘amd64’, ‘sparc’, ‘alpha’, ‘s390’, ‘i386’, ‘m68k’, ‘mips’, ‘ia64’, ‘cris’, ‘vax’, ‘avr’, ‘arm’, ‘little’, ‘big’, ‘el’, ‘le’, ‘be’, ‘eb’]</p>
+</dd></dl>
+
+</div>
+<div class="section" id="pwn-cyclic">
+<h3>pwn cyclic<a class="headerlink" href="#pwn-cyclic" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="go">usage: pwn cyclic [-h] [-a alphabet] [-n length] [-c context]</span>
+<span class="go">                  [-l lookup_value]</span>
+<span class="go">                  [count]</span>
+</pre></div>
+</div>
+<dl class="option">
+<dt id="cmdoption-pwn-cyclic-arg-count">
+<code class="descname">count</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pwn-cyclic-arg-count" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of characters to print</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-cyclic-h">
+<code class="descname">-h</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--help</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pwn-cyclic-h" title="Permalink to this definition">¶</a></dt>
+<dd><p>show this help message and exit</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-cyclic-a">
+<code class="descname">-a</code><code class="descclassname"> &lt;alphabet&gt;</code><code class="descclassname">, </code><code class="descname">--alphabet</code><code class="descclassname"> &lt;alphabet&gt;</code><a class="headerlink" href="#cmdoption-pwn-cyclic-a" title="Permalink to this definition">¶</a></dt>
+<dd><p>The alphabet to use in the cyclic pattern (defaults to all lower case letters)</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-cyclic-n">
+<code class="descname">-n</code><code class="descclassname"> &lt;length&gt;</code><code class="descclassname">, </code><code class="descname">--length</code><code class="descclassname"> &lt;length&gt;</code><a class="headerlink" href="#cmdoption-pwn-cyclic-n" title="Permalink to this definition">¶</a></dt>
+<dd><p>Size of the unique subsequences (defaults to 4).</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-cyclic-c">
+<code class="descname">-c</code><code class="descclassname"> {16,32,64,android,cgc,freebsd,linux,windows,powerpc64,aarch64,sparc64,powerpc,mips64,msp430,thumb,amd64,sparc,alpha,s390,i386,m68k,mips,ia64,cris,vax,avr,arm,little,big,el,le,be,eb}</code><code class="descclassname">, </code><code class="descname">--context</code><code class="descclassname"> {16,32,64,android,cgc,freebsd,linux,windows,powerpc64,aarch64,sparc64,powerpc,mips64,msp430,thumb,amd64,sparc,alpha,s390,i386,m68k,mips,ia64,cris,vax,avr,arm,little,big,el,le,be,eb}</code><a class="headerlink" href="#cmdoption-pwn-cyclic-c" title="Permalink to this definition">¶</a></dt>
+<dd><p>The os/architecture/endianness/bits the shellcode will run in (default: linux/i386), choose from: [‘16’, ‘32’, ‘64’, ‘android’, ‘cgc’, ‘freebsd’, ‘linux’, ‘windows’, ‘powerpc64’, ‘aarch64’, ‘sparc64’, ‘powerpc’, ‘mips64’, ‘msp430’, ‘thumb’, ‘amd64’, ‘sparc’, ‘alpha’, ‘s390’, ‘i386’, ‘m68k’, ‘mips’, ‘ia64’, ‘cris’, ‘vax’, ‘avr’, ‘arm’, ‘little’, ‘big’, ‘el’, ‘le’, ‘be’, ‘eb’]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-cyclic-l">
+<code class="descname">-l</code><code class="descclassname"> &lt;lookup_value&gt;</code><code class="descclassname">, </code><code class="descname">-o</code><code class="descclassname"> &lt;lookup_value&gt;</code><code class="descclassname">, </code><code class="descname">--offset</code><code class="descclassname"> &lt;lookup_value&gt;</code><code class="descclassname">, </code><code class="descname">--lookup</code><code class="descclassname"> &lt;lookup_value&gt;</code><a class="headerlink" href="#cmdoption-pwn-cyclic-l" title="Permalink to this definition">¶</a></dt>
+<dd><p>Do a lookup instead printing the alphabet</p>
+</dd></dl>
+
+</div>
+<div class="section" id="pwn-debug">
+<h3>pwn debug<a class="headerlink" href="#pwn-debug" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="go">usage: pwn debug [-h] [-x GDBSCRIPT] [--pid PID] [-c context]</span>
+<span class="go">                 [--exec EXECUTABLE] [--process PROCESS_NAME]</span>
+<span class="go">                 [--sysroot SYSROOT]</span>
+</pre></div>
+</div>
+<dl class="option">
+<dt id="cmdoption-pwn-debug-h">
+<code class="descname">-h</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--help</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pwn-debug-h" title="Permalink to this definition">¶</a></dt>
+<dd><p>show this help message and exit</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-debug-x">
+<code class="descname">-x</code><code class="descclassname"> &lt;gdbscript&gt;</code><a class="headerlink" href="#cmdoption-pwn-debug-x" title="Permalink to this definition">¶</a></dt>
+<dd><p>Execute GDB commands from this file.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-debug-pid">
+<code class="descname">--pid</code><code class="descclassname"> &lt;pid&gt;</code><a class="headerlink" href="#cmdoption-pwn-debug-pid" title="Permalink to this definition">¶</a></dt>
+<dd><p>PID to attach to</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-debug-c">
+<code class="descname">-c</code><code class="descclassname"> {16,32,64,android,cgc,freebsd,linux,windows,powerpc64,aarch64,sparc64,powerpc,mips64,msp430,thumb,amd64,sparc,alpha,s390,i386,m68k,mips,ia64,cris,vax,avr,arm,little,big,el,le,be,eb}</code><code class="descclassname">, </code><code class="descname">--context</code><code class="descclassname"> {16,32,64,android,cgc,freebsd,linux,windows,powerpc64,aarch64,sparc64,powerpc,mips64,msp430,thumb,amd64,sparc,alpha,s390,i386,m68k,mips,ia64,cris,vax,avr,arm,little,big,el,le,be,eb}</code><a class="headerlink" href="#cmdoption-pwn-debug-c" title="Permalink to this definition">¶</a></dt>
+<dd><p>The os/architecture/endianness/bits the shellcode will run in (default: linux/i386), choose from: [‘16’, ‘32’, ‘64’, ‘android’, ‘cgc’, ‘freebsd’, ‘linux’, ‘windows’, ‘powerpc64’, ‘aarch64’, ‘sparc64’, ‘powerpc’, ‘mips64’, ‘msp430’, ‘thumb’, ‘amd64’, ‘sparc’, ‘alpha’, ‘s390’, ‘i386’, ‘m68k’, ‘mips’, ‘ia64’, ‘cris’, ‘vax’, ‘avr’, ‘arm’, ‘little’, ‘big’, ‘el’, ‘le’, ‘be’, ‘eb’]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-debug-exec">
+<code class="descname">--exec</code><code class="descclassname"> &lt;executable&gt;</code><a class="headerlink" href="#cmdoption-pwn-debug-exec" title="Permalink to this definition">¶</a></dt>
+<dd><p>File to debug</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-debug-process">
+<code class="descname">--process</code><code class="descclassname"> &lt;process_name&gt;</code><a class="headerlink" href="#cmdoption-pwn-debug-process" title="Permalink to this definition">¶</a></dt>
+<dd><p>Name of the process to attach to (e.g. “bash”)</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-debug-sysroot">
+<code class="descname">--sysroot</code><code class="descclassname"> &lt;sysroot&gt;</code><a class="headerlink" href="#cmdoption-pwn-debug-sysroot" title="Permalink to this definition">¶</a></dt>
+<dd><p>GDB sysroot path</p>
+</dd></dl>
+
+</div>
+<div class="section" id="pwn-disablenx">
+<h3>pwn disablenx<a class="headerlink" href="#pwn-disablenx" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="go">usage: pwn disablenx [-h] elf [elf ...]</span>
+</pre></div>
+</div>
+<dl class="option">
+<dt id="cmdoption-pwn-disablenx-arg-elf">
+<code class="descname">elf</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pwn-disablenx-arg-elf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Files to check</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-disablenx-h">
+<code class="descname">-h</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--help</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pwn-disablenx-h" title="Permalink to this definition">¶</a></dt>
+<dd><p>show this help message and exit</p>
+</dd></dl>
+
+</div>
+<div class="section" id="pwn-disasm">
+<h3>pwn disasm<a class="headerlink" href="#pwn-disasm" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="go">usage: pwn disasm [-h] [-c arch_or_os] [-a address] [--color] [--no-color]</span>
+<span class="go">                  [hex [hex ...]]</span>
+</pre></div>
+</div>
+<dl class="option">
+<dt id="cmdoption-pwn-disasm-arg-hex">
+<code class="descname">hex</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pwn-disasm-arg-hex" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hex-string to disasemble. If none are supplied, then it uses stdin in non-hex mode.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-disasm-h">
+<code class="descname">-h</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--help</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pwn-disasm-h" title="Permalink to this definition">¶</a></dt>
+<dd><p>show this help message and exit</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-disasm-c">
+<code class="descname">-c</code><code class="descclassname"> {16,32,64,android,cgc,freebsd,linux,windows,powerpc64,aarch64,sparc64,powerpc,mips64,msp430,thumb,amd64,sparc,alpha,s390,i386,m68k,mips,ia64,cris,vax,avr,arm,little,big,el,le,be,eb}</code><code class="descclassname">, </code><code class="descname">--context</code><code class="descclassname"> {16,32,64,android,cgc,freebsd,linux,windows,powerpc64,aarch64,sparc64,powerpc,mips64,msp430,thumb,amd64,sparc,alpha,s390,i386,m68k,mips,ia64,cris,vax,avr,arm,little,big,el,le,be,eb}</code><a class="headerlink" href="#cmdoption-pwn-disasm-c" title="Permalink to this definition">¶</a></dt>
+<dd><p>The os/architecture/endianness/bits the shellcode will run in (default: linux/i386), choose from: [‘16’, ‘32’, ‘64’, ‘android’, ‘cgc’, ‘freebsd’, ‘linux’, ‘windows’, ‘powerpc64’, ‘aarch64’, ‘sparc64’, ‘powerpc’, ‘mips64’, ‘msp430’, ‘thumb’, ‘amd64’, ‘sparc’, ‘alpha’, ‘s390’, ‘i386’, ‘m68k’, ‘mips’, ‘ia64’, ‘cris’, ‘vax’, ‘avr’, ‘arm’, ‘little’, ‘big’, ‘el’, ‘le’, ‘be’, ‘eb’]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-disasm-a">
+<code class="descname">-a</code><code class="descclassname"> &lt;address&gt;</code><code class="descclassname">, </code><code class="descname">--address</code><code class="descclassname"> &lt;address&gt;</code><a class="headerlink" href="#cmdoption-pwn-disasm-a" title="Permalink to this definition">¶</a></dt>
+<dd><p>Base address</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-disasm-color">
+<code class="descname">--color</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pwn-disasm-color" title="Permalink to this definition">¶</a></dt>
+<dd><p>Color output</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-disasm-no-color">
+<code class="descname">--no-color</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pwn-disasm-no-color" title="Permalink to this definition">¶</a></dt>
+<dd><p>Disable color output</p>
+</dd></dl>
+
+</div>
+<div class="section" id="pwn-elfdiff">
+<h3>pwn elfdiff<a class="headerlink" href="#pwn-elfdiff" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="go">usage: pwn elfdiff [-h] a b</span>
+</pre></div>
+</div>
+<dl class="option">
+<dt id="cmdoption-pwn-elfdiff-arg-a">
+<code class="descname">a</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pwn-elfdiff-arg-a" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-elfdiff-arg-b">
+<code class="descname">b</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pwn-elfdiff-arg-b" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-elfdiff-h">
+<code class="descname">-h</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--help</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pwn-elfdiff-h" title="Permalink to this definition">¶</a></dt>
+<dd><p>show this help message and exit</p>
+</dd></dl>
+
+</div>
+<div class="section" id="pwn-elfpatch">
+<h3>pwn elfpatch<a class="headerlink" href="#pwn-elfpatch" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="go">usage: pwn elfpatch [-h]</span>
+</pre></div>
+</div>
+<dl class="option">
+<dt id="cmdoption-pwn-elfpatch-h">
+<code class="descname">-h</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--help</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pwn-elfpatch-h" title="Permalink to this definition">¶</a></dt>
+<dd><p>show this help message and exit</p>
+</dd></dl>
+
+</div>
+<div class="section" id="pwn-errno">
+<h3>pwn errno<a class="headerlink" href="#pwn-errno" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="go">usage: pwn errno [-h] error</span>
+</pre></div>
+</div>
+<dl class="option">
+<dt id="cmdoption-pwn-errno-arg-error">
+<code class="descname">error</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pwn-errno-arg-error" title="Permalink to this definition">¶</a></dt>
+<dd><p>Error message or value</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-errno-h">
+<code class="descname">-h</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--help</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pwn-errno-h" title="Permalink to this definition">¶</a></dt>
+<dd><p>show this help message and exit</p>
+</dd></dl>
+
+</div>
+<div class="section" id="pwn-hex">
+<h3>pwn hex<a class="headerlink" href="#pwn-hex" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="go">usage: pwn hex [-h] [data [data ...]]</span>
+</pre></div>
+</div>
+<dl class="option">
+<dt id="cmdoption-pwn-hex-arg-data">
+<code class="descname">data</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pwn-hex-arg-data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Data to convert into hex</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-hex-h">
+<code class="descname">-h</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--help</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pwn-hex-h" title="Permalink to this definition">¶</a></dt>
+<dd><p>show this help message and exit</p>
+</dd></dl>
+
+</div>
+<div class="section" id="pwn-phd">
+<h3>pwn phd<a class="headerlink" href="#pwn-phd" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="go">usage: pwn phd [-h] [-w WIDTH] [-l [HIGHLIGHT [HIGHLIGHT ...]]] [-s SKIP]</span>
+<span class="go">               [-c COUNT] [-o OFFSET] [--color [{always,never,auto}]]</span>
+<span class="go">               [file]</span>
+</pre></div>
+</div>
+<dl class="option">
+<dt id="cmdoption-pwn-phd-arg-file">
+<code class="descname">file</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pwn-phd-arg-file" title="Permalink to this definition">¶</a></dt>
+<dd><p>File to hexdump.  Reads from stdin if missing.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-phd-h">
+<code class="descname">-h</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--help</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pwn-phd-h" title="Permalink to this definition">¶</a></dt>
+<dd><p>show this help message and exit</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-phd-w">
+<code class="descname">-w</code><code class="descclassname"> &lt;width&gt;</code><code class="descclassname">, </code><code class="descname">--width</code><code class="descclassname"> &lt;width&gt;</code><a class="headerlink" href="#cmdoption-pwn-phd-w" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of bytes per line.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-phd-l">
+<code class="descname">-l</code><code class="descclassname"> &lt;highlight&gt;</code><code class="descclassname">, </code><code class="descname">--highlight</code><code class="descclassname"> &lt;highlight&gt;</code><a class="headerlink" href="#cmdoption-pwn-phd-l" title="Permalink to this definition">¶</a></dt>
+<dd><p>Byte to highlight.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-phd-s">
+<code class="descname">-s</code><code class="descclassname"> &lt;skip&gt;</code><code class="descclassname">, </code><code class="descname">--skip</code><code class="descclassname"> &lt;skip&gt;</code><a class="headerlink" href="#cmdoption-pwn-phd-s" title="Permalink to this definition">¶</a></dt>
+<dd><p>Skip this many initial bytes.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-phd-c">
+<code class="descname">-c</code><code class="descclassname"> &lt;count&gt;</code><code class="descclassname">, </code><code class="descname">--count</code><code class="descclassname"> &lt;count&gt;</code><a class="headerlink" href="#cmdoption-pwn-phd-c" title="Permalink to this definition">¶</a></dt>
+<dd><p>Only show this many bytes.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-phd-o">
+<code class="descname">-o</code><code class="descclassname"> &lt;offset&gt;</code><code class="descclassname">, </code><code class="descname">--offset</code><code class="descclassname"> &lt;offset&gt;</code><a class="headerlink" href="#cmdoption-pwn-phd-o" title="Permalink to this definition">¶</a></dt>
+<dd><p>Addresses in left hand column starts at this address.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-phd-color">
+<code class="descname">--color</code><code class="descclassname"> {always,never,auto}</code><a class="headerlink" href="#cmdoption-pwn-phd-color" title="Permalink to this definition">¶</a></dt>
+<dd><p>Colorize the output.  When ‘auto’ output is colorized exactly when stdout is a TTY.  Default is ‘auto’.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="pwn-pwnstrip">
+<h3>pwn pwnstrip<a class="headerlink" href="#pwn-pwnstrip" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="go">usage: pwn pwnstrip [-h] [-b] [-p FUNCTION] [-o OUTPUT] file</span>
+</pre></div>
+</div>
+<dl class="option">
+<dt id="cmdoption-pwn-pwnstrip-arg-file">
+<code class="descname">file</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pwn-pwnstrip-arg-file" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-pwnstrip-h">
+<code class="descname">-h</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--help</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pwn-pwnstrip-h" title="Permalink to this definition">¶</a></dt>
+<dd><p>show this help message and exit</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-pwnstrip-b">
+<code class="descname">-b</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--build-id</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pwn-pwnstrip-b" title="Permalink to this definition">¶</a></dt>
+<dd><p>Strip build ID</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-pwnstrip-p">
+<code class="descname">-p</code><code class="descclassname"> &lt;function&gt;</code><code class="descclassname">, </code><code class="descname">--patch</code><code class="descclassname"> &lt;function&gt;</code><a class="headerlink" href="#cmdoption-pwn-pwnstrip-p" title="Permalink to this definition">¶</a></dt>
+<dd><p>Patch function</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-pwnstrip-o">
+<code class="descname">-o</code><code class="descclassname"> &lt;output&gt;</code><code class="descclassname">, </code><code class="descname">--output</code><code class="descclassname"> &lt;output&gt;</code><a class="headerlink" href="#cmdoption-pwn-pwnstrip-o" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="pwn-scramble">
+<h3>pwn scramble<a class="headerlink" href="#pwn-scramble" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="go">usage: pwn scramble [-h] [-f {raw,hex,string,elf}] [-o file] [-c context] [-p]</span>
+<span class="go">                    [-v AVOID] [-n] [-z] [-d]</span>
+</pre></div>
+</div>
+<dl class="option">
+<dt id="cmdoption-pwn-scramble-h">
+<code class="descname">-h</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--help</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pwn-scramble-h" title="Permalink to this definition">¶</a></dt>
+<dd><p>show this help message and exit</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-scramble-f">
+<code class="descname">-f</code><code class="descclassname"> {raw,hex,string,elf}</code><code class="descclassname">, </code><code class="descname">--format</code><code class="descclassname"> {raw,hex,string,elf}</code><a class="headerlink" href="#cmdoption-pwn-scramble-f" title="Permalink to this definition">¶</a></dt>
+<dd><p>Output format (defaults to hex for ttys, otherwise raw)</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-scramble-o">
+<code class="descname">-o</code><code class="descclassname"> &lt;file&gt;</code><code class="descclassname">, </code><code class="descname">--output</code><code class="descclassname"> &lt;file&gt;</code><a class="headerlink" href="#cmdoption-pwn-scramble-o" title="Permalink to this definition">¶</a></dt>
+<dd><p>Output file (defaults to stdout)</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-scramble-c">
+<code class="descname">-c</code><code class="descclassname"> {16,32,64,android,cgc,freebsd,linux,windows,powerpc64,aarch64,sparc64,powerpc,mips64,msp430,thumb,amd64,sparc,alpha,s390,i386,m68k,mips,ia64,cris,vax,avr,arm,little,big,el,le,be,eb}</code><code class="descclassname">, </code><code class="descname">--context</code><code class="descclassname"> {16,32,64,android,cgc,freebsd,linux,windows,powerpc64,aarch64,sparc64,powerpc,mips64,msp430,thumb,amd64,sparc,alpha,s390,i386,m68k,mips,ia64,cris,vax,avr,arm,little,big,el,le,be,eb}</code><a class="headerlink" href="#cmdoption-pwn-scramble-c" title="Permalink to this definition">¶</a></dt>
+<dd><p>The os/architecture/endianness/bits the shellcode will run in (default: linux/i386), choose from: [‘16’, ‘32’, ‘64’, ‘android’, ‘cgc’, ‘freebsd’, ‘linux’, ‘windows’, ‘powerpc64’, ‘aarch64’, ‘sparc64’, ‘powerpc’, ‘mips64’, ‘msp430’, ‘thumb’, ‘amd64’, ‘sparc’, ‘alpha’, ‘s390’, ‘i386’, ‘m68k’, ‘mips’, ‘ia64’, ‘cris’, ‘vax’, ‘avr’, ‘arm’, ‘little’, ‘big’, ‘el’, ‘le’, ‘be’, ‘eb’]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-scramble-p">
+<code class="descname">-p</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--alphanumeric</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pwn-scramble-p" title="Permalink to this definition">¶</a></dt>
+<dd><p>Encode the shellcode with an alphanumeric encoder</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-scramble-v">
+<code class="descname">-v</code><code class="descclassname"> &lt;avoid&gt;</code><code class="descclassname">, </code><code class="descname">--avoid</code><code class="descclassname"> &lt;avoid&gt;</code><a class="headerlink" href="#cmdoption-pwn-scramble-v" title="Permalink to this definition">¶</a></dt>
+<dd><p>Encode the shellcode to avoid the listed bytes</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-scramble-n">
+<code class="descname">-n</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--newline</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pwn-scramble-n" title="Permalink to this definition">¶</a></dt>
+<dd><p>Encode the shellcode to avoid newlines</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-scramble-z">
+<code class="descname">-z</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--zero</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pwn-scramble-z" title="Permalink to this definition">¶</a></dt>
+<dd><p>Encode the shellcode to avoid NULL bytes</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-scramble-d">
+<code class="descname">-d</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--debug</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pwn-scramble-d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Debug the shellcode with GDB</p>
+</dd></dl>
+
+</div>
+<div class="section" id="pwn-shellcraft">
+<h3>pwn shellcraft<a class="headerlink" href="#pwn-shellcraft" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="go">usage: pwn shellcraft [-h] [-?] [-o file] [-f format] [-d] [-b] [-a]</span>
+<span class="go">                      [-v AVOID] [-n] [-z] [-r] [--color] [--no-color]</span>
+<span class="go">                      [--syscalls] [--address ADDRESS] [-l] [-s]</span>
+<span class="go">                      [shellcode] [arg [arg ...]]</span>
+</pre></div>
+</div>
+<dl class="option">
+<dt id="cmdoption-pwn-shellcraft-arg-shellcode">
+<code class="descname">shellcode</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pwn-shellcraft-arg-shellcode" title="Permalink to this definition">¶</a></dt>
+<dd><p>The shellcode you want</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-shellcraft-arg-arg">
+<code class="descname">arg</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pwn-shellcraft-arg-arg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Argument to the chosen shellcode</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-shellcraft-h">
+<code class="descname">-h</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--help</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pwn-shellcraft-h" title="Permalink to this definition">¶</a></dt>
+<dd><p>show this help message and exit</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-shellcraft">
+<code class="descname">-</code><code class="descclassname">?</code><code class="descclassname">, </code><code class="descname">--show</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pwn-shellcraft" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show shellcode documentation</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-shellcraft-o">
+<code class="descname">-o</code><code class="descclassname"> &lt;file&gt;</code><code class="descclassname">, </code><code class="descname">--out</code><code class="descclassname"> &lt;file&gt;</code><a class="headerlink" href="#cmdoption-pwn-shellcraft-o" title="Permalink to this definition">¶</a></dt>
+<dd><p>Output file (default: stdout)</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-shellcraft-f">
+<code class="descname">-f</code><code class="descclassname"> {r,raw,s,str,string,c,h,hex,a,asm,assembly,p,i,hexii,e,elf,d,escaped,default}</code><code class="descclassname">, </code><code class="descname">--format</code><code class="descclassname"> {r,raw,s,str,string,c,h,hex,a,asm,assembly,p,i,hexii,e,elf,d,escaped,default}</code><a class="headerlink" href="#cmdoption-pwn-shellcraft-f" title="Permalink to this definition">¶</a></dt>
+<dd><p>Output format (default: hex), choose from {e}lf, {r}aw, {s}tring, {c}-style array, {h}ex string, hex{i}i, {a}ssembly code, {p}reprocssed code, escape{d} hex string</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-shellcraft-d">
+<code class="descname">-d</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--debug</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pwn-shellcraft-d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Debug the shellcode with GDB</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-shellcraft-b">
+<code class="descname">-b</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--before</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pwn-shellcraft-b" title="Permalink to this definition">¶</a></dt>
+<dd><p>Insert a debug trap before the code</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-shellcraft-a">
+<code class="descname">-a</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--after</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pwn-shellcraft-a" title="Permalink to this definition">¶</a></dt>
+<dd><p>Insert a debug trap after the code</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-shellcraft-v">
+<code class="descname">-v</code><code class="descclassname"> &lt;avoid&gt;</code><code class="descclassname">, </code><code class="descname">--avoid</code><code class="descclassname"> &lt;avoid&gt;</code><a class="headerlink" href="#cmdoption-pwn-shellcraft-v" title="Permalink to this definition">¶</a></dt>
+<dd><p>Encode the shellcode to avoid the listed bytes</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-shellcraft-n">
+<code class="descname">-n</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--newline</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pwn-shellcraft-n" title="Permalink to this definition">¶</a></dt>
+<dd><p>Encode the shellcode to avoid newlines</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-shellcraft-z">
+<code class="descname">-z</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--zero</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pwn-shellcraft-z" title="Permalink to this definition">¶</a></dt>
+<dd><p>Encode the shellcode to avoid NULL bytes</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-shellcraft-r">
+<code class="descname">-r</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--run</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pwn-shellcraft-r" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run output</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-shellcraft-color">
+<code class="descname">--color</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pwn-shellcraft-color" title="Permalink to this definition">¶</a></dt>
+<dd><p>Color output</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-shellcraft-no-color">
+<code class="descname">--no-color</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pwn-shellcraft-no-color" title="Permalink to this definition">¶</a></dt>
+<dd><p>Disable color output</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-shellcraft-syscalls">
+<code class="descname">--syscalls</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pwn-shellcraft-syscalls" title="Permalink to this definition">¶</a></dt>
+<dd><p>List syscalls</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-shellcraft-address">
+<code class="descname">--address</code><code class="descclassname"> &lt;address&gt;</code><a class="headerlink" href="#cmdoption-pwn-shellcraft-address" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load address</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-shellcraft-l">
+<code class="descname">-l</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--list</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pwn-shellcraft-l" title="Permalink to this definition">¶</a></dt>
+<dd><p>List available shellcodes, optionally provide a filter</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-shellcraft-s">
+<code class="descname">-s</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--shared</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pwn-shellcraft-s" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generated ELF is a shared library</p>
+</dd></dl>
+
+</div>
+<div class="section" id="pwn-template">
+<h3>pwn template<a class="headerlink" href="#pwn-template" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="go">usage: pwn template [-h] [--host HOST] [--port PORT] [--user USER]</span>
+<span class="go">                    [--pass PASSWORD] [--path PATH] [--quiet]</span>
+<span class="go">                    [exe]</span>
+</pre></div>
+</div>
+<dl class="option">
+<dt id="cmdoption-pwn-template-arg-exe">
+<code class="descname">exe</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pwn-template-arg-exe" title="Permalink to this definition">¶</a></dt>
+<dd><p>Target binary</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-template-h">
+<code class="descname">-h</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--help</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pwn-template-h" title="Permalink to this definition">¶</a></dt>
+<dd><p>show this help message and exit</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-template-host">
+<code class="descname">--host</code><code class="descclassname"> &lt;host&gt;</code><a class="headerlink" href="#cmdoption-pwn-template-host" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remote host / SSH server</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-template-port">
+<code class="descname">--port</code><code class="descclassname"> &lt;port&gt;</code><a class="headerlink" href="#cmdoption-pwn-template-port" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remote port / SSH port</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-template-user">
+<code class="descname">--user</code><code class="descclassname"> &lt;user&gt;</code><a class="headerlink" href="#cmdoption-pwn-template-user" title="Permalink to this definition">¶</a></dt>
+<dd><p>SSH Username</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-template-pass">
+<code class="descname">--pass</code><code class="descclassname"> &lt;password&gt;</code><a class="headerlink" href="#cmdoption-pwn-template-pass" title="Permalink to this definition">¶</a></dt>
+<dd><p>SSH Password</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-template-path">
+<code class="descname">--path</code><code class="descclassname"> &lt;path&gt;</code><a class="headerlink" href="#cmdoption-pwn-template-path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remote path of file on SSH server</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-template-quiet">
+<code class="descname">--quiet</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pwn-template-quiet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Less verbose template comments</p>
+</dd></dl>
+
+</div>
+<div class="section" id="pwn-unhex">
+<h3>pwn unhex<a class="headerlink" href="#pwn-unhex" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="go">usage: pwn unhex [-h] [hex [hex ...]]</span>
+</pre></div>
+</div>
+<dl class="option">
+<dt id="cmdoption-pwn-unhex-arg-hex">
+<code class="descname">hex</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pwn-unhex-arg-hex" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hex bytes to decode</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-unhex-h">
+<code class="descname">-h</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--help</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pwn-unhex-h" title="Permalink to this definition">¶</a></dt>
+<dd><p>show this help message and exit</p>
+</dd></dl>
+
+</div>
+<div class="section" id="pwn-update">
+<h3>pwn update<a class="headerlink" href="#pwn-update" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="go">usage: pwn update [-h] [--install] [--pre]</span>
+</pre></div>
+</div>
+<dl class="option">
+<dt id="cmdoption-pwn-update-h">
+<code class="descname">-h</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--help</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pwn-update-h" title="Permalink to this definition">¶</a></dt>
+<dd><p>show this help message and exit</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-update-install">
+<code class="descname">--install</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pwn-update-install" title="Permalink to this definition">¶</a></dt>
+<dd><p>Install the update automatically.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pwn-update-pre">
+<code class="descname">--pre</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pwn-update-pre" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check for pre-releases.</p>
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="adb.html" class="btn btn-neutral float-right" title="pwnlib.adb — Android Debug Bridge" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="globals.html" class="btn btn-neutral" title="from pwn import *" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Gallopsled et al..
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'3.14.0dev',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

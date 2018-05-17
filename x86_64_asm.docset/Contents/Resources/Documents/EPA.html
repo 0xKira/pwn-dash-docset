@@ -1,0 +1,175 @@
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-131"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/EPA"></a><title>EPA</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>March 2018</li></ul></nav></header><h1>EPA
+		&mdash; Add Version Array</h1>
+
+<table>
+<tbody><tr>
+<th>Opcode/Instruction</th>
+<th>Op/En</th>
+<th>64/32 bit Mode Support</th>
+<th>CPUID Feature Flag</th>
+<th>Description</th></tr>
+<tr>
+<td>EAX = 0AH ENCLS[EPA]</td>
+<td>IR</td>
+<td>V/V</td>
+<td>SGX1</td>
+<td>This leaf function adds a Version Array to the EPC.</td></tr></tbody></table>
+<h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="EPA.html#instruction-operand-encoding">
+			&para;
+		</a></h2>
+<table>
+<tbody><tr>
+<td>Op/En</td>
+<td>EAX</td>
+<td>RBX</td>
+<td>RCX</td></tr>
+<tr>
+<td>IR</td>
+<td>EPA (In)</td>
+<td>PT_VA (In, Constant)</td>
+<td>Effective address of the EPC page (In)</td></tr></tbody></table>
+<h3 id="description">Description<a class="anchor" href="EPA.html#description">
+			&para;
+		</a></h3>
+<p>This leaf function creates an empty version array in the EPC page whose logical address is given by DS:RCX, and sets up EPCM attributes for that page. At the time of execution of this instruction, the register RBX must be set to PT_VA.</p>
+<p>The table below provides additional information on the memory parameter of EPA leaf function.</p>
+<h2 id="epa-memory-parameter-semantics">EPA Memory Parameter Semantics<a class="anchor" href="EPA.html#epa-memory-parameter-semantics">
+			&para;
+		</a></h2>
+<table>
+<tbody><tr>
+<td>EPCPAGE</td></tr>
+<tr>
+<td>Write access permitted by Enclave</td></tr></tbody></table>
+<h3 id="concurrency-restrictions">Concurrency Restrictions<a class="anchor" href="EPA.html#concurrency-restrictions">
+			&para;
+		</a></h3>
+<figure id="tbl-40-37">
+<table>
+<tbody><tr>
+<th rowspan="2">Leaf</th>
+<th rowspan="2">Parameter</th>
+<th colspan="3">Base Concurrency Restrictions</th></tr>
+<tr>
+<th>Access</th>
+<th>On Conflict</th>
+<th>SGX_CONFLICT VM Exit Qualification</th></tr>
+<tr>
+<td>EPA</td>
+<td>VA [DS:RCX]</td>
+<td>Exclusive</td>
+<td>#GP</td>
+<td>EPC_PAGE_CONFLICT_EXCEPTION</td></tr></tbody></table>
+<figcaption><a href="EPA.html#tbl-40-37">Table 40-37</a>. Base Concurrency Restrictions of EPA</figcaption></figure>
+<figure id="tbl-40-38">
+<table>
+<tbody><tr>
+<th rowspan="3">Leaf</th>
+<th rowspan="3">Parameter</th>
+<th colspan="6">Additional Concurrency Restrictions</th></tr>
+<tr>
+<th colspan="2">vs. EACCEPT, EACCEPTCOPY, EMODPE, EMODPR, EMODT</th>
+<th colspan="2">vs. EADD, EEXTEND, EINIT</th>
+<th colspan="2">vs. ETRACK, ETRACKC</th></tr>
+<tr>
+<th>Access</th>
+<th>On Conflict</th>
+<th>Access</th>
+<th>On Conflict</th>
+<th>Access</th>
+<th>On Conflict</th></tr>
+<tr>
+<td>EPA</td>
+<td>VA [DS:RCX]</td>
+<td>Concurrent</td>
+<td>L</td>
+<td>Concurrent</td>
+<td></td>
+<td>Concurrent</td>
+<td></td></tr></tbody></table>
+<figcaption><a href="EPA.html#tbl-40-38">Table 40-38</a>. Additional Concurrency Restrictions of EPA</figcaption></figure>
+<h3 id="operation">Operation<a class="anchor" href="EPA.html#operation">
+			&para;
+		</a></h3>
+<pre>IF (RBX ≠ PT_VA or DS:RCX is not 4KByte Aligned)
+    THEN #GP(0); FI;
+IF (DS:RCX does not resolve within an EPC)
+    THEN #PF(DS:RCX); FI;
+(* Check concurrency with other Intel SGX instructions *)
+IF (Other Intel SGX instructions accessing the page)
+    THEN
+        IF (&lt;&lt;VMX non-root operation&gt;&gt; AND &lt;&lt;ENABLE_EPC_VIRTUALIZATION_EXTENSIONS&gt;&gt;)
+            THEN
+                VMCS.Exit_reason &larr; SGX_CONFLICT;
+                VMCS.Exit_qualification.code &larr; EPC_PAGE_CONFLICT_EXCEPTION;
+                VMCS.Exit_qualification.error &larr; 0;
+                VMCS.Guest-physical_address &larr;&lt;&lt; translation of DS:RCX produced by paging &gt;&gt;;
+                VMCS.Guest-linear_address &larr; DS:RCX;
+            Deliver VMEXIT;
+            ELSE
+                #GP(0);
+        FI;
+FI;
+(* Check EPC page must be empty *)
+IF (EPCM(DS:RCX). VALID ≠ 0)
+    THEN #PF(DS:RCX); FI;
+(* Clears EPC page *)
+DS:RCX[32767:0] &larr; 0;
+EPCM(DS:RCX).PT &larr; PT_VA;
+EPCM(DS:RCX).ENCLAVEADDRESS &larr; 0;
+EPCM(DS:RCX).BLOCKED &larr; 0;
+EPCM(DS:RCX).PENDING &larr; 0;
+EPCM(DS:RCX).MODIFIED &larr; 0;
+EPCM(DS:RCX).PR &larr; 0;
+EPCM(DS:RCX).RWX &larr; 0;
+EPCM(DS:RCX).VALID &larr; 1;
+</pre>
+<h3 id="flags-affected">Flags Affected<a class="anchor" href="EPA.html#flags-affected">
+			&para;
+		</a></h3>
+<p>None</p>
+<h3 class="exceptions" id="protected-mode-exceptions">Protected Mode Exceptions<a class="anchor" href="EPA.html#protected-mode-exceptions">
+			&para;
+		</a></h3>
+<table>
+<tbody><tr>
+<td rowspan="4">#GP(0)</td>
+<td>If a memory operand effective address is outside the DS segment limit.</td></tr>
+<tr>
+<td>If a memory operand is not properly aligned.</td></tr>
+<tr>
+<td>If another Intel SGX instruction is accessing the EPC page.</td></tr>
+<tr>
+<td>If RBX is not set to PT_VA.</td></tr>
+<tr>
+<td rowspan="3">#PF(error</td>
+<td>code) If a page fault occurs in accessing memory operands.</td></tr>
+<tr>
+<td>If a memory operand is not an EPC page.</td></tr>
+<tr>
+<td>If the EPC page is valid.</td></tr></tbody></table>
+<h3 class="exceptions" id="64-bit-mode-exceptions">64-Bit Mode Exceptions<a class="anchor" href="EPA.html#64-bit-mode-exceptions">
+			&para;
+		</a></h3>
+<table>
+<tbody><tr>
+<td rowspan="4">#GP(0)</td>
+<td>If a memory operand is non-canonical form.</td></tr>
+<tr>
+<td>If a memory operand is not properly aligned.</td></tr>
+<tr>
+<td>If another Intel SGX instruction is accessing the EPC page.</td></tr>
+<tr>
+<td>If RBX is not set to PT_VA.</td></tr>
+<tr>
+<td rowspan="3">#PF(error</td>
+<td>code) If a page fault occurs in accessing memory operands.</td></tr>
+<tr>
+<td>If a memory operand is not an EPC page.</td></tr>
+<tr>
+<td>If the EPC page is valid.</td></tr></tbody></table><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+	</p></footer>
+</body></html>

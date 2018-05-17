@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]--><!--[if gt IE 8]><!--><html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>pwnlib.gdb — Working with GDB — pwntools 3.14.0dev documentation</title>
+<link href="_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="about.html" rel="author" title="About these documents"/>
+<link href="search.html" rel="search" title="Search"/>
+<link href="libcdb.html" rel="next" title="pwnlib.libcdb — Libc Database"/>
+<link href="fmtstr.html" rel="prev" title="pwnlib.fmtstr — Format string bug exploitation tools"/>
+<script src="_static/js/modernizr.min.js"></script>
+</head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="index.html"> pwntools
+          
+
+          
+          </a>
+<div class="version">
+                3.14
+              </div>
+<div role="search">
+<form action="search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About pwntools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="globals.html"><code class="docutils literal"><span class="pre">from</span> <span class="pre">pwn</span> <span class="pre">import</span> <span class="pre">*</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="commandline.html">Command Line Tools</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="adb.html"><code class="docutils literal"><span class="pre">pwnlib.adb</span></code> — Android Debug Bridge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="args.html"><code class="docutils literal"><span class="pre">pwnlib.args</span></code> — Magic Command-Line Arguments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="asm.html"><code class="docutils literal"><span class="pre">pwnlib.asm</span></code> — Assembler functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="atexception.html"><code class="docutils literal"><span class="pre">pwnlib.atexception</span></code> — Callbacks on unhandled exception</a></li>
+<li class="toctree-l1"><a class="reference internal" href="atexit.html"><code class="docutils literal"><span class="pre">pwnlib.atexit</span></code> — Replacement for atexit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="constants.html"><code class="docutils literal"><span class="pre">pwnlib.constants</span></code> — Easy access to header file constants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config.html"><code class="docutils literal"><span class="pre">pwnlib.config</span></code> — Pwntools Configuration File</a></li>
+<li class="toctree-l1"><a class="reference internal" href="context.html"><code class="docutils literal"><span class="pre">pwnlib.context</span></code> — Setting runtime variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dynelf.html"><code class="docutils literal"><span class="pre">pwnlib.dynelf</span></code> — Resolving remote functions using leaks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="encoders.html"><code class="docutils literal"><span class="pre">pwnlib.encoders</span></code> — Encoding Shellcode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="elf.html"><code class="docutils literal"><span class="pre">pwnlib.elf</span></code> — ELF Executables and Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exception.html"><code class="docutils literal"><span class="pre">pwnlib.exception</span></code> — Pwnlib exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="flag.html"><code class="docutils literal"><span class="pre">pwnlib.flag</span></code> — CTF Flag Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fmtstr.html"><code class="docutils literal"><span class="pre">pwnlib.fmtstr</span></code> — Format string bug exploitation tools</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="docutils literal"><span class="pre">pwnlib.gdb</span></code> — Working with GDB</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#useful-functions">Useful Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#debugging-tips">Debugging Tips</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#attaching-to-processes">Attaching to Processes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#spawning-new-processes">Spawning New Processes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#tips-and-troubleshooting">Tips and Troubleshooting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#noptrace-magic-argument"><code class="docutils literal"><span class="pre">NOPTRACE</span></code> magic argument</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#kernel-yama-ptrace-scope">Kernel Yama ptrace_scope</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#member-documentation">Member Documentation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="libcdb.html"><code class="docutils literal"><span class="pre">pwnlib.libcdb</span></code> — Libc Database</a></li>
+<li class="toctree-l1"><a class="reference internal" href="log.html"><code class="docutils literal"><span class="pre">pwnlib.log</span></code> — Logging stuff</a></li>
+<li class="toctree-l1"><a class="reference internal" href="memleak.html"><code class="docutils literal"><span class="pre">pwnlib.memleak</span></code> — Helper class for leaking memory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="protocols.html"><code class="docutils literal"><span class="pre">pwnlib.protocols</span></code> — Wire Protocols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qemu.html"><code class="docutils literal"><span class="pre">pwnlib.qemu</span></code> — QEMU Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="replacements.html"><code class="docutils literal"><span class="pre">pwnlib.replacements</span></code> — Replacements for various functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rop.html"><code class="docutils literal"><span class="pre">pwnlib.rop</span></code> — Return Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rop/rop.html"><code class="docutils literal"><span class="pre">pwnlib.rop.rop</span></code> — Return Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rop/srop.html"><code class="docutils literal"><span class="pre">pwnlib.rop.srop</span></code> — Sigreturn Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="runner.html"><code class="docutils literal"><span class="pre">pwnlib.runner</span></code> — Running Shellcode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shellcraft.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft</span></code> — Shellcode generation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shellcraft/aarch64.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.aarch64</span></code> — Shellcode for AArch64</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shellcraft/amd64.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.amd64</span></code> — Shellcode for AMD64</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shellcraft/arm.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.arm</span></code> — Shellcode for ARM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shellcraft/common.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.common</span></code> — Shellcode common to all architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shellcraft/i386.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.i386</span></code> — Shellcode for Intel 80386</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shellcraft/mips.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.mips</span></code> — Shellcode for MIPS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shellcraft/regsort.html"><code class="docutils literal"><span class="pre">pwnlib.regsort</span></code> — Register sorting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shellcraft/thumb.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.thumb</span></code> — Shellcode for Thumb Mode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="term.html"><code class="docutils literal"><span class="pre">pwnlib.term</span></code> — Terminal handling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="timeout.html"><code class="docutils literal"><span class="pre">pwnlib.timeout</span></code> — Timeout handling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tubes.html"><code class="docutils literal"><span class="pre">pwnlib.tubes</span></code> — Talking to the World!</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tubes/processes.html"><code class="docutils literal"><span class="pre">pwnlib.tubes.process</span></code> — Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tubes/serial.html"><code class="docutils literal"><span class="pre">pwnlib.tubes.serialtube</span></code> — Serial Ports</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tubes/sockets.html"><code class="docutils literal"><span class="pre">pwnlib.tubes.sock</span></code> — Sockets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tubes/ssh.html"><code class="docutils literal"><span class="pre">pwnlib.tubes.ssh</span></code> — SSH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ui.html"><code class="docutils literal"><span class="pre">pwnlib.ui</span></code> — Functions for user interaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="update.html"><code class="docutils literal"><span class="pre">pwnlib.update</span></code> — Updating Pwntools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="useragents.html"><code class="docutils literal"><span class="pre">pwnlib.useragents</span></code> — A database of useragent strings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/crc.html"><code class="docutils literal"><span class="pre">pwnlib.util.crc</span></code> — Calculating CRC-sums</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/cyclic.html"><code class="docutils literal"><span class="pre">pwnlib.util.cyclic</span></code> — Generation of unique sequences</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/fiddling.html"><code class="docutils literal"><span class="pre">pwnlib.util.fiddling</span></code> — Utilities bit fiddling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/hashes.html"><code class="docutils literal"><span class="pre">pwnlib.util.hashes</span></code> — Hashing functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/iters.html"><code class="docutils literal"><span class="pre">pwnlib.util.iters</span></code> — Extension of standard module <code class="docutils literal"><span class="pre">itertools</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/lists.html"><code class="docutils literal"><span class="pre">pwnlib.util.lists</span></code> — Operations on lists</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/misc.html"><code class="docutils literal"><span class="pre">pwnlib.util.misc</span></code> — We could not fit it any other place</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/net.html"><code class="docutils literal"><span class="pre">pwnlib.util.net</span></code> — Networking interfaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/packing.html"><code class="docutils literal"><span class="pre">pwnlib.util.packing</span></code> — Packing and unpacking of strings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/proc.html"><code class="docutils literal"><span class="pre">pwnlib.util.proc</span></code> — Working with <code class="docutils literal"><span class="pre">/proc/</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/safeeval.html"><code class="docutils literal"><span class="pre">pwnlib.util.safeeval</span></code> — Safe evaluation of python code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/sh_string.html"><code class="docutils literal"><span class="pre">pwnlib.util.sh_string</span></code> — Shell Expansion is Hard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/web.html"><code class="docutils literal"><span class="pre">pwnlib.util.web</span></code> — Utilities for working with the WWW</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="testexample.html"><code class="docutils literal"><span class="pre">pwnlib.testexample</span></code> — Example Test Module</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="index.html">pwntools</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a href="index.html">Docs</a> »</li>
+<li><code class="docutils literal"><span class="pre">pwnlib.gdb</span></code> — Working with GDB</li>
+<li class="wy-breadcrumbs-aside">
+<a href="_sources/gdb.rst.txt" rel="nofollow"> View page source</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div class="section" id="module-pwnlib.gdb">
+<span id="pwnlib-gdb-working-with-gdb"></span><h1><a name="//apple_ref/cpp/Module/pwnlib.gdb"></a><a class="reference internal" href="#module-pwnlib.gdb" title="pwnlib.gdb"><code class="xref py py-mod docutils literal"><span class="pre">pwnlib.gdb</span></code></a> — Working with GDB<a class="headerlink" href="#module-pwnlib.gdb" title="Permalink to this headline">¶</a></h1>
+<p>During exploit development, it is frequently useful to debug the
+target binary under GDB.</p>
+<p>Pwntools makes this easy-to-do with a handful of helper routines, designed
+to make your exploit-debug-update cycles much faster.</p>
+<div class="section" id="useful-functions">
+<h2>Useful Functions<a class="headerlink" href="#useful-functions" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference internal" href="#pwnlib.gdb.attach" title="pwnlib.gdb.attach"><code class="xref py py-func docutils literal"><span class="pre">attach()</span></code></a> - Attach to an existing process</li>
+<li><a class="reference internal" href="#pwnlib.gdb.debug" title="pwnlib.gdb.debug"><code class="xref py py-func docutils literal"><span class="pre">debug()</span></code></a> - Start a new process under a debugger, stopped at the first instruction</li>
+<li><a class="reference internal" href="#pwnlib.gdb.debug_shellcode" title="pwnlib.gdb.debug_shellcode"><code class="xref py py-func docutils literal"><span class="pre">debug_shellcode()</span></code></a> - Build a binary with the provided shellcode, and start it under a debugger</li>
+</ul>
+</div>
+<div class="section" id="debugging-tips">
+<h2>Debugging Tips<a class="headerlink" href="#debugging-tips" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference internal" href="#pwnlib.gdb.attach" title="pwnlib.gdb.attach"><code class="xref py py-func docutils literal"><span class="pre">attach()</span></code></a> and <a class="reference internal" href="#pwnlib.gdb.debug" title="pwnlib.gdb.debug"><code class="xref py py-func docutils literal"><span class="pre">debug()</span></code></a> functions will likely be your bread and
+butter for debugging.</p>
+<p>Both allow you to provide a script to pass to GDB when it is started, so that
+it can automatically set your breakpoints.</p>
+<div class="section" id="attaching-to-processes">
+<h3>Attaching to Processes<a class="headerlink" href="#attaching-to-processes" title="Permalink to this headline">¶</a></h3>
+<p>To attach to an existing process, just use <a class="reference internal" href="#pwnlib.gdb.attach" title="pwnlib.gdb.attach"><code class="xref py py-func docutils literal"><span class="pre">attach()</span></code></a>.  It is surprisingly
+versatile, and can attach to a <a class="reference internal" href="tubes/processes.html#pwnlib.tubes.process.process" title="pwnlib.tubes.process.process"><code class="xref py py-class docutils literal"><span class="pre">process</span></code></a> for simple
+binaries, or will automatically find the correct process to attach to for a
+forking server, if given a <a class="reference internal" href="tubes/sockets.html#pwnlib.tubes.remote.remote" title="pwnlib.tubes.remote.remote"><code class="xref py py-class docutils literal"><span class="pre">remote</span></code></a> object.</p>
+</div>
+<div class="section" id="spawning-new-processes">
+<h3>Spawning New Processes<a class="headerlink" href="#spawning-new-processes" title="Permalink to this headline">¶</a></h3>
+<p>Attaching to processes with <a class="reference internal" href="#pwnlib.gdb.attach" title="pwnlib.gdb.attach"><code class="xref py py-func docutils literal"><span class="pre">attach()</span></code></a> is useful, but the state the process
+is in may vary.  If you need to attach to a process very early, and debug it from
+the very first instruction (or even the start of <code class="docutils literal"><span class="pre">main</span></code>), you instead should use
+<a class="reference internal" href="#pwnlib.gdb.debug" title="pwnlib.gdb.debug"><code class="xref py py-func docutils literal"><span class="pre">debug()</span></code></a>.</p>
+<p>When you use <a class="reference internal" href="#pwnlib.gdb.debug" title="pwnlib.gdb.debug"><code class="xref py py-func docutils literal"><span class="pre">debug()</span></code></a>, the return value is a <a class="reference internal" href="tubes.html#pwnlib.tubes.tube.tube" title="pwnlib.tubes.tube.tube"><code class="xref py py-class docutils literal"><span class="pre">tube</span></code></a> object
+that you interact with exactly like normal.</p>
+</div>
+</div>
+<div class="section" id="tips-and-troubleshooting">
+<h2>Tips and Troubleshooting<a class="headerlink" href="#tips-and-troubleshooting" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="noptrace-magic-argument">
+<h3><code class="docutils literal"><span class="pre">NOPTRACE</span></code> magic argument<a class="headerlink" href="#noptrace-magic-argument" title="Permalink to this headline">¶</a></h3>
+<p>It’s quite cumbersom to comment and un-comment lines containing <cite>attach</cite>.</p>
+<p>You can cause these lines to be a no-op by running your script with the
+<code class="docutils literal"><span class="pre">NOPTRACE</span></code> argument appended, or with <code class="docutils literal"><span class="pre">PWNLIB_NOPTRACE=1</span></code> in the environment.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ python exploit.py NOPTRACE
+[+] Starting local process '/bin/bash': Done
+[!] Skipping debug attach since context.noptrace==True
+...
+</pre></div>
+</div>
+</div>
+<div class="section" id="kernel-yama-ptrace-scope">
+<h3>Kernel Yama ptrace_scope<a class="headerlink" href="#kernel-yama-ptrace-scope" title="Permalink to this headline">¶</a></h3>
+<p>The Linux kernel v3.4 introduced a security mechanism called <code class="docutils literal"><span class="pre">ptrace_scope</span></code>,
+which is intended to prevent processes from debugging eachother unless there is
+a direct parent-child relationship.</p>
+<p>This causes some issues with the normal Pwntools workflow, since the process
+heirarchy looks like this:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>python ---&gt; target
+       `--&gt; gdb
+</pre></div>
+</div>
+<p>Note that <code class="docutils literal"><span class="pre">python</span></code> is the parent of <code class="docutils literal"><span class="pre">target</span></code>, not <code class="docutils literal"><span class="pre">gdb</span></code>.</p>
+<p>In order to avoid this being a problem, Pwntools uses the function
+<code class="docutils literal"><span class="pre">prctl(PR_SET_PTRACER,</span> <span class="pre">PR_SET_PTRACER_ANY)</span></code>.  This disables Yama
+for any processes launched by Pwntools via <a class="reference internal" href="tubes/processes.html#pwnlib.tubes.process.process" title="pwnlib.tubes.process.process"><code class="xref py py-class docutils literal"><span class="pre">process</span></code></a> or via
+<a class="reference internal" href="tubes/ssh.html#pwnlib.tubes.ssh.ssh.process" title="pwnlib.tubes.ssh.ssh.process"><code class="xref py py-meth docutils literal"><span class="pre">ssh.process()</span></code></a>.</p>
+<p>Older versions of Pwntools did not perform the <code class="docutils literal"><span class="pre">prctl</span></code> step, and
+required that the Yama security feature was disabled systemwide, which
+requires <code class="docutils literal"><span class="pre">root</span></code> access.</p>
+<div class="section" id="member-documentation">
+<h4>Member Documentation<a class="headerlink" href="#member-documentation" title="Permalink to this headline">¶</a></h4>
+<dl class="function">
+<dt id="pwnlib.gdb.attach"><a name="//apple_ref/cpp/Function/pwnlib.gdb.attach"></a>
+<code class="descclassname">pwnlib.gdb.</code><code class="descname">attach</code><span class="sig-paren">(</span><em>target</em>, <em>gdbscript = None</em>, <em>exe = None</em>, <em>arch = None</em>, <em>ssh = None</em><span class="sig-paren">)</span> → None<a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/gdb.py#L1390-1397"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.gdb.attach" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start GDB in a new terminal and attach to <cite>target</cite>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>target</strong> – The target to attach to.</li>
+<li><strong>gdbscript</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-obj docutils literal"><span class="pre">str</span></code></a> or <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#file" title="(in Python v2.7)"><code class="xref py py-obj docutils literal"><span class="pre">file</span></code></a>) – GDB script to run after attaching.</li>
+<li><strong>exe</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – The path of the target binary.</li>
+<li><strong>arch</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Architechture of the target binary.  If <cite>exe</cite> known GDB will
+detect the architechture automatically (if it is supported).</li>
+<li><strong>gdb_args</strong> (<a class="reference internal" href="protocols/adb.html#pwnlib.protocols.adb.AdbClient.list" title="pwnlib.protocols.adb.AdbClient.list"><em>list</em></a>) – List of additional arguments to pass to GDB.</li>
+<li><strong>sysroot</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Foreign-architecture sysroot, used for QEMU-emulated binaries
+and Android targets.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">PID of the GDB process (or the window which it is running in).</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>The <code class="docutils literal"><span class="pre">target</span></code> argument is very robust, and can be any of the following:</p>
+<dl class="docutils">
+<dt><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-obj docutils literal"><span class="pre">int</span></code></a></dt>
+<dd>PID of a process</dd>
+<dt><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-obj docutils literal"><span class="pre">str</span></code></a></dt>
+<dd>Process name.  The youngest process is selected.</dd>
+<dt><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#tuple" title="(in Python v2.7)"><code class="xref py py-obj docutils literal"><span class="pre">tuple</span></code></a></dt>
+<dd>Host, port pair of a listening <code class="docutils literal"><span class="pre">gdbserver</span></code></dd>
+<dt><a class="reference internal" href="tubes/processes.html#pwnlib.tubes.process.process" title="pwnlib.tubes.process.process"><code class="xref py py-class docutils literal"><span class="pre">process</span></code></a></dt>
+<dd>Process to connect to</dd>
+<dt><a class="reference internal" href="tubes/sockets.html#pwnlib.tubes.sock.sock" title="pwnlib.tubes.sock.sock"><code class="xref py py-class docutils literal"><span class="pre">sock</span></code></a></dt>
+<dd>Connected socket. The executable on the other end of the connection is attached to.
+Can be any socket type, including <a class="reference internal" href="tubes/sockets.html#pwnlib.tubes.listen.listen" title="pwnlib.tubes.listen.listen"><code class="xref py py-class docutils literal"><span class="pre">listen</span></code></a> or <a class="reference internal" href="tubes/sockets.html#pwnlib.tubes.remote.remote" title="pwnlib.tubes.remote.remote"><code class="xref py py-class docutils literal"><span class="pre">remote</span></code></a>.</dd>
+<dt><a class="reference internal" href="tubes/ssh.html#pwnlib.tubes.ssh.ssh_channel" title="pwnlib.tubes.ssh.ssh_channel"><code class="xref py py-class docutils literal"><span class="pre">ssh_channel</span></code></a></dt>
+<dd>Remote process spawned via <a class="reference internal" href="tubes/ssh.html#pwnlib.tubes.ssh.ssh.process" title="pwnlib.tubes.ssh.ssh.process"><code class="xref py py-meth docutils literal"><span class="pre">ssh.process()</span></code></a>.
+This will use the GDB installed on the remote machine.
+If a password is required to connect, the <code class="docutils literal"><span class="pre">sshpass</span></code> program must be installed.</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Attach directly to pid 1234</span>
+<span class="n">gdb</span><span class="o">.</span><span class="n">attach</span><span class="p">(</span><span class="mi">1234</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Attach to the youngest "bash" process</span>
+<span class="n">gdb</span><span class="o">.</span><span class="n">attach</span><span class="p">(</span><span class="s1">'bash'</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Start a process</span>
+<span class="n">bash</span> <span class="o">=</span> <span class="n">process</span><span class="p">(</span><span class="s1">'bash'</span><span class="p">)</span>
+
+<span class="c1"># Attach the debugger</span>
+<span class="n">gdb</span><span class="o">.</span><span class="n">attach</span><span class="p">(</span><span class="n">bash</span><span class="p">,</span> <span class="s1">'''</span>
+<span class="s1">set follow-fork-mode child</span>
+<span class="s1">break execve</span>
+<span class="s1">continue</span>
+<span class="s1">'''</span><span class="p">)</span>
+
+<span class="c1"># Interact with the process</span>
+<span class="n">bash</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="s1">'whoami'</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Start a forking server</span>
+<span class="n">server</span> <span class="o">=</span> <span class="n">process</span><span class="p">([</span><span class="s1">'socat'</span><span class="p">,</span> <span class="s1">'tcp-listen:1234,fork,reuseaddr'</span><span class="p">,</span> <span class="s1">'exec:/bin/sh'</span><span class="p">])</span>
+
+<span class="c1"># Connect to the server</span>
+<span class="n">io</span> <span class="o">=</span> <span class="n">remote</span><span class="p">(</span><span class="s1">'localhost'</span><span class="p">,</span> <span class="mi">1234</span><span class="p">)</span>
+
+<span class="c1"># Connect the debugger to the server-spawned process</span>
+<span class="n">gdb</span><span class="o">.</span><span class="n">attach</span><span class="p">(</span><span class="n">io</span><span class="p">,</span> <span class="s1">'''</span>
+<span class="s1">break exit</span>
+<span class="s1">continue</span>
+<span class="s1">'''</span><span class="p">)</span>
+
+<span class="c1"># Talk to the spawned 'sh'</span>
+<span class="n">io</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="s1">'exit'</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Connect to the SSH server</span>
+<span class="n">shell</span> <span class="o">=</span> <span class="n">ssh</span><span class="p">(</span><span class="s1">'bandit0'</span><span class="p">,</span> <span class="s1">'bandit.labs.overthewire.org'</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="s1">'bandit0'</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">2220</span><span class="p">)</span>
+
+<span class="c1"># Start a process on the server</span>
+<span class="n">cat</span> <span class="o">=</span> <span class="n">shell</span><span class="o">.</span><span class="n">process</span><span class="p">([</span><span class="s1">'cat'</span><span class="p">])</span>
+
+<span class="c1"># Attach a debugger to it</span>
+<span class="n">gdb</span><span class="o">.</span><span class="n">attach</span><span class="p">(</span><span class="n">cat</span><span class="p">,</span> <span class="s1">'''</span>
+<span class="s1">break exit</span>
+<span class="s1">continue</span>
+<span class="s1">'''</span><span class="p">)</span>
+
+<span class="c1"># Cause `cat` to exit</span>
+<span class="n">cat</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="function">
+<dt id="pwnlib.gdb.binary"><a name="//apple_ref/cpp/Function/pwnlib.gdb.binary"></a>
+<code class="descclassname">pwnlib.gdb.</code><code class="descname">binary</code><span class="sig-paren">(</span><span class="sig-paren">)</span> → str<a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/gdb.py#L482-507"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.gdb.binary" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><em>str</em> – Path to the appropriate <code class="docutils literal"><span class="pre">gdb</span></code> binary to use.</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Example</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">gdb</span><span class="o">.</span><span class="n">binary</span><span class="p">()</span> 
+<span class="go">'/usr/bin/gdb'</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="function">
+<dt id="pwnlib.gdb.corefile"><a name="//apple_ref/cpp/Function/pwnlib.gdb.corefile"></a>
+<code class="descclassname">pwnlib.gdb.</code><code class="descname">corefile</code><span class="sig-paren">(</span><em>process</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/gdb.py#L941-981"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.gdb.corefile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Drops a core file for the process.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>process</strong> – Process to dump</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><code class="xref py py-class docutils literal"><span class="pre">Core</span></code> – The generated core file</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+<dl class="function">
+<dt id="pwnlib.gdb.debug"><a name="//apple_ref/cpp/Function/pwnlib.gdb.debug"></a>
+<code class="descclassname">pwnlib.gdb.</code><code class="descname">debug</code><span class="sig-paren">(</span><em>args</em><span class="sig-paren">)</span> → tube<a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/gdb.py#L1390-1397"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.gdb.debug" title="Permalink to this definition">¶</a></dt>
+<dd><p>Launch a GDB server with the specified command line,
+and launches GDB to attach to it.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>args</strong> (<a class="reference internal" href="protocols/adb.html#pwnlib.protocols.adb.AdbClient.list" title="pwnlib.protocols.adb.AdbClient.list"><em>list</em></a>) – Arguments to the process, similar to <a class="reference internal" href="tubes/processes.html#pwnlib.tubes.process.process" title="pwnlib.tubes.process.process"><code class="xref py py-class docutils literal"><span class="pre">process</span></code></a>.</li>
+<li><strong>gdbscript</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – GDB script to run.</li>
+<li><strong>exe</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Path to the executable on disk</li>
+<li><strong>env</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) – Environment to start the binary in</li>
+<li><strong>ssh</strong> (<a class="reference internal" href="tubes/ssh.html#pwnlib.tubes.ssh.ssh" title="pwnlib.tubes.ssh.ssh"><code class="xref py py-class docutils literal"><span class="pre">ssh</span></code></a>) – Remote ssh session to use to launch the process.</li>
+<li><strong>sysroot</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Foreign-architecture sysroot, used for QEMU-emulated binaries
+and Android targets.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><a class="reference internal" href="tubes/processes.html#pwnlib.tubes.process.process" title="pwnlib.tubes.process.process"><code class="xref py py-class docutils literal"><span class="pre">process</span></code></a> or <a class="reference internal" href="tubes/ssh.html#pwnlib.tubes.ssh.ssh_channel" title="pwnlib.tubes.ssh.ssh_channel"><code class="xref py py-class docutils literal"><span class="pre">ssh_channel</span></code></a> – A tube connected to the target process</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>The debugger is attached automatically, and you can debug everything
+from the very beginning.  This requires that both <code class="docutils literal"><span class="pre">gdb</span></code> and <code class="docutils literal"><span class="pre">gdbserver</span></code>
+are installed on your machine.</p>
+<p>When GDB opens via <a class="reference internal" href="#pwnlib.gdb.debug" title="pwnlib.gdb.debug"><code class="xref py py-func docutils literal"><span class="pre">debug()</span></code></a>, it will initially be stopped on the very first
+instruction of the dynamic linker (<code class="docutils literal"><span class="pre">ld.so</span></code>) for dynamically-linked binaries.</p>
+<p>Only the target binary and the linker will be loaded in memory, so you cannot
+set breakpoints on shared library routines like <code class="docutils literal"><span class="pre">malloc</span></code> since <code class="docutils literal"><span class="pre">libc.so</span></code>
+has not even been loaded yet.</p>
+<p>There are several ways to handle this:</p>
+<ol class="arabic simple">
+<li><dl class="first docutils">
+<dt>Set a breakpoint on the executable’s entry point (generally, <code class="docutils literal"><span class="pre">_start</span></code>)</dt>
+<dd><ul class="first last">
+<li>This is only invoked after all of the required shared libraries
+are loaded.</li>
+<li>You can generally get the address via the GDB command <code class="docutils literal"><span class="pre">info</span> <span class="pre">file</span></code>.</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Use pending breakpoints via <code class="docutils literal"><span class="pre">set</span> <span class="pre">breakpoint</span> <span class="pre">pending</span> <span class="pre">on</span></code></dt>
+<dd><ul class="first last">
+<li>This has the side-effect of setting breakpoints for <strong>every</strong> function
+which matches the name.  For <code class="docutils literal"><span class="pre">malloc</span></code>, this will generally set a
+breakpoint in the executable’s PLT, in the linker’s internal <code class="docutils literal"><span class="pre">malloc</span></code>,
+and eventaully in <code class="docutils literal"><span class="pre">libc</span></code>’s malloc.</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Wait for libraries to be loaded with <code class="docutils literal"><span class="pre">set</span> <span class="pre">stop-on-solib-event</span> <span class="pre">1</span></code></dt>
+<dd><ul class="first last">
+<li>There is no way to stop on any specific library being loaded, and sometimes
+multiple libraries are loaded and only a single breakpoint is issued.</li>
+<li>Generally, you just add a few <code class="docutils literal"><span class="pre">continue</span></code> commands until things are set up
+the way you want it to be.</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ol>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Create a new process, and stop it at 'main'</span>
+<span class="n">io</span> <span class="o">=</span> <span class="n">gdb</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">'bash'</span><span class="p">,</span> <span class="s1">'''</span>
+<span class="s1">break main</span>
+<span class="s1">continue</span>
+<span class="s1">'''</span><span class="p">)</span>
+
+<span class="c1"># Send a command to Bash</span>
+<span class="n">io</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="s2">"echo hello"</span><span class="p">)</span>
+
+<span class="c1"># Interact with the process</span>
+<span class="n">io</span><span class="o">.</span><span class="n">interactive</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Create a new process, and stop it at 'main'</span>
+<span class="n">io</span> <span class="o">=</span> <span class="n">gdb</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">'bash'</span><span class="p">,</span> <span class="s1">'''</span>
+<span class="s1"># Wait until we hit the main executable's entry point</span>
+<span class="s1">break _start</span>
+<span class="s1">continue</span>
+
+<span class="s1"># Now set breakpoint on shared library routines</span>
+<span class="s1">break malloc</span>
+<span class="s1">break free</span>
+<span class="s1">continue</span>
+<span class="s1">'''</span><span class="p">)</span>
+
+<span class="c1"># Send a command to Bash</span>
+<span class="n">io</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="s2">"echo hello"</span><span class="p">)</span>
+
+<span class="c1"># Interact with the process</span>
+<span class="n">io</span><span class="o">.</span><span class="n">interactive</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>You can use <a class="reference internal" href="#pwnlib.gdb.debug" title="pwnlib.gdb.debug"><code class="xref py py-func docutils literal"><span class="pre">debug()</span></code></a> to spawn new processes on remote machines as well,
+by using the <code class="docutils literal"><span class="pre">ssh=</span></code> keyword to pass in your <a class="reference internal" href="tubes/ssh.html#pwnlib.tubes.ssh.ssh" title="pwnlib.tubes.ssh.ssh"><code class="xref py py-class docutils literal"><span class="pre">ssh</span></code></a> instance.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Connect to the SSH server</span>
+<span class="n">shell</span> <span class="o">=</span> <span class="n">ssh</span><span class="p">(</span><span class="s1">'passcode'</span><span class="p">,</span> <span class="s1">'pwnable.kr'</span><span class="p">,</span> <span class="mi">2222</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="s1">'guest'</span><span class="p">)</span>
+
+<span class="c1"># Start a process on the server</span>
+<span class="n">io</span> <span class="o">=</span> <span class="n">gdb</span><span class="o">.</span><span class="n">debug</span><span class="p">([</span><span class="s1">'bash'</span><span class="p">],</span>
+                <span class="n">ssh</span><span class="o">=</span><span class="n">shell</span><span class="p">,</span>
+                <span class="n">gdbscript</span><span class="o">=</span><span class="s1">'''</span>
+<span class="s1">break main</span>
+<span class="s1">continue</span>
+<span class="s1">'''</span><span class="p">)</span>
+
+<span class="c1"># Send a command to Bash</span>
+<span class="n">io</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="s2">"echo hello"</span><span class="p">)</span>
+
+<span class="c1"># Interact with the process</span>
+<span class="n">io</span><span class="o">.</span><span class="n">interactive</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="function">
+<dt id="pwnlib.gdb.debug_assembly"><a name="//apple_ref/cpp/Function/pwnlib.gdb.debug_assembly"></a>
+<code class="descclassname">pwnlib.gdb.</code><code class="descname">debug_assembly</code><span class="sig-paren">(</span><em>asm</em>, <em>gdbscript=None</em>, <em>vma=None</em><span class="sig-paren">)</span> → tube<a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/gdb.py#L1390-1397"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.gdb.debug_assembly" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><p>Creates an ELF file, and launches it under a debugger.</p>
+<p>This is identical to debug_shellcode, except that
+any defined symbols are available in GDB, and it
+saves you the explicit call to asm().</p>
+<dl class="docutils">
+<dt>Arguments:</dt>
+<dd>asm(str): Assembly code to debug
+gdbscript(str): Script to run in GDB
+vma(int): Base address to load the shellcode at
+<a href="#id1"><span class="problematic" id="id2">**</span></a>kwargs: Override any <a class="reference internal" href="context.html#pwnlib.context.context" title="pwnlib.context.context"><code class="xref py py-obj docutils literal"><span class="pre">pwnlib.context.context</span></code></a> values.</dd>
+<dt>Returns:</dt>
+<dd><a class="reference internal" href="tubes/processes.html#pwnlib.tubes.process.process" title="pwnlib.tubes.process.process"><code class="xref py py-class docutils literal"><span class="pre">process</span></code></a></dd>
+</dl>
+<p>Example:</p>
+<blockquote>
+<div><div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">assembly</span> <span class="o">=</span> <span class="n">shellcraft</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="s2">"Hello world!</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div></blockquote>
+<dl class="docutils">
+<dt>“)</dt>
+<dd>io = gdb.debug_assembly(assembly)
+io.recvline()
+# ‘Hello world!’</dd>
+</dl>
+</dd></dl>
+<dl class="function">
+<dt id="pwnlib.gdb.debug_shellcode"><a name="//apple_ref/cpp/Function/pwnlib.gdb.debug_shellcode"></a>
+<code class="descclassname">pwnlib.gdb.</code><code class="descname">debug_shellcode</code><span class="sig-paren">(</span><em>*a</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/gdb.py#L1390-1397"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.gdb.debug_shellcode" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><p>Creates an ELF file, and launches it under a debugger.</p>
+<dl class="docutils">
+<dt>Arguments:</dt>
+<dd>data(str): Assembled shellcode bytes
+gdbscript(str): Script to run in GDB
+vma(int): Base address to load the shellcode at
+<a href="#id3"><span class="problematic" id="id4">**</span></a>kwargs: Override any <a class="reference internal" href="context.html#pwnlib.context.context" title="pwnlib.context.context"><code class="xref py py-obj docutils literal"><span class="pre">pwnlib.context.context</span></code></a> values.</dd>
+<dt>Returns:</dt>
+<dd><a class="reference internal" href="tubes/processes.html#pwnlib.tubes.process.process" title="pwnlib.tubes.process.process"><code class="xref py py-class docutils literal"><span class="pre">process</span></code></a></dd>
+</dl>
+<p>Example:</p>
+<blockquote>
+<div><div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">assembly</span> <span class="o">=</span> <span class="n">shellcraft</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="s2">"Hello world!</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div></blockquote>
+<dl class="docutils">
+<dt>“)</dt>
+<dd>shellcode = asm(assembly)
+io = gdb.debug_shellcode(shellcode)
+io.recvline()
+# ‘Hello world!’</dd>
+</dl>
+</dd></dl>
+<dl class="function">
+<dt id="pwnlib.gdb.find_module_addresses"><a name="//apple_ref/cpp/Function/pwnlib.gdb.find_module_addresses"></a>
+<code class="descclassname">pwnlib.gdb.</code><code class="descname">find_module_addresses</code><span class="sig-paren">(</span><em>binary</em>, <em>ssh=None</em>, <em>ulimit=False</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/gdb.py#L815-939"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.gdb.find_module_addresses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cheat to find modules by using GDB.</p>
+<p>We can’t use <code class="docutils literal"><span class="pre">/proc/$pid/map</span></code> since some servers forbid it.
+This breaks <code class="docutils literal"><span class="pre">info</span> <span class="pre">proc</span></code> in GDB, but <code class="docutils literal"><span class="pre">info</span> <span class="pre">sharedlibrary</span></code> still works.
+Additionally, <code class="docutils literal"><span class="pre">info</span> <span class="pre">sharedlibrary</span></code> works on FreeBSD, which may not have
+procfs enabled or accessible.</p>
+<p>The output looks like this:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">info</span> <span class="n">proc</span> <span class="n">mapping</span>
+<span class="n">process</span> <span class="mi">13961</span>
+<span class="n">warning</span><span class="p">:</span> <span class="n">unable</span> <span class="n">to</span> <span class="nb">open</span> <span class="o">/</span><span class="n">proc</span> <span class="n">file</span> <span class="s1">'/proc/13961/maps'</span>
+
+<span class="n">info</span> <span class="n">sharedlibrary</span>
+<span class="n">From</span>        <span class="n">To</span>          <span class="n">Syms</span> <span class="n">Read</span>   <span class="n">Shared</span> <span class="n">Object</span> <span class="n">Library</span>
+<span class="mh">0xf7fdc820</span>  <span class="mh">0xf7ff505f</span>  <span class="n">Yes</span> <span class="p">(</span><span class="o">*</span><span class="p">)</span>     <span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">ld</span><span class="o">-</span><span class="n">linux</span><span class="o">.</span><span class="n">so</span><span class="o">.</span><span class="mi">2</span>
+<span class="mh">0xf7fbb650</span>  <span class="mh">0xf7fc79f8</span>  <span class="n">Yes</span>         <span class="o">/</span><span class="n">lib32</span><span class="o">/</span><span class="n">libpthread</span><span class="o">.</span><span class="n">so</span><span class="o">.</span><span class="mi">0</span>
+<span class="mh">0xf7e26f10</span>  <span class="mh">0xf7f5b51c</span>  <span class="n">Yes</span> <span class="p">(</span><span class="o">*</span><span class="p">)</span>     <span class="o">/</span><span class="n">lib32</span><span class="o">/</span><span class="n">libc</span><span class="o">.</span><span class="n">so</span><span class="o">.</span><span class="mi">6</span>
+<span class="p">(</span><span class="o">*</span><span class="p">):</span> <span class="n">Shared</span> <span class="n">library</span> <span class="ow">is</span> <span class="n">missing</span> <span class="n">debugging</span> <span class="n">information</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>Note that the raw addresses provided by <code class="docutils literal"><span class="pre">info</span> <span class="pre">sharedlibrary</span></code> are actually
+the address of the <code class="docutils literal"><span class="pre">.text</span></code> segment, not the image base address.</p>
+<p>This routine automates the entire process of:</p>
+<ol class="arabic simple">
+<li>Downloading the binaries from the remote server</li>
+<li>Scraping GDB for the information</li>
+<li>Loading each library into an ELF</li>
+<li>Fixing up the base address vs. the <code class="docutils literal"><span class="pre">.text</span></code> segment address</li>
+</ol>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>binary</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Path to the binary on the remote server</li>
+<li><strong>ssh</strong> (<a class="reference internal" href="tubes.html#module-pwnlib.tubes.tube" title="pwnlib.tubes.tube"><em>pwnlib.tubes.tube</em></a>) – SSH connection through which to load the libraries.
+If left as <code class="xref py py-const docutils literal"><span class="pre">None</span></code>, will use a <a class="reference internal" href="tubes/processes.html#pwnlib.tubes.process.process" title="pwnlib.tubes.process.process"><code class="xref py py-class docutils literal"><span class="pre">pwnlib.tubes.process.process</span></code></a>.</li>
+<li><strong>ulimit</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – Set to <code class="xref py py-const docutils literal"><span class="pre">True</span></code> to run “ulimit -s unlimited” before GDB.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A list of pwnlib.elf.ELF objects, with correct base addresses.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">context</span><span class="o">.</span><span class="n">local</span><span class="p">(</span><span class="n">log_level</span><span class="o">=</span><span class="mi">9999</span><span class="p">):</span> 
+<span class="gp">... </span>    <span class="n">shell</span> <span class="o">=</span> <span class="n">ssh</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s1">'bandit.labs.overthewire.org'</span><span class="p">,</span><span class="n">user</span><span class="o">=</span><span class="s1">'bandit0'</span><span class="p">,</span><span class="n">password</span><span class="o">=</span><span class="s1">'bandit0'</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">2220</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">bash_libs</span> <span class="o">=</span> <span class="n">gdb</span><span class="o">.</span><span class="n">find_module_addresses</span><span class="p">(</span><span class="s1">'/bin/bash'</span><span class="p">,</span> <span class="n">shell</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">bash_libs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">path</span><span class="p">)</span> 
+<span class="go">'libc.so.6'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">hex</span><span class="p">(</span><span class="n">bash_libs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">symbols</span><span class="p">[</span><span class="s1">'system'</span><span class="p">])</span> 
+<span class="go">'0x7ffff7634660'</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="function">
+<dt id="pwnlib.gdb.version"><a name="//apple_ref/cpp/Function/pwnlib.gdb.version"></a>
+<code class="descclassname">pwnlib.gdb.</code><code class="descname">version</code><span class="sig-paren">(</span><em>program=’gdb’</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/gdb.py#L983-1007"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.gdb.version" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the current GDB version.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Requires that GDB version meets the following format:</p>
+<p class="last"><code class="docutils literal"><span class="pre">GNU</span> <span class="pre">gdb</span> <span class="pre">(GDB)</span> <span class="pre">7.12</span></code></p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><em>tuple</em> – A tuple containing the version numbers</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Example</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">gdb</span><span class="o">.</span><span class="n">version</span><span class="p">()</span> <span class="o">&lt;=</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a accesskey="n" class="btn btn-neutral float-right" href="libcdb.html" rel="next" title="pwnlib.libcdb — Libc Database">Next <span class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral" href="fmtstr.html" rel="prev" title="pwnlib.fmtstr — Format string bug exploitation tools"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © Copyright 2016, Gallopsled et al..
+
+    </p>
+</div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'3.14.0dev',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+<script src="_static/jquery.js" type="text/javascript"></script>
+<script src="_static/underscore.js" type="text/javascript"></script>
+<script src="_static/doctools.js" type="text/javascript"></script>
+<script src="_static/js/theme.js" type="text/javascript"></script>
+<script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>
