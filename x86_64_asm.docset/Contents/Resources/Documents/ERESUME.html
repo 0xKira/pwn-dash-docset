@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-135"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/ERESUME"></a><title>ERESUME</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>March 2018</li></ul></nav></header><h1>ERESUME
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-135"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/ERESUME"></a><title>ERESUME</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>ERESUME
 		&mdash; Re-Enters an Enclave</h1>
 
 <table>
@@ -237,7 +237,7 @@
 <p>(* Get the SECS for the enclave in which the TCS resides *)</p>
 <p>TMP_SECS&larr;Address of SECS for TCS;</p>
 <p>(* Make sure that the FLAGS field in the TCS does not have any reserved bits set *)</p>
-<p>IF ( ( (DS:RBX).FLAGS &amp; &amp; FFFFFFFFFFFFFFFEH) ≠ 0)</p>
+<p>IF ( ( (DS:RBX).FLAGS &amp; FFFFFFFFFFFFFFFEH) ≠ 0)</p>
 <p>THEN #GP(0); FI;</p>
 <p>(* SECS must exist and enclave must have previously been EINITted *)</p>
 <p>IF (the enclave is not already initialized)</p>
@@ -279,7 +279,7 @@
 <p>CR_XSAVE_PAGE_n &larr; Physical_Address(DS:TMP_SSA_PAGE);</p>
 <p>ENDFOR</p>
 <p>(* Compute address of GPR area*)</p>
-<p>TMP_GPR&larr;TMP_SSA + 4096 * DS:TMP_SECS.SSAFRAMESIZE -- sizeof(GPRSGX_AREA);</p>
+<p>TMP_GPR&larr;TMP_SSA + 4096 * DS:TMP_SECS.SSAFRAMESIZE - sizeof(GPRSGX_AREA);</p>
 <p>Check that DS:TMP_SSA_PAGE is read/write accessible;</p>
 <p>If a fault occurs, release locks, abort and deliver that fault;</p>
 <p>IF (DS:TMP_GPR does not resolve to EPC page)</p>
@@ -375,9 +375,9 @@
 <p>RFLAGS.RF &larr; DS:TMP_GPR.RFLAGS.RF;</p>
 <p>RFLAGS.VM &larr; 0;</p>
 <p>IF (RFLAGS.IOPL = 3)</p>
-<p>THEN RFLAGS.IF = DS:TMP_GPR.IF; FI;</p>
+<p>THEN RFLAGS.IF&larr;DS:TMP_GPR.RFLAGS.IF; FI;</p>
 <p>IF (TCS.FLAGS.OPTIN = 0)</p>
-<p>THEN RFLAGS.TF = 0; FI;</p>
+<p>THEN RFLAGS.TF&larr;0; FI;</p>
 <p>(* If XSAVE is enabled, save XCR0 and replace it with SECS.ATTRIBUTES.XFRM*)</p>
 <p>IF (CR4.OSXSAVE = 1)</p>
 <p>CR_SAVE_XCR0 &larr; XCR0;</p>

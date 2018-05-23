@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-126"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/EMODT"></a><title>EMODT</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>March 2018</li></ul></nav></header><h1>EMODT
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-126"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/EMODT"></a><title>EMODT</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>EMODT
 		&mdash; Change the Type of an EPC Page</h1>
 
 <table>
@@ -153,7 +153,7 @@
 <p>IF (DS:RCX does not resolve within an EPC)</p>
 <p>THEN #PF(DS:RCX); FI;</p>
 <p>SCRATCH_SECINFO &larr; DS:RBX;</p>
-<p>(* Check for mis-configured SECINFO flags*)</p>
+<p>(* Check for misconfigured SECINFO flags*)</p>
 <p>IF ( (SCRATCH_SECINFO reserved fields are not zero ) or</p>
 <p>!(SCRATCH_SECINFO.FLAGS.PT is PT_TCS or SCRATCH_SECINFO.FLAGS.PT is PT_TRIM) )</p>
 <p>THEN #GP(0); FI;</p>
@@ -176,7 +176,7 @@
 <p>IF (!(EPCM(DS:RCX).PT is PT_REG or</p>
 <p>(EPCM(DS:RCX).PT is PT_TCS and SCRATCH_SECINFO.FLAGS.PT is PT_TRIM)))</p>
 <p>THEN #PF(DS:RCX); FI;</p>
-<p>IF ( (EPCM(DS:RCX).PENDING is not 0 or (EPCM(DS:RCX).MODIFIED is not 0) )</p>
+<p>IF (EPCM(DS:RCX).PENDING is not 0 or (EPCM(DS:RCX).MODIFIED is not 0) )</p>
 <p>THEN</p>
 <p>RFLAGS.ZF &larr; 1;</p>
 <p>RAX &larr; SGX_PAGE_NOT_MODIFIABLE;</p>

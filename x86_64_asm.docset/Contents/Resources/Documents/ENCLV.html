@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-129"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/ENCLV"></a><title>ENCLV</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>March 2018</li></ul></nav></header><h1>ENCLV
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-129"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/ENCLV"></a><title>ENCLV</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>ENCLV
 		&mdash; Execute an Enclave VMM Function of Specified Leaf Number</h1>
 
 <table>
@@ -46,7 +46,7 @@
             THEN GOTO TSX_ABORT_PROCESSING; FI;
 IF CR0.PE = 0 or RFLAGS.VM = 1 or in SMM or CPUID.SGX_LEAF.0:EAX.OSS = 0
             THEN #UD; FI;
-IF in VMX non-root operation and IA_32_EFER.LMA = 1 and CS.L = 1
+IF in VMX non-root operation and IA32_EFER.LMA = 1 and CS.L = 1
             THEN #UD; FI;
 IF (CPL &gt; 0)
             THEN #UD; FI;
@@ -61,7 +61,7 @@ IF in VMX non-root operation
 FI;
 IF IA32_FEATURE_CONTROL.LOCK = 0 or IA32_FEATURE_CONTROL.SGX_ENABLE = 0
             THEN #GP(0); FI;
-IF EAX is invalid leaf number)
+IF (EAX is an invalid leaf number)
             THEN #GP(0); FI;
 IF CR0.PG = 0
             THEN #GP(0); FI;

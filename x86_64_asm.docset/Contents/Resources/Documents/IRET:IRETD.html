@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-211"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/IRET%2FIRETD"></a><title>IRET/IRETD</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>March 2018</li></ul></nav></header><h1>IRET/IRETD
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-211"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/IRET%2FIRETD"></a><title>IRET/IRETD</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>IRET/IRETD
 		&mdash; Interrupt Return</h1>
 
 
@@ -134,7 +134,7 @@ PROTECTED-MODE:
         THEN GOTO RETURN-TO-VIRTUAL-8086-MODE;
         ELSE GOTO PROTECTED-MODE-RETURN;
     FI;
-TASK-RETURN: (* PE = 1, VM = 0, NT = 1 *)
+TASK-RETURN:(*PE=1,VM =0,NT =1*)
     SWITCH-TASKS (without nesting) to TSS specified in link field of current TSS;
     Mark the task just abandoned as NOT BUSY;
     IF EIP is not within CS limit

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-113"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/EDBGRD"></a><title>EDBGRD</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>March 2018</li></ul></nav></header><h1>EDBGRD
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-113"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/EDBGRD"></a><title>EDBGRD</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>EDBGRD
 		&mdash; Read From a Debug Enclave</h1>
 
 <table>
@@ -147,7 +147,7 @@
 <p>IF ( (EPCM(DS:RCX).PT ≠ PT_REG) and (EPCM(DS:RCX).PT ≠ PT_TCS) and (EPCM(DS:RCX).PT ≠ PT_VA))</p>
 <p>THEN #PF(DS:RCX); FI;</p>
 <p>(* make sure that DS:RCX points to an accessible EPC page *)</p>
-<p>IF ( (EPCM(DS:RCX).PENDING is not 0 or (EPCM(DS:RCX).MODIFIED is not 0) )</p>
+<p>IF (EPCM(DS:RCX).PENDING is not 0 or (EPCM(DS:RCX).MODIFIED is not 0) )</p>
 <p>THEN</p>
 <p>RFLAGS.ZF &larr; 1;</p>
 <p>RAX &larr; SGX_PAGE_NOT_DEBUGGABLE;</p>

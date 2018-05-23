@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-115"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/EDECVIRTCHILD"></a><title>EDECVIRTCHILD</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>March 2018</li></ul></nav></header><h1>EDECVIRTCHILD
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-115"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/EDECVIRTCHILD"></a><title>EDECVIRTCHILD</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>EDECVIRTCHILD
 		&mdash; Decrement VIRTCHILDCNT in SECS</h1>
 
 <table>
@@ -199,8 +199,8 @@
 <p>Locked_Decrement(SECS(TMP_SECS).VIRTCHILDCNT);</p>
 <p>IF (There was an underflow) THEN</p>
 <p>Locked_Increment(SECS(TMP_SECS).VIRTCHILDCNT);</p>
-<p>RFLAGS.ZF&larr; 1;</p>
-<p>RAX ? SGX_INVALID_COUNTER;</p>
+<p>RFLAGS.ZF &larr; 1;</p>
+<p>RAX &larr; SGX_INVALID_COUNTER;</p>
 <p>goto DONE;</p>
 <p>FI;</p>
 <p>RFLAGS.ZF &larr; 0;</p>

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-136"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/ESETCONTEXT"></a><title>ESETCONTEXT</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>March 2018</li></ul></nav></header><h1>ESETCONTEXT
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-136"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/ESETCONTEXT"></a><title>ESETCONTEXT</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>ESETCONTEXT
 		&mdash; Set the ENCLAVECONTEXT Field in SECS</h1>
 
 <table>
@@ -167,12 +167,10 @@
 <p>(* check page validity *)</p>
 <p>IF (EPCM(DS:RCX).VALID = 0) THEN</p>
 <p>#PF(DS:RCX, PFEC.SGX);</p>
-<p>goto DONE;</p>
 <p>FI;</p>
 <p>(* check EPC page is an SECS page *)</p>
 <p>IF (EPCM(DS:RCX).PT is not PT_SECS) THEN</p>
 <p>#PF(DS:RCX, PFEC.SGX);</p>
-<p>goto DONE;</p>
 <p>FI;</p>
 <p>(* load the context value into SECS(DS:RCX).ENCLAVECONTEXT *)</p>
 <p>SECS(DS:RCX).ENCLAVECONTEXT &larr; TMP_CONTEXT;</p>

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-11"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/ADDSUBPD"></a><title>ADDSUBPD</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>March 2018</li></ul></nav></header><h1>ADDSUBPD
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-11"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/ADDSUBPD"></a><title>ADDSUBPD</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>ADDSUBPD
 		&mdash; Packed Double-FP Add/Subtract</h1>
 
 <table>
@@ -57,31 +57,31 @@
 <p>VEX.128 encoded version: the first source operand is an XMM register or 128-bit memory location. The destination operand is an XMM register. The upper bits (MAXVL-1:128) of the corresponding YMM register destination are zeroed.</p>
 <p>VEX.256 encoded version: The first source operand is a YMM register. The second source operand can be a YMM register or a 256-bit memory location. The destination operand is a YMM register.</p>
 <figure id="fig-3-3">
-<svg style="width: 432.018pt; height: 151.206pt" viewBox="128.824 0.0 365.015 131.005">
+<svg style="width: 432.018pt; height: 151.206pt" viewBox="128.303 0.0 365.015 131.005">
 <g xmlns="http://www.w3.org/2000/svg" style="fill: none; stroke: none">
-<rect height="126.005" x="131.324" style="stroke: rgb(0%, 0%, 0%)" y="0.0" width="360.015"></rect>
-<rect height="27.001" x="144.825" style="fill: rgb(100%, 100%, 100%)" y="25.876" width="144.006"></rect>
-<rect height="27.001" x="144.825" style="stroke: rgb(0%, 0%, 0%)" y="25.876" width="144.006"></rect>
-<rect height="27.001" x="144.825" style="fill: rgb(80%, 80%, 80%)" y="74.253" width="144.006"></rect>
-<rect height="27.001" x="144.825" style="stroke: rgb(0%, 0%, 0%)" y="74.253" width="144.006"></rect>
-<rect height="27.001" x="288.831" style="fill: rgb(80%, 80%, 80%)" y="74.253" width="144.006"></rect>
-<rect height="27.001" x="288.831" style="stroke: rgb(0%, 0%, 0%)" y="74.253" width="144.006"></rect>
-<rect height="27.001" x="288.831" style="fill: rgb(100%, 100%, 100%)" y="25.876" width="144.006"></rect>
-<rect height="27.001" x="288.831" style="stroke: rgb(0%, 0%, 0%)" y="25.876" width="144.006"></rect>
-<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 216.828 69.0930000000001 L 216.828 52.8820000000001"></path>
-<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 219.588 68.7330000000001 L 216.828 74.253 L 214.068 68.7330000000001 L 219.588 68.7330000000001"></path>
-<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 360.834 69.0930000000001 L 360.834 52.8820000000001"></path>
-<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 363.594 68.7330000000001 L 360.834 74.253 L 358.074 68.7330000000001 L 363.594 68.7330000000001"></path>
-<text x="230.38335018" textLength="116.9083839" y="18.1434128400001" lengthAdjust="spacingAndGlyphs" style="font-size: 7.40027750000002pt; fill: #000">ADDSUBPD xmm1, xmm2/m128</text>
-<text x="436.83669189" textLength="44.0096503000001" y="43.45636204" lengthAdjust="spacingAndGlyphs" style="font-size: 7.40027750000002pt; fill: #000">xmm2/m128</text>
-<text x="202.3676" textLength="28.9130842" y="43.456863" lengthAdjust="spacingAndGlyphs" style="font-size: 7.40027750000002pt; fill: #000">[127:64]</text>
-<text x="350.8237" textLength="20.0167506" y="43.456863" lengthAdjust="spacingAndGlyphs" style="font-size: 7.40027750000002pt; fill: #000">[63:0]</text>
-<text x="436.83669189" textLength="32.3052114" y="87.0331961100001" lengthAdjust="spacingAndGlyphs" style="font-size: 7.40027750000002pt; fill: #000">RESULT:</text>
-<text x="150.4553" textLength="132.7329773" y="91.8338630000001" lengthAdjust="spacingAndGlyphs" style="font-size: 7.40027750000002pt; fill: #000">xmm1[127:64] + xmm2/m128[127:64]</text>
-<text x="304.3718" textLength="112.9322348" y="91.8338630000001" lengthAdjust="spacingAndGlyphs" style="font-size: 7.40027750000002pt; fill: #000">xmm1[63:0] - xmm2/m128[63:0]</text>
-<text x="436.83669189" textLength="21.7768166000001" y="96.6335561100001" lengthAdjust="spacingAndGlyphs" style="font-size: 7.40027750000002pt; fill: #000">xmm1</text>
-<text x="202.3775" textLength="28.9130842" y="115.484663" lengthAdjust="spacingAndGlyphs" style="font-size: 7.40027750000002pt; fill: #000">[127:64]</text>
-<text x="350.83346689" textLength="20.0167506" y="115.484663" lengthAdjust="spacingAndGlyphs" style="font-size: 7.40027750000002pt; fill: #000">[63:0]</text></g></svg>
+<rect height="126.005" x="130.803" style="stroke: rgb(0%, 0%, 0%)" y="0.0" width="360.015"></rect>
+<rect height="27.001" x="144.303" style="fill: rgb(100%, 100%, 100%)" y="25.876" width="144.006"></rect>
+<rect height="27.001" x="144.303" style="stroke: rgb(0%, 0%, 0%)" y="25.876" width="144.006"></rect>
+<rect height="27.001" x="144.303" style="fill: rgb(80%, 80%, 80%)" y="74.253" width="144.006"></rect>
+<rect height="27.001" x="144.303" style="stroke: rgb(0%, 0%, 0%)" y="74.253" width="144.006"></rect>
+<rect height="27.001" x="288.309" style="fill: rgb(80%, 80%, 80%)" y="74.253" width="144.006"></rect>
+<rect height="27.001" x="288.309" style="stroke: rgb(0%, 0%, 0%)" y="74.253" width="144.006"></rect>
+<rect height="27.001" x="288.309" style="fill: rgb(100%, 100%, 100%)" y="25.876" width="144.006"></rect>
+<rect height="27.001" x="288.309" style="stroke: rgb(0%, 0%, 0%)" y="25.876" width="144.006"></rect>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 216.306 69.0930000000001 L 216.306 52.8820000000001"></path>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 219.066 68.7330000000001 L 216.306 74.253 L 213.546 68.7330000000001 L 219.066 68.7330000000001"></path>
+<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 360.312 69.0930000000001 L 360.312 52.8820000000001"></path>
+<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 363.072 68.7330000000001 L 360.312 74.253 L 357.552 68.7330000000001 L 363.072 68.7330000000001"></path>
+<text x="229.86135018" textLength="116.9083839" y="18.1434128400001" lengthAdjust="spacingAndGlyphs" style="font-size: 7.40027750000002pt; fill: #000">ADDSUBPD xmm1, xmm2/m128</text>
+<text x="436.31469189" textLength="44.0096503000001" y="43.45636204" lengthAdjust="spacingAndGlyphs" style="font-size: 7.40027750000002pt; fill: #000">xmm2/m128</text>
+<text x="201.8456" textLength="28.9130842" y="43.456863" lengthAdjust="spacingAndGlyphs" style="font-size: 7.40027750000002pt; fill: #000">[127:64]</text>
+<text x="350.3017" textLength="20.0167506" y="43.456863" lengthAdjust="spacingAndGlyphs" style="font-size: 7.40027750000002pt; fill: #000">[63:0]</text>
+<text x="436.31469189" textLength="32.3052114" y="87.0331961100001" lengthAdjust="spacingAndGlyphs" style="font-size: 7.40027750000002pt; fill: #000">RESULT:</text>
+<text x="149.9333" textLength="132.7329773" y="91.8338630000001" lengthAdjust="spacingAndGlyphs" style="font-size: 7.40027750000002pt; fill: #000">xmm1[127:64] + xmm2/m128[127:64]</text>
+<text x="303.8498" textLength="112.9322348" y="91.8338630000001" lengthAdjust="spacingAndGlyphs" style="font-size: 7.40027750000002pt; fill: #000">xmm1[63:0] - xmm2/m128[63:0]</text>
+<text x="436.31469189" textLength="21.7768166000001" y="96.6335561100001" lengthAdjust="spacingAndGlyphs" style="font-size: 7.40027750000002pt; fill: #000">xmm1</text>
+<text x="201.8555" textLength="28.9130842" y="115.484663" lengthAdjust="spacingAndGlyphs" style="font-size: 7.40027750000002pt; fill: #000">[127:64]</text>
+<text x="350.31146689" textLength="20.0167506" y="115.484663" lengthAdjust="spacingAndGlyphs" style="font-size: 7.40027750000002pt; fill: #000">[63:0]</text></g></svg>
 <figcaption><a href="ADDSUBPD.html#fig-3-3">Figure 3-3</a>. ADDSUBPD&mdash;Packed Double-FP Add/Subtract</figcaption></figure>
 <h2 id="operation">Operation<a class="anchor" href="ADDSUBPD.html#operation">
 			&para;

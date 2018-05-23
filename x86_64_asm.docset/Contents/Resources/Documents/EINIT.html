@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-121"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/EINIT"></a><title>EINIT</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>March 2018</li></ul></nav></header><h1>EINIT
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-121"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/EINIT"></a><title>EINIT</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>EINIT
 		&mdash; Initialize an Enclave for Execution</h1>
 
 <table>
@@ -488,7 +488,7 @@
 <p>RAX &larr; SGX_INVALID_SIG_STRUCT;</p>
 <p>GOTO EXIT;</p>
 <p>FI;</p>
-<p>(* make sure no other instruction is accessing MRENCLAVE or ATTRIBUETS.INIT *)</p>
+<p>(* make sure no other instruction is accessing MRENCLAVE or ATTRIBUTES.INIT *)</p>
 <p>IF ( (Other instruction modifying MRENCLAVE) or (Other instructions modifying the SECS&rsquo;s Initialized state))</p>
 <p>THEN #GP(0); FI;</p>
 <p>(* Calculate finalized version of MRENCLAVE *)</p>
@@ -579,7 +579,7 @@
 <p>GOTO EXIT;</p>
 <p>FI;</p>
 <p>(* Verify EINITTOKEN (RDX) is for this enclave *)</p>
-<p>IF (TMP_TOKEN.MRENCLAVE ≠ TMP_MRENCLAVE) or (TMP_TOKEN.MRSIGNER ≠ TMP_MRSIGNER) )</p>
+<p>IF ( (TMP_TOKEN.MRENCLAVE ≠ TMP_MRENCLAVE) or (TMP_TOKEN.MRSIGNER ≠ TMP_MRSIGNER) )</p>
 <p>RFLAGS.ZF &larr; 1;</p>
 <p>RAX &larr; SGX_INVALID_MEASUREMENT;</p>
 <p>GOTO EXIT;</p>

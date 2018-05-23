@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-112"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/ECREATE"></a><title>ECREATE</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>March 2018</li></ul></nav></header><h1>ECREATE
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-112"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/ECREATE"></a><title>ECREATE</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>ECREATE
 		&mdash; Create an SECS page in the Enclave Page Cache</h1>
 
 <table>
@@ -154,7 +154,7 @@
 <p>IF (DS:RBX.LINADDR ! = 0 or DS:RBX.SECS ≠ 0)</p>
 <p>THEN #GP(0); FI;</p>
 <p>(* Check for misconfigured SECINFO flags*)</p>
-<p>IF (DS:TMP_SECINFO reserved fields are not zero or DS:TMP_SECINFO.FLAGS.PT ≠ PT_SECS) )</p>
+<p>IF (DS:TMP_SECINFO reserved fields are not zero or DS:TMP_SECINFO.FLAGS.PT ≠ PT_SECS)</p>
 <p>THEN #GP(0); FI;</p>
 <p>TMP_SECS &larr; RCX;</p>
 <p>IF (EPC entry in use)</p>
@@ -194,7 +194,7 @@
 <p>(* Compute the size required to save state of the enclave on async exit, see Section 41.7.2.2*)</p>
 <p>TMP_XSIZE&larr;compute_xsave_size(DS:TMP_SECS.ATTRIBUTES.XFRM) + GPR_SIZE + TMP_MISC_SIZE;</p>
 <p>(* Ensure that the declared area is large enough to hold XSAVE and GPR stat *)</p>
-<p>IF ( ( DS:TMP_SECS.SSAFRAMESIZE*4096 &lt; TMP_XSIZE)</p>
+<p>IF ( DS:TMP_SECS.SSAFRAMESIZE*4096 &lt; TMP_XSIZE)</p>
 <p>THEN #GP(0); FI;</p>
 <p>IF ( (DS:TMP_SECS.ATTRIBUTES.MODE64BIT = 1) and (DS:TMP_SECS.BASEADDR is not canonical) )</p>
 <p>THEN #GP(0); FI;</p>
@@ -207,12 +207,12 @@
 <p>IF (DS:TMP_SECS.SIZE &lt; 8192 or popcnt(DS:TMP_SECS.SIZE) &gt; 1)</p>
 <p>THEN #GP(0); FI;</p>
 <p>(* Ensure base address of an enclave is aligned on size*)</p>
-<p>IF ( ( DS:TMP_SECS.BASEADDR and (DS:TMP_SECS.SIZE-1) )</p>
+<p>IF ( ( DS:TMP_SECS.BASEADDR and (DS:TMP_SECS.SIZE-1) ) )</p>
 <p>THEN #GP(0); FI;</p>
-<p>* Ensure the SECS does not have any unsupported attributes*)</p>
-<p>IF ( ( DS:TMP_SECS.ATTRIBUTES and (~CR_SGX_ATTRIBUTES_MASK) )</p>
+<p>(* Ensure the SECS does not have any unsupported attributes*)</p>
+<p>IF ( DS:TMP_SECS.ATTRIBUTES and (~CR_SGX_ATTRIBUTES_MASK) )</p>
 <p>THEN #GP(0); FI;</p>
-<p>IF ( ( DS:TMP_SECS reserved fields are not zero)</p>
+<p>IF ( DS:TMP_SECS reserved fields are not zero)</p>
 <p>THEN #GP(0); FI;</p>
 <p>(* Verify that CONFIGID/CONFIGSVN are not set with attribute *)</p>
 <p>IF ( ((DS:TMP_SECS.CONFIGID ≠ 0) or (DS:TMP_SECS.CONFIGSVN ≠0)) AND (DS:TMP_SECS.ATTRIBUTES.KSS == 0 ))</p>

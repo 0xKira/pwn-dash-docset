@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-108"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/EACCEPTCOPY"></a><title>EACCEPTCOPY</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>March 2018</li></ul></nav></header><h1>EACCEPTCOPY
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-108"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/EACCEPTCOPY"></a><title>EACCEPTCOPY</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>EACCEPTCOPY
 		&mdash; Initialize a Pending Page</h1>
 
 <table>
@@ -187,8 +187,8 @@
 <p>THEN #PF(DS:RBX); FI;</p>
 <p>(* Copy 64 bytes of contents *)</p>
 <p>SCRATCH_SECINFO &larr; DS:RBX;</p>
-<p>(* Check for mis-configured SECINFO flags*)</p>
-<p>IF ( (SCRATCH_SECINFO reserved fields are not zero ) or ((SCRATCH_SECINFO.FLAGS.R=0) AND(SCRATCH_SECINFO.FLAGS.W≠0 ) or</p>
+<p>(* Check for misconfigured SECINFO flags*)</p>
+<p>IF ( (SCRATCH_SECINFO reserved fields are not zero ) or (SCRATCH_SECINFO.FLAGS.R=0) AND(SCRATCH_SECINFO.FLAGS.W≠0 ) or</p>
 <p>(SCRATCH_SECINFO.FLAGS.PT is not PT_REG) )</p>
 <p>THEN #GP(0); FI;</p>
 <p>(* Check security attributes of the source EPC page *)</p>

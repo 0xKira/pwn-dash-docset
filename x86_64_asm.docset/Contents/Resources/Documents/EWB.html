@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-139"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/EWB"></a><title>EWB</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>March 2018</li></ul></nav></header><h1>EWB
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-139"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/EWB"></a><title>EWB</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>EWB
 		&mdash; Invalidate an EPC Page and Write out to Main Memory</h1>
 
 <table>
@@ -207,7 +207,7 @@
 <p>TMP_PCMD &larr; DS:RBX.PCMD;</p>
 <p>If (DS:RBX.LINADDR ≠ 0) OR (DS:RBX.SECS ≠ 0)</p>
 <p>THEN #GP(0); FI;</p>
-<p>IF ( (DS:TMP_PCMD is not 128Byte Aligned) or (DSTMP_SRCPGE is not 4KByte Aligned) )</p>
+<p>IF ( (DS:TMP_PCMD is not 128Byte Aligned) or (DS:TMP_SRCPGE is not 4KByte Aligned) )</p>
 <p>THEN #GP(0); FI;</p>
 <p>(* Check for concurrent Intel SGX instruction access to the page *)</p>
 <p>IF (Other Intel SGX instruction is accessing page)</p>

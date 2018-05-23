@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-116"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/EENTER"></a><title>EENTER</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>March 2018</li></ul></nav></header><h1>EENTER
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-116"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/EENTER"></a><title>EENTER</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>EENTER
 		&mdash; Enters an Enclave</h1>
 
 <table>
@@ -176,7 +176,7 @@
 <td>Address of the GPR area within the current SSA frame.</td></tr></tbody></table>
 <p>TMP_MODE64&larr;((IA32_EFER.LMA = 1) &amp;&amp; (CS.L = 1));</p>
 <p>(* Make sure DS is usable, expand up *)</p>
-<p>IF (TMP_MODE64 = 0 and (DS not usable or ( ( DS[S] = 1) and (DS[bit 11] = 0) and DS[bit 10] = 1) ) ) )</p>
+<p>IF (TMP_MODE64 = 0 and (DS not usable or ( ( DS[S] = 1) and (DS[bit 11] = 0) and DS[bit 10] = 1) ) )</p>
 <p>THEN #GP(0); FI;</p>
 <p>(* Check that CS, SS, DS, ES.base is 0 *)</p>
 <p>IF (TMP_MODE64 = 0)</p>
@@ -280,7 +280,7 @@
 <p>CR_XSAVE_PAGE_n &larr; Physical_Address(DS:TMP_SSA_PAGE);</p>
 <p>ENDFOR</p>
 <p>(* Compute address of GPR area*)</p>
-<p>TMP_GPR&larr;TMP_SSA + 4096 * DS:TMP_SECS.SSAFRAMESIZE -- sizeof(GPRSGX_AREA);</p>
+<p>TMP_GPR&larr;TMP_SSA + 4096 * DS:TMP_SECS.SSAFRAMESIZE - sizeof(GPRSGX_AREA);</p>
 <p>If a fault occurs; release locks, abort and deliver that fault;</p>
 <p>IF (DS:TMP_GPR does not resolve to EPC page)</p>
 <p>THEN #PF(DS:TMP_GPR); FI;</p>
@@ -308,7 +308,7 @@
 <p>IF (TMP_TARGET &gt; CS limit) THEN #GP(0); FI;</p>
 <p>FI;</p>
 <p>(* Ensure the enclave is not already active and this thread is the only one using the TCS*)</p>
-<p>IF (DS:RBX.STATE = ACTIVE))</p>
+<p>IF (DS:RBX.STATE = ACTIVE)</p>
 <p>THEN #GP(0); FI;</p>
 <p>CR_ENCLAVE_MODE &larr; 1;</p>
 <p>CR_ACTIVE_SECS &larr; TMP_SECS;</p>

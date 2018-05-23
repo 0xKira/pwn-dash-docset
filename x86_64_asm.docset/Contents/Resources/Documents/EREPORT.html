@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-134"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/EREPORT"></a><title>EREPORT</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>March 2018</li></ul></nav></header><h1>EREPORT
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-134"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/EREPORT"></a><title>EREPORT</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>EREPORT
 		&mdash; Create a Cryptographic Report of the Enclave</h1>
 
 <table>
@@ -186,9 +186,9 @@
 <p>THEN #GP(0); FI;</p>
 <p>IF (DS:RBX does not resolve within an EPC)</p>
 <p>THEN #PF(DS:RBX); FI;</p>
-<p>IF (EPCM(DS:RBX). VALID = 0)</p>
+<p>IF (EPCM(DS:RBX).VALID = 0)</p>
 <p>THEN #PF(DS:RBX); FI;</p>
-<p>IF (EPCM(DS:RBX).BLOCKED = 1) )</p>
+<p>IF (EPCM(DS:RBX).BLOCKED = 1)</p>
 <p>THEN #PF(DS:RBX); FI;</p>
 <p>(* Check page parameters for correctness *)</p>
 <p>IF ( (EPCM(DS:RBX).PT ≠ PT_REG) or (EPCM(DS:RBX).ENCLAVESECS ≠ CR_ACTIVE_SECS) or (EPCM(DS:RBX).PENDING = 1) or</p>
@@ -199,10 +199,10 @@
 <p>IF ( (DS:RCX is not 128Byte Aligned) or (DS:RCX is not within CR_ELRANGE) )</p>
 <p>THEN #GP(0); FI;</p>
 <p>IF (DS:RCX does not resolve within an EPC)</p>
-<p>THEN #P(DS:RCX); FI;</p>
-<p>IF (EPCM(DS:RCX). VALID = 0)</p>
 <p>THEN #PF(DS:RCX); FI;</p>
-<p>IF (EPCM(DS:RCX).BLOCKED = 1) )</p>
+<p>IF (EPCM(DS:RCX).VALID = 0)</p>
+<p>THEN #PF(DS:RCX); FI;</p>
+<p>IF (EPCM(DS:RCX).BLOCKED = 1)</p>
 <p>THEN #PF(DS:RCX); FI;</p>
 <p>(* Check page parameters for correctness *)</p>
 <p>IF ( (EPCM(DS:RCX).PT ≠ PT_REG) or (EPCM(DS:RCX).ENCLAVESECS ≠ CR_ACTIVE_SECS) or (EPCM(DS:RCX).PENDING = 1) or</p>
@@ -214,9 +214,9 @@
 <p>THEN #GP(0); FI;</p>
 <p>IF (DS:RDX does not resolve within an EPC)</p>
 <p>THEN #PF(DS:RDX); FI;</p>
-<p>IF (EPCM(DS:RDX). VALID = 0)</p>
+<p>IF (EPCM(DS:RDX).VALID = 0)</p>
 <p>THEN #PF(DS:RDX); FI;</p>
-<p>IF (EPCM(DS:RDX).BLOCKED = 1) )</p>
+<p>IF (EPCM(DS:RDX).BLOCKED = 1)</p>
 <p>THEN #PF(DS:RDX); FI;</p>
 <p>(* Check page parameters for correctness *)</p>
 <p>IF ( (EPCM(DS:RDX).PT ≠ PT_REG) or (EPCM(DS:RDX).ENCLAVESECS ≠ CR_ACTIVE_SECS) or (EPCM(DS:RCX).PENDING = 1) or</p>

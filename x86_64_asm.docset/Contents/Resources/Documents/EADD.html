@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-109"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/EADD"></a><title>EADD</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>March 2018</li></ul></nav></header><h1>EADD
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-109"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/EADD"></a><title>EADD</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>EADD
 		&mdash; Add a Page to an Uninitialized Enclave</h1>
 
 <table>
@@ -192,12 +192,12 @@
 <p>IF (DS:TMP_SECS does not resolve within an EPC)</p>
 <p>THEN #PF(DS:TMP_SECS); FI;</p>
 <p>SCRATCH_SECINFO &larr; DS:TMP_SECINFO;</p>
-<p>(* Check for mis-configured SECINFO flags*)</p>
+<p>(* Check for misconfigured SECINFO flags*)</p>
 <p>IF (SCRATCH_SECINFO reserved fields are not zero or</p>
 <p>! (SCRATCH_SECINFO.FLAGS.PT is PT_REG or SCRATCH_SECINFO.FLAGS.PT is PT_TCS) )</p>
 <p>THEN #GP(0); FI;</p>
 <p>(* Check the EPC page for concurrency *)</p>
-<p>IF (SECS is not available for EADD)</p>
+<p>IF (EPC page is not available for EADD)</p>
 <p>THEN</p>
 <p>IF (&lt;&lt;VMX non-root operation&gt;&gt; AND &lt;&lt;ENABLE_EPC_VIRTUALIZATION_EXTENSIONS&gt;&gt;)</p>
 <p>THEN</p>
@@ -221,10 +221,9 @@
 <p>(* Copy 4KBytes from source page to EPC page*)</p>
 <p>DS:RCX[32767:0] &larr; DS:TMP_SRCPGE[32767:0];</p>
 <p>CASE (SCRATCH_SECINFO.FLAGS.PT)</p>
-<p>{</p>
 <p>PT_TCS:</p>
 <p>IF (DS:RCX.RESERVED ≠ 0) #GP(0); FI;</p>
-<p>IF ( (DS:TMP_SECS.ATTIBUTES.MODE64BIT = 0) and</p>
+<p>IF ( (DS:TMP_SECS.ATTRIBUTES.MODE64BIT = 0) and</p>
 <p>((DS:TCS.FSLIMIT &amp; 0FFFH ≠ 0FFFH) or (DS:TCS.GSLIMIT &amp; 0FFFH ≠ 0FFFH) )) #GP(0); FI;</p>
 <p>BREAK;</p>
 <p>PT_REG:</p>

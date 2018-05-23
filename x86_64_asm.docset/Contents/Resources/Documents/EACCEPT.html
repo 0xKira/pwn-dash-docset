@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-107"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/EACCEPT"></a><title>EACCEPT</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>March 2018</li></ul></nav></header><h1>EACCEPT
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-107"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/EACCEPT"></a><title>EACCEPT</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>EACCEPT
 		&mdash; Accept Changes to an EPC Page</h1>
 
 <table>
@@ -175,8 +175,8 @@
 <p>THEN #PF(DS:RBX); FI;</p>
 <p>(* Copy 64 bytes of contents *)</p>
 <p>SCRATCH_SECINFO &larr; DS:RBX;</p>
-<p>(* Check for mis-configured SECINFO flags*)</p>
-<p>IF (SCRATCH_SECINFO reserved fields are not zero ) )</p>
+<p>(* Check for misconfigured SECINFO flags*)</p>
+<p>IF (SCRATCH_SECINFO reserved fields are not zero )</p>
 <p>THEN #GP(0); FI;</p>
 <p>IF (DS:RCX is not 4KByte Aligned)</p>
 <p>THEN #GP(0); FI;</p>
@@ -228,7 +228,7 @@
 <p>IF (SCRATCH_SECINFO.FLAGS.PT = PT_TCS)</p>
 <p>IF (DS:RCX.RESERVED ≠ 0) #GP(0); FI;</p>
 <p>FI;</p>
-<p>(* Check that TCS.FLAGS.DBGOPTIN, TCS stack, and TCS status are correctly initialized *) IF ( ((DS:RCX).FLAGS.DBGOPTIN is not 0) or ((DS:RCX).CSSA &ge; (DS:RCX).NSSA) or ((DS:RCX).AEP is not 0) or ((DS:RCX).STATE is not 0) THEN #GP(0); FI;</p>
+<p>(* Check that TCS.FLAGS.DBGOPTIN, TCS stack, and TCS status are correctly initialized *) IF ( ((DS:RCX).FLAGS.DBGOPTIN is not 0) or ((DS:RCX).CSSA &ge; (DS:RCX).NSSA) or ((DS:RCX).AEP is not 0) or ((DS:RCX).STATE is not 0)) THEN #GP(0); FI;</p>
 <p>(* Check consistency of FS &amp; GS Limit *)</p>
 <p>IF ( (TMP_SECS.ATTRIBUTES.MODE64BIT is 0) and ((DS:RCX.FSLIMIT &amp; FFFH ≠ FFFH) or (DS:RCX.GSLIMIT &amp; FFFH ≠ FFFH)) )</p>
 <p>THEN #GP(0); FI;</p>

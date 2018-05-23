@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-75"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/CVTDQ2PS"></a><title>CVTDQ2PS</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>March 2018</li></ul></nav></header><h1>CVTDQ2PS
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-75"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/CVTDQ2PS"></a><title>CVTDQ2PS</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>CVTDQ2PS
 		&mdash; Convert Packed Doubleword Integers to Packed Single-Precision Floating-Point Values</h1>
 
 <table>
@@ -125,8 +125,7 @@ FOR j&larr;0 TO KL-1
         ELSE
             IF *merging-masking* ; merging-masking
                 THEN *DEST[i+31:i] remains unchanged*
-                ELSE
-                        ; zeroing-masking
+                ELSE ; zeroing-masking
                     DEST[i+31:i] &larr; 0
             FI
     FI;
