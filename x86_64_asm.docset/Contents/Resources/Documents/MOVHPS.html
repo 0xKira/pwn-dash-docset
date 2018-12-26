@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-269"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/MOVHPS"></a><title>MOVHPS</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>MOVHPS
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-269"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/MOVHPS"></a><title>MOVHPS</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>November 2018</li></ul></nav></header><h1>MOVHPS
 		&mdash; Move High Packed Single-Precision Floating-Point Values</h1>
 
 <table>
@@ -15,13 +15,13 @@
 <td>SSE</td>
 <td>Move two packed single-precision floating-point values from m64 to high quadword of xmm1.</td></tr>
 <tr>
-<td>VEX.NDS.128.0F.WIG 16 /r VMOVHPS xmm2, xmm1, m64</td>
+<td>VEX.128.0F.WIG 16 /r VMOVHPS xmm2, xmm1, m64</td>
 <td>B</td>
 <td>V/V</td>
 <td>AVX</td>
 <td>Merge two packed single-precision floating-point values from m64 and the low quadword of xmm1.</td></tr>
 <tr>
-<td>EVEX.NDS.128.0F.W0 16 /r VMOVHPS xmm2, xmm1, m64</td>
+<td>EVEX.128.0F.W0 16 /r VMOVHPS xmm2, xmm1, m64</td>
 <td>D</td>
 <td>V/V</td>
 <td>AVX512F</td>
@@ -100,7 +100,7 @@
 <p>Loads two single-precision floating-point values from the source 64-bit memory operand (the third operand) and stores it in the upper 64-bits of the destination XMM register (first operand). The low 64-bits from the first source operand (the second operand) are copied to the lower 64-bits of the destination. Bits (MAXVL-1:128) of the corresponding destination register are zeroed.</p>
 <p><strong>128-bit store:</strong></p>
 <p>Stores two packed single-precision floating-point values from the high 64-bits of the XMM register source (second operand) to the 64-bit memory location (first operand).</p>
-<p>Note: VMOVHPS (store) (VEX.NDS.128.0F 17 /r) is legal and has the same behavior as the existing 0F 17 store. For VMOVHPS (store) VEX.vvvv and EVEX.vvvv are reserved and must be 1111b otherwise instruction will #UD.</p>
+<p>Note: VMOVHPS (store) (VEX.128.0F 17 /r) is legal and has the same behavior as the existing 0F 17 store. For VMOVHPS (store) VEX.vvvv and EVEX.vvvv are reserved and must be 1111b otherwise instruction will #UD.</p>
 <p>If VMOVHPS is encoded with VEX.L or EVEX.L&rsquo;L= 1, an attempt to execute the instruction encoded with VEX.L or EVEX.L&rsquo;L= 1 will cause an #UD exception.</p>
 <h3 id="operation">Operation<a class="anchor" href="MOVHPS.html#operation">
 			&para;

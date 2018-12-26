@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-327"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/PCMPGTB%2FPCMPGTW%2FPCMPGTD"></a><title>PCMPGTB/PCMPGTW/PCMPGTD</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>PCMPGTB/PCMPGTW/PCMPGTD
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-327"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/PCMPGTB%2FPCMPGTW%2FPCMPGTD"></a><title>PCMPGTB/PCMPGTW/PCMPGTD</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>November 2018</li></ul></nav></header><h1>PCMPGTB/PCMPGTW/PCMPGTD
 		&mdash; Compare Packed Signed Integers for Greater Than</h1>
 
 
@@ -47,92 +47,92 @@
 <td>SSE2</td>
 <td>Compare packed signed doubleword integers in <em>xmm1</em> and <em>xmm2/m128</em> for greater than.</td></tr>
 <tr>
-<td>VEX.NDS.128.66.0F.WIG 64 /r VPCMPGTB <em>xmm1, xmm2, xmm3/m128</em></td>
+<td>VEX.128.66.0F.WIG 64 /r VPCMPGTB <em>xmm1, xmm2, xmm3/m128</em></td>
 <td>B</td>
 <td>V/V</td>
 <td>AVX</td>
 <td>Compare packed signed byte integers in <em>xmm2</em> and <em>xmm3/m128</em> for greater than.</td></tr>
 <tr>
-<td>VEX.NDS.128.66.0F.WIG 65 /r VPCMPGTW <em>xmm1, xmm2, xmm3/m128</em></td>
+<td>VEX.128.66.0F.WIG 65 /r VPCMPGTW <em>xmm1, xmm2, xmm3/m128</em></td>
 <td>B</td>
 <td>V/V</td>
 <td>AVX</td>
 <td>Compare packed signed word integers in <em>xmm2</em> and <em>xmm3/m128</em> for greater than.</td></tr>
 <tr>
-<td>VEX.NDS.128.66.0F.WIG 66 /r VPCMPGTD <em>xmm1, xmm2, xmm3/m128</em></td>
+<td>VEX.128.66.0F.WIG 66 /r VPCMPGTD <em>xmm1, xmm2, xmm3/m128</em></td>
 <td>B</td>
 <td>V/V</td>
 <td>AVX</td>
 <td>Compare packed signed doubleword integers in <em>xmm2</em> and <em>xmm3/m128</em> for greater than.</td></tr>
 <tr>
-<td>VEX.NDS.256.66.0F.WIG 64 /r VPCMPGTB <em>ymm1, ymm2, ymm3/m256</em></td>
+<td>VEX.256.66.0F.WIG 64 /r VPCMPGTB <em>ymm1, ymm2, ymm3/m256</em></td>
 <td>B</td>
 <td>V/V</td>
 <td>AVX2</td>
 <td>Compare packed signed byte integers in <em>ymm2</em> and <em>ymm3/m256</em> for greater than.</td></tr>
 <tr>
-<td>VEX.NDS.256.66.0F.WIG 65 /r VPCMPGTW <em>ymm1, ymm2, ymm3/m256</em></td>
+<td>VEX.256.66.0F.WIG 65 /r VPCMPGTW <em>ymm1, ymm2, ymm3/m256</em></td>
 <td>B</td>
 <td>V/V</td>
 <td>AVX2</td>
 <td>Compare packed signed word integers in <em>ymm2</em> and <em>ymm3/m256</em> for greater than.</td></tr>
 <tr>
-<td>VEX.NDS.256.66.0F.WIG 66 /r VPCMPGTD <em>ymm1, ymm2, ymm3/m256</em></td>
+<td>VEX.256.66.0F.WIG 66 /r VPCMPGTD <em>ymm1, ymm2, ymm3/m256</em></td>
 <td>B</td>
 <td>V/V</td>
 <td>AVX2</td>
 <td>Compare packed signed doubleword integers in <em>ymm2</em> and <em>ymm3/m256</em> for greater than.</td></tr>
 <tr>
-<td>EVEX.NDS.128.66.0F.W0 66 /r VPCMPGTD k1 {k2}, xmm2, xmm3/m128/m32bcst</td>
+<td>EVEX.128.66.0F.W0 66 /r VPCMPGTD k1 {k2}, xmm2, xmm3/m128/m32bcst</td>
 <td>C</td>
 <td>V/V</td>
 <td>AVX512VL AVX512F</td>
 <td>Compare Greater between int32 vector xmm2 and int32 vector xmm3/m128/m32bcst, and set vector mask k1 to reflect the zero/nonzero status of each element of the result, under writemask.</td></tr>
 <tr>
-<td>EVEX.NDS.256.66.0F.W0 66 /r VPCMPGTD k1 {k2}, ymm2, ymm3/m256/m32bcst</td>
+<td>EVEX.256.66.0F.W0 66 /r VPCMPGTD k1 {k2}, ymm2, ymm3/m256/m32bcst</td>
 <td>C</td>
 <td>V/V</td>
 <td>AVX512VL AVX512F</td>
 <td>Compare Greater between int32 vector ymm2 and int32 vector ymm3/m256/m32bcst, and set vector mask k1 to reflect the zero/nonzero status of each element of the result, under writemask.</td></tr>
 <tr>
-<td>EVEX.NDS.512.66.0F.W0 66 /r VPCMPGTD k1 {k2}, zmm2, zmm3/m512/m32bcst</td>
+<td>EVEX.512.66.0F.W0 66 /r VPCMPGTD k1 {k2}, zmm2, zmm3/m512/m32bcst</td>
 <td>C</td>
 <td>V/V</td>
 <td>AVX512F</td>
 <td>Compare Greater between int32 elements in zmm2 and zmm3/m512/m32bcst, and set destination k1 according to the comparison results under writemask. k2.</td></tr>
 <tr>
-<td>EVEX.NDS.128.66.0F.WIG 64 /r VPCMPGTB k1 {k2}, xmm2, xmm3/m128</td>
+<td>EVEX.128.66.0F.WIG 64 /r VPCMPGTB k1 {k2}, xmm2, xmm3/m128</td>
 <td>D</td>
 <td>V/V</td>
 <td>AVX512VL AVX512BW</td>
 <td>Compare packed signed byte integers in xmm2 and xmm3/m128 for greater than, and set vector mask k1 to reflect the zero/nonzero status of each element of the result, under writemask.</td></tr>
 <tr>
-<td>EVEX.NDS.256.66.0F.WIG 64 /r VPCMPGTB k1 {k2}, ymm2, ymm3/m256</td>
+<td>EVEX.256.66.0F.WIG 64 /r VPCMPGTB k1 {k2}, ymm2, ymm3/m256</td>
 <td>D</td>
 <td>V/V</td>
 <td>AVX512VL AVX512BW</td>
 <td>Compare packed signed byte integers in ymm2 and ymm3/m256 for greater than, and set vector mask k1 to reflect the zero/nonzero status of each element of the result, under writemask.</td></tr></tbody></table>
 <table>
 <tbody><tr>
-<td>EVEX.NDS.512.66.0F.WIG 64 /r VPCMPGTB k1 {k2}, zmm2, zmm3/m512</td>
+<td>EVEX.512.66.0F.WIG 64 /r VPCMPGTB k1 {k2}, zmm2, zmm3/m512</td>
 <td>D</td>
 <td>V/V</td>
 <td>AVX512BW</td>
 <td>Compare packed signed byte integers in zmm2 and zmm3/m512 for greater than, and set vector mask k1 to reflect the zero/nonzero status of each element of the result, under writemask.</td></tr>
 <tr>
-<td>EVEX.NDS.128.66.0F.WIG 65 /r VPCMPGTW k1 {k2}, xmm2, xmm3/m128</td>
+<td>EVEX.128.66.0F.WIG 65 /r VPCMPGTW k1 {k2}, xmm2, xmm3/m128</td>
 <td>D</td>
 <td>V/V</td>
 <td>AVX512VL AVX512BW</td>
 <td>Compare packed signed word integers in xmm2 and xmm3/m128 for greater than, and set vector mask k1 to reflect the zero/nonzero status of each element of the result, under writemask.</td></tr>
 <tr>
-<td>EVEX.NDS.256.66.0F.WIG 65 /r VPCMPGTW k1 {k2}, ymm2, ymm3/m256</td>
+<td>EVEX.256.66.0F.WIG 65 /r VPCMPGTW k1 {k2}, ymm2, ymm3/m256</td>
 <td>D</td>
 <td>V/V</td>
 <td>AVX512VL AVX512BW</td>
 <td>Compare packed signed word integers in ymm2 and ymm3/m256 for greater than, and set vector mask k1 to reflect the zero/nonzero status of each element of the result, under writemask.</td></tr>
 <tr>
-<td>EVEX.NDS.512.66.0F.WIG 65 /r VPCMPGTW k1 {k2}, zmm2, zmm3/m512</td>
+<td>EVEX.512.66.0F.WIG 65 /r VPCMPGTW k1 {k2}, zmm2, zmm3/m512</td>
 <td>D</td>
 <td>V/V</td>
 <td>AVX512BW</td>

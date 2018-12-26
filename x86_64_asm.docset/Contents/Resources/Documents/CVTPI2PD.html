@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-79"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/CVTPI2PD"></a><title>CVTPI2PD</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>CVTPI2PD
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-79"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/CVTPI2PD"></a><title>CVTPI2PD</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>November 2018</li></ul></nav></header><h1>CVTPI2PD
 		&mdash; Convert Packed Dword Integers to Packed Double-Precision FP Values</h1>
 
 <table>
@@ -38,8 +38,8 @@
 <p>Converts two packed signed doubleword integers in the source operand (second operand) to two packed double-precision floating-point values in the destination operand (first operand).</p>
 <p>The source operand can be an MMX technology register or a 64-bit memory location. The destination operand is an XMM register. In addition, depending on the operand configuration:</p>
 <ul>
-<li><strong>For operands </strong><strong><em>xmm</em></strong><strong>, </strong><strong><em>mm</em></strong><strong>: </strong>the instruction causes a transition from x87 FPU to MMX technology operation (that is, the x87 FPU top-of-stack pointer is set to 0 and the x87 FPU tag word is set to all 0s [valid]). If this instruction is executed while an x87 FPU floating-point exception is pending, the exception is handled before the CVTPI2PD instruction is executed.</li>
-<li><strong>For operands </strong><strong><em>xmm</em></strong><strong>, </strong><strong><em>m64</em></strong><strong>: </strong>the instruction does not cause a transition to MMX technology and does not take x87 FPU exceptions.</li></ul>
+<li><strong>For operands </strong>xmm<strong>, </strong>mm<strong>: </strong>the instruction causes a transition from x87 FPU to MMX technology operation (that is, the x87 FPU top-of-stack pointer is set to 0 and the x87 FPU tag word is set to all 0s [valid]). If this instruction is executed while an x87 FPU floating-point exception is pending, the exception is handled before the CVTPI2PD instruction is executed.</li>
+<li><strong>For operands </strong>xmm<strong>, </strong>m64<strong>: </strong>the instruction does not cause a transition to MMX technology and does not take x87 FPU exceptions.</li></ul>
 <p>In 64-bit mode, use of the REX.R prefix permits this instruction to access additional registers (XMM8-XMM15).</p>
 <h2 id="operation">Operation<a class="anchor" href="CVTPI2PD.html#operation">
 			&para;

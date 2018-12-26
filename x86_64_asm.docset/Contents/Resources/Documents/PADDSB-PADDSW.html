@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-313"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/PADDSB%2FPADDSW"></a><title>PADDSB/PADDSW</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>PADDSB/PADDSW
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-313"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/PADDSB%2FPADDSW"></a><title>PADDSB/PADDSW</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>November 2018</li></ul></nav></header><h1>PADDSB/PADDSW
 		&mdash; Add Packed Signed Integers with Signed Saturation</h1>
 
 
@@ -34,61 +34,61 @@
 <td>SSE2</td>
 <td>Add packed signed word integers from <em>xmm2/m128</em> and <em>xmm1</em> and saturate the results.</td></tr>
 <tr>
-<td>VEX.NDS.128.66.0F.WIG EC /r VPADDSB <em>xmm1, xmm2, xmm3/m128</em></td>
+<td>VEX.128.66.0F.WIG EC /r VPADDSB <em>xmm1, xmm2, xmm3/m128</em></td>
 <td>B</td>
 <td>V/V</td>
 <td>AVX</td>
 <td>Add packed signed byte integers from <em>xmm3/m128</em> and <em>xmm2</em> saturate the results.</td></tr>
 <tr>
-<td>VEX.NDS.128.66.0F.WIG ED /r VPADDSW <em>xmm1, xmm2, xmm3/m128</em></td>
+<td>VEX.128.66.0F.WIG ED /r VPADDSW <em>xmm1, xmm2, xmm3/m128</em></td>
 <td>B</td>
 <td>V/V</td>
 <td>AVX</td>
 <td>Add packed signed word integers from <em>xmm3/m128</em> and <em>xmm2</em> and saturate the results.</td></tr>
 <tr>
-<td>VEX.NDS.256.66.0F.WIG EC /r VPADDSB <em>ymm1, ymm2, ymm3/m256</em></td>
+<td>VEX.256.66.0F.WIG EC /r VPADDSB <em>ymm1, ymm2, ymm3/m256</em></td>
 <td>B</td>
 <td>V/V</td>
 <td>AVX2</td>
 <td>Add packed signed byte integers from ymm2, and <em>ymm3/m256</em> and store the saturated results in <em>ymm1</em>.</td></tr>
 <tr>
-<td>VEX.NDS.256.66.0F.WIG ED /r VPADDSW <em>ymm1, ymm2, ymm3/m256</em></td>
+<td>VEX.256.66.0F.WIG ED /r VPADDSW <em>ymm1, ymm2, ymm3/m256</em></td>
 <td>B</td>
 <td>V/V</td>
 <td>AVX2</td>
 <td>Add packed signed word integers from ymm2, and <em>ymm3/m256</em> and store the saturated results in <em>ymm1</em>.</td></tr>
 <tr>
-<td>EVEX.NDS.128.66.0F.WIG EC /r VPADDSB <em>xmm1 {k1}{z}, xmm2, xmm3/m128</em></td>
+<td>EVEX.128.66.0F.WIG EC /r VPADDSB <em>xmm1 {k1}{z}, xmm2, xmm3/m128</em></td>
 <td>C</td>
 <td>V/V</td>
 <td>AVX512VL AVX512BW</td>
 <td>Add packed signed byte integers from xmm2, and <em>xmm3/m128</em> and store the saturated results in xmm1 under writemask k1.</td></tr>
 <tr>
-<td>EVEX.NDS.256.66.0F.WIG EC /r VPADDSB <em>ymm1 {k1}{z}, ymm2, ymm3/m256</em></td>
+<td>EVEX.256.66.0F.WIG EC /r VPADDSB <em>ymm1 {k1}{z}, ymm2, ymm3/m256</em></td>
 <td>C</td>
 <td>V/V</td>
 <td>AVX512VL AVX512BW</td>
 <td>Add packed signed byte integers from ymm2, and <em>ymm3/m256</em> and store the saturated results in ymm1 under writemask k1.</td></tr>
 <tr>
-<td>EVEX.NDS.512.66.0F.WIG EC /r VPADDSB <em>zmm1 {k1}{z}, zmm2, zmm3/m512</em></td>
+<td>EVEX.512.66.0F.WIG EC /r VPADDSB <em>zmm1 {k1}{z}, zmm2, zmm3/m512</em></td>
 <td>C</td>
 <td>V/V</td>
 <td>AVX512BW</td>
 <td>Add packed signed byte integers from zmm2, and <em>zmm3/m512</em> and store the saturated results in zmm1 under writemask k1.</td></tr>
 <tr>
-<td>EVEX.NDS.128.66.0F.WIG ED /r VPADDSW <em>xmm1 {k1}{z}, xmm2, xmm3/m128</em></td>
+<td>EVEX.128.66.0F.WIG ED /r VPADDSW <em>xmm1 {k1}{z}, xmm2, xmm3/m128</em></td>
 <td>C</td>
 <td>V/V</td>
 <td>AVX512VL AVX512BW</td>
 <td>Add packed signed word integers from xmm2, and <em>xmm3/m128</em> and store the saturated results in xmm1 under writemask k1.</td></tr>
 <tr>
-<td>EVEX.NDS.256.66.0F.WIG ED /r VPADDSW <em>ymm1 {k1}{z}, ymm2, ymm3/m256</em></td>
+<td>EVEX.256.66.0F.WIG ED /r VPADDSW <em>ymm1 {k1}{z}, ymm2, ymm3/m256</em></td>
 <td>C</td>
 <td>V/V</td>
 <td>AVX512VL AVX512BW</td>
 <td>Add packed signed word integers from ymm2, and <em>ymm3/m256</em> and store the saturated results in ymm1 under writemask k1.</td></tr>
 <tr>
-<td>EVEX.NDS.512.66.0F.WIG ED /r VPADDSW <em>zmm1 {k1}{z}, zmm2, zmm3/m512</em></td>
+<td>EVEX.512.66.0F.WIG ED /r VPADDSW <em>zmm1 {k1}{z}, zmm2, zmm3/m512</em></td>
 <td>C</td>
 <td>V/V</td>
 <td>AVX512BW</td>

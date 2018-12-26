@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-632"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/VREDUCEPD"></a><title>VREDUCEPD</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>VREDUCEPD
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-632"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/VREDUCEPD"></a><title>VREDUCEPD</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>November 2018</li></ul></nav></header><h1>VREDUCEPD
 		&mdash; Perform Reduction Transformation on Packed Float64 Values</h1>
 
 <table>
@@ -58,50 +58,50 @@
 <p>This instruction might end up with a precision exception set. However, in case of SPE set (i.e. Suppress Precision Exception, which is imm8[3]=1), no precision exception is reported.</p>
 <p>EVEX.vvvv is reserved and must be 1111b otherwise instructions will #UD.</p>
 <figure id="fig-5-28">
-<svg style="width: 619.056pt; height: 129.744pt" viewBox="41.54 0.0 520.88 113.12">
-<g xmlns="http://www.w3.org/2000/svg" style="fill: none; stroke: none">
-<rect height="107.1" x="44.04" style="fill: rgb(0%, 0%, 0%)" y="0.47999999999999" width="0.48001"></rect>
-<rect height="107.1" x="559.44" style="fill: rgb(0%, 0%, 0%)" y="0.47999999999999" width="0.47998"></rect>
-<rect height="0.48" x="44.04" style="fill: rgb(0%, 0%, 0%)" y="0.0" width="515.88"></rect>
-<rect height="0.48001" x="44.04" style="fill: rgb(0%, 0%, 0%)" y="107.63999" width="515.88"></rect>
-<rect height="13.5" x="465.84" style="fill: rgb(0%, 0%, 0%)" y="27.54" width="0.48001"></rect>
-<rect height="0.48" x="92.82" style="fill: rgb(0%, 0%, 0%)" y="40.56" width="373.26"></rect>
-<rect height="13.5" x="92.82" style="fill: rgb(0%, 0%, 0%)" y="27.3" width="0.48"></rect>
-<rect height="0.24001" x="372.6" style="fill: rgb(0%, 0%, 0%)" y="27.53999" width="0.47998"></rect>
-<rect height="13.26" x="372.6" style="fill: rgb(0%, 0%, 0%)" y="27.78" width="0.47998"></rect>
-<rect height="0.24001" x="279.3" style="fill: rgb(0%, 0%, 0%)" y="27.53999" width="0.48001"></rect>
-<rect height="13.26" x="279.3" style="fill: rgb(0%, 0%, 0%)" y="27.78" width="0.48001"></rect>
-<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 137.64 61.44 L 133.44 64.38"></path>
-<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 139.32 63.9 L 133.44 64.38 L 135.9 59.04"></path>
-<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 159.54 46.2 L 137.64 61.44"></path>
-<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 440.46 53.52 L 444.48 56.7"></path>
-<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 442.32 51.18 L 444.48 56.7 L 438.66 55.86"></path>
-<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 423.6 40.2 L 440.46 53.52"></path>
-<rect height="0.23999" x="327.3" style="fill: rgb(0%, 0%, 0%)" y="28.50001" width="0.48001"></rect>
-<rect height="11.7" x="327.3" style="fill: rgb(0%, 0%, 0%)" y="28.74" width="0.48001"></rect>
-<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 350.46 57.06 L 351.0 62.16"></path>
-<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 353.4 56.76 L 351.0 62.16 L 347.52 57.42"></path>
-<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 348.6 40.74 L 350.46 57.06"></path>
-<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 280.68 52.92 L 276.06 55.2"></path>
-<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 281.94 55.62 L 276.06 55.2 L 279.36 50.28"></path>
-<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 302.52 42.24 L 280.68 52.92"></path>
-<text x="394.86" textLength="49.83" y="23.796" lengthAdjust="spacingAndGlyphs" style="font-size: 7.518pt; fill: #000">10</text>
-<text x="62.58" textLength="14.0712" y="36.036" lengthAdjust="spacingAndGlyphs" style="font-size: 7.518pt; fill: #000">imm8</text>
-<text x="297.6" textLength="9.75240000000002" y="37.176" lengthAdjust="spacingAndGlyphs" style="font-size: 7.518pt; fill: #000">SPE</text>
-<text x="345.12" textLength="6.786" y="37.176" lengthAdjust="spacingAndGlyphs" style="font-size: 7.518pt; fill: #000">RS</text>
-<text x="164.58" textLength="45.7308" y="37.716" lengthAdjust="spacingAndGlyphs" style="font-size: 7.518pt; fill: #000">Fixed point length</text>
-<text x="391.08" textLength="59.0819999999998" y="37.716" lengthAdjust="spacingAndGlyphs" style="font-size: 7.518pt; fill: #000">Round Control Override</text>
-<text x="224.04" textLength="97.7429999999999" y="62.556" lengthAdjust="spacingAndGlyphs" style="font-size: 7.518pt; fill: #000">Suppress Precision Exception: Imm8[3]</text>
-<text x="439.08" textLength="97.5281999999995" y="65.196" lengthAdjust="spacingAndGlyphs" style="font-size: 7.518pt; fill: #000">Imm8[1:0] = 00b : Round nearest even</text>
-<text x="342.12" textLength="57.2586000000002" y="71.496" lengthAdjust="spacingAndGlyphs" style="font-size: 7.518pt; fill: #000">Round Select: Imm8[2]</text>
-<text x="224.04" textLength="108.2826" y="72.396" lengthAdjust="spacingAndGlyphs" style="font-size: 7.518pt; fill: #000">Imm8[3] = 0b : Use MXCSR exception mask</text>
-<text x="82.08" textLength="117.6576" y="74.676" lengthAdjust="spacingAndGlyphs" style="font-size: 7.518pt; fill: #000">Imm8[7:4] : Number of fixed points to subtract</text>
-<text x="439.08" textLength="78.3072000000001" y="75.036" lengthAdjust="spacingAndGlyphs" style="font-size: 7.518pt; fill: #000">Imm8[1:0] = 01b : Round down</text>
-<text x="342.12" textLength="75.6233999999999" y="81.336" lengthAdjust="spacingAndGlyphs" style="font-size: 7.518pt; fill: #000">Imm8[2] = 0b : Use Imm8[1:0]</text>
-<text x="224.04" textLength="61.6589999999999" y="82.236" lengthAdjust="spacingAndGlyphs" style="font-size: 7.518pt; fill: #000">Imm8[3] = 1b : Suppress</text>
-<text x="439.08" textLength="70.6085999999999" y="84.876" lengthAdjust="spacingAndGlyphs" style="font-size: 7.518pt; fill: #000">Imm8[1:0] = 10b : Round up</text>
-<text x="342.12" textLength="67.5353999999999" y="91.176" lengthAdjust="spacingAndGlyphs" style="font-size: 7.51799999999999pt; fill: #000">Imm8[2] = 1b : Use MXCSR</text>
-<text x="439.08" textLength="69.3239999999999" y="94.716" lengthAdjust="spacingAndGlyphs" style="font-size: 7.51799999999999pt; fill: #000">Imm8[1:0] = 11b : Truncate</text></g></svg>
+<svg style="width: 619.0559999999999pt; height: 129.74399999999997pt" viewBox="41.54 0.0 520.88 113.11999999999999">
+<g xmlns="http://www.w3.org/2000/svg" style="stroke: none; fill: none">
+<rect height="107.10000000000001" style="fill: rgb(0%, 0%, 0%)" width="0.48001000000000005" x="44.04" y="0.47999999999998977"></rect>
+<rect height="107.10000000000001" style="fill: rgb(0%, 0%, 0%)" width="0.47998" x="559.44" y="0.47999999999998977"></rect>
+<rect height="0.48" style="fill: rgb(0%, 0%, 0%)" width="515.88" x="44.04" y="0.0"></rect>
+<rect height="0.48001000000000005" style="fill: rgb(0%, 0%, 0%)" width="515.88" x="44.04" y="107.63998999999998"></rect>
+<rect height="13.5" style="fill: rgb(0%, 0%, 0%)" width="0.48001000000000005" x="465.84000000000003" y="27.539999999999992"></rect>
+<rect height="0.48" style="fill: rgb(0%, 0%, 0%)" width="373.26" x="92.82000000000001" y="40.56"></rect>
+<rect height="13.5" style="fill: rgb(0%, 0%, 0%)" width="0.48" x="92.82000000000001" y="27.299999999999983"></rect>
+<rect height="0.24001000000000003" style="fill: rgb(0%, 0%, 0%)" width="0.47998" x="372.6" y="27.53998999999999"></rect>
+<rect height="13.26" style="fill: rgb(0%, 0%, 0%)" width="0.47998" x="372.6" y="27.78"></rect>
+<rect height="0.24001000000000003" style="fill: rgb(0%, 0%, 0%)" width="0.48001000000000005" x="279.3" y="27.53998999999999"></rect>
+<rect height="13.26" style="fill: rgb(0%, 0%, 0%)" width="0.48001000000000005" x="279.3" y="27.78"></rect>
+<path d="M 137.64000000000001 61.44 L 133.44000000000003 64.38" style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)"></path>
+<path d="M 139.32000000000002 63.900000000000006 L 133.44000000000003 64.38 L 135.90000000000003 59.03999999999999" style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)"></path>
+<path d="M 159.54000000000002 46.20000000000002 L 137.64000000000001 61.440000000000026" style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)"></path>
+<path d="M 440.46000000000004 53.52000000000001 L 444.48 56.70000000000002" style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)"></path>
+<path d="M 442.32000000000005 51.18000000000001 L 444.4800000000001 56.70000000000002 L 438.66 55.860000000000014" style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)"></path>
+<path d="M 423.6 40.20000000000002 L 440.46000000000004 53.52000000000001" style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)"></path>
+<rect height="0.23999" style="fill: rgb(0%, 0%, 0%)" width="0.48001000000000005" x="327.3" y="28.500010000000003"></rect>
+<rect height="11.700000000000001" style="fill: rgb(0%, 0%, 0%)" width="0.48001000000000005" x="327.3" y="28.74000000000001"></rect>
+<path d="M 350.46 57.06 L 351.0 62.16" style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)"></path>
+<path d="M 353.4 56.75999999999999 L 351.0 62.16 L 347.52 57.41999999999999" style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)"></path>
+<path d="M 348.59999999999997 40.73999999999998 L 350.46 57.059999999999974" style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)"></path>
+<path d="M 280.68 52.91999999999999 L 276.06 55.19999999999999" style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)"></path>
+<path d="M 281.94 55.619999999999976 L 276.06 55.19999999999999 L 279.36 50.27999999999997" style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)"></path>
+<path d="M 302.52 42.23999999999998 L 280.68 52.91999999999999" style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)"></path>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.518000000000001pt; fill: #000" textLength="49.829999999999984" x="394.86" y="23.795999999999992">10</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.518000000000001pt; fill: #000" textLength="14.071200000000005" x="62.58000000000004" y="36.03600000000003">imm8</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.518000000000001pt; fill: #000" textLength="9.752400000000023" x="297.6" y="37.17599999999999">SPE</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.518000000000001pt; fill: #000" textLength="6.786000000000001" x="345.12000000000006" y="37.17599999999999">RS</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.518000000000001pt; fill: #000" textLength="45.73079999999996" x="164.58000000000004" y="37.71599999999998">Fixed point length</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.518000000000001pt; fill: #000" textLength="59.081999999999766" x="391.08000000000004" y="37.71599999999998">Round Control Override</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.518000000000001pt; fill: #000" textLength="97.74299999999991" x="224.04" y="62.55599999999998">Suppress Precision Exception: Imm8[3]</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.518000000000001pt; fill: #000" textLength="97.52819999999952" x="439.08000000000004" y="65.196">Imm8[1:0] = 00b : Round nearest even</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.518000000000001pt; fill: #000" textLength="57.25860000000023" x="342.12" y="71.49599999999998">Round Select: Imm8[2]</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.518000000000001pt; fill: #000" textLength="108.2826000000002" x="224.04" y="72.39599999999999">Imm8[3] = 0b : Use MXCSR exception mask</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.518000000000001pt; fill: #000" textLength="117.65760000000014" x="82.08000000000004" y="74.67599999999999">Imm8[7:4] : Number of fixed points to subtract</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.518000000000001pt; fill: #000" textLength="78.30720000000008" x="439.08000000000004" y="75.036">Imm8[1:0] = 01b : Round down</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.518000000000001pt; fill: #000" textLength="75.62339999999995" x="342.12" y="81.33599999999998">Imm8[2] = 0b : Use Imm8[1:0]</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.518000000000001pt; fill: #000" textLength="61.65899999999991" x="224.04" y="82.23599999999999">Imm8[3] = 1b : Suppress</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.518000000000001pt; fill: #000" textLength="70.60859999999985" x="439.08000000000004" y="84.876">Imm8[1:0] = 10b : Round up</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.5179999999999865pt; fill: #000" textLength="67.53539999999992" x="342.12" y="91.176">Imm8[2] = 1b : Use MXCSR</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.5179999999999865pt; fill: #000" textLength="69.3239999999999" x="439.08000000000004" y="94.71600000000002">Imm8[1:0] = 11b : Truncate</text></g></svg>
 <figcaption><a href="VREDUCEPD.html#fig-5-28">Figure 5-28</a>. Imm8 Controls for VREDUCEPD/SD/PS/SS</figcaption></figure>
 <p>Handling of special case of input values are listed in <a href="VREDUCEPD.html#tbl-5-24">Table 5-24</a>.</p>
 <figure id="tbl-5-24">

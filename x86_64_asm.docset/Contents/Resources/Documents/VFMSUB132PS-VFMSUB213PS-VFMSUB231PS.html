@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-519"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/VFMSUB132PS%2FVFMSUB213PS%2FVFMSUB231PS"></a><title>VFMSUB132PS/VFMSUB213PS/VFMSUB231PS</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>VFMSUB132PS/VFMSUB213PS/VFMSUB231PS
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-519"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/VFMSUB132PS%2FVFMSUB213PS%2FVFMSUB231PS"></a><title>VFMSUB132PS/VFMSUB213PS/VFMSUB231PS</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>November 2018</li></ul></nav></header><h1>VFMSUB132PS/VFMSUB213PS/VFMSUB231PS
 		&mdash; Fused Multiply-Subtract of Packed Single- Precision Floating-Point Values</h1>
 
 
@@ -11,91 +11,91 @@
 <th>CPUID Feature Flag</th>
 <th>Description</th></tr>
 <tr>
-<td>VEX.NDS.128.66.0F38.W0 9A /r VFMSUB132PS xmm1, xmm2, xmm3/m128</td>
+<td>VEX.128.66.0F38.W0 9A /r VFMSUB132PS xmm1, xmm2, xmm3/m128</td>
 <td>A</td>
 <td>V/V</td>
 <td>FMA</td>
 <td>Multiply packed single-precision floating-point values from xmm1 and xmm3/mem, subtract xmm2 and put result in xmm1.</td></tr>
 <tr>
-<td>VEX.NDS.128.66.0F38.W0 AA /r VFMSUB213PS xmm1, xmm2, xmm3/m128</td>
+<td>VEX.128.66.0F38.W0 AA /r VFMSUB213PS xmm1, xmm2, xmm3/m128</td>
 <td>A</td>
 <td>V/V</td>
 <td>FMA</td>
 <td>Multiply packed single-precision floating-point values from xmm1 and xmm2, subtract xmm3/mem and put result in xmm1.</td></tr>
 <tr>
-<td>VEX.NDS.128.66.0F38.W0 BA /r VFMSUB231PS xmm1, xmm2, xmm3/m128</td>
+<td>VEX.128.66.0F38.W0 BA /r VFMSUB231PS xmm1, xmm2, xmm3/m128</td>
 <td>A</td>
 <td>V/V</td>
 <td>FMA</td>
 <td>Multiply packed single-precision floating-point values from xmm2 and xmm3/mem, subtract xmm1 and put result in xmm1.</td></tr>
 <tr>
-<td>VEX.NDS.256.66.0F38.W0 9A /r VFMSUB132PS ymm1, ymm2, ymm3/m256</td>
+<td>VEX.256.66.0F38.W0 9A /r VFMSUB132PS ymm1, ymm2, ymm3/m256</td>
 <td>A</td>
 <td>V/V</td>
 <td>FMA</td>
 <td>Multiply packed single-precision floating-point values from ymm1 and ymm3/mem, subtract ymm2 and put result in ymm1.</td></tr>
 <tr>
-<td>VEX.NDS.256.66.0F38.W0 AA /r VFMSUB213PS ymm1, ymm2, ymm3/m256</td>
+<td>VEX.256.66.0F38.W0 AA /r VFMSUB213PS ymm1, ymm2, ymm3/m256</td>
 <td>A</td>
 <td>V/V</td>
 <td>FMA</td>
 <td>Multiply packed single-precision floating-point values from ymm1 and ymm2, subtract ymm3/mem and put result in ymm1.</td></tr>
 <tr>
-<td>VEX.NDS.256.66.0F38.0 BA /r VFMSUB231PS ymm1, ymm2, ymm3/m256</td>
+<td>VEX.256.66.0F38.0 BA /r VFMSUB231PS ymm1, ymm2, ymm3/m256</td>
 <td>A</td>
 <td>V/V</td>
 <td>FMA</td>
 <td>Multiply packed single-precision floating-point values from ymm2 and ymm3/mem, subtract ymm1 and put result in ymm1.</td></tr>
 <tr>
-<td>EVEX.NDS.128.66.0F38.W0 9A /r VFMSUB132PS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</td>
+<td>EVEX.128.66.0F38.W0 9A /r VFMSUB132PS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</td>
 <td>B</td>
 <td>V/V</td>
 <td>AVX512VL AVX512F</td>
 <td>Multiply packed single-precision floating-point values from xmm1 and xmm3/m128/m32bcst, subtract xmm2 and put result in xmm1.</td></tr>
 <tr>
-<td>EVEX.NDS.128.66.0F38.W0 AA /r VFMSUB213PS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</td>
+<td>EVEX.128.66.0F38.W0 AA /r VFMSUB213PS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</td>
 <td>B</td>
 <td>V/V</td>
 <td>AVX512VL AVX512F</td>
 <td>Multiply packed single-precision floating-point values from xmm1 and xmm2, subtract xmm3/m128/m32bcst and put result in xmm1.</td></tr>
 <tr>
-<td>EVEX.NDS.128.66.0F38.W0 BA /r VFMSUB231PS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</td>
+<td>EVEX.128.66.0F38.W0 BA /r VFMSUB231PS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</td>
 <td>B</td>
 <td>V/V</td>
 <td>AVX512VL AVX512F</td>
 <td>Multiply packed single-precision floating-point values from xmm2 and xmm3/m128/m32bcst, subtract xmm1 and put result in xmm1.</td></tr>
 <tr>
-<td>EVEX.NDS.256.66.0F38.W0 9A /r VFMSUB132PS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</td>
+<td>EVEX.256.66.0F38.W0 9A /r VFMSUB132PS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</td>
 <td>B</td>
 <td>V/V</td>
 <td>AVX512VL AVX512F</td>
 <td>Multiply packed single-precision floating-point values from ymm1 and ymm3/m256/m32bcst, subtract ymm2 and put result in ymm1.</td></tr>
 <tr>
-<td>EVEX.NDS.256.66.0F38.W0 AA /r VFMSUB213PS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</td>
+<td>EVEX.256.66.0F38.W0 AA /r VFMSUB213PS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</td>
 <td>B</td>
 <td>V/V</td>
 <td>AVX512VL AVX512F</td>
 <td>Multiply packed single-precision floating-point values from ymm1 and ymm2, subtract ymm3/m256/m32bcst and put result in ymm1.</td></tr>
 <tr>
-<td>EVEX.NDS.256.66.0F38.W0 BA /r VFMSUB231PS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</td>
+<td>EVEX.256.66.0F38.W0 BA /r VFMSUB231PS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</td>
 <td>B</td>
 <td>V/V</td>
 <td>AVX512VL AVX512F</td>
 <td>Multiply packed single-precision floating-point values from ymm2 and ymm3/m256/m32bcst, subtract ymm1 and put result in ymm1.</td></tr>
 <tr>
-<td>EVEX.NDS.512.66.0F38.W0 9A /r VFMSUB132PS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}</td>
+<td>EVEX.512.66.0F38.W0 9A /r VFMSUB132PS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}</td>
 <td>B</td>
 <td>V/V</td>
 <td>AVX512F</td>
 <td>Multiply packed single-precision floating-point values from zmm1 and zmm3/m512/m32bcst, subtract zmm2 and put result in zmm1.</td></tr>
 <tr>
-<td>EVEX.NDS.512.66.0F38.W0 AA /r VFMSUB213PS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}</td>
+<td>EVEX.512.66.0F38.W0 AA /r VFMSUB213PS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}</td>
 <td>B</td>
 <td>V/V</td>
 <td>AVX512F</td>
 <td>Multiply packed single-precision floating-point values from zmm1 and zmm2, subtract zmm3/m512/m32bcst and put result in zmm1.</td></tr>
 <tr>
-<td>EVEX.NDS.512.66.0F38.W0 BA /r VFMSUB231PS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}</td>
+<td>EVEX.512.66.0F38.W0 BA /r VFMSUB231PS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}</td>
 <td>B</td>
 <td>V/V</td>
 <td>AVX512F</td>

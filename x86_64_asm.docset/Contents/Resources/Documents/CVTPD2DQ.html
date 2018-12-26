@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-76"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/CVTPD2DQ"></a><title>CVTPD2DQ</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>CVTPD2DQ
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-76"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/CVTPD2DQ"></a><title>CVTPD2DQ</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>November 2018</li></ul></nav></header><h1>CVTPD2DQ
 		&mdash; Convert Packed Double-Precision Floating-Point Values to Packed Doubleword Integers</h1>
 
 <table>
@@ -80,87 +80,87 @@
 <p>128-bit Legacy SSE version: The source operand is an XMM register or 128- bit memory location. The destination operand is an XMM register. Bits[127:64] of the destination XMM register are zeroed. However, the upper bits (MAXVL-1:128) of the corresponding ZMM register destination are unmodified.</p>
 <p>VEX.vvvv and EVEX.vvvv are reserved and must be 1111b, otherwise instructions will #UD.</p>
 <figure id="fig-3-12">
-<svg style="width: 475.848pt; height: 151.055976pt" viewBox="100.7 0.0 401.54 130.87998">
-<g xmlns="http://www.w3.org/2000/svg" style="fill: none; stroke: none">
-<rect height="124.92" x="103.2" style="fill: rgb(0%, 0%, 0%)" y="0.479979999999955" width="0.48"></rect>
-<rect height="124.92" x="499.2" style="fill: rgb(0%, 0%, 0%)" y="0.479979999999955" width="0.47998"></rect>
-<rect height="0.47998" x="103.2" style="fill: rgb(0%, 0%, 0%)" y="0.0" width="396.54"></rect>
-<rect height="0.47998" x="103.2" style="fill: rgb(0%, 0%, 0%)" y="125.4" width="396.54"></rect>
-<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 285.96 88.5599799999999 L 287.46 84.5399799999999 L 287.7 83.9399799999999 L 288.24 84.3599799999998 L 300.72 93.6599799999999 L 302.1 94.6799799999999 L 300.36 94.5599799999999 L 284.82 93.2999799999999 L 284.16 93.1799799999999 L 284.4 92.5799799999999 L 284.88 92.2799799999999 L 300.42 93.5399799999999 L 300.36 94.5599799999999 L 300.06 94.4399799999999 L 287.58 85.1399799999999 L 288.24 84.3599799999998 L 288.36 84.8999799999999 L 286.86 88.9199799999999"></path>
-<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 284.4 92.57998 L 285.96 88.55998 L 286.86 88.91998 L 285.3 92.93998"></path>
-<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 286.38 88.7399799999999 L 287.88 84.71998 L 300.36 94.0199799999999 L 284.82 92.7599799999999"></path>
-<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 167.46 43.07998 L 166.74 44.93998 L 285.54 89.5199799999999 L 286.26 87.65998"></path>
-<rect height="13.5" x="393.24" style="fill: rgb(100%, 100%, 100%)" y="94.6199799999999" width="37.08"></rect>
-<rect height="0.47998" x="393.24" style="fill: rgb(0%, 0%, 0%)" y="94.38" width="37.32"></rect>
-<rect height="13.74" x="430.08" style="fill: rgb(0%, 0%, 0%)" y="94.6199799999999" width="0.47998"></rect>
-<rect height="0.47998" x="393.0" style="fill: rgb(0%, 0%, 0%)" y="107.88" width="37.32"></rect>
-<rect height="13.74" x="393.0" style="fill: rgb(0%, 0%, 0%)" y="94.3799799999999" width="0.48001"></rect>
-<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 404.94 79.1399799999999 L 405.12 79.07998 L 405.3 78.95998 L 405.42 78.83998 L 405.54 78.6599799999999 L 405.6 78.47998 L 405.6 78.1199799999999 L 405.54 77.8799799999999 L 405.48 77.6999799999999 C 405.043 77.1899799999999 405.364 77.4719799999999 404.7 77.21998L 404.52 77.21998 L 404.28 77.2799799999999 L 404.1 77.33998 L 403.98 77.45998 L 403.8 77.57998 L 403.68 77.9399799999999 L 403.62 78.1199799999999 L 403.62 78.35998 L 403.68 78.5399799999999 C 403.727 78.8329799999999 404.047 79.15298 404.34 79.1999799999999L 404.76 79.1999799999999 L 404.94 79.1399799999999"></path>
-<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 404.58 78.1799799999999 L 408.66 76.8599799999998 L 409.32 76.7399799999998 L 409.38 77.3399799999999 L 410.04 92.9399799999999 L 410.1 94.6799799999999 L 409.08 93.2399799999998 L 400.26 80.3399799999999 L 399.9 79.7999799999999 L 400.5 79.5599799999999 L 401.1 79.7999799999999 L 409.92 92.6999799999999 L 409.08 93.2399799999998 L 409.02 92.9999799999999 L 408.36 77.3999799999999 L 409.38 77.3399799999999 L 409.02 77.8799799999999 L 404.94 79.1999799999999"></path>
-<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 400.5 79.5599799999999 L 404.58 78.1799799999999 L 404.94 79.1999799999999 L 400.86 80.5799799999999"></path>
-<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 404.76 78.6599799999999 L 408.84 77.3399799999999 L 409.5 92.9399799999999 L 400.68 80.0399799999999"></path>
-<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 394.2 43.6799799999999 L 392.34 44.2799799999999 L 403.74 78.5399799999999 L 405.6 77.9399799999999"></path>
-<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 361.86 82.7399799999999 L 362.1 82.3799799999999 C 362.417 81.45098 361.553 80.67598 360.66 81.1199799999999L 360.48 81.2399799999999 L 360.36 81.4199799999999 C 359.802 82.1389799999999 360.54 83.2879799999999 361.5 82.9199799999999L 361.68 82.85998 L 361.86 82.7399799999999"></path>
-<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 361.2 81.95998 L 364.32 79.07998 L 364.8 78.65998 L 365.1 79.2599799999999 L 372.18 93.1199799999999 L 372.96 94.67998 L 371.46 93.77998 L 358.14 85.7399799999999 L 357.6 85.3799799999999 L 358.08 84.89998 L 358.62 84.83998 L 371.94 92.8799799999999 L 371.46 93.77998 L 371.28 93.53998 L 364.2 79.67998 L 365.1 79.2599799999999 L 364.98 79.85998 L 361.86 82.7399799999999"></path>
-<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 358.08 84.8999799999999 L 361.2 81.9599799999999 L 361.86 82.7399799999999 L 358.74 85.6799799999999"></path>
-<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 361.5 82.31998 L 364.62 79.43998 L 371.7 93.29998 L 358.38 85.25998"></path>
-<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 326.46 43.31998 L 325.02 44.69998 L 360.42 82.67998 L 361.86 81.29998"></path>
-<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 324.96 86.69998 L 325.02 86.51998 L 325.08 86.33998 C 325.19 85.30098 323.916 84.90098 323.34 85.55998L 323.22 85.7399799999999 L 323.16 85.91998 C 322.789 86.83898 323.96 87.66198 324.72 86.9999799999999L 324.84 86.8799799999999 L 324.96 86.69998"></path>
-<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 324.12 86.21998 L 326.22 82.4999799999999 L 326.58 81.95998 L 327.06 82.3799799999999 L 337.98 93.41998 L 339.24 94.67998 L 337.56 94.2599799999999 L 322.38 90.71998 L 321.72 90.59998 L 322.02 89.9999799999999 L 322.56 89.7599799999999 L 337.74 93.29998 L 337.56 94.2599799999999 L 337.26 94.1399799999999 L 326.28 83.09998 L 327.06 82.3799799999999 L 327.12 82.97998 L 325.02 86.69998"></path>
-<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 322.02 89.9999799999999 L 324.12 86.21998 L 325.02 86.69998 L 322.92 90.47998"></path>
-<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 324.54 86.45998 L 326.64 82.7399799999999 L 337.62 93.77998 L 322.44 90.2399799999999"></path>
-<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 248.58 43.1399799999999 L 247.62 44.8799799999999 L 323.58 87.1199799999999 L 324.54 85.3799799999999"></path>
-<rect height="13.5" x="356.1" style="fill: rgb(100%, 100%, 100%)" y="94.6199799999999" width="37.14"></rect>
-<rect height="0.47998" x="356.1" style="fill: rgb(0%, 0%, 0%)" y="94.38" width="37.38"></rect>
-<rect height="13.74" x="393.0" style="fill: rgb(0%, 0%, 0%)" y="94.6199799999999" width="0.48001"></rect>
-<rect height="0.47998" x="355.86" style="fill: rgb(0%, 0%, 0%)" y="107.88" width="37.38"></rect>
-<rect height="13.74" x="355.86" style="fill: rgb(0%, 0%, 0%)" y="94.3799799999999" width="0.47998"></rect>
-<rect height="13.5" x="318.96" style="fill: rgb(100%, 100%, 100%)" y="94.6199799999999" width="37.14"></rect>
-<rect height="0.47998" x="318.96" style="fill: rgb(0%, 0%, 0%)" y="94.38" width="37.38"></rect>
-<rect height="13.74" x="355.86" style="fill: rgb(0%, 0%, 0%)" y="94.6199799999999" width="0.47998"></rect>
-<rect height="0.47998" x="318.72" style="fill: rgb(0%, 0%, 0%)" y="107.88" width="37.38"></rect>
-<rect height="13.74" x="318.72" style="fill: rgb(0%, 0%, 0%)" y="94.3799799999999" width="0.48001"></rect>
-<rect height="13.5" x="281.82" style="fill: rgb(100%, 100%, 100%)" y="94.6199799999999" width="37.14"></rect>
-<rect height="0.47998" x="281.82" style="fill: rgb(0%, 0%, 0%)" y="94.38" width="37.38"></rect>
-<rect height="13.74" x="318.72" style="fill: rgb(0%, 0%, 0%)" y="94.6199799999999" width="0.48001"></rect>
-<rect height="0.47998" x="281.58" style="fill: rgb(0%, 0%, 0%)" y="107.88" width="37.38"></rect>
-<rect height="13.74" x="281.58" style="fill: rgb(0%, 0%, 0%)" y="94.3799799999999" width="0.48001"></rect>
-<rect height="13.5" x="356.1" style="fill: rgb(100%, 100%, 100%)" y="30.47998" width="74.22"></rect>
-<rect height="0.47998" x="356.1" style="fill: rgb(0%, 0%, 0%)" y="30.24" width="74.46"></rect>
-<rect height="13.74" x="430.08" style="fill: rgb(0%, 0%, 0%)" y="30.47998" width="0.47998"></rect>
-<rect height="0.47998" x="355.86" style="fill: rgb(0%, 0%, 0%)" y="43.74" width="74.46"></rect>
-<rect height="13.74" x="355.86" style="fill: rgb(0%, 0%, 0%)" y="30.2399799999999" width="0.47998"></rect>
-<rect height="13.5" x="133.32" style="fill: rgb(100%, 100%, 100%)" y="30.47998" width="74.28"></rect>
-<rect height="0.47998" x="133.32" style="fill: rgb(0%, 0%, 0%)" y="30.24" width="74.52"></rect>
-<rect height="13.74" x="207.36" style="fill: rgb(0%, 0%, 0%)" y="30.47998" width="0.48"></rect>
-<rect height="0.47998" x="133.08" style="fill: rgb(0%, 0%, 0%)" y="43.74" width="74.52"></rect>
-<rect height="13.74" x="133.08" style="fill: rgb(0%, 0%, 0%)" y="30.2399799999999" width="0.48001"></rect>
-<rect height="13.5" x="207.6" style="fill: rgb(100%, 100%, 100%)" y="30.47998" width="74.22"></rect>
-<rect height="0.47998" x="207.6" style="fill: rgb(0%, 0%, 0%)" y="30.24" width="74.46"></rect>
-<rect height="13.74" x="281.58" style="fill: rgb(0%, 0%, 0%)" y="30.47998" width="0.48001"></rect>
-<rect height="0.47998" x="207.36" style="fill: rgb(0%, 0%, 0%)" y="43.74" width="74.46"></rect>
-<rect height="13.74" x="207.36" style="fill: rgb(0%, 0%, 0%)" y="30.2399799999999" width="0.48"></rect>
-<rect height="13.5" x="281.82" style="fill: rgb(100%, 100%, 100%)" y="30.47998" width="74.28"></rect>
-<rect height="0.47998" x="281.82" style="fill: rgb(0%, 0%, 0%)" y="30.24" width="74.52"></rect>
-<rect height="13.74" x="355.86" style="fill: rgb(0%, 0%, 0%)" y="30.47998" width="0.47998"></rect>
-<rect height="0.47998" x="281.58" style="fill: rgb(0%, 0%, 0%)" y="43.74" width="74.52"></rect>
-<rect height="13.74" x="281.58" style="fill: rgb(0%, 0%, 0%)" y="30.2399799999999" width="0.48001"></rect>
-<rect height="13.5" x="135.42" style="fill: rgb(100%, 100%, 100%)" y="94.6199799999999" width="145.5"></rect>
-<rect height="0.47998" x="135.42" style="fill: rgb(0%, 0%, 0%)" y="94.38" width="145.74"></rect>
-<rect height="13.74" x="280.68" style="fill: rgb(0%, 0%, 0%)" y="94.6199799999999" width="0.48001"></rect>
-<rect height="0.47998" x="135.18" style="fill: rgb(0%, 0%, 0%)" y="107.88" width="145.74"></rect>
-<rect height="13.74" x="135.18" style="fill: rgb(0%, 0%, 0%)" y="94.3799799999999" width="0.48"></rect>
-<text x="315.66" textLength="9.90417074598946" y="40.7238892632261" lengthAdjust="spacingAndGlyphs" style="font-size: 8.80058169554718pt; fill: #000">X1</text>
-<text x="389.81834685" textLength="9.84447194598948" y="40.7238892632261" lengthAdjust="spacingAndGlyphs" style="font-size: 8.80058169554718pt; fill: #000">X0</text>
-<text x="113.1" textLength="15.8825887" y="40.6508715799999" lengthAdjust="spacingAndGlyphs" style="font-size: 8.41441680000003pt; fill: #000">SRC</text>
-<text x="156.96" textLength="9.17216670000002" y="40.6508777999999" lengthAdjust="spacingAndGlyphs" style="font-size: 8.41441680000003pt; fill: #000">X3</text>
-<text x="241.32" textLength="9.17216670000002" y="40.6508777999999" lengthAdjust="spacingAndGlyphs" style="font-size: 8.41441680000003pt; fill: #000">X2</text>
-<text x="113.1" textLength="20.02495482" y="104.7308778" lengthAdjust="spacingAndGlyphs" style="font-size: 8.41441680000003pt; fill: #000">DEST</text>
-<text x="204.9" textLength="4.19212880000001" y="104.7308778" lengthAdjust="spacingAndGlyphs" style="font-size: 8.4144168pt; fill: #000">0</text>
-<text x="292.92" textLength="9.17216669999999" y="104.7308778" lengthAdjust="spacingAndGlyphs" style="font-size: 8.41441680000003pt; fill: #000">X3</text>
-<text x="330.06" textLength="9.23248509999996" y="104.7308778" lengthAdjust="spacingAndGlyphs" style="font-size: 8.41441680000003pt; fill: #000">X2</text>
-<text x="367.2" textLength="9.17216669999999" y="104.7308778" lengthAdjust="spacingAndGlyphs" style="font-size: 8.41441680000003pt; fill: #000">X1</text>
-<text x="404.28" textLength="9.17216669999999" y="104.7308778" lengthAdjust="spacingAndGlyphs" style="font-size: 8.41441680000003pt; fill: #000">X0</text></g></svg>
+<svg style="width: 475.848pt; height: 151.0559759999999pt" viewBox="100.7 0.0 401.54 130.87997999999993">
+<g xmlns="http://www.w3.org/2000/svg" style="stroke: none; fill: none">
+<rect height="124.92" style="fill: rgb(0%, 0%, 0%)" width="0.48" x="103.2" y="0.479979999999955"></rect>
+<rect height="124.92" style="fill: rgb(0%, 0%, 0%)" width="0.47998" x="499.20000000000005" y="0.479979999999955"></rect>
+<rect height="0.47998" style="fill: rgb(0%, 0%, 0%)" width="396.54" x="103.2" y="0.0"></rect>
+<rect height="0.47998" style="fill: rgb(0%, 0%, 0%)" width="396.54" x="103.2" y="125.39999999999998"></rect>
+<path d="M 285.96 88.55997999999988 L 287.46 84.5399799999999 L 287.7 83.93997999999988 L 288.23999999999995 84.35997999999984 L 300.71999999999997 93.6599799999999 L 302.09999999999997 94.67997999999989 L 300.35999999999996 94.55997999999988 L 284.82 93.29997999999989 L 284.15999999999997 93.17997999999989 L 284.4 92.57997999999986 L 284.88 92.27997999999991 L 300.41999999999996 93.5399799999999 L 300.35999999999996 94.55997999999988 L 300.06 94.43997999999988 L 287.58 85.13997999999992 L 288.23999999999995 84.35997999999984 L 288.35999999999996 84.89997999999991 L 286.85999999999996 88.9199799999999" style="fill: rgb(0%, 0%, 0%); fill-rule: nonzero"></path>
+<path d="M 284.40000000000003 92.57997999999998 L 285.96000000000004 88.55998 L 286.86 88.91998000000001 L 285.3 92.93997999999999" style="fill: rgb(0%, 0%, 0%); fill-rule: nonzero"></path>
+<path d="M 286.38 88.73997999999995 L 287.88 84.71997999999996 L 300.36 94.01997999999992 L 284.82 92.75997999999993" style="fill: rgb(0%, 0%, 0%); fill-rule: evenodd"></path>
+<path d="M 167.46 43.07997999999998 L 166.74 44.93997999999999 L 285.54 89.51997999999992 L 286.26 87.65998000000002" style="fill: rgb(0%, 0%, 0%); fill-rule: nonzero"></path>
+<rect height="13.5" style="fill: rgb(100%, 100%, 100%)" width="37.08" x="393.24" y="94.61997999999994"></rect>
+<rect height="0.47998" style="fill: rgb(0%, 0%, 0%)" width="37.32" x="393.24" y="94.38"></rect>
+<rect height="13.74" style="fill: rgb(0%, 0%, 0%)" width="0.47998" x="430.08" y="94.61997999999994"></rect>
+<rect height="0.47998" style="fill: rgb(0%, 0%, 0%)" width="37.32" x="393.0" y="107.88"></rect>
+<rect height="13.74" style="fill: rgb(0%, 0%, 0%)" width="0.48001000000000005" x="393.0" y="94.37997999999993"></rect>
+<path d="M 404.94 79.13997999999992 L 405.12 79.07997999999998 L 405.3 78.95997999999997 L 405.42 78.83997999999997 L 405.54 78.6599799999999 L 405.6 78.47997999999995 L 405.6 78.11997999999994 L 405.54 77.87997999999993 L 405.48 77.69997999999987 C 405.043 77.18997999999988 405.364 77.47197999999992 404.7 77.21997999999996L 404.52 77.21997999999996 L 404.28 77.27997999999991 L 404.1 77.33997999999997 L 403.98 77.45997999999997 L 403.8 77.57997999999998 L 403.68 77.93997999999988 L 403.62 78.11997999999994 L 403.62 78.35997999999995 L 403.68 78.5399799999999 C 403.727 78.8329799999999 404.047 79.15297999999996 404.34 79.19997999999987L 404.76 79.19997999999987 L 404.94 79.13997999999992" style="fill: rgb(0%, 0%, 0%); fill-rule: evenodd"></path>
+<path d="M 404.58 78.17997999999989 L 408.65999999999997 76.85997999999984 L 409.32 76.73997999999983 L 409.38 77.33997999999985 L 410.03999999999996 92.93997999999988 L 410.09999999999997 94.67997999999989 L 409.08 93.23997999999983 L 400.26 80.33997999999985 L 399.9 79.79997999999989 L 400.5 79.55997999999988 L 401.09999999999997 79.79997999999989 L 409.91999999999996 92.69997999999987 L 409.08 93.23997999999983 L 409.02 92.99997999999994 L 408.35999999999996 77.39997999999991 L 409.38 77.33997999999985 L 409.02 77.87997999999993 L 404.94 79.19997999999987" style="fill: rgb(0%, 0%, 0%); fill-rule: nonzero"></path>
+<path d="M 400.5 79.55997999999988 L 404.58 78.17997999999989 L 404.94 79.19997999999987 L 400.86 80.57997999999986" style="fill: rgb(0%, 0%, 0%); fill-rule: nonzero"></path>
+<path d="M 404.76 78.6599799999999 L 408.84 77.33997999999985 L 409.5 92.93997999999988 L 400.68 80.0399799999999" style="fill: rgb(0%, 0%, 0%); fill-rule: evenodd"></path>
+<path d="M 394.20000000000005 43.67997999999989 L 392.34000000000003 44.27997999999991 L 403.74000000000007 78.5399799999999 L 405.6 77.93997999999988" style="fill: rgb(0%, 0%, 0%); fill-rule: nonzero"></path>
+<path d="M 361.86 82.73997999999995 L 362.1 82.37997999999993 C 362.41700000000003 81.45097999999996 361.553 80.67597999999998 360.66 81.11997999999994L 360.48 81.23997999999995 L 360.36 81.4199799999999 C 359.802 82.13897999999995 360.54 83.28797999999995 361.5 82.9199799999999L 361.68 82.85997999999995 L 361.86 82.73997999999995" style="fill: rgb(0%, 0%, 0%); fill-rule: evenodd"></path>
+<path d="M 361.20000000000005 81.95997999999997 L 364.32000000000005 79.07997999999998 L 364.80000000000007 78.65998000000002 L 365.1 79.25997999999993 L 372.18000000000006 93.11997999999994 L 372.96000000000004 94.67998 L 371.46000000000004 93.77998000000002 L 358.14000000000004 85.73997999999995 L 357.6 85.37997999999993 L 358.08000000000004 84.89998000000003 L 358.62000000000006 84.83997999999997 L 371.94000000000005 92.87997999999993 L 371.46000000000004 93.77998000000002 L 371.28000000000003 93.53998000000001 L 364.20000000000005 79.67998 L 365.1 79.25997999999993 L 364.98 79.85997999999995 L 361.86000000000007 82.73997999999995" style="fill: rgb(0%, 0%, 0%); fill-rule: nonzero"></path>
+<path d="M 358.08 84.89997999999991 L 361.2 81.95997999999986 L 361.85999999999996 82.73997999999995 L 358.74 85.67997999999989" style="fill: rgb(0%, 0%, 0%); fill-rule: nonzero"></path>
+<path d="M 361.5 82.31997999999999 L 364.62 79.43997999999999 L 371.7 93.29998 L 358.38 85.25998000000004" style="fill: rgb(0%, 0%, 0%); fill-rule: evenodd"></path>
+<path d="M 326.46 43.31997999999999 L 325.02 44.69997999999998 L 360.41999999999996 82.67998 L 361.85999999999996 81.29998" style="fill: rgb(0%, 0%, 0%); fill-rule: nonzero"></path>
+<path d="M 324.96 86.69997999999998 L 325.02 86.51998000000003 L 325.08 86.33997999999997 C 325.19 85.30097999999998 323.916 84.90098 323.34 85.55998L 323.21999999999997 85.73997999999995 L 323.15999999999997 85.91998000000001 C 322.789 86.83897999999999 323.96 87.66197999999997 324.71999999999997 86.99997999999994L 324.84 86.87997999999993 L 324.96 86.69997999999998" style="fill: rgb(0%, 0%, 0%); fill-rule: evenodd"></path>
+<path d="M 324.12 86.21997999999996 L 326.22 82.49997999999994 L 326.58 81.95997999999997 L 327.06 82.37997999999993 L 337.98 93.41998000000001 L 339.24 94.67998 L 337.56 94.25997999999993 L 322.38 90.71997999999996 L 321.72 90.59997999999996 L 322.02 89.99997999999994 L 322.56 89.75997999999993 L 337.74 93.29998 L 337.56 94.25997999999993 L 337.26 94.13997999999992 L 326.28000000000003 83.09997999999996 L 327.06 82.37997999999993 L 327.12 82.97997999999995 L 325.02 86.69997999999998" style="fill: rgb(0%, 0%, 0%); fill-rule: nonzero"></path>
+<path d="M 322.02 89.99997999999994 L 324.12 86.21997999999996 L 325.02 86.69997999999998 L 322.91999999999996 90.47997999999995" style="fill: rgb(0%, 0%, 0%); fill-rule: nonzero"></path>
+<path d="M 324.54 86.45997999999997 L 326.64000000000004 82.73997999999995 L 337.62 93.77998000000002 L 322.44 90.23997999999995" style="fill: rgb(0%, 0%, 0%); fill-rule: evenodd"></path>
+<path d="M 248.58 43.13997999999992 L 247.62 44.87997999999993 L 323.58000000000004 87.11997999999994 L 324.54 85.37997999999993" style="fill: rgb(0%, 0%, 0%); fill-rule: nonzero"></path>
+<rect height="13.5" style="fill: rgb(100%, 100%, 100%)" width="37.14" x="356.1" y="94.61997999999994"></rect>
+<rect height="0.47998" style="fill: rgb(0%, 0%, 0%)" width="37.38" x="356.1" y="94.38"></rect>
+<rect height="13.74" style="fill: rgb(0%, 0%, 0%)" width="0.48001000000000005" x="393.0" y="94.61997999999994"></rect>
+<rect height="0.47998" style="fill: rgb(0%, 0%, 0%)" width="37.38" x="355.86" y="107.88"></rect>
+<rect height="13.74" style="fill: rgb(0%, 0%, 0%)" width="0.47998" x="355.86" y="94.37997999999993"></rect>
+<rect height="13.5" style="fill: rgb(100%, 100%, 100%)" width="37.14" x="318.96" y="94.61997999999994"></rect>
+<rect height="0.47998" style="fill: rgb(0%, 0%, 0%)" width="37.38" x="318.96" y="94.38"></rect>
+<rect height="13.74" style="fill: rgb(0%, 0%, 0%)" width="0.47998" x="355.86" y="94.61997999999994"></rect>
+<rect height="0.47998" style="fill: rgb(0%, 0%, 0%)" width="37.38" x="318.72" y="107.88"></rect>
+<rect height="13.74" style="fill: rgb(0%, 0%, 0%)" width="0.48001000000000005" x="318.72" y="94.37997999999993"></rect>
+<rect height="13.5" style="fill: rgb(100%, 100%, 100%)" width="37.14" x="281.82" y="94.61997999999994"></rect>
+<rect height="0.47998" style="fill: rgb(0%, 0%, 0%)" width="37.38" x="281.82" y="94.38"></rect>
+<rect height="13.74" style="fill: rgb(0%, 0%, 0%)" width="0.48001000000000005" x="318.72" y="94.61997999999994"></rect>
+<rect height="0.47998" style="fill: rgb(0%, 0%, 0%)" width="37.38" x="281.58" y="107.88"></rect>
+<rect height="13.74" style="fill: rgb(0%, 0%, 0%)" width="0.48001000000000005" x="281.58" y="94.37997999999993"></rect>
+<rect height="13.5" style="fill: rgb(100%, 100%, 100%)" width="74.22" x="356.1" y="30.479979999999955"></rect>
+<rect height="0.47998" style="fill: rgb(0%, 0%, 0%)" width="74.46000000000001" x="356.1" y="30.24000000000001"></rect>
+<rect height="13.74" style="fill: rgb(0%, 0%, 0%)" width="0.47998" x="430.08" y="30.479979999999955"></rect>
+<rect height="0.47998" style="fill: rgb(0%, 0%, 0%)" width="74.46000000000001" x="355.86" y="43.74000000000001"></rect>
+<rect height="13.74" style="fill: rgb(0%, 0%, 0%)" width="0.47998" x="355.86" y="30.239979999999946"></rect>
+<rect height="13.5" style="fill: rgb(100%, 100%, 100%)" width="74.28" x="133.32" y="30.479979999999955"></rect>
+<rect height="0.47998" style="fill: rgb(0%, 0%, 0%)" width="74.52" x="133.32" y="30.24000000000001"></rect>
+<rect height="13.74" style="fill: rgb(0%, 0%, 0%)" width="0.48" x="207.36" y="30.479979999999955"></rect>
+<rect height="0.47998" style="fill: rgb(0%, 0%, 0%)" width="74.52" x="133.08" y="43.74000000000001"></rect>
+<rect height="13.74" style="fill: rgb(0%, 0%, 0%)" width="0.48001000000000005" x="133.08" y="30.239979999999946"></rect>
+<rect height="13.5" style="fill: rgb(100%, 100%, 100%)" width="74.22" x="207.60000000000002" y="30.479979999999955"></rect>
+<rect height="0.47998" style="fill: rgb(0%, 0%, 0%)" width="74.46000000000001" x="207.60000000000002" y="30.24000000000001"></rect>
+<rect height="13.74" style="fill: rgb(0%, 0%, 0%)" width="0.48001000000000005" x="281.58" y="30.479979999999955"></rect>
+<rect height="0.47998" style="fill: rgb(0%, 0%, 0%)" width="74.46000000000001" x="207.36" y="43.74000000000001"></rect>
+<rect height="13.74" style="fill: rgb(0%, 0%, 0%)" width="0.48" x="207.36" y="30.239979999999946"></rect>
+<rect height="13.5" style="fill: rgb(100%, 100%, 100%)" width="74.28" x="281.82" y="30.479979999999955"></rect>
+<rect height="0.47998" style="fill: rgb(0%, 0%, 0%)" width="74.52" x="281.82" y="30.24000000000001"></rect>
+<rect height="13.74" style="fill: rgb(0%, 0%, 0%)" width="0.47998" x="355.86" y="30.479979999999955"></rect>
+<rect height="0.47998" style="fill: rgb(0%, 0%, 0%)" width="74.52" x="281.58" y="43.74000000000001"></rect>
+<rect height="13.74" style="fill: rgb(0%, 0%, 0%)" width="0.48001000000000005" x="281.58" y="30.239979999999946"></rect>
+<rect height="13.5" style="fill: rgb(100%, 100%, 100%)" width="145.5" x="135.42000000000002" y="94.61997999999994"></rect>
+<rect height="0.47998" style="fill: rgb(0%, 0%, 0%)" width="145.74" x="135.42000000000002" y="94.38"></rect>
+<rect height="13.74" style="fill: rgb(0%, 0%, 0%)" width="0.48001000000000005" x="280.68" y="94.61997999999994"></rect>
+<rect height="0.47998" style="fill: rgb(0%, 0%, 0%)" width="145.74" x="135.18" y="107.88"></rect>
+<rect height="13.74" style="fill: rgb(0%, 0%, 0%)" width="0.48" x="135.18" y="94.37997999999993"></rect>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.80058169554718pt; fill: #000" textLength="9.904170745989461" x="315.66" y="40.723889263226056">X1</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.80058169554718pt; fill: #000" textLength="9.844471945989483" x="389.81834685" y="40.723889263226056">X0</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.414416800000026pt; fill: #000" textLength="15.8825887" x="113.10000000000001" y="40.650871579999944">SRC</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.414416800000026pt; fill: #000" textLength="9.17216670000002" x="156.96" y="40.650877799999876">X3</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.414416800000026pt; fill: #000" textLength="9.17216670000002" x="241.32" y="40.650877799999876">X2</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.414416800000026pt; fill: #000" textLength="20.02495481999999" x="113.10000000000001" y="104.73087779999992">DEST</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.414416800000001pt; fill: #000" textLength="4.192128800000006" x="204.9" y="104.73087779999989">0</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.414416800000026pt; fill: #000" textLength="9.172166699999991" x="292.92" y="104.73087779999992">X3</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.414416800000026pt; fill: #000" textLength="9.232485099999963" x="330.06" y="104.73087779999992">X2</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.414416800000026pt; fill: #000" textLength="9.172166699999991" x="367.20000000000005" y="104.73087779999992">X1</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.414416800000026pt; fill: #000" textLength="9.172166699999991" x="404.28000000000003" y="104.73087779999992">X0</text></g></svg>
 <figcaption><a href="CVTPD2DQ.html#fig-3-12">Figure 3-12</a>. VCVTPD2DQ (VEX.256 encoded version)</figcaption></figure>
 <h2 id="operation">Operation<a class="anchor" href="CVTPD2DQ.html#operation">
 			&para;

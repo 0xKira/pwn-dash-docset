@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-457"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/SYSRET"></a><title>SYSRET</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>SYSRET
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-457"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/SYSRET"></a><title>SYSRET</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>November 2018</li></ul></nav></header><h1>SYSRET
 		&mdash; Return From Fast System Call</h1>
 
 <table>
@@ -59,6 +59,7 @@
 <li>Using paging to ensure that the SYSCALL instruction will never save a non-canonical value into RCX.</li>
 <li>Using the IST mechanism for gate 13 (#GP) in the IDT.</li>
 <li>Using the IST mechanism for gate 13 (#GP) in the IDT.</li></ul></li></ul>
+<p><strong>Instruction ordering.</strong> Instructions following a SYSRET may be fetched from memory before earlier instructions complete execution, but they will not execute (even speculatively) until all instructions prior to the SYSRET have completed execution (the later instructions may execute before data stored by the earlier instructions have become globally visible).</p>
 <h2 id="operation">Operation<a class="anchor" href="SYSRET.html#operation">
 			&para;
 		</a></h2>
@@ -74,7 +75,7 @@ IF (operand size is 64-bit)
         RIP &larr; ECX;
 FI;
 RFLAGS &larr; (R11 &amp; 3C7FD7H) | 2;
-            (* Clear RF, VM, reserved bits; set bit 2 *)
+            (* Clear RF, VM, reserved bits; set bit 1 *)
 IF (operand size is 64-bit)
     THEN CS.Selector &larr; IA32_STAR[63:48]+16;
     ELSE CS.Selector &larr; IA32_STAR[63:48];

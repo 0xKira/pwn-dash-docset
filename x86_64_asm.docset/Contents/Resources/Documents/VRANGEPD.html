@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-620"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/VRANGEPD"></a><title>VRANGEPD</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>VRANGEPD
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-620"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/VRANGEPD"></a><title>VRANGEPD</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>November 2018</li></ul></nav></header><h1>VRANGEPD
 		&mdash; Range Restriction Calculation For Packed Pairs of Float64 Values</h1>
 
 <table>
@@ -9,19 +9,19 @@
 <th>CPUID Feature Flag</th>
 <th>Description</th></tr>
 <tr>
-<td>EVEX.NDS.128.66.0F3A.W1 50 /r ib VRANGEPD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst, imm8</td>
+<td>EVEX.128.66.0F3A.W1 50 /r ib VRANGEPD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst, imm8</td>
 <td>A</td>
 <td>V/V</td>
 <td>AVX512VL AVX512DQ</td>
 <td>Calculate two RANGE operation output value from 2 pairs of double-precision floating-point values in xmm2 and xmm3/m128/m32bcst, store the results to xmm1 under the writemask k1. Imm8 specifies the comparison and sign of the range operation.</td></tr>
 <tr>
-<td>EVEX.NDS.256.66.0F3A.W1 50 /r ib VRANGEPD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst, imm8</td>
+<td>EVEX.256.66.0F3A.W1 50 /r ib VRANGEPD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst, imm8</td>
 <td>A</td>
 <td>V/V</td>
 <td>AVX512VL AVX512DQ</td>
 <td>Calculate four RANGE operation output value from 4pairs of double-precision floating-point values in ymm2 and ymm3/m256/m32bcst, store the results to ymm1 under the writemask k1. Imm8 specifies the comparison and sign of the range operation.</td></tr>
 <tr>
-<td>EVEX.NDS.512.66.0F3A.W1 50 /r ib VRANGEPD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{sae}, imm8</td>
+<td>EVEX.512.66.0F3A.W1 50 /r ib VRANGEPD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{sae}, imm8</td>
 <td>A</td>
 <td>V/V</td>
 <td>AVX512DQ</td>
@@ -54,40 +54,40 @@
 <li>Imm8[3:2] specifies the sign of the range operation output to be one of the following: from the first input value, from the comparison result, set or clear.</li></ul>
 <p>The encodings of Imm8[1:0] and Imm8[3:2] are shown in <a href="VRANGEPD.html#fig-5-27">Figure 5-27</a>.</p>
 <figure id="fig-5-27">
-<svg style="width: 599.04pt; height: 129.744012pt" viewBox="49.34 0.0 504.2 113.12001">
-<g xmlns="http://www.w3.org/2000/svg" style="fill: none; stroke: none">
-<rect height="107.1" x="51.9" style="fill: rgb(0%, 0%, 0%)" y="0.480009999999993" width="0.48"></rect>
-<rect height="107.1" x="550.56" style="fill: rgb(0%, 0%, 0%)" y="0.480009999999993" width="0.47998"></rect>
-<rect height="0.48001" x="51.84" style="fill: rgb(0%, 0%, 0%)" y="0.0" width="499.2"></rect>
-<rect height="0.48" x="51.84" style="fill: rgb(0%, 0%, 0%)" y="107.64001" width="499.2"></rect>
-<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 112.44 27.72001 L 297.9 27.72001 L 297.9 40.56001 L 112.44 40.56001 L 112.44 27.72001"></path>
-<rect height="0.48001" x="111.96" style="fill: rgb(0%, 0%, 0%)" y="27.3" width="373.26"></rect>
-<rect height="13.5" x="484.74" style="fill: rgb(0%, 0%, 0%)" y="27.54001" width="0.47998"></rect>
-<rect height="0.48" x="111.72" style="fill: rgb(0%, 0%, 0%)" y="40.56001" width="373.26"></rect>
-<rect height="13.5" x="111.72" style="fill: rgb(0%, 0%, 0%)" y="27.30001" width="0.48001"></rect>
-<rect height="0.24001" x="391.44" style="fill: rgb(0%, 0%, 0%)" y="27.54" width="0.48001"></rect>
-<rect height="13.26" x="391.44" style="fill: rgb(0%, 0%, 0%)" y="27.78001" width="0.48001"></rect>
-<rect height="0.24001" x="298.2" style="fill: rgb(0%, 0%, 0%)" y="27.54" width="0.47998"></rect>
-<rect height="13.26" x="298.2" style="fill: rgb(0%, 0%, 0%)" y="27.78001" width="0.47998"></rect>
-<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 209.88 64.02001 L 204.78 64.92001"></path>
-<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 210.36 66.96001 L 204.78 64.92001 L 209.34 61.14001"></path>
-<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 338.46 41.22001 L 209.88 64.02001"></path>
-<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 442.5 47.52001 L 442.5 52.68001"></path>
-<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 445.44 47.58001 L 442.5 52.68001 L 439.5 47.58001"></path>
-<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 442.5 40.20001 L 442.5 47.52001"></path>
-<text x="460.08" textLength="3.50999999999999" y="23.79601" lengthAdjust="spacingAndGlyphs" style="font-size: 7.518pt; fill: #000">0</text>
-<text x="81.4800000000001" textLength="14.0712" y="36.03601" lengthAdjust="spacingAndGlyphs" style="font-size: 7.518pt; fill: #000">imm8</text>
-<text x="183.48" textLength="33.786" y="37.71601" lengthAdjust="spacingAndGlyphs" style="font-size: 7.518pt; fill: #000">Must Be Zero</text>
-<text x="325.5" textLength="41.6706" y="37.71601" lengthAdjust="spacingAndGlyphs" style="font-size: 7.518pt; fill: #000">Sign Control (SC)</text>
-<text x="409.98" textLength="65.5415999999998" y="37.71601" lengthAdjust="spacingAndGlyphs" style="font-size: 7.518pt; fill: #000">Compare Operation Select</text>
-<text x="396.0" textLength="87.6899999999996" y="63.69601" lengthAdjust="spacingAndGlyphs" style="font-size: 7.518pt; fill: #000">Imm8[1:0] = 00b : Select Min value</text>
-<text x="184.5" textLength="90.8484000000002" y="72.69601" lengthAdjust="spacingAndGlyphs" style="font-size: 7.518pt; fill: #000">Imm8[3:2] = 00b : Select sign(SRC1)</text>
-<text x="396.0" textLength="89.3669999999998" y="73.53601" lengthAdjust="spacingAndGlyphs" style="font-size: 7.518pt; fill: #000">Imm8[1:0] = 01b : Select Max value</text>
-<text x="184.5" textLength="118.7298" y="82.17601" lengthAdjust="spacingAndGlyphs" style="font-size: 7.518pt; fill: #000">Imm8[3:2] = 01b : Select sign(Compare_Result)</text>
-<text x="396.0" textLength="99.0894" y="83.37601" lengthAdjust="spacingAndGlyphs" style="font-size: 7.518pt; fill: #000">Imm8[1:0] = 10b : Select Min-Abs value</text>
-<text x="184.5" textLength="78.6324" y="91.71601" lengthAdjust="spacingAndGlyphs" style="font-size: 7.518pt; fill: #000">Imm8[3:2] = 10b : Set sign to 0</text>
-<text x="396.0" textLength="100.7664" y="93.21601" lengthAdjust="spacingAndGlyphs" style="font-size: 7.518pt; fill: #000">Imm8[1:0] = 11b : Select Max-Abs value</text>
-<text x="184.5" textLength="78.5898" y="99.69601" lengthAdjust="spacingAndGlyphs" style="font-size: 7.518pt; fill: #000">Imm8[3:2] = 11b : Set sign to 1</text></g></svg>
+<svg style="width: 599.0400000000001pt; height: 129.744012pt" viewBox="49.34 0.0 504.20000000000005 113.12001000000001">
+<g xmlns="http://www.w3.org/2000/svg" style="stroke: none; fill: none">
+<rect height="107.10000000000001" style="fill: rgb(0%, 0%, 0%)" width="0.48" x="51.900000000000006" y="0.48000999999999294"></rect>
+<rect height="107.10000000000001" style="fill: rgb(0%, 0%, 0%)" width="0.47998" x="550.5600000000001" y="0.48000999999999294"></rect>
+<rect height="0.48001000000000005" style="fill: rgb(0%, 0%, 0%)" width="499.20000000000005" x="51.84" y="0.0"></rect>
+<rect height="0.48" style="fill: rgb(0%, 0%, 0%)" width="499.20000000000005" x="51.84" y="107.64001000000002"></rect>
+<path d="M 112.44 27.720010000000002 L 297.9 27.720010000000002 L 297.9 40.560010000000005 L 112.44 40.560010000000005 L 112.44 27.720010000000002" style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)"></path>
+<rect height="0.48001000000000005" style="fill: rgb(0%, 0%, 0%)" width="373.26" x="111.96000000000001" y="27.30000000000001"></rect>
+<rect height="13.5" style="fill: rgb(0%, 0%, 0%)" width="0.47998" x="484.74" y="27.540009999999995"></rect>
+<rect height="0.48" style="fill: rgb(0%, 0%, 0%)" width="373.26" x="111.72" y="40.560010000000005"></rect>
+<rect height="13.5" style="fill: rgb(0%, 0%, 0%)" width="0.48001000000000005" x="111.72" y="27.300009999999986"></rect>
+<rect height="0.24001000000000003" style="fill: rgb(0%, 0%, 0%)" width="0.48001000000000005" x="391.44" y="27.539999999999992"></rect>
+<rect height="13.26" style="fill: rgb(0%, 0%, 0%)" width="0.48001000000000005" x="391.44" y="27.780010000000004"></rect>
+<rect height="0.24001000000000003" style="fill: rgb(0%, 0%, 0%)" width="0.47998" x="298.2" y="27.539999999999992"></rect>
+<rect height="13.26" style="fill: rgb(0%, 0%, 0%)" width="0.47998" x="298.2" y="27.780010000000004"></rect>
+<path d="M 209.88 64.02000999999998 L 204.78 64.92000999999999" style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)"></path>
+<path d="M 210.35999999999999 66.96000999999998 L 204.77999999999997 64.92000999999999 L 209.33999999999997 61.14000999999999" style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)"></path>
+<path d="M 338.46 41.220009999999974 L 209.87999999999997 64.02000999999998" style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)"></path>
+<path d="M 442.5 47.520009999999985 L 442.5 52.68000999999998" style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)"></path>
+<path d="M 445.44 47.58000999999999 L 442.5 52.68000999999998 L 439.5 47.58000999999999" style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)"></path>
+<path d="M 442.5 40.20000999999999 L 442.5 47.520009999999985" style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)"></path>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.518pt; fill: #000" textLength="3.509999999999991" x="460.08000000000004" y="23.796009999999995">0</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.518000000000001pt; fill: #000" textLength="14.071200000000019" x="81.48000000000013" y="36.036009999999976">imm8</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.518000000000001pt; fill: #000" textLength="33.786" x="183.48000000000008" y="37.71600999999998">Must Be Zero</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.518000000000001pt; fill: #000" textLength="41.670600000000036" x="325.5000000000001" y="37.71600999999998">Sign Control (SC)</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.518000000000001pt; fill: #000" textLength="65.54159999999985" x="409.9800000000001" y="37.71600999999998">Compare Operation Select</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.518000000000001pt; fill: #000" textLength="87.6899999999996" x="396.0000000000001" y="63.69600999999997">Imm8[1:0] = 00b : Select Min value</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.518000000000001pt; fill: #000" textLength="90.84840000000017" x="184.50000000000009" y="72.69601">Imm8[3:2] = 00b : Select sign(SRC1)</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.518000000000001pt; fill: #000" textLength="89.36699999999979" x="396.0000000000001" y="73.53600999999998">Imm8[1:0] = 01b : Select Max value</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.518000000000001pt; fill: #000" textLength="118.7297999999999" x="184.5000000000001" y="82.17600999999999">Imm8[3:2] = 01b : Select sign(Compare_Result)</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.518000000000001pt; fill: #000" textLength="99.08940000000001" x="396.0000000000001" y="83.37600999999998">Imm8[1:0] = 10b : Select Min-Abs value</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.518000000000001pt; fill: #000" textLength="78.63239999999996" x="184.5000000000001" y="91.71600999999998">Imm8[3:2] = 10b : Set sign to 0</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.518000000000001pt; fill: #000" textLength="100.76639999999952" x="396.0000000000001" y="93.21600999999998">Imm8[1:0] = 11b : Select Max-Abs value</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.518000000000001pt; fill: #000" textLength="78.58979999999997" x="184.5" y="99.69601">Imm8[3:2] = 11b : Set sign to 1</text></g></svg>
 <figcaption><a href="VRANGEPD.html#fig-5-27">Figure 5-27</a>. Imm8 Controls for VRANGEPD/SD/PS/SS</figcaption></figure>
 <p>When one or more of the input value is a NAN, the comparison operation may signal invalid exception (IE). Details with one of more input value is NAN is listed in <a href="VRANGEPD.html#tbl-5-19">Table 5-19</a>. If the comparison raises an IE, the sign select control (Imm8[3:2] has no effect to the range operation output, this is indicated also in <a href="VRANGEPD.html#tbl-5-19">Table 5-19</a>.</p>
 <p>When both input values are zeros of opposite signs, the comparison operation of MIN/MAX in the range compare operation is slightly different from the conceptually similar FP MIN/MAX operation that are found in the instructions VMAXPD/VMINPD. The details of MIN/MAX/MIN_ABS/MAX_ABS operation for VRANGEPD/PS/SD/SS for magni-tude-0, opposite-signed input cases are listed in <a href="VRANGEPD.html#tbl-5-20">Table 5-20</a>.</p>

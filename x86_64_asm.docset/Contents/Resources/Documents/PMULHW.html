@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-357"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/PMULHW"></a><title>PMULHW</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>PMULHW
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-357"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/PMULHW"></a><title>PMULHW</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>November 2018</li></ul></nav></header><h1>PMULHW
 		&mdash; Multiply Packed Signed Integers and Store High Result</h1>
 
 <table>
@@ -21,31 +21,31 @@
 <td>SSE2</td>
 <td>Multiply the packed signed word integers in <em>xmm1</em> and <em>xmm2/m128</em>, and store the high 16 bits of the results in <em>xmm1</em>.</td></tr>
 <tr>
-<td>VEX.NDS.128.66.0F.WIG E5 /r VPMULHW <em>xmm1, xmm2, xmm3/m128</em></td>
+<td>VEX.128.66.0F.WIG E5 /r VPMULHW <em>xmm1, xmm2, xmm3/m128</em></td>
 <td>B</td>
 <td>V/V</td>
 <td>AVX</td>
 <td>Multiply the packed signed word integers in <em>xmm2</em> and <em>xmm3/m128</em>, and store the high 16 bits of the results in <em>xmm1</em>.</td></tr>
 <tr>
-<td>VEX.NDS.256.66.0F.WIG E5 /r VPMULHW <em>ymm1, ymm2, ymm3/m256</em></td>
+<td>VEX.256.66.0F.WIG E5 /r VPMULHW <em>ymm1, ymm2, ymm3/m256</em></td>
 <td>B</td>
 <td>V/V</td>
 <td>AVX2</td>
 <td>Multiply the packed signed word integers in <em>ymm2</em> and <em>ymm3/m256</em>, and store the high 16 bits of the results in <em>ymm1</em>.</td></tr>
 <tr>
-<td>EVEX.NDS.128.66.0F.WIG E5 /r VPMULHW xmm1 {k1}{z}, xmm2, xmm3/m128</td>
+<td>EVEX.128.66.0F.WIG E5 /r VPMULHW xmm1 {k1}{z}, xmm2, xmm3/m128</td>
 <td>C</td>
 <td>V/V</td>
 <td>AVX512VL AVX512BW</td>
 <td>Multiply the packed signed word integers in xmm2 and xmm3/m128, and store the high 16 bits of the results in xmm1 under writemask k1.</td></tr>
 <tr>
-<td>EVEX.NDS.256.66.0F.WIG E5 /r VPMULHW ymm1 {k1}{z}, ymm2, ymm3/m256</td>
+<td>EVEX.256.66.0F.WIG E5 /r VPMULHW ymm1 {k1}{z}, ymm2, ymm3/m256</td>
 <td>C</td>
 <td>V/V</td>
 <td>AVX512VL AVX512BW</td>
 <td>Multiply the packed signed word integers in ymm2 and ymm3/m256, and store the high 16 bits of the results in ymm1 under writemask k1.</td></tr>
 <tr>
-<td>EVEX.NDS.512.66.0F.WIG E5 /r VPMULHW zmm1 {k1}{z}, zmm2, zmm3/m512</td>
+<td>EVEX.512.66.0F.WIG E5 /r VPMULHW zmm1 {k1}{z}, zmm2, zmm3/m512</td>
 <td>C</td>
 <td>V/V</td>
 <td>AVX512BW</td>

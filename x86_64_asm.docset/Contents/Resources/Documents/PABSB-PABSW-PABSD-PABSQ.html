@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-308"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/PABSB%2FPABSW%2FPABSD%2FPABSQ"></a><title>PABSB/PABSW/PABSD/PABSQ</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>PABSB/PABSW/PABSD/PABSQ
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-308"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/PABSB%2FPABSW%2FPABSD%2FPABSQ"></a><title>PABSB/PABSW/PABSD/PABSQ</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>November 2018</li></ul></nav></header><h1>PABSB/PABSW/PABSD/PABSQ
 		&mdash; Packed Absolute Value</h1>
 
 
@@ -133,7 +133,7 @@
 <td>AVX512VL AVX512F</td>
 <td>Compute the absolute value of 32-bit integers in ymm2/m256/m32bcst and store UNSIGNED result in ymm1 using writemask k1.</td></tr>
 <tr>
-<td>VPABSD zmm1 {k1}{z}, zmm2/m512/m32bcst</td>
+<td>EVEX.512.66.0F38.W0 1E /r VPABSD zmm1 {k1}{z}, zmm2/m512/m32bcst</td>
 <td>C</td>
 <td>V/V</td>
 <td>AVX512F</td>

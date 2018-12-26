@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-342"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/PMADDUBSW"></a><title>PMADDUBSW</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>PMADDUBSW
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-342"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/PMADDUBSW"></a><title>PMADDUBSW</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>November 2018</li></ul></nav></header><h1>PMADDUBSW
 		&mdash; Multiply and Add Packed Signed and Unsigned Bytes</h1>
 
 <table>
@@ -21,31 +21,31 @@
 <td>SSSE3</td>
 <td>Multiply signed and unsigned bytes, add horizontal pair of signed words, pack saturated signed-words to <em>xmm1</em>.</td></tr>
 <tr>
-<td>VEX.NDS.128.66.0F38.WIG 04 /r VPMADDUBSW <em>xmm1, xmm2, xmm3/m128</em></td>
+<td>VEX.128.66.0F38.WIG 04 /r VPMADDUBSW <em>xmm1, xmm2, xmm3/m128</em></td>
 <td>B</td>
 <td>V/V</td>
 <td>AVX</td>
 <td>Multiply signed and unsigned bytes, add horizontal pair of signed words, pack saturated signed-words to <em>xmm1</em>.</td></tr>
 <tr>
-<td>VEX.NDS.256.66.0F38.WIG 04 /r VPMADDUBSW <em>ymm1, ymm2, ymm3/m256</em></td>
+<td>VEX.256.66.0F38.WIG 04 /r VPMADDUBSW <em>ymm1, ymm2, ymm3/m256</em></td>
 <td>B</td>
 <td>V/V</td>
 <td>AVX2</td>
 <td>Multiply signed and unsigned bytes, add horizontal pair of signed words, pack saturated signed-words to <em>ymm1.</em></td></tr>
 <tr>
-<td>EVEX.NDS.128.66.0F38.WIG 04 /r VPMADDUBSW xmm1 {k1}{z}, xmm2, xmm3/m128</td>
+<td>EVEX.128.66.0F38.WIG 04 /r VPMADDUBSW xmm1 {k1}{z}, xmm2, xmm3/m128</td>
 <td>C</td>
 <td>V/V</td>
 <td>AVX512VL AVX512BW</td>
 <td>Multiply signed and unsigned bytes, add horizontal pair of signed words, pack saturated signed-words to xmm1 under writemask k1.</td></tr>
 <tr>
-<td>EVEX.NDS.256.66.0F38.WIG 04 /r VPMADDUBSW ymm1 {k1}{z}, ymm2, ymm3/m256</td>
+<td>EVEX.256.66.0F38.WIG 04 /r VPMADDUBSW ymm1 {k1}{z}, ymm2, ymm3/m256</td>
 <td>C</td>
 <td>V/V</td>
 <td>AVX512VL AVX512BW</td>
 <td>Multiply signed and unsigned bytes, add horizontal pair of signed words, pack saturated signed-words to ymm1 under writemask k1.</td></tr>
 <tr>
-<td>EVEX.NDS.512.66.0F38.WIG 04 /r VPMADDUBSW zmm1 {k1}{z}, zmm2, zmm3/m512</td>
+<td>EVEX.512.66.0F38.WIG 04 /r VPMADDUBSW zmm1 {k1}{z}, zmm2, zmm3/m512</td>
 <td>C</td>
 <td>V/V</td>
 <td>AVX512BW</td>

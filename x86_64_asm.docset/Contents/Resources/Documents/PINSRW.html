@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-341"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/PINSRW"></a><title>PINSRW</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>PINSRW
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-341"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/PINSRW"></a><title>PINSRW</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>November 2018</li></ul></nav></header><h1>PINSRW
 		&mdash; Insert Word</h1>
 
 <table>
@@ -21,13 +21,13 @@
 <td>SSE2</td>
 <td>Move the low word of <em>r32</em> or from <em>m16</em> into <em>xmm</em> at the word position specified by <em>imm8</em>.</td></tr>
 <tr>
-<td>VEX.NDS.128.66.0F.W0 C4 /r ib VPINSRW <em>xmm1, xmm2, r32/m16, imm8</em></td>
+<td>VEX.128.66.0F.W0 C4 /r ib VPINSRW <em>xmm1, xmm2, r32/m16, imm8</em></td>
 <td>B</td>
 <td>V<sup>2</sup>/V</td>
 <td>AVX</td>
 <td>Insert a word integer value from <em>r32/m16</em> and rest from <em>xmm2</em> into <em>xmm1</em> at the word offset in <em>imm8</em>.</td></tr>
 <tr>
-<td>EVEX.NDS.128.66.0F.WIG C4 /r ib VPINSRW xmm1, xmm2, r32/m16, imm8</td>
+<td>EVEX.128.66.0F.WIG C4 /r ib VPINSRW xmm1, xmm2, r32/m16, imm8</td>
 <td>C</td>
 <td>V/V</td>
 <td>AVX512BW</td>

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-366"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/PREFETCHW"></a><title>PREFETCHW</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>PREFETCHW
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-366"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/PREFETCHW"></a><title>PREFETCHW</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>November 2018</li></ul></nav></header><h1>PREFETCHW
 		&mdash; Prefetch Data into Caches in Anticipation of a Write</h1>
 
 <table>
@@ -12,9 +12,9 @@
 <td>0F 0D /1 PREFETCHW m8</td>
 <td>A</td>
 <td>V/V</td>
-<td>PRFCHW</td>
+<td>PREFETCHW</td>
 <td>Move data from m8 closer to the processor in anticipation of a write.</td></tr></tbody></table>
-<h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="PREFETCHWT1.html#instruction-operand-encoding">
+<h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="PREFETCHW.html#instruction-operand-encoding">
 			&para;
 		</a></h2>
 <table>
@@ -30,7 +30,7 @@
 <td>NA</td>
 <td>NA</td>
 <td>NA</td></tr></tbody></table>
-<h2 id="description">Description<a class="anchor" href="PREFETCHWT1.html#description">
+<h2 id="description">Description<a class="anchor" href="PREFETCHW.html#description">
 			&para;
 		</a></h2>
 <p>Fetches the cache line of data from memory that contains the byte specified with the source operand to a location in the 1st or 2nd level cache and invalidates other cached instances of the line.</p>
@@ -40,49 +40,49 @@
 <p>It should be noted that processors are free to speculatively fetch and cache data with exclusive ownership from system memory regions that permit such accesses (that is, the WB memory type). A PREFETCHW instruction is considered a hint to this speculative behavior. Because this speculative fetching can occur at any time and is not tied to instruction execution, a PREFETCHW instruction is not ordered with respect to the fence instructions (MFENCE, SFENCE, and LFENCE) or locked memory references. A PREFETCHW instruction is also unordered with respect to CLFLUSH and CLFLUSHOPT instructions, other PREFETCHW instructions, or any other general instruction</p>
 <p>It is ordered with respect to serializing instructions such as CPUID, WRMSR, OUT, and MOV CR.</p>
 <p>This instruction&#39;s operation is the same in non-64-bit modes and 64-bit mode.</p>
-<h2 id="operation">Operation<a class="anchor" href="PREFETCHWT1.html#operation">
+<h2 id="operation">Operation<a class="anchor" href="PREFETCHW.html#operation">
 			&para;
 		</a></h2>
 <pre>FETCH_WITH_EXCLUSIVE_OWNERSHIP (m8);
 </pre>
-<h2 id="flags-affected">Flags Affected<a class="anchor" href="PREFETCHWT1.html#flags-affected">
+<h2 id="flags-affected">Flags Affected<a class="anchor" href="PREFETCHW.html#flags-affected">
 			&para;
 		</a></h2>
-<p>All flags are affected</p>
-<h2 id="c-c++-compiler-intrinsic-equivalent">C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="PREFETCHWT1.html#c-c++-compiler-intrinsic-equivalent">
+<p>All flags are affected.</p>
+<h2 id="c-c++-compiler-intrinsic-equivalent">C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="PREFETCHW.html#c-c++-compiler-intrinsic-equivalent">
 			&para;
 		</a></h2>
 <pre>void _m_prefetchw( void * );
 </pre>
-<h2 class="exceptions" id="protected-mode-exceptions">Protected Mode Exceptions<a class="anchor" href="PREFETCHWT1.html#protected-mode-exceptions">
+<h2 class="exceptions" id="protected-mode-exceptions">Protected Mode Exceptions<a class="anchor" href="PREFETCHW.html#protected-mode-exceptions">
 			&para;
 		</a></h2>
 <table>
 <tbody><tr>
 <td>#UD</td>
 <td>If the LOCK prefix is used.</td></tr></tbody></table>
-<h2 class="exceptions" id="real-address-mode-exceptions">Real-Address Mode Exceptions<a class="anchor" href="PREFETCHWT1.html#real-address-mode-exceptions">
+<h2 class="exceptions" id="real-address-mode-exceptions">Real-Address Mode Exceptions<a class="anchor" href="PREFETCHW.html#real-address-mode-exceptions">
 			&para;
 		</a></h2>
 <table>
 <tbody><tr>
 <td>#UD</td>
 <td>If the LOCK prefix is used.</td></tr></tbody></table>
-<h2 class="exceptions" id="virtual-8086-mode-exceptions">Virtual-8086 Mode Exceptions<a class="anchor" href="PREFETCHWT1.html#virtual-8086-mode-exceptions">
+<h2 class="exceptions" id="virtual-8086-mode-exceptions">Virtual-8086 Mode Exceptions<a class="anchor" href="PREFETCHW.html#virtual-8086-mode-exceptions">
 			&para;
 		</a></h2>
 <table>
 <tbody><tr>
 <td>#UD</td>
 <td>If the LOCK prefix is used.</td></tr></tbody></table>
-<h2 class="exceptions" id="compatibility-mode-exceptions">Compatibility Mode Exceptions<a class="anchor" href="PREFETCHWT1.html#compatibility-mode-exceptions">
+<h2 class="exceptions" id="compatibility-mode-exceptions">Compatibility Mode Exceptions<a class="anchor" href="PREFETCHW.html#compatibility-mode-exceptions">
 			&para;
 		</a></h2>
 <table>
 <tbody><tr>
 <td>#UD</td>
 <td>If the LOCK prefix is used.</td></tr></tbody></table>
-<h2 class="exceptions" id="64-bit-mode-exceptions">64-Bit Mode Exceptions<a class="anchor" href="PREFETCHWT1.html#64-bit-mode-exceptions">
+<h2 class="exceptions" id="64-bit-mode-exceptions">64-Bit Mode Exceptions<a class="anchor" href="PREFETCHW.html#64-bit-mode-exceptions">
 			&para;
 		</a></h2>
 <table>

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-612"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/VPRORD%2FVPRORVD%2FVPRORQ%2FVPRORVQ"></a><title>VPRORD/VPRORVD/VPRORQ/VPRORVQ</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>VPRORD/VPRORVD/VPRORQ/VPRORVQ
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-612"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/VPRORD%2FVPRORVD%2FVPRORQ%2FVPRORVQ"></a><title>VPRORD/VPRORVD/VPRORQ/VPRORVQ</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>November 2018</li></ul></nav></header><h1>VPRORD/VPRORVD/VPRORQ/VPRORVQ
 		&mdash; Bit Rotate Right</h1>
 
 
@@ -12,73 +12,73 @@
 <th>CPUID Feature Flag</th>
 <th>Description</th></tr>
 <tr>
-<td>EVEX.NDS.128.66.0F38.W0 14 /r VPRORVD xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</td>
+<td>EVEX.128.66.0F38.W0 14 /r VPRORVD xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</td>
 <td>B</td>
 <td>V/V</td>
 <td>AVX512VL AVX512F</td>
 <td>Rotate doublewords in xmm2 right by count in the corresponding element of xmm3/m128/m32bcst, store result using writemask k1.</td></tr>
 <tr>
-<td>EVEX.NDD.128.66.0F.W0 72 /0 ib VPRORD xmm1 {k1}{z}, xmm2/m128/m32bcst, imm8</td>
+<td>EVEX.128.66.0F.W0 72 /0 ib VPRORD xmm1 {k1}{z}, xmm2/m128/m32bcst, imm8</td>
 <td>A</td>
 <td>V/V</td>
 <td>AVX512VL AVX512F</td>
 <td>Rotate doublewords in xmm2/m128/m32bcst right by imm8, store result using writemask k1.</td></tr>
 <tr>
-<td>EVEX.NDS.128.66.0F38.W1 14 /r VPRORVQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst</td>
+<td>EVEX.128.66.0F38.W1 14 /r VPRORVQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst</td>
 <td>B</td>
 <td>V/V</td>
 <td>AVX512VL AVX512F</td>
 <td>Rotate quadwords in xmm2 right by count in the corresponding element of xmm3/m128/m64bcst, store result using writemask k1.</td></tr>
 <tr>
-<td>EVEX.NDD.128.66.0F.W1 72 /0 ib VPRORQ xmm1 {k1}{z}, xmm2/m128/m64bcst, imm8</td>
+<td>EVEX.128.66.0F.W1 72 /0 ib VPRORQ xmm1 {k1}{z}, xmm2/m128/m64bcst, imm8</td>
 <td>A</td>
 <td>V/V</td>
 <td>AVX512VL AVX512F</td>
 <td>Rotate quadwords in xmm2/m128/m64bcst right by imm8, store result using writemask k1.</td></tr>
 <tr>
-<td>EVEX.NDS.256.66.0F38.W0 14 /r VPRORVD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</td>
+<td>EVEX.256.66.0F38.W0 14 /r VPRORVD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</td>
 <td>B</td>
 <td>V/V</td>
 <td>AVX512VL AVX512F</td>
 <td>Rotate doublewords in ymm2 right by count in the corresponding element of ymm3/m256/m32bcst, store using result writemask k1.</td></tr>
 <tr>
-<td>EVEX.NDD.256.66.0F.W0 72 /0 ib VPRORD ymm1 {k1}{z}, ymm2/m256/m32bcst, imm8</td>
+<td>EVEX.256.66.0F.W0 72 /0 ib VPRORD ymm1 {k1}{z}, ymm2/m256/m32bcst, imm8</td>
 <td>A</td>
 <td>V/V</td>
 <td>AVX512VL AVX512F</td>
 <td>Rotate doublewords in ymm2/m256/m32bcst right by imm8, store result using writemask k1.</td></tr>
 <tr>
-<td>EVEX.NDS.256.66.0F38.W1 14 /r VPRORVQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst</td>
+<td>EVEX.256.66.0F38.W1 14 /r VPRORVQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst</td>
 <td>B</td>
 <td>V/V</td>
 <td>AVX512VL AVX512F</td>
 <td>Rotate quadwords in ymm2 right by count in the corresponding element of ymm3/m256/m64bcst, store result using writemask k1.</td></tr>
 <tr>
-<td>EVEX.NDD.256.66.0F.W1 72 /0 ib VPRORQ ymm1 {k1}{z}, ymm2/m256/m64bcst, imm8</td>
+<td>EVEX.256.66.0F.W1 72 /0 ib VPRORQ ymm1 {k1}{z}, ymm2/m256/m64bcst, imm8</td>
 <td>A</td>
 <td>V/V</td>
 <td>AVX512VL AVX512F</td>
 <td>Rotate quadwords in ymm2/m256/m64bcst right by imm8, store result using writemask k1.</td></tr>
 <tr>
-<td>EVEX.NDS.512.66.0F38.W0 14 /r VPRORVD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst</td>
+<td>EVEX.512.66.0F38.W0 14 /r VPRORVD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst</td>
 <td>B</td>
 <td>V/V</td>
 <td>AVX512F</td>
 <td>Rotate doublewords in zmm2 right by count in the corresponding element of zmm3/m512/m32bcst, store result using writemask k1.</td></tr>
 <tr>
-<td>EVEX.NDD.512.66.0F.W0 72 /0 ib VPRORD zmm1 {k1}{z}, zmm2/m512/m32bcst, imm8</td>
+<td>EVEX.512.66.0F.W0 72 /0 ib VPRORD zmm1 {k1}{z}, zmm2/m512/m32bcst, imm8</td>
 <td>A</td>
 <td>V/V</td>
 <td>AVX512F</td>
 <td>Rotate doublewords in zmm2/m512/m32bcst right by imm8, store result using writemask k1.</td></tr>
 <tr>
-<td>EVEX.NDS.512.66.0F38.W1 14 /r VPRORVQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst</td>
+<td>EVEX.512.66.0F38.W1 14 /r VPRORVQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst</td>
 <td>B</td>
 <td>V/V</td>
 <td>AVX512F</td>
 <td>Rotate quadwords in zmm2 right by count in the corresponding element of zmm3/m512/m64bcst, store result using writemask k1.</td></tr>
 <tr>
-<td>EVEX.NDD.512.66.0F.W1 72 /0 ib VPRORQ zmm1 {k1}{z}, zmm2/m512/m64bcst, imm8</td>
+<td>EVEX.512.66.0F.W1 72 /0 ib VPRORQ zmm1 {k1}{z}, zmm2/m512/m64bcst, imm8</td>
 <td>A</td>
 <td>V/V</td>
 <td>AVX512F</td>

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-530"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/VFNMSUB132SD%2FVFNMSUB213SD%2FVFNMSUB231SD"></a><title>VFNMSUB132SD/VFNMSUB213SD/VFNMSUB231SD</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>VFNMSUB132SD/VFNMSUB213SD/VFNMSUB231SD
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-530"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/VFNMSUB132SD%2FVFNMSUB213SD%2FVFNMSUB231SD"></a><title>VFNMSUB132SD/VFNMSUB213SD/VFNMSUB231SD</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>November 2018</li></ul></nav></header><h1>VFNMSUB132SD/VFNMSUB213SD/VFNMSUB231SD
 		&mdash; Fused Negative Multiply-Subtract of Scalar Double-Precision Floating-Point Values</h1>
 
 
@@ -11,37 +11,37 @@
 <th>CPUID Feature Flag</th>
 <th>Description</th></tr>
 <tr>
-<td>VEX.DDS.LIG.66.0F38.W1 9F /r VFNMSUB132SD xmm1, xmm2, xmm3/m64</td>
+<td>VEX.LIG.66.0F38.W1 9F /r VFNMSUB132SD xmm1, xmm2, xmm3/m64</td>
 <td>A</td>
 <td>V/V</td>
 <td>FMA</td>
 <td>Multiply scalar double-precision floating-point value from xmm1 and xmm3/mem, negate the multiplication result and subtract xmm2 and put result in xmm1.</td></tr>
 <tr>
-<td>VEX.DDS.LIG.66.0F38.W1 AF /r VFNMSUB213SD xmm1, xmm2, xmm3/m64</td>
+<td>VEX.LIG.66.0F38.W1 AF /r VFNMSUB213SD xmm1, xmm2, xmm3/m64</td>
 <td>A</td>
 <td>V/V</td>
 <td>FMA</td>
 <td>Multiply scalar double-precision floating-point value from xmm1 and xmm2, negate the multiplication result and subtract xmm3/mem and put result in xmm1.</td></tr>
 <tr>
-<td>VEX.DDS.LIG.66.0F38.W1 BF /r VFNMSUB231SD xmm1, xmm2, xmm3/m64</td>
+<td>VEX.LIG.66.0F38.W1 BF /r VFNMSUB231SD xmm1, xmm2, xmm3/m64</td>
 <td>A</td>
 <td>V/V</td>
 <td>FMA</td>
 <td>Multiply scalar double-precision floating-point value from xmm2 and xmm3/mem, negate the multiplication result and subtract xmm1 and put result in xmm1.</td></tr>
 <tr>
-<td>EVEX.DDS.LIG.66.0F38.W1 9F /r VFNMSUB132SD xmm1 {k1}{z}, xmm2, xmm3/m64{er}</td>
+<td>EVEX.LIG.66.0F38.W1 9F /r VFNMSUB132SD xmm1 {k1}{z}, xmm2, xmm3/m64{er}</td>
 <td>B</td>
 <td>V/V</td>
 <td>AVX512F</td>
 <td>Multiply scalar double-precision floating-point value from xmm1 and xmm3/m64, negate the multiplication result and subtract xmm2 and put result in xmm1.</td></tr>
 <tr>
-<td>EVEX.DDS.LIG.66.0F38.W1 AF /r VFNMSUB213SD xmm1 {k1}{z}, xmm2, xmm3/m64{er}</td>
+<td>EVEX.LIG.66.0F38.W1 AF /r VFNMSUB213SD xmm1 {k1}{z}, xmm2, xmm3/m64{er}</td>
 <td>B</td>
 <td>V/V</td>
 <td>AVX512F</td>
 <td>Multiply scalar double-precision floating-point value from xmm1 and xmm2, negate the multiplication result and subtract xmm3/m64 and put result in xmm1.</td></tr>
 <tr>
-<td>EVEX.DDS.LIG.66.0F38.W1 BF /r VFNMSUB231SD xmm1 {k1}{z}, xmm2, xmm3/m64{er}</td>
+<td>EVEX.LIG.66.0F38.W1 BF /r VFNMSUB231SD xmm1 {k1}{z}, xmm2, xmm3/m64{er}</td>
 <td>B</td>
 <td>V/V</td>
 <td>AVX512F</td>

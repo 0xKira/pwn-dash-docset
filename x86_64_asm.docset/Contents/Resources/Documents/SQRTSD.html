@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-439"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/SQRTSD"></a><title>SQRTSD</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>SQRTSD
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-439"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/SQRTSD"></a><title>SQRTSD</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>November 2018</li></ul></nav></header><h1>SQRTSD
 		&mdash; Compute Square Root of Scalar Double-Precision Floating-Point Value</h1>
 
 <table>
@@ -15,13 +15,13 @@
 <td>SSE2</td>
 <td>Computes square root of the low double-precision floating-point value in xmm2/m64 and stores the results in xmm1.</td></tr>
 <tr>
-<td>VEX.NDS.LIG.F2.0F.WIG 51/r VSQRTSD xmm1,xmm2, xmm3/m64</td>
+<td>VEX.LIG.F2.0F.WIG 51/r VSQRTSD xmm1,xmm2, xmm3/m64</td>
 <td>B</td>
 <td>V/V</td>
 <td>AVX</td>
 <td>Computes square root of the low double-precision floating-point value in xmm3/m64 and stores the results in xmm1. Also, upper double-precision floating-point value (bits[127:64]) from xmm2 is copied to xmm1[127:64].</td></tr>
 <tr>
-<td>EVEX.NDS.LIG.F2.0F.W1 51/r VSQRTSD xmm1 {k1}{z}, xmm2, xmm3/m64{er}</td>
+<td>EVEX.LIG.F2.0F.W1 51/r VSQRTSD xmm1 {k1}{z}, xmm2, xmm3/m64{er}</td>
 <td>C</td>
 <td>V/V</td>
 <td>AVX512F</td>

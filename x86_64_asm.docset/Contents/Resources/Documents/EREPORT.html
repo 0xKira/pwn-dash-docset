@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-134"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/EREPORT"></a><title>EREPORT</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>EREPORT
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-134"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/EREPORT"></a><title>EREPORT</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>November 2018</li></ul></nav></header><h1>EREPORT
 		&mdash; Create a Cryptographic Report of the Enclave</h1>
 
 <table>
@@ -272,7 +272,9 @@
 		</a></h3>
 <table>
 <tbody><tr>
-<td rowspan="3">#GP(0)</td>
+<td rowspan="4">#GP(0)</td>
+<td>If executed outside an enclave.</td></tr>
+<tr>
 <td>If the address in RCS is outside the DS segment limit.</td></tr>
 <tr>
 <td>If a memory operand is not properly aligned.</td></tr>
@@ -286,7 +288,9 @@
 		</a></h3>
 <table>
 <tbody><tr>
-<td rowspan="3">#GP(0)</td>
+<td rowspan="4">#GP(0)</td>
+<td>If executed outside an enclave.</td></tr>
+<tr>
 <td>If RCX is non-canonical form.</td></tr>
 <tr>
 <td>If a memory operand is not properly aligned.</td></tr>

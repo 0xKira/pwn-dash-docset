@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-284"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/MOVSD"></a><title>MOVSD</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>MOVSD
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-284"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/MOVSD"></a><title>MOVSD</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>November 2018</li></ul></nav></header><h1>MOVSD
 		&mdash; Move or Merge Scalar Double-Precision Floating-Point Value</h1>
 
 <table>
@@ -27,7 +27,7 @@
 <td>SSE2</td>
 <td>Move scalar double-precision floating-point value from xmm2 register to xmm1/m64.</td></tr>
 <tr>
-<td>VEX.NDS.LIG.F2.0F.WIG 10 /r VMOVSD xmm1, xmm2, xmm3</td>
+<td>VEX.LIG.F2.0F.WIG 10 /r VMOVSD xmm1, xmm2, xmm3</td>
 <td>B</td>
 <td>V/V</td>
 <td>AVX</td>
@@ -39,7 +39,7 @@
 <td>AVX</td>
 <td>Load scalar double-precision floating-point value from m64 to xmm1 register.</td></tr>
 <tr>
-<td>VEX.NDS.LIG.F2.0F.WIG 11 /r VMOVSD xmm1, xmm2, xmm3</td>
+<td>VEX.LIG.F2.0F.WIG 11 /r VMOVSD xmm1, xmm2, xmm3</td>
 <td>E</td>
 <td>V/V</td>
 <td>AVX</td>
@@ -51,7 +51,7 @@
 <td>AVX</td>
 <td>Store scalar double-precision floating-point value from xmm1 register to m64.</td></tr>
 <tr>
-<td>EVEX.NDS.LIG.F2.0F.W1 10 /r VMOVSD xmm1 {k1}{z}, xmm2, xmm3</td>
+<td>EVEX.LIG.F2.0F.W1 10 /r VMOVSD xmm1 {k1}{z}, xmm2, xmm3</td>
 <td>B</td>
 <td>V/V</td>
 <td>AVX512F</td>
@@ -63,7 +63,7 @@
 <td>AVX512F</td>
 <td>Load scalar double-precision floating-point value from m64 to xmm1 register under writemask k1.</td></tr>
 <tr>
-<td>EVEX.NDS.LIG.F2.0F.W1 11 /r VMOVSD xmm1 {k1}{z}, xmm2, xmm3</td>
+<td>EVEX.LIG.F2.0F.W1 11 /r VMOVSD xmm1 {k1}{z}, xmm2, xmm3</td>
 <td>E</td>
 <td>V/V</td>
 <td>AVX512F</td>
@@ -146,7 +146,7 @@
 <h3 id="operation">Operation<a class="anchor" href="MOVSD.html#operation">
 			&para;
 		</a></h3>
-<h4 id="vmovsd--evex-nds-lig-f2-0f-10--r--vmovsd-xmm1--m64-with-support-for-32-registers-">VMOVSD (EVEX.NDS.LIG.F2.0F 10 /r: VMOVSD xmm1, m64 with support for 32 registers)<a class="anchor" href="MOVSD.html#vmovsd--evex-nds-lig-f2-0f-10--r--vmovsd-xmm1--m64-with-support-for-32-registers-">
+<h4 id="vmovsd--evex-lig-f2-0f-10--r--vmovsd-xmm1--m64-with-support-for-32-registers-">VMOVSD (EVEX.LIG.F2.0F 10 /r: VMOVSD xmm1, m64 with support for 32 registers)<a class="anchor" href="MOVSD.html#vmovsd--evex-lig-f2-0f-10--r--vmovsd-xmm1--m64-with-support-for-32-registers-">
 			&para;
 		</a></h4>
 <pre>IF k1[0] or *no writemask*
@@ -160,7 +160,7 @@
 FI;
 DEST[MAXVL-1:64] &larr; 0
 </pre>
-<h4 id="vmovsd--evex-nds-lig-f2-0f-11--r--vmovsd-m64--xmm1-with-support-for-32-registers-">VMOVSD (EVEX.NDS.LIG.F2.0F 11 /r: VMOVSD m64, xmm1 with support for 32 registers)<a class="anchor" href="MOVSD.html#vmovsd--evex-nds-lig-f2-0f-11--r--vmovsd-m64--xmm1-with-support-for-32-registers-">
+<h4 id="vmovsd--evex-lig-f2-0f-11--r--vmovsd-m64--xmm1-with-support-for-32-registers-">VMOVSD (EVEX.LIG.F2.0F 11 /r: VMOVSD m64, xmm1 with support for 32 registers)<a class="anchor" href="MOVSD.html#vmovsd--evex-lig-f2-0f-11--r--vmovsd-m64--xmm1-with-support-for-32-registers-">
 			&para;
 		</a></h4>
 <pre>IF k1[0] or *no writemask*
@@ -168,7 +168,7 @@ DEST[MAXVL-1:64] &larr; 0
     ELSE *DEST[63:0] remains unchanged* ; merging-masking
 FI;
 </pre>
-<h4 id="vmovsd--evex-nds-lig-f2-0f-11--r--vmovsd-xmm1--xmm2--xmm3-">VMOVSD (EVEX.NDS.LIG.F2.0F 11 /r: VMOVSD xmm1, xmm2, xmm3)<a class="anchor" href="MOVSD.html#vmovsd--evex-nds-lig-f2-0f-11--r--vmovsd-xmm1--xmm2--xmm3-">
+<h4 id="vmovsd--evex-lig-f2-0f-11--r--vmovsd-xmm1--xmm2--xmm3-">VMOVSD (EVEX.LIG.F2.0F 11 /r: VMOVSD xmm1, xmm2, xmm3)<a class="anchor" href="MOVSD.html#vmovsd--evex-lig-f2-0f-11--r--vmovsd-xmm1--xmm2--xmm3-">
 			&para;
 		</a></h4>
 <pre>IF k1[0] or *no writemask*
@@ -190,21 +190,21 @@ DEST[MAXVL-1:128] &larr; 0
 <pre>DEST[63:0] &larr;SRC[63:0]
 DEST[MAXVL-1:64] (Unmodified)
 </pre>
-<h4 id="vmovsd--vex-nds-128-f2-0f-11--r--vmovsd-xmm1--xmm2--xmm3-">VMOVSD (VEX.NDS.128.F2.0F 11 /r: VMOVSD xmm1, xmm2, xmm3)<a class="anchor" href="MOVSD.html#vmovsd--vex-nds-128-f2-0f-11--r--vmovsd-xmm1--xmm2--xmm3-">
+<h4 id="vmovsd--vex-128-f2-0f-11--r--vmovsd-xmm1--xmm2--xmm3-">VMOVSD (VEX.128.F2.0F 11 /r: VMOVSD xmm1, xmm2, xmm3)<a class="anchor" href="MOVSD.html#vmovsd--vex-128-f2-0f-11--r--vmovsd-xmm1--xmm2--xmm3-">
 			&para;
 		</a></h4>
 <pre>DEST[63:0] &larr;SRC2[63:0]
 DEST[127:64] &larr;SRC1[127:64]
 DEST[MAXVL-1:128] &larr;0
 </pre>
-<h4 id="vmovsd--vex-nds-128-f2-0f-10--r--vmovsd-xmm1--xmm2--xmm3-">VMOVSD (VEX.NDS.128.F2.0F 10 /r: VMOVSD xmm1, xmm2, xmm3)<a class="anchor" href="MOVSD.html#vmovsd--vex-nds-128-f2-0f-10--r--vmovsd-xmm1--xmm2--xmm3-">
+<h4 id="vmovsd--vex-128-f2-0f-10--r--vmovsd-xmm1--xmm2--xmm3-">VMOVSD (VEX.128.F2.0F 10 /r: VMOVSD xmm1, xmm2, xmm3)<a class="anchor" href="MOVSD.html#vmovsd--vex-128-f2-0f-10--r--vmovsd-xmm1--xmm2--xmm3-">
 			&para;
 		</a></h4>
 <pre>DEST[63:0] &larr;SRC2[63:0]
 DEST[127:64] &larr;SRC1[127:64]
 DEST[MAXVL-1:128] &larr;0
 </pre>
-<h4 id="vmovsd--vex-nds-128-f2-0f-10--r--vmovsd-xmm1--m64-">VMOVSD (VEX.NDS.128.F2.0F 10 /r: VMOVSD xmm1, m64)<a class="anchor" href="MOVSD.html#vmovsd--vex-nds-128-f2-0f-10--r--vmovsd-xmm1--m64-">
+<h4 id="vmovsd--vex-128-f2-0f-10--r--vmovsd-xmm1--m64-">VMOVSD (VEX.128.F2.0F 10 /r: VMOVSD xmm1, m64)<a class="anchor" href="MOVSD.html#vmovsd--vex-128-f2-0f-10--r--vmovsd-xmm1--m64-">
 			&para;
 		</a></h4>
 <pre>DEST[63:0] &larr;SRC[63:0]

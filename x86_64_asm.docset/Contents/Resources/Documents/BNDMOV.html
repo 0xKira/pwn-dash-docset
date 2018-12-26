@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-39"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/BNDMOV"></a><title>BNDMOV</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>BNDMOV
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-39"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/BNDMOV"></a><title>BNDMOV</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>November 2018</li></ul></nav></header><h1>BNDMOV
 		&mdash; Move Bounds</h1>
 
 <table>
@@ -56,80 +56,80 @@
 		</a></h2>
 <p>BNDMOV moves a pair of lower and upper bound values from the source operand (the second operand) to the destination (the first operand). Each operation is 128-bit move. The exceptions are same as the MOV instruction. The memory format for loading/store bounds in 64-bit mode is shown in <a href="BNDMOV.html#fig-3-5">Figure 3-5</a>.</p>
 <figure id="fig-3-5">
-<svg style="width: 596.808pt; height: 219.528012pt" viewBox="50.3 0.0 502.34 187.94001">
-<g xmlns="http://www.w3.org/2000/svg" style="fill: none; stroke: none">
-<rect height="181.98" x="52.8" style="fill: rgb(0%, 0%, 0%)" y="0.480009999999993" width="0.48"></rect>
-<rect height="181.98" x="549.66" style="fill: rgb(0%, 0%, 0%)" y="0.480009999999993" width="0.47998"></rect>
-<rect height="0.48001" x="52.8" style="fill: rgb(0%, 0%, 0%)" y="0.0" width="497.34"></rect>
-<rect height="0.48" x="52.8" style="fill: rgb(0%, 0%, 0%)" y="182.46001" width="497.34"></rect>
-<rect height="0.48001" x="83.52" style="fill: rgb(0%, 0%, 0%)" y="23.82" width="286.14"></rect>
-<rect height="13.74" x="369.18" style="fill: rgb(0%, 0%, 0%)" y="24.06001" width="0.48001"></rect>
-<rect height="0.48001" x="83.28" style="fill: rgb(0%, 0%, 0%)" y="37.32" width="286.14"></rect>
-<rect height="13.74" x="83.28" style="fill: rgb(0%, 0%, 0%)" y="23.82001" width="0.48"></rect>
-<rect height="0.23999" x="232.5" style="fill: rgb(0%, 0%, 0%)" y="23.64002" width="0.48"></rect>
-<rect height="13.74" x="232.5" style="fill: rgb(0%, 0%, 0%)" y="23.88001" width="0.48"></rect>
-<rect height="13.5" x="143.7" style="fill: rgb(100%, 100%, 100%)" y="66.84001" width="320.1"></rect>
-<rect height="0.48001" x="143.7" style="fill: rgb(0%, 0%, 0%)" y="66.6" width="320.34"></rect>
-<rect height="13.74" x="463.56" style="fill: rgb(0%, 0%, 0%)" y="66.84001" width="0.47998"></rect>
-<rect height="0.48001" x="143.46" style="fill: rgb(0%, 0%, 0%)" y="80.1" width="320.34"></rect>
-<rect height="13.74" x="143.46" style="fill: rgb(0%, 0%, 0%)" y="66.60001" width="0.48"></rect>
-<rect height="0.23999" x="313.14" style="fill: rgb(0%, 0%, 0%)" y="66.48002" width="0.47998"></rect>
-<rect height="13.74" x="313.14" style="fill: rgb(0%, 0%, 0%)" y="66.72001" width="0.47998"></rect>
-<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 432.72 61.62001 L 433.26 59.0400100000001 L 433.44 58.44001 L 434.04 58.74001 L 442.5 63.18001 L 444.0 63.96001 L 442.26 64.08001 L 432.72 64.80001 L 432.06 64.86001 L 432.18 64.20001 L 432.66 63.8400100000001 L 442.2 63.12001 L 442.26 64.08001 L 441.96 64.02001 L 433.5 59.58001 L 434.04 58.74001 L 434.28 59.2800100000001 L 433.74 61.86001"></path>
-<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 432.18 64.20001 L 432.72 61.62001 L 433.74 61.86001 L 433.2 64.44001"></path>
-<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 433.2 61.74001 L 433.74 59.1600100000001 L 442.2 63.6000100000001 L 432.66 64.32001"></path>
-<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 345.66 43.38001 L 345.42 43.32001 L 345.3 43.80001 L 345.54 43.86001"></path>
-<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 432.78 61.44001 L 433.02 61.50001 L 432.9 61.98001 L 432.66 61.92001"></path>
-<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 345.66 43.38001 L 345.54 43.86001 L 432.66 61.92001 L 432.78 61.44001"></path>
-<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 284.1 59.46001 L 284.64 56.82001 L 284.82 56.22001 L 285.42 56.52001 L 293.94 61.02001 L 295.44 61.80001 L 293.7 61.92001 L 284.1 62.64001 L 283.44 62.70001 L 283.56 62.04001 L 284.04 61.68001 L 293.64 60.96001 L 293.7 61.92001 L 293.4 61.86001 L 284.88 57.36001 L 285.42 56.52001 L 285.66 57.06001 L 285.12 59.70001"></path>
-<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 283.56 62.04001 L 284.1 59.46001 L 285.12 59.70001 L 284.58 62.28001"></path>
-<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 284.58 59.58001 L 285.12 56.94001 L 293.64 61.44001 L 284.04 62.16001"></path>
-<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 197.04 41.16001 L 196.8 41.10001 L 196.68 41.58001 L 196.92 41.64001"></path>
-<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 284.16 59.22001 L 284.4 59.28001 L 284.28 59.76001 L 284.04 59.70001"></path>
-<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 197.04 41.16001 L 196.92 41.64001 L 284.04 59.70001 L 284.16 59.22001"></path>
-<rect height="13.5" x="75.9" style="fill: rgb(100%, 100%, 100%)" y="108.24001" width="285.9"></rect>
-<rect height="0.48001" x="75.9" style="fill: rgb(0%, 0%, 0%)" y="108.0" width="286.14"></rect>
-<rect height="13.74" x="361.56" style="fill: rgb(0%, 0%, 0%)" y="108.24001" width="0.48001"></rect>
-<rect height="0.47998" x="75.66" style="fill: rgb(0%, 0%, 0%)" y="121.50003" width="286.14"></rect>
-<rect height="13.74" x="75.66" style="fill: rgb(0%, 0%, 0%)" y="108.00001" width="0.48"></rect>
-<rect height="0.24002" x="224.94" style="fill: rgb(0%, 0%, 0%)" y="107.87999" width="0.48001"></rect>
-<rect height="13.74" x="224.94" style="fill: rgb(0%, 0%, 0%)" y="108.12001" width="0.48001"></rect>
-<rect height="13.5" x="136.14" style="fill: rgb(100%, 100%, 100%)" y="151.02001" width="320.1"></rect>
-<rect height="0.48004" x="136.14" style="fill: rgb(0%, 0%, 0%)" y="150.77997" width="320.34"></rect>
-<rect height="13.74" x="456.0" style="fill: rgb(0%, 0%, 0%)" y="151.02001" width="0.48001"></rect>
-<rect height="0.48001" x="135.9" style="fill: rgb(0%, 0%, 0%)" y="164.28" width="320.34"></rect>
-<rect height="13.74" x="135.9" style="fill: rgb(0%, 0%, 0%)" y="150.78001" width="0.48"></rect>
-<rect height="0.24002" x="305.52" style="fill: rgb(0%, 0%, 0%)" y="150.65999" width="0.48001"></rect>
-<rect height="13.74" x="305.52" style="fill: rgb(0%, 0%, 0%)" y="150.90001" width="0.48001"></rect>
-<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 426.9 153.30001 L 428.1 150.30001 L 428.64 150.72001 L 436.2 156.66001 L 437.58 157.74001 L 435.84 157.56001 L 426.3 156.48001 L 425.58 156.36001 L 425.88 155.76001 L 426.36 155.46001 L 435.9 156.54001 L 435.84 157.56001 L 435.54 157.44001 L 427.98 151.50001 L 428.64 150.72001 L 428.76 151.26001 L 427.8 153.66001"></path>
-<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 425.88 155.76001 L 426.9 153.30001 L 427.8 153.66001 L 426.78 156.12001"></path>
-<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 427.32 153.48001 L 428.28 151.08001 L 435.84 157.02001 L 426.3 155.94001"></path>
-<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 341.64 118.02001 L 341.46 117.96001 L 341.28 118.38001 L 341.46 118.44001"></path>
-<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 426.96 153.12001 L 427.14 153.18001 L 426.96 153.60001 L 426.78 153.54001"></path>
-<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 341.64 118.02001 L 341.46 118.44001 L 426.78 153.54001 L 426.96 153.12001"></path>
-<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 362.7 153.84001 L 363.24 151.26001 L 363.36 150.66001 L 364.02 150.96001 L 372.54 155.40001 L 373.98 156.18001 L 372.3 156.30001 L 362.7 157.08001 L 362.04 157.14001 L 362.16 156.48001 L 362.64 156.12001 L 372.24 155.34001 L 372.3 156.30001 L 372.0 156.24001 L 363.48 151.80001 L 364.02 150.96001 L 364.26 151.50001 L 363.72 154.08001"></path>
-<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 362.16 156.48001 L 362.7 153.84001 L 363.72 154.08001 L 363.18 156.72001"></path>
-<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 363.18 153.96001 L 363.72 151.38001 L 372.24 155.82001 L 362.64 156.60001"></path>
-<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 191.58 118.44001 L 191.34 118.38001 L 191.22 118.86001 L 191.46 118.92001"></path>
-<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 362.76 153.66001 L 363.0 153.72001 L 362.88 154.20001 L 362.64 154.14001"></path>
-<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 191.58 118.44001 L 191.46 118.92001 L 362.64 154.14001 L 362.76 153.66001"></path>
-<rect height="0.24002" x="385.02" style="fill: rgb(0%, 0%, 0%)" y="151.13999" width="0.48001"></rect>
-<rect height="13.74" x="385.02" style="fill: rgb(0%, 0%, 0%)" y="151.38001" width="0.48001"></rect>
-<rect height="0.23999" x="223.5" style="fill: rgb(0%, 0%, 0%)" y="151.68002" width="0.48"></rect>
-<rect height="13.74" x="223.5" style="fill: rgb(0%, 0%, 0%)" y="151.92001" width="0.48"></rect>
-<text x="395.39838172" textLength="110.34639685179" y="30.7414392498338" lengthAdjust="spacingAndGlyphs" style="font-size: 8.04699072423972pt; fill: #000">BNDMOV to memory in 64-bit mode</text>
-<text x="132.9" textLength="56.7683741799747" y="34.5814392498339" lengthAdjust="spacingAndGlyphs" style="font-size: 8.04699072423972pt; fill: #000">Upper Bound (UB)</text>
-<text x="258.59923652" textLength="55.5573013699746" y="34.6414392498339" lengthAdjust="spacingAndGlyphs" style="font-size: 8.04699072423972pt; fill: #000">Lower Bound (LB)</text>
-<text x="131.58" textLength="7.84818197178967" y="64.2814392498339" lengthAdjust="spacingAndGlyphs" style="font-size: 8.04699072423972pt; fill: #000">16</text>
-<text x="305.52" textLength="4.00907423178967" y="64.3414392498339" lengthAdjust="spacingAndGlyphs" style="font-size: 8.04699072423971pt; fill: #000">8</text>
-<text x="458.45901614" textLength="44.0805509558949" y="64.6414392498339" lengthAdjust="spacingAndGlyphs" style="font-size: 8.88699072423975pt; fill: #000">0 Byteoffset</text>
-<text x="387.77838172" textLength="110.288165531789" y="114.921439249834" lengthAdjust="spacingAndGlyphs" style="font-size: 8.04699072423972pt; fill: #000">BNDMOV to memory in 32-bit mode</text>
-<text x="125.28" textLength="56.6948917999748" y="118.821439249834" lengthAdjust="spacingAndGlyphs" style="font-size: 8.04699072423972pt; fill: #000">Upper Bound (UB)</text>
-<text x="250.97299745" textLength="55.5704727399747" y="118.821439249834" lengthAdjust="spacingAndGlyphs" style="font-size: 8.04699072423972pt; fill: #000">Lower Bound (LB)</text>
-<text x="123.96" textLength="7.84818197178967" y="148.461439249834" lengthAdjust="spacingAndGlyphs" style="font-size: 8.04699072423972pt; fill: #000">16</text>
-<text x="297.9" textLength="4.00907423178967" y="148.521439249834" lengthAdjust="spacingAndGlyphs" style="font-size: 8.04699072423971pt; fill: #000">8</text>
-<text x="378.9" textLength="4.00907423178967" y="148.521439249834" lengthAdjust="spacingAndGlyphs" style="font-size: 8.04699072423971pt; fill: #000">4</text>
-<text x="450.83901614" textLength="44.1269973658947" y="148.821439249834" lengthAdjust="spacingAndGlyphs" style="font-size: 8.82699072423975pt; fill: #000">0 Byteoffset</text></g></svg>
+<svg style="width: 596.808pt; height: 219.52801200000002pt" viewBox="50.300000000000004 0.0 502.34 187.94001000000003">
+<g xmlns="http://www.w3.org/2000/svg" style="stroke: none; fill: none">
+<rect height="181.98" style="fill: rgb(0%, 0%, 0%)" width="0.48" x="52.800000000000004" y="0.48000999999999294"></rect>
+<rect height="181.98" style="fill: rgb(0%, 0%, 0%)" width="0.47998" x="549.66" y="0.48000999999999294"></rect>
+<rect height="0.48001000000000005" style="fill: rgb(0%, 0%, 0%)" width="497.34000000000003" x="52.800000000000004" y="0.0"></rect>
+<rect height="0.48" style="fill: rgb(0%, 0%, 0%)" width="497.34000000000003" x="52.800000000000004" y="182.46001000000004"></rect>
+<rect height="0.48001000000000005" style="fill: rgb(0%, 0%, 0%)" width="286.14" x="83.52" y="23.819999999999993"></rect>
+<rect height="13.74" style="fill: rgb(0%, 0%, 0%)" width="0.48001000000000005" x="369.18" y="24.060009999999977"></rect>
+<rect height="0.48001000000000005" style="fill: rgb(0%, 0%, 0%)" width="286.14" x="83.28" y="37.31999999999999"></rect>
+<rect height="13.74" style="fill: rgb(0%, 0%, 0%)" width="0.48" x="83.28" y="23.820010000000025"></rect>
+<rect height="0.23999" style="fill: rgb(0%, 0%, 0%)" width="0.48" x="232.5" y="23.64002000000005"></rect>
+<rect height="13.74" style="fill: rgb(0%, 0%, 0%)" width="0.48" x="232.5" y="23.880010000000027"></rect>
+<rect height="13.5" style="fill: rgb(100%, 100%, 100%)" width="320.1" x="143.70000000000002" y="66.84001"></rect>
+<rect height="0.48001000000000005" style="fill: rgb(0%, 0%, 0%)" width="320.34000000000003" x="143.70000000000002" y="66.60000000000002"></rect>
+<rect height="13.74" style="fill: rgb(0%, 0%, 0%)" width="0.47998" x="463.56" y="66.84001"></rect>
+<rect height="0.48001000000000005" style="fill: rgb(0%, 0%, 0%)" width="320.34000000000003" x="143.46" y="80.10000000000002"></rect>
+<rect height="13.74" style="fill: rgb(0%, 0%, 0%)" width="0.48" x="143.46" y="66.60001"></rect>
+<rect height="0.23999" style="fill: rgb(0%, 0%, 0%)" width="0.47998" x="313.14" y="66.48002000000002"></rect>
+<rect height="13.74" style="fill: rgb(0%, 0%, 0%)" width="0.47998" x="313.14" y="66.72001"></rect>
+<path d="M 432.72 61.620010000000036 L 433.26000000000005 59.04001000000005 L 433.44000000000005 58.44001000000003 L 434.04 58.74001000000004 L 442.5 63.18001000000004 L 444.0 63.96001000000001 L 442.26000000000005 64.08001000000002 L 432.72 64.80001000000004 L 432.06 64.86001000000005 L 432.18 64.20001000000002 L 432.66 63.84001000000006 L 442.20000000000005 63.120010000000036 L 442.26000000000005 64.08001000000002 L 441.96000000000004 64.02001000000001 L 433.5 59.580010000000016 L 434.04 58.74001000000004 L 434.28000000000003 59.28001000000006 L 433.74 61.860010000000045" style="fill: rgb(0%, 0%, 0%); fill-rule: nonzero"></path>
+<path d="M 432.18 64.20001000000002 L 432.72 61.620010000000036 L 433.74 61.860010000000045 L 433.2 64.44001000000003" style="fill: rgb(0%, 0%, 0%); fill-rule: nonzero"></path>
+<path d="M 433.20000000000005 61.74001000000004 L 433.74000000000007 59.16001000000006 L 442.20000000000005 63.600010000000054 L 432.66 64.32001000000002" style="fill: rgb(0%, 0%, 0%); fill-rule: evenodd"></path>
+<path d="M 345.66 43.38001000000003 L 345.42 43.320010000000025 L 345.3 43.80001000000004 L 345.54 43.860010000000045" style="fill: rgb(0%, 0%, 0%); fill-rule: nonzero"></path>
+<path d="M 432.78000000000003 61.44001000000003 L 433.02000000000004 61.50001000000003 L 432.90000000000003 61.98001000000005 L 432.66 61.92001000000005" style="fill: rgb(0%, 0%, 0%); fill-rule: nonzero"></path>
+<path d="M 345.66 43.38001000000003 L 345.54 43.860010000000045 L 432.66 61.92001000000005 L 432.78000000000003 61.44001000000003" style="fill: rgb(0%, 0%, 0%); fill-rule: nonzero"></path>
+<path d="M 284.1 59.46001000000001 L 284.64000000000004 56.820010000000025 L 284.82000000000005 56.22001 L 285.42 56.52001000000001 L 293.94 61.02001000000001 L 295.44 61.800009999999986 L 293.70000000000005 61.92000999999999 L 284.1 62.64001000000002 L 283.44 62.70001000000002 L 283.56 62.040009999999995 L 284.04 61.68001000000004 L 293.64000000000004 60.96001000000001 L 293.70000000000005 61.92000999999999 L 293.40000000000003 61.86000999999999 L 284.88 57.36000999999999 L 285.42 56.52001000000001 L 285.66 57.060010000000034 L 285.12 59.70001000000002" style="fill: rgb(0%, 0%, 0%); fill-rule: nonzero"></path>
+<path d="M 283.56 62.040009999999995 L 284.1 59.46001000000001 L 285.12 59.70001000000002 L 284.58 62.280010000000004" style="fill: rgb(0%, 0%, 0%); fill-rule: nonzero"></path>
+<path d="M 284.58 59.580010000000016 L 285.12 56.94001000000003 L 293.64 61.44001000000003 L 284.03999999999996 62.16001" style="fill: rgb(0%, 0%, 0%); fill-rule: evenodd"></path>
+<path d="M 197.04 41.16001 L 196.79999999999998 41.10001 L 196.67999999999998 41.580010000000016 L 196.92 41.64001000000002" style="fill: rgb(0%, 0%, 0%); fill-rule: nonzero"></path>
+<path d="M 284.16 59.22001 L 284.40000000000003 59.280010000000004 L 284.28000000000003 59.76001000000002 L 284.04 59.70001000000002" style="fill: rgb(0%, 0%, 0%); fill-rule: nonzero"></path>
+<path d="M 197.04 41.16001 L 196.92 41.64001000000002 L 284.03999999999996 59.70001000000002 L 284.15999999999997 59.22001" style="fill: rgb(0%, 0%, 0%); fill-rule: nonzero"></path>
+<rect height="13.5" style="fill: rgb(100%, 100%, 100%)" width="285.90000000000003" x="75.9" y="108.24001000000004"></rect>
+<rect height="0.48001000000000005" style="fill: rgb(0%, 0%, 0%)" width="286.14" x="75.9" y="108.0"></rect>
+<rect height="13.74" style="fill: rgb(0%, 0%, 0%)" width="0.48001000000000005" x="361.56" y="108.24000999999998"></rect>
+<rect height="0.47998" style="fill: rgb(0%, 0%, 0%)" width="286.14" x="75.66" y="121.50002999999998"></rect>
+<rect height="13.74" style="fill: rgb(0%, 0%, 0%)" width="0.48" x="75.66" y="108.00001000000003"></rect>
+<rect height="0.24002" style="fill: rgb(0%, 0%, 0%)" width="0.48001000000000005" x="224.94" y="107.87999000000002"></rect>
+<rect height="13.74" style="fill: rgb(0%, 0%, 0%)" width="0.48001000000000005" x="224.94" y="108.12000999999998"></rect>
+<rect height="13.5" style="fill: rgb(100%, 100%, 100%)" width="320.1" x="136.14000000000001" y="151.02001"></rect>
+<rect height="0.48004" style="fill: rgb(0%, 0%, 0%)" width="320.34000000000003" x="136.14000000000001" y="150.77997000000005"></rect>
+<rect height="13.74" style="fill: rgb(0%, 0%, 0%)" width="0.48001000000000005" x="456.0" y="151.02001"></rect>
+<rect height="0.48001000000000005" style="fill: rgb(0%, 0%, 0%)" width="320.34000000000003" x="135.9" y="164.28000000000003"></rect>
+<rect height="13.74" style="fill: rgb(0%, 0%, 0%)" width="0.48" x="135.9" y="150.78001"></rect>
+<rect height="0.24002" style="fill: rgb(0%, 0%, 0%)" width="0.48001000000000005" x="305.52" y="150.65999"></rect>
+<rect height="13.74" style="fill: rgb(0%, 0%, 0%)" width="0.48001000000000005" x="305.52" y="150.90001"></rect>
+<path d="M 426.90000000000003 153.30001 L 428.1 150.30001 L 428.64000000000004 150.72001 L 436.20000000000005 156.66001 L 437.58000000000004 157.74000999999998 L 435.84000000000003 157.56000999999998 L 426.3 156.48001 L 425.58000000000004 156.36001 L 425.88000000000005 155.76000999999997 L 426.36 155.46001 L 435.90000000000003 156.54001 L 435.84000000000003 157.56000999999998 L 435.54 157.44000999999997 L 427.98 151.50000999999997 L 428.64000000000004 150.72001 L 428.76000000000005 151.26000999999997 L 427.8 153.66001" style="fill: rgb(0%, 0%, 0%); fill-rule: nonzero"></path>
+<path d="M 425.88 155.76001000000002 L 426.9 153.30001000000004 L 427.8 153.66001 L 426.78 156.12001000000004" style="fill: rgb(0%, 0%, 0%); fill-rule: nonzero"></path>
+<path d="M 427.32 153.48001 L 428.28 151.08001000000002 L 435.84 157.02001 L 426.3 155.94000999999997" style="fill: rgb(0%, 0%, 0%); fill-rule: evenodd"></path>
+<path d="M 341.64 118.02001000000001 L 341.46 117.96001000000001 L 341.28 118.38001000000003 L 341.46 118.44001000000003" style="fill: rgb(0%, 0%, 0%); fill-rule: nonzero"></path>
+<path d="M 426.96000000000004 153.12001000000004 L 427.14000000000004 153.18001000000004 L 426.96000000000004 153.60001000000005 L 426.78000000000003 153.54001000000005" style="fill: rgb(0%, 0%, 0%); fill-rule: nonzero"></path>
+<path d="M 341.64 118.02001000000001 L 341.46 118.44001000000003 L 426.78 153.54001 L 426.96 153.12001000000004" style="fill: rgb(0%, 0%, 0%); fill-rule: nonzero"></path>
+<path d="M 362.70000000000005 153.84001 L 363.24000000000007 151.26001000000002 L 363.36000000000007 150.66001 L 364.02000000000004 150.96001 L 372.54 155.40001 L 373.98 156.18000999999998 L 372.30000000000007 156.30001 L 362.70000000000005 157.08001000000002 L 362.04 157.14001000000002 L 362.16 156.48001 L 362.64000000000004 156.12000999999998 L 372.24000000000007 155.34001 L 372.30000000000007 156.30001 L 372.00000000000006 156.24000999999998 L 363.48 151.80001 L 364.02000000000004 150.96001 L 364.26000000000005 151.50001000000003 L 363.72 154.08001000000002" style="fill: rgb(0%, 0%, 0%); fill-rule: nonzero"></path>
+<path d="M 362.16 156.48001 L 362.70000000000005 153.84001 L 363.72 154.08001000000002 L 363.18 156.72001" style="fill: rgb(0%, 0%, 0%); fill-rule: nonzero"></path>
+<path d="M 363.18 153.96001 L 363.72 151.38001000000003 L 372.24 155.82001000000002 L 362.64 156.60001" style="fill: rgb(0%, 0%, 0%); fill-rule: evenodd"></path>
+<path d="M 191.58 118.44001000000003 L 191.34 118.38001000000003 L 191.22 118.86001000000005 L 191.46 118.92001000000005" style="fill: rgb(0%, 0%, 0%); fill-rule: nonzero"></path>
+<path d="M 362.76 153.66001 L 363.0 153.72001 L 362.88 154.20001000000002 L 362.64 154.14001000000002" style="fill: rgb(0%, 0%, 0%); fill-rule: nonzero"></path>
+<path d="M 191.58 118.44001000000003 L 191.46 118.92001000000005 L 362.64 154.14001000000002 L 362.76 153.66001000000006" style="fill: rgb(0%, 0%, 0%); fill-rule: nonzero"></path>
+<rect height="0.24002" style="fill: rgb(0%, 0%, 0%)" width="0.48001000000000005" x="385.02" y="151.13999"></rect>
+<rect height="13.74" style="fill: rgb(0%, 0%, 0%)" width="0.48001000000000005" x="385.02" y="151.38001000000003"></rect>
+<rect height="0.23999" style="fill: rgb(0%, 0%, 0%)" width="0.48" x="223.5" y="151.68002"></rect>
+<rect height="13.74" style="fill: rgb(0%, 0%, 0%)" width="0.48" x="223.5" y="151.92001000000005"></rect>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.04699072423972pt; fill: #000" textLength="110.34639685178968" x="395.39838172000003" y="30.74143924983383">BNDMOV to memory in 64-bit mode</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.04699072423972pt; fill: #000" textLength="56.76837417997473" x="132.9" y="34.58143924983386">Upper Bound (UB)</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.04699072423972pt; fill: #000" textLength="55.557301369974596" x="258.59923652000003" y="34.641439249833866">Lower Bound (LB)</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.04699072423972pt; fill: #000" textLength="7.848181971789671" x="131.58" y="64.28143924983385">16</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.046990724239715pt; fill: #000" textLength="4.009074231789668" x="305.52" y="64.34143924983385">8</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.886990724239752pt; fill: #000" textLength="44.08055095589492" x="458.45901614" y="64.64143924983387">0 Byteoffset</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.04699072423972pt; fill: #000" textLength="110.28816553178945" x="387.77838171999997" y="114.9214392498339">BNDMOV to memory in 32-bit mode</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.04699072423972pt; fill: #000" textLength="56.694891799974755" x="125.28" y="118.82143924983382">Upper Bound (UB)</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.04699072423972pt; fill: #000" textLength="55.57047273997472" x="250.97299745000004" y="118.82143924983382">Lower Bound (LB)</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.04699072423972pt; fill: #000" textLength="7.848181971789671" x="123.96000000000001" y="148.46143924983386">16</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.046990724239715pt; fill: #000" textLength="4.009074231789668" x="297.90000000000003" y="148.52143924983386">8</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.046990724239715pt; fill: #000" textLength="4.009074231789668" x="378.90000000000003" y="148.52143924983386">4</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.82699072423975pt; fill: #000" textLength="44.12699736589474" x="450.83901614000007" y="148.82143924983387">0 Byteoffset</text></g></svg>
 <figcaption><a href="BNDMOV.html#fig-3-5">Figure 3-5</a>. Memory Layout of BNDMOV to/from Memory</figcaption></figure>
 <p>This instruction does not change flags.</p>
 <h2 id="operation">Operation<a class="anchor" href="BNDMOV.html#operation">

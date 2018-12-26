@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-224"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/KUNPCKBW%2FKUNPCKWD%2FKUNPCKDQ"></a><title>KUNPCKBW/KUNPCKWD/KUNPCKDQ</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>KUNPCKBW/KUNPCKWD/KUNPCKDQ
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-224"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/KUNPCKBW%2FKUNPCKWD%2FKUNPCKDQ"></a><title>KUNPCKBW/KUNPCKWD/KUNPCKDQ</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>November 2018</li></ul></nav></header><h1>KUNPCKBW/KUNPCKWD/KUNPCKDQ
 		&mdash; Unpack for Mask Registers</h1>
 
 
@@ -11,23 +11,23 @@
 <th>CPUID Feature Flag</th>
 <th>Description</th></tr>
 <tr>
-<td>VEX.NDS.L1.66.0F.W0 4B /r KUNPCKBW k1, k2, k3</td>
+<td>VEX.L1.66.0F.W0 4B /r KUNPCKBW k1, k2, k3</td>
 <td>RVR</td>
 <td>V/V</td>
 <td>AVX512F</td>
-<td>Unpack and interleave 8 bits masks in k2 and k3 and write word result in k1.</td></tr>
+<td>Unpack 8-bit masks in k2 and k3 and write word result in k1.</td></tr>
 <tr>
-<td>VEX.NDS.L1.0F.W0 4B /r KUNPCKWD k1, k2, k3</td>
+<td>VEX.L1.0F.W0 4B /r KUNPCKWD k1, k2, k3</td>
 <td>RVR</td>
 <td>V/V</td>
 <td>AVX512BW</td>
-<td>Unpack and interleave 16 bits in k2 and k3 and write double-word result in k1.</td></tr>
+<td>Unpack 16-bit masks in k2 and k3 and write doubleword result in k1.</td></tr>
 <tr>
-<td>VEX.NDS.L1.0F.W1 4B /r KUNPCKDQ k1, k2, k3</td>
+<td>VEX.L1.0F.W1 4B /r KUNPCKDQ k1, k2, k3</td>
 <td>RVR</td>
 <td>V/V</td>
 <td>AVX512BW</td>
-<td>Unpack and interleave 32 bits masks in k2 and k3 and write quadword result in k1.</td></tr></tbody></table>
+<td>Unpack 32-bit masks in k2 and k3 and write quadword result in k1.</td></tr></tbody></table>
 <h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="./KUNPCKBW:KUNPCKWD:KUNPCKDQ.html#instruction-operand-encoding">
 			&para;
 		</a></h2>

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-246"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/MAXPD"></a><title>MAXPD</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>MAXPD
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-246"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/MAXPD"></a><title>MAXPD</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>November 2018</li></ul></nav></header><h1>MAXPD
 		&mdash; Maximum of Packed Double-Precision Floating-Point Values</h1>
 
 <table>
@@ -15,31 +15,31 @@
 <td>SSE2</td>
 <td>Return the maximum double-precision floating-point values between xmm1 and xmm2/m128.</td></tr>
 <tr>
-<td>VEX.NDS.128.66.0F.WIG 5F /r VMAXPD xmm1, xmm2, xmm3/m128</td>
+<td>VEX.128.66.0F.WIG 5F /r VMAXPD xmm1, xmm2, xmm3/m128</td>
 <td>B</td>
 <td>V/V</td>
 <td>AVX</td>
 <td>Return the maximum double-precision floating-point values between xmm2 and xmm3/m128.</td></tr>
 <tr>
-<td>VEX.NDS.256.66.0F.WIG 5F /r VMAXPD ymm1, ymm2, ymm3/m256</td>
+<td>VEX.256.66.0F.WIG 5F /r VMAXPD ymm1, ymm2, ymm3/m256</td>
 <td>B</td>
 <td>V/V</td>
 <td>AVX</td>
 <td>Return the maximum packed double-precision floating-point values between ymm2 and ymm3/m256.</td></tr>
 <tr>
-<td>EVEX.NDS.128.66.0F.W1 5F /r VMAXPD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst</td>
+<td>EVEX.128.66.0F.W1 5F /r VMAXPD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst</td>
 <td>C</td>
 <td>V/V</td>
 <td>AVX512VL AVX512F</td>
 <td>Return the maximum packed double-precision floating-point values between xmm2 and xmm3/m128/m64bcst and store result in xmm1 subject to writemask k1.</td></tr>
 <tr>
-<td>EVEX.NDS.256.66.0F.W1 5F /r VMAXPD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst</td>
+<td>EVEX.256.66.0F.W1 5F /r VMAXPD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst</td>
 <td>C</td>
 <td>V/V</td>
 <td>AVX512VL AVX512F</td>
 <td>Return the maximum packed double-precision floating-point values between ymm2 and ymm3/m256/m64bcst and store result in ymm1 subject to writemask k1.</td></tr>
 <tr>
-<td>EVEX.NDS.512.66.0F.W1 5F /r VMAXPD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{sae}</td>
+<td>EVEX.512.66.0F.W1 5F /r VMAXPD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{sae}</td>
 <td>C</td>
 <td>V/V</td>
 <td>AVX512F</td>

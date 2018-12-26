@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-9"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/ADDSD"></a><title>ADDSD</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>ADDSD
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-9"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/ADDSD"></a><title>ADDSD</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>November 2018</li></ul></nav></header><h1>ADDSD
 		&mdash; Add Scalar Double-Precision Floating-Point Values</h1>
 
 <table>
@@ -15,13 +15,13 @@
 <td>SSE2</td>
 <td>Add the low double-precision floating-point value from xmm2/mem to xmm1 and store the result in xmm1.</td></tr>
 <tr>
-<td>VEX.NDS.LIG.F2.0F.WIG 58 /r VADDSD xmm1, xmm2, xmm3/m64</td>
+<td>VEX.LIG.F2.0F.WIG 58 /r VADDSD xmm1, xmm2, xmm3/m64</td>
 <td>B</td>
 <td>V/V</td>
 <td>AVX</td>
 <td>Add the low double-precision floating-point value from xmm3/mem to xmm2 and store the result in xmm1.</td></tr>
 <tr>
-<td>EVEX.NDS.LIG.F2.0F.W1 58 /r VADDSD xmm1 {k1}{z}, xmm2, xmm3/m64{er}</td>
+<td>EVEX.LIG.F2.0F.W1 58 /r VADDSD xmm1 {k1}{z}, xmm2, xmm3/m64{er}</td>
 <td>C</td>
 <td>V/V</td>
 <td>AVX512F</td>

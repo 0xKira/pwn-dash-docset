@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-510"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/VFIXUPIMMSD"></a><title>VFIXUPIMMSD</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>VFIXUPIMMSD
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-510"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/VFIXUPIMMSD"></a><title>VFIXUPIMMSD</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>November 2018</li></ul></nav></header><h1>VFIXUPIMMSD
 		&mdash; Fix Up Special Scalar Float64 Value</h1>
 
 <table>
@@ -9,7 +9,7 @@
 <th>CPUID Feature Flag</th>
 <th>Description</th></tr>
 <tr>
-<td>EVEX.NDS.LIG.66.0F3A.W1 55 /r ib VFIXUPIMMSD xmm1 {k1}{z}, xmm2, xmm3/m64{sae}, imm8</td>
+<td>EVEX.LIG.66.0F3A.W1 55 /r ib VFIXUPIMMSD xmm1 {k1}{z}, xmm2, xmm3/m64{sae}, imm8</td>
 <td>A</td>
 <td>V/V</td>
 <td>AVX512F</td>
@@ -121,75 +121,75 @@ DEST[MAXVL-1:128] &larr; 0
 Immediate Control Description:
 </pre>
 <figure id="fig-5-11">
-<svg style="width: 475.848pt; height: 236.663976pt" viewBox="100.7 0.0 401.54 202.21998">
-<g xmlns="http://www.w3.org/2000/svg" style="fill: none; stroke: none">
-<rect height="196.2" x="103.2" style="fill: rgb(0%, 0%, 0%)" y="0.479979999999955" width="0.48"></rect>
-<rect height="196.2" x="499.26" style="fill: rgb(0%, 0%, 0%)" y="0.479979999999955" width="0.47998"></rect>
-<rect height="0.47998" x="103.2" style="fill: rgb(0%, 0%, 0%)" y="0.0" width="396.54"></rect>
-<rect height="0.48001" x="103.2" style="fill: rgb(0%, 0%, 0%)" y="196.73997" width="396.54"></rect>
-<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 324.9 44.4599799999999 L 328.68 34.7399799999999 L 331.68 44.4599799999999 L 324.9 44.4599799999999"></path>
-<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 247.68 70.7399799999999 L 345.9 70.7399799999999 L 345.9 43.7399799999999"></path>
-<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 342.9 44.4599799999999 L 345.9 34.7399799999999 L 349.68 44.4599799999999 L 342.9 44.4599799999999"></path>
-<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 247.68 88.7399799999999 L 363.9 88.7399799999999 L 363.9 43.7399799999999"></path>
-<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 360.9 44.4599799999999 L 363.9 34.7399799999999 L 367.68 44.4599799999999 L 360.9 44.4599799999999"></path>
-<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 247.68 106.73998 L 381.9 106.73998 L 381.9 43.7399799999999"></path>
-<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 378.9 44.4599799999999 L 381.9 34.7399799999999 L 385.68 44.4599799999999 L 378.9 44.4599799999999"></path>
-<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 247.68 124.73998 L 399.9 124.73998 L 399.9 43.7399799999999"></path>
-<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 396.9 44.4599799999999 L 399.9 34.7399799999999 L 403.68 44.4599799999999 L 396.9 44.4599799999999"></path>
-<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 247.68 142.73998 L 417.9 142.73998 L 417.9 43.7399799999999"></path>
-<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 414.9 44.4599799999999 L 417.9 34.7399799999999 L 420.9 44.4599799999999 L 414.9 44.4599799999999"></path>
-<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 247.68 159.95998 L 435.9 159.95998 L 435.9 43.7399799999999"></path>
-<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 432.9 44.4599799999999 L 435.9 34.7399799999999 L 438.9 44.4599799999999 L 432.9 44.4599799999999"></path>
-<path style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)" d="M 247.68 177.95998 L 453.9 177.95998 L 453.9 43.7399799999999"></path>
-<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 450.9 44.4599799999999 L 453.9 34.7399799999999 L 456.9 44.4599799999999 L 450.9 44.4599799999999"></path>
-<rect height="18.0" x="319.68" style="fill: rgb(98%, 80%, 65%)" y="16.7399799999999" width="18.0"></rect>
-<rect height="18.0" x="319.68" style="stroke: rgb(0%, 0%, 0%)" y="16.7399799999999" width="18.0"></rect>
-<rect height="18.0" x="337.68" style="fill: rgb(98%, 80%, 65%)" y="16.7399799999999" width="17.22"></rect>
-<rect height="18.0" x="337.68" style="stroke: rgb(0%, 0%, 0%)" y="16.7399799999999" width="17.22"></rect>
-<rect height="18.0" x="354.9" style="fill: rgb(98%, 80%, 65%)" y="16.7399799999999" width="18.0"></rect>
-<rect height="18.0" x="354.9" style="stroke: rgb(0%, 0%, 0%)" y="16.7399799999999" width="18.0"></rect>
-<rect height="18.0" x="372.9" style="fill: rgb(98%, 80%, 65%)" y="16.7399799999999" width="18.0"></rect>
-<rect height="18.0" x="372.9" style="stroke: rgb(0%, 0%, 0%)" y="16.7399799999999" width="18.0"></rect>
-<rect height="18.0" x="390.9" style="fill: rgb(98%, 80%, 65%)" y="16.7399799999999" width="18.0"></rect>
-<rect height="18.0" x="390.9" style="stroke: rgb(0%, 0%, 0%)" y="16.7399799999999" width="18.0"></rect>
-<rect height="18.0" x="408.9" style="fill: rgb(98%, 80%, 65%)" y="16.7399799999999" width="18.0"></rect>
-<rect height="18.0" x="408.9" style="stroke: rgb(0%, 0%, 0%)" y="16.7399799999999" width="18.0"></rect>
-<rect height="18.0" x="426.9" style="fill: rgb(98%, 80%, 65%)" y="16.7399799999999" width="18.0"></rect>
-<rect height="18.0" x="426.9" style="stroke: rgb(0%, 0%, 0%)" y="16.7399799999999" width="18.0"></rect>
-<rect height="18.0" x="444.9" style="fill: rgb(98%, 80%, 65%)" y="16.7399799999999" width="18.0"></rect>
-<rect height="18.0" x="444.9" style="stroke: rgb(0%, 0%, 0%)" y="16.7399799999999" width="18.0"></rect>
-<rect height="18.0" x="139.68" style="fill: rgb(100%, 100%, 80%)" y="43.7399799999999" width="108.0"></rect>
-<rect height="18.0" x="139.68" style="stroke: rgb(100%, 0%, 0%)" y="43.7399799999999" width="108.0"></rect>
-<rect height="18.0" x="139.68" style="fill: rgb(100%, 100%, 80%)" y="79.7399799999999" width="108.0"></rect>
-<rect height="18.0" x="139.68" style="stroke: rgb(100%, 0%, 0%)" y="79.7399799999999" width="108.0"></rect>
-<rect height="18.0" x="139.68" style="fill: rgb(100%, 100%, 80%)" y="97.7399799999999" width="108.0"></rect>
-<rect height="18.0" x="139.68" style="stroke: rgb(100%, 0%, 0%)" y="97.7399799999999" width="108.0"></rect>
-<rect height="18.0" x="139.68" style="fill: rgb(100%, 100%, 80%)" y="61.7399799999999" width="108.0"></rect>
-<rect height="18.0" x="139.68" style="stroke: rgb(100%, 0%, 0%)" y="61.7399799999999" width="108.0"></rect>
-<rect height="17.22" x="139.68" style="fill: rgb(100%, 100%, 80%)" y="115.73998" width="108.0"></rect>
-<rect height="17.22" x="139.68" style="stroke: rgb(100%, 0%, 0%)" y="115.73998" width="108.0"></rect>
-<rect height="18.0" x="139.68" style="fill: rgb(100%, 100%, 80%)" y="132.95998" width="108.0"></rect>
-<rect height="18.0" x="139.68" style="stroke: rgb(100%, 0%, 0%)" y="132.95998" width="108.0"></rect>
-<rect height="18.0" x="139.68" style="fill: rgb(100%, 100%, 80%)" y="150.95998" width="108.0"></rect>
-<rect height="18.0" x="139.68" style="stroke: rgb(100%, 0%, 0%)" y="150.95998" width="108.0"></rect>
-<rect height="18.0" x="139.68" style="fill: rgb(100%, 100%, 80%)" y="168.95998" width="108.0"></rect>
-<rect height="18.0" x="139.68" style="stroke: rgb(100%, 0%, 0%)" y="168.95998" width="108.0"></rect>
-<text x="327.18" textLength="6.67261159976835" y="32.052212099912" lengthAdjust="spacingAndGlyphs" style="font-size: 13.393227599535pt; fill: #000">7</text>
-<text x="345.18" textLength="6.67261159976835" y="32.052212099912" lengthAdjust="spacingAndGlyphs" style="font-size: 13.393227599535pt; fill: #000">6</text>
-<text x="363.18" textLength="6.67261159976835" y="32.052212099912" lengthAdjust="spacingAndGlyphs" style="font-size: 13.393227599535pt; fill: #000">5</text>
-<text x="381.18" textLength="6.67261159976835" y="32.052212099912" lengthAdjust="spacingAndGlyphs" style="font-size: 13.393227599535pt; fill: #000">4</text>
-<text x="399.18" textLength="6.67261159976835" y="32.052212099912" lengthAdjust="spacingAndGlyphs" style="font-size: 13.393227599535pt; fill: #000">3</text>
-<text x="417.18" textLength="6.67261159976835" y="32.052212099912" lengthAdjust="spacingAndGlyphs" style="font-size: 13.393227599535pt; fill: #000">2</text>
-<text x="435.18" textLength="6.67261159976835" y="32.052212099912" lengthAdjust="spacingAndGlyphs" style="font-size: 13.393227599535pt; fill: #000">1</text>
-<text x="453.18" textLength="6.67261159976835" y="32.052212099912" lengthAdjust="spacingAndGlyphs" style="font-size: 13.393227599535pt; fill: #000">0</text>
-<text x="148.68" textLength="92.70178449975" y="59.0402109999124" lengthAdjust="spacingAndGlyphs" style="font-size: 13.2972187995384pt; fill: #000">+INF #IE</text>
-<text x="148.68" textLength="92.70178449975" y="77.0402109999124" lengthAdjust="spacingAndGlyphs" style="font-size: 13.2972187995384pt; fill: #000">-VE #IE</text>
-<text x="148.68" textLength="92.70178449975" y="95.0402109999124" lengthAdjust="spacingAndGlyphs" style="font-size: 13.2972187995384pt; fill: #000">-INF #IE</text>
-<text x="153.96" textLength="87.4225445997501" y="113.040210999912" lengthAdjust="spacingAndGlyphs" style="font-size: 13.2972187995384pt; fill: #000">SNaN #IE</text>
-<text x="157.68" textLength="83.7022345997501" y="130.404152699935" lengthAdjust="spacingAndGlyphs" style="font-size: 13.4412384995605pt; fill: #000">ONE #IE</text>
-<text x="157.68" textLength="83.7022345997501" y="148.260210999912" lengthAdjust="spacingAndGlyphs" style="font-size: 13.2972187995384pt; fill: #000">ONE #ZE</text>
-<text x="153.96" textLength="87.4225445997501" y="166.260210999912" lengthAdjust="spacingAndGlyphs" style="font-size: 13.2972187995384pt; fill: #000">ZERO #IE</text>
-<text x="153.96" textLength="87.4225445997501" y="184.260210999912" lengthAdjust="spacingAndGlyphs" style="font-size: 13.2972187995384pt; fill: #000">ZERO #ZE</text></g></svg>
+<svg style="width: 475.848pt; height: 236.66397599999993pt" viewBox="100.7 0.0 401.54 202.21997999999996">
+<g xmlns="http://www.w3.org/2000/svg" style="stroke: none; fill: none">
+<rect height="196.20000000000002" style="fill: rgb(0%, 0%, 0%)" width="0.48" x="103.2" y="0.479979999999955"></rect>
+<rect height="196.20000000000002" style="fill: rgb(0%, 0%, 0%)" width="0.47998" x="499.26" y="0.479979999999955"></rect>
+<rect height="0.47998" style="fill: rgb(0%, 0%, 0%)" width="396.54" x="103.2" y="0.0"></rect>
+<rect height="0.48001000000000005" style="fill: rgb(0%, 0%, 0%)" width="396.54" x="103.2" y="196.73996999999997"></rect>
+<path d="M 324.90000000000003 44.459979999999916 L 328.68 34.739979999999946 L 331.68 44.459979999999916 L 324.90000000000003 44.459979999999916" style="fill: rgb(0%, 0%, 0%); fill-rule: evenodd"></path>
+<path d="M 247.68 70.73997999999995 L 345.9 70.73997999999995 L 345.9 43.739979999999946" style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)"></path>
+<path d="M 342.90000000000003 44.459979999999916 L 345.90000000000003 34.739979999999946 L 349.68 44.459979999999916 L 342.90000000000003 44.459979999999916" style="fill: rgb(0%, 0%, 0%); fill-rule: evenodd"></path>
+<path d="M 247.68 88.73997999999995 L 363.9 88.73997999999995 L 363.9 43.739979999999946" style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)"></path>
+<path d="M 360.90000000000003 44.459979999999916 L 363.90000000000003 34.739979999999946 L 367.68 44.459979999999916 L 360.90000000000003 44.459979999999916" style="fill: rgb(0%, 0%, 0%); fill-rule: evenodd"></path>
+<path d="M 247.68 106.73997999999995 L 381.9 106.73997999999995 L 381.9 43.739979999999946" style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)"></path>
+<path d="M 378.90000000000003 44.459979999999916 L 381.90000000000003 34.739979999999946 L 385.68 44.459979999999916 L 378.90000000000003 44.459979999999916" style="fill: rgb(0%, 0%, 0%); fill-rule: evenodd"></path>
+<path d="M 247.68 124.73997999999995 L 399.9 124.73997999999995 L 399.9 43.739979999999946" style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)"></path>
+<path d="M 396.90000000000003 44.459979999999916 L 399.90000000000003 34.739979999999946 L 403.68 44.459979999999916 L 396.90000000000003 44.459979999999916" style="fill: rgb(0%, 0%, 0%); fill-rule: evenodd"></path>
+<path d="M 247.68 142.73997999999995 L 417.9 142.73997999999995 L 417.9 43.739979999999946" style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)"></path>
+<path d="M 414.90000000000003 44.459979999999916 L 417.90000000000003 34.739979999999946 L 420.90000000000003 44.459979999999916 L 414.90000000000003 44.459979999999916" style="fill: rgb(0%, 0%, 0%); fill-rule: evenodd"></path>
+<path d="M 247.68 159.95997999999992 L 435.9 159.95997999999992 L 435.9 43.739979999999946" style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)"></path>
+<path d="M 432.90000000000003 44.459979999999916 L 435.90000000000003 34.739979999999946 L 438.90000000000003 44.459979999999916 L 432.90000000000003 44.459979999999916" style="fill: rgb(0%, 0%, 0%); fill-rule: evenodd"></path>
+<path d="M 247.68 177.95997999999992 L 453.9 177.95997999999992 L 453.9 43.739979999999946" style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)"></path>
+<path d="M 450.90000000000003 44.459979999999916 L 453.90000000000003 34.739979999999946 L 456.90000000000003 44.459979999999916 L 450.90000000000003 44.459979999999916" style="fill: rgb(0%, 0%, 0%); fill-rule: evenodd"></path>
+<rect height="18.0" style="fill: rgb(0%, 0%, 0%)" width="18.0" x="319.68" y="16.739979999999946"></rect>
+<rect height="18.0" style="stroke: rgb(0%, 0%, 0%)" width="18.0" x="319.68" y="16.739979999999946"></rect>
+<rect height="18.0" style="fill: rgb(0%, 0%, 0%)" width="17.22" x="337.68" y="16.739979999999946"></rect>
+<rect height="18.0" style="stroke: rgb(0%, 0%, 0%)" width="17.22" x="337.68" y="16.739979999999946"></rect>
+<rect height="18.0" style="fill: rgb(0%, 0%, 0%)" width="18.0" x="354.90000000000003" y="16.739979999999946"></rect>
+<rect height="18.0" style="stroke: rgb(0%, 0%, 0%)" width="18.0" x="354.90000000000003" y="16.739979999999946"></rect>
+<rect height="18.0" style="fill: rgb(0%, 0%, 0%)" width="18.0" x="372.90000000000003" y="16.739979999999946"></rect>
+<rect height="18.0" style="stroke: rgb(0%, 0%, 0%)" width="18.0" x="372.90000000000003" y="16.739979999999946"></rect>
+<rect height="18.0" style="fill: rgb(0%, 0%, 0%)" width="18.0" x="390.90000000000003" y="16.739979999999946"></rect>
+<rect height="18.0" style="stroke: rgb(0%, 0%, 0%)" width="18.0" x="390.90000000000003" y="16.739979999999946"></rect>
+<rect height="18.0" style="fill: rgb(0%, 0%, 0%)" width="18.0" x="408.90000000000003" y="16.739979999999946"></rect>
+<rect height="18.0" style="stroke: rgb(0%, 0%, 0%)" width="18.0" x="408.90000000000003" y="16.739979999999946"></rect>
+<rect height="18.0" style="fill: rgb(0%, 0%, 0%)" width="18.0" x="426.90000000000003" y="16.739979999999946"></rect>
+<rect height="18.0" style="stroke: rgb(0%, 0%, 0%)" width="18.0" x="426.90000000000003" y="16.739979999999946"></rect>
+<rect height="18.0" style="fill: rgb(0%, 0%, 0%)" width="18.0" x="444.90000000000003" y="16.739979999999946"></rect>
+<rect height="18.0" style="stroke: rgb(0%, 0%, 0%)" width="18.0" x="444.90000000000003" y="16.739979999999946"></rect>
+<rect height="18.0" style="fill: rgb(0%, 0%, 0%)" width="108.0" x="139.68" y="43.739979999999946"></rect>
+<rect height="18.0" style="stroke: rgb(0%, 0%, 0%)" width="108.0" x="139.68" y="43.739979999999946"></rect>
+<rect height="18.0" style="fill: rgb(0%, 0%, 0%)" width="108.0" x="139.68" y="79.73997999999995"></rect>
+<rect height="18.0" style="stroke: rgb(0%, 0%, 0%)" width="108.0" x="139.68" y="79.73997999999995"></rect>
+<rect height="18.0" style="fill: rgb(0%, 0%, 0%)" width="108.0" x="139.68" y="97.73997999999995"></rect>
+<rect height="18.0" style="stroke: rgb(0%, 0%, 0%)" width="108.0" x="139.68" y="97.73997999999995"></rect>
+<rect height="18.0" style="fill: rgb(0%, 0%, 0%)" width="108.0" x="139.68" y="61.739979999999946"></rect>
+<rect height="18.0" style="stroke: rgb(0%, 0%, 0%)" width="108.0" x="139.68" y="61.739979999999946"></rect>
+<rect height="17.22" style="fill: rgb(0%, 0%, 0%)" width="108.0" x="139.68" y="115.73997999999995"></rect>
+<rect height="17.22" style="stroke: rgb(0%, 0%, 0%)" width="108.0" x="139.68" y="115.73997999999995"></rect>
+<rect height="18.0" style="fill: rgb(0%, 0%, 0%)" width="108.0" x="139.68" y="132.95997999999992"></rect>
+<rect height="18.0" style="stroke: rgb(0%, 0%, 0%)" width="108.0" x="139.68" y="132.95997999999992"></rect>
+<rect height="18.0" style="fill: rgb(0%, 0%, 0%)" width="108.0" x="139.68" y="150.95997999999992"></rect>
+<rect height="18.0" style="stroke: rgb(0%, 0%, 0%)" width="108.0" x="139.68" y="150.95997999999992"></rect>
+<rect height="18.0" style="fill: rgb(0%, 0%, 0%)" width="108.0" x="139.68" y="168.95997999999992"></rect>
+<rect height="18.0" style="stroke: rgb(0%, 0%, 0%)" width="108.0" x="139.68" y="168.95997999999992"></rect>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 13.393227599535043pt; fill: #000" textLength="6.672611599768345" x="327.18" y="32.052212099912005">7</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 13.393227599535043pt; fill: #000" textLength="6.672611599768345" x="345.18" y="32.052212099912005">6</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 13.393227599535043pt; fill: #000" textLength="6.672611599768345" x="363.18" y="32.052212099912005">5</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 13.393227599535043pt; fill: #000" textLength="6.672611599768345" x="381.18" y="32.052212099912005">4</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 13.393227599535043pt; fill: #000" textLength="6.672611599768345" x="399.18" y="32.052212099912005">3</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 13.393227599535043pt; fill: #000" textLength="6.672611599768345" x="417.18" y="32.052212099912005">2</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 13.393227599535043pt; fill: #000" textLength="6.672611599768345" x="435.18" y="32.052212099912005">1</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 13.393227599535043pt; fill: #000" textLength="6.672611599768345" x="453.18" y="32.052212099912005">0</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 13.29721879953837pt; fill: #000" textLength="92.70178449975003" x="148.68" y="59.040210999912404">+INF #IE</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 13.29721879953837pt; fill: #000" textLength="92.70178449975003" x="148.68" y="77.0402109999124">-VE #IE</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 13.29721879953837pt; fill: #000" textLength="92.70178449975003" x="148.68" y="95.0402109999124">-INF #IE</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 13.29721879953837pt; fill: #000" textLength="87.42254459975007" x="153.96" y="113.0402109999124">SNaN #IE</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 13.441238499560484pt; fill: #000" textLength="83.70223459975006" x="157.68" y="130.4041526999345">ONE #IE</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 13.29721879953837pt; fill: #000" textLength="83.70223459975006" x="157.68" y="148.26021099991243">ONE #ZE</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 13.29721879953837pt; fill: #000" textLength="87.42254459975007" x="153.96" y="166.26021099991243">ZERO #IE</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 13.29721879953837pt; fill: #000" textLength="87.42254459975007" x="153.96" y="184.26021099991243">ZERO #ZE</text></g></svg>
 <figcaption><a href="VFIXUPIMMSD.html#fig-5-11">Figure 5-11</a>. VFIXUPIMMSD Immediate Control Description</figcaption></figure>
 <h3 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="VFIXUPIMMSD.html#intel-c-c++-compiler-intrinsic-equivalent">
 			&para;

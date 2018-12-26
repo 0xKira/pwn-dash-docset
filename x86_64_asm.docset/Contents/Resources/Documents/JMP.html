@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-212"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/JMP"></a><title>JMP</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>JMP
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-212"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/JMP"></a><title>JMP</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>November 2018</li></ul></nav></header><h1>JMP
 		&mdash; Jump</h1>
 
 <table>
@@ -136,8 +136,9 @@
 <p>Executing a task switch with the JMP instruction is somewhat similar to executing a jump through a call gate. Here the target operand specifies the segment selector of the task gate for the task being switched to (and the offset part of the target operand is ignored). The task gate in turn points to the TSS for the task, which contains the segment selectors for the task&rsquo;s code and stack segments. The TSS also contains the EIP value for the next instruction that was to be executed before the task was suspended. This instruction pointer value is loaded into the EIP register so that the task begins executing again at this next instruction.</p>
 <p>The JMP instruction can also specify the segment selector of the TSS directly, which eliminates the indirection of the task gate. See Chapter 7 in <em>Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 3A</em>, for detailed information on the mechanics of a task switch.</p>
 <p>Note that when you execute at task switch with a JMP instruction, the nested task flag (NT) is not set in the EFLAGS register and the new TSS&rsquo;s previous task link field is not loaded with the old task&rsquo;s TSS selector. A return to the previous task can thus not be carried out by executing the IRET instruction. Switching tasks with the JMP instruction differs in this regard from the CALL instruction which does set the NT flag and save the previous task link information, allowing a return to the calling task with an IRET instruction.</p>
-<p><strong>In 64-Bit Mode</strong> &mdash; The instruction&rsquo;s operation size is fixed at 64 bits. If a selector points to a gate, then RIP equals the 64-bit displacement taken from gate; else RIP equals the zero-extended offset from the far pointer referenced in the instruction.</p>
+<p><strong>In 64-Bit Mode.</strong> The instruction&rsquo;s operation size is fixed at 64 bits. If a selector points to a gate, then RIP equals the 64-bit displacement taken from gate; else RIP equals the zero-extended offset from the far pointer referenced in the instruction.</p>
 <p>See the summary chart at the beginning of this section for encoding data and limits.</p>
+<p><strong>Instruction ordering.</strong> Instructions following a far jump may be fetched from memory before earlier instructions complete execution, but they will not execute (even speculatively) until all instructions prior to the far jump have completed execution (the later instructions may execute before data stored by the earlier instructions have become globally visible).</p>
 <h2 id="operation">Operation<a class="anchor" href="JMP.html#operation">
 			&para;
 		</a></h2>
@@ -333,7 +334,7 @@ END;
 <tr>
 <td>If the DS, ES, FS, or GS register is used to access memory and it contains a NULL segment selector.</td></tr>
 <tr>
-<td rowspan="10">#GP(selector)</td>
+<td rowspan="9">#GP(selector)</td>
 <td>If the segment selector index is outside descriptor table limits.</td></tr>
 <tr>
 <td>If the segment descriptor pointed to by the segment selector in the destination operand is not for a conforming-code segment, nonconforming-code segment, call gate, task gate, or task state segment.</td></tr>
@@ -350,9 +351,7 @@ END;
 <tr>
 <td>If the segment descriptor for the segment selector in a task gate does not indicate an available TSS.</td></tr>
 <tr>
-<td>If the segment selector for a TSS has its local/global bit set for local.</td></tr>
-<tr>
-<td>If a TSS segment descriptor specifies that the TSS is busy or not available.</td></tr>
+<td>If the segment selector for a TSS has its local/global bit set for local. If a TSS segment descriptor specifies that the TSS is busy or not available.</td></tr>
 <tr>
 <td>#SS(0)</td>
 <td>If a memory operand effective address is outside the SS segment limit.</td></tr>
@@ -426,7 +425,7 @@ END;
 <tr>
 <td>If the code segment selector in the 64-bit gate is NULL.</td></tr>
 <tr>
-<td rowspan="13">#GP(selector)</td>
+<td rowspan="11">#GP(selector)</td>
 <td>If the code segment or 64-bit call gate is outside descriptor table limits.</td></tr>
 <tr>
 <td>If the code segment or 64-bit call gate overlaps non-canonical space.</td></tr>
@@ -447,11 +446,7 @@ END;
 <tr>
 <td>If the segment selector from a 64-bit call gate is beyond the descriptor table limits.</td></tr>
 <tr>
-<td>If the code segment descriptor pointed to by the selector in the 64-bit gate doesn&#39;t have the L-bit set and the D-bit clear.</td></tr>
-<tr>
-<td>If the segment descriptor for a segment selector from the 64-bit call gate does not indicate it is a code segment.</td></tr>
-<tr>
-<td>If the code segment is non-conforming and CPL ≠ DPL. If the code segment is confirming and CPL &lt; DPL.</td></tr>
+<td>If the code segment descriptor pointed to by the selector in the 64-bit gate doesn&#39;t have the L-bit set and the D-bit clear. If the segment descriptor for a segment selector from the 64-bit call gate does not indicate it is a code segment. If the code segment is non-conforming and CPL ≠ DPL. If the code segment is confirming and CPL &lt; DPL.</td></tr>
 <tr>
 <td>#NP(selector)</td>
 <td>If a code segment or 64-bit call gate is not present.</td></tr>

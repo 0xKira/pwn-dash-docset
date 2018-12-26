@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-615"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/VPSRAVW%2FVPSRAVD%2FVPSRAVQ"></a><title>VPSRAVW/VPSRAVD/VPSRAVQ</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>VPSRAVW/VPSRAVD/VPSRAVQ
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-615"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/VPSRAVW%2FVPSRAVD%2FVPSRAVQ"></a><title>VPSRAVW/VPSRAVD/VPSRAVQ</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>November 2018</li></ul></nav></header><h1>VPSRAVW/VPSRAVD/VPSRAVQ
 		&mdash; Variable Bit Shift Right Arithmetic</h1>
 
 
@@ -11,67 +11,67 @@
 <th>CPUID Feature Flag</th>
 <th>Description</th></tr>
 <tr>
-<td>VEX.NDS.128.66.0F38.W0 46 /r VPSRAVD xmm1, xmm2, xmm3/m128</td>
+<td>VEX.128.66.0F38.W0 46 /r VPSRAVD xmm1, xmm2, xmm3/m128</td>
 <td>A</td>
 <td>V/V</td>
 <td>AVX2</td>
 <td>Shift doublewords in xmm2 right by amount specified in the corresponding element of xmm3/m128 while shifting in sign bits.</td></tr>
 <tr>
-<td>VEX.NDS.256.66.0F38.W0 46 /r VPSRAVD ymm1, ymm2, ymm3/m256</td>
+<td>VEX.256.66.0F38.W0 46 /r VPSRAVD ymm1, ymm2, ymm3/m256</td>
 <td>A</td>
 <td>V/V</td>
 <td>AVX2</td>
 <td>Shift doublewords in ymm2 right by amount specified in the corresponding element of ymm3/m256 while shifting in sign bits.</td></tr>
 <tr>
-<td>EVEX.NDS.128.66.0F38.W1 11 /r VPSRAVW xmm1 {k1}{z}, xmm2, xmm3/m128</td>
+<td>EVEX.128.66.0F38.W1 11 /r VPSRAVW xmm1 {k1}{z}, xmm2, xmm3/m128</td>
 <td>B</td>
 <td>V/V</td>
 <td>AVX512VL AVX512BW</td>
 <td>Shift words in xmm2 right by amount specified in the corresponding element of xmm3/m128 while shifting in sign bits using writemask k1.</td></tr>
 <tr>
-<td>EVEX.NDS.256.66.0F38.W1 11 /r VPSRAVW ymm1 {k1}{z}, ymm2, ymm3/m256</td>
+<td>EVEX.256.66.0F38.W1 11 /r VPSRAVW ymm1 {k1}{z}, ymm2, ymm3/m256</td>
 <td>B</td>
 <td>V/V</td>
 <td>AVX512VL AVX512BW</td>
 <td>Shift words in ymm2 right by amount specified in the corresponding element of ymm3/m256 while shifting in sign bits using writemask k1.</td></tr>
 <tr>
-<td>EVEX.NDS.512.66.0F38.W1 11 /r VPSRAVW zmm1 {k1}{z}, zmm2, zmm3/m512</td>
+<td>EVEX.512.66.0F38.W1 11 /r VPSRAVW zmm1 {k1}{z}, zmm2, zmm3/m512</td>
 <td>B</td>
 <td>V/V</td>
 <td>AVX512BW</td>
 <td>Shift words in zmm2 right by amount specified in the corresponding element of zmm3/m512 while shifting in sign bits using writemask k1.</td></tr>
 <tr>
-<td>EVEX.NDS.128.66.0F38.W0 46 /r VPSRAVD xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</td>
+<td>EVEX.128.66.0F38.W0 46 /r VPSRAVD xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</td>
 <td>C</td>
 <td>V/V</td>
 <td>AVX512VL AVX512F</td>
 <td>Shift doublewords in xmm2 right by amount specified in the corresponding element of xmm3/m128/m32bcst while shifting in sign bits using writemask k1.</td></tr>
 <tr>
-<td>EVEX.NDS.256.66.0F38.W0 46 /r VPSRAVD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</td>
+<td>EVEX.256.66.0F38.W0 46 /r VPSRAVD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</td>
 <td>C</td>
 <td>V/V</td>
 <td>AVX512VL AVX512F</td>
 <td>Shift doublewords in ymm2 right by amount specified in the corresponding element of ymm3/m256/m32bcst while shifting in sign bits using writemask k1.</td></tr>
 <tr>
-<td>EVEX.NDS.512.66.0F38.W0 46 /r VPSRAVD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst</td>
+<td>EVEX.512.66.0F38.W0 46 /r VPSRAVD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst</td>
 <td>C</td>
 <td>V/V</td>
 <td>AVX512F</td>
 <td>Shift doublewords in zmm2 right by amount specified in the corresponding element of zmm3/m512/m32bcst while shifting in sign bits using writemask k1.</td></tr>
 <tr>
-<td>EVEX.NDS.128.66.0F38.W1 46 /r VPSRAVQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst</td>
+<td>EVEX.128.66.0F38.W1 46 /r VPSRAVQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst</td>
 <td>C</td>
 <td>V/V</td>
 <td>AVX512VL AVX512F</td>
 <td>Shift quadwords in xmm2 right by amount specified in the corresponding element of xmm3/m128/m64bcst while shifting in sign bits using writemask k1.</td></tr>
 <tr>
-<td>EVEX.NDS.256.66.0F38.W1 46 /r VPSRAVQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst</td>
+<td>EVEX.256.66.0F38.W1 46 /r VPSRAVQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst</td>
 <td>C</td>
 <td>V/V</td>
 <td>AVX512VL AVX512F</td>
 <td>Shift quadwords in ymm2 right by amount specified in the corresponding element of ymm3/m256/m64bcst while shifting in sign bits using writemask k1.</td></tr>
 <tr>
-<td>EVEX.NDS.512.66.0F38.W1 46 /r VPSRAVQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst</td>
+<td>EVEX.512.66.0F38.W1 46 /r VPSRAVQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst</td>
 <td>C</td>
 <td>V/V</td>
 <td>AVX512F</td>
@@ -112,8 +112,7 @@
 			&para;
 		</a></h3>
 <p>Shifts the bits in the individual data elements (word/doublewords/quadword) in the first source operand (the second operand) to the right by the number of bits specified in the count value of respective data elements in the second source operand (the third operand). As the bits in the data elements are shifted right, the empty high-order bits are set to the MSB (sign extension).</p>
-<p>The count values are specified individually in each data element of the second source operand. If the unsigned integer value specified in the respective data element of the second source operand is greater than 15 (for words), 31 (for doublewords), or 63 (for a quadword), then the destination data element are filled with the corresponding sign bit of the source element.</p>
-<p>The count values are specified individually in each data element of the second source operand. If the unsigned integer value specified in the respective data element of the second source operand is greater than 16 (for word), 31 (for doublewords), or 63 (for a quadword), then the destination data element are written with 0.</p>
+<p>The count values are specified individually in each data element of the second source operand. If the unsigned integer value specified in the respective data element of the second source operand is greater than 15 (for words), 31 (for doublewords), or 63 (for a quadword), then the destination data element is filled with the corresponding sign bit of the source element.</p>
 <p>VEX.128 encoded version: The destination and first source operands are XMM registers. The count operand can be either an XMM register or a 128-bit memory location. Bits (MAXVL-1:128) of the corresponding destination register are zeroed.</p>
 <p>VEX.256 encoded version: The destination and first source operands are YMM registers. The count operand can be either an YMM register or a 256-bit memory. Bits (MAXVL-1:256) of the corresponding destination register are zeroed.</p>
 <p>EVEX.512/256/128 encoded VPSRAVD/W: The destination and first source operands are ZMM/YMM/XMM registers. The count operand can be either a ZMM/YMM/XMM register, a 512/256/128-bit memory location or a 512/256/128-bit vector broadcasted from a 32/64-bit memory location. The destination is conditionally updated with writemask k1.</p>
@@ -152,7 +151,7 @@ DEST[MAXVL-1:VL] &larr; 0;
 		</a></h4>
 <pre>COUNT_0&larr;SRC2[31 : 0]
     (* Repeat Each COUNT_i for the 2nd through 4th dwords of SRC2*)
-COUNT_3&larr;SRC2[100 : 96];
+COUNT_3&larr;SRC2[127 : 96];
 DEST[31:0]&larr;SignExtend(SRC1[31:0] &gt;&gt; COUNT_0);
     (* Repeat shift operation for 2nd through 4th dwords *)
 DEST[127:96]&larr;SignExtend(SRC1[127:96] &gt;&gt; COUNT_3);
@@ -163,7 +162,7 @@ DEST[MAXVL-1:128] &larr; 0;
 		</a></h4>
 <pre>COUNT_0&larr;SRC2[31 : 0];
     (* Repeat Each COUNT_i for the 2nd through 8th dwords of SRC2*)
-COUNT_7&larr;SRC2[228 : 224];
+COUNT_7&larr;SRC2[255 : 224];
 DEST[31:0]&larr;SignExtend(SRC1[31:0] &gt;&gt; COUNT_0);
     (* Repeat shift operation for 2nd through 7th dwords *)
 DEST[255:224]&larr;SignExtend(SRC1[255:224] &gt;&gt; COUNT_7);

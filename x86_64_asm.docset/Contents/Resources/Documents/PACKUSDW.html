@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-310"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/PACKUSDW"></a><title>PACKUSDW</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>PACKUSDW
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-310"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/PACKUSDW"></a><title>PACKUSDW</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>November 2018</li></ul></nav></header><h1>PACKUSDW
 		&mdash; Pack with Unsigned Saturation</h1>
 
 <table>
@@ -15,31 +15,31 @@
 <td>SSE4_1</td>
 <td>Convert 4 packed signed doubleword integers from <em>xmm1</em> and 4 packed signed doubleword integers from <em>xmm2/m128</em> into 8 packed unsigned word integers in <em>xmm1</em> using unsigned saturation.</td></tr>
 <tr>
-<td>VEX.NDS.128.66.0F38 2B /r VPACKUSDW <em>xmm1,xmm2, xmm3/m128</em></td>
+<td>VEX.128.66.0F38 2B /r VPACKUSDW <em>xmm1,xmm2, xmm3/m128</em></td>
 <td>B</td>
 <td>V/V</td>
 <td>AVX</td>
 <td>Convert 4 packed signed doubleword integers from <em>xmm2</em> and 4 packed signed doubleword integers from <em>xmm3/m128</em> into 8 packed unsigned word integers in <em>xmm1</em> using unsigned saturation.</td></tr>
 <tr>
-<td>VEX.NDS.256.66.0F38 2B /r VPACKUSDW <em>ymm1, ymm2, ymm3/m256</em></td>
+<td>VEX.256.66.0F38 2B /r VPACKUSDW <em>ymm1, ymm2, ymm3/m256</em></td>
 <td>B</td>
 <td>V/V</td>
 <td>AVX2</td>
 <td>Convert 8 packed signed doubleword integers from <em>ymm2</em> and 8 packed signed doubleword integers from <em>ymm3/m256</em> into 16 packed unsigned word integers in <em>ymm1</em> using unsigned saturation.</td></tr>
 <tr>
-<td>EVEX.NDS.128.66.0F38.W0 2B /r VPACKUSDW <em>xmm1{k1}{z}, xmm2, xmm3/m128/m32bcst</em></td>
+<td>EVEX.128.66.0F38.W0 2B /r VPACKUSDW <em>xmm1{k1}{z}, xmm2, xmm3/m128/m32bcst</em></td>
 <td>C</td>
 <td>V/V</td>
 <td>AVX512VL AVX512BW</td>
 <td>Convert packed signed doubleword integers from xmm2 and packed signed doubleword integers from xmm3/m128/m32bcst into packed unsigned word integers in xmm1 using unsigned saturation under writemask k1.</td></tr>
 <tr>
-<td>EVEX.NDS.256.66.0F38.W0 2B /r VPACKUSDW <em>ymm1{k1}{z}, ymm2, ymm3/m256/m32bcst</em></td>
+<td>EVEX.256.66.0F38.W0 2B /r VPACKUSDW <em>ymm1{k1}{z}, ymm2, ymm3/m256/m32bcst</em></td>
 <td>C</td>
 <td>V/V</td>
 <td>AVX512VL AVX512BW</td>
 <td>Convert packed signed doubleword integers from ymm2 and packed signed doubleword integers from ymm3/m256/m32bcst into packed unsigned word integers in ymm1 using unsigned saturation under writemask k1.</td></tr>
 <tr>
-<td>EVEX.NDS.512.66.0F38.W0 2B /r VPACKUSDW <em>zmm1{k1}{z}, zmm2, zmm3/m512/m32bcst</em></td>
+<td>EVEX.512.66.0F38.W0 2B /r VPACKUSDW <em>zmm1{k1}{z}, zmm2, zmm3/m512/m32bcst</em></td>
 <td>C</td>
 <td>V/V</td>
 <td>AVX512BW</td>

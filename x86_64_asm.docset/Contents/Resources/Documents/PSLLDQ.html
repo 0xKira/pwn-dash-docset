@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-376"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/PSLLDQ"></a><title>PSLLDQ</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>PSLLDQ
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-376"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/PSLLDQ"></a><title>PSLLDQ</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>November 2018</li></ul></nav></header><h1>PSLLDQ
 		&mdash; Shift Double Quadword Left Logical</h1>
 
 <table>
@@ -15,31 +15,31 @@
 <td>SSE2</td>
 <td>Shift <em>xmm1</em> left by <em>imm8</em> bytes while shifting in 0s.</td></tr>
 <tr>
-<td>VEX.NDD.128.66.0F.WIG 73 /7 ib VPSLLDQ <em>xmm1, xmm2, imm8</em></td>
+<td>VEX.128.66.0F.WIG 73 /7 ib VPSLLDQ <em>xmm1, xmm2, imm8</em></td>
 <td>B</td>
 <td>V/V</td>
 <td>AVX</td>
 <td>Shift <em>xmm2</em> left by <em>imm8</em> bytes while shifting in 0s and store result in <em>xmm1</em>.</td></tr>
 <tr>
-<td>VEX.NDD.256.66.0F.WIG 73 /7 ib VPSLLDQ <em>ymm1, ymm2, imm8</em></td>
+<td>VEX.256.66.0F.WIG 73 /7 ib VPSLLDQ <em>ymm1, ymm2, imm8</em></td>
 <td>B</td>
 <td>V/V</td>
 <td>AVX2</td>
 <td>Shift <em>ymm2</em> left by <em>imm8</em> bytes while shifting in 0s and store result in <em>ymm1</em>.</td></tr>
 <tr>
-<td>EVEX.NDD.128.66.0F.WIG 73 /7 ib VPSLLDQ xmm1,xmm2/ m128, imm8</td>
+<td>EVEX.128.66.0F.WIG 73 /7 ib VPSLLDQ xmm1,xmm2/ m128, imm8</td>
 <td>C</td>
 <td>V/V</td>
 <td>AVX512VL AVX512BW</td>
 <td>Shift xmm2/m128 left by imm8 bytes while shifting in 0s and store result in xmm1.</td></tr>
 <tr>
-<td>EVEX.NDD.256.66.0F.WIG 73 /7 ib VPSLLDQ ymm1, ymm2/m256, imm8</td>
+<td>EVEX.256.66.0F.WIG 73 /7 ib VPSLLDQ ymm1, ymm2/m256, imm8</td>
 <td>C</td>
 <td>V/V</td>
 <td>AVX512VL AVX512BW</td>
 <td>Shift ymm2/m256 left by imm8 bytes while shifting in 0s and store result in ymm1.</td></tr>
 <tr>
-<td>EVEX.NDD.512.66.0F.WIG 73 /7 ib VPSLLDQ zmm1, zmm2/m512, imm8</td>
+<td>EVEX.512.66.0F.WIG 73 /7 ib VPSLLDQ zmm1, zmm2/m512, imm8</td>
 <td>C</td>
 <td>V/V</td>
 <td>AVX512BW</td>

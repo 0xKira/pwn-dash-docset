@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-382"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/PSUBQ"></a><title>PSUBQ</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>PSUBQ
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-382"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/PSUBQ"></a><title>PSUBQ</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>November 2018</li></ul></nav></header><h1>PSUBQ
 		&mdash; Subtract Packed Quadword Integers</h1>
 
 <table>
@@ -21,31 +21,31 @@
 <td>SSE2</td>
 <td>Subtract packed quadword integers in <em>xmm1</em> from <em>xmm2 /m128</em>.</td></tr>
 <tr>
-<td>VEX.NDS.128.66.0F.WIG FB/r VPSUBQ <em>xmm1, xmm2, xmm3/m128</em></td>
+<td>VEX.128.66.0F.WIG FB/r VPSUBQ <em>xmm1, xmm2, xmm3/m128</em></td>
 <td>B</td>
 <td>V/V</td>
 <td>AVX</td>
 <td>Subtract packed quadword integers in <em>xmm3/m128</em> from <em>xmm2</em>.</td></tr>
 <tr>
-<td>VEX.NDS.256.66.0F.WIG FB /r VPSUBQ <em>ymm1, ymm2, ymm3/m256</em></td>
+<td>VEX.256.66.0F.WIG FB /r VPSUBQ <em>ymm1, ymm2, ymm3/m256</em></td>
 <td>B</td>
 <td>V/V</td>
 <td>AVX2</td>
 <td>Subtract packed quadword integers in <em>ymm3/m256</em> from <em>ymm2.</em></td></tr>
 <tr>
-<td>EVEX.NDS.128.66.0F.W1 FB /r VPSUBQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst</td>
+<td>EVEX.128.66.0F.W1 FB /r VPSUBQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst</td>
 <td>C</td>
 <td>V/V</td>
 <td>AVX512VL AVX512F</td>
 <td>Subtract packed quadword integers in xmm3/m128/m64bcst from xmm2 and store in xmm1 using writemask k1.</td></tr>
 <tr>
-<td>EVEX.NDS.256.66.0F.W1 FB /r VPSUBQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst</td>
+<td>EVEX.256.66.0F.W1 FB /r VPSUBQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst</td>
 <td>C</td>
 <td>V/V</td>
 <td>AVX512VL AVX512F</td>
 <td>Subtract packed quadword integers in ymm3/m256/m64bcst from ymm2 and store in ymm1 using writemask k1.</td></tr>
 <tr>
-<td>EVEX.NDS.512.66.0F.W1 FB/r VPSUBQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst</td>
+<td>EVEX.512.66.0F.W1 FB/r VPSUBQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst</td>
 <td>C</td>
 <td>V/V</td>
 <td>AVX512F</td>

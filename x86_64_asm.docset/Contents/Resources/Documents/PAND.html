@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-316"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/PAND"></a><title>PAND</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>PAND
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-316"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/PAND"></a><title>PAND</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>November 2018</li></ul></nav></header><h1>PAND
 		&mdash; Logical AND</h1>
 
 <table>
@@ -21,49 +21,49 @@
 <td>SSE2</td>
 <td>Bitwise AND of <em>xmm2/m128</em> and <em>xmm1</em>.</td></tr>
 <tr>
-<td>VEX.NDS.128.66.0F.WIG DB /r VPAND <em>xmm1, xmm2, xmm3/m128</em></td>
+<td>VEX.128.66.0F.WIG DB /r VPAND <em>xmm1, xmm2, xmm3/m128</em></td>
 <td>B</td>
 <td>V/V</td>
 <td>AVX</td>
 <td>Bitwise AND of <em>xmm3/m128</em> and <em>xmm</em>.</td></tr>
 <tr>
-<td>VEX.NDS.256.66.0F.WIG DB /r VPAND <em>ymm1, ymm2, ymm3/.m256</em></td>
+<td>VEX.256.66.0F.WIG DB /r VPAND <em>ymm1, ymm2, ymm3/.m256</em></td>
 <td>B</td>
 <td>V/V</td>
 <td>AVX2</td>
 <td>Bitwise AND of <em>ymm2</em>, and <em>ymm3/m256</em> and store result in <em>ymm1</em>.</td></tr>
 <tr>
-<td>EVEX.NDS.128.66.0F.W0 DB /r VPANDD xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</td>
+<td>EVEX.128.66.0F.W0 DB /r VPANDD xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</td>
 <td>C</td>
 <td>V/V</td>
 <td>AVX512VL AVX512F</td>
 <td>Bitwise AND of packed doubleword integers in xmm2 and xmm3/m128/m32bcst and store result in xmm1 using writemask k1.</td></tr>
 <tr>
-<td>EVEX.NDS.256.66.0F.W0 DB /r VPANDD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</td>
+<td>EVEX.256.66.0F.W0 DB /r VPANDD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</td>
 <td>C</td>
 <td>V/V</td>
 <td>AVX512VL AVX512F</td>
 <td>Bitwise AND of packed doubleword integers in ymm2 and ymm3/m256/m32bcst and store result in ymm1 using writemask k1.</td></tr>
 <tr>
-<td>EVEX.NDS.512.66.0F.W0 DB /<em>r</em> VPANDD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst</td>
+<td>EVEX.512.66.0F.W0 DB /<em>r</em> VPANDD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst</td>
 <td>C</td>
 <td>V/V</td>
 <td>AVX512F</td>
 <td>Bitwise AND of packed doubleword integers in zmm2 and zmm3/m512/m32bcst and store result in zmm1 using writemask k1.</td></tr>
 <tr>
-<td>EVEX.NDS.128.66.0F.W1 DB /r VPANDQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst</td>
+<td>EVEX.128.66.0F.W1 DB /r VPANDQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst</td>
 <td>C</td>
 <td>V/V</td>
 <td>AVX512VL AVX512F</td>
 <td>Bitwise AND of packed quadword integers in xmm2 and xmm3/m128/m64bcst and store result in xmm1 using writemask k1.</td></tr>
 <tr>
-<td>EVEX.NDS.256.66.0F.W1 DB /r VPANDQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst</td>
+<td>EVEX.256.66.0F.W1 DB /r VPANDQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst</td>
 <td>C</td>
 <td>V/V</td>
 <td>AVX512VL AVX512F</td>
 <td>Bitwise AND of packed quadword integers in ymm2 and ymm3/m256/m64bcst and store result in ymm1 using writemask k1.</td></tr>
 <tr>
-<td>EVEX.NDS.512.66.0F.W1 DB /<em>r</em> VPANDQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst</td>
+<td>EVEX.512.66.0F.W1 DB /<em>r</em> VPANDQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst</td>
 <td>C</td>
 <td>V/V</td>
 <td>AVX512F</td>

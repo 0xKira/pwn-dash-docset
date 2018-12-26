@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-552"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/VMASKMOV"></a><title>VMASKMOV</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>VMASKMOV
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-552"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/VMASKMOV"></a><title>VMASKMOV</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>November 2018</li></ul></nav></header><h1>VMASKMOV
 		&mdash; Conditional SIMD Packed Loads and Stores</h1>
 
 <table>
@@ -9,49 +9,49 @@
 <th>CPUID Feature Flag</th>
 <th>Description</th></tr>
 <tr>
-<td>VEX.NDS.128.66.0F38.W0 2C /r VMASKMOVPS <em>xmm1, xmm2, m128</em></td>
+<td>VEX.128.66.0F38.W0 2C /r VMASKMOVPS <em>xmm1, xmm2, m128</em></td>
 <td>RVM</td>
 <td>V/V</td>
 <td>AVX</td>
 <td>Conditionally load packed single-precision values from <em>m128</em> using mask in <em>xmm2</em> and store in <em>xmm1</em>.</td></tr>
 <tr>
-<td>VEX.NDS.256.66.0F38.W0 2C /r VMASKMOVPS <em>ymm1, ymm2, m256</em></td>
+<td>VEX.256.66.0F38.W0 2C /r VMASKMOVPS <em>ymm1, ymm2, m256</em></td>
 <td>RVM</td>
 <td>V/V</td>
 <td>AVX</td>
 <td>Conditionally load packed single-precision values from <em>m256</em> using mask in <em>ymm2</em> and store in <em>ymm1</em>.</td></tr>
 <tr>
-<td>VEX.NDS.128.66.0F38.W0 2D /r VMASKMOVPD <em>xmm1, xmm2, m128</em></td>
+<td>VEX.128.66.0F38.W0 2D /r VMASKMOVPD <em>xmm1, xmm2, m128</em></td>
 <td>RVM</td>
 <td>V/V</td>
 <td>AVX</td>
 <td>Conditionally load packed double-precision values from <em>m128</em> using mask in <em>xmm2</em> and store in <em>xmm1</em>.</td></tr>
 <tr>
-<td>VEX.NDS.256.66.0F38.W0 2D /r VMASKMOVPD <em>ymm1, ymm2, m256</em></td>
+<td>VEX.256.66.0F38.W0 2D /r VMASKMOVPD <em>ymm1, ymm2, m256</em></td>
 <td>RVM</td>
 <td>V/V</td>
 <td>AVX</td>
 <td>Conditionally load packed double-precision values from <em>m256</em> using mask in <em>ymm2</em> and store in <em>ymm1</em>.</td></tr>
 <tr>
-<td>VEX.NDS.128.66.0F38.W0 2E /r VMASKMOVPS <em>m128, xmm1, xmm2</em></td>
+<td>VEX.128.66.0F38.W0 2E /r VMASKMOVPS <em>m128, xmm1, xmm2</em></td>
 <td>MVR</td>
 <td>V/V</td>
 <td>AVX</td>
 <td>Conditionally store packed single-precision values from <em>xmm2</em> using mask in <em>xmm1</em>.</td></tr>
 <tr>
-<td>VEX.NDS.256.66.0F38.W0 2E /r VMASKMOVPS <em>m256, ymm1, ymm2</em></td>
+<td>VEX.256.66.0F38.W0 2E /r VMASKMOVPS <em>m256, ymm1, ymm2</em></td>
 <td>MVR</td>
 <td>V/V</td>
 <td>AVX</td>
 <td>Conditionally store packed single-precision values from <em>ymm2</em> using mask in <em>ymm1</em>.</td></tr>
 <tr>
-<td>VEX.NDS.128.66.0F38.W0 2F /r VMASKMOVPD <em>m128, xmm1, xmm2</em></td>
+<td>VEX.128.66.0F38.W0 2F /r VMASKMOVPD <em>m128, xmm1, xmm2</em></td>
 <td>MVR</td>
 <td>V/V</td>
 <td>AVX</td>
 <td>Conditionally store packed double-precision values from <em>xmm2</em> using mask in <em>xmm1</em>.</td></tr>
 <tr>
-<td>VEX.NDS.256.66.0F38.W0 2F /r VMASKMOVPD <em>m256, ymm1, ymm2</em></td>
+<td>VEX.256.66.0F38.W0 2F /r VMASKMOVPD <em>m256, ymm1, ymm2</em></td>
 <td>MVR</td>
 <td>V/V</td>
 <td>AVX</td>

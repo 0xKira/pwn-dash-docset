@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-444"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/STI"></a><title>STI</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>STI
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-444"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/STI"></a><title>STI</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>November 2018</li></ul></nav></header><h1>STI
 		&mdash; Set Interrupt Flag</h1>
 
 <table>
@@ -43,8 +43,8 @@
 <li><strong>PVI mode </strong>(protected-mode virtual interrupts): CR0.PE = 1, EFLAGS.VM = 0, CPL = 3, and CR4.PVI = 1;</li>
 <li><strong>VME mode </strong>(virtual-8086 mode extensions): CR0.PE = 1, EFLAGS.VM = 1, and CR4.VME = 1.</li></ul>
 <p>If IOPL &lt; 3, EFLAGS.VIP = 1, and either VME mode or PVI mode is active, STI sets the VIF flag in the EFLAGS register, leaving IF unaffected.</p>
-<p><a href="STI.html#tbl-4-19">Table 4-19</a> indicates the action of the STI instruction depending on the processor operating mode, IOPL, CPL, and EFLAGS.VIP.</p>
-<figure id="tbl-4-19">
+<p><a href="STI.html#tbl-4-18">Table 4-18</a> indicates the action of the STI instruction depending on the processor operating mode, IOPL, CPL, and EFLAGS.VIP.</p>
+<figure id="tbl-4-18">
 <table>
 <tbody><tr>
 <th>Mode</th>
@@ -98,7 +98,7 @@
 <tr>
 <td>1</td>
 <td>#GP fault</td></tr></tbody></table>
-<figcaption><a href="STI.html#tbl-4-19">Table 4-19</a>. Decision Table for STI Results</figcaption></figure>
+<figcaption><a href="STI.html#tbl-4-18">Table 4-18</a>. Decision Table for STI Results</figcaption></figure>
 <blockquote>
 <p>1. X = This setting has no effect on instruction operation.</p></blockquote>
 <p>2. For this table, &ldquo;protected mode&rdquo; applies whenever CR0.PE = 1 and EFLAGS.VM = 0; it includes compatibility mode and 64-bit mode.</p>

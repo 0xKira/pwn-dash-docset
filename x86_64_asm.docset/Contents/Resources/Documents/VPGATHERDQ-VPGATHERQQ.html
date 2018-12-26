@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-596"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/VPGATHERDQ%2FVPGATHERQQ"></a><title>VPGATHERDQ/VPGATHERQQ</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>VPGATHERDQ/VPGATHERQQ
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-596"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/VPGATHERDQ%2FVPGATHERQQ"></a><title>VPGATHERDQ/VPGATHERQQ</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>November 2018</li></ul></nav></header><h1>VPGATHERDQ/VPGATHERQQ
 		&mdash; Gather Packed Qword Values Using Signed Dword/Qword Indices</h1>
 
 
@@ -10,25 +10,25 @@
 <th>CPUID Feature Flag</th>
 <th>Description</th></tr>
 <tr>
-<td>VEX.DDS.128.66.0F38.W1 90 /r VPGATHERDQ <em>xmm1, vm32x, xmm2</em></td>
+<td>VEX.128.66.0F38.W1 90 /r VPGATHERDQ <em>xmm1, vm32x, xmm2</em></td>
 <td>A</td>
 <td>V/V</td>
 <td>AVX2</td>
 <td>Using dword indices specified in <em>vm32x</em>, gather qword values from memory conditioned on mask specified by <em>xmm2</em>. Conditionally gathered elements are merged into <em>xmm1</em>.</td></tr>
 <tr>
-<td>VEX.DDS.128.66.0F38.W1 91 /r VPGATHERQQ <em>xmm1, vm64x, xmm2</em></td>
+<td>VEX.128.66.0F38.W1 91 /r VPGATHERQQ <em>xmm1, vm64x, xmm2</em></td>
 <td>A</td>
 <td>V/V</td>
 <td>AVX2</td>
 <td>Using qword indices specified in <em>vm64x</em>, gather qword values from memory conditioned on mask specified by <em>xmm2</em>. Conditionally gathered elements are merged into <em>xmm1</em>.</td></tr>
 <tr>
-<td>VEX.DDS.256.66.0F38.W1 90 /r VPGATHERDQ <em>ymm1, vm32x, ymm2</em></td>
+<td>VEX.256.66.0F38.W1 90 /r VPGATHERDQ <em>ymm1, vm32x, ymm2</em></td>
 <td>A</td>
 <td>V/V</td>
 <td>AVX2</td>
 <td>Using dword indices specified in <em>vm32x</em>, gather qword values from memory conditioned on mask specified by <em>ymm2</em>. Conditionally gathered elements are merged into <em>ymm1</em>.</td></tr>
 <tr>
-<td>VEX.DDS.256.66.0F38.W1 91 /r VPGATHERQQ <em>ymm1, vm64y, ymm2</em></td>
+<td>VEX.256.66.0F38.W1 91 /r VPGATHERQQ <em>ymm1, vm64y, ymm2</em></td>
 <td>A</td>
 <td>V/V</td>
 <td>AVX2</td>
@@ -83,7 +83,8 @@ MASK &larr; SRC3;
 <h3 id="vpgatherdq--vex-128-version-">VPGATHERDQ (VEX.128 version)<a class="anchor" href="./VPGATHERDQ:VPGATHERQQ.html#vpgatherdq--vex-128-version-">
 			&para;
 		</a></h3>
-<pre>FOR j&larr;0 to 1
+<pre>MASK[MAXVL-1:128] &larr; 0;
+FOR j&larr;0 to 1
     i&larr;j * 64;
     IF MASK[63+i] THEN
         MASK[i +63:i]&larr;FFFFFFFF_FFFFFFFFH; // extend from most significant bit
@@ -100,14 +101,13 @@ FOR j&larr;0 to 1
     FI;
     MASK[i +63:i]&larr;0;
 ENDFOR
-MASK[MAXVL-1:128] &larr; 0;
 DEST[MAXVL-1:128] &larr; 0;
-(non-masked elements of the mask register have the content of respective element cleared)
 </pre>
 <h3 id="vpgatherqq--vex-128-version-">VPGATHERQQ (VEX.128 version)<a class="anchor" href="./VPGATHERDQ:VPGATHERQQ.html#vpgatherqq--vex-128-version-">
 			&para;
 		</a></h3>
-<pre>FOR j&larr;0 to 1
+<pre>MASK[MAXVL-1:128] &larr; 0;
+FOR j&larr;0 to 1
     i&larr;j * 64;
     IF MASK[63+i] THEN
         MASK[i +63:i]&larr;FFFFFFFF_FFFFFFFFH; // extend from most significant bit
@@ -123,14 +123,13 @@ FOR j&larr;0 to 1
     FI;
     MASK[i +63:i]&larr;0;
 ENDFOR
-MASK[MAXVL-1:128] &larr; 0;
 DEST[MAXVL-1:128] &larr; 0;
-(non-masked elements of the mask register have the content of respective element cleared)
 </pre>
 <h3 id="vpgatherqq--vex-256-version-">VPGATHERQQ (VEX.256 version)<a class="anchor" href="./VPGATHERDQ:VPGATHERQQ.html#vpgatherqq--vex-256-version-">
 			&para;
 		</a></h3>
-<pre>FOR j&larr;0 to 3
+<pre>MASK[MAXVL-1:256] &larr; 0;
+FOR j&larr;0 to 3
     i&larr;j * 64;
     IF MASK[63+i] THEN
         MASK[i +63:i]&larr;FFFFFFFF_FFFFFFFFH; // extend from most significant bit
@@ -146,12 +145,13 @@ FOR j&larr;0 to 3
     FI;
     MASK[i +63:i]&larr;0;
 ENDFOR
-(non-masked elements of the mask register have the content of respective element cleared)
+DEST[MAXVL-1:256] &larr; 0;
 </pre>
 <h3 id="vpgatherdq--vex-256-version-">VPGATHERDQ (VEX.256 version)<a class="anchor" href="./VPGATHERDQ:VPGATHERQQ.html#vpgatherdq--vex-256-version-">
 			&para;
 		</a></h3>
-<pre>FOR j&larr;0 to 3
+<pre>MASK[MAXVL-1:256] &larr; 0;
+FOR j&larr;0 to 3
     i&larr;j * 64;
     IF MASK[63+i] THEN
         MASK[i +63:i]&larr;FFFFFFFF_FFFFFFFFH; // extend from most significant bit
@@ -168,7 +168,7 @@ FOR j&larr;0 to 3
     FI;
     MASK[i +63:i]&larr;0;
 ENDFOR
-(non-masked elements of the mask register have the content of respective element cleared)
+DEST[MAXVL-1:256] &larr; 0;
 </pre>
 <h2 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="./VPGATHERDQ:VPGATHERQQ.html#intel-c-c++-compiler-intrinsic-equivalent">
 			&para;

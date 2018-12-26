@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-454"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/SYSCALL"></a><title>SYSCALL</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>SYSCALL
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-454"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/SYSCALL"></a><title>SYSCALL</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>November 2018</li></ul></nav></header><h1>SYSCALL
 		&mdash; Fast System Call</h1>
 
 <table>
@@ -39,6 +39,7 @@
 <p>SYSCALL also saves RFLAGS into R11 and then masks RFLAGS using the IA32_FMASK MSR (MSR address C0000084H); specifically, the processor clears in RFLAGS every bit corresponding to a bit that is set in the IA32_FMASK MSR.</p>
 <p>SYSCALL loads the CS and SS selectors with values derived from bits 47:32 of the IA32_STAR MSR. However, the CS and SS descriptor caches are <strong>not</strong> loaded from the descriptors (in GDT or LDT) referenced by those selectors. Instead, the descriptor caches are loaded with fixed values. See the Operation section for details. It is the responsibility of OS software to ensure that the descriptors (in GDT or LDT) referenced by those selector values correspond to the fixed values loaded into the descriptor caches; the SYSCALL instruction does not ensure this correspondence.</p>
 <p>The SYSCALL instruction does not save the stack pointer (RSP). If the OS system-call handler will change the stack pointer, it is the responsibility of software to save the previous value of the stack pointer. This might be done prior to executing SYSCALL, with software restoring the stack pointer with the instruction following SYSCALL (which will be executed after SYSRET). Alternatively, the OS system-call handler may save the stack pointer and restore it before executing SYSRET.</p>
+<p><strong>Instruction ordering.</strong> Instructions following a SYSCALL may be fetched from memory before earlier instructions complete execution, but they will not execute (even speculatively) until all instructions prior to the SYSCALL have completed execution (the later instructions may execute before data stored by the earlier instructions have become globally visible).</p>
 <h2 id="operation">Operation<a class="anchor" href="SYSCALL.html#operation">
 			&para;
 		</a></h2>
@@ -50,8 +51,7 @@ RCX &larr; RIP; (* Will contain address of next instruction *)
 RIP &larr; IA32_LSTAR;
 R11 &larr; RFLAGS;
 RFLAGS &larr; RFLAGS AND NOT(IA32_FMASK);
-CS.Selector &larr; IA32_STAR[47:32] AND FFFCH
-        (* Operating system provides CS; RPL forced to 0 *)
+CS.Selector &larr; IA32_STAR[47:32] AND FFFCH (* Operating system provides CS; RPL forced to 0 *)
 (* Set rest of CS to a fixed value *)
 CS.Base &larr; 0;
         (* Flat segment *)

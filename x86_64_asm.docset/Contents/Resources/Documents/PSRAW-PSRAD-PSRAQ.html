@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-378"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/PSRAW%2FPSRAD%2FPSRAQ"></a><title>PSRAW/PSRAD/PSRAQ</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>PSRAW/PSRAD/PSRAQ
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-378"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/PSRAW%2FPSRAD%2FPSRAQ"></a><title>PSRAW/PSRAD/PSRAQ</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>November 2018</li></ul></nav></header><h1>PSRAW/PSRAD/PSRAQ
 		&mdash; Shift Packed Data Right Arithmetic</h1>
 
 
@@ -59,158 +59,158 @@
 <td>SSE2</td>
 <td>Shift doublewords in <em>xmm1</em> right by <em>imm8</em> while shifting in sign bits.</td></tr>
 <tr>
-<td>VEX.NDS.128.66.0F.WIG E1 /r VPSRAW <em>xmm1, xmm2, xmm3/m128</em></td>
+<td>VEX.128.66.0F.WIG E1 /r VPSRAW <em>xmm1, xmm2, xmm3/m128</em></td>
 <td>C</td>
 <td>V/V</td>
 <td>AVX</td>
 <td>Shift words in <em>xmm2</em> right by amount specified in <em>xmm3/m128</em> while shifting in sign bits.</td></tr>
 <tr>
-<td>VEX.NDD.128.66.0F.WIG 71 /4 ib VPSRAW <em>xmm1, xmm2, imm8</em></td>
+<td>VEX.128.66.0F.WIG 71 /4 ib VPSRAW <em>xmm1, xmm2, imm8</em></td>
 <td>D</td>
 <td>V/V</td>
 <td>AVX</td>
 <td>Shift words in <em>xmm2</em> right by <em>imm8</em> while shifting in sign bits.</td></tr>
 <tr>
-<td>VEX.NDS.128.66.0F.WIG E2 /r VPSRAD <em>xmm1, xmm2, xmm3/m128</em></td>
+<td>VEX.128.66.0F.WIG E2 /r VPSRAD <em>xmm1, xmm2, xmm3/m128</em></td>
 <td>C</td>
 <td>V/V</td>
 <td>AVX</td>
 <td>Shift doublewords in <em>xmm2</em> right by amount specified in <em>xmm3/m128</em> while shifting in sign bits.</td></tr>
 <tr>
-<td>VEX.NDD.128.66.0F.WIG 72 /4 ib VPSRAD <em>xmm1, xmm2, imm8</em></td>
+<td>VEX.128.66.0F.WIG 72 /4 ib VPSRAD <em>xmm1, xmm2, imm8</em></td>
 <td>D</td>
 <td>V/V</td>
 <td>AVX</td>
 <td>Shift doublewords in <em>xmm2</em> right by <em>imm8</em> while shifting in sign bits.</td></tr>
 <tr>
-<td>VEX.NDS.256.66.0F.WIG E1 /r VPSRAW <em>ymm1, ymm2, xmm3/m128</em></td>
+<td>VEX.256.66.0F.WIG E1 /r VPSRAW <em>ymm1, ymm2, xmm3/m128</em></td>
 <td>C</td>
 <td>V/V</td>
 <td>AVX2</td>
 <td>Shift words in <em>ymm2</em> right by amount specified in <em>xmm3/m128</em> while shifting in sign bits.</td></tr>
 <tr>
-<td>VEX.NDD.256.66.0F.WIG 71 /4 ib VPSRAW <em>ymm1, ymm2, imm8</em></td>
+<td>VEX.256.66.0F.WIG 71 /4 ib VPSRAW <em>ymm1, ymm2, imm8</em></td>
 <td>D</td>
 <td>V/V</td>
 <td>AVX2</td>
 <td>Shift words in <em>ymm2</em> right by <em>imm8</em> while shifting in sign bits.</td></tr>
 <tr>
-<td>VEX.NDS.256.66.0F.WIG E2 /r VPSRAD <em>ymm1, ymm2, xmm3/m128</em></td>
+<td>VEX.256.66.0F.WIG E2 /r VPSRAD <em>ymm1, ymm2, xmm3/m128</em></td>
 <td>C</td>
 <td>V/V</td>
 <td>AVX2</td>
 <td>Shift doublewords in <em>ymm2</em> right by amount specified in <em>xmm3/m128</em> while shifting in sign bits.</td></tr>
 <tr>
-<td>VEX.NDD.256.66.0F.WIG 72 /4 ib VPSRAD <em>ymm1, ymm2, imm8</em></td>
+<td>VEX.256.66.0F.WIG 72 /4 ib VPSRAD <em>ymm1, ymm2, imm8</em></td>
 <td>D</td>
 <td>V/V</td>
 <td>AVX2</td>
 <td>Shift doublewords in <em>ymm2</em> right by <em>imm8</em> while shifting in sign bits.</td></tr>
 <tr>
-<td>EVEX.NDS.128.66.0F.WIG E1 /r VPSRAW xmm1 {k1}{z}, xmm2, xmm3/m128</td>
+<td>EVEX.128.66.0F.WIG E1 /r VPSRAW xmm1 {k1}{z}, xmm2, xmm3/m128</td>
 <td>G</td>
 <td>V/V</td>
 <td>AVX512VL AVX512BW</td>
 <td>Shift words in xmm2 right by amount specified in xmm3/m128 while shifting in sign bits using writemask k1.</td></tr>
 <tr>
-<td>EVEX.NDS.256.66.0F.WIG E1 /r VPSRAW ymm1 {k1}{z}, ymm2, xmm3/m128</td>
+<td>EVEX.256.66.0F.WIG E1 /r VPSRAW ymm1 {k1}{z}, ymm2, xmm3/m128</td>
 <td>G</td>
 <td>V/V</td>
 <td>AVX512VL AVX512BW</td>
 <td>Shift words in ymm2 right by amount specified in xmm3/m128 while shifting in sign bits using writemask k1.</td></tr>
 <tr>
-<td>EVEX.NDS.512.66.0F.WIG E1 /r VPSRAW zmm1 {k1}{z}, zmm2, xmm3/m128</td>
+<td>EVEX.512.66.0F.WIG E1 /r VPSRAW zmm1 {k1}{z}, zmm2, xmm3/m128</td>
 <td>G</td>
 <td>V/V</td>
 <td>AVX512BW</td>
 <td>Shift words in zmm2 right by amount specified in xmm3/m128 while shifting in sign bits using writemask k1.</td></tr></tbody></table>
 <table>
 <tbody><tr>
-<td>EVEX.NDD.128.66.0F.WIG 71 /4 ib VPSRAW xmm1 {k1}{z}, xmm2/m128, imm8</td>
+<td>EVEX.128.66.0F.WIG 71 /4 ib VPSRAW xmm1 {k1}{z}, xmm2/m128, imm8</td>
 <td>E</td>
 <td>V/V</td>
 <td>AVX512VL AVX512BW</td>
 <td>Shift words in xmm2/m128 right by imm8 while shifting in sign bits using writemask k1.</td></tr>
 <tr>
-<td>EVEX.NDD.256.66.0F.WIG 71 /4 ib VPSRAW ymm1 {k1}{z}, ymm2/m256, imm8</td>
+<td>EVEX.256.66.0F.WIG 71 /4 ib VPSRAW ymm1 {k1}{z}, ymm2/m256, imm8</td>
 <td>E</td>
 <td>V/V</td>
 <td>AVX512VL AVX512BW</td>
 <td>Shift words in ymm2/m256 right by imm8 while shifting in sign bits using writemask k1.</td></tr>
 <tr>
-<td>EVEX.NDD.512.66.0F.WIG 71 /4 ib VPSRAW zmm1 {k1}{z}, zmm2/m512, imm8</td>
+<td>EVEX.512.66.0F.WIG 71 /4 ib VPSRAW zmm1 {k1}{z}, zmm2/m512, imm8</td>
 <td>E</td>
 <td>V/V</td>
 <td>AVX512BW</td>
 <td>Shift words in zmm2/m512 right by imm8 while shifting in sign bits using writemask k1.</td></tr>
 <tr>
-<td>EVEX.NDS.128.66.0F.W0 E2 /r VPSRAD xmm1 {k1}{z}, xmm2, xmm3/m128</td>
+<td>EVEX.128.66.0F.W0 E2 /r VPSRAD xmm1 {k1}{z}, xmm2, xmm3/m128</td>
 <td>G</td>
 <td>V/V</td>
 <td>AVX512VL AVX512F</td>
 <td>Shift doublewords in xmm2 right by amount specified in xmm3/m128 while shifting in sign bits using writemask k1.</td></tr>
 <tr>
-<td>EVEX.NDS.256.66.0F.W0 E2 /r VPSRAD ymm1 {k1}{z}, ymm2, xmm3/m128</td>
+<td>EVEX.256.66.0F.W0 E2 /r VPSRAD ymm1 {k1}{z}, ymm2, xmm3/m128</td>
 <td>G</td>
 <td>V/V</td>
 <td>AVX512VL AVX512F</td>
 <td>Shift doublewords in ymm2 right by amount specified in xmm3/m128 while shifting in sign bits using writemask k1.</td></tr>
 <tr>
-<td>EVEX.NDS.512.66.0F.W0 E2 /r VPSRAD zmm1 {k1}{z}, zmm2, xmm3/m128</td>
+<td>EVEX.512.66.0F.W0 E2 /r VPSRAD zmm1 {k1}{z}, zmm2, xmm3/m128</td>
 <td>G</td>
 <td>V/V</td>
 <td>AVX512F</td>
 <td>Shift doublewords in zmm2 right by amount specified in xmm3/m128 while shifting in sign bits using writemask k1.</td></tr>
 <tr>
-<td>EVEX.NDD.128.66.0F.W0 72 /4 ib VPSRAD xmm1 {k1}{z}, xmm2/m128/m32bcst, imm8</td>
+<td>EVEX.128.66.0F.W0 72 /4 ib VPSRAD xmm1 {k1}{z}, xmm2/m128/m32bcst, imm8</td>
 <td>F</td>
 <td>V/V</td>
 <td>AVX512VL AVX512F</td>
 <td>Shift doublewords in xmm2/m128/m32bcst right by imm8 while shifting in sign bits using writemask k1.</td></tr>
 <tr>
-<td>EVEX.NDD.256.66.0F.W0 72 /4 ib VPSRAD ymm1 {k1}{z}, ymm2/m256/m32bcst, imm8</td>
+<td>EVEX.256.66.0F.W0 72 /4 ib VPSRAD ymm1 {k1}{z}, ymm2/m256/m32bcst, imm8</td>
 <td>F</td>
 <td>V/V</td>
 <td>AVX512VL AVX512F</td>
 <td>Shift doublewords in ymm2/m256/m32bcst right by imm8 while shifting in sign bits using writemask k1.</td></tr>
 <tr>
-<td>EVEX.NDD.512.66.0F.W0 72 /4 ib VPSRAD zmm1 {k1}{z}, zmm2/m512/m32bcst, imm8</td>
+<td>EVEX.512.66.0F.W0 72 /4 ib VPSRAD zmm1 {k1}{z}, zmm2/m512/m32bcst, imm8</td>
 <td>F</td>
 <td>V/V</td>
 <td>AVX512F</td>
 <td>Shift doublewords in zmm2/m512/m32bcst right by imm8 while shifting in sign bits using writemask k1.</td></tr>
 <tr>
-<td>EVEX.NDS.128.66.0F.W1 E2 /r VPSRAQ xmm1 {k1}{z}, xmm2, xmm3/m128</td>
+<td>EVEX.128.66.0F.W1 E2 /r VPSRAQ xmm1 {k1}{z}, xmm2, xmm3/m128</td>
 <td>G</td>
 <td>V/V</td>
 <td>AVX512VL AVX512F</td>
 <td>Shift quadwords in xmm2 right by amount specified in xmm3/m128 while shifting in sign bits using writemask k1.</td></tr>
 <tr>
-<td>EVEX.NDS.256.66.0F.W1 E2 /r VPSRAQ ymm1 {k1}{z}, ymm2, xmm3/m128</td>
+<td>EVEX.256.66.0F.W1 E2 /r VPSRAQ ymm1 {k1}{z}, ymm2, xmm3/m128</td>
 <td>G</td>
 <td>V/V</td>
 <td>AVX512VL AVX512F</td>
 <td>Shift quadwords in ymm2 right by amount specified in xmm3/m128 while shifting in sign bits using writemask k1.</td></tr>
 <tr>
-<td>EVEX.NDS.512.66.0F.W1 E2 /r VPSRAQ zmm1 {k1}{z}, zmm2, xmm3/m128</td>
+<td>EVEX.512.66.0F.W1 E2 /r VPSRAQ zmm1 {k1}{z}, zmm2, xmm3/m128</td>
 <td>G</td>
 <td>V/V</td>
 <td>AVX512F</td>
 <td>Shift quadwords in zmm2 right by amount specified in xmm3/m128 while shifting in sign bits using writemask k1.</td></tr>
 <tr>
-<td>EVEX.NDD.128.66.0F.W1 72 /4 ib VPSRAQ xmm1 {k1}{z}, xmm2/m128/m64bcst, imm8</td>
+<td>EVEX.128.66.0F.W1 72 /4 ib VPSRAQ xmm1 {k1}{z}, xmm2/m128/m64bcst, imm8</td>
 <td>F</td>
 <td>V/V</td>
 <td>AVX512VL AVX512F</td>
 <td>Shift quadwords in xmm2/m128/m64bcst right by imm8 while shifting in sign bits using writemask k1.</td></tr>
 <tr>
-<td>EVEX.NDD.256.66.0F.W1 72 /4 ib VPSRAQ ymm1 {k1}{z}, ymm2/m256/m64bcst, imm8</td>
+<td>EVEX.256.66.0F.W1 72 /4 ib VPSRAQ ymm1 {k1}{z}, ymm2/m256/m64bcst, imm8</td>
 <td>F</td>
 <td>V/V</td>
 <td>AVX512VL AVX512F</td>
 <td>Shift quadwords in ymm2/m256/m64bcst right by imm8 while shifting in sign bits using writemask k1.</td></tr>
 <tr>
-<td>EVEX.NDD.512.66.0F.W1 72 /4 ib VPSRAQ zmm1 {k1}{z}, zmm2/m512/m64bcst, imm8</td>
+<td>EVEX.512.66.0F.W1 72 /4 ib VPSRAQ zmm1 {k1}{z}, zmm2/m512/m64bcst, imm8</td>
 <td>F</td>
 <td>V/V</td>
 <td>AVX512F</td>
@@ -283,93 +283,93 @@
 <p>Shifts the bits in the individual data elements (words, doublewords or quadwords) in the destination operand (first operand) to the right by the number of bits specified in the count operand (second operand). As the bits in the data elements are shifted right, the empty high-order bits are filled with the initial value of the sign bit of the data element. If the value specified by the count operand is greater than 15 (for words), 31 (for doublewords), or 63 (for quadwords), each destination data element is filled with the initial value of the sign bit of the element. (<a href="./PSRAW:PSRAD:PSRAQ.html#fig-4-18">Figure 4-18</a> gives an example of shifting words in a 64-bit operand.)</p>
 <figure id="fig-4-18">
 <svg style="width: 455.616pt; height: 126.287976pt" viewBox="109.64 0.0 384.68 110.23998">
-<g xmlns="http://www.w3.org/2000/svg" style="fill: none; stroke: none">
-<rect height="104.28" x="112.14" style="fill: rgb(0%, 0%, 0%)" y="0.479980000000012" width="0.48"></rect>
-<rect height="104.28" x="491.34" style="fill: rgb(0%, 0%, 0%)" y="0.479980000000012" width="0.47998"></rect>
-<rect height="0.47998" x="112.14" style="fill: rgb(0%, 0%, 0%)" y="0.0" width="379.68"></rect>
-<rect height="0.48001" x="112.14" style="fill: rgb(0%, 0%, 0%)" y="104.75997" width="379.68"></rect>
-<rect height="0.48001" x="194.7" style="fill: rgb(0%, 0%, 0%)" y="11.15997" width="63.12"></rect>
-<rect height="18.24" x="257.34" style="fill: rgb(0%, 0%, 0%)" y="11.39998" width="0.48001"></rect>
-<rect height="0.48001" x="194.46" style="fill: rgb(0%, 0%, 0%)" y="29.15997" width="63.12"></rect>
-<rect height="18.24" x="194.46" style="fill: rgb(0%, 0%, 0%)" y="11.15998" width="0.47998"></rect>
-<rect height="18.0" x="257.58" style="fill: rgb(100%, 100%, 100%)" y="11.39998" width="62.88"></rect>
-<rect height="0.48001" x="257.58" style="fill: rgb(0%, 0%, 0%)" y="11.15997" width="63.12"></rect>
-<rect height="18.24" x="320.22" style="fill: rgb(0%, 0%, 0%)" y="11.39998" width="0.48001"></rect>
-<rect height="0.48001" x="257.34" style="fill: rgb(0%, 0%, 0%)" y="29.15997" width="63.12"></rect>
-<rect height="18.24" x="257.34" style="fill: rgb(0%, 0%, 0%)" y="11.15998" width="0.48001"></rect>
-<rect height="18.0" x="320.46" style="fill: rgb(100%, 100%, 100%)" y="11.39998" width="62.94"></rect>
-<rect height="0.48001" x="320.46" style="fill: rgb(0%, 0%, 0%)" y="11.15997" width="63.18"></rect>
-<rect height="18.24" x="383.16" style="fill: rgb(0%, 0%, 0%)" y="11.39998" width="0.48001"></rect>
-<rect height="0.48001" x="320.22" style="fill: rgb(0%, 0%, 0%)" y="29.15997" width="63.18"></rect>
-<rect height="18.24" x="320.22" style="fill: rgb(0%, 0%, 0%)" y="11.15998" width="0.48001"></rect>
-<rect height="18.0" x="383.4" style="fill: rgb(100%, 100%, 100%)" y="11.39998" width="62.88"></rect>
-<rect height="0.48001" x="383.4" style="fill: rgb(0%, 0%, 0%)" y="11.15997" width="63.12"></rect>
-<rect height="18.24" x="446.04" style="fill: rgb(0%, 0%, 0%)" y="11.39998" width="0.47998"></rect>
-<rect height="0.48001" x="383.16" style="fill: rgb(0%, 0%, 0%)" y="29.15997" width="63.12"></rect>
-<rect height="18.24" x="383.16" style="fill: rgb(0%, 0%, 0%)" y="11.15998" width="0.48001"></rect>
-<rect height="18.0" x="194.1" style="fill: rgb(100%, 100%, 100%)" y="64.37998" width="62.94"></rect>
-<rect height="0.48001" x="194.1" style="fill: rgb(0%, 0%, 0%)" y="64.13997" width="63.18"></rect>
-<rect height="18.24" x="256.8" style="fill: rgb(0%, 0%, 0%)" y="64.37998" width="0.48001"></rect>
-<rect height="0.48001" x="193.86" style="fill: rgb(0%, 0%, 0%)" y="82.13997" width="63.18"></rect>
-<rect height="18.24" x="193.86" style="fill: rgb(0%, 0%, 0%)" y="64.13998" width="0.48"></rect>
-<rect height="18.0" x="257.04" style="fill: rgb(100%, 100%, 100%)" y="64.37998" width="62.88"></rect>
-<rect height="0.48001" x="257.04" style="fill: rgb(0%, 0%, 0%)" y="64.13997" width="63.12"></rect>
-<rect height="18.24" x="319.68" style="fill: rgb(0%, 0%, 0%)" y="64.37998" width="0.48001"></rect>
-<rect height="0.48001" x="256.8" style="fill: rgb(0%, 0%, 0%)" y="82.13997" width="63.12"></rect>
-<rect height="18.24" x="256.8" style="fill: rgb(0%, 0%, 0%)" y="64.13998" width="0.48001"></rect>
-<rect height="18.0" x="319.92" style="fill: rgb(100%, 100%, 100%)" y="64.37998" width="62.88"></rect>
-<rect height="0.48001" x="319.92" style="fill: rgb(0%, 0%, 0%)" y="64.13997" width="63.12"></rect>
-<rect height="18.24" x="382.56" style="fill: rgb(0%, 0%, 0%)" y="64.37998" width="0.48001"></rect>
-<rect height="0.48001" x="319.68" style="fill: rgb(0%, 0%, 0%)" y="82.13997" width="63.12"></rect>
-<rect height="18.24" x="319.68" style="fill: rgb(0%, 0%, 0%)" y="64.13998" width="0.48001"></rect>
-<rect height="18.0" x="382.8" style="fill: rgb(100%, 100%, 100%)" y="64.37998" width="62.88"></rect>
-<rect height="0.48001" x="382.8" style="fill: rgb(0%, 0%, 0%)" y="64.13997" width="63.12"></rect>
-<rect height="18.24" x="445.44" style="fill: rgb(0%, 0%, 0%)" y="64.37998" width="0.48001"></rect>
-<rect height="0.48001" x="382.56" style="fill: rgb(0%, 0%, 0%)" y="82.13997" width="63.12"></rect>
-<rect height="18.24" x="382.56" style="fill: rgb(0%, 0%, 0%)" y="64.13998" width="0.48001"></rect>
-<rect height="1.02" x="420.54" style="fill: rgb(0%, 0%, 0%)" y="56.99998" width="0.47998"></rect>
-<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 420.6 57.53998 L 422.16 56.9999799999999 L 423.12 56.63998 L 422.82 57.65998 L 421.26 63.0599799999999 L 420.78 64.7399799999999 L 420.3 63.0599799999999 L 418.74 57.65998 L 418.44 56.63998 L 419.4 56.9999799999999 L 419.7 57.35998 L 421.26 62.75998 L 420.3 63.0599799999999 L 420.3 62.75998 L 421.86 57.35998 L 422.82 57.65998 L 422.52 57.95998 L 420.96 58.4999799999999"></path>
-<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 419.4 56.99998 L 420.96 57.53998 L 420.96 58.49998 L 420.78 58.55998 L 420.6 58.49998 L 419.04 57.95998"></path>
-<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 420.78 58.01998 L 422.34 57.47998 L 420.78 62.87998 L 419.22 57.47998"></path>
-<rect height="15.0" x="394.8" style="fill: rgb(0%, 0%, 0%)" y="29.57998" width="0.47998"></rect>
-<rect height="0.48001" x="395.04" style="fill: rgb(0%, 0%, 0%)" y="44.09997" width="25.98"></rect>
-<rect height="12.9" x="420.54" style="fill: rgb(0%, 0%, 0%)" y="44.33998" width="0.47998"></rect>
-<rect height="1.08" x="238.38" style="fill: rgb(0%, 0%, 0%)" y="56.93998" width="0.48001"></rect>
-<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 238.44 57.53998 L 239.94 56.9399799999999 L 240.9 56.51998 L 239.1 62.9999799999999 L 238.62 64.6799799999999 L 238.14 62.9999799999999 L 236.58 57.59998 L 236.28 56.57998 L 237.24 56.9399799999999 L 237.54 57.2999799999999 L 239.1 62.69998 L 238.14 62.9999799999999 L 238.14 62.69998 L 239.64 57.2999799999999 L 240.6 57.59998 L 240.3 57.89998 L 238.8 58.4999799999999"></path>
-<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 237.24 56.93998 L 238.8 57.53998 L 238.8 58.49998 L 238.62 58.55998 L 238.44 58.49998 L 236.88 57.89998"></path>
-<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 238.62 58.01998 L 240.12 57.41998 L 238.62 62.81998 L 237.06 57.41998"></path>
-<rect height="14.94" x="212.64" style="fill: rgb(0%, 0%, 0%)" y="29.57998" width="0.48"></rect>
-<rect height="0.48001" x="212.88" style="fill: rgb(0%, 0%, 0%)" y="44.03997" width="25.98"></rect>
-<rect height="12.9" x="238.38" style="fill: rgb(0%, 0%, 0%)" y="44.27998" width="0.48001"></rect>
-<rect height="1.08" x="302.1" style="fill: rgb(0%, 0%, 0%)" y="56.87998" width="0.47998"></rect>
-<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 302.16 57.47998 L 303.66 56.93998 L 304.62 56.51998 L 304.32 57.59998 L 302.82 62.93998 L 302.34 64.55998 L 301.86 62.93998 L 300.3 57.59998 L 300.0 56.57998 L 300.96 56.93998 L 301.26 57.29998 L 302.82 62.63998 L 301.86 62.93998 L 301.86 62.63998 L 303.36 57.29998 L 304.32 57.59998 L 304.02 57.89998 L 302.52 58.43998"></path>
-<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 300.96 56.93998 L 302.52 57.47998 L 302.52 58.43998 L 302.34 58.49998 L 302.16 58.43998 L 300.6 57.89998"></path>
-<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 302.34 57.95998 L 303.84 57.41998 L 302.34 62.75998 L 300.78 57.41998"></path>
-<rect height="14.94" x="276.36" style="fill: rgb(0%, 0%, 0%)" y="29.51998" width="0.47998"></rect>
-<rect height="0.48001" x="276.6" style="fill: rgb(0%, 0%, 0%)" y="43.97997" width="25.98"></rect>
-<rect height="12.9" x="302.1" style="fill: rgb(0%, 0%, 0%)" y="44.21998" width="0.47998"></rect>
-<rect height="1.02" x="358.8" style="fill: rgb(0%, 0%, 0%)" y="57.41998" width="0.47998"></rect>
-<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 358.86 57.95998 L 360.42 57.41998 L 361.38 57.05998 L 361.08 58.07998 L 359.52 63.47998 L 359.04 65.21998 L 358.56 63.47998 L 357.06 58.07998 L 356.76 57.05998 L 357.72 57.41998 L 358.02 57.77998 L 359.52 63.17998 L 358.56 63.47998 L 358.56 63.17998 L 360.12 57.77998 L 361.08 58.07998 L 360.78 58.37998 L 359.22 58.91998"></path>
-<path style="fill-rule: nonzero; fill: rgb(0%, 0%, 0%)" d="M 357.72 57.41998 L 359.22 57.95998 L 359.22 58.91998 L 359.04 58.97998 L 358.86 58.91998 L 357.36 58.37998"></path>
-<path style="fill-rule: evenodd; fill: rgb(0%, 0%, 0%)" d="M 359.04 58.43998 L 360.6 57.89998 L 359.04 63.29998 L 357.54 57.89998"></path>
-<rect height="14.94" x="333.12" style="fill: rgb(0%, 0%, 0%)" y="30.05998" width="0.48001"></rect>
-<rect height="0.48001" x="333.36" style="fill: rgb(0%, 0%, 0%)" y="44.51997" width="25.92"></rect>
-<rect height="12.9" x="358.8" style="fill: rgb(0%, 0%, 0%)" y="44.75998" width="0.47998"></rect>
-<text x="160.079826" textLength="31.0218611" y="21.1858068" lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956pt; fill: #000">Pre-Shift</text>
-<text x="407.94" textLength="9.72264969999998" y="25.266081" lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956pt; fill: #000">X0</text>
-<text x="220.9211901" textLength="9.7833813" y="25.2666285" lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956pt; fill: #000">X3</text>
-<text x="284.6398259" textLength="9.78338129999997" y="25.2666285" lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956pt; fill: #000">X2</text>
-<text x="345.6591019" textLength="9.78338129999997" y="25.2666285" lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956pt; fill: #000">X1</text>
-<text x="170.58" textLength="21.3263808" y="29.466081" lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956pt; fill: #000">DEST</text>
-<text x="159.0" textLength="31.414656" y="42.60334" lengthAdjust="spacingAndGlyphs" style="font-size: 8.72088000000002pt; fill: #000">Shift Right</text>
-<text x="163.02" textLength="27.528192" y="49.86334" lengthAdjust="spacingAndGlyphs" style="font-size: 8.72088000000002pt; fill: #000">with Sign</text>
-<text x="161.160288" textLength="29.3816400000001" y="57.663412" lengthAdjust="spacingAndGlyphs" style="font-size: 8.72088000000002pt; fill: #000">Extension</text>
-<text x="155.2196998" textLength="34.5506867" y="74.0454726999999" lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956pt; fill: #000">Post-Shift</text>
-<text x="386.5201245" textLength="53.6709092" y="80.316308125" lengthAdjust="spacingAndGlyphs" style="font-size: 10.208730625pt; fill: #000">X0 &gt;&gt; COUNT</text>
-<text x="198.9001148" textLength="53.6589324" y="80.316308125" lengthAdjust="spacingAndGlyphs" style="font-size: 10.208183125pt; fill: #000">X3 &gt;&gt; COUNT</text>
-<text x="262.6803064" textLength="53.5876209" y="80.316308125" lengthAdjust="spacingAndGlyphs" style="font-size: 10.208183125pt; fill: #000">X2 &gt;&gt; COUNT</text>
-<text x="325.9205328" textLength="53.5929882000001" y="80.316308125" lengthAdjust="spacingAndGlyphs" style="font-size: 10.208183125pt; fill: #000">X1 &gt;&gt; COUNT</text>
-<text x="169.56" textLength="21.3207871" y="82.026081" lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956pt; fill: #000">DEST</text></g></svg>
+<g xmlns="http://www.w3.org/2000/svg" style="stroke: none; fill: none">
+<rect height="104.28" style="fill: rgb(0%, 0%, 0%)" width="0.48" x="112.14" y="0.47998000000001184"></rect>
+<rect height="104.28" style="fill: rgb(0%, 0%, 0%)" width="0.47998" x="491.34000000000003" y="0.47998000000001184"></rect>
+<rect height="0.47998" style="fill: rgb(0%, 0%, 0%)" width="379.68" x="112.14" y="0.0"></rect>
+<rect height="0.48001000000000005" style="fill: rgb(0%, 0%, 0%)" width="379.68" x="112.14" y="104.75997000000001"></rect>
+<rect height="0.48001000000000005" style="fill: rgb(0%, 0%, 0%)" width="63.120000000000005" x="194.70000000000002" y="11.159969999999987"></rect>
+<rect height="18.240000000000002" style="fill: rgb(0%, 0%, 0%)" width="0.48001000000000005" x="257.34000000000003" y="11.399979999999971"></rect>
+<rect height="0.48001000000000005" style="fill: rgb(0%, 0%, 0%)" width="63.120000000000005" x="194.46" y="29.159969999999987"></rect>
+<rect height="18.240000000000002" style="fill: rgb(0%, 0%, 0%)" width="0.47998" x="194.46" y="11.159979999999962"></rect>
+<rect height="18.0" style="fill: rgb(100%, 100%, 100%)" width="62.88" x="257.58" y="11.399979999999971"></rect>
+<rect height="0.48001000000000005" style="fill: rgb(0%, 0%, 0%)" width="63.120000000000005" x="257.58" y="11.159969999999987"></rect>
+<rect height="18.240000000000002" style="fill: rgb(0%, 0%, 0%)" width="0.48001000000000005" x="320.22" y="11.399979999999971"></rect>
+<rect height="0.48001000000000005" style="fill: rgb(0%, 0%, 0%)" width="63.120000000000005" x="257.34000000000003" y="29.159969999999987"></rect>
+<rect height="18.240000000000002" style="fill: rgb(0%, 0%, 0%)" width="0.48001000000000005" x="257.34000000000003" y="11.159979999999962"></rect>
+<rect height="18.0" style="fill: rgb(100%, 100%, 100%)" width="62.940000000000005" x="320.46" y="11.399979999999971"></rect>
+<rect height="0.48001000000000005" style="fill: rgb(0%, 0%, 0%)" width="63.18" x="320.46" y="11.159969999999987"></rect>
+<rect height="18.240000000000002" style="fill: rgb(0%, 0%, 0%)" width="0.48001000000000005" x="383.16" y="11.399979999999971"></rect>
+<rect height="0.48001000000000005" style="fill: rgb(0%, 0%, 0%)" width="63.18" x="320.22" y="29.159969999999987"></rect>
+<rect height="18.240000000000002" style="fill: rgb(0%, 0%, 0%)" width="0.48001000000000005" x="320.22" y="11.159979999999962"></rect>
+<rect height="18.0" style="fill: rgb(100%, 100%, 100%)" width="62.88" x="383.40000000000003" y="11.399979999999971"></rect>
+<rect height="0.48001000000000005" style="fill: rgb(0%, 0%, 0%)" width="63.120000000000005" x="383.40000000000003" y="11.159969999999987"></rect>
+<rect height="18.240000000000002" style="fill: rgb(0%, 0%, 0%)" width="0.47998" x="446.04" y="11.399979999999971"></rect>
+<rect height="0.48001000000000005" style="fill: rgb(0%, 0%, 0%)" width="63.120000000000005" x="383.16" y="29.159969999999987"></rect>
+<rect height="18.240000000000002" style="fill: rgb(0%, 0%, 0%)" width="0.48001000000000005" x="383.16" y="11.159979999999962"></rect>
+<rect height="18.0" style="fill: rgb(100%, 100%, 100%)" width="62.940000000000005" x="194.10000000000002" y="64.37997999999999"></rect>
+<rect height="0.48001000000000005" style="fill: rgb(0%, 0%, 0%)" width="63.18" x="194.10000000000002" y="64.13997"></rect>
+<rect height="18.240000000000002" style="fill: rgb(0%, 0%, 0%)" width="0.48001000000000005" x="256.8" y="64.37997999999999"></rect>
+<rect height="0.48001000000000005" style="fill: rgb(0%, 0%, 0%)" width="63.18" x="193.86" y="82.13997"></rect>
+<rect height="18.240000000000002" style="fill: rgb(0%, 0%, 0%)" width="0.48" x="193.86" y="64.13997999999998"></rect>
+<rect height="18.0" style="fill: rgb(100%, 100%, 100%)" width="62.88" x="257.04" y="64.37997999999999"></rect>
+<rect height="0.48001000000000005" style="fill: rgb(0%, 0%, 0%)" width="63.120000000000005" x="257.04" y="64.13997"></rect>
+<rect height="18.240000000000002" style="fill: rgb(0%, 0%, 0%)" width="0.48001000000000005" x="319.68" y="64.37997999999999"></rect>
+<rect height="0.48001000000000005" style="fill: rgb(0%, 0%, 0%)" width="63.120000000000005" x="256.8" y="82.13997"></rect>
+<rect height="18.240000000000002" style="fill: rgb(0%, 0%, 0%)" width="0.48001000000000005" x="256.8" y="64.13997999999998"></rect>
+<rect height="18.0" style="fill: rgb(100%, 100%, 100%)" width="62.88" x="319.92" y="64.37997999999999"></rect>
+<rect height="0.48001000000000005" style="fill: rgb(0%, 0%, 0%)" width="63.120000000000005" x="319.92" y="64.13997"></rect>
+<rect height="18.240000000000002" style="fill: rgb(0%, 0%, 0%)" width="0.48001000000000005" x="382.56" y="64.37997999999999"></rect>
+<rect height="0.48001000000000005" style="fill: rgb(0%, 0%, 0%)" width="63.120000000000005" x="319.68" y="82.13997"></rect>
+<rect height="18.240000000000002" style="fill: rgb(0%, 0%, 0%)" width="0.48001000000000005" x="319.68" y="64.13997999999998"></rect>
+<rect height="18.0" style="fill: rgb(100%, 100%, 100%)" width="62.88" x="382.8" y="64.37997999999999"></rect>
+<rect height="0.48001000000000005" style="fill: rgb(0%, 0%, 0%)" width="63.120000000000005" x="382.8" y="64.13997"></rect>
+<rect height="18.240000000000002" style="fill: rgb(0%, 0%, 0%)" width="0.48001000000000005" x="445.44" y="64.37997999999999"></rect>
+<rect height="0.48001000000000005" style="fill: rgb(0%, 0%, 0%)" width="63.120000000000005" x="382.56" y="82.13997"></rect>
+<rect height="18.240000000000002" style="fill: rgb(0%, 0%, 0%)" width="0.48001000000000005" x="382.56" y="64.13997999999998"></rect>
+<rect height="1.02" style="fill: rgb(0%, 0%, 0%)" width="0.47998" x="420.54" y="56.999979999999994"></rect>
+<path d="M 420.6 57.53997999999996 L 422.16 56.99997999999994 L 423.12 56.63997999999998 L 422.82000000000005 57.65997999999996 L 421.26000000000005 63.05997999999994 L 420.78000000000003 64.73997999999995 L 420.3 63.05997999999994 L 418.74 57.65997999999996 L 418.44 56.63997999999998 L 419.40000000000003 56.99997999999994 L 419.70000000000005 57.35997999999995 L 421.26000000000005 62.759979999999985 L 420.3 63.05997999999994 L 420.3 62.759979999999985 L 421.86 57.35997999999995 L 422.82000000000005 57.65997999999996 L 422.52000000000004 57.95997999999997 L 420.96000000000004 58.49997999999994" style="fill: rgb(0%, 0%, 0%); fill-rule: nonzero"></path>
+<path d="M 419.40000000000003 56.999979999999994 L 420.96000000000004 57.539980000000014 L 420.96000000000004 58.499979999999994 L 420.78000000000003 58.559979999999996 L 420.6 58.499979999999994 L 419.04 57.95997999999997" style="fill: rgb(0%, 0%, 0%); fill-rule: nonzero"></path>
+<path d="M 420.78000000000003 58.019979999999975 L 422.34000000000003 57.479979999999955 L 420.78000000000003 62.87997999999999 L 419.22 57.479979999999955" style="fill: rgb(0%, 0%, 0%); fill-rule: evenodd"></path>
+<rect height="15.0" style="fill: rgb(0%, 0%, 0%)" width="0.47998" x="394.8" y="29.579979999999978"></rect>
+<rect height="0.48001000000000005" style="fill: rgb(0%, 0%, 0%)" width="25.98" x="395.04" y="44.099969999999985"></rect>
+<rect height="12.9" style="fill: rgb(0%, 0%, 0%)" width="0.47998" x="420.54" y="44.339980000000025"></rect>
+<rect height="1.08" style="fill: rgb(0%, 0%, 0%)" width="0.48001000000000005" x="238.38" y="56.93997999999999"></rect>
+<path d="M 238.44 57.53997999999996 L 239.94 56.939979999999935 L 240.9 56.519979999999975 L 239.1 62.99997999999994 L 238.62 64.67997999999994 L 238.14 62.99997999999994 L 236.57999999999998 57.59997999999996 L 236.28 56.57997999999998 L 237.24 56.939979999999935 L 237.54 57.29997999999995 L 239.1 62.69997999999998 L 238.14 62.99997999999994 L 238.14 62.69997999999998 L 239.64 57.29997999999995 L 240.6 57.59997999999996 L 240.3 57.89997999999997 L 238.8 58.49997999999994" style="fill: rgb(0%, 0%, 0%); fill-rule: nonzero"></path>
+<path d="M 237.24 56.93997999999999 L 238.8 57.539980000000014 L 238.8 58.499979999999994 L 238.62 58.559979999999996 L 238.44 58.499979999999994 L 236.88 57.89997999999997" style="fill: rgb(0%, 0%, 0%); fill-rule: nonzero"></path>
+<path d="M 238.62 58.019979999999975 L 240.12 57.41997999999995 L 238.62 62.81997999999999 L 237.06 57.41997999999995" style="fill: rgb(0%, 0%, 0%); fill-rule: evenodd"></path>
+<rect height="14.94" style="fill: rgb(0%, 0%, 0%)" width="0.48" x="212.64000000000001" y="29.579979999999978"></rect>
+<rect height="0.48001000000000005" style="fill: rgb(0%, 0%, 0%)" width="25.98" x="212.88" y="44.03996999999998"></rect>
+<rect height="12.9" style="fill: rgb(0%, 0%, 0%)" width="0.48001000000000005" x="238.38" y="44.27998000000002"></rect>
+<rect height="1.08" style="fill: rgb(0%, 0%, 0%)" width="0.47998" x="302.1" y="56.87997999999999"></rect>
+<path d="M 302.16 57.47998000000001 L 303.66 56.93997999999999 L 304.62 56.51998000000003 L 304.32000000000005 57.599980000000016 L 302.82000000000005 62.93997999999999 L 302.34000000000003 64.55998 L 301.86 62.93997999999999 L 300.3 57.599980000000016 L 300.0 56.579980000000035 L 300.96000000000004 56.93997999999999 L 301.26000000000005 57.299980000000005 L 302.82000000000005 62.63998000000004 L 301.86 62.93997999999999 L 301.86 62.63998000000004 L 303.36 57.299980000000005 L 304.32000000000005 57.599980000000016 L 304.02000000000004 57.89998000000003 L 302.52000000000004 58.43997999999999" style="fill: rgb(0%, 0%, 0%); fill-rule: nonzero"></path>
+<path d="M 300.96 56.93997999999999 L 302.52 57.47998000000001 L 302.52 58.43997999999999 L 302.34 58.499979999999994 L 302.15999999999997 58.43997999999999 L 300.59999999999997 57.89997999999997" style="fill: rgb(0%, 0%, 0%); fill-rule: nonzero"></path>
+<path d="M 302.34000000000003 57.95997999999997 L 303.84000000000003 57.41997999999995 L 302.34000000000003 62.759979999999985 L 300.78000000000003 57.41997999999995" style="fill: rgb(0%, 0%, 0%); fill-rule: evenodd"></path>
+<rect height="14.94" style="fill: rgb(0%, 0%, 0%)" width="0.47998" x="276.36" y="29.519979999999975"></rect>
+<rect height="0.48001000000000005" style="fill: rgb(0%, 0%, 0%)" width="25.98" x="276.6" y="43.97996999999998"></rect>
+<rect height="12.9" style="fill: rgb(0%, 0%, 0%)" width="0.47998" x="302.1" y="44.21998000000002"></rect>
+<rect height="1.02" style="fill: rgb(0%, 0%, 0%)" width="0.47998" x="358.8" y="57.41998000000001"></rect>
+<path d="M 358.86 57.95997999999997 L 360.42 57.41997999999995 L 361.38 57.059979999999996 L 361.08000000000004 58.07997999999998 L 359.52000000000004 63.479979999999955 L 359.04 65.21997999999996 L 358.56 63.479979999999955 L 357.06 58.07997999999998 L 356.76 57.059979999999996 L 357.72 57.41997999999995 L 358.02000000000004 57.779979999999966 L 359.52000000000004 63.17998 L 358.56 63.479979999999955 L 358.56 63.17998 L 360.12 57.779979999999966 L 361.08000000000004 58.07997999999998 L 360.78000000000003 58.37997999999999 L 359.22 58.91997999999995" style="fill: rgb(0%, 0%, 0%); fill-rule: nonzero"></path>
+<path d="M 357.72 57.41998000000001 L 359.22 57.95998000000003 L 359.22 58.91998000000001 L 359.04 58.97998000000001 L 358.86 58.91998000000001 L 357.36 58.37997999999999" style="fill: rgb(0%, 0%, 0%); fill-rule: nonzero"></path>
+<path d="M 359.04 58.43997999999999 L 360.6 57.89997999999997 L 359.04 63.299980000000005 L 357.54 57.89997999999997" style="fill: rgb(0%, 0%, 0%); fill-rule: evenodd"></path>
+<rect height="14.94" style="fill: rgb(0%, 0%, 0%)" width="0.48001000000000005" x="333.12" y="30.059979999999996"></rect>
+<rect height="0.48001000000000005" style="fill: rgb(0%, 0%, 0%)" width="25.92" x="333.36" y="44.51997"></rect>
+<rect height="12.9" style="fill: rgb(0%, 0%, 0%)" width="0.47998" x="358.8" y="44.75998000000004"></rect>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="31.021861099999967" x="160.07982600000003" y="21.185806799999966">Pre-Shift</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="9.722649699999977" x="407.94" y="25.266080999999986">X0</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="9.783381300000002" x="220.9211901" y="25.266628499999968">X3</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="9.783381299999974" x="284.6398259" y="25.266628499999968">X2</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="9.783381299999974" x="345.6591019" y="25.266628499999968">X1</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="21.32638079999998" x="170.58" y="29.466080999999974">DEST</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.720880000000022pt; fill: #000" textLength="31.414656000000036" x="159.0" y="42.60334">Shift Right</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.720880000000022pt; fill: #000" textLength="27.52819200000002" x="163.02" y="49.863339999999994">with Sign</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.720880000000022pt; fill: #000" textLength="29.38164000000006" x="161.160288" y="57.663411999999994">Extension</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="34.55068669999997" x="155.21969980000003" y="74.04547269999995">Post-Shift</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 10.208730624999987pt; fill: #000" textLength="53.67090920000004" x="386.5201245" y="80.31630812499998">X0 &gt;&gt; COUNT</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 10.208183125000005pt; fill: #000" textLength="53.6589324" x="198.9001148" y="80.31630812499998">X3 &gt;&gt; COUNT</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 10.208183125000005pt; fill: #000" textLength="53.58762089999999" x="262.6803064" y="80.31630812499998">X2 &gt;&gt; COUNT</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 10.208183125000005pt; fill: #000" textLength="53.59298820000009" x="325.9205328" y="80.31630812499998">X1 &gt;&gt; COUNT</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="21.32078709999996" x="169.56" y="82.02608099999998">DEST</text></g></svg>
 <figcaption><a href="./PSRAW:PSRAD:PSRAQ.html#fig-4-18">Figure 4-18</a>. PSRAW and PSRAD Instruction Operation Using a 64-bit Operand</figcaption></figure>
 <p>Note that only the first 64-bits of a 128-bit count operand are checked to compute the count. If the second source operand is a memory address, 128 bits are loaded.</p>
 <p>The (V)PSRAW instruction shifts each of the words in the destination operand to the right by the number of bits specified in the count operand, and the (V)PSRAD instruction shifts each of the doublewords in the destination operand.</p>

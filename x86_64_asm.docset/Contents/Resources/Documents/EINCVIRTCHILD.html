@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-120"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/EINCVIRTCHILD"></a><title>EINCVIRTCHILD</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>EINCVIRTCHILD
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-120"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/EINCVIRTCHILD"></a><title>EINCVIRTCHILD</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>November 2018</li></ul></nav></header><h1>EINCVIRTCHILD
 		&mdash; Increment VIRTCHILDCNT in SECS</h1>
 
 <table>
@@ -136,12 +136,7 @@
 <td>TMP_SECS</td>
 <td>Physical Address</td>
 <td>64</td>
-<td>Physical address of the SECS of the page being modified.</td></tr>
-<tr>
-<td>TMP_VIRTCHILDCNT</td>
-<td>Integer</td>
-<td>64</td>
-<td>Number of virtual child pages.</td></tr></tbody></table>
+<td>Physical address of the SECS of the page being modified.</td></tr></tbody></table>
 <h2 id="eincvirtchild-return-value-in-rax">EINCVIRTCHILD Return Value in RAX<a class="anchor" href="EINCVIRTCHILD.html#eincvirtchild-return-value-in-rax">
 			&para;
 		</a></h2>
@@ -157,11 +152,7 @@
 <tr>
 <td>SGX_EPC_PAGE_CONFLICT</td>
 <td></td>
-<td>Failure due to concurrent operation of another SGX instruction.</td></tr>
-<tr>
-<td>SGX_INVALID_COUNTER</td>
-<td></td>
-<td>Attempt to increment counter that will produce an overflow.</td></tr></tbody></table>
+<td>Failure due to concurrent operation of another SGX instruction.</td></tr></tbody></table>
 <p>(* check alignment of DS:RBX *)</p>
 <p>IF (DS:RBX is not 4K aligned) THEN</p>
 <p>#GP(0); FI;</p>
@@ -195,14 +186,8 @@
 <p>#PF(DS:RBX, PFEC.SGX); FI;</p>
 <p>IF (TMP_SECS ≠ Physical_Address(DS:RCX)) THEN</p>
 <p>#GP(0); FI;</p>
-<p>(* Atomically increment virtchild counter and check for overflow *)</p>
+<p>(* Atomically increment virtchild counter *)</p>
 <p>Locked_Increment(SECS(TMP_SECS).VIRTCHILDCNT);</p>
-<p>IF (There was an overflow) THEN</p>
-<p>Locked_Decrement(SECS(TMP_SECS).VIRTCHILDCNT);</p>
-<p>RFLAGS.ZF&larr; 1;</p>
-<p>RAX &larr; SGX_INVALID_COUNTER;</p>
-<p>goto DONE;</p>
-<p>FI;</p>
 <p>RFLAGS.ZF &larr; 0;</p>
 <p>RAX&larr;0;</p>
 <p>DONE:</p>
@@ -215,7 +200,7 @@
 <h3 id="flags-affected">Flags Affected<a class="anchor" href="EINCVIRTCHILD.html#flags-affected">
 			&para;
 		</a></h3>
-<p>ZF is set if EINCVIRTCHILD fails due to concurrent operation with another SGX instruction, or if there is a VIRTCHILDCNT underflow; otherwise cleared.</p>
+<p>ZF is set if EINCVIRTCHILD fails due to concurrent operation with another SGX instruction; otherwise cleared.</p>
 <h3 class="exceptions" id="protected-mode-exceptions">Protected Mode Exceptions<a class="anchor" href="EINCVIRTCHILD.html#protected-mode-exceptions">
 			&para;
 		</a></h3>

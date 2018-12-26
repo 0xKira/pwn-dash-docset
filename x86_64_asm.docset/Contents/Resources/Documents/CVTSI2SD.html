@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-86"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/CVTSI2SD"></a><title>CVTSI2SD</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>CVTSI2SD
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-86"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/CVTSI2SD"></a><title>CVTSI2SD</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>November 2018</li></ul></nav></header><h1>CVTSI2SD
 		&mdash; Convert Doubleword Integer to Scalar Double-Precision Floating-Point Value</h1>
 
 <table>
@@ -21,25 +21,25 @@
 <td>SSE2</td>
 <td>Convert one signed quadword integer from r/m64 to one double-precision floating-point value in xmm1.</td></tr>
 <tr>
-<td>VEX.NDS.LIG.F2.0F.W0 2A /r VCVTSI2SD xmm1, xmm2, r/m32</td>
+<td>VEX.LIG.F2.0F.W0 2A /r VCVTSI2SD xmm1, xmm2, r/m32</td>
 <td>B</td>
 <td>V/V</td>
 <td>AVX</td>
 <td>Convert one signed doubleword integer from r/m32 to one double-precision floating-point value in xmm1.</td></tr>
 <tr>
-<td>VEX.NDS.LIG.F2.0F.W1 2A /r VCVTSI2SD xmm1, xmm2, r/m64</td>
+<td>VEX.LIG.F2.0F.W1 2A /r VCVTSI2SD xmm1, xmm2, r/m64</td>
 <td>B</td>
 <td>V/N.E.<sup>1</sup></td>
 <td>AVX</td>
 <td>Convert one signed quadword integer from r/m64 to one double-precision floating-point value in xmm1.</td></tr>
 <tr>
-<td>EVEX.NDS.LIG.F2.0F.W0 2A /r VCVTSI2SD xmm1, xmm2, r/m32</td>
+<td>EVEX.LIG.F2.0F.W0 2A /r VCVTSI2SD xmm1, xmm2, r/m32</td>
 <td>C</td>
 <td>V/V</td>
 <td>AVX512F</td>
 <td>Convert one signed doubleword integer from r/m32 to one double-precision floating-point value in xmm1.</td></tr>
 <tr>
-<td>EVEX.NDS.LIG.F2.0F.W1 2A /r VCVTSI2SD xmm1, xmm2, r/m64{er}</td>
+<td>EVEX.LIG.F2.0F.W1 2A /r VCVTSI2SD xmm1, xmm2, r/m64{er}</td>
 <td>C</td>
 <td>V/N.E.<sup>1</sup></td>
 <td>AVX512F</td>

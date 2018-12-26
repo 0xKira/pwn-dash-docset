@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-287"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/MOVSS"></a><title>MOVSS</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>MOVSS
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-287"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/MOVSS"></a><title>MOVSS</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>November 2018</li></ul></nav></header><h1>MOVSS
 		&mdash; Move or Merge Scalar Single-Precision Floating-Point Value</h1>
 
 <table>
@@ -21,7 +21,7 @@
 <td>SSE</td>
 <td>Load scalar single-precision floating-point value from m32 to xmm1 register.</td></tr>
 <tr>
-<td>VEX.NDS.LIG.F3.0F.WIG 10 /r VMOVSS xmm1, xmm2, xmm3</td>
+<td>VEX.LIG.F3.0F.WIG 10 /r VMOVSS xmm1, xmm2, xmm3</td>
 <td>B</td>
 <td>V/V</td>
 <td>AVX</td>
@@ -39,7 +39,7 @@
 <td>SSE</td>
 <td>Move scalar single-precision floating-point value from xmm1 register to xmm2/m32.</td></tr>
 <tr>
-<td>VEX.NDS.LIG.F3.0F.WIG 11 /r VMOVSS xmm1, xmm2, xmm3</td>
+<td>VEX.LIG.F3.0F.WIG 11 /r VMOVSS xmm1, xmm2, xmm3</td>
 <td>E</td>
 <td>V/V</td>
 <td>AVX</td>
@@ -51,7 +51,7 @@
 <td>AVX</td>
 <td>Move scalar single-precision floating-point value from xmm1 register to m32.</td></tr>
 <tr>
-<td>EVEX.NDS.LIG.F3.0F.W0 10 /r VMOVSS xmm1 {k1}{z}, xmm2, xmm3</td>
+<td>EVEX.LIG.F3.0F.W0 10 /r VMOVSS xmm1 {k1}{z}, xmm2, xmm3</td>
 <td>B</td>
 <td>V/V</td>
 <td>AVX512F</td>
@@ -63,7 +63,7 @@
 <td>AVX512F</td>
 <td>Move scalar single-precision floating-point values from m32 to xmm1 under writemask k1.</td></tr>
 <tr>
-<td>EVEX.NDS.LIG.F3.0F.W0 11 /r VMOVSS xmm1 {k1}{z}, xmm2, xmm3</td>
+<td>EVEX.LIG.F3.0F.W0 11 /r VMOVSS xmm1 {k1}{z}, xmm2, xmm3</td>
 <td>E</td>
 <td>V/V</td>
 <td>AVX512F</td>
@@ -147,7 +147,7 @@
 <h3 id="operation">Operation<a class="anchor" href="MOVSS.html#operation">
 			&para;
 		</a></h3>
-<h4 id="vmovss--evex-nds-lig-f3-0f-w0-11--r-when-the-source-operand-is-memory-and-the-destination-is-an-xmm-register-">VMOVSS (EVEX.NDS.LIG.F3.0F.W0 11 /r when the source operand is memory and the destination is an XMM register)<a class="anchor" href="MOVSS.html#vmovss--evex-nds-lig-f3-0f-w0-11--r-when-the-source-operand-is-memory-and-the-destination-is-an-xmm-register-">
+<h4 id="vmovss--evex-lig-f3-0f-w0-11--r-when-the-source-operand-is-memory-and-the-destination-is-an-xmm-register-">VMOVSS (EVEX.LIG.F3.0F.W0 11 /r when the source operand is memory and the destination is an XMM register)<a class="anchor" href="MOVSS.html#vmovss--evex-lig-f3-0f-w0-11--r-when-the-source-operand-is-memory-and-the-destination-is-an-xmm-register-">
 			&para;
 		</a></h4>
 <pre>IF k1[0] or *no writemask*
@@ -161,7 +161,7 @@
 FI;
 DEST[MAXVL-1:32] &larr; 0
 </pre>
-<h4 id="vmovss--evex-nds-lig-f3-0f-w0-10--r-when-the-source-operand-is-an-xmm-register-and-the-destination-is-memory-">VMOVSS (EVEX.NDS.LIG.F3.0F.W0 10 /r when the source operand is an XMM register and the destination is memory)<a class="anchor" href="MOVSS.html#vmovss--evex-nds-lig-f3-0f-w0-10--r-when-the-source-operand-is-an-xmm-register-and-the-destination-is-memory-">
+<h4 id="vmovss--evex-lig-f3-0f-w0-10--r-when-the-source-operand-is-an-xmm-register-and-the-destination-is-memory-">VMOVSS (EVEX.LIG.F3.0F.W0 10 /r when the source operand is an XMM register and the destination is memory)<a class="anchor" href="MOVSS.html#vmovss--evex-lig-f3-0f-w0-10--r-when-the-source-operand-is-an-xmm-register-and-the-destination-is-memory-">
 			&para;
 		</a></h4>
 <pre>IF k1[0] or *no writemask*
@@ -169,7 +169,7 @@ DEST[MAXVL-1:32] &larr; 0
     ELSE *DEST[31:0] remains unchanged* ; merging-masking
 FI;
 </pre>
-<h4 id="vmovss--evex-nds-lig-f3-0f-w0-10-11--r-where-the-source-and-destination-are-xmm-registers-">VMOVSS (EVEX.NDS.LIG.F3.0F.W0 10/11 /r where the source and destination are XMM registers)<a class="anchor" href="MOVSS.html#vmovss--evex-nds-lig-f3-0f-w0-10-11--r-where-the-source-and-destination-are-xmm-registers-">
+<h4 id="vmovss--evex-lig-f3-0f-w0-10-11--r-where-the-source-and-destination-are-xmm-registers-">VMOVSS (EVEX.LIG.F3.0F.W0 10/11 /r where the source and destination are XMM registers)<a class="anchor" href="MOVSS.html#vmovss--evex-lig-f3-0f-w0-10-11--r-where-the-source-and-destination-are-xmm-registers-">
 			&para;
 		</a></h4>
 <pre>IF k1[0] or *no writemask*
@@ -190,21 +190,21 @@ DEST[MAXVL-1:128] &larr; 0
 <pre>DEST[31:0] &larr;SRC[31:0]
 DEST[MAXVL-1:32] (Unmodified)
 </pre>
-<h4 id="vmovss--vex-nds-128-f3-0f-11--r-where-the-destination-is-an-xmm-register-">VMOVSS (VEX.NDS.128.F3.0F 11 /r where the destination is an XMM register)<a class="anchor" href="MOVSS.html#vmovss--vex-nds-128-f3-0f-11--r-where-the-destination-is-an-xmm-register-">
+<h4 id="vmovss--vex-128-f3-0f-11--r-where-the-destination-is-an-xmm-register-">VMOVSS (VEX.128.F3.0F 11 /r where the destination is an XMM register)<a class="anchor" href="MOVSS.html#vmovss--vex-128-f3-0f-11--r-where-the-destination-is-an-xmm-register-">
 			&para;
 		</a></h4>
 <pre>DEST[31:0] &larr;SRC2[31:0]
 DEST[127:32] &larr;SRC1[127:32]
 DEST[MAXVL-1:128] &larr;0
 </pre>
-<h4 id="vmovss--vex-nds-128-f3-0f-10--r-where-the-source-and-destination-are-xmm-registers-">VMOVSS (VEX.NDS.128.F3.0F 10 /r where the source and destination are XMM registers)<a class="anchor" href="MOVSS.html#vmovss--vex-nds-128-f3-0f-10--r-where-the-source-and-destination-are-xmm-registers-">
+<h4 id="vmovss--vex-128-f3-0f-10--r-where-the-source-and-destination-are-xmm-registers-">VMOVSS (VEX.128.F3.0F 10 /r where the source and destination are XMM registers)<a class="anchor" href="MOVSS.html#vmovss--vex-128-f3-0f-10--r-where-the-source-and-destination-are-xmm-registers-">
 			&para;
 		</a></h4>
 <pre>DEST[31:0] &larr;SRC2[31:0]
 DEST[127:32] &larr;SRC1[127:32]
 DEST[MAXVL-1:128] &larr;0
 </pre>
-<h4 id="vmovss--vex-nds-128-f3-0f-10--r-when-the-source-operand-is-memory-and-the-destination-is-an-xmm-register-">VMOVSS (VEX.NDS.128.F3.0F 10 /r when the source operand is memory and the destination is an XMM register)<a class="anchor" href="MOVSS.html#vmovss--vex-nds-128-f3-0f-10--r-when-the-source-operand-is-memory-and-the-destination-is-an-xmm-register-">
+<h4 id="vmovss--vex-128-f3-0f-10--r-when-the-source-operand-is-memory-and-the-destination-is-an-xmm-register-">VMOVSS (VEX.128.F3.0F 10 /r when the source operand is memory and the destination is an XMM register)<a class="anchor" href="MOVSS.html#vmovss--vex-128-f3-0f-10--r-when-the-source-operand-is-memory-and-the-destination-is-an-xmm-register-">
 			&para;
 		</a></h4>
 <pre>DEST[31:0] &larr;SRC[31:0]

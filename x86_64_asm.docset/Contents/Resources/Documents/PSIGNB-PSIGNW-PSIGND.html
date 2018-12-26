@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-375"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/PSIGNB%2FPSIGNW%2FPSIGND"></a><title>PSIGNB/PSIGNW/PSIGND</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>PSIGNB/PSIGNW/PSIGND
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-375"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/PSIGNB%2FPSIGNW%2FPSIGND"></a><title>PSIGNB/PSIGNW/PSIGND</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>November 2018</li></ul></nav></header><h1>PSIGNB/PSIGNW/PSIGND
 		&mdash; Packed SIGN</h1>
 
 
@@ -47,37 +47,37 @@
 <td>SSSE3</td>
 <td>Negate/zero/preserve packed doubleword integers in <em>xmm1</em> depending on the corresponding sign in <em>xmm2/m128</em>.</td></tr>
 <tr>
-<td>VEX.NDS.128.66.0F38.WIG 08 /r VPSIGNB <em>xmm1, xmm2, xmm3/m128</em></td>
+<td>VEX.128.66.0F38.WIG 08 /r VPSIGNB <em>xmm1, xmm2, xmm3/m128</em></td>
 <td>RVM</td>
 <td>V/V</td>
 <td>AVX</td>
 <td>Negate/zero/preserve packed byte integers in <em>xmm2</em> depending on the corresponding sign in <em>xmm3/m128</em>.</td></tr>
 <tr>
-<td>VEX.NDS.128.66.0F38.WIG 09 /r VPSIGNW <em>xmm1, xmm2, xmm3/m128</em></td>
+<td>VEX.128.66.0F38.WIG 09 /r VPSIGNW <em>xmm1, xmm2, xmm3/m128</em></td>
 <td>RVM</td>
 <td>V/V</td>
 <td>AVX</td>
 <td>Negate/zero/preserve packed word integers in <em>xmm2</em> depending on the corresponding sign in <em>xmm3/m128</em>.</td></tr>
 <tr>
-<td>VEX.NDS.128.66.0F38.WIG 0A /r VPSIGND <em>xmm1, xmm2, xmm3/m128</em></td>
+<td>VEX.128.66.0F38.WIG 0A /r VPSIGND <em>xmm1, xmm2, xmm3/m128</em></td>
 <td>RVM</td>
 <td>V/V</td>
 <td>AVX</td>
 <td>Negate/zero/preserve packed doubleword integers in <em>xmm2</em> depending on the corresponding sign in <em>xmm3/m128</em>.</td></tr>
 <tr>
-<td>VEX.NDS.256.66.0F38.WIG 08 /r VPSIGNB <em>ymm1, ymm2, ymm3/m256</em></td>
+<td>VEX.256.66.0F38.WIG 08 /r VPSIGNB <em>ymm1, ymm2, ymm3/m256</em></td>
 <td>RVM</td>
 <td>V/V</td>
 <td>AVX2</td>
 <td>Negate packed byte integers in <em>ymm2</em> if the corresponding sign in <em>ymm3/m256</em> is less than zero.</td></tr>
 <tr>
-<td>VEX.NDS.256.66.0F38.WIG 09 /r VPSIGNW <em>ymm1, ymm2, ymm3/m256</em></td>
+<td>VEX.256.66.0F38.WIG 09 /r VPSIGNW <em>ymm1, ymm2, ymm3/m256</em></td>
 <td>RVM</td>
 <td>V/V</td>
 <td>AVX2</td>
 <td>Negate packed 16-bit integers in <em>ymm2</em> if the corresponding sign in <em>ymm3/m256</em> is less than zero.</td></tr>
 <tr>
-<td>VEX.NDS.256.66.0F38.WIG 0A /r VPSIGND <em>ymm1, ymm2, ymm3/m256</em></td>
+<td>VEX.256.66.0F38.WIG 0A /r VPSIGND <em>ymm1, ymm2, ymm3/m256</em></td>
 <td>RVM</td>
 <td>V/V</td>
 <td>AVX2</td>

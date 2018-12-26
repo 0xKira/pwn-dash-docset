@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-450"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/SUBPS"></a><title>SUBPS</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>SUBPS
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-450"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/SUBPS"></a><title>SUBPS</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>November 2018</li></ul></nav></header><h1>SUBPS
 		&mdash; Subtract Packed Single-Precision Floating-Point Values</h1>
 
 <table>
@@ -15,31 +15,31 @@
 <td>SSE</td>
 <td>Subtract packed single-precision floating-point values in xmm2/mem from xmm1 and store result in xmm1.</td></tr>
 <tr>
-<td>VEX.NDS.128.0F.WIG 5C /r VSUBPS xmm1,xmm2, xmm3/m128</td>
+<td>VEX.128.0F.WIG 5C /r VSUBPS xmm1,xmm2, xmm3/m128</td>
 <td>B</td>
 <td>V/V</td>
 <td>AVX</td>
 <td>Subtract packed single-precision floating-point values in xmm3/mem from xmm2 and stores result in xmm1.</td></tr>
 <tr>
-<td>VEX.NDS.256.0F.WIG 5C /r VSUBPS ymm1, ymm2, ymm3/m256</td>
+<td>VEX.256.0F.WIG 5C /r VSUBPS ymm1, ymm2, ymm3/m256</td>
 <td>B</td>
 <td>V/V</td>
 <td>AVX</td>
 <td>Subtract packed single-precision floating-point values in ymm3/mem from ymm2 and stores result in ymm1.</td></tr>
 <tr>
-<td>EVEX.NDS.128.0F.W0 5C /r VSUBPS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</td>
+<td>EVEX.128.0F.W0 5C /r VSUBPS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst</td>
 <td>C</td>
 <td>V/V</td>
 <td>AVX512VL AVX512F</td>
 <td>Subtract packed single-precision floating-point values from xmm3/m128/m32bcst to xmm2 and stores result in xmm1 with writemask k1.</td></tr>
 <tr>
-<td>EVEX.NDS.256.0F.W0 5C /r VSUBPS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</td>
+<td>EVEX.256.0F.W0 5C /r VSUBPS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst</td>
 <td>C</td>
 <td>V/V</td>
 <td>AVX512VL AVX512F</td>
 <td>Subtract packed single-precision floating-point values from ymm3/m256/m32bcst to ymm2 and stores result in ymm1 with writemask k1.</td></tr>
 <tr>
-<td>EVEX.NDS.512.0F.W0 5C /r VSUBPS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}</td>
+<td>EVEX.512.0F.W0 5C /r VSUBPS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}</td>
 <td>C</td>
 <td>V/V</td>
 <td>AVX512F</td>

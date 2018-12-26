@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-405"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/REP%2FREPE%2FREPZ%2FREPNE%2FREPNZ"></a><title>REP/REPE/REPZ/REPNE/REPNZ</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>REP/REPE/REPZ/REPNE/REPNZ
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-405"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/REP%2FREPE%2FREPZ%2FREPNE%2FREPNZ"></a><title>REP/REPE/REPZ/REPNE/REPNZ</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>November 2018</li></ul></nav></header><h1>REP/REPE/REPZ/REPNE/REPNZ
 		&mdash; Repeat String Operation Prefix</h1>
 
 
@@ -353,8 +353,8 @@
 <ul>
 <li>F3H as REP/REPE/REPZ for string and input/output instruction.</li>
 <li>F3H is a mandatory prefix for POPCNT, LZCNT, and ADOX.</li></ul>
-<p>The REP prefixes apply only to one string instruction at a time. To repeat a block of instructions, use the LOOP instruction or another looping construct. All of these repeat prefixes cause the associated instruction to be repeated until the count in register is decremented to 0. See <a href="./REP:REPE:REPZ:REPNE:REPNZ.html#tbl-4-17">Table 4-17</a>.</p>
-<figure id="tbl-4-17">
+<p>The REP prefixes apply only to one string instruction at a time. To repeat a block of instructions, use the LOOP instruction or another looping construct. All of these repeat prefixes cause the associated instruction to be repeated until the count in register is decremented to 0. See <a href="./REP:REPE:REPZ:REPNE:REPNZ.html#tbl-4-16">Table 4-16</a>.</p>
+<figure id="tbl-4-16">
 <table>
 <tbody><tr>
 <th>Repeat Prefix</th>
@@ -372,7 +372,7 @@
 <td>REPNE/REPNZ</td>
 <td>RCX or (E)CX = 0</td>
 <td>ZF = 1</td></tr></tbody></table>
-<figcaption><a href="./REP:REPE:REPZ:REPNE:REPNZ.html#tbl-4-17">Table 4-17</a>. Repeat Prefixes</figcaption></figure>
+<figcaption><a href="./REP:REPE:REPZ:REPNE:REPNZ.html#tbl-4-16">Table 4-16</a>. Repeat Prefixes</figcaption></figure>
 <blockquote>
 <p>* CountregisterisCX,ECXorRCXbydefault,dependingonattributesoftheoperatingmodes.</p></blockquote>
 <p>The REPE, REPNE, REPZ, and REPNZ prefixes also check the state of the ZF flag after each iteration and terminate the repeat loop if the ZF flag is not in the specified state. When both termination conditions are tested, the cause of a repeat termination can be determined either by testing the count register with a JECXZ instruction or by testing the ZF flag (with a JZ, JNZ, or JNE instruction).</p>

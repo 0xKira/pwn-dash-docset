@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-402"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/RDSEED"></a><title>RDSEED</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>RDSEED
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-402"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/RDSEED"></a><title>RDSEED</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>November 2018</li></ul></nav></header><h1>RDSEED
 		&mdash; Read Random SEED</h1>
 
 <table>
@@ -9,19 +9,19 @@
 <th>CPUID Feature Flag</th>
 <th>Description</th></tr>
 <tr>
-<td>0F C7 /7 RDSEED r16</td>
+<td>NFx 0F C7 /7 RDSEED r16</td>
 <td>M</td>
 <td>V/V</td>
 <td>RDSEED</td>
 <td>Read a 16-bit NIST SP800-90B &amp; C compliant random value and store in the destination register.</td></tr>
 <tr>
-<td>0F C7 /7 RDSEED r32</td>
+<td>NFx 0F C7 /7 RDSEED r32</td>
 <td>M</td>
 <td>V/V</td>
 <td>RDSEED</td>
 <td>Read a 32-bit NIST SP800-90B &amp; C compliant random value and store in the destination register.</td></tr>
 <tr>
-<td>REX.W + 0F C7 /7 RDSEED r64</td>
+<td>NFx REX.W + 0F C7 /7 RDSEED r64</td>
 <td>M</td>
 <td>V/I</td>
 <td>RDSEED</td>
@@ -87,10 +87,8 @@ OF, SF, ZF, AF, PF &larr; 0;
 		</a></h2>
 <table>
 <tbody><tr>
-<td rowspan="3">#UD</td>
+<td rowspan="2">#UD</td>
 <td>If the LOCK prefix is used.</td></tr>
-<tr>
-<td>If the F2H or F3H prefix is used.</td></tr>
 <tr>
 <td>If CPUID.(EAX=07H, ECX=0H):EBX.RDSEED[bit 18] = 0.</td></tr></tbody></table>
 <h2 class="exceptions" id="real-address-mode-exceptions">Real-Address Mode Exceptions<a class="anchor" href="RDSEED.html#real-address-mode-exceptions">
@@ -98,10 +96,8 @@ OF, SF, ZF, AF, PF &larr; 0;
 		</a></h2>
 <table>
 <tbody><tr>
-<td rowspan="3">#UD</td>
+<td rowspan="2">#UD</td>
 <td>If the LOCK prefix is used.</td></tr>
-<tr>
-<td>If the F2H or F3H prefix is used.</td></tr>
 <tr>
 <td>If CPUID.(EAX=07H, ECX=0H):EBX.RDSEED[bit 18] = 0.</td></tr></tbody></table>
 <h2 class="exceptions" id="virtual-8086-mode-exceptions">Virtual-8086 Mode Exceptions<a class="anchor" href="RDSEED.html#virtual-8086-mode-exceptions">
@@ -109,10 +105,8 @@ OF, SF, ZF, AF, PF &larr; 0;
 		</a></h2>
 <table>
 <tbody><tr>
-<td rowspan="3">#UD</td>
+<td rowspan="2">#UD</td>
 <td>If the LOCK prefix is used.</td></tr>
-<tr>
-<td>If the F2H or F3H prefix is used.</td></tr>
 <tr>
 <td>If CPUID.(EAX=07H, ECX=0H):EBX.RDSEED[bit 18] = 0.</td></tr></tbody></table>
 <h2 class="exceptions" id="compatibility-mode-exceptions">Compatibility Mode Exceptions<a class="anchor" href="RDSEED.html#compatibility-mode-exceptions">
@@ -120,10 +114,8 @@ OF, SF, ZF, AF, PF &larr; 0;
 		</a></h2>
 <table>
 <tbody><tr>
-<td rowspan="3">#UD</td>
+<td rowspan="2">#UD</td>
 <td>If the LOCK prefix is used.</td></tr>
-<tr>
-<td>If the F2H or F3H prefix is used.</td></tr>
 <tr>
 <td>If CPUID.(EAX=07H, ECX=0H):EBX.RDSEED[bit 18] = 0.</td></tr></tbody></table>
 <h2 class="exceptions" id="64-bit-mode-exceptions">64-Bit Mode Exceptions<a class="anchor" href="RDSEED.html#64-bit-mode-exceptions">
@@ -131,10 +123,8 @@ OF, SF, ZF, AF, PF &larr; 0;
 		</a></h2>
 <table>
 <tbody><tr>
-<td rowspan="3">#UD</td>
+<td rowspan="2">#UD</td>
 <td>If the LOCK prefix is used.</td></tr>
-<tr>
-<td>If the F2H or F3H prefix is used.</td></tr>
 <tr>
 <td>If CPUID.(EAX=07H, ECX=0H):EBX.RDSEED[bit 18] = 0.</td></tr></tbody></table><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-312"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/PADDB%2FPADDW%2FPADDD%2FPADDQ"></a><title>PADDB/PADDW/PADDD/PADDQ</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>PADDB/PADDW/PADDD/PADDQ
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-312"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/PADDB%2FPADDW%2FPADDD%2FPADDQ"></a><title>PADDB/PADDW/PADDD/PADDQ</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>November 2018</li></ul></nav></header><h1>PADDB/PADDW/PADDD/PADDQ
 		&mdash; Add Packed Integers</h1>
 
 
@@ -60,121 +60,121 @@
 <td>SSE2</td>
 <td>Add packed quadword integers from <em>xmm2/m128</em> and <em>xmm1</em>.</td></tr>
 <tr>
-<td>VEX.NDS.128.66.0F.WIG FC /<em>r</em> VPADDB <em>xmm1, xmm2, xmm3/m128</em></td>
+<td>VEX.128.66.0F.WIG FC /<em>r</em> VPADDB <em>xmm1, xmm2, xmm3/m128</em></td>
 <td>B</td>
 <td>V/V</td>
 <td>AVX</td>
 <td>Add packed byte integers from <em>xmm2, and xmm3/m128</em> and store in <em>xmm1</em>.</td></tr>
 <tr>
-<td>VEX.NDS.128.66.0F.WIG FD /<em>r</em> VPADDW <em>xmm1, xmm2, xmm3/m128</em></td>
+<td>VEX.128.66.0F.WIG FD /<em>r</em> VPADDW <em>xmm1, xmm2, xmm3/m128</em></td>
 <td>B</td>
 <td>V/V</td>
 <td>AVX</td>
 <td>Add packed word integers from <em>xmm2, xmm3/m128</em> and <em>store in xmm1</em>.</td></tr>
 <tr>
-<td>VEX.NDS.128.66.0F.WIG FE /<em>r</em> VPADDD <em>xmm1, xmm2, xmm3/m128</em></td>
+<td>VEX.128.66.0F.WIG FE /<em>r</em> VPADDD <em>xmm1, xmm2, xmm3/m128</em></td>
 <td>B</td>
 <td>V/V</td>
 <td>AVX</td>
 <td>Add packed doubleword integers from <em>xmm2, xmm3/m128</em> and store in <em>xmm1</em>.</td></tr>
 <tr>
-<td>VEX.NDS.128.66.0F.WIG D4 /<em>r</em> VPADDQ <em>xmm1, xmm2, xmm3/m128</em></td>
+<td>VEX.128.66.0F.WIG D4 /<em>r</em> VPADDQ <em>xmm1, xmm2, xmm3/m128</em></td>
 <td>B</td>
 <td>V/V</td>
 <td>AVX</td>
 <td>Add packed quadword integers from <em>xmm2, xmm3/m128</em> and store in <em>xmm1</em>.</td></tr>
 <tr>
-<td>VEX.NDS.256.66.0F.WIG FC /<em>r</em> VPADDB <em>ymm1, ymm2, ymm3/m256</em></td>
+<td>VEX.256.66.0F.WIG FC /<em>r</em> VPADDB <em>ymm1, ymm2, ymm3/m256</em></td>
 <td>B</td>
 <td>V/V</td>
 <td>AVX2</td>
 <td>Add packed byte integers from <em>ymm2, and ymm3/m256</em> and store in <em>ymm1</em>.</td></tr>
 <tr>
-<td>VEX.NDS.256.66.0F.WIG FD /<em>r</em> VPADDW <em>ymm1, ymm2, ymm3/m256</em></td>
+<td>VEX.256.66.0F.WIG FD /<em>r</em> VPADDW <em>ymm1, ymm2, ymm3/m256</em></td>
 <td>B</td>
 <td>V/V</td>
 <td>AVX2</td>
 <td>Add packed word integers from <em>ymm2, ymm3/m256</em> and <em>store in ymm1</em>.</td></tr>
 <tr>
-<td>VEX.NDS.256.66.0F.WIG FE /<em>r</em> VPADDD <em>ymm1, ymm2, ymm3/m256</em></td>
+<td>VEX.256.66.0F.WIG FE /<em>r</em> VPADDD <em>ymm1, ymm2, ymm3/m256</em></td>
 <td>B</td>
 <td>V/V</td>
 <td>AVX2</td>
 <td>Add packed doubleword integers from <em>ymm2, ymm3/m256</em> and <em>store in ymm1</em>.</td></tr>
 <tr>
-<td>VEX.NDS.256.66.0F.WIG D4 /<em>r</em> VPADDQ <em>ymm1, ymm2, ymm3/m256</em></td>
+<td>VEX.256.66.0F.WIG D4 /<em>r</em> VPADDQ <em>ymm1, ymm2, ymm3/m256</em></td>
 <td>B</td>
 <td>V/V</td>
 <td>AVX2</td>
 <td>Add packed quadword integers from <em>ymm2, ymm3/m256</em> and store in <em>ymm1</em>.</td></tr>
 <tr>
-<td>EVEX.NDS.128.66.0F.WIG FC /r VPADDB <em>xmm1 {k1}{z}, xmm2, xmm3/m128</em></td>
+<td>EVEX.128.66.0F.WIG FC /r VPADDB <em>xmm1 {k1}{z}, xmm2, xmm3/m128</em></td>
 <td>C</td>
 <td>V/V</td>
 <td>AVX512VL AVX512BW</td>
 <td>Add packed byte integers from <em>xmm2, and xmm3/m128</em> and store in <em>xmm1</em> using writemask k1.</td></tr>
 <tr>
-<td>EVEX.NDS.128.66.0F.WIG FD /r VPADDW <em>xmm1 {k1}{z}, xmm2, xmm3/m128</em></td>
+<td>EVEX.128.66.0F.WIG FD /r VPADDW <em>xmm1 {k1}{z}, xmm2, xmm3/m128</em></td>
 <td>C</td>
 <td>V/V</td>
 <td>AVX512VL AVX512BW</td>
 <td>Add packed word integers from <em>xmm2, and xmm3/m128</em> and store in <em>xmm1</em> using writemask k1.</td></tr>
 <tr>
-<td>EVEX.NDS.128.66.0F.W0 FE /r VPADDD <em>xmm1 {k1}{z}, xmm2,</em> xmm3/m128/m32bcst</td>
+<td>EVEX.128.66.0F.W0 FE /r VPADDD <em>xmm1 {k1}{z}, xmm2,</em> xmm3/m128/m32bcst</td>
 <td>D</td>
 <td>V/V</td>
 <td>AVX512VL AVX512F</td>
 <td>Add packed doubleword integers from <em>xmm2, and xmm3/m128/m32bcst</em> and store in <em>xmm1</em> using writemask k1.</td></tr>
 <tr>
-<td>EVEX.NDS.128.66.0F.W1 D4 /r VPADDQ <em>xmm1 {k1}{z}, xmm2,</em> xmm3/m128/m64bcst</td>
+<td>EVEX.128.66.0F.W1 D4 /r VPADDQ <em>xmm1 {k1}{z}, xmm2,</em> xmm3/m128/m64bcst</td>
 <td>D</td>
 <td>V/V</td>
 <td>AVX512VL AVX512F</td>
 <td>Add packed quadword integers from <em>xmm2, and xmm3/m128/m64bcst</em> and store in <em>xmm1</em> using writemask k1.</td></tr>
 <tr>
-<td>EVEX.NDS.256.66.0F.WIG FC /r VPADDB <em>ymm1 {k1}{z}, ymm2, ymm3/m256</em></td>
+<td>EVEX.256.66.0F.WIG FC /r VPADDB <em>ymm1 {k1}{z}, ymm2, ymm3/m256</em></td>
 <td>C</td>
 <td>V/V</td>
 <td>AVX512VL AVX512BW</td>
 <td>Add packed byte integers from <em>ymm2, and ymm3/m256</em> and store in <em>ymm1</em> using writemask k1.</td></tr>
 <tr>
-<td>EVEX.NDS.256.66.0F.WIG FD /r VPADDW <em>ymm1 {k1}{z}, ymm2, ymm3/m256</em></td>
+<td>EVEX.256.66.0F.WIG FD /r VPADDW <em>ymm1 {k1}{z}, ymm2, ymm3/m256</em></td>
 <td>C</td>
 <td>V/V</td>
 <td>AVX512VL AVX512BW</td>
 <td>Add packed word integers from <em>ymm2, and ymm3/m256</em> and store in <em>ymm1</em> using writemask k1.</td></tr>
 <tr>
-<td>EVEX.NDS.256.66.0F.W0 FE /r VPADDD <em>ymm1 {k1}{z}, ymm2,</em> ymm3/m256/m32bcst</td>
+<td>EVEX.256.66.0F.W0 FE /r VPADDD <em>ymm1 {k1}{z}, ymm2,</em> ymm3/m256/m32bcst</td>
 <td>D</td>
 <td>V/V</td>
 <td>AVX512VL AVX512F</td>
 <td>Add packed doubleword integers from <em>ymm2, ymm3/m256/m32bcst</em> and store in <em>ymm1</em> using writemask k1.</td></tr>
 <tr>
-<td>EVEX.NDS.256.66.0F.W1 D4 /r VPADDQ <em>ymm1 {k1}{z}, ymm2,</em> ymm3/m256/m64bcst</td>
+<td>EVEX.256.66.0F.W1 D4 /r VPADDQ <em>ymm1 {k1}{z}, ymm2,</em> ymm3/m256/m64bcst</td>
 <td>D</td>
 <td>V/V</td>
 <td>AVX512VL AVX512F</td>
 <td>Add packed quadword integers from <em>ymm2, ymm3/m256/m64bcst</em> and store in <em>ymm1</em> using writemask k1.</td></tr>
 <tr>
-<td>EVEX.NDS.512.66.0F.WIG FC /r VPADDB <em>zmm1 {k1}{z}, zmm2, zmm3/m512</em></td>
+<td>EVEX.512.66.0F.WIG FC /r VPADDB <em>zmm1 {k1}{z}, zmm2, zmm3/m512</em></td>
 <td>C</td>
 <td>V/V</td>
 <td>AVX512BW</td>
 <td>Add packed byte integers from <em>zmm2, and zmm3/m512</em> and store in <em>zmm1</em> using writemask k1.</td></tr>
 <tr>
-<td>EVEX.NDS.512.66.0F.WIG FD /r VPADDW <em>zmm1 {k1}{z}, zmm2, zmm3/m512</em></td>
+<td>EVEX.512.66.0F.WIG FD /r VPADDW <em>zmm1 {k1}{z}, zmm2, zmm3/m512</em></td>
 <td>C</td>
 <td>V/V</td>
 <td>AVX512BW</td>
 <td>Add packed word integers from <em>zmm2, and zmm3/m512</em> and store in <em>zmm1</em> using writemask k1.</td></tr>
 <tr>
-<td>EVEX.NDS.512.66.0F.W0 FE /<em>r</em> VPADDD <em>zmm1 {k1}{z}, zmm2,</em> zmm3/m512/m32bcst</td>
+<td>EVEX.512.66.0F.W0 FE /<em>r</em> VPADDD <em>zmm1 {k1}{z}, zmm2,</em> zmm3/m512/m32bcst</td>
 <td>D</td>
 <td>V/V</td>
 <td>AVX512F</td>
 <td>Add packed doubleword integers from <em>zmm2, zmm3/m512/m32bcst</em> and store in <em>zmm1</em> using writemask k1.</td></tr>
 <tr>
-<td>EVEX.NDS.512.66.0F.W1 D4 /<em>r</em> VPADDQ <em>zmm1 {k1}{z}, zmm2,</em> zmm3/m512/m64bcst</td>
+<td>EVEX.512.66.0F.W1 D4 /<em>r</em> VPADDQ <em>zmm1 {k1}{z}, zmm2,</em> zmm3/m512/m64bcst</td>
 <td>D</td>
 <td>V/V</td>
 <td>AVX512F</td>

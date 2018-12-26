@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-340"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/PINSRB%2FPINSRD%2FPINSRQ"></a><title>PINSRB/PINSRD/PINSRQ</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>PINSRB/PINSRD/PINSRQ
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-340"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/PINSRB%2FPINSRD%2FPINSRQ"></a><title>PINSRB/PINSRD/PINSRQ</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>November 2018</li></ul></nav></header><h1>PINSRB/PINSRD/PINSRQ
 		&mdash; Insert Byte/Dword/Qword</h1>
 
 
@@ -29,37 +29,37 @@
 <td>SSE4_1</td>
 <td>Insert a qword integer value from <em>r/m64 i</em>nto the <em>xmm1</em> at the destination element specified by <em>imm8.</em></td></tr>
 <tr>
-<td>VEX.NDS.128.66.0F3A.W0 20 /r ib VPINSRB <em>xmm1, xmm2, r32/m8, imm8</em></td>
+<td>VEX.128.66.0F3A.W0 20 /r ib VPINSRB <em>xmm1, xmm2, r32/m8, imm8</em></td>
 <td>B</td>
 <td>V<sup>1</sup>/V</td>
 <td>AVX</td>
 <td>Merge a byte integer value from <em>r32/m8</em> and rest from <em>xmm2</em> into <em>xmm1</em> at the byte offset in <em>imm8</em>.</td></tr>
 <tr>
-<td>VEX.NDS.128.66.0F3A.W0 22 /r ib VPINSRD <em>xmm1, xmm2, r/m32, imm8</em></td>
+<td>VEX.128.66.0F3A.W0 22 /r ib VPINSRD <em>xmm1, xmm2, r/m32, imm8</em></td>
 <td>B</td>
 <td>V/V</td>
 <td>AVX</td>
 <td>Insert a dword integer value from <em>r32/m32</em> and rest from <em>xmm2</em> into <em>xmm1</em> at the dword offset in <em>imm8</em>.</td></tr>
 <tr>
-<td>VEX.NDS.128.66.0F3A.W1 22 /r ib VPINSRQ <em>xmm1, xmm2, r/m64, imm8</em></td>
+<td>VEX.128.66.0F3A.W1 22 /r ib VPINSRQ <em>xmm1, xmm2, r/m64, imm8</em></td>
 <td>B</td>
 <td>V/I<sup>2</sup></td>
 <td>AVX</td>
 <td>Insert a qword integer value from <em>r64/m64</em> and rest from <em>xmm2</em> into <em>xmm1</em> at the qword offset in <em>imm8</em>.</td></tr>
 <tr>
-<td>EVEX.NDS.128.66.0F3A.WIG 20 /r ib VPINSRB xmm1, xmm2, r32/m8, imm8</td>
+<td>EVEX.128.66.0F3A.WIG 20 /r ib VPINSRB xmm1, xmm2, r32/m8, imm8</td>
 <td>C</td>
 <td>V/V</td>
 <td>AVX512BW</td>
 <td>Merge a byte integer value from r32/m8 and rest from xmm2 into xmm1 at the byte offset in imm8.</td></tr>
 <tr>
-<td>EVEX.NDS.128.66.0F3A.W0 22 /r ib VPINSRD xmm1, xmm2, r32/m32, imm8</td>
+<td>EVEX.128.66.0F3A.W0 22 /r ib VPINSRD xmm1, xmm2, r32/m32, imm8</td>
 <td>C</td>
 <td>V/V</td>
 <td>AVX512DQ</td>
 <td>Insert a dword integer value from r32/m32 and rest from xmm2 into xmm1 at the dword offset in imm8.</td></tr>
 <tr>
-<td>EVEX.NDS.128.66.0F3A.W1 22 /r ib VPINSRQ xmm1, xmm2, r64/m64, imm8</td>
+<td>EVEX.128.66.0F3A.W1 22 /r ib VPINSRQ xmm1, xmm2, r64/m64, imm8</td>
 <td>C</td>
 <td>V/N.E.<sup>2</sup></td>
 <td>AVX512DQ</td>

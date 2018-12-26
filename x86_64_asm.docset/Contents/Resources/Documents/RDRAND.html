@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-401"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/RDRAND"></a><title>RDRAND</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2018</li></ul></nav></header><h1>RDRAND
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-401"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/RDRAND"></a><title>RDRAND</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>November 2018</li></ul></nav></header><h1>RDRAND
 		&mdash; Read Random Number</h1>
 
 <table>
@@ -9,19 +9,19 @@
 <th>CPUID Feature Flag</th>
 <th>Description</th></tr>
 <tr>
-<td>0F C7 /6 RDRAND r16</td>
+<td>NFx 0F C7 /6 RDRAND r16</td>
 <td>M</td>
 <td>V/V</td>
 <td>RDRAND</td>
 <td>Read a 16-bit random number and store in the destination register.</td></tr>
 <tr>
-<td>0F C7 /6 RDRAND r32</td>
+<td>NFx 0F C7 /6 RDRAND r32</td>
 <td>M</td>
 <td>V/V</td>
 <td>RDRAND</td>
 <td>Read a 32-bit random number and store in the destination register.</td></tr>
 <tr>
-<td>REX.W + 0F C7 /6 RDRAND r64</td>
+<td>NFx REX.W + 0F C7 /6 RDRAND r64</td>
 <td>M</td>
 <td>V/I</td>
 <td>RDRAND</td>
@@ -87,10 +87,8 @@ OF, SF, ZF, AF, PF &larr; 0;
 		</a></h2>
 <table>
 <tbody><tr>
-<td rowspan="3">#UD</td>
+<td rowspan="2">#UD</td>
 <td>If the LOCK prefix is used.</td></tr>
-<tr>
-<td>If the F2H or F3H prefix is used.</td></tr>
 <tr>
 <td>If CPUID.01H:ECX.RDRAND[bit 30] = 0.</td></tr></tbody></table>
 <h2 class="exceptions" id="real-address-mode-exceptions">Real-Address Mode Exceptions<a class="anchor" href="RDRAND.html#real-address-mode-exceptions">
