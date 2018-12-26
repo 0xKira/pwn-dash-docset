@@ -1,5 +1,8 @@
+
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]--><!--[if gt IE 8]><!--><html class="no-js" lang="en"> <!--<![endif]-->
+
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
@@ -38,70 +41,70 @@
 <li class="toctree-l1"><a class="reference internal" href="about.html">About pwntools</a></li>
 <li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="intro.html">Getting Started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="globals.html"><code class="docutils literal"><span class="pre">from</span> <span class="pre">pwn</span> <span class="pre">import</span> <span class="pre">*</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="globals.html"><code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">pwn</span> <span class="pre">import</span> <span class="pre">*</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="commandline.html">Command Line Tools</a></li>
 </ul>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="adb.html"><code class="docutils literal"><span class="pre">pwnlib.adb</span></code> — Android Debug Bridge</a></li>
-<li class="toctree-l1"><a class="reference internal" href="args.html"><code class="docutils literal"><span class="pre">pwnlib.args</span></code> — Magic Command-Line Arguments</a></li>
-<li class="toctree-l1"><a class="reference internal" href="asm.html"><code class="docutils literal"><span class="pre">pwnlib.asm</span></code> — Assembler functions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="atexception.html"><code class="docutils literal"><span class="pre">pwnlib.atexception</span></code> — Callbacks on unhandled exception</a></li>
-<li class="toctree-l1"><a class="reference internal" href="atexit.html"><code class="docutils literal"><span class="pre">pwnlib.atexit</span></code> — Replacement for atexit</a></li>
-<li class="toctree-l1"><a class="reference internal" href="constants.html"><code class="docutils literal"><span class="pre">pwnlib.constants</span></code> — Easy access to header file constants</a></li>
-<li class="toctree-l1"><a class="reference internal" href="config.html"><code class="docutils literal"><span class="pre">pwnlib.config</span></code> — Pwntools Configuration File</a></li>
-<li class="toctree-l1"><a class="reference internal" href="context.html"><code class="docutils literal"><span class="pre">pwnlib.context</span></code> — Setting runtime variables</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="docutils literal"><span class="pre">pwnlib.dynelf</span></code> — Resolving remote functions using leaks</a></li>
-<li class="toctree-l1"><a class="reference internal" href="encoders.html"><code class="docutils literal"><span class="pre">pwnlib.encoders</span></code> — Encoding Shellcode</a></li>
-<li class="toctree-l1"><a class="reference internal" href="elf.html"><code class="docutils literal"><span class="pre">pwnlib.elf</span></code> — ELF Executables and Libraries</a></li>
-<li class="toctree-l1"><a class="reference internal" href="exception.html"><code class="docutils literal"><span class="pre">pwnlib.exception</span></code> — Pwnlib exceptions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="flag.html"><code class="docutils literal"><span class="pre">pwnlib.flag</span></code> — CTF Flag Management</a></li>
-<li class="toctree-l1"><a class="reference internal" href="fmtstr.html"><code class="docutils literal"><span class="pre">pwnlib.fmtstr</span></code> — Format string bug exploitation tools</a></li>
-<li class="toctree-l1"><a class="reference internal" href="gdb.html"><code class="docutils literal"><span class="pre">pwnlib.gdb</span></code> — Working with GDB</a></li>
-<li class="toctree-l1"><a class="reference internal" href="libcdb.html"><code class="docutils literal"><span class="pre">pwnlib.libcdb</span></code> — Libc Database</a></li>
-<li class="toctree-l1"><a class="reference internal" href="log.html"><code class="docutils literal"><span class="pre">pwnlib.log</span></code> — Logging stuff</a></li>
-<li class="toctree-l1"><a class="reference internal" href="memleak.html"><code class="docutils literal"><span class="pre">pwnlib.memleak</span></code> — Helper class for leaking memory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="protocols.html"><code class="docutils literal"><span class="pre">pwnlib.protocols</span></code> — Wire Protocols</a></li>
-<li class="toctree-l1"><a class="reference internal" href="qemu.html"><code class="docutils literal"><span class="pre">pwnlib.qemu</span></code> — QEMU Utilities</a></li>
-<li class="toctree-l1"><a class="reference internal" href="replacements.html"><code class="docutils literal"><span class="pre">pwnlib.replacements</span></code> — Replacements for various functions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="rop.html"><code class="docutils literal"><span class="pre">pwnlib.rop</span></code> — Return Oriented Programming</a></li>
-<li class="toctree-l1"><a class="reference internal" href="rop/rop.html"><code class="docutils literal"><span class="pre">pwnlib.rop.rop</span></code> — Return Oriented Programming</a></li>
-<li class="toctree-l1"><a class="reference internal" href="rop/srop.html"><code class="docutils literal"><span class="pre">pwnlib.rop.srop</span></code> — Sigreturn Oriented Programming</a></li>
-<li class="toctree-l1"><a class="reference internal" href="runner.html"><code class="docutils literal"><span class="pre">pwnlib.runner</span></code> — Running Shellcode</a></li>
-<li class="toctree-l1"><a class="reference internal" href="shellcraft.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft</span></code> — Shellcode generation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="shellcraft/aarch64.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.aarch64</span></code> — Shellcode for AArch64</a></li>
-<li class="toctree-l1"><a class="reference internal" href="shellcraft/amd64.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.amd64</span></code> — Shellcode for AMD64</a></li>
-<li class="toctree-l1"><a class="reference internal" href="shellcraft/arm.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.arm</span></code> — Shellcode for ARM</a></li>
-<li class="toctree-l1"><a class="reference internal" href="shellcraft/common.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.common</span></code> — Shellcode common to all architecture</a></li>
-<li class="toctree-l1"><a class="reference internal" href="shellcraft/i386.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.i386</span></code> — Shellcode for Intel 80386</a></li>
-<li class="toctree-l1"><a class="reference internal" href="shellcraft/mips.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.mips</span></code> — Shellcode for MIPS</a></li>
-<li class="toctree-l1"><a class="reference internal" href="shellcraft/regsort.html"><code class="docutils literal"><span class="pre">pwnlib.regsort</span></code> — Register sorting</a></li>
-<li class="toctree-l1"><a class="reference internal" href="shellcraft/thumb.html"><code class="docutils literal"><span class="pre">pwnlib.shellcraft.thumb</span></code> — Shellcode for Thumb Mode</a></li>
-<li class="toctree-l1"><a class="reference internal" href="term.html"><code class="docutils literal"><span class="pre">pwnlib.term</span></code> — Terminal handling</a></li>
-<li class="toctree-l1"><a class="reference internal" href="timeout.html"><code class="docutils literal"><span class="pre">pwnlib.timeout</span></code> — Timeout handling</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tubes.html"><code class="docutils literal"><span class="pre">pwnlib.tubes</span></code> — Talking to the World!</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tubes/processes.html"><code class="docutils literal"><span class="pre">pwnlib.tubes.process</span></code> — Processes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tubes/serial.html"><code class="docutils literal"><span class="pre">pwnlib.tubes.serialtube</span></code> — Serial Ports</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tubes/sockets.html"><code class="docutils literal"><span class="pre">pwnlib.tubes.sock</span></code> — Sockets</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tubes/ssh.html"><code class="docutils literal"><span class="pre">pwnlib.tubes.ssh</span></code> — SSH</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ui.html"><code class="docutils literal"><span class="pre">pwnlib.ui</span></code> — Functions for user interaction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="update.html"><code class="docutils literal"><span class="pre">pwnlib.update</span></code> — Updating Pwntools</a></li>
-<li class="toctree-l1"><a class="reference internal" href="useragents.html"><code class="docutils literal"><span class="pre">pwnlib.useragents</span></code> — A database of useragent strings</a></li>
-<li class="toctree-l1"><a class="reference internal" href="util/crc.html"><code class="docutils literal"><span class="pre">pwnlib.util.crc</span></code> — Calculating CRC-sums</a></li>
-<li class="toctree-l1"><a class="reference internal" href="util/cyclic.html"><code class="docutils literal"><span class="pre">pwnlib.util.cyclic</span></code> — Generation of unique sequences</a></li>
-<li class="toctree-l1"><a class="reference internal" href="util/fiddling.html"><code class="docutils literal"><span class="pre">pwnlib.util.fiddling</span></code> — Utilities bit fiddling</a></li>
-<li class="toctree-l1"><a class="reference internal" href="util/hashes.html"><code class="docutils literal"><span class="pre">pwnlib.util.hashes</span></code> — Hashing functions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="util/iters.html"><code class="docutils literal"><span class="pre">pwnlib.util.iters</span></code> — Extension of standard module <code class="docutils literal"><span class="pre">itertools</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="util/lists.html"><code class="docutils literal"><span class="pre">pwnlib.util.lists</span></code> — Operations on lists</a></li>
-<li class="toctree-l1"><a class="reference internal" href="util/misc.html"><code class="docutils literal"><span class="pre">pwnlib.util.misc</span></code> — We could not fit it any other place</a></li>
-<li class="toctree-l1"><a class="reference internal" href="util/net.html"><code class="docutils literal"><span class="pre">pwnlib.util.net</span></code> — Networking interfaces</a></li>
-<li class="toctree-l1"><a class="reference internal" href="util/packing.html"><code class="docutils literal"><span class="pre">pwnlib.util.packing</span></code> — Packing and unpacking of strings</a></li>
-<li class="toctree-l1"><a class="reference internal" href="util/proc.html"><code class="docutils literal"><span class="pre">pwnlib.util.proc</span></code> — Working with <code class="docutils literal"><span class="pre">/proc/</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="util/safeeval.html"><code class="docutils literal"><span class="pre">pwnlib.util.safeeval</span></code> — Safe evaluation of python code</a></li>
-<li class="toctree-l1"><a class="reference internal" href="util/sh_string.html"><code class="docutils literal"><span class="pre">pwnlib.util.sh_string</span></code> — Shell Expansion is Hard</a></li>
-<li class="toctree-l1"><a class="reference internal" href="util/web.html"><code class="docutils literal"><span class="pre">pwnlib.util.web</span></code> — Utilities for working with the WWW</a></li>
+<li class="toctree-l1"><a class="reference internal" href="adb.html"><code class="docutils literal notranslate"><span class="pre">pwnlib.adb</span></code> — Android Debug Bridge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="args.html"><code class="docutils literal notranslate"><span class="pre">pwnlib.args</span></code> — Magic Command-Line Arguments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="asm.html"><code class="docutils literal notranslate"><span class="pre">pwnlib.asm</span></code> — Assembler functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="atexception.html"><code class="docutils literal notranslate"><span class="pre">pwnlib.atexception</span></code> — Callbacks on unhandled exception</a></li>
+<li class="toctree-l1"><a class="reference internal" href="atexit.html"><code class="docutils literal notranslate"><span class="pre">pwnlib.atexit</span></code> — Replacement for atexit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="constants.html"><code class="docutils literal notranslate"><span class="pre">pwnlib.constants</span></code> — Easy access to header file constants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config.html"><code class="docutils literal notranslate"><span class="pre">pwnlib.config</span></code> — Pwntools Configuration File</a></li>
+<li class="toctree-l1"><a class="reference internal" href="context.html"><code class="docutils literal notranslate"><span class="pre">pwnlib.context</span></code> — Setting runtime variables</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">pwnlib.dynelf</span></code> — Resolving remote functions using leaks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="encoders.html"><code class="docutils literal notranslate"><span class="pre">pwnlib.encoders</span></code> — Encoding Shellcode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="elf.html"><code class="docutils literal notranslate"><span class="pre">pwnlib.elf</span></code> — ELF Executables and Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exception.html"><code class="docutils literal notranslate"><span class="pre">pwnlib.exception</span></code> — Pwnlib exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="flag.html"><code class="docutils literal notranslate"><span class="pre">pwnlib.flag</span></code> — CTF Flag Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fmtstr.html"><code class="docutils literal notranslate"><span class="pre">pwnlib.fmtstr</span></code> — Format string bug exploitation tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gdb.html"><code class="docutils literal notranslate"><span class="pre">pwnlib.gdb</span></code> — Working with GDB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libcdb.html"><code class="docutils literal notranslate"><span class="pre">pwnlib.libcdb</span></code> — Libc Database</a></li>
+<li class="toctree-l1"><a class="reference internal" href="log.html"><code class="docutils literal notranslate"><span class="pre">pwnlib.log</span></code> — Logging stuff</a></li>
+<li class="toctree-l1"><a class="reference internal" href="memleak.html"><code class="docutils literal notranslate"><span class="pre">pwnlib.memleak</span></code> — Helper class for leaking memory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="protocols.html"><code class="docutils literal notranslate"><span class="pre">pwnlib.protocols</span></code> — Wire Protocols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qemu.html"><code class="docutils literal notranslate"><span class="pre">pwnlib.qemu</span></code> — QEMU Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="replacements.html"><code class="docutils literal notranslate"><span class="pre">pwnlib.replacements</span></code> — Replacements for various functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rop.html"><code class="docutils literal notranslate"><span class="pre">pwnlib.rop</span></code> — Return Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rop/rop.html"><code class="docutils literal notranslate"><span class="pre">pwnlib.rop.rop</span></code> — Return Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rop/srop.html"><code class="docutils literal notranslate"><span class="pre">pwnlib.rop.srop</span></code> — Sigreturn Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="runner.html"><code class="docutils literal notranslate"><span class="pre">pwnlib.runner</span></code> — Running Shellcode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shellcraft.html"><code class="docutils literal notranslate"><span class="pre">pwnlib.shellcraft</span></code> — Shellcode generation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shellcraft/aarch64.html"><code class="docutils literal notranslate"><span class="pre">pwnlib.shellcraft.aarch64</span></code> — Shellcode for AArch64</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shellcraft/amd64.html"><code class="docutils literal notranslate"><span class="pre">pwnlib.shellcraft.amd64</span></code> — Shellcode for AMD64</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shellcraft/arm.html"><code class="docutils literal notranslate"><span class="pre">pwnlib.shellcraft.arm</span></code> — Shellcode for ARM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shellcraft/common.html"><code class="docutils literal notranslate"><span class="pre">pwnlib.shellcraft.common</span></code> — Shellcode common to all architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shellcraft/i386.html"><code class="docutils literal notranslate"><span class="pre">pwnlib.shellcraft.i386</span></code> — Shellcode for Intel 80386</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shellcraft/mips.html"><code class="docutils literal notranslate"><span class="pre">pwnlib.shellcraft.mips</span></code> — Shellcode for MIPS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shellcraft/regsort.html"><code class="docutils literal notranslate"><span class="pre">pwnlib.regsort</span></code> — Register sorting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shellcraft/thumb.html"><code class="docutils literal notranslate"><span class="pre">pwnlib.shellcraft.thumb</span></code> — Shellcode for Thumb Mode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="term.html"><code class="docutils literal notranslate"><span class="pre">pwnlib.term</span></code> — Terminal handling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="timeout.html"><code class="docutils literal notranslate"><span class="pre">pwnlib.timeout</span></code> — Timeout handling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tubes.html"><code class="docutils literal notranslate"><span class="pre">pwnlib.tubes</span></code> — Talking to the World!</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tubes/processes.html"><code class="docutils literal notranslate"><span class="pre">pwnlib.tubes.process</span></code> — Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tubes/serial.html"><code class="docutils literal notranslate"><span class="pre">pwnlib.tubes.serialtube</span></code> — Serial Ports</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tubes/sockets.html"><code class="docutils literal notranslate"><span class="pre">pwnlib.tubes.sock</span></code> — Sockets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tubes/ssh.html"><code class="docutils literal notranslate"><span class="pre">pwnlib.tubes.ssh</span></code> — SSH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ui.html"><code class="docutils literal notranslate"><span class="pre">pwnlib.ui</span></code> — Functions for user interaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="update.html"><code class="docutils literal notranslate"><span class="pre">pwnlib.update</span></code> — Updating Pwntools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="useragents.html"><code class="docutils literal notranslate"><span class="pre">pwnlib.useragents</span></code> — A database of useragent strings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/crc.html"><code class="docutils literal notranslate"><span class="pre">pwnlib.util.crc</span></code> — Calculating CRC-sums</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/cyclic.html"><code class="docutils literal notranslate"><span class="pre">pwnlib.util.cyclic</span></code> — Generation of unique sequences</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/fiddling.html"><code class="docutils literal notranslate"><span class="pre">pwnlib.util.fiddling</span></code> — Utilities bit fiddling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/hashes.html"><code class="docutils literal notranslate"><span class="pre">pwnlib.util.hashes</span></code> — Hashing functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/iters.html"><code class="docutils literal notranslate"><span class="pre">pwnlib.util.iters</span></code> — Extension of standard module <code class="docutils literal notranslate"><span class="pre">itertools</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/lists.html"><code class="docutils literal notranslate"><span class="pre">pwnlib.util.lists</span></code> — Operations on lists</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/misc.html"><code class="docutils literal notranslate"><span class="pre">pwnlib.util.misc</span></code> — We could not fit it any other place</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/net.html"><code class="docutils literal notranslate"><span class="pre">pwnlib.util.net</span></code> — Networking interfaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/packing.html"><code class="docutils literal notranslate"><span class="pre">pwnlib.util.packing</span></code> — Packing and unpacking of strings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/proc.html"><code class="docutils literal notranslate"><span class="pre">pwnlib.util.proc</span></code> — Working with <code class="docutils literal notranslate"><span class="pre">/proc/</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/safeeval.html"><code class="docutils literal notranslate"><span class="pre">pwnlib.util.safeeval</span></code> — Safe evaluation of python code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/sh_string.html"><code class="docutils literal notranslate"><span class="pre">pwnlib.util.sh_string</span></code> — Shell Expansion is Hard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util/web.html"><code class="docutils literal notranslate"><span class="pre">pwnlib.util.web</span></code> — Utilities for working with the WWW</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="testexample.html"><code class="docutils literal"><span class="pre">pwnlib.testexample</span></code> — Example Test Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testexample.html"><code class="docutils literal notranslate"><span class="pre">pwnlib.testexample</span></code> — Example Test Module</a></li>
 </ul>
 </div>
 </div>
@@ -116,7 +119,7 @@
 <div aria-label="breadcrumbs navigation" role="navigation">
 <ul class="wy-breadcrumbs">
 <li><a href="index.html">Docs</a> »</li>
-<li><code class="docutils literal"><span class="pre">pwnlib.dynelf</span></code> — Resolving remote functions using leaks</li>
+<li><code class="docutils literal notranslate"><span class="pre">pwnlib.dynelf</span></code> — Resolving remote functions using leaks</li>
 <li class="wy-breadcrumbs-aside">
 <a href="_sources/dynelf.rst.txt" rel="nofollow"> View page source</a>
 </li>
@@ -126,12 +129,12 @@
 <div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
 <div itemprop="articleBody">
 <div class="section" id="module-pwnlib.dynelf">
-<span id="pwnlib-dynelf-resolving-remote-functions-using-leaks"></span><h1><a name="//apple_ref/cpp/Module/pwnlib.dynelf"></a><a class="reference internal" href="#module-pwnlib.dynelf" title="pwnlib.dynelf"><code class="xref py py-mod docutils literal"><span class="pre">pwnlib.dynelf</span></code></a> — Resolving remote functions using leaks<a class="headerlink" href="#module-pwnlib.dynelf" title="Permalink to this headline">¶</a></h1>
+<span id="pwnlib-dynelf-resolving-remote-functions-using-leaks"></span><h1><a name="//apple_ref/cpp/Module/pwnlib.dynelf"></a><a class="reference internal" href="#module-pwnlib.dynelf" title="pwnlib.dynelf"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pwnlib.dynelf</span></code></a> — Resolving remote functions using leaks<a class="headerlink" href="#module-pwnlib.dynelf" title="Permalink to this headline">¶</a></h1>
 <p>Resolve symbols in loaded, dynamically-linked ELF binaries.
 Given a function which can leak data at an arbitrary address,
 any symbol in any loaded library can be resolved.</p>
 <p class="rubric">Example</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># Assume a process or remote connection</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Assume a process or remote connection</span>
 <span class="n">p</span> <span class="o">=</span> <span class="n">process</span><span class="p">(</span><span class="s1">'./pwnme'</span><span class="p">)</span>
 
 <span class="c1"># Declare a function that takes a single address, and</span>
@@ -172,27 +175,27 @@ any symbol in any loaded library can be resolved.</p>
 <p>DynELF</p>
 <dl class="class">
 <dt id="pwnlib.dynelf.DynELF"><a name="//apple_ref/cpp/Class/pwnlib.dynelf.DynELF"></a>
-<em class="property">class </em><code class="descclassname">pwnlib.dynelf.</code><code class="descname">DynELF</code><span class="sig-paren">(</span><em>leak</em>, <em>pointer=None</em>, <em>elf=None</em>, <em>libcdb=True</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/dynelf.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.dynelf.DynELF" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pwnlib.dynelf.</code><code class="descname">DynELF</code><span class="sig-paren">(</span><em>leak</em>, <em>pointer=None</em>, <em>elf=None</em>, <em>libcdb=True</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/3123ffe6a7/pwnlib/dynelf.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.dynelf.DynELF" title="Permalink to this definition">¶</a></dt>
 <dd><p>DynELF knows how to resolve symbols in remote processes via an infoleak or
-memleak vulnerability encapsulated by <a class="reference internal" href="memleak.html#pwnlib.memleak.MemLeak" title="pwnlib.memleak.MemLeak"><code class="xref py py-class docutils literal"><span class="pre">pwnlib.memleak.MemLeak</span></code></a>.</p>
+memleak vulnerability encapsulated by <a class="reference internal" href="memleak.html#pwnlib.memleak.MemLeak" title="pwnlib.memleak.MemLeak"><code class="xref py py-class docutils literal notranslate"><span class="pre">pwnlib.memleak.MemLeak</span></code></a>.</p>
 <p>Implementation Details:</p>
 <blockquote>
 <div><p>Resolving Functions:</p>
 <blockquote>
 <div><p>In all ELFs which export symbols for importing by other libraries,
-(e.g. <code class="docutils literal"><span class="pre">libc.so</span></code>) there are a series of tables which give exported
-symbol names, exported symbol addresses, and the <code class="docutils literal"><span class="pre">hash</span></code> of those
+(e.g. <code class="docutils literal notranslate"><span class="pre">libc.so</span></code>) there are a series of tables which give exported
+symbol names, exported symbol addresses, and the <code class="docutils literal notranslate"><span class="pre">hash</span></code> of those
 exported symbols.  By applying a hash function to the name of the
-desired symbol (e.g., <code class="docutils literal"><span class="pre">'printf'</span></code>), it can be located in the hash
+desired symbol (e.g., <code class="docutils literal notranslate"><span class="pre">'printf'</span></code>), it can be located in the hash
 table.  Its location in the hash table provides an index into the
 string name table (<a class="reference external" href="https://refspecs.linuxbase.org/elf/gabi4+/ch4.strtab.html">strtab</a>), and the symbol address (<a class="reference external" href="https://refspecs.linuxbase.org/elf/gabi4+/ch4.symtab.html">symtab</a>).</p>
-<p>Assuming we have the base address of <code class="docutils literal"><span class="pre">libc.so</span></code>, the way to resolve
-the address of <code class="docutils literal"><span class="pre">printf</span></code> is to locate the <code class="docutils literal"><span class="pre">symtab</span></code>, <code class="docutils literal"><span class="pre">strtab</span></code>,
-and hash table. The string <code class="docutils literal"><span class="pre">"printf"</span></code> is hashed according to the
+<p>Assuming we have the base address of <code class="docutils literal notranslate"><span class="pre">libc.so</span></code>, the way to resolve
+the address of <code class="docutils literal notranslate"><span class="pre">printf</span></code> is to locate the <code class="docutils literal notranslate"><span class="pre">symtab</span></code>, <code class="docutils literal notranslate"><span class="pre">strtab</span></code>,
+and hash table. The string <code class="docutils literal notranslate"><span class="pre">"printf"</span></code> is hashed according to the
 style of the hash table (<a class="reference external" href="https://refspecs.linuxbase.org/elf/gabi4+/ch5.dynamic.html#hash">SYSV</a> or <a class="reference external" href="https://blogs.oracle.com/ali/entry/gnu_hash_elf_sections">GNU</a>), and the hash table is
 walked until a matching entry is located. We can verify an exact
 match by checking the string table, and then get the offset into
-<code class="docutils literal"><span class="pre">libc.so</span></code> from the <code class="docutils literal"><span class="pre">symtab</span></code>.</p>
+<code class="docutils literal notranslate"><span class="pre">libc.so</span></code> from the <code class="docutils literal notranslate"><span class="pre">symtab</span></code>.</p>
 </div></blockquote>
 <p>Resolving Library Addresses:</p>
 <blockquote>
@@ -200,7 +203,7 @@ match by checking the string table, and then get the offset into
 leverage an internal linker structure called the <a class="reference external" href="https://sourceware.org/git/?p=glibc.git;a=blob;f=elf/link.h;h=eaca8028e45a859ac280301a6e955a14eed1b887;hb=HEAD#l84">link map</a>. This
 is a linked list structure which contains information about each
 loaded library, including its full path and base address.</p>
-<p>A pointer to the <code class="docutils literal"><span class="pre">link</span> <span class="pre">map</span></code> can be found in two ways.  Both are
+<p>A pointer to the <code class="docutils literal notranslate"><span class="pre">link</span> <span class="pre">map</span></code> can be found in two ways.  Both are
 referenced from entries in the <a class="reference external" href="http://www.sco.com/developers/gabi/latest/ch5.dynamic.html#dynamic_section">DYNAMIC</a> array.</p>
 <ul class="simple">
 <li>In non-RELRO binaries, a pointer is placed in the <a class="reference external" href="https://refspecs.linuxbase.org/LSB_3.1.1/LSB-Core-generic/LSB-Core-generic/specialsections.html">.got.plt</a> area
@@ -213,7 +216,7 @@ the <a class="reference external" href="https://reverseengineering.stackexchange
 </div></blockquote>
 </div></blockquote>
 <p>Instantiates an object which can resolve symbols in a running binary
-given a <a class="reference internal" href="memleak.html#pwnlib.memleak.MemLeak" title="pwnlib.memleak.MemLeak"><code class="xref py py-class docutils literal"><span class="pre">pwnlib.memleak.MemLeak</span></code></a> leaker and a pointer inside
+given a <a class="reference internal" href="memleak.html#pwnlib.memleak.MemLeak" title="pwnlib.memleak.MemLeak"><code class="xref py py-class docutils literal notranslate"><span class="pre">pwnlib.memleak.MemLeak</span></code></a> leaker and a pointer inside
 the binary.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name"/>
@@ -222,7 +225,7 @@ the binary.</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>leak</strong> (<a class="reference internal" href="memleak.html#pwnlib.memleak.MemLeak" title="pwnlib.memleak.MemLeak"><em>MemLeak</em></a>) – Instance of pwnlib.memleak.MemLeak for leaking memory</li>
 <li><strong>pointer</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – A pointer into a loaded ELF file</li>
-<li><strong>elf</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a><em>,</em><a class="reference internal" href="elf/elf.html#pwnlib.elf.elf.ELF" title="pwnlib.elf.elf.ELF"><em>ELF</em></a>) – Path to the ELF file on disk, or a loaded <code class="xref py py-class docutils literal"><span class="pre">pwnlib.elf.ELF</span></code>.</li>
+<li><strong>elf</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a><em>,</em><a class="reference internal" href="elf/elf.html#pwnlib.elf.elf.ELF" title="pwnlib.elf.elf.ELF"><em>ELF</em></a>) – Path to the ELF file on disk, or a loaded <code class="xref py py-class docutils literal notranslate"><span class="pre">pwnlib.elf.ELF</span></code>.</li>
 <li><strong>libcdb</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – Attempt to use libcdb to speed up libc lookups</li>
 </ul>
 </td>
@@ -231,13 +234,13 @@ the binary.</p>
 </table>
 <dl class="method">
 <dt id="pwnlib.dynelf.DynELF.bases"><a name="//apple_ref/cpp/Method/pwnlib.dynelf.DynELF.bases"></a>
-<code class="descname">bases</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/dynelf.py#L593-618"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.dynelf.DynELF.bases" title="Permalink to this definition">¶</a></dt>
+<code class="descname">bases</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/3123ffe6a7/pwnlib/dynelf.py#L593-618"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.dynelf.DynELF.bases" title="Permalink to this definition">¶</a></dt>
 <dd><p>Resolve base addresses of all loaded libraries.</p>
 <p>Return a dictionary mapping library path to its base address.</p>
 </dd></dl>
 <dl class="method">
 <dt id="pwnlib.dynelf.DynELF.dump"><a name="//apple_ref/cpp/Method/pwnlib.dynelf.DynELF.dump"></a>
-<code class="descname">dump</code><span class="sig-paren">(</span><em>libs = False</em>, <em>readonly = False</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/dynelf.py#L943-975"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.dynelf.DynELF.dump" title="Permalink to this definition">¶</a></dt>
+<code class="descname">dump</code><span class="sig-paren">(</span><em>libs = False</em>, <em>readonly = False</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/3123ffe6a7/pwnlib/dynelf.py#L943-975"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.dynelf.DynELF.dump" title="Permalink to this definition">¶</a></dt>
 <dd><p>Dumps the ELF’s memory pages to allow further analysis.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name"/>
@@ -257,20 +260,20 @@ the binary.</p>
 </dd></dl>
 <dl class="staticmethod">
 <dt id="pwnlib.dynelf.DynELF.find_base"><a name="//apple_ref/cpp/Method/pwnlib.dynelf.DynELF.find_base"></a>
-<em class="property">static </em><code class="descname">find_base</code><span class="sig-paren">(</span><em>leak</em>, <em>ptr</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/dynelf.py#L195-200"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.dynelf.DynELF.find_base" title="Permalink to this definition">¶</a></dt>
-<dd><p>Given a <a class="reference internal" href="memleak.html#pwnlib.memleak.MemLeak" title="pwnlib.memleak.MemLeak"><code class="xref py py-class docutils literal"><span class="pre">pwnlib.memleak.MemLeak</span></code></a> object and a pointer into a
+<em class="property">static </em><code class="descname">find_base</code><span class="sig-paren">(</span><em>leak</em>, <em>ptr</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/3123ffe6a7/pwnlib/dynelf.py#L195-200"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.dynelf.DynELF.find_base" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a <a class="reference internal" href="memleak.html#pwnlib.memleak.MemLeak" title="pwnlib.memleak.MemLeak"><code class="xref py py-class docutils literal notranslate"><span class="pre">pwnlib.memleak.MemLeak</span></code></a> object and a pointer into a
 library, find its base address.</p>
 </dd></dl>
 <dl class="method">
 <dt id="pwnlib.dynelf.DynELF.heap"><a name="//apple_ref/cpp/Method/pwnlib.dynelf.DynELF.heap"></a>
-<code class="descname">heap</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/dynelf.py#L904-913"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.dynelf.DynELF.heap" title="Permalink to this definition">¶</a></dt>
+<code class="descname">heap</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/3123ffe6a7/pwnlib/dynelf.py#L904-913"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.dynelf.DynELF.heap" title="Permalink to this definition">¶</a></dt>
 <dd><p>Finds the beginning of the heap via __curbrk, which is an exported
 symbol in the linker, which points to the current brk.</p>
 </dd></dl>
 <dl class="method">
 <dt id="pwnlib.dynelf.DynELF.lookup"><a name="//apple_ref/cpp/Method/pwnlib.dynelf.DynELF.lookup"></a>
-<code class="descname">lookup</code><span class="sig-paren">(</span><em>symb = None</em>, <em>lib = None</em><span class="sig-paren">)</span> → int<a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/dynelf.py#L520-591"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.dynelf.DynELF.lookup" title="Permalink to this definition">¶</a></dt>
-<dd><p>Find the address of <code class="docutils literal"><span class="pre">symbol</span></code>, which is found in <code class="docutils literal"><span class="pre">lib</span></code>.</p>
+<code class="descname">lookup</code><span class="sig-paren">(</span><em>symb = None</em>, <em>lib = None</em><span class="sig-paren">)</span> → int<a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/3123ffe6a7/pwnlib/dynelf.py#L520-591"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.dynelf.DynELF.lookup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find the address of <code class="docutils literal notranslate"><span class="pre">symbol</span></code>, which is found in <code class="docutils literal notranslate"><span class="pre">lib</span></code>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name"/>
 <col class="field-body"/>
@@ -280,11 +283,11 @@ symbol in the linker, which points to the current brk.</p>
 If omitted, the base address of the library will be returned.</li>
 <li><strong>lib</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Substring to match for the library name.
 If omitted, the current library is searched.
-If set to <code class="docutils literal"><span class="pre">'libc'</span></code>, <code class="docutils literal"><span class="pre">'libc.so'</span></code> is assumed.</li>
+If set to <code class="docutils literal notranslate"><span class="pre">'libc'</span></code>, <code class="docutils literal notranslate"><span class="pre">'libc.so'</span></code> is assumed.</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Address of the named symbol, or <code class="xref py py-const docutils literal"><span class="pre">None</span></code>.</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Address of the named symbol, or <code class="xref py py-const docutils literal notranslate"><span class="pre">None</span></code>.</p>
 </td>
 </tr>
 </tbody>
@@ -292,32 +295,33 @@ If set to <code class="docutils literal"><span class="pre">'libc'</span></code>,
 </dd></dl>
 <dl class="method">
 <dt id="pwnlib.dynelf.DynELF.stack"><a name="//apple_ref/cpp/Method/pwnlib.dynelf.DynELF.stack"></a>
-<code class="descname">stack</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/dynelf.py#L884-902"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.dynelf.DynELF.stack" title="Permalink to this definition">¶</a></dt>
+<code class="descname">stack</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/3123ffe6a7/pwnlib/dynelf.py#L884-902"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.dynelf.DynELF.stack" title="Permalink to this definition">¶</a></dt>
 <dd><p>Finds a pointer to the stack via __environ, which is an exported
 symbol in libc, which points to the environment block.</p>
 </dd></dl>
 <dl class="attribute">
 <dt id="pwnlib.dynelf.DynELF.dynamic"><a name="//apple_ref/cpp/Attribute/pwnlib.dynelf.DynELF.dynamic"></a>
-<code class="descname">dynamic</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/dynelf.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.dynelf.DynELF.dynamic" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>Returns</em> – Pointer to the <code class="docutils literal"><span class="pre">.DYNAMIC</span></code> area.</p>
+<code class="descname">dynamic</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/3123ffe6a7/pwnlib/dynelf.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.dynelf.DynELF.dynamic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns:
+Pointer to the <code class="docutils literal notranslate"><span class="pre">.DYNAMIC</span></code> area.</p>
 </dd></dl>
 <dl class="attribute">
 <dt id="pwnlib.dynelf.DynELF.elfclass"><a name="//apple_ref/cpp/Attribute/pwnlib.dynelf.DynELF.elfclass"></a>
-<code class="descname">elfclass</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/dynelf.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.dynelf.DynELF.elfclass" title="Permalink to this definition">¶</a></dt>
+<code class="descname">elfclass</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/3123ffe6a7/pwnlib/dynelf.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.dynelf.DynELF.elfclass" title="Permalink to this definition">¶</a></dt>
 <dd><p>32 or 64</p>
 </dd></dl>
 <dl class="attribute">
 <dt id="pwnlib.dynelf.DynELF.elftype"><a name="//apple_ref/cpp/Attribute/pwnlib.dynelf.DynELF.elftype"></a>
-<code class="descname">elftype</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/dynelf.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.dynelf.DynELF.elftype" title="Permalink to this definition">¶</a></dt>
+<code class="descname">elftype</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/3123ffe6a7/pwnlib/dynelf.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.dynelf.DynELF.elftype" title="Permalink to this definition">¶</a></dt>
 <dd><p>e_type from the elf header. In practice the value will almost always
 be ‘EXEC’ or ‘DYN’. If the value is architecture-specific (between
 ET_LOPROC and ET_HIPROC) or invalid, KeyError is raised.</p>
 </dd></dl>
 <dl class="attribute">
 <dt id="pwnlib.dynelf.DynELF.libc"><a name="//apple_ref/cpp/Attribute/pwnlib.dynelf.DynELF.libc"></a>
-<code class="descname">libc</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/dynelf.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.dynelf.DynELF.libc" title="Permalink to this definition">¶</a></dt>
+<code class="descname">libc</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/3123ffe6a7/pwnlib/dynelf.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.dynelf.DynELF.libc" title="Permalink to this definition">¶</a></dt>
 <dd><p>Leak the Build ID of the remote libc.so, download the file,
-and load an <code class="docutils literal"><span class="pre">ELF</span></code> object with the correct base address.</p>
+and load an <code class="docutils literal notranslate"><span class="pre">ELF</span></code> object with the correct base address.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name"/>
 <col class="field-body"/>
@@ -329,18 +333,18 @@ and load an <code class="docutils literal"><span class="pre">ELF</span></code> o
 </dd></dl>
 <dl class="attribute">
 <dt id="pwnlib.dynelf.DynELF.link_map"><a name="//apple_ref/cpp/Attribute/pwnlib.dynelf.DynELF.link_map"></a>
-<code class="descname">link_map</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/dynelf.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.dynelf.DynELF.link_map" title="Permalink to this definition">¶</a></dt>
+<code class="descname">link_map</code><a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/3123ffe6a7/pwnlib/dynelf.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.dynelf.DynELF.link_map" title="Permalink to this definition">¶</a></dt>
 <dd><p>Pointer to the runtime link_map object</p>
 </dd></dl>
 </dd></dl>
 <dl class="function">
 <dt id="pwnlib.dynelf.gnu_hash"><a name="//apple_ref/cpp/Function/pwnlib.dynelf.gnu_hash"></a>
-<code class="descclassname">pwnlib.dynelf.</code><code class="descname">gnu_hash</code><span class="sig-paren">(</span><em>str</em><span class="sig-paren">)</span> → int<a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/dynelf.py#L85-93"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.dynelf.gnu_hash" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pwnlib.dynelf.</code><code class="descname">gnu_hash</code><span class="sig-paren">(</span><em>str</em><span class="sig-paren">)</span> → int<a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/3123ffe6a7/pwnlib/dynelf.py#L85-93"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.dynelf.gnu_hash" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function used to generated GNU-style hashes for strings.</p>
 </dd></dl>
 <dl class="function">
 <dt id="pwnlib.dynelf.sysv_hash"><a name="//apple_ref/cpp/Function/pwnlib.dynelf.sysv_hash"></a>
-<code class="descclassname">pwnlib.dynelf.</code><code class="descname">sysv_hash</code><span class="sig-paren">(</span><em>str</em><span class="sig-paren">)</span> → int<a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/20cb04984a/pwnlib/dynelf.py#L71-83"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.dynelf.sysv_hash" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pwnlib.dynelf.</code><code class="descname">sysv_hash</code><span class="sig-paren">(</span><em>str</em><span class="sig-paren">)</span> → int<a class="reference external" href="https://github.com/Gallopsled/pwntools/blob/3123ffe6a7/pwnlib/dynelf.py#L71-83"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pwnlib.dynelf.sysv_hash" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function used to generate SYSV-style hashes for strings.</p>
 </dd></dl>
 </div>
@@ -354,7 +358,7 @@ and load an <code class="docutils literal"><span class="pre">ELF</span></code> o
 <hr/>
 <div role="contentinfo">
 <p>
-        © Copyright 2016, Gallopsled et al..
+        © Copyright 2016, Gallopsled et al.
 
     </p>
 </div>
@@ -366,16 +370,16 @@ and load an <code class="docutils literal"><span class="pre">ELF</span></code> o
 </section>
 </div>
 <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'./',
-            VERSION:'3.14.0dev',
-            LANGUAGE:'None',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'./',
+              VERSION:'3.14.0dev',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
 <script src="_static/jquery.js" type="text/javascript"></script>
 <script src="_static/underscore.js" type="text/javascript"></script>
 <script src="_static/doctools.js" type="text/javascript"></script>

@@ -6,6 +6,7 @@ cd pwntools/docs
 
 # install the requirements through pipenv
 pipenv install --two -r requirements.txt
+pipenv shell
 # the following is required on my computer. Don't know why :(
 pip install PySocks
 pip install psutil
