@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-563"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/VMXON"></a><title>VMXON</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>November 2018</li></ul></nav></header><h1>VMXON
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-572"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/VMXON"></a><title>VMXON</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>January 2019</li></ul></nav></header><h1>VMXON
 		&mdash; Enter VMX Operation</h1>
 
 <table>
@@ -43,7 +43,7 @@ ELSIF not in VMX operation
                                 VMsucceed;
 </pre>
 <blockquote>
-<p>10. See the information on MONITOR/MWAIT in Chapter 8, &ldquo;Multiple-Processor Management,&rdquo; of the <em>Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 3A</em>.</p>
+<p>10. See the information on MONITOR/MWAIT in Chapter 8, &ldquo;Multiple-Processor Management,&rdquo; of the <em>Intel<sup>&reg;</sup> 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 3A</em>.</p>
 <p>11. A logical processor is in SMX operation if GETSEC[SEXIT] has not been executed since the last execution of GETSEC[SENTER]. A logical processor is outside SMX operation if GETSEC[SENTER] has not been executed or if GETSEC[SEXIT] was executed after the last execution of GETSEC[SENTER]. See Chapter 6, &ldquo;Safer Mode Extensions Reference.&rdquo;</p>
 <p>12. If IA32_VMX_BASIC[48] is read as 1, VMfailInvalid occurs if addr sets any bits in the range 63:32; see Appendix A.1.</p>
 <p>13. Software should read the VMX capability MSR IA32_VMX_MISC to determine whether the processor allows Intel PT to be used in VMX operation (see Appendix A.6).</p></blockquote>

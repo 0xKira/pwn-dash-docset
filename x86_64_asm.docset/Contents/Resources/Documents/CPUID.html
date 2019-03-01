@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-72"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/CPUID"></a><title>CPUID</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>November 2018</li></ul></nav></header><h1>CPUID
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-73"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/CPUID"></a><title>CPUID</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>January 2019</li></ul></nav></header><h1>CPUID
 		&mdash; CPU Identification</h1>
 
 <table>
@@ -42,19 +42,18 @@
 <p><a href="CMPSS.html#tbl-3-8">Table 3-8</a> shows information returned, depending on the initial value loaded into the EAX register.</p>
 <p>Two types of information are returned: basic and extended function information. If a value entered for CPUID.EAX is higher than the maximum input value for basic or extended function for that processor then the data for the highest basic information leaf is returned. For example, using some Intel processors, the following is true:</p>
 <p>CPUID.EAX = 05H (* Returns MONITOR/MWAIT leaf. *)</p>
-<p>CPUID.EAX = 0AH (* Returns Architectural Performance Monitoring leaf. *) CPUID.EAX = 0BH (* Returns Extended Topology Enumeration leaf. *)<sup>2</sup></p>
-<p>CPUID.EAX = 0CH (* INVALID: Returns the same information as CPUID.EAX = 0BH. *) CPUID.EAX =1FH (* Returns V2 Extended Topology Enumeration leaf. *)<sup>2</sup></p>
-<blockquote>
-<p>1. On Intel 64 processors, CPUID clears the high 32 bits of the RAX/RBX/RCX/RDX registers in all modes.</p>
-<p>2. CPUID leaf 1FH is a preferred superset to leaf 0BH. Intel recommends first checking for the existence of CPUID leaf 1FH before using leaf 0BH.</p></blockquote>
+<p>CPUID.EAX = 0AH (* Returns Architectural Performance Monitoring leaf. *) CPUID.EAX = 0BH (* Returns Extended Topology Enumeration leaf. *)<sup>2</sup> CPUID.EAX =1FH (* Returns V2 Extended Topology Enumeration leaf. *)<sup>2</sup></p>
 <p>CPUID.EAX = 80000008H (* Returns linear/physical address size data. *)</p>
 <p>CPUID.EAX = 8000000AH (* INVALID: Returns same information as CPUID.EAX = 0BH. *)</p>
 <p>If a value entered for CPUID.EAX is less than or equal to the maximum input value and the leaf is not supported on that processor then 0 is returned in all the registers.</p>
 <p>When CPUID returns the highest basic leaf information as a result of an invalid input EAX value, any dependence on input ECX value in the basic leaf is honored.</p>
 <p>CPUID can be executed at any privilege level to serialize instruction execution. Serializing instruction execution guarantees that any modifications to flags, registers, and memory for previous instructions are completed before the next instruction is fetched and executed.</p>
 <p><strong>See also:</strong></p>
-<p>&ldquo;Serializing Instructions&rdquo; in Chapter 8, &ldquo;Multiple-Processor Management,&rdquo; in the <em>Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 3A</em>.</p>
-<p>&ldquo;Caching Translation Information&rdquo; in Chapter 4, &ldquo;Paging,&rdquo; in the <em>Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 3A</em>.</p>
+<p>&ldquo;Serializing Instructions&rdquo; in Chapter 8, &ldquo;Multiple-Processor Management,&rdquo; in the <em>Intel<sup>&reg;</sup> 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 3A</em>.</p>
+<p>&ldquo;Caching Translation Information&rdquo; in Chapter 4, &ldquo;Paging,&rdquo; in the <em>Intel<sup>&reg;</sup> 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 3A</em>.</p>
+<blockquote>
+<p>1. On Intel 64 processors, CPUID clears the high 32 bits of the RAX/RBX/RCX/RDX registers in all modes.</p>
+<p>2. CPUID leaf 1FH is a preferred superset to leaf 0BH. Intel recommends first checking for the existence of CPUID leaf 1FH before using leaf 0BH.</p></blockquote>
 <figure id="tbl-3-8">
 <table>
 <tbody><tr>
@@ -80,7 +79,7 @@
 <td colspan="2"><em>Deterministic Cache Parameters Leaf</em></td></tr>
 <tr>
 <td>04H</td>
-<td><strong>NOTES:</strong> Leaf 04H output depends on the initial value in ECX.* See also: &ldquo;INPUT EAX = 04H: Returns Deterministic Cache Parameters for Each Level&rdquo; on page 218. EAX Bits 04 - 00: Cache Type Field. 0 = Null - No more caches. 1 = Data Cache. 2 = Instruction Cache. 3 = Unified Cache. 4-31 = Reserved.</td></tr>
+<td><strong>NOTES:</strong> Leaf 04H output depends on the initial value in ECX.* See also: &ldquo;INPUT EAX = 04H: Returns Deterministic Cache Parameters for Each Level&rdquo; on page 220. EAX Bits 04 - 00: Cache Type Field. 0 = Null - No more caches. 1 = Data Cache. 2 = Instruction Cache. 3 = Unified Cache. 4-31 = Reserved.</td></tr>
 <tr>
 <td></td>
 <td>Bits 07 - 05: Cache Level (starts at 1). Bit 08: Self Initializing cache level (does not need SW initialization). Bit 09: Fully Associative cache. Bits 13 - 10: Reserved. Bits 25 - 14: Maximum number of addressable IDs for logical processors sharing this cache**, ***. Bits 31 - 26: Maximum number of addressable IDs for processor cores in the physical package**, ****, *****. EBX Bits 11 - 00: L = System Coherency Line Size**. Bits 21 - 12: P = Physical Line partitions**. Bits 31 - 22: W = Ways of associativity**. ECX Bits 31-00: S = Number of Sets**. EDX Bit 00: Write-Back Invalidate/Invalidate. 0 = WBINVD/INVD from threads sharing this cache acts upon lower level caches for threads sharing this cache. 1 = WBINVD/INVD is not guaranteed to act upon lower level caches of non-originating threads sharing this cache. Bit 01: Cache Inclusiveness. 0 = Cache is not inclusive of lower cache levels. 1 = Cache is inclusive of lower cache levels. Bit 02: Complex Cache Indexing. 0 = Direct mapped cache. 1 = A complex function is used to index the cache, potentially using all address bits. Bits 31 - 03: Reserved = 0. <strong>NOTES:</strong> * If ECX contains an invalid sub leaf index, EAX/EBX/ECX/EDX return 0. Sub-leaf index n+1 is invalid if sub-leaf n returns EAX[4:0] as 0. ** Add one to the return value to get the result. ***The nearest power-of-2 integer that is not smaller than (1 + EAX[25:14]) is the number of unique initial APIC IDs reserved for addressing different logical processors sharing this cache. **** The nearest power-of-2 integer that is not smaller than (1 + EAX[31:26]) is the number of unique Core_IDs reserved for addressing different processor cores in a physical package. Core ID is a subset of bits of the initial APIC ID. ***** The returned value is constant for valid initial values in ECX. Valid ECX values start from 0.</td></tr>
@@ -114,7 +113,7 @@
 <td colspan="2"><em>Structured Extended Feature Flags Enumeration Leaf (Output depends on ECX input value)</em></td></tr>
 <tr>
 <td>07H</td>
-<td>Sub-leaf 0 (Input ECX = 0). * EAX Bits 31 - 00: Reports the maximum input value for supported leaf 7 sub-leaves. EBX Bit 00: FSGSBASE. Supports RDFSBASE/RDGSBASE/WRFSBASE/WRGSBASE if 1. Bit 01: IA32_TSC_ADJUST MSR is supported if 1. Bit 02: SGX. Supports Intel&reg; Software Guard Extensions (Intel&reg; SGX Extensions) if 1. Bit 03: BMI1. Bit 04: HLE. Bit 05: AVX2. Bit 06: FDP_EXCPTN_ONLY. x87 FPU Data Pointer updated only on x87 exceptions if 1. Bit 07: SMEP. Supports Supervisor-Mode Execution Prevention if 1. Bit 08: BMI2. Bit 09: Supports Enhanced REP MOVSB/STOSB if 1. Bit 10: INVPCID. If 1, supports INVPCID instruction for system software that manages process-context identifiers. Bit 11: RTM. Bit 12: RDT-M. Supports Intel&reg; Resource Director Technology (Intel&reg; RDT) Monitoring capability if 1. Bit 13: Deprecates FPU CS and FPU DS values if 1. Bit 14: MPX. Supports Intel&reg; Memory Protection Extensions if 1. Bit 15: RDT-A. Supports Intel&reg; Resource Director Technology (Intel&reg; RDT) Allocation capability if 1. Bit 16: AVX512F. Bit 17: AVX512DQ. Bit 18: RDSEED. Bit 19: ADX. Bit 20: SMAP. Supports Supervisor-Mode Access Prevention (and the CLAC/STAC instructions) if 1. Bit 21: AVX512_IFMA. Bit 22: Reserved. Bit 23: CLFLUSHOPT. Bit 24: CLWB. Bit 25: Intel Processor Trace. Bit 26: AVX512PF. (Intel&reg; Xeon PhiTM only.) Bit 27: AVX512ER. (Intel&reg; Xeon PhiTM only.) Bit 28: AVX512CD. Bit 29: SHA. supports Intel&reg; Secure Hash Algorithm Extensions (Intel&reg; SHA Extensions) if 1. Bit 30: AVX512BW. Bit 31: AVX512VL. ECX Bit 00: PREFETCHWT1. (Intel&reg; Xeon PhiTM only.) Bit 01: AVX512_VBMI. Bit 02: UMIP. Supports user-mode instruction prevention if 1. Bit 03: PKU. Supports protection keys for user-mode pages if 1. Bit 04: OSPKE. If 1, OS has set CR4.PKE to enable protection keys (and the RDPKRU/WRPKRU instructions). Bits 13 - 05: Reserved. Bit 14: AVX512_VPOPCNTDQ. (Intel&reg; Xeon PhiTM only.) Bits 16 - 15: Reserved. Bits 21 - 17: The value of MAWAU used by the BNDLDX and BNDSTX instructions in 64-bit mode. Bit 22: RDPID and IA32_TSC_AUX are available if 1. Bits 29 - 23: Reserved. Bit 30: SGX_LC. Supports SGX Launch Configuration if 1. Bit 31: Reserved.</td></tr></tbody></table>
+<td>Sub-leaf 0 (Input ECX = 0). * EAX Bits 31 - 00: Reports the maximum input value for supported leaf 7 sub-leaves. EBX Bit 00: FSGSBASE. Supports RDFSBASE/RDGSBASE/WRFSBASE/WRGSBASE if 1. Bit 01: IA32_TSC_ADJUST MSR is supported if 1. Bit 02: SGX. Supports Intel&reg; Software Guard Extensions (Intel&reg; SGX Extensions) if 1. Bit 03: BMI1. Bit 04: HLE. Bit 05: AVX2. Bit 06: FDP_EXCPTN_ONLY. x87 FPU Data Pointer updated only on x87 exceptions if 1. Bit 07: SMEP. Supports Supervisor-Mode Execution Prevention if 1. Bit 08: BMI2. Bit 09: Supports Enhanced REP MOVSB/STOSB if 1. Bit 10: INVPCID. If 1, supports INVPCID instruction for system software that manages process-context identifiers. Bit 11: RTM. Bit 12: RDT-M. Supports Intel&reg; Resource Director Technology (Intel&reg; RDT) Monitoring capability if 1. Bit 13: Deprecates FPU CS and FPU DS values if 1. Bit 14: MPX. Supports Intel&reg; Memory Protection Extensions if 1. Bit 15: RDT-A. Supports Intel&reg; Resource Director Technology (Intel&reg; RDT) Allocation capability if 1. Bit 16: AVX512F. Bit 17: AVX512DQ. Bit 18: RDSEED. Bit 19: ADX. Bit 20: SMAP. Supports Supervisor-Mode Access Prevention (and the CLAC/STAC instructions) if 1. Bit 21: AVX512_IFMA. Bit 22: Reserved. Bit 23: CLFLUSHOPT. Bit 24: CLWB. Bit 25: Intel Processor Trace. Bit 26: AVX512PF. (Intel&reg; Xeon PhiTM only.) Bit 27: AVX512ER. (Intel&reg; Xeon PhiTM only.) Bit 28: AVX512CD. Bit 29: SHA. supports Intel&reg; Secure Hash Algorithm Extensions (Intel&reg; SHA Extensions) if 1. Bit 30: AVX512BW. Bit 31: AVX512VL.</td></tr></tbody></table>
 <figcaption><a href="CMPSS.html#tbl-3-8">Table 3-8</a>. Information Returned by CPUID Instruction (Contd.)</figcaption></figure>
 <figure id="tbl-3-8">
 <table>
@@ -123,34 +122,37 @@
 <th>Information Provided about the Processor</th></tr>
 <tr>
 <td></td>
-<td>EDX Bit 01: Reserved. Bit 02: AVX512_4VNNIW. (Intel&reg; Xeon PhiTM only.) Bit 03: AVX512_4FMAPS. (Intel&reg; Xeon PhiTM only.) Bits 25 - 04: Reserved. Bit 26: Enumerates support for indirect branch restricted speculation (IBRS) and the indirect branch predictor barrier (IBPB). Processors that set this bit support the IA32_SPEC_CTRL MSR and the IA32_PRED_CMD MSR. They allow software to set IA32_SPEC_CTRL[0] (IBRS) and IA32_PRED_CMD[0] (IBPB). Bit 27: Enumerates support for single thread indirect branch predictors (STIBP). Processors that set this bit support the IA32_SPEC_CTRL MSR. They allow software to set IA32_SPEC_CTRL[1] (STIBP). Bit 28: Enumerates support for L1D_FLUSH. Processors that set this bit support the IA32_FLUSH_CMD MSR. They allow software to set IA32_FLUSH_CMD[0] (L1D_FLUSH). Bit 29: Enumerates support for the IA32_ARCH_CAPABILITIES MSR. Bit 30: Reserved. Bit 31: Enumerates support for Speculative Store Bypass Disable (SSBD). Processors that set this bit support the IA32_SPEC_CTRL MSR. They allow software to set IA32_SPEC_CTRL[2] (SSBD). <strong>NOTE:</strong> * If ECX contains an invalid sub-leaf index, EAX/EBX/ECX/EDX return 0. Sub-leaf index n is invalid if n exceeds the value that sub-leaf 0 returns in EAX.</td></tr>
+<td>ECX Bit 00: PREFETCHWT1. (Intel&reg; Xeon PhiTM only.) Bit 01: AVX512_VBMI. Bit 02: UMIP. Supports user-mode instruction prevention if 1. Bit 03: PKU. Supports protection keys for user-mode pages if 1. Bit 04: OSPKE. If 1, OS has set CR4.PKE to enable protection keys (and the RDPKRU/WRPKRU instructions). Bit 05: WAITPKG Bit 07 - 06: Reserved Bit 08: GFNI Bits 13 - 09: Reserved. Bit 14: AVX512_VPOPCNTDQ. (Intel&reg; Xeon PhiTM only.) Bits 16 - 15: Reserved. Bits 21 - 17: The value of MAWAU used by the BNDLDX and BNDSTX instructions in 64-bit mode. Bit 22: RDPID and IA32_TSC_AUX are available if 1. Bits 24 - 23: Reserved. Bit 25: CLDEMOTE. Supports cache line demote if 1. Bit 26: Reserved Bit 27: MOVDIRI. Supports MOVDIRI if 1. Bit 28: MOVDIR64B. Supports MOVDIR64B if 1. Bit 29: Reserved Bit 30: SGX_LC. Supports SGX Launch Configuration if 1. Bit 31: Reserved. EDX Bit 01: Reserved. Bit 02: AVX512_4VNNIW. (Intel&reg; Xeon PhiTM only.) Bit 03: AVX512_4FMAPS. (Intel&reg; Xeon PhiTM only.) Bits 25-04: Reserved. Bit 26: Enumerates support for indirect branch restricted speculation (IBRS) and the indirect branch predictor barrier (IBPB). Processors that set this bit support the IA32_SPEC_CTRL MSR and the IA32_PRED_CMD MSR. They allow software to set IA32_SPEC_CTRL[0] (IBRS) and IA32_PRED_CMD[0] (IBPB). Bit 27: Enumerates support for single thread indirect branch predictors (STIBP). Processors that set this bit support the IA32_SPEC_CTRL MSR. They allow software to set IA32_SPEC_CTRL[1] (STIBP). Bit 28: Enumerates support for L1D_FLUSH. Processors that set this bit support the IA32_FLUSH_CMD MSR. They allow software to set IA32_FLUSH_CMD[0] (L1D_FLUSH). Bit 29: Enumerates support for the IA32_ARCH_CAPABILITIES MSR. Bit 30: Enumerates support for the IA32_CORE_CAPABILITIES MSR. Bit 31: Enumerates support for Speculative Store Bypass Disable (SSBD). Processors that set this bit support the IA32_SPEC_CTRL MSR. They allow software to set IA32_SPEC_CTRL[2] (SSBD). <strong>NOTE:</strong> * If ECX contains an invalid sub-leaf index, EAX/EBX/ECX/EDX return 0. Sub-leaf index n is invalid if n exceeds the value that sub-leaf 0 returns in EAX.</td></tr>
 <tr>
 <td colspan="2"><em>Direct Cache Access Information Leaf</em></td></tr>
 <tr>
 <td>09H</td>
-<td>EAX Value of bits [31:0] of IA32_PLATFORM_DCA_CAP MSR (address 1F8H). EBX Reserved. ECX Reserved. EDX Reserved.</td></tr>
+<td>EAX Value of bits [31:0] of IA32_PLATFORM_DCA_CAP MSR (address 1F8H). EBX Reserved. ECX Reserved. EDX Reserved.</td></tr></tbody></table>
+<figcaption><a href="CMPSS.html#tbl-3-8">Table 3-8</a>. Information Returned by CPUID Instruction (Contd.)</figcaption></figure>
+<figure id="tbl-3-8">
+<table>
+<tbody><tr>
+<th>Initial EAX Value</th>
+<th>Information Provided about the Processor</th></tr>
 <tr>
 <td colspan="2"><em>Architectural Performance Monitoring Leaf</em></td></tr>
 <tr>
 <td>0AH</td>
-<td>EAX Bits 07 - 00: Version ID of architectural performance monitoring. Bits 15 - 08: Number of general-purpose performance monitoring counter per logical processor. Bits 23 - 16: Bit width of general-purpose, performance monitoring counter. Bits 31 - 24: Length of EBX bit vector to enumerate architectural performance monitoring events. EBX Bit 00: Core cycle event not available if 1. Bit 01: Instruction retired event not available if 1. Bit 02: Reference cycles event not available if 1. Bit 03: Last-level cache reference event not available if 1. Bit 04: Last-level cache misses event not available if 1. Bit 05: Branch instruction retired event not available if 1. Bit 06: Branch mispredict retired event not available if 1. Bits 31 - 07: Reserved = 0. ECX Reserved = 0. EDX Bits 04 - 00: Number of fixed-function performance counters (if Version ID &gt; 1). Bits 12 - 05: Bit width of fixed-function performance counters (if Version ID &gt; 1). Bits 14 - 13: Reserved = 0. Bit 15: AnyThread deprecation. Bits 31 - 16: Reserved = 0.</td></tr></tbody></table>
-<figcaption><a href="CMPSS.html#tbl-3-8">Table 3-8</a>. Information Returned by CPUID Instruction (Contd.)</figcaption></figure>
-<figure id="tbl-3-8">
-<table>
-<tbody><tr>
-<th>Initial EAX Value</th>
-<th>Information Provided about the Processor</th></tr>
+<td>EAX Bits 07 - 00: Version ID of architectural performance monitoring. Bits 15 - 08: Number of general-purpose performance monitoring counter per logical processor. Bits 23 - 16: Bit width of general-purpose, performance monitoring counter. Bits 31 - 24: Length of EBX bit vector to enumerate architectural performance monitoring events. EBX Bit 00: Core cycle event not available if 1. Bit 01: Instruction retired event not available if 1. Bit 02: Reference cycles event not available if 1. Bit 03: Last-level cache reference event not available if 1. Bit 04: Last-level cache misses event not available if 1. Bit 05: Branch instruction retired event not available if 1. Bit 06: Branch mispredict retired event not available if 1. Bits 31 - 07: Reserved = 0. ECX Reserved = 0. EDX Bits 04 - 00: Number of fixed-function performance counters (if Version ID &gt; 1). Bits 12 - 05: Bit width of fixed-function performance counters (if Version ID &gt; 1). Bits 14 - 13: Reserved = 0. Bit 15: AnyThread deprecation. Bits 31 - 16: Reserved = 0.</td></tr>
 <tr>
 <td colspan="2"><em>Extended Topology Enumeration Leaf</em></td></tr>
 <tr>
 <td>0BH</td>
-<td><strong>NOTES:</strong> <em>CPUID leaf 1FH is a preferred superset to leaf 0BH. Intel recommends first checking for the existence of Leaf 1FH before using leaf 0BH.</em> Most of Leaf 0BH output depends on the initial value in ECX. The EDX output of leaf 0BH is always valid and does not vary with input value in ECX. Output value in ECX[7:0] always equals input value in ECX[7:0]. Sub-leaf index 0 enumerates SMT level. Each subsequent higher sub-leaf index enumerates a higher-level topological entity in hierarchical order. For sub-leaves that return an invalid level-type of 0 in ECX[15:8]; EAX and EBX will return 0. If an input value n in ECX returns the invalid level-type of 0 in ECX[15:8], other input values with ECX &gt; n also return 0 in ECX[15:8]. EAX Bits 04 - 00: Number of bits to shift right on x2APIC ID to get a unique topology ID of the next level type*. All logical processors with the same next level ID share current level. Bits 31 - 05: Reserved. EBX Bits 15 - 00: Number of logical processors at this level type. The number reflects configuration as shipped by Intel**. Bits 31- 16: Reserved. ECX Bits 07 - 00: Level number. Same value in ECX input. Bits 15 - 08: Level type***. Bits 31 - 16: Reserved. EDX Bits 31- 00: x2APIC ID the current logical processor. <strong>NOTES:</strong> * Software should use this field (EAX[4:0]) to enumerate processor topology of the system. ** Software must not use EBX[15:0] to enumerate processor topology of the system. This value in this field (EBX[15:0]) is only intended for display/diagnostic purposes. The actual number of logical processors available to BIOS/OS/Applications may be different from the value of EBX[15:0], depending on software and platform hardware configurations. *** The value of the &ldquo;level type&rdquo; field is not related to level numbers in any way, higher &ldquo;level type&rdquo; values do not mean higher levels. Level type field has the following encoding: 0: Invalid. 1: SMT. 2: Core. 3-255: Reserved.</td></tr></tbody></table>
+<td><strong>NOTES:</strong> <em>CPUID leaf 1FH is a preferred superset to leaf 0BH. Intel recommends first checking for the existence of Leaf 1FH before using leaf 0BH.</em> Most of Leaf 0BH output depends on the initial value in ECX. The EDX output of leaf 0BH is always valid and does not vary with input value in ECX. Output value in ECX[7:0] always equals input value in ECX[7:0]. Sub-leaf index 0 enumerates SMT level. Each subsequent higher sub-leaf index enumerates a higher-level topological entity in hierarchical order. For sub-leaves that return an invalid level-type of 0 in ECX[15:8]; EAX and EBX will return 0. If an input value n in ECX returns the invalid level-type of 0 in ECX[15:8], other input values with ECX &gt; n also return 0 in ECX[15:8]. EAX Bits 04 - 00: Number of bits to shift right on x2APIC ID to get a unique topology ID of the next level type*. All logical processors with the same next level ID share current level. Bits 31 - 05: Reserved. EBX Bits 15 - 00: Number of logical processors at this level type. The number reflects configuration as shipped by Intel**. Bits 31- 16: Reserved. ECX Bits 07 - 00: Level number. Same value in ECX input. Bits 15 - 08: Level type***. Bits 31 - 16: Reserved. EDX Bits 31- 00: x2APIC ID the current logical processor. <strong>NOTES:</strong> * Software should use this field (EAX[4:0]) to enumerate processor topology of the system.</td></tr></tbody></table>
 <figcaption><a href="CMPSS.html#tbl-3-8">Table 3-8</a>. Information Returned by CPUID Instruction (Contd.)</figcaption></figure>
 <figure id="tbl-3-8">
 <table>
 <tbody><tr>
 <th>Initial EAX Value</th>
 <th>Information Provided about the Processor</th></tr>
+<tr>
+<td></td>
+<td>** Software must not use EBX[15:0] to enumerate processor topology of the system. This value in this field (EBX[15:0]) is only intended for display/diagnostic purposes. The actual number of logical processors available to BIOS/OS/Applications may be different from the value of EBX[15:0], depending on software and platform hardware configurations. *** The value of the &ldquo;level type&rdquo; field is not related to level numbers in any way, higher &ldquo;level type&rdquo; values do not mean higher levels. Level type field has the following encoding: 0: Invalid. 1: SMT. 2: Core. 3-255: Reserved.</td></tr>
 <tr>
 <td colspan="2"><em>Processor Extended State Enumeration Main Leaf (EAX = 0DH, ECX = 0)</em></td></tr>
 <tr>
@@ -160,13 +162,16 @@
 <td colspan="2"><em>Processor Extended State Enumeration Sub-leaf (EAX = 0DH, ECX = 1)</em></td></tr>
 <tr>
 <td>0DH</td>
-<td>EAX Bit 00: XSAVEOPT is available. Bit 01: Supports XSAVEC and the compacted form of XRSTOR if set. Bit 02: Supports XGETBV with ECX = 1 if set. Bit 03: Supports XSAVES/XRSTORS and IA32_XSS if set. Bits 31 - 04: Reserved. EBX Bits 31 - 00: The size in bytes of the XSAVE area containing all states enabled by XCRO | IA32_XSS. ECX Bits 31 - 00: Reports the supported bits of the lower 32 bits of the IA32_XSS MSR. IA32_XSS[n] can be set to 1 only if ECX[n] is 1. Bits 07 - 00: Used for XCR0. Bit 08: PT state. Bit 09: Used for XCR0. Bits 12 - 10: Reserved. Bit 13: HWP state. Bits 31 - 14: Reserved. EDX Bits 31 - 00: Reports the supported bits of the upper 32 bits of the IA32_XSS MSR. IA32_XSS[n+32] can be set to 1 only if EDX[n] is 1. Bits 31 - 00: Reserved.</td></tr></tbody></table>
+<td>EAX Bit 00: XSAVEOPT is available. Bit 01: Supports XSAVEC and the compacted form of XRSTOR if set. Bit 02: Supports XGETBV with ECX = 1 if set. Bit 03: Supports XSAVES/XRSTORS and IA32_XSS if set. Bits 31 - 04: Reserved. EBX Bits 31 - 00: The size in bytes of the XSAVE area containing all states enabled by XCRO | IA32_XSS. ECX Bits 31 - 00: Reports the supported bits of the lower 32 bits of the IA32_XSS MSR. IA32_XSS[n] can be set to 1 only if ECX[n] is 1. Bits 07 - 00: Used for XCR0. Bit 08: PT state. Bit 09: Used for XCR0. Bits 12 - 10: Reserved. Bit 13: HWP state. Bits 31 - 14: Reserved.</td></tr></tbody></table>
 <figcaption><a href="CMPSS.html#tbl-3-8">Table 3-8</a>. Information Returned by CPUID Instruction (Contd.)</figcaption></figure>
 <figure id="tbl-3-8">
 <table>
 <tbody><tr>
 <th>Initial EAX Value</th>
 <th>Information Provided about the Processor</th></tr>
+<tr>
+<td></td>
+<td>EDX Bits 31 - 00: Reports the supported bits of the upper 32 bits of the IA32_XSS MSR. IA32_XSS[n+32] can be set to 1 only if EDX[n] is 1. Bits 31 - 00: Reserved.</td></tr>
 <tr>
 <td colspan="2"><em>Processor Extended State Enumeration Sub-leaves (EAX = 0DH, ECX = n, n &gt; 1)</em></td></tr>
 <tr>
@@ -181,12 +186,7 @@
 <td colspan="2"><em>L3 Cache Intel RDT Monitoring Capability Enumeration Sub-leaf (EAX = 0FH, ECX = 1)</em></td></tr>
 <tr>
 <td>0FH</td>
-<td><strong>NOTES:</strong> Leaf 0FH output depends on the initial value in ECX. EAX Reserved. EBX Bits 31 - 00: Conversion factor from reported IA32_QM_CTR value to occupancy metric (bytes). ECX Maximum range (zero-based) of RMID of this resource type. EDX Bit 00: Supports L3 occupancy monitoring if 1. Bit 01: Supports L3 Total Bandwidth monitoring if 1. Bit 02: Supports L3 Local Bandwidth monitoring if 1. Bits 31 - 03: Reserved.</td></tr>
-<tr>
-<td colspan="2"><em>Intel Resource Director Technology (Intel RDT) Allocation Enumeration Sub-leaf (EAX = 10H, ECX = 0)</em></td></tr>
-<tr>
-<td>10H</td>
-<td><strong>NOTES:</strong> Leaf 10H output depends on the initial value in ECX. Sub-leaf index 0 reports valid resource identification (ResID) starting at bit position 1 of EBX.</td></tr></tbody></table>
+<td><strong>NOTES:</strong> Leaf 0FH output depends on the initial value in ECX. EAX Reserved. EBX Bits 31 - 00: Conversion factor from reported IA32_QM_CTR value to occupancy metric (bytes). ECX Maximum range (zero-based) of RMID of this resource type. EDX Bit 00: Supports L3 occupancy monitoring if 1. Bit 01: Supports L3 Total Bandwidth monitoring if 1. Bit 02: Supports L3 Local Bandwidth monitoring if 1. Bits 31 - 03: Reserved.</td></tr></tbody></table>
 <figcaption><a href="CMPSS.html#tbl-3-8">Table 3-8</a>. Information Returned by CPUID Instruction (Contd.)</figcaption></figure>
 <figure id="tbl-3-8">
 <table>
@@ -194,8 +194,10 @@
 <th>Initial EAX Value</th>
 <th>Information Provided about the Processor</th></tr>
 <tr>
-<td></td>
-<td>EAX Reserved. EBX Bit 00: Reserved. Bit 01: Supports L3 Cache Allocation Technology if 1. Bit 02: Supports L2 Cache Allocation Technology if 1. Bit 03: Supports Memory Bandwidth Allocation if 1. Bits 31 - 04: Reserved. ECX Reserved. EDX Reserved.</td></tr>
+<td colspan="2"><em>Intel Resource Director Technology (Intel RDT) Allocation Enumeration Sub-leaf (EAX = 10H, ECX = 0)</em></td></tr>
+<tr>
+<td>10H</td>
+<td><strong>NOTES:</strong> Leaf 10H output depends on the initial value in ECX. Sub-leaf index 0 reports valid resource identification (ResID) starting at bit position 1 of EBX. EAX Reserved. EBX Bit 00: Reserved. Bit 01: Supports L3 Cache Allocation Technology if 1. Bit 02: Supports L2 Cache Allocation Technology if 1. Bit 03: Supports Memory Bandwidth Allocation if 1. Bits 31 - 04: Reserved. ECX Reserved. EDX Reserved.</td></tr>
 <tr>
 <td colspan="2"><em>L3 Cache Allocation Technology Enumeration Sub-leaf (EAX = 10H, ECX = ResID =1)</em></td></tr>
 <tr>
@@ -210,13 +212,16 @@
 <td colspan="2"><em>Memory Bandwidth Allocation Enumeration Sub-leaf (EAX = 10H, ECX = ResID =3)</em></td></tr>
 <tr>
 <td>10H</td>
-<td><strong>NOTES:</strong> Leaf 10H output depends on the initial value in ECX. EAX Bits 11 - 00: Reports the maximum MBA throttling value supported for the corresponding ResID using minus-one notation. Bits 31 - 12: Reserved. EBX Bits 31 - 00: Reserved. ECX Bits 01 - 00: Reserved. Bit 02: Reports whether the response of the delay values is linear. Bits 31 - 03: Reserved. EDX Bits 15 - 00: Highest COS number supported for this ResID. Bits 31 - 16: Reserved.</td></tr></tbody></table>
+<td><strong>NOTES:</strong> Leaf 10H output depends on the initial value in ECX. EAX Bits 11 - 00: Reports the maximum MBA throttling value supported for the corresponding ResID using minus-one notation. Bits 31 - 12: Reserved. EBX Bits 31 - 00: Reserved. ECX Bits 01 - 00: Reserved. Bit 02: Reports whether the response of the delay values is linear. Bits 31 - 03: Reserved.</td></tr></tbody></table>
 <figcaption><a href="CMPSS.html#tbl-3-8">Table 3-8</a>. Information Returned by CPUID Instruction (Contd.)</figcaption></figure>
 <figure id="tbl-3-8">
 <table>
 <tbody><tr>
 <th>Initial EAX Value</th>
 <th>Information Provided about the Processor</th></tr>
+<tr>
+<td></td>
+<td>EDX Bits 15 - 00: Highest COS number supported for this ResID. Bits 31 - 16: Reserved.</td></tr>
 <tr>
 <td colspan="2"><em>Intel SGX Capability Enumeration Leaf, sub-leaf 0 (EAX = 12H, ECX = 0)</em></td></tr>
 <tr>
@@ -342,7 +347,7 @@
 <td>EDX Reserved.</td></tr>
 <tr>
 <td>80000001H</td>
-<td>EAX Extended Processor Signature and Feature Bits. EBX Reserved. ECX Bit 00: LAHF/SAHF available in 64-bit mode. Bits 04 - 01: Reserved. Bit 05: LZCNT. Bits 07 - 06: Reserved. Bit 08: PREFETCHW. Bits 31 - 09: Reserved. EDX Bits 10 - 00: Reserved. Bit 11: SYSCALL/SYSRET available in 64-bit mode. Bits 19 - 12: Reserved = 0. Bit 20: Execute Disable Bit available. Bits 25 - 21: Reserved = 0. Bit 26: 1-GByte pages are available if 1. Bit 27: RDTSCP and IA32_TSC_AUX are available if 1. Bit 28: Reserved = 0. Bit 29: Intel<em><sup>&reg; </sup></em>64 Architecture available if 1. Bits 31 - 30: Reserved = 0.</td></tr>
+<td>EAX Extended Processor Signature and Feature Bits. EBX Reserved. ECX Bit 00: LAHF/SAHF available in 64-bit mode.* Bits 04 - 01: Reserved. Bit 05: LZCNT. Bits 07 - 06: Reserved. Bit 08: PREFETCHW. Bits 31 - 09: Reserved. EDX Bits 10 - 00: Reserved. Bit 11: SYSCALL/SYSRET.** Bits 19 - 12: Reserved = 0. Bit 20: Execute Disable Bit available. Bits 25 - 21: Reserved = 0. Bit 26: 1-GByte pages are available if 1. Bit 27: RDTSCP and IA32_TSC_AUX are available if 1. Bit 28: Reserved = 0. Bit 29: Intel<em><sup>&reg; </sup></em>64 Architecture available if 1. Bits 31 - 30: Reserved = 0. <strong>NOTES:</strong> * LAHFandSAHFarealwaysavailableinothermodes,regardlessoftheenumerationofthisfeatureflag. ** Intel processors support SYSCALL and SYSRET only in 64-bit mode. This feature flag is always enumerated as 0 outside 64-bit mode.</td></tr>
 <tr>
 <td>80000002H</td>
 <td>EAX Processor Brand String. EBX Processor Brand String Continued. ECX Processor Brand String Continued. EDX Processor Brand String Continued.</td></tr>
@@ -387,7 +392,7 @@
 <h2 id="ia32_bios_sign_id-returns-microcode-update-signature">IA32_BIOS_SIGN_ID Returns Microcode Update Signature<a class="anchor" href="CPUID.html#ia32_bios_sign_id-returns-microcode-update-signature">
 			&para;
 		</a></h2>
-<p>For processors that support the microcode update facility, the IA32_BIOS_SIGN_ID MSR is loaded with the update signature whenever CPUID executes. The signature is returned in the upper DWORD. For details, see Chapter 9 in the <em>Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 3A</em>.</p>
+<p>For processors that support the microcode update facility, the IA32_BIOS_SIGN_ID MSR is loaded with the update signature whenever CPUID executes. The signature is returned in the upper DWORD. For details, see Chapter 9 in the <em>Intel<sup>&reg;</sup> 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 3A</em>.</p>
 <h2 id="input-eax-=-01h--returns-model--family--stepping-information">INPUT EAX = 01H: Returns Model, Family, Stepping Information<a class="anchor" href="CPUID.html#input-eax-=-01h--returns-model--family--stepping-information">
 			&para;
 		</a></h2>
@@ -461,7 +466,7 @@
 <td>11B</td></tr></tbody></table>
 <figcaption><a href="CMPSS.html#tbl-3-9">Table 3-9</a>. Processor Type Field</figcaption></figure>
 <blockquote>
-<p>See Chapter 19 in the <em>Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 1</em>, for information on identifying earlier IA-32 processors.</p></blockquote>
+<p>See Chapter 19 in the <em>Intel<sup>&reg;</sup> 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 1</em>, for information on identifying earlier IA-32 processors.</p></blockquote>
 <p>The Extended Family ID needs to be examined only when the Family ID is 0FH. Integrate the fields into a display using the following rule:</p>
 <p>IF Family_ID ≠ 0FH THEN DisplayFamily = Family_ID;</p>
 <p>ELSE DisplayFamily = Extended_Family_ID + Family_ID;</p>
@@ -830,7 +835,7 @@
 <tr>
 <td>21</td>
 <td>DS</td>
-<td><strong>Debug Store.</strong> The processor supports the ability to write debug information into a memory resident buffer. This feature is used by the branch trace store (BTS) and processor event-based sampling (PEBS) facilities (see Chapter 23, &ldquo;Introduction to Virtual-Machine Extensions,&rdquo; in the <em>Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 3C</em>).</td></tr>
+<td><strong>Debug Store.</strong> The processor supports the ability to write debug information into a memory resident buffer. This feature is used by the branch trace store (BTS) and processor event-based sampling (PEBS) facilities (see Chapter 23, &ldquo;Introduction to Virtual-Machine Extensions,&rdquo; in the <em>Intel<sup>&reg;</sup> 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 3C</em>).</td></tr>
 <tr>
 <td>22</td>
 <td>ACPI</td>
@@ -1382,7 +1387,7 @@
 <p>This Cache Size in Bytes</p>
 <p>= (Ways + 1) * (Partitions + 1) * (Line_Size + 1) * (Sets + 1)</p>
 <p>= (EBX[31:22] + 1) * (EBX[21:12] + 1) * (EBX[11:0] + 1) * (ECX + 1)</p>
-<p>The CPUID leaf 04H also reports data that can be used to derive the topology of processor cores in a physical package. This information is constant for all valid index values. Software can query the raw data reported by executing CPUID with EAX=04H and ECX=0 and use it as part of the topology enumeration algorithm described in Chapter 8, &ldquo;Multiple-Processor Management,&rdquo; in the <em>Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 3A</em>.</p>
+<p>The CPUID leaf 04H also reports data that can be used to derive the topology of processor cores in a physical package. This information is constant for all valid index values. Software can query the raw data reported by executing CPUID with EAX=04H and ECX=0 and use it as part of the topology enumeration algorithm described in Chapter 8, &ldquo;Multiple-Processor Management,&rdquo; in the <em>Intel<sup>&reg;</sup> 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 3A</em>.</p>
 <h2 id="input-eax-=-05h--returns-monitor-and-mwait-features">INPUT EAX = 05H: Returns MONITOR and MWAIT Features<a class="anchor" href="CPUID.html#input-eax-=-05h--returns-monitor-and-mwait-features">
 			&para;
 		</a></h2>
@@ -1404,7 +1409,7 @@
 			&para;
 		</a></h2>
 <p>When CPUID executes with EAX set to 0AH, the processor returns information about support for architectural performance monitoring capabilities. Architectural performance monitoring is supported if the version ID (see <a href="CMPSS.html#tbl-3-8">Table 3-8</a>) is greater than Pn 0. See <a href="CMPSS.html#tbl-3-8">Table 3-8</a>.</p>
-<p>For each version of architectural performance monitoring capability, software must enumerate this leaf to discover the programming facilities and the architectural performance events available in the processor. The details are described in Chapter 23, &ldquo;Introduction to Virtual-Machine Extensions,&rdquo; in the <em>Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 3C</em>.</p>
+<p>For each version of architectural performance monitoring capability, software must enumerate this leaf to discover the programming facilities and the architectural performance events available in the processor. The details are described in Chapter 23, &ldquo;Introduction to Virtual-Machine Extensions,&rdquo; in the <em>Intel<sup>&reg;</sup> 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 3C</em>.</p>
 <h2 id="input-eax-=-0bh--returns-extended-topology-information">INPUT EAX = 0BH: Returns Extended Topology Information<a class="anchor" href="CPUID.html#input-eax-=-0bh--returns-extended-topology-information">
 			&para;
 		</a></h2>
@@ -1463,7 +1468,7 @@
 <p>Use the following techniques to access branding information:</p>
 <p>1. Processor brand string method.</p>
 <p>2. Processor brand index; this method uses a software supplied brand string table.</p>
-<p>These two methods are discussed in the following sections. For methods that are available in early processors, see Section: &ldquo;Identification of Earlier IA-32 Processors&rdquo; in Chapter 19 of the <em>Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 1</em>.</p>
+<p>These two methods are discussed in the following sections. For methods that are available in early processors, see Section: &ldquo;Identification of Earlier IA-32 Processors&rdquo; in Chapter 19 of the <em>Intel<sup>&reg;</sup> 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 1</em>.</p>
 <h2 id="the-processor-brand-string-method">The Processor Brand String Method<a class="anchor" href="CPUID.html#the-processor-brand-string-method">
 			&para;
 		</a></h2>
@@ -1471,7 +1476,7 @@
 <p>This method (introduced with Pentium 4 processors) returns an ASCII brand identification string and the Processor Base frequency of the processor to the EAX, EBX, ECX, and EDX registers.</p>
 <figure id="fig-3-9">
 <svg style="width: 455.616pt; height: 381.0959759999999pt" viewBox="109.64 0.0 384.68 322.5799799999999">
-<g xmlns="http://www.w3.org/2000/svg" style="stroke: none; fill: none">
+<g xmlns="http://www.w3.org/2000/svg" style="fill: none; stroke: none">
 <rect height="316.56" style="fill: rgb(0%, 0%, 0%)" width="0.48" x="112.14" y="0.5399799999999004"></rect>
 <rect height="316.56" style="fill: rgb(0%, 0%, 0%)" width="0.47998" x="491.34000000000003" y="0.5399799999999004"></rect>
 <rect height="0.47998" style="fill: rgb(0%, 0%, 0%)" width="379.68" x="112.14" y="0.0"></rect>
@@ -1549,7 +1554,7 @@
 <p><a href="CPUID.html#fig-3-10">Figure 3-10</a> provides an algorithm which software can use to extract the Processor Base frequency from the processor brand string.</p>
 <figure id="fig-3-10">
 <svg style="width: 455.616pt; height: 389.520012pt" viewBox="109.10000000000001 0.0 384.68 329.60001">
-<g xmlns="http://www.w3.org/2000/svg" style="stroke: none; fill: none">
+<g xmlns="http://www.w3.org/2000/svg" style="fill: none; stroke: none">
 <rect height="323.58" style="fill: rgb(0%, 0%, 0%)" width="0.48" x="111.60000000000001" y="0.48000999999999294"></rect>
 <rect height="323.58" style="fill: rgb(0%, 0%, 0%)" width="0.47998" x="490.8" y="0.48000999999999294"></rect>
 <rect height="0.48001000000000005" style="fill: rgb(0%, 0%, 0%)" width="379.68" x="111.60000000000001" y="0.0"></rect>

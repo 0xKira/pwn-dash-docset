@@ -1,0 +1,95 @@
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-55"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/CLDEMOTE"></a><title>CLDEMOTE</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>January 2019</li></ul></nav></header><h1>CLDEMOTE
+		&mdash; Cache Line Demote</h1>
+
+<table>
+<tbody><tr>
+<th>Opcode/Instruction</th>
+<th>Op/En</th>
+<th>64/32 bit Mode Support</th>
+<th>CPUID Feature Flag</th>
+<th>Description</th></tr>
+<tr>
+<td>NP 0F 1C /0 CLDEMOTE m8</td>
+<td>A</td>
+<td>V/V</td>
+<td>CLDEMOTE</td>
+<td>Hint to hardware to move the cache line containing m8 to a more distant level of the cache without writing back to memory.</td></tr></tbody></table>
+<h2 id="instruction-operand-encoding">Instruction Operand Encoding<sup>1</sup><a class="anchor" href="CLDEMOTE.html#instruction-operand-encoding">
+			&para;
+		</a></h2>
+<blockquote>
+<p>1. The Mod field of the ModR/M byte cannot have value 11B.</p></blockquote>
+<table>
+<tbody><tr>
+<th>Op/En</th>
+<th>Operand 1</th>
+<th>Operand 2</th>
+<th>Operand 3</th>
+<th>Operand 4</th></tr>
+<tr>
+<td>A</td>
+<td>ModRM:r/m (w)</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td></tr></tbody></table>
+<h2 id="description">Description<a class="anchor" href="CLDEMOTE.html#description">
+			&para;
+		</a></h2>
+<p>Hints to hardware that the cache line that contains the linear address specified with the memory operand should be moved (&ldquo;demoted&rdquo;) from the cache(s) closest to the processor core to a level more distant from the processor core. This may accelerate subsequent accesses to the line by other cores in the same coherence domain, especially if the line was written by the core that demotes the line. Moving the line in such a manner is a performance optimization, i.e., it is a hint which does not modify architectural state. Hardware may choose which level in the cache hierarchy to retain the line (e.g., L3 in typical server designs). The source operand is a byte memory location.</p>
+<p>The availability of the CLDEMOTE instruction is indicated by the presence of the CPUID feature flag CLDEMOTE (bit 25 of the ECX register in sub-leaf 07H, see &ldquo;CPUID&mdash;CPU Identification&rdquo;). On processors which do not support the CLDEMOTE instruction (including legacy hardware) the instruction will be treated as a NOP.</p>
+<p>A CLDEMOTE instruction is ordered with respect to stores to the same cache line, but unordered with respect to other instructions including memory fences, CLDEMOTE, CLWB or CLFLUSHOPT instructions to a different cache line. Since CLDEMOTE will retire in order with respect to stores to the same cache line, software should ensure that after issuing CLDEMOTE the line is not accessed again immediately by the same core to avoid cache data movement penalties.</p>
+<p>The effective memory type of the page containing the affected line determines the effect; cacheable types are likely to generate a data movement operation, while uncacheable types may cause the instruction to be ignored.</p>
+<p>Speculative fetching can occur at any time and is not tied to instruction execution. The CLDEMOTE instruction is not ordered with respect to PREFETCHh instructions or any of the speculative fetching mechanisms. That is, data can be speculatively loaded into a cache line just before, during, or after the execution of a CLDEMOTE instruction that references the cache line.</p>
+<p>Unlike CLFLUSH, CLFLUSHOPT and CLWB instructions, CLDEMOTE is not guaranteed to write back modified data to memory.</p>
+<p>The CLDEMOTE instruction may be ignored by hardware in certain cases and is not a guarantee.</p>
+<p>The CLDEMOTE instruction can be used at all privilege levels. In certain processor implementations the CLDEMOTE instruction may set the A bit but not the D bit in the page tables.</p>
+<p>If the line is not found in the cache, the instruction will be treated as a NOP.</p>
+<p>In some implementations, the CLDEMOTE instruction may always cause a transactional abort with Transactional Synchronization Extensions (TSX). However, programmers must not rely on CLDEMOTE instruction to force a transactional abort.</p>
+<h2 id="operation">Operation<a class="anchor" href="CLDEMOTE.html#operation">
+			&para;
+		</a></h2>
+<pre>Cache_Line_Demote(m8);
+</pre>
+<h2 id="flags-affected">Flags Affected<a class="anchor" href="CLDEMOTE.html#flags-affected">
+			&para;
+		</a></h2>
+<p>None.</p>
+<h2 id="c-c++-compiler-intrinsic-equivalent">C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="CLDEMOTE.html#c-c++-compiler-intrinsic-equivalent">
+			&para;
+		</a></h2>
+<pre>CLDEMOTE void _cldemote(const void*);
+</pre>
+<h2 class="exceptions" id="protected-mode-exceptions">Protected Mode Exceptions<a class="anchor" href="CLDEMOTE.html#protected-mode-exceptions">
+			&para;
+		</a></h2>
+<table>
+<tbody><tr>
+<td>#UD</td>
+<td>If the LOCK prefix is used.</td></tr></tbody></table>
+<h2 class="exceptions" id="real-address-mode-exceptions">Real-Address Mode Exceptions<a class="anchor" href="CLDEMOTE.html#real-address-mode-exceptions">
+			&para;
+		</a></h2>
+<table>
+<tbody><tr>
+<td>#UD</td>
+<td>If the LOCK prefix is used.</td></tr></tbody></table>
+<h2 class="exceptions" id="virtual-8086-mode-exceptions">Virtual-8086 Mode Exceptions<a class="anchor" href="CLDEMOTE.html#virtual-8086-mode-exceptions">
+			&para;
+		</a></h2>
+<p>Same exceptions as in real address mode.</p>
+<h2 class="exceptions" id="compatibility-mode-exceptions">Compatibility Mode Exceptions<a class="anchor" href="CLDEMOTE.html#compatibility-mode-exceptions">
+			&para;
+		</a></h2>
+<p>Same exceptions as in protected mode.</p>
+<h2 class="exceptions" id="64-bit-mode-exceptions">64-Bit Mode Exceptions<a class="anchor" href="CLDEMOTE.html#64-bit-mode-exceptions">
+			&para;
+		</a></h2>
+<table>
+<tbody><tr>
+<td>#UD</td>
+<td>If the LOCK prefix is used.</td></tr></tbody></table><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+	</p></footer>
+</body></html>

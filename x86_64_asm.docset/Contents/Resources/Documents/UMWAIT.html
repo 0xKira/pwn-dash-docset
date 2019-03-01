@@ -1,0 +1,123 @@
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-471"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/UMWAIT"></a><title>UMWAIT</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>January 2019</li></ul></nav></header><h1>UMWAIT
+		&mdash; User Level Monitor Wait</h1>
+
+<table>
+<tbody><tr>
+<th>Opcode / Instruction</th>
+<th>Op/En</th>
+<th>64/32 bit Mode Support</th>
+<th>CPUID Feature Flag</th>
+<th>Description</th></tr>
+<tr>
+<td>F2 0F AE /6 UMWAIT r32, &lt;edx&gt;, &lt;eax&gt;</td>
+<td>A</td>
+<td>V/V</td>
+<td>WAITPKG</td>
+<td>A hint that allows the processor to stop instruction execution and enter an implementation-dependent optimized state until occurrence of a class of events.</td></tr></tbody></table>
+<h2 id="instruction-operand-encoding">Instruction Operand Encoding<sup>1</sup><a class="anchor" href="UMWAIT.html#instruction-operand-encoding">
+			&para;
+		</a></h2>
+<blockquote>
+<p>1. The Mod field of the ModR/M byte must have value 11B.</p></blockquote>
+<table>
+<tbody><tr>
+<th>Op/En</th>
+<th>Tuple</th>
+<th>Operand 1</th>
+<th>Operand 2</th>
+<th>Operand 3</th>
+<th>Operand 4</th></tr>
+<tr>
+<td>A</td>
+<td>NA</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td></tr></tbody></table>
+<h2 id="description">Description<a class="anchor" href="UMWAIT.html#description">
+			&para;
+		</a></h2>
+<p>UMWAIT instructs the processor to enter an implementation-dependent optimized state while monitoring a range of addresses. The optimized state may be either a light-weight power/performance optimized state or an improved power/performance optimized state. The selection between the two states is governed by the explicit input register bit[0] source operand.</p>
+<p>UMWAIT is available when CPUID.7.0:ECX.WAITPKG[bit 5] is enumerated as 1. UMWAIT may be executed at any privilege level. This instruction&rsquo;s operation is the same in non-64-bit modes and in 64-bit mode.</p>
+<p>The input register contains information such as the preferred optimized state the processor should enter as described in the following table. Bits other than bit 0 are reserved and will result in #GP if nonzero.</p>
+<figure id="tbl-4-20">
+<table>
+<tbody><tr>
+<th>Bit Value</th>
+<th>State Name</th>
+<th>Wakeup Time</th>
+<th>Power Savings</th>
+<th>Other Benefits</th></tr>
+<tr>
+<td>bit[0] = 0</td>
+<td>C0.2</td>
+<td>Slower</td>
+<td>Larger</td>
+<td>Improves performance of the other SMT thread(s) on the same core.</td></tr>
+<tr>
+<td>bit[0] = 1</td>
+<td>C0.1</td>
+<td>Faster</td>
+<td>Smaller</td>
+<td>NA</td></tr>
+<tr>
+<td>bits[31:1]</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>Reserved</td></tr></tbody></table>
+<figcaption><a href="UMWAIT.html#tbl-4-20">Table 4-20</a>. UMWAIT Input Register Bit Definitions</figcaption></figure>
+<p>The instruction wakes up when the time-stamp counter reaches or exceeds the implicit EDX:EAX 64-bit input value (if the monitoring hardware did not trigger beforehand).</p>
+<p>Prior to executing the UMWAIT instruction, an operating system may specify the maximum delay it allows the processor to suspend its operation. It can do so by writing TSC-quanta value to the following 32bit MSR (IA32_UMWAIT_CONTROL at MSR index E1H):</p>
+<ul>
+<li>IA32_UMWAIT_CONTROL[31:2] &mdash; Determines the maximum time in TSC-quanta that the processor can reside in either C0.1 or C0.2. A zero value indicates no maximum time. The maximum time value is a 32-bit value where the upper 30 bits come from this field and the lower two bits are zero.</li>
+<li>IA32_UMWAIT_CONTROL[1] &mdash; Reserved.</li>
+<li>IA32_UMWAIT_CONTROL[0] &mdash; C0.2 is not allowed by the OS. Value of &ldquo;1&rdquo; means all C0.2 requests revert to C0.1.</li></ul>
+<p>If the processor that executed a UMWAIT instruction wakes due to the expiration of the operating system timelimit, the instructions sets RFLAGS.CF; otherwise, that flag is cleared.</p>
+<p>The UMWAIT instruction causes a transactional abort when used inside a transactional region.</p>
+<p>The UMWAIT instruction operates with the UMONITOR instruction. The two instructions allow the definition of an address at which to wait (UMONITOR) and an implementation-dependent optimized operation to perform while waiting (UMWAIT). The execution of UMWAIT is a hint to the processor that it can enter an implementation-dependent-optimized state while waiting for an event or a store operation to the address range armed by UMONITOR.</p>
+<p>The following additional events cause the processor to exit the implementation-dependent optimized state: a store to the address range armed by the UMONITOR instruction, an NMI or SMI, a debug exception, a machine check exception, the BINIT# signal, the INIT# signal, and the RESET# signal. Other implementation-dependent events may also cause the processor to exit the implementation-dependent optimized state.</p>
+<p>In addition, an external interrupt causes the processor to exit the implementation-dependent optimized state regardless of whether maskable-interrupts are inhibited (EFLAGS.IF =0).</p>
+<p>Following exit from the implementation-dependent-optimized state, control passes to the instruction after the UMWAIT instruction. A pending interrupt that is not masked (including an NMI or an SMI) may be delivered before execution of that instruction.</p>
+<p>Unlike the HLT instruction, the UMWAIT instruction does not restart at the UMWAIT instruction following the handling of an SMI.</p>
+<p>If the preceding UMONITOR instruction did not successfully arm an address range or if UMONITOR was not executed prior to executing UMWAIT and following the most recent execution of the legacy MONITOR instruction (UMWAIT does not interoperate with MONITOR), then the processor will not enter an optimized state. Execution will continue to the instruction following UMWAIT.</p>
+<p>A store to the address range armed by the UMONITOR instruction will cause the processor to exit UMWAIT if either the store was originated by other processor agents or the store was originated by a non-processor agent.</p>
+<h2 id="operation">Operation<a class="anchor" href="UMWAIT.html#operation">
+			&para;
+		</a></h2>
+<pre>os_deadline &larr; TSC+(IA32_MWAIT_CONTROL[31:2]&lt;&lt;2)
+instr_deadline &larr; UINT64(EDX:EAX)
+IF os_deadline &lt; instr_deadline:
+    deadline &larr; os_deadline
+    using_os_deadline &larr; 1
+ELSE:
+    deadline &larr; instr_deadline
+    using_os_deadline &larr; 0
+WHILE monitor hardware armed AND TSC &lt; deadline:
+    implementation_dependent_optimized_state(Source register, deadline, IA32_UMWAIT_CONTROL[0] )
+IF using_os_deadline AND TSC &gt; deadline:
+    RFLAGS.CF &larr; 1
+ELSE:
+    RFLAGS.CF &larr; 0
+RFLAGS.AF,PF,SF,ZF,OF &larr; 0
+</pre>
+<h2 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="UMWAIT.html#intel-c-c++-compiler-intrinsic-equivalent">
+			&para;
+		</a></h2>
+<pre>UMWAIT uint8_t _umwait(uint32_t control, uint64_t counter);
+</pre>
+<h2 class="exceptions" id="numeric-exceptions">Numeric Exceptions<a class="anchor" href="UMWAIT.html#numeric-exceptions">
+			&para;
+		</a></h2>
+<p>None</p>
+<h2 id="exceptions--all-operating-modes-">Exceptions (All Operating Modes)<a class="anchor" href="UMWAIT.html#exceptions--all-operating-modes-">
+			&para;
+		</a></h2>
+<p>#GP(0) If src[31:1] != 0.</p>
+<p>If CR4.TSD = 1 and CPL != 0.</p>
+<p>#UD If CPUID.7.0:ECX.WAITPKG[bit 5]=0.</p><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+	</p></footer>
+</body></html>

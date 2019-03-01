@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-332"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/PEXT"></a><title>PEXT</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>November 2018</li></ul></nav></header><h1>PEXT
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-338"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/PEXT"></a><title>PEXT</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>January 2019</li></ul></nav></header><h1>PEXT
 		&mdash; Parallel Bits Extract</h1>
 
 <table>
@@ -42,7 +42,7 @@
 <p>PEXT uses a mask in the second source operand (the third operand) to transfer either contiguous or non-contiguous bits in the first source operand (the second operand) to contiguous low order bit positions in the destination (the first operand). For each bit set in the MASK, PEXT extracts the corresponding bits from the first source operand and writes them into contiguous lower bits of destination operand. The remaining upper bits of destination are zeroed.</p>
 <figure id="fig-4-9">
 <svg style="width: 415.5476399999999pt; height: 147.02399999999997pt" viewBox="120.8597 0.0 351.2896999999999 127.51999999999998">
-<g xmlns="http://www.w3.org/2000/svg" style="stroke: none; fill: none">
+<g xmlns="http://www.w3.org/2000/svg" style="fill: none; stroke: none">
 <rect height="28.98" style="fill: rgb(0%, 0%, 0%)" width="0.47998" x="358.14" y="18.359999999999957"></rect>
 <rect height="0.23999" style="fill: rgb(0%, 0%, 0%)" width="0.48001000000000005" x="421.26" y="18.120010000000036"></rect>
 <rect height="28.98" style="fill: rgb(0%, 0%, 0%)" width="0.48001000000000005" x="421.26" y="18.359999999999957"></rect>
@@ -357,7 +357,7 @@ OD
 <h2 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="PEXT.html#other-exceptions">
 			&para;
 		</a></h2>
-<p>See Section 2.5.1, &ldquo;Exception Conditions for VEX-Encoded GPR Instructions&rdquo;, <span class="not-imported">Table 2-29</span>.</p><footer><p>
+<p>See Exceptions Type 13.</p><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
 		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.

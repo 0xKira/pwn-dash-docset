@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-679"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/XSAVEOPT"></a><title>XSAVEOPT</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>November 2018</li></ul></nav></header><h1>XSAVEOPT
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-688"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/XSAVEOPT"></a><title>XSAVEOPT</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>January 2019</li></ul></nav></header><h1>XSAVEOPT
 		&mdash; Save Processor Extended States Optimized</h1>
 
 <table>
@@ -40,18 +40,18 @@
 			&para;
 		</a></h2>
 <p>Performs a full or partial save of processor state components to the XSAVE area located at the memory address specified by the destination operand. The implicit EDX:EAX register pair specifies a 64-bit instruction mask. The specific state components saved correspond to the bits set in the requested-feature bitmap (RFBM), which is the logical-AND of EDX:EAX and XCR0.</p>
-<p>The format of the XSAVE area is detailed in Section 13.4, &ldquo;XSAVE Area,&rdquo; of <em>Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 1</em>.</p>
-<p>Section 13.9, &ldquo;Operation of XSAVEOPT,&rdquo; of <em>Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 1</em> provides a detailed description of the operation of the XSAVEOPT instruction. The following items provide a high-level outline:</p>
+<p>The format of the XSAVE area is detailed in Section 13.4, &ldquo;XSAVE Area,&rdquo; of <em>Intel<sup>&reg;</sup> 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 1</em>.</p>
+<p>Section 13.9, &ldquo;Operation of XSAVEOPT,&rdquo; of <em>Intel<sup>&reg;</sup> 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 1</em> provides a detailed description of the operation of the XSAVEOPT instruction. The following items provide a high-level outline:</p>
 <ul>
 <li>Execution of XSAVEOPT is similar to that of XSAVE. XSAVEOPT differs from XSAVE in that it may use the init and modified optimizations. The performance of XSAVEOPT will be equal to or better than that of XSAVE.</li>
 <li>XSAVEOPT saves state component <em>i </em>only if RFBM[<em>i</em>] = 1 and XINUSE[<em>i</em>] = 1.<sup>1 </sup>(XINUSE is a bitmap by which the processor tracks the status of various state components. See Section 13.6, &ldquo;Processor Tracking of XSAVEManaged State.&rdquo;) Even if both bits are 1, XSAVEOPT may optimize and not save state component <em>i </em>if (1) state component <em>i </em>has not been modified since the last execution of XRSTOR or XRSTORS; and (2) this execution of XSAVES corresponds to that last execution of XRSTOR or XRSTORS as determined by the internal value XRSTOR_INFO (see the Operation section below).</li>
 <li>XSAVEOPT does not modify bytes 511:464 of the legacy region of the XSAVE area (see Section 13.4.1, &ldquo;Legacy Region of an XSAVE Area&rdquo;).</li>
 <li>XSAVEOPT reads the XSTATE_BV field of the XSAVE header (see Section 13.4.2, &ldquo;XSAVE Header&rdquo;) and writes a modified value back to memory as follows. If RFBM[<em>i</em>] = 1, XSAVEOPT writes XSTATE_BV[<em>i</em>] with the value of XINUSE[<em>i</em>]. If RFBM[<em>i</em>] = 0, XSAVEOPT writes XSTATE_BV[<em>i</em>] with the value that it read from memory (it does not modify the bit). XSAVEOPT does not write to any part of the XSAVE header other than the XSTATE_BV field.</li>
 <li>XSAVEOPT always uses the standard format of the extended region of the XSAVE area (see Section 13.4.3, &ldquo;Extended Region of an XSAVE Area&rdquo;).</li></ul>
+<p>Use of a destination operand not aligned to 64-byte boundary (in either 64-bit or 32-bit modes) will result in a general-protection (#GP) exception. In 64-bit mode, the upper 32 bits of RDX and RAX are ignored.</p>
+<p>See Section 13.6, &ldquo;Processor Tracking of XSAVE-Managed State,&rdquo; of <em>Intel<sup>&reg;</sup> 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 1</em> for discussion of the bitmap XMODIFIED and of the quantity XRSTOR_INFO.</p>
 <blockquote>
 <p>1. There is an exception made for MXCSR and MXCSR_MASK, which belong to state component 1 &mdash; SSE. XSAVEOPT always saves these to memory if RFBM[1] = 1 or RFBM[2] = 1, regardless of the value of XINUSE.</p></blockquote>
-<p>Use of a destination operand not aligned to 64-byte boundary (in either 64-bit or 32-bit modes) will result in a general-protection (#GP) exception. In 64-bit mode, the upper 32 bits of RDX and RAX are ignored.</p>
-<p>See Section 13.6, &ldquo;Processor Tracking of XSAVE-Managed State,&rdquo; of <em>Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 1</em> for discussion of the bitmap XMODIFIED and of the quantity XRSTOR_INFO.</p>
 <h2 id="operation">Operation<a class="anchor" href="XSAVEOPT.html#operation">
 			&para;
 		</a></h2>

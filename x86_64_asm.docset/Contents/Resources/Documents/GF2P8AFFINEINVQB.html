@@ -1,0 +1,389 @@
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-195"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/GF2P8AFFINEINVQB"></a><title>GF2P8AFFINEINVQB</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>January 2019</li></ul></nav></header><h1>GF2P8AFFINEINVQB
+		&mdash; Galois Field Affine Transformation Inverse</h1>
+
+<table>
+<tbody><tr>
+<th>Opcode/Instruction</th>
+<th>Op/En</th>
+<th>64/32 bit Mode Support</th>
+<th>CPUID Feature Flag</th>
+<th>Description</th></tr>
+<tr>
+<td>66 0F3A CF /r /ib GF2P8AFFINEINVQB xmm1, xmm2/m128, imm8</td>
+<td>A</td>
+<td>V/V</td>
+<td>GFNI</td>
+<td>Computes inverse affine transformation in the finite field GF(2^8).</td></tr></tbody></table>
+<h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="GF2P8AFFINEINVQB.html#instruction-operand-encoding">
+			&para;
+		</a></h2>
+<table>
+<tbody><tr>
+<th>Op/En</th>
+<th>Tuple</th>
+<th>Operand 1</th>
+<th>Operand 2</th>
+<th>Operand 3</th>
+<th>Operand 4</th></tr>
+<tr>
+<td>A</td>
+<td>NA</td>
+<td>ModRM:reg (r, w)</td>
+<td>ModRM:r/m (r)</td>
+<td>imm8 (r)</td>
+<td>NA</td></tr></tbody></table>
+<h3 id="description">Description<a class="anchor" href="GF2P8AFFINEINVQB.html#description">
+			&para;
+		</a></h3>
+<p>The AFFINEINVB instruction computes an affine transformation in the Galois Field 2<sup>8</sup>. For this instruction, an affine transformation is defined by A * inv(x) + b where &ldquo;A&rdquo; is an 8 by 8 bit matrix, and &ldquo;x&rdquo; and &ldquo;b&rdquo; are 8-bit vectors. The inverse of the bytes in x is defined with respect to the reduction polynomial x<sup>8</sup> + x<sup>4</sup> + x<sup>3</sup> + x + 1.</p>
+<p>One SIMD register (operand 1) holds &ldquo;x&rdquo; as either 16, 32 or 64 8-bit vectors. A second SIMD (operand 2) register or memory operand contains 2, 4, or 8 &ldquo;A&rdquo; values, which are operated upon by the correspondingly aligned 8 &ldquo;x&rdquo; values in the first register. The &ldquo;b&rdquo; vector is constant for all calculations and contained in the immediate byte.</p>
+<p>The SSE encoded forms of the instruction require 16B alignment on their memory operations.</p>
+<p>The inverse of each byte is given by the following table. The upper nibble is on the vertical axis and the lower nibble is on the horizontal axis. For example, the inverse of 0x95 is 0x8A.</p>
+<figure id="tbl-3-50">
+<table>
+<tbody><tr>
+<td>-</td>
+<td>0</td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+<td>4</td>
+<td>5</td>
+<td>6</td>
+<td>7</td>
+<td>8</td>
+<td>9</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>E</td>
+<td>F</td></tr>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>8D</td>
+<td>F6</td>
+<td>CB</td>
+<td>52</td>
+<td>7B</td>
+<td>D1</td>
+<td>E8</td>
+<td>4F</td>
+<td>29</td>
+<td>C0</td>
+<td>B0</td>
+<td>E1</td>
+<td>E5</td>
+<td>C7</td></tr>
+<tr>
+<td>1</td>
+<td>74</td>
+<td>B4</td>
+<td>AA</td>
+<td>4B</td>
+<td>99</td>
+<td>2B</td>
+<td>60</td>
+<td>5F</td>
+<td>58</td>
+<td>3F</td>
+<td>FD</td>
+<td>CC</td>
+<td>FF</td>
+<td>40</td>
+<td>EE</td>
+<td>B2</td></tr>
+<tr>
+<td>2</td>
+<td>3A</td>
+<td>6E</td>
+<td>5A</td>
+<td>F1</td>
+<td>55</td>
+<td>4D</td>
+<td>A8</td>
+<td>C9</td>
+<td>C1</td>
+<td>A</td>
+<td>98</td>
+<td>15</td>
+<td>30</td>
+<td>44</td>
+<td>A2</td>
+<td>C2</td></tr>
+<tr>
+<td>3</td>
+<td>2C</td>
+<td>45</td>
+<td>92</td>
+<td>6C</td>
+<td>F3</td>
+<td>39</td>
+<td>66</td>
+<td>42</td>
+<td>F2</td>
+<td>35</td>
+<td>20</td>
+<td>6F</td>
+<td>77</td>
+<td>BB</td>
+<td>59</td>
+<td>19</td></tr>
+<tr>
+<td>4</td>
+<td>1D</td>
+<td>FE</td>
+<td>37</td>
+<td>67</td>
+<td>2D</td>
+<td>31</td>
+<td>F5</td>
+<td>69</td>
+<td>A7</td>
+<td>64</td>
+<td>AB</td>
+<td>13</td>
+<td>54</td>
+<td>25</td>
+<td>E9</td>
+<td>9</td></tr>
+<tr>
+<td>5</td>
+<td>ED</td>
+<td>5C</td>
+<td>5</td>
+<td>CA</td>
+<td>4C</td>
+<td>24</td>
+<td>87</td>
+<td>BF</td>
+<td>18</td>
+<td>3E</td>
+<td>22</td>
+<td>F0</td>
+<td>51</td>
+<td>EC</td>
+<td>61</td>
+<td>17</td></tr>
+<tr>
+<td>6</td>
+<td>16</td>
+<td>5E</td>
+<td>AF</td>
+<td>D3</td>
+<td>49</td>
+<td>A6</td>
+<td>36</td>
+<td>43</td>
+<td>F4</td>
+<td>47</td>
+<td>91</td>
+<td>DF</td>
+<td>33</td>
+<td>93</td>
+<td>21</td>
+<td>3B</td></tr>
+<tr>
+<td>7</td>
+<td>79</td>
+<td>B7</td>
+<td>97</td>
+<td>85</td>
+<td>10</td>
+<td>B5</td>
+<td>BA</td>
+<td>3C</td>
+<td>B6</td>
+<td>70</td>
+<td>D0</td>
+<td>6</td>
+<td>A1</td>
+<td>FA</td>
+<td>81</td>
+<td>82</td></tr>
+<tr>
+<td>8</td>
+<td>83</td>
+<td>7E</td>
+<td>7F</td>
+<td>80</td>
+<td>96</td>
+<td>73</td>
+<td>BE</td>
+<td>56</td>
+<td>9B</td>
+<td>9E</td>
+<td>95</td>
+<td>D9</td>
+<td>F7</td>
+<td>2</td>
+<td>B9</td>
+<td>A4</td></tr>
+<tr>
+<td>9</td>
+<td>DE</td>
+<td>6A</td>
+<td>32</td>
+<td>6D</td>
+<td>D8</td>
+<td>8A</td>
+<td>84</td>
+<td>72</td>
+<td>2A</td>
+<td>14</td>
+<td>9F</td>
+<td>88</td>
+<td>F9</td>
+<td>DC</td>
+<td>89</td>
+<td>9A</td></tr>
+<tr>
+<td>A</td>
+<td>FB</td>
+<td>7C</td>
+<td>2E</td>
+<td>C3</td>
+<td>8F</td>
+<td>B8</td>
+<td>65</td>
+<td>48</td>
+<td>26</td>
+<td>C8</td>
+<td>12</td>
+<td>4A</td>
+<td>CE</td>
+<td>E7</td>
+<td>D2</td>
+<td>62</td></tr>
+<tr>
+<td>B</td>
+<td>C</td>
+<td>E0</td>
+<td>1F</td>
+<td>EF</td>
+<td>11</td>
+<td>75</td>
+<td>78</td>
+<td>71</td>
+<td>A5</td>
+<td>8E</td>
+<td>76</td>
+<td>3D</td>
+<td>BD</td>
+<td>BC</td>
+<td>86</td>
+<td>57</td></tr>
+<tr>
+<td>C</td>
+<td>B</td>
+<td>28</td>
+<td>2F</td>
+<td>A3</td>
+<td>DA</td>
+<td>D4</td>
+<td>E4</td>
+<td>F</td>
+<td>A9</td>
+<td>27</td>
+<td>53</td>
+<td>4</td>
+<td>1B</td>
+<td>FC</td>
+<td>AC</td>
+<td>E6</td></tr>
+<tr>
+<td>D</td>
+<td>7A</td>
+<td>7</td>
+<td>AE</td>
+<td>63</td>
+<td>C5</td>
+<td>DB</td>
+<td>E2</td>
+<td>EA</td>
+<td>94</td>
+<td>8B</td>
+<td>C4</td>
+<td>D5</td>
+<td>9D</td>
+<td>F8</td>
+<td>90</td>
+<td>6B</td></tr>
+<tr>
+<td>E</td>
+<td>B1</td>
+<td>D</td>
+<td>D6</td>
+<td>EB</td>
+<td>C6</td>
+<td>E</td>
+<td>CF</td>
+<td>AD</td>
+<td>8</td>
+<td>4E</td>
+<td>D7</td>
+<td>E3</td>
+<td>5D</td>
+<td>50</td>
+<td>1E</td>
+<td>B3</td></tr>
+<tr>
+<td>F</td>
+<td>5B</td>
+<td>23</td>
+<td>38</td>
+<td>34</td>
+<td>68</td>
+<td>46</td>
+<td>3</td>
+<td>8C</td>
+<td>DD</td>
+<td>9C</td>
+<td>7D</td>
+<td>A0</td>
+<td>CD</td>
+<td>1A</td>
+<td>41</td>
+<td>1C</td></tr></tbody></table>
+<figcaption><a href="GF2P8AFFINEINVQB.html#tbl-3-50">Table 3-50</a>. Inverse Byte Listings</figcaption></figure>
+<h3 id="operation">Operation<a class="anchor" href="GF2P8AFFINEINVQB.html#operation">
+			&para;
+		</a></h3>
+<pre>define affine_inverse_byte(tsrc2qw, src1byte, imm):
+    FOR i &larr; 0 to 7:
+        * parity(x) = 1 if x has an odd number of 1s in it, and 0 otherwise.*
+        * inverse(x) is defined in the table above *
+        retbyte.bit[i] &larr; parity(tsrc2qw.byte[7-i] AND inverse(src1byte)) XOR imm8.bit[i]
+    return retbyte
+</pre>
+<h4 id="gf2p8affineinvqb-srcdest--src1--imm8--128b-sse-encoded-version-">GF2P8AFFINEINVQB srcdest, src1, imm8 (128b SSE encoded version)<a class="anchor" href="GF2P8AFFINEINVQB.html#gf2p8affineinvqb-srcdest--src1--imm8--128b-sse-encoded-version-">
+			&para;
+		</a></h4>
+<pre>FOR j &larr; 0 TO 1:
+    FOR b &larr; 0 to 7:
+        SRCDEST.qword[j].byte[b] &larr; affine_inverse_byte(SRC1.qword[j], SRCDEST.qword[j].byte[b], imm8)
+</pre>
+<h3 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="GF2P8AFFINEINVQB.html#intel-c-c++-compiler-intrinsic-equivalent">
+			&para;
+		</a></h3>
+<pre>GF2P8AFFINEINVQB __m128i _mm_gf2p8affineinv_epi64_epi8(__m128i, __m128i, int);
+</pre>
+<pre>GF2P8AFFINEINVQB __m128i _mm_mask_gf2p8affineinv_epi64_epi8(__m128i, __mmask16, __m128i, __m128i, int);
+</pre>
+<pre>GF2P8AFFINEINVQB __m128i _mm_maskz_gf2p8affineinv_epi64_epi8(__mmask16, __m128i, __m128i, int);
+</pre>
+<h3 class="exceptions" id="simd-floating-point-exceptions">SIMD Floating-Point Exceptions<a class="anchor" href="GF2P8AFFINEINVQB.html#simd-floating-point-exceptions">
+			&para;
+		</a></h3>
+<p>None.</p>
+<h3 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="GF2P8AFFINEINVQB.html#other-exceptions">
+			&para;
+		</a></h3>
+<p>Legacy-encoded: Exceptions Type 4.</p><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+	</p></footer>
+</body></html>

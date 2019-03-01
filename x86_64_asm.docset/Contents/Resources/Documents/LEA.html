@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-232"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/LEA"></a><title>LEA</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>November 2018</li></ul></nav></header><h1>LEA
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-236"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/LEA"></a><title>LEA</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>January 2019</li></ul></nav></header><h1>LEA
 		&mdash; Load Effective Address</h1>
 
 <table>
@@ -50,7 +50,7 @@
 			&para;
 		</a></h2>
 <p>Computes the effective address of the second operand (the source operand) and stores it in the first operand (destination operand). The source operand is a memory address (offset part) specified with one of the processors addressing modes; the destination operand is a general-purpose register. The address-size and operand-size attributes affect the action performed by this instruction, as shown in the following table. The operand-size attribute of the instruction is determined by the chosen register; the address-size attribute is determined by the attribute of the code segment.</p>
-<figure id="tbl-3-53">
+<figure id="tbl-3-54">
 <table>
 <tbody><tr>
 <th>Operand Size</th>
@@ -72,10 +72,10 @@
 <td>32</td>
 <td>32</td>
 <td>32-bit effective address is calculated and stored in the requested 32-bit register destination.</td></tr></tbody></table>
-<figcaption><a href="LEA.html#tbl-3-53">Table 3-53</a>. Non-64-bit Mode LEA Operation with Address and Operand Size Attributes</figcaption></figure>
+<figcaption><a href="LEA.html#tbl-3-54">Table 3-54</a>. Non-64-bit Mode LEA Operation with Address and Operand Size Attributes</figcaption></figure>
 <p>Different assemblers may use different algorithms based on the size attribute and symbolic reference of the source operand.</p>
-<p>In 64-bit mode, the instruction&rsquo;s destination operand is governed by operand size attribute, the default operand size is 32 bits. Address calculation is governed by address size attribute, the default address size is 64-bits. In 64-bit mode, address size of 16 bits is not encodable. See <a href="LEA.html#tbl-3-54">Table 3-54</a>.</p>
-<figure id="tbl-3-54">
+<p>In 64-bit mode, the instruction&rsquo;s destination operand is governed by operand size attribute, the default operand size is 32 bits. Address calculation is governed by address size attribute, the default address size is 64-bits. In 64-bit mode, address size of 16 bits is not encodable. See <a href="LEA.html#tbl-3-55">Table 3-55</a>.</p>
+<figure id="tbl-3-55">
 <table>
 <tbody><tr>
 <th>Operand Size</th>
@@ -105,7 +105,7 @@
 <td>64</td>
 <td>64</td>
 <td>64-bit effective address is calculated (default address size) and all 64-bits of the address are stored in the requested 64-bit register destination (using REX.W).</td></tr></tbody></table>
-<figcaption><a href="LEA.html#tbl-3-54">Table 3-54</a>. 64-bit Mode LEA Operation with Address and Operand Size Attributes</figcaption></figure>
+<figcaption><a href="LEA.html#tbl-3-55">Table 3-55</a>. 64-bit Mode LEA Operation with Address and Operand Size Attributes</figcaption></figure>
 <h2 id="operation">Operation<a class="anchor" href="LEA.html#operation">
 			&para;
 		</a></h2>

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-199"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/IDIV"></a><title>IDIV</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>November 2018</li></ul></nav></header><h1>IDIV
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-203"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/IDIV"></a><title>IDIV</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>January 2019</li></ul></nav></header><h1>IDIV
 		&mdash; Signed Divide</h1>
 
 <table>
@@ -68,8 +68,8 @@
 <p>Divides the (signed) value in the AX, DX:AX, or EDX:EAX (dividend) by the source operand (divisor) and stores the result in the AX (AH:AL), DX:AX, or EDX:EAX registers. The source operand can be a general-purpose register or a memory location. The action of this instruction depends on the operand size (dividend/divisor).</p>
 <p>Non-integral results are truncated (chopped) towards 0. The remainder is always less than the divisor in magnitude. Overflow is indicated with the #DE (divide error) exception rather than with the CF flag.</p>
 <p>In 64-bit mode, the instruction&rsquo;s default operation size is 32 bits. Use of the REX.R prefix permits access to additional registers (R8-R15). Use of the REX.W prefix promotes operation to 64 bits. In 64-bit mode when REX.W is applied, the instruction divides the signed value in RDX:RAX by the source operand. RAX contains a 64-bit quotient; RDX contains a 64-bit remainder.</p>
-<p>See the summary chart at the beginning of this section for encoding data and limits. See <a href="IDIV.html#tbl-3-50">Table 3-50</a>.</p>
-<figure id="tbl-3-50">
+<p>See the summary chart at the beginning of this section for encoding data and limits. See <a href="IDIV.html#tbl-3-51">Table 3-51</a>.</p>
+<figure id="tbl-3-51">
 <table>
 <tbody><tr>
 <th>Operand Size</th>
@@ -85,7 +85,7 @@
 <td>AL AX EAX RAX</td>
 <td>AH DX EDX RDX</td>
 <td>&minus;128 to +127 &minus;32,768 to +32,767 &minus;2<sup>31</sup> to 2<sup>31</sup> &minus; 1 &minus;2<sup>63</sup> to 2<sup>63</sup> &minus; 1</td></tr></tbody></table>
-<figcaption><a href="IDIV.html#tbl-3-50">Table 3-50</a>. IDIV Results</figcaption></figure>
+<figcaption><a href="IDIV.html#tbl-3-51">Table 3-51</a>. IDIV Results</figcaption></figure>
 <h2 id="operation">Operation<a class="anchor" href="IDIV.html#operation">
 			&para;
 		</a></h2>

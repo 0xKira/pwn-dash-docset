@@ -1,0 +1,83 @@
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-197"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/GF2P8MULB"></a><title>GF2P8MULB</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>January 2019</li></ul></nav></header><h1>GF2P8MULB
+		&mdash; Galois Field Multiply Bytes</h1>
+
+<table>
+<tbody><tr>
+<th>Opcode/Instruction</th>
+<th>Op/En</th>
+<th>64/32 bit Mode Support</th>
+<th>CPUID Feature Flag</th>
+<th>Description</th></tr>
+<tr>
+<td>66 0F38 CF /r GF2P8MULB xmm1, xmm2/m128</td>
+<td>A</td>
+<td>V/V</td>
+<td>GFNI</td>
+<td>Multiplies elements in the finite field GF(2^8).</td></tr></tbody></table>
+<h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="GF2P8MULB.html#instruction-operand-encoding">
+			&para;
+		</a></h2>
+<table>
+<tbody><tr>
+<th>Op/En</th>
+<th>Tuple</th>
+<th>Operand 1</th>
+<th>Operand 2</th>
+<th>Operand 3</th>
+<th>Operand 4</th></tr>
+<tr>
+<td>A</td>
+<td>NA</td>
+<td>ModRM:reg (r, w)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td>
+<td>NA</td></tr></tbody></table>
+<h3 id="description">Description<a class="anchor" href="GF2P8MULB.html#description">
+			&para;
+		</a></h3>
+<p>The instruction multiplies elements in the finite field GF(2<sup>8</sup>), operating on a byte (field element) in the first source operand and the corresponding byte in a second source operand. The field GF(2<sup>8</sup>) is represented in polynomial representation with the reduction polynomial x<sup>8</sup> + x<sup>4</sup> + x<sup>3</sup> + x + 1.</p>
+<p>This instruction does not support broadcasting.</p>
+<p>The SSE encoded forms of the instruction require16B alignment on their memory operations.</p>
+<h3 id="operation">Operation<a class="anchor" href="GF2P8MULB.html#operation">
+			&para;
+		</a></h3>
+<pre>define gf2p8mul_byte(src1byte, src2byte):
+    tword &larr; 0
+    FOR i &larr; 0 to 7:
+        IF src2byte.bit[i]:
+            tword &larr; tword XOR (src1byte&lt;&lt; i)
+        * carry out polynomial reduction by the characteristic polynomial p*
+    FOR i &larr; 14 downto 8:
+        p &larr; 0x11B &lt;&lt; (i-8) *0x11B = 0000_0001_0001_1011 in binary*
+        IF tword.bit[i]:
+            tword &larr; tword XOR p
+return tword.byte[0]
+</pre>
+<h4 id="gf2p8mulb-srcdest--src1--128b-sse-encoded-version-">GF2P8MULB srcdest, src1 (128b SSE encoded version)<a class="anchor" href="GF2P8MULB.html#gf2p8mulb-srcdest--src1--128b-sse-encoded-version-">
+			&para;
+		</a></h4>
+<pre>FOR j &larr; 0 TO 15:
+    SRCDEST.byte[j] &larr; gf2p8mul_byte(SRCDEST.byte[j], SRC1.byte[j])
+</pre>
+<h3 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="GF2P8MULB.html#intel-c-c++-compiler-intrinsic-equivalent">
+			&para;
+		</a></h3>
+<pre>VGF2P8MULB __m128i _mm_gf2p8mul_epi8(__m128i, __m128i);
+</pre>
+<pre>VGF2P8MULB __m128i _mm_mask_gf2p8mul_epi8(__m128i, __mmask16, __m128i, __m128i);
+</pre>
+<pre>VGF2P8MULB __m128i _mm_maskz_gf2p8mul_epi8(__mmask16, __m128i, __m128i);
+</pre>
+<h3 class="exceptions" id="simd-floating-point-exceptions">SIMD Floating-Point Exceptions<a class="anchor" href="GF2P8MULB.html#simd-floating-point-exceptions">
+			&para;
+		</a></h3>
+<p>None.</p>
+<h3 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="GF2P8MULB.html#other-exceptions">
+			&para;
+		</a></h3>
+<p>Legacy-encoded: Exceptions Type 4.</p><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+	</p></footer>
+</body></html>

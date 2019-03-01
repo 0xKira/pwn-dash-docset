@@ -1,0 +1,135 @@
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-269"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/MOVDIRI"></a><title>MOVDIRI</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>January 2019</li></ul></nav></header><h1>MOVDIRI
+		&mdash; Move Doubleword as Direct Store</h1>
+
+<table>
+<tbody><tr>
+<th>Opcode/Instruction</th>
+<th>Op/En</th>
+<th>64/32 bit Mode Support</th>
+<th>CPUID Feature Flag</th>
+<th>Description</th></tr>
+<tr>
+<td>NP 0F 38 F9 /r MOVDIRI m32, r32</td>
+<td>A</td>
+<td>V/V</td>
+<td>MOVDIRI</td>
+<td>Move doubleword from r32 to m32 using direct store.</td></tr>
+<tr>
+<td>NP REX.W + 0F 38 F9 /r MOVDIRI m64, r64</td>
+<td>A</td>
+<td>V/N.E.</td>
+<td>MOVDIRI</td>
+<td>Move quadword from r64 to m64 using direct store.</td></tr></tbody></table>
+<h2 id="instruction-operand-encoding">Instruction Operand Encoding<sup>1</sup><a class="anchor" href="MOVDIRI.html#instruction-operand-encoding">
+			&para;
+		</a></h2>
+<blockquote>
+<p>1. The Mod field of the ModR/M byte cannot have value 11B.</p></blockquote>
+<table>
+<tbody><tr>
+<th>Op/En</th>
+<th>Tuple</th>
+<th>Operand 1</th>
+<th>Operand 2</th>
+<th>Operand 3</th>
+<th>Operand 4</th></tr>
+<tr>
+<td>A</td>
+<td>NA</td>
+<td>ModRM:r/m (w)</td>
+<td>ModRM:reg (r)</td>
+<td>NA</td>
+<td>NA</td></tr></tbody></table>
+<h2 id="description">Description<a class="anchor" href="MOVDIRI.html#description">
+			&para;
+		</a></h2>
+<p>Moves the doubleword integer in the source operand (second operand) to the destination operand (first operand) using a direct-store operation. The source operand is a general purpose register. The destination operand is a 32-bit memory location. In 64-bit mode, the instruction&rsquo;s default operation size is 32 bits. Use of the REX.R prefix permits access to additional registers (R8-R15). Use of the REX.W prefix promotes operation to 64 bits. See summary chart at the beginning of this section for encoding data and limits.</p>
+<p>The direct-store is implemented by using write combining (WC) memory type protocol for writing data. Using this protocol, the processor does not write the data into the cache hierarchy, nor does it fetch the corresponding cache line from memory into the cache hierarchy. If the destination address is cached, the line is written-back (if modified) and invalidated from the cache, before the direct-store. Unlike stores with non-temporal hint that allow uncached (UC) and write-protected (WP) memory-type for the destination to override the non-temporal hint, direct-stores always follow WC memory type protocol irrespective of the destination address memory type (including UC and WP types).</p>
+<p>Unlike WC stores and stores with non-temporal hint, direct-stores are eligible for immediate eviction from the write-combining buffer, and thus not combined with younger stores (including direct-stores) to the same address. Older WC and non-temporal stores held in the write-combing buffer may be combined with younger direct stores to the same address. Because WC protocol used by direct-stores follows a weakly-ordered memory consistency model, a fencing operation using SFENCE or MFENCE should follow the MOVDIRI instruction to enforce ordering when needed.</p>
+<p>Direct-stores issued by MOVDIRI to a destination aligned to a 4-byte boundary (8-byte boundary if used with REX.W prefix) guarantee 4-byte (8-byte with REX.W prefix) write-completion atomicity. This means that the data arrives at the destination in a single undivided 4-byte (or 8-byte) write transaction. If the destination is not aligned for the write size, the direct-stores issued by MOVDIRI are split and arrive at the destination in two parts. Each part of such split direct-store will not merge with younger stores but can arrive at the destination in either order. Availability of the MOVDIRI instruction is indicated by the presence of the CPUID feature flag MOVDIRI (bit 27 of the ECX register in leaf 07H, see &ldquo;CPUID&mdash;CPU Identification&rdquo; in the <em>Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 2A</em>).</p>
+<h2 id="operation">Operation<a class="anchor" href="MOVDIRI.html#operation">
+			&para;
+		</a></h2>
+<pre>DEST &larr; SRC;
+</pre>
+<h3 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="MOVDIRI.html#intel-c-c++-compiler-intrinsic-equivalent">
+			&para;
+		</a></h3>
+<pre>MOVDIRI void _directstoreu_u32(void *dst, uint32_t val)
+</pre>
+<pre>MOVDIRI void _directstoreu_u64(void *dst, uint64_t val)
+</pre>
+<h2 class="exceptions" id="protected-mode-exceptions">Protected Mode Exceptions<a class="anchor" href="MOVDIRI.html#protected-mode-exceptions">
+			&para;
+		</a></h2>
+<table>
+<tbody><tr>
+<td>#GP(0)</td>
+<td>For an illegal memory operand effective address in the CS, DS, ES, FS or GS segments.</td></tr>
+<tr>
+<td>#SS(0)</td>
+<td>For an illegal address in the SS segment.</td></tr>
+<tr>
+<td>#PF</td>
+<td>(fault-code) For a page fault.</td></tr>
+<tr>
+<td rowspan="2">#UD</td>
+<td>If CPUID.07H.0H:ECX.MOVDIRI[bit 27] = 0.</td></tr>
+<tr>
+<td>If LOCK prefix or operand-size (66H) prefix is used.</td></tr>
+<tr>
+<td>#AC</td>
+<td>If alignment checking is enabled and an unaligned memory reference made while in current privilege level 3.</td></tr></tbody></table>
+<h2 class="exceptions" id="real-address-mode-exceptions">Real-Address Mode Exceptions<a class="anchor" href="MOVDIRI.html#real-address-mode-exceptions">
+			&para;
+		</a></h2>
+<table>
+<tbody><tr>
+<td>#GP</td>
+<td>If any part of the operand lies outside the effective address space from 0 to FFFFH.</td></tr>
+<tr>
+<td rowspan="2">#UD</td>
+<td>If CPUID.07H.0H:ECX.MOVDIRI[bit 27] = 0.</td></tr>
+<tr>
+<td>If LOCK prefix or operand-size (66H) prefix is used.</td></tr></tbody></table>
+<h2 class="exceptions" id="virtual-8086-mode-exceptions">Virtual-8086 Mode Exceptions<a class="anchor" href="MOVDIRI.html#virtual-8086-mode-exceptions">
+			&para;
+		</a></h2>
+<p>Same exceptions as in real address mode.</p>
+<table>
+<tbody><tr>
+<td>#PF</td>
+<td>(fault-code) For a page fault.</td></tr>
+<tr>
+<td>#AC</td>
+<td>If alignment checking is enabled and an unaligned memory reference made while in current privilege level 3.</td></tr></tbody></table>
+<h2 class="exceptions" id="compatibility-mode-exceptions">Compatibility Mode Exceptions<a class="anchor" href="MOVDIRI.html#compatibility-mode-exceptions">
+			&para;
+		</a></h2>
+<p>Same exceptions as in protected mode.</p>
+<h2 class="exceptions" id="64-bit-mode-exceptions">64-Bit Mode Exceptions<a class="anchor" href="MOVDIRI.html#64-bit-mode-exceptions">
+			&para;
+		</a></h2>
+<table>
+<tbody><tr>
+<td>#SS(0)</td>
+<td>If memory address referencing the SS segment is in non-canonical form.</td></tr>
+<tr>
+<td>#GP(0)</td>
+<td>If the memory address is in non-canonical form.</td></tr>
+<tr>
+<td>#PF</td>
+<td>(fault-code) For a page fault.</td></tr>
+<tr>
+<td rowspan="2">#UD</td>
+<td>If CPUID.07H.0H:ECX.MOVDIRI[bit 27] = 0.</td></tr>
+<tr>
+<td>If LOCK prefix or operand-size (66H) prefix is used.</td></tr>
+<tr>
+<td>#AC</td>
+<td>If alignment checking is enabled and an unaligned memory reference made while in current privilege level 3.</td></tr></tbody></table><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+	</p></footer>
+</body></html>

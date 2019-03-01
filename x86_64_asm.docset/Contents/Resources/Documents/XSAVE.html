@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-677"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/XSAVE"></a><title>XSAVE</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>November 2018</li></ul></nav></header><h1>XSAVE
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-686"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/XSAVE"></a><title>XSAVE</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>January 2019</li></ul></nav></header><h1>XSAVE
 		&mdash; Save Processor Extended States</h1>
 
 <table>
@@ -40,8 +40,8 @@
 			&para;
 		</a></h2>
 <p>Performs a full or partial save of processor state components to the XSAVE area located at the memory address specified by the destination operand. The implicit EDX:EAX register pair specifies a 64-bit instruction mask. The specific state components saved correspond to the bits set in the requested-feature bitmap (RFBM), which is the logical-AND of EDX:EAX and XCR0.</p>
-<p>The format of the XSAVE area is detailed in Section 13.4, &ldquo;XSAVE Area,&rdquo; of <em>Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 1</em>.</p>
-<p>Section 13.7, &ldquo;Operation of XSAVE,&rdquo; of <em>Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 1</em> provides a detailed description of the operation of the XSAVE instruction. The following items provide a high-level outline:</p>
+<p>The format of the XSAVE area is detailed in Section 13.4, &ldquo;XSAVE Area,&rdquo; of <em>Intel<sup>&reg;</sup> 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 1</em>.</p>
+<p>Section 13.7, &ldquo;Operation of XSAVE,&rdquo; of <em>Intel<sup>&reg;</sup> 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 1</em> provides a detailed description of the operation of the XSAVE instruction. The following items provide a high-level outline:</p>
 <ul>
 <li>XSAVE saves state component <em>i </em>if and only if RFBM[<em>i</em>] = 1.<sup>1</sup></li>
 <li>XSAVE does not modify bytes 511:464 of the legacy region of the XSAVE area (see Section 13.4.1, &ldquo;Legacy Region of an XSAVE Area&rdquo;).</li>

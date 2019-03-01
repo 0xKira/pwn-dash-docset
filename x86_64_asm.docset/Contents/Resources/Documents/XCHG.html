@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-668"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/XCHG"></a><title>XCHG</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>November 2018</li></ul></nav></header><h1>XCHG
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-677"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/XCHG"></a><title>XCHG</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>January 2019</li></ul></nav></header><h1>XCHG
 		&mdash; Exchange Register/Memory with Register</h1>
 
 <table>
@@ -161,7 +161,7 @@
 			&para;
 		</a></h2>
 <p>Exchanges the contents of the destination (first) and source (second) operands. The operands can be two general-purpose registers or a register and a memory location. If a memory operand is referenced, the processor&rsquo;s locking protocol is automatically implemented for the duration of the exchange operation, regardless of the presence or absence of the LOCK prefix or of the value of the IOPL. (See the LOCK prefix description in this chapter for more information on the locking protocol.)</p>
-<p>This instruction is useful for implementing semaphores or similar data structures for process synchronization. (See &ldquo;Bus Locking&rdquo; in Chapter 8 of the <em>Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 3A</em>, for more information on bus locking.)</p>
+<p>This instruction is useful for implementing semaphores or similar data structures for process synchronization. (See &ldquo;Bus Locking&rdquo; in Chapter 8 of the <em>Intel<sup>&reg;</sup> 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 3A</em>, for more information on bus locking.)</p>
 <p>The XCHG instruction can also be used instead of the BSWAP instruction for 16-bit operands.</p>
 <p>In 64-bit mode, the instruction&rsquo;s default operation size is 32 bits. Using a REX prefix in the form of REX.R permits access to additional registers (R8-R15). Using a REX prefix in the form of REX.W promotes operation to 64 bits. See the summary chart at the beginning of this section for encoding data and limits.</p>
 <blockquote>

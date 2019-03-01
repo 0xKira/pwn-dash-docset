@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-209"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/INVPCID"></a><title>INVPCID</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>November 2018</li></ul></nav></header><h1>INVPCID
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-213"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/INVPCID"></a><title>INVPCID</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>January 2019</li></ul></nav></header><h1>INVPCID
 		&mdash; Invalidate Process-Context Identifier</h1>
 
 <table>
@@ -47,12 +47,10 @@
 <li>Single-context invalidation: If the INVPCID type is 1, the logical processor invalidates all mappings&mdash;except global translations&mdash;associated with the PCID specified in the INVPCID descriptor. In some cases, the instruction may invalidate global translations or mappings for other PCIDs as well.</li>
 <li>All-context invalidation, including global translations: If the INVPCID type is 2, the logical processor invalidates all mappings&mdash;including global translations&mdash;associated with any PCID.</li>
 <li>All-context invalidation: If the INVPCID type is 3, the logical processor invalidates all mappings&mdash;except global translations&mdash;associated with any PCID. In some case, the instruction may invalidate global translations as well.</li></ul>
-<blockquote>
-<p>1. If the paging structures map the linear address using a page larger than 4 KBytes and there are multiple TLB entries for that page (see Section 4.10.2.3, &ldquo;Details of TLB Use,&rdquo; in the <em>Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 3A</em>), the instruction invalidates all of them.</p></blockquote>
 <p>The INVPCID descriptor comprises 128 bits and consists of a PCID and a linear address as shown in <a href="INVPCID.html#fig-3-24">Figure 3-24</a>. For INVPCID type 0, the processor uses the full 64 bits of the linear address even outside 64-bit mode; the linear address is not used for other INVPCID types.</p>
 <figure id="fig-3-24">
 <svg style="width: 455.616pt; height: 91.08pt" viewBox="109.10000000000001 0.0 384.68 80.9">
-<g xmlns="http://www.w3.org/2000/svg" style="stroke: none; fill: none">
+<g xmlns="http://www.w3.org/2000/svg" style="fill: none; stroke: none">
 <rect height="74.94" style="fill: rgb(0%, 0%, 0%)" width="0.48" x="111.60000000000001" y="0.47999999999998977"></rect>
 <rect height="74.94" style="fill: rgb(0%, 0%, 0%)" width="0.47998" x="490.8" y="0.47999999999998977"></rect>
 <rect height="0.48" style="fill: rgb(0%, 0%, 0%)" width="379.68" x="111.60000000000001" y="0.0"></rect>
@@ -73,7 +71,9 @@
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 10.107835200000011pt; fill: #000" textLength="98.8792638400003" x="318.72065848" y="42.831397159999966">Reserved (must be zero)</text>
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 10.107835200000011pt; fill: #000" textLength="21.554324559999998" x="433.88567364000005" y="42.831397159999966">PCID</text></g></svg>
 <figcaption><a href="INVPCID.html#fig-3-24">Figure 3-24</a>. INVPCID Descriptor</figcaption></figure>
-<p>If CR4.PCIDE = 0, a logical processor does not cache information for any PCID other than 000H. In this case, executions with INVPCID types 0 and 1 are allowed only if the PCID specified in the INVPCID descriptor is 000H; executions with INVPCID types 2 and 3 invalidate mappings only for PCID 000H. Note that CR4.PCIDE must be 0 outside 64-bit mode (see Chapter 4.10.1, &ldquo;Process-Context Identifiers (PCIDs)&sbquo;&rdquo; of the <em>Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 3A</em>).</p>
+<blockquote>
+<p>1. If the paging structures map the linear address using a page larger than 4 KBytes and there are multiple TLB entries for that page (see Section 4.10.2.3, &ldquo;Details of TLB Use,&rdquo; in the <em>Intel<sup>&reg;</sup> 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 3A</em>), the instruction invalidates all of them.</p></blockquote>
+<p>If CR4.PCIDE = 0, a logical processor does not cache information for any PCID other than 000H. In this case, executions with INVPCID types 0 and 1 are allowed only if the PCID specified in the INVPCID descriptor is 000H; executions with INVPCID types 2 and 3 invalidate mappings only for PCID 000H. Note that CR4.PCIDE must be 0 outside 64-bit mode (see Chapter 4.10.1, &ldquo;Process-Context Identifiers (PCIDs)&sbquo;&rdquo; of the <em>Intel<sup>&reg;</sup> 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 3A</em>).</p>
 <h2 id="operation">Operation<a class="anchor" href="INVPCID.html#operation">
 			&para;
 		</a></h2>

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-148"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/FCMOVcc"></a><title>FCMOVcc</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>November 2018</li></ul></nav></header><h1>FCMOVcc
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-149"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/FCMOVcc"></a><title>FCMOVcc</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>January 2019</li></ul></nav></header><h1>FCMOVcc
 		&mdash; Floating-Point Conditional Move</h1>
 
 <table>
@@ -61,7 +61,7 @@
 <h2 id="description">Description<a class="anchor" href="FCMOVcc.html#description">
 			&para;
 		</a></h2>
-<p>Tests the status flags in the EFLAGS register and moves the source operand (second operand) to the destination operand (first operand) if the given test condition is true. The condition for each mnemonic os given in the Description column above and in Chapter 8 in the <em>Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 1</em>. The source operand is always in the ST(i) register and the destination operand is always ST(0).</p>
+<p>Tests the status flags in the EFLAGS register and moves the source operand (second operand) to the destination operand (first operand) if the given test condition is true. The condition for each mnemonic os given in the Description column above and in Chapter 8 in the <em>Intel<sup>&reg;</sup> 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 1</em>. The source operand is always in the ST(i) register and the destination operand is always ST(0).</p>
 <p>The FCMOV<em>cc</em> instructions are useful for optimizing small IF constructions. They also help eliminate branching overhead for IF operations and the possibility of branch mispredictions by the processor.</p>
 <p>A processor may not support the FCMOV<em>cc</em> instructions. Software can check if the FCMOV<em>cc</em> instructions are supported by checking the processor&rsquo;s feature information with the CPUID instruction (see &ldquo;COMISS&mdash;Compare Scalar Ordered Single-Precision Floating-Point Values and Set EFLAGS&rdquo; in this chapter). If both the CMOV and FPU feature bits are set, the FCMOV<em>cc</em> instructions are supported.</p>
 <p>This instruction&rsquo;s operation is the same in non-64-bit modes and 64-bit mode.</p>

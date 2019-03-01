@@ -1,0 +1,126 @@
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-470"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/UMONITOR"></a><title>UMONITOR</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>January 2019</li></ul></nav></header><h1>UMONITOR
+		&mdash; User Level Set Up Monitor Address</h1>
+
+<table>
+<tbody><tr>
+<th>Opcode / Instruction</th>
+<th>Op/En</th>
+<th>64/32 bit Mode Support</th>
+<th>CPUID Feature Flag</th>
+<th>Description</th></tr>
+<tr>
+<td>F3 0F AE /6 UMONITOR r16/r32/r64</td>
+<td>A</td>
+<td>V/V</td>
+<td>WAITPKG</td>
+<td>Sets up a linear address range to be monitored by hardware and activates the monitor. The address range should be a write-back memory caching type. The address is contained in r16/r32/r64.</td></tr></tbody></table>
+<h2 id="instruction-operand-encoding">Instruction Operand Encoding<sup>1</sup><a class="anchor" href="UMONITOR.html#instruction-operand-encoding">
+			&para;
+		</a></h2>
+<blockquote>
+<p>1. The Mod field of the ModR/M byte must have value 11B.</p></blockquote>
+<table>
+<tbody><tr>
+<th>Op/En</th>
+<th>Tuple</th>
+<th>Operand 1</th>
+<th>Operand 2</th>
+<th>Operand 3</th>
+<th>Operand 4</th></tr>
+<tr>
+<td>A</td>
+<td>NA</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td></tr></tbody></table>
+<h2 id="description">Description<a class="anchor" href="UMONITOR.html#description">
+			&para;
+		</a></h2>
+<p>The UMONITOR instruction arms address monitoring hardware using an address specified in the source register (the address range that the monitoring hardware checks for store operations can be determined by using the CPUID monitor leaf function, EAX=05H). A store to an address within the specified address range triggers the monitoring hardware. The state of monitor hardware is used by UMWAIT.</p>
+<p>The content of the source register is an effective address. By default, the DS segment is used to create a linear address that is monitored. Segment overrides can be used. The address range must use memory of the write-back type. Only write-back memory is guaranteed to correctly trigger the monitoring hardware. Additional information on determining what address range to use in order to prevent false wake-ups is described in Chapter 8, &ldquo;MultipleProcessor Management&rdquo; of the <em>Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 3A</em>.</p>
+<p>The UMONITOR instruction is ordered as a load operation with respect to other memory transactions. The instruction is subject to the permission checking and faults associated with a byte load. Like a load, UMONITOR sets the A-bit but not the D-bit in page tables.</p>
+<p>UMONITOR and UMWAIT are available when CPUID.7.0:ECX.WAITPKG[bit 5] is enumerated as 1. UMONITOR and UMWAIT may be executed at any privilege level. Except for the width of the source register, the instruction&rsquo;s operation is the same in non-64-bit modes and in 64-bit mode.</p>
+<p>UMONITOR does not interoperate with the legacy MWAIT instruction. If UMONITOR was executed prior to executing MWAIT and following the most recent execution of the legacy MONITOR instruction, MWAIT will not enter an optimized state. Execution will continue to the instruction following MWAIT.</p>
+<p>The UMONITOR instruction causes a transactional abort when used inside a transactional region.</p>
+<p>The width of the source register (16b, 32b or 64b) is determined by the effective addressing width, which is affected in the standard way by the machine mode settings and 67 prefix.</p>
+<h2 id="operation">Operation<a class="anchor" href="UMONITOR.html#operation">
+			&para;
+		</a></h2>
+<pre>UMONITOR sets up an address range for the monitor hardware using the content of source register as an effective
+address and puts the monitor hardware in armed state. A store to the specified address range will trigger the
+monitor hardware.
+</pre>
+<h2 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="UMONITOR.html#intel-c-c++-compiler-intrinsic-equivalent">
+			&para;
+		</a></h2>
+<pre>UMONITOR void _umonitor(void *address);
+</pre>
+<h2 class="exceptions" id="numeric-exceptions">Numeric Exceptions<a class="anchor" href="UMONITOR.html#numeric-exceptions">
+			&para;
+		</a></h2>
+<p>None</p>
+<h2 class="exceptions" id="protected-mode-exceptions">Protected Mode Exceptions<a class="anchor" href="UMONITOR.html#protected-mode-exceptions">
+			&para;
+		</a></h2>
+<table>
+<tbody><tr>
+<td rowspan="2">#GP(0)</td>
+<td>If the specified segment is not SS and the source register is outside the specified segment limit.</td></tr>
+<tr>
+<td>If the specified segment register contains a NULL segment selector.</td></tr>
+<tr>
+<td>#SS(0)</td>
+<td>If the specified segment is SS and the source register is outside the SS segment limit.</td></tr>
+<tr>
+<td>#PF(fault-code)</td>
+<td>For a page fault.</td></tr>
+<tr>
+<td>#UD</td>
+<td>If CPUID.7.0:ECX.WAITPKG[bit 5]=0.</td></tr></tbody></table>
+<h2 class="exceptions" id="real-address-mode-exceptions">Real Address Mode Exceptions<a class="anchor" href="UMONITOR.html#real-address-mode-exceptions">
+			&para;
+		</a></h2>
+<table>
+<tbody><tr>
+<td>#GP</td>
+<td>If the specified segment is not SS and the source register is outside of the effective address space from 0 to FFFFH.</td></tr>
+<tr>
+<td>#SS</td>
+<td>If the specified segment is SS and the source register is outside of the effective address space from 0 to FFFFH.</td></tr>
+<tr>
+<td>#UD</td>
+<td>If CPUID.7.0:ECX.WAITPKG[bit 5]=0.</td></tr></tbody></table>
+<h2 class="exceptions" id="virtual-8086-mode-exceptions">Virtual 8086 Mode Exceptions<a class="anchor" href="UMONITOR.html#virtual-8086-mode-exceptions">
+			&para;
+		</a></h2>
+<p>Same exceptions as in real address mode; additionally:</p>
+<table>
+<tbody><tr>
+<td>#PF(fault-code)</td>
+<td>For a page fault.</td></tr></tbody></table>
+<h2 class="exceptions" id="compatibility-mode-exceptions">Compatibility Mode Exceptions<a class="anchor" href="UMONITOR.html#compatibility-mode-exceptions">
+			&para;
+		</a></h2>
+<p>Same exceptions as in protected mode.</p>
+<h2 class="exceptions" id="64-bit-mode-exceptions">64-Bit Mode Exceptions<a class="anchor" href="UMONITOR.html#64-bit-mode-exceptions">
+			&para;
+		</a></h2>
+<table>
+<tbody><tr>
+<td>#GP(0)</td>
+<td>If the specified segment is not SS and the linear address is in non-canonical form.</td></tr>
+<tr>
+<td>#SS(0)</td>
+<td>If the specified segment is SS and the source register is in non-canonical form.</td></tr>
+<tr>
+<td>#PF(fault-code)</td>
+<td>For a page fault.</td></tr>
+<tr>
+<td>#UD</td>
+<td>If CPUID.7.0:ECX.WAITPKG[bit 5]=0.</td></tr></tbody></table><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+	</p></footer>
+</body></html>

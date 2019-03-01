@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-241"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/LSL"></a><title>LSL</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>November 2018</li></ul></nav></header><h1>LSL
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-245"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/LSL"></a><title>LSL</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>January 2019</li></ul></nav></header><h1>LSL
 		&mdash; Load Segment Limit</h1>
 
 <table>
@@ -62,7 +62,7 @@
 <li>Checks that the descriptor type is valid for this instruction. All code and data segment descriptors are valid for (can be accessed with) the LSL instruction. The valid special segment and gate descriptor types are given in the following table.</li>
 <li>If the segment is not a conforming code segment, the instruction checks that the specified segment descriptor is visible at the CPL (that is, if the CPL and the RPL of the segment selector are less than or equal to the DPL of the segment selector).</li></ul>
 <p>If the segment descriptor cannot be accessed or is an invalid type for the instruction, the ZF flag is cleared and no value is loaded in the destination operand.</p>
-<figure id="tbl-3-55">
+<figure id="tbl-3-56">
 <table>
 <tbody><tr>
 <th rowspan="2">Type</th>
@@ -79,7 +79,7 @@
 <td>No Yes Yes Yes No No No No No Yes No Yes No No No No</td>
 <td>Reserved Reserved LDT<sup>1</sup> Reserved Reserved Reserved Reserved Reserved Reserved 64-bit TSS<sup>1</sup> Reserved Busy 64-bit TSS<sup>1</sup> 64-bit call gate Reserved 64-bit interrupt gate 64-bit trap gate</td>
 <td>No No Yes No No No No No No Yes No Yes No No No No</td></tr></tbody></table>
-<figcaption><a href="LSL.html#tbl-3-55">Table 3-55</a>. Segment and Gate Descriptor Types</figcaption></figure>
+<figcaption><a href="LSL.html#tbl-3-56">Table 3-56</a>. Segment and Gate Descriptor Types</figcaption></figure>
 <blockquote>
 <p>1. In this case, the descriptor comprises 16 bytes; bits 12:8 of the upper 4 bytes must be 0.</p></blockquote>
 <h2 id="operation">Operation<a class="anchor" href="LSL.html#operation">

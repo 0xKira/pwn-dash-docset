@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-387"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/PUNPCKHBW%2FPUNPCKHWD%2FPUNPCKHDQ%2FPUNPCKHQDQ"></a><title>PUNPCKHBW/PUNPCKHWD/PUNPCKHDQ/PUNPCKHQDQ</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>November 2018</li></ul></nav></header><h1>PUNPCKHBW/PUNPCKHWD/PUNPCKHDQ/PUNPCKHQDQ
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-393"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/PUNPCKHBW%2FPUNPCKHWD%2FPUNPCKHDQ%2FPUNPCKHQDQ"></a><title>PUNPCKHBW/PUNPCKHWD/PUNPCKHDQ/PUNPCKHQDQ</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>January 2019</li></ul></nav></header><h1>PUNPCKHBW/PUNPCKHWD/PUNPCKHDQ/PUNPCKHQDQ
 		&mdash; Unpack High Data</h1>
 
 
@@ -175,7 +175,7 @@
 <td>AVX512F</td>
 <td>Interleave high-order quadword from zmm2 and zmm3/m512/m64bcst into zmm1 register using k1 write mask.</td></tr></tbody></table>
 <blockquote>
-<p>1. See note in Section 2.4, &ldquo;AVX and SSE Instruction Exception Specification&rdquo; in the <em>Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 2A</em> and Section 22.25.3, &ldquo;Exception Conditions of Legacy SIMD Instructions Operating on MMX Registers&rdquo; in the <em>Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 3A</em>.</p></blockquote>
+<p>1. See note in Section 2.4, &ldquo;AVX and SSE Instruction Exception Specification&rdquo; in the <em>Intel<sup>&reg;</sup> 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 2A</em> and Section 22.25.3, &ldquo;Exception Conditions of Legacy SIMD Instructions Operating on MMX Registers&rdquo; in the <em>Intel<sup>&reg;</sup> 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 3A</em>.</p></blockquote>
 <h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="./PUNPCKHBW:PUNPCKHWD:PUNPCKHDQ:PUNPCKHQDQ.html#instruction-operand-encoding">
 			&para;
 		</a></h2>
@@ -221,7 +221,7 @@
 <p>Unpacks and interleaves the high-order data elements (bytes, words, doublewords, or quadwords) of the destination operand (first operand) and source operand (second operand) into the destination operand. <a href="./PUNPCKHBW:PUNPCKHWD:PUNPCKHDQ:PUNPCKHQDQ.html#fig-4-20">Figure 4-20</a> shows the unpack operation for bytes in 64-bit operands. The low-order data elements are ignored.</p>
 <figure id="fig-4-20">
 <svg style="width: 455.616pt; height: 117.28797599999993pt" viewBox="109.64 0.0 384.68 102.73997999999995">
-<g xmlns="http://www.w3.org/2000/svg" style="stroke: none; fill: none">
+<g xmlns="http://www.w3.org/2000/svg" style="fill: none; stroke: none">
 <rect height="96.72" style="fill: rgb(0%, 0%, 0%)" width="0.48" x="112.14" y="0.479979999999955"></rect>
 <rect height="96.72" style="fill: rgb(0%, 0%, 0%)" width="0.47998" x="491.34000000000003" y="0.479979999999955"></rect>
 <rect height="0.47998" style="fill: rgb(0%, 0%, 0%)" width="379.68" x="112.14" y="0.0"></rect>
@@ -338,38 +338,38 @@
 <path d="M 156.36 28.43997999999999 L 156.3 28.25998000000004 L 155.88000000000002 28.43997999999999 L 155.94000000000003 28.61997999999994" style="fill: rgb(0%, 0%, 0%); fill-rule: nonzero"></path>
 <path d="M 171.18 65.75997999999993 L 171.24 65.93997999999988 L 170.82 66.11997999999994 L 170.76000000000002 65.93997999999988" style="fill: rgb(0%, 0%, 0%); fill-rule: nonzero"></path>
 <path d="M 156.36 28.43997999999999 L 155.94000000000003 28.61997999999994 L 170.76000000000002 65.93997999999999 L 171.18 65.75998000000004" style="fill: rgb(0%, 0%, 0%); fill-rule: nonzero"></path>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956pt; fill: #000" textLength="4.442995999999994" x="335.6981503" y="23.52669180000009">6</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956pt; fill: #000" textLength="5.340385300000008" x="186.71794180000006" y="24.186748400000052">Y</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956pt; fill: #000" textLength="4.442995999999994" x="172.79921800000005" y="24.186748400000052">6</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956pt; fill: #000" textLength="4.442995999999994" x="354.9572594" y="23.52669180000009">5</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956pt; fill: #000" textLength="5.34038529999998" x="349.6168741" y="23.52669180000009">X</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956pt; fill: #000" textLength="5.34038529999998" x="366.65848070000004" y="23.52669180000009">X</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956pt; fill: #000" textLength="5.34038529999998" x="330.35776500000003" y="23.52669180000009">X</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956pt; fill: #000" textLength="5.34038529999998" x="313.25862320000005" y="23.52669180000009">X</text>
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956pt; fill: #000" textLength="4.442995999999994" x="318.5990085" y="23.52669180000009">7</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956pt; fill: #000" textLength="5.34038529999998" x="330.35776500000003" y="23.52669180000009">X</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956pt; fill: #000" textLength="4.442995999999994" x="335.6981503" y="23.52669180000009">6</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956pt; fill: #000" textLength="5.34038529999998" x="349.6168741" y="23.52669180000009">X</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956pt; fill: #000" textLength="4.442995999999994" x="354.9572594" y="23.52669180000009">5</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956pt; fill: #000" textLength="5.34038529999998" x="366.65848070000004" y="23.52669180000009">X</text>
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956pt; fill: #000" textLength="4.442995999999994" x="371.998866" y="23.52669180000009">4</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956pt; fill: #000" textLength="5.34038529999998" x="384.53914230000004" y="23.586624300000036">X</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956pt; fill: #000" textLength="4.442995999999994" x="389.8795276" y="23.586624300000036">3</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956pt; fill: #000" textLength="5.34038529999998" x="401.6982166" y="23.586624300000036">X</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956pt; fill: #000" textLength="4.442995999999994" x="407.0386019" y="23.586624300000036">2</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956pt; fill: #000" textLength="5.34038529999998" x="420.8973932" y="23.586624300000036">X</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956pt; fill: #000" textLength="4.442995999999994" x="426.2377785" y="23.586624300000036">1</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956pt; fill: #000" textLength="5.279653699999983" x="437.93899980000003" y="23.586624300000036">X</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956pt; fill: #000" textLength="4.442995999999994" x="443.2186535" y="23.586624300000036">0</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956pt; fill: #000" textLength="5.340385300000008" x="150.35969090000003" y="24.186748400000052">Y</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956pt; fill: #000" textLength="4.442995999999994" x="155.70007620000004" y="24.186748400000052">7</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956pt; fill: #000" textLength="5.340385300000008" x="167.45883270000004" y="24.186748400000052">Y</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956pt; fill: #000" textLength="4.442995999999994" x="172.79921800000005" y="24.186748400000052">6</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956pt; fill: #000" textLength="5.340385300000008" x="186.71794180000006" y="24.186748400000052">Y</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956pt; fill: #000" textLength="4.442995999999994" x="192.05832710000007" y="24.186748400000052">5</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956pt; fill: #000" textLength="5.340385300000008" x="203.75954840000003" y="24.186748400000052">Y</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956pt; fill: #000" textLength="4.442995999999994" x="209.09993370000004" y="24.186748400000052">4</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956pt; fill: #000" textLength="5.340385300000008" x="222.17960250000004" y="24.78687250000007">Y</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956pt; fill: #000" textLength="4.442995999999994" x="227.51998780000005" y="24.78687250000007">3</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956pt; fill: #000" textLength="5.340385300000008" x="239.27874430000006" y="24.78687250000007">Y</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956pt; fill: #000" textLength="4.442995999999994" x="244.61912960000006" y="24.78687250000007">2</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956pt; fill: #000" textLength="5.34038529999998" x="258.5378534000001" y="24.78687250000007">Y</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956pt; fill: #000" textLength="4.442995999999994" x="263.87823870000005" y="24.78687250000007">1</text>
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="16.867402799999994" x="126.89971310000003" y="23.227029300000027">SRC</text>
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="21.326380800000038" x="454.79841160000007" y="23.587423400000034">DEST</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956pt; fill: #000" textLength="5.34038529999998" x="258.5378534000001" y="24.78687250000007">Y</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956pt; fill: #000" textLength="4.442995999999994" x="244.61912960000006" y="24.78687250000007">2</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956pt; fill: #000" textLength="4.442995999999994" x="263.87823870000005" y="24.78687250000007">1</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956pt; fill: #000" textLength="4.442995999999994" x="227.51998780000005" y="24.78687250000007">3</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956pt; fill: #000" textLength="5.340385300000008" x="222.17960250000004" y="24.78687250000007">Y</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956pt; fill: #000" textLength="4.442995999999994" x="209.09993370000004" y="24.186748400000052">4</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956pt; fill: #000" textLength="5.340385300000008" x="203.75954840000003" y="24.186748400000052">Y</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956pt; fill: #000" textLength="4.442995999999994" x="192.05832710000007" y="24.186748400000052">5</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956pt; fill: #000" textLength="5.340385300000008" x="239.27874430000006" y="24.78687250000007">Y</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956pt; fill: #000" textLength="5.34038529999998" x="313.25862320000005" y="23.52669180000009">X</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956pt; fill: #000" textLength="5.340385300000008" x="167.45883270000004" y="24.186748400000052">Y</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956pt; fill: #000" textLength="4.442995999999994" x="155.70007620000004" y="24.186748400000052">7</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956pt; fill: #000" textLength="5.340385300000008" x="150.35969090000003" y="24.186748400000052">Y</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956pt; fill: #000" textLength="4.442995999999994" x="443.2186535" y="23.586624300000036">0</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956pt; fill: #000" textLength="5.279653699999983" x="437.93899980000003" y="23.586624300000036">X</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956pt; fill: #000" textLength="4.442995999999994" x="426.2377785" y="23.586624300000036">1</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956pt; fill: #000" textLength="5.34038529999998" x="420.8973932" y="23.586624300000036">X</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956pt; fill: #000" textLength="4.442995999999994" x="407.0386019" y="23.586624300000036">2</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956pt; fill: #000" textLength="5.34038529999998" x="401.6982166" y="23.586624300000036">X</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956pt; fill: #000" textLength="4.442995999999994" x="389.8795276" y="23.586624300000036">3</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956pt; fill: #000" textLength="5.34038529999998" x="384.53914230000004" y="23.586624300000036">X</text>
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="9.783381299999974" x="275.57946000000004" y="24.786872500000072">Y0</text>
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="9.783381300000002" x="168.6606791" y="85.86608100000001">Y7</text>
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="9.783381300000002" x="186.36090339999998" y="85.86608100000001">X7</text>
@@ -384,7 +384,7 @@
 <p>255 <sup>31 0</sup> 255 31 0</p>
 <figure id="fig-4-21">
 <svg style="width: 390.95958564pt; height: 97.48800000000001pt" viewBox="126.02035529999995 0.0 330.7996547 86.24000000000001">
-<g xmlns="http://www.w3.org/2000/svg" style="stroke: none; fill: none">
+<g xmlns="http://www.w3.org/2000/svg" style="fill: none; stroke: none">
 <rect height="0.48001000000000005" style="fill: rgb(0%, 0%, 0%)" width="144.24" x="278.88" y="62.759990000000016"></rect>
 <rect height="18.240000000000002" style="fill: rgb(0%, 0%, 0%)" width="0.47998" x="422.64" y="63.0"></rect>
 <rect height="0.48001000000000005" style="fill: rgb(0%, 0%, 0%)" width="144.24" x="278.64" y="80.75999000000002"></rect>
