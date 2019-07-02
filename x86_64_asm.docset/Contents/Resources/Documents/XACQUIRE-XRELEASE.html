@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-674"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/XACQUIRE%2FXRELEASE"></a><title>XACQUIRE/XRELEASE</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>January 2019</li></ul></nav></header><h1>XACQUIRE/XRELEASE
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-682"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/XACQUIRE%2FXRELEASE"></a><title>XACQUIRE/XRELEASE</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>XACQUIRE/XRELEASE
 		&mdash; Hardware Lock Elision Prefix Hints</h1>
 
 
@@ -33,7 +33,7 @@
 <li>Instructions with an explicit LOCK prefix (F0H) prepended to forms of the instruction where the destination operand is a memory operand: ADD, ADC, AND, BTC, BTR, BTS, CMPXCHG, CMPXCHG8B, DEC, INC, NEG, NOT, OR, SBB, SUB, XOR, XADD, and XCHG.</li>
 <li>The XCHG instruction either with or without the presence of the LOCK prefix.</li>
 <li>The &ldquo;MOV mem, reg&rdquo; (Opcode 88H/89H) and &ldquo;MOV mem, imm&rdquo; (Opcode C6H/C7H) instructions. In these cases, the XRELEASE is recognized without the presence of the LOCK prefix.</li></ul>
-<p>The lock variables must satisfy the guidelines described in <em>Intel<sup>&reg;</sup> 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 1</em>, Section 16.3.3, for elision to be successful, otherwise an HLE abort may be signaled.</p>
+<p>The lock variables must satisfy the guidelines described in <em>Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 1</em>, Section 16.3.3, for elision to be successful, otherwise an HLE abort may be signaled.</p>
 <p>If an encoded byte sequence that meets XACQUIRE/XRELEASE requirements includes both prefixes, then the HLE semantic is determined by the prefix byte that is placed closest to the instruction opcode. For example, an F3F2C6 will not be treated as a XRELEASE-enabled instruction since the F2H (XACQUIRE) is closest to the instruction opcode C6. Similarly, an F2F3F0 prefixed instruction will be treated as a XRELEASE-enabled instruction since F3H (XRELEASE) is closest to the instruction opcode.</p>
 <p><strong>Intel 64 and IA-32 Compatibility</strong></p>
 <p>The effect of the XACQUIRE/XRELEASE prefix hint is the same in non-64-bit modes and in 64-bit mode.</p>

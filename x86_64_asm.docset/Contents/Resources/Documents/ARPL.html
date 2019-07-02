@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-26"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/ARPL"></a><title>ARPL</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>January 2019</li></ul></nav></header><h1>ARPL
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-26"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/ARPL"></a><title>ARPL</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>ARPL
 		&mdash; Adjust RPL Field of Segment Selector</h1>
 
 <table>
@@ -12,7 +12,7 @@
 <tr>
 <td>63 /<em>r</em></td>
 <td>ARPL <em>r/m16, r16</em></td>
-<td>ZO</td>
+<td>MR</td>
 <td>N. E.</td>
 <td>Valid</td>
 <td>Adjust RPL of <em>r/m16</em> to not less than RPL of <em>r16.</em></td></tr></tbody></table>
@@ -27,7 +27,7 @@
 <td>Operand 3</td>
 <td>Operand 4</td></tr>
 <tr>
-<td>ZO</td>
+<td>MR</td>
 <td>ModRM:r/m (w)</td>
 <td>ModRM:reg (r)</td>
 <td>NA</td>
@@ -38,7 +38,7 @@
 <p>Compares the RPL fields of two segment selectors. The first operand (the destination operand) contains one segment selector and the second operand (source operand) contains the other. (The RPL field is located in bits 0 and 1 of each operand.) If the RPL field of the destination operand is less than the RPL field of the source operand, the ZF flag is set and the RPL field of the destination operand is increased to match that of the source operand. Otherwise, the ZF flag is cleared and no change is made to the destination operand. (The destination operand can be a word register or a memory location; the source operand must be a word register.)</p>
 <p>The ARPL instruction is provided for use by operating-system procedures (however, it can also be used by applications). It is generally used to adjust the RPL of a segment selector that has been passed to the operating system by an application program to match the privilege level of the application program. Here the segment selector passed to the operating system is placed in the destination operand and segment selector for the application program&rsquo;s code segment is placed in the source operand. (The RPL field in the source operand represents the privilege level of the application program.) Execution of the ARPL instruction then ensures that the RPL of the segment selector received by the operating system is no lower (does not have a higher privilege) than the privilege level of the application program (the segment selector for the application program&rsquo;s code segment can be read from the stack following a procedure call).</p>
 <p>This instruction executes as described in compatibility mode and legacy mode. It is not encodable in 64-bit mode.</p>
-<p>See &ldquo;Checking Caller Access Privileges&rdquo; in Chapter 3, &ldquo;Protected-Mode Memory Management,&rdquo; of the <em>Intel<sup>&reg;</sup> 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 3A</em>, for more information about the use of this instruction.</p>
+<p>See &ldquo;Checking Caller Access Privileges&rdquo; in Chapter 3, &ldquo;Protected-Mode Memory Management,&rdquo; of the <em>Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 3A</em>, for more information about the use of this instruction.</p>
 <h2 id="operation">Operation<a class="anchor" href="ARPL.html#operation">
 			&para;
 		</a></h2>

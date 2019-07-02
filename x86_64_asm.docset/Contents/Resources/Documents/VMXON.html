@@ -1,9 +1,31 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-572"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/VMXON"></a><title>VMXON</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>January 2019</li></ul></nav></header><h1>VMXON
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-579"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/VMXON"></a><title>VMXON</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>VMXON
 		&mdash; Enter VMX Operation</h1>
 
 <table>
 <tbody><tr>
-<td><strong>Opcode Instruction Description</strong> F3 0F C7 /6 VMXON m64 Enter VMX root operation<em>.</em></td></tr></tbody></table>
+<th>Opcode/Instruction</th>
+<th>Op/En</th>
+<th>Description</th></tr>
+<tr>
+<td>F3 0F C7 /6 VMXON m64</td>
+<td>M</td>
+<td>Enter VMX root operation<em>.</em></td></tr></tbody></table>
+<h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="VMXON.html#instruction-operand-encoding">
+			&para;
+		</a></h2>
+<table>
+<tbody><tr>
+<td>Op/En</td>
+<td>Operand 1</td>
+<td>Operand 2</td>
+<td>Operand 3</td>
+<td>Operand 4</td></tr>
+<tr>
+<td>M</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td></tr></tbody></table>
 <h2 id="description">Description<a class="anchor" href="VMXON.html#description">
 			&para;
 		</a></h2>
@@ -36,18 +58,17 @@ ELSIF not in VMX operation
                                 enter VMX operation;
                                 block INIT signals;
                                 block and disable A20M;
-                                clear address-range monitoring;
-                                IF the processor supports Intel PT but does not allow it to be used in VMX operation<sup>13</sup>
-                                    THEN IA32_RTIT_CTL.TraceEn &larr; 0;
-                                FI;
-                                VMsucceed;
 </pre>
 <blockquote>
-<p>10. See the information on MONITOR/MWAIT in Chapter 8, &ldquo;Multiple-Processor Management,&rdquo; of the <em>Intel<sup>&reg;</sup> 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 3A</em>.</p>
+<p>10. See the information on MONITOR/MWAIT in Chapter 8, &ldquo;Multiple-Processor Management,&rdquo; of the <em>Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 3A</em>.</p>
 <p>11. A logical processor is in SMX operation if GETSEC[SEXIT] has not been executed since the last execution of GETSEC[SENTER]. A logical processor is outside SMX operation if GETSEC[SENTER] has not been executed or if GETSEC[SEXIT] was executed after the last execution of GETSEC[SENTER]. See Chapter 6, &ldquo;Safer Mode Extensions Reference.&rdquo;</p>
-<p>12. If IA32_VMX_BASIC[48] is read as 1, VMfailInvalid occurs if addr sets any bits in the range 63:32; see Appendix A.1.</p>
-<p>13. Software should read the VMX capability MSR IA32_VMX_MISC to determine whether the processor allows Intel PT to be used in VMX operation (see Appendix A.6).</p></blockquote>
-<pre>                FI;
+<p>12. If IA32_VMX_BASIC[48] is read as 1, VMfailInvalid occurs if addr sets any bits in the range 63:32; see Appendix A.1.</p></blockquote>
+<pre>                    clear address-range monitoring;
+                    IF the processor supports Intel PT but does not allow it to be used in VMX operation<sup>13</sup>
+                        THEN IA32_RTIT_CTL.TraceEn &larr; 0;
+                    FI;
+                    VMsucceed;
+                FI;
             FI;
         FI;
 ELSIF in VMX non-root operation
@@ -57,6 +78,8 @@ ELSIF CPL &gt; 0
     ELSE VMfail(&ldquo;VMXON executed in VMX root operation&rdquo;);
 FI;
 </pre>
+<blockquote>
+<p>13. Software should read the VMX capability MSR IA32_VMX_MISC to determine whether the processor allows Intel PT to be used in VMX operation (see Appendix A.6).</p></blockquote>
 <h2 id="flags-affected">Flags Affected<a class="anchor" href="VMXON.html#flags-affected">
 			&para;
 		</a></h2>
@@ -117,15 +140,15 @@ FI;
 		</a></h2>
 <table>
 <tbody><tr>
-<td rowspan="4">#GP(0)</td>
+<td rowspan="3">#GP(0)</td>
 <td>If executed outside VMX operation with CPL &gt; 0 or with invalid CR0 or CR4 fixed bits.</td></tr>
 <tr>
 <td>If executed in A20M mode.</td></tr>
 <tr>
-<td>If the source operand is in the CS, DS, ES, FS, or GS segments and the memory address is in a non-canonical form.</td></tr>
-<tr>
-<td>If the value of the IA32_FEATURE_CONTROL MSR does not support entry to VMX operation in the current processor mode.</td></tr>
-<tr>
+<td>If the source operand is in the CS, DS, ES, FS, or GS segments and the memory address is in a non-canonical form.</td></tr></tbody></table>
+<p>If the value of the IA32_FEATURE_CONTROL MSR does not support entry to VMX operation in the current processor mode.</p>
+<table>
+<tbody><tr>
 <td>#PF(fault-code)</td>
 <td>If a page fault occurs in accessing the memory source operand.</td></tr>
 <tr>

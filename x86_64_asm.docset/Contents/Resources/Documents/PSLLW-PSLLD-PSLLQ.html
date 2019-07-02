@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-383"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/PSLLW%2FPSLLD%2FPSLLQ"></a><title>PSLLW/PSLLD/PSLLQ</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>January 2019</li></ul></nav></header><h1>PSLLW/PSLLD/PSLLQ
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-387"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/PSLLW%2FPSLLD%2FPSLLQ"></a><title>PSLLW/PSLLD/PSLLQ</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>PSLLW/PSLLD/PSLLQ
 		&mdash; Shift Packed Data Left Logical</h1>
 
 
@@ -264,7 +264,7 @@
 <td>AVX512F</td>
 <td>Shift quadwords in zmm2/m512/m64bcst left by imm8 while shifting in 0s using writemask k1.</td></tr></tbody></table>
 <blockquote>
-<p>1. See note in Section 2.4, &ldquo;AVX and SSE Instruction Exception Specification&rdquo; in the <em>Intel<sup>&reg;</sup> 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 2A</em> and Section 22.25.3, &ldquo;Exception Conditions of Legacy SIMD Instructions Operating on MMX Registers&rdquo; in the <em>Intel<sup>&reg;</sup> 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 3A</em>.</p></blockquote>
+<p>1. See note in Section 2.4, &ldquo;AVX and SSE Instruction Exception Specification&rdquo; in the <em>Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 2A</em> and Section 22.25.3, &ldquo;Exception Conditions of Legacy SIMD Instructions Operating on MMX Registers&rdquo; in the <em>Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 3A</em>.</p></blockquote>
 <h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="./PSLLW:PSLLD:PSLLQ.html#instruction-operand-encoding">
 			&para;
 		</a></h2>
@@ -331,7 +331,7 @@
 <p>Shifts the bits in the individual data elements (words, doublewords, or quadword) in the destination operand (first operand) to the left by the number of bits specified in the count operand (second operand). As the bits in the data elements are shifted left, the empty low-order bits are cleared (set to 0). If the value specified by the count operand is greater than 15 (for words), 31 (for doublewords), or 63 (for a quadword), then the destination operand is set to all 0s. <a href="./PSLLW:PSLLD:PSLLQ.html#fig-4-17">Figure 4-17</a> gives an example of shifting words in a 64-bit operand.</p>
 <figure id="fig-4-17">
 <svg style="width: 455.616pt; height: 105.69601199999998pt" viewBox="109.64 0.0 384.68 93.08000999999999">
-<g xmlns="http://www.w3.org/2000/svg" style="fill: none; stroke: none">
+<g xmlns="http://www.w3.org/2000/svg" style="stroke: none; fill: none">
 <rect height="87.12" style="fill: rgb(0%, 0%, 0%)" width="0.48" x="112.14" y="0.48000999999999294"></rect>
 <rect height="87.12" style="fill: rgb(0%, 0%, 0%)" width="0.47998" x="491.34000000000003" y="0.48000999999999294"></rect>
 <rect height="0.48001000000000005" style="fill: rgb(0%, 0%, 0%)" width="379.68" x="112.14" y="0.0"></rect>

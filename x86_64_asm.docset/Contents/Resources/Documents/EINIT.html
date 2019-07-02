@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-122"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/EINIT"></a><title>EINIT</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>January 2019</li></ul></nav></header><h1>EINIT
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-123"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/EINIT"></a><title>EINIT</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>EINIT
 		&mdash; Initialize an Enclave for Execution</h1>
 
 <table>
@@ -41,7 +41,7 @@
 <p>The EINITTOKEN contains the MRENCLAVE, MRSIGNER, and ATTRIBUTES. These values must match the corresponding values in the SECS. If the EINITTOKEN was created with a debug launch key, the enclave must be in debug mode as well.</p>
 <figure id="fig-40-1">
 <svg style="width: 614.0160000000001pt; height: 344.232012pt" viewBox="43.64 0.0 516.6800000000001 291.86001">
-<g xmlns="http://www.w3.org/2000/svg" style="fill: none; stroke: none">
+<g xmlns="http://www.w3.org/2000/svg" style="stroke: none; fill: none">
 <rect height="285.90000000000003" style="fill: rgb(0%, 0%, 0%)" width="0.48001000000000005" x="46.14" y="0.48000999999999294"></rect>
 <rect height="285.90000000000003" style="fill: rgb(0%, 0%, 0%)" width="0.47998" x="557.34" y="0.48000999999999294"></rect>
 <rect height="0.48001000000000005" style="fill: rgb(0%, 0%, 0%)" width="511.68" x="46.14" y="0.0"></rect>
@@ -286,7 +286,7 @@
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 8.958243600000003pt; fill: #000" textLength="22.670938530000058" x="289.2" y="228.07372810000004">Check</text>
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 8.90567999999999pt; fill: #000" textLength="37.60016400000006" x="178.44" y="241.56379000000004">ENCLAVE</text>
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 8.90567999999999pt; fill: #000" textLength="16.441992" x="178.86" y="268.98379">EPC</text></g></svg>
-<figcaption><a href="EINIT.html#fig-40-1">Figure 40-1</a>. Relationships Between SECS, SIGSTRUCT and EINITTOKEN</figcaption></figure>
+<figcaption><span class="not-imported">Figure 40-1</span>. Relationships Between SECS, SIGSTRUCT and EINITTOKEN</figcaption></figure>
 <h2 id="einit-memory-parameter-semantics">EINIT Memory Parameter Semantics<a class="anchor" href="EINIT.html#einit-memory-parameter-semantics">
 			&para;
 		</a></h2>
@@ -299,7 +299,7 @@
 <td>Read/Write access by Enclave</td>
 <td>Access by non-Enclave</td></tr></tbody></table>
 <p>Access by non-Enclave</p>
-<p>EINIT performs the following steps, which can be seen in <a href="EINIT.html#fig-40-1">Figure 40-1</a>:</p>
+<p>EINIT performs the following steps, which can be seen in <span class="not-imported">Figure 40-1</span>:</p>
 <p>Validates that SIGSTRUCT is signed using the enclosed public key.</p>
 <p>Checks that the completed computation of SECS.MRENCLAVE equals SIGSTRUCT.HASHENCLAVE.</p>
 <p>Checks that no reserved bits are set to 1 in SIGSTRUCT.ATTRIBUTES and no reserved bits in SIGSTRUCT.ATTRIBUTESMASK are set to 0.</p>
@@ -343,7 +343,7 @@
 <tr>
 <td>SGX_UNMASKED_EVENT</td>
 <td>If an unmasked event is received before the instruction completes its operation.</td></tr></tbody></table>
-<figcaption><a href="EINIT.html#tbl-40-25">Table 40-25</a>. EINIT Return Value in RAX</figcaption></figure>
+<figcaption><span class="not-imported">Table 40-25</span>. EINIT Return Value in RAX</figcaption></figure>
 <h3 id="concurrency-restrictions">Concurrency Restrictions<a class="anchor" href="EINIT.html#concurrency-restrictions">
 			&para;
 		</a></h3>
@@ -363,7 +363,7 @@
 <td>Shared</td>
 <td>#GP</td>
 <td></td></tr></tbody></table>
-<figcaption><a href="EINIT.html#tbl-40-26">Table 40-26</a>. Base Concurrency Restrictions of EINIT</figcaption></figure>
+<figcaption><span class="not-imported">Table 40-26</span>. Base Concurrency Restrictions of EINIT</figcaption></figure>
 <figure id="tbl-40-27">
 <table>
 <tbody><tr>
@@ -390,7 +390,7 @@
 <td>#GP</td>
 <td>Concurrent</td>
 <td></td></tr></tbody></table>
-<figcaption><a href="EINIT.html#tbl-40-27">Table 40-27</a>. Additional Concurrency Restrictions of ENIT</figcaption></figure>
+<figcaption><span class="not-imported">Table 40-27</span>. Additional Concurrency Restrictions of ENIT</figcaption></figure>
 <h3 id="operation">Operation<a class="anchor" href="EINIT.html#operation">
 			&para;
 		</a></h3>

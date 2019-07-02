@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-66"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/CMPS%2FCMPSB%2FCMPSW%2FCMPSD%2FCMPSQ"></a><title>CMPS/CMPSB/CMPSW/CMPSD/CMPSQ</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>January 2019</li></ul></nav></header><h1>CMPS/CMPSB/CMPSW/CMPSD/CMPSQ
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-67"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/CMPS%2FCMPSB%2FCMPSW%2FCMPSD%2FCMPSQ"></a><title>CMPS/CMPSB/CMPSW/CMPSD/CMPSQ</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>CMPS/CMPSB/CMPSW/CMPSD/CMPSQ
 		&mdash; Compare String Operands</h1>
 
 
@@ -94,7 +94,7 @@
 <p>tion. Locations of the source operands are always specified by the DS:(E)SI (or RSI) and ES:(E)DI (or RDI) registers, which must be loaded correctly before the compare string instruction is executed.</p>
 <p>The no-operands form provides &ldquo;short forms&rdquo; of the byte, word, and doubleword versions of the CMPS instructions. Here also the DS:(E)SI (or RSI) and ES:(E)DI (or RDI) registers are assumed by the processor to specify the location of the source operands. The size of the source operands is selected with the mnemonic: CMPSB (byte comparison), CMPSW (word comparison), CMPSD (doubleword comparison), or CMPSQ (quadword comparison using REX.W).</p>
 <p>After the comparison, the (E/R)SI and (E/R)DI registers increment or decrement automatically according to the setting of the DF flag in the EFLAGS register. (If the DF flag is 0, the (E/R)SI and (E/R)DI register increment; if the DF flag is 1, the registers decrement.) The registers increment or decrement by 1 for byte operations, by 2 for word operations, 4 for doubleword operations. If operand size is 64, RSI and RDI registers increment by 8 for quadword operations.</p>
-<p>The CMPS, CMPSB, CMPSW, CMPSD, and CMPSQ instructions can be preceded by the REP prefix for block comparisons. More often, however, these instructions will be used in a LOOP construct that takes some action based on the setting of the status flags before the next comparison is made. See &ldquo;REP/REPE/REPZ /REPNE/REPNZ&mdash;Repeat String Operation Prefix&rdquo; in Chapter 4 of the <em>Intel<sup>&reg;</sup> 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 2B</em>, for a description of the REP prefix.</p>
+<p>The CMPS, CMPSB, CMPSW, CMPSD, and CMPSQ instructions can be preceded by the REP prefix for block comparisons. More often, however, these instructions will be used in a LOOP construct that takes some action based on the setting of the status flags before the next comparison is made. See &ldquo;REP/REPE/REPZ /REPNE/REPNZ&mdash;Repeat String Operation Prefix&rdquo; in Chapter 4 of the <em>Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 2B</em>, for a description of the REP prefix.</p>
 <p>In 64-bit mode, the instruction&rsquo;s default address size is 64 bits, 32 bit address size is supported using the prefix 67H. Use of the REX.W prefix promotes doubleword operation to 64 bits (see CMPSQ). See the summary chart at the beginning of this section for encoding data and limits.</p>
 <h2 id="operation">Operation<a class="anchor" href="./CMPS:CMPSB:CMPSW:CMPSD:CMPSQ.html#operation">
 			&para;
@@ -136,7 +136,6 @@ IF (64-Bit Mode)
                 ELSE
                     (R|E)SI
                         &larr; (R|E)SI &ndash; 4;
-                    (R|E)DI
                         &larr; (R|E)DI &ndash; 4;
                 FI;
         ELSE (* Quadword comparison *)

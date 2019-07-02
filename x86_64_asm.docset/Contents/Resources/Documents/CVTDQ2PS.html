@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-76"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/CVTDQ2PS"></a><title>CVTDQ2PS</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>January 2019</li></ul></nav></header><h1>CVTDQ2PS
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-77"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/CVTDQ2PS"></a><title>CVTDQ2PS</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>CVTDQ2PS
 		&mdash; Convert Packed Doubleword Integers to Packed Single-Precision Floating-Point Values</h1>
 
 <table>
@@ -87,9 +87,9 @@
 <pre>(KL, VL) = (4, 128), (8, 256), (16, 512)
 IF (VL = 512) AND (EVEX.b = 1)
     THEN
-        SET_RM(EVEX.RC); ; refer to <span class="not-imported">Table 15-4</span> in the <em>Intel<sup>&reg;</sup> 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 1</em>
+        SET_RM(EVEX.RC); ; refer to <span class="not-imported">Table 15-4</span> in the <em>Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 1</em>
     ELSE
-        SET_RM(MXCSR.RM); ; refer to <span class="not-imported">Table 15-4</span> in the <em>Intel<sup>&reg;</sup> 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 1</em>
+        SET_RM(MXCSR.RM); ; refer to <span class="not-imported">Table 15-4</span> in the <em>Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 1</em>
 FI;
 FOR j&larr;0 TO KL-1
     i&larr;j * 32
@@ -125,7 +125,8 @@ FOR j&larr;0 TO KL-1
         ELSE
             IF *merging-masking* ; merging-masking
                 THEN *DEST[i+31:i] remains unchanged*
-                ELSE ; zeroing-masking
+                ELSE
+                        ; zeroing-masking
                     DEST[i+31:i] &larr; 0
             FI
     FI;

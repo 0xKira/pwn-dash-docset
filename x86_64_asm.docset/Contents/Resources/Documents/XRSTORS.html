@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-685"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/XRSTORS"></a><title>XRSTORS</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>January 2019</li></ul></nav></header><h1>XRSTORS
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-693"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/XRSTORS"></a><title>XRSTORS</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>XRSTORS
 		&mdash; Restore Processor Extended States Supervisor</h1>
 
 <table>
@@ -40,10 +40,10 @@
 			&para;
 		</a></h2>
 <p>Performs a full or partial restore of processor state components from the XSAVE area located at the memory address specified by the source operand. The implicit EDX:EAX register pair specifies a 64-bit instruction mask. The specific state components restored correspond to the bits set in the requested-feature bitmap (RFBM), which is the logical-AND of EDX:EAX and the logical-OR of XCR0 with the IA32_XSS MSR. XRSTORS may be executed only if CPL = 0.</p>
-<p>The format of the XSAVE area is detailed in Section 13.4, &ldquo;XSAVE Area,&rdquo; of <em>Intel<sup>&reg;</sup> 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 1</em>.</p>
-<p>Section 13.12, &ldquo;Operation of XRSTORS,&rdquo; of <em>Intel<sup>&reg;</sup> 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 1</em> provides a detailed description of the operation of the XRSTOR instruction. The following items provide a high-level outline:</p>
+<p>The format of the XSAVE area is detailed in Section 13.4, &ldquo;XSAVE Area,&rdquo; of <em>Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 1</em>. Like FXRSTOR and FXSAVE, the memory format used for x87 state depends on a REX.W prefix; see Section 13.5.1, &ldquo;x87 State&rdquo; of <em>Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 1</em>.</p>
+<p>Section 13.12, &ldquo;Operation of XRSTORS,&rdquo; of <em>Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 1</em> provides a detailed description of the operation of the XRSTOR instruction. The following items provide a high-level outline:</p>
 <ul>
-<li>Execution of XRSTORS is similar to that of the compacted form of XRSTOR; XRSTORS cannot restore from an XSAVE area in which the extended region is in the standard format (see Section 13.4.3, &ldquo;Extended Region of an XSAVE Area&rdquo;).</li>
+<li>Execution of XRSTORS is similar to that of the compacted form of XRSTOR; XRSTORS cannot restore from an XSAVE area in which the extended region is in the standard format (see Section 13.4.3, &ldquo;Extended Region of an XSAVE Area&rdquo; of <em>Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 1</em>).</li>
 <li>XRSTORS differs from XRSTOR in that it can restore state components corresponding to bits set in the IA32_XSS MSR.</li>
 <li>If RFBM[<em>i</em>] = 0, XRSTORS does not update state component <em>i</em>.</li>
 <li>If RFBM[<em>i</em>] = 1 and bit <em>i </em>is clear in the XSTATE_BV field in the XSAVE header, XRSTORS initializes state component <em>i</em>.</li>
@@ -52,7 +52,7 @@
 <li>XRSTORS loads the internal value XRSTOR_INFO, which may be used to optimize a subsequent execution of XSAVEOPT or XSAVES.</li>
 <li>Immediately following an execution of XRSTORS, the processor tracks as in-use (not in initial configuration) any state component <em>i </em>for which RFBM[<em>i</em>] = 1 and XSTATE_BV[<em>i</em>] = 1; it tracks as modified any state component <em>i </em>for which RFBM[<em>i</em>] = 0.</li></ul>
 <p>Use of a source operand not aligned to 64-byte boundary (for 64-bit and 32-bit modes) results in a general-protection (#GP) exception. In 64-bit mode, the upper 32 bits of RDX and RAX are ignored.</p>
-<p>See Section 13.6, &ldquo;Processor Tracking of XSAVE-Managed State,&rdquo; of <em>Intel<sup>&reg;</sup> 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 1</em> for discussion of the bitmaps XINUSE and XMODIFIED and of the quantity XRSTOR_INFO.</p>
+<p>See Section 13.6, &ldquo;Processor Tracking of XSAVE-Managed State,&rdquo; of <em>Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 1</em> for discussion of the bitmaps XINUSE and XMODIFIED and of the quantity XRSTOR_INFO.</p>
 <h2 id="operation">Operation<a class="anchor" href="XRSTORS.html#operation">
 			&para;
 		</a></h2>
@@ -157,10 +157,7 @@ XRSTOR_INFO &larr; CPL,VMXNR,LAXA,COMPMASK;
 <tr>
 <td>If CR4.OSXSAVE[bit 18] = 0.</td></tr>
 <tr>
-<td>If the LOCK prefix is used.</td></tr>
-<tr>
-<td>#AC</td>
-<td>If this exception is disabled a general protection exception (#GP) is signaled if the memory operand is not aligned on a 64-byte boundary, as described above. If the alignment check exception (#AC) is enabled (and the CPL is 3), signaling of #AC is not guaranteed and may vary with implementation, as follows. In all implementations where #AC is not signaled, a #GP is signaled in its place. In addition, the width of the alignment check may also vary with implementation. For instance, for a given implementation, an alignment check exception might be signaled for a 2-byte misalignment, whereas a #GP might be signaled for all other misalignments (4-, 8-, or 16-byte misalignments).</td></tr></tbody></table>
+<td>If the LOCK prefix is used.</td></tr></tbody></table>
 <h2 class="exceptions" id="real-address-mode-exceptions">Real-Address Mode Exceptions<a class="anchor" href="XRSTORS.html#real-address-mode-exceptions">
 			&para;
 		</a></h2>
@@ -234,10 +231,7 @@ XRSTOR_INFO &larr; CPL,VMXNR,LAXA,COMPMASK;
 <tr>
 <td>If CR4.OSXSAVE[bit 18] = 0.</td></tr>
 <tr>
-<td>If the LOCK prefix is used.</td></tr>
-<tr>
-<td>#AC</td>
-<td>If this exception is disabled a general protection exception (#GP) is signaled if the memory operand is not aligned on a 64-byte boundary, as described above. If the alignment check exception (#AC) is enabled (and the CPL is 3), signaling of #AC is not guaranteed and may vary with implementation, as follows. In all implementations where #AC is not signaled, a general protection exception is signaled in its place. In addition, the width of the alignment check may also vary with implementation. For instance, for a given implementation, an alignment check exception might be signaled for a 2-byte misalignment, whereas a general protection exception might be signaled for all other misalignments (4-, 8-, or 16-byte misalignments).</td></tr></tbody></table><footer><p>
+<td>If the LOCK prefix is used.</td></tr></tbody></table><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
 		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.

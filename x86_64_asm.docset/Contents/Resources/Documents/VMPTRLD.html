@@ -1,9 +1,31 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-566"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/VMPTRLD"></a><title>VMPTRLD</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>January 2019</li></ul></nav></header><h1>VMPTRLD
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-573"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/VMPTRLD"></a><title>VMPTRLD</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>VMPTRLD
 		&mdash; Load Pointer to Virtual-Machine Control Structure</h1>
 
 <table>
 <tbody><tr>
-<td><strong>Opcode Instruction Description</strong> NP 0F C7 /6 VMPTRLD m64 Loads the current VMCS pointer from memory<em>.</em></td></tr></tbody></table>
+<th>Opcode/Instruction</th>
+<th>Op/En</th>
+<th>Description</th></tr>
+<tr>
+<td>NP 0F C7 /6 VMPTRLD m64</td>
+<td>M</td>
+<td>Loads the current VMCS pointer from memory<em>.</em></td></tr></tbody></table>
+<h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="VMPTRLD.html#instruction-operand-encoding">
+			&para;
+		</a></h2>
+<table>
+<tbody><tr>
+<td>Op/En</td>
+<td>Operand 1</td>
+<td>Operand 2</td>
+<td>Operand 3</td>
+<td>Operand 4</td></tr>
+<tr>
+<td>M</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td></tr></tbody></table>
 <h2 id="description">Description<a class="anchor" href="VMPTRLD.html#description">
 			&para;
 		</a></h2>
@@ -49,15 +71,15 @@ FI;
 		</a></h2>
 <table>
 <tbody><tr>
-<td rowspan="3">#GP(0)</td>
+<td rowspan="4">#GP(0)</td>
 <td>If the current privilege level is not 0.</td></tr>
 <tr>
 <td>If the memory source operand effective address is outside the CS, DS, ES, FS, or GS segment limit.</td></tr>
 <tr>
-<td>If the DS, ES, FS, or GS register contains an unusable segment.</td></tr></tbody></table>
-<p>If the source operand is located in an execute-only code segment.</p>
-<table>
-<tbody><tr>
+<td>If the DS, ES, FS, or GS register contains an unusable segment.</td></tr>
+<tr>
+<td>If the source operand is located in an execute-only code segment.</td></tr>
+<tr>
 <td>#PF(fault-code)</td>
 <td>If a page fault occurs in accessing the memory source operand.</td></tr>
 <tr>

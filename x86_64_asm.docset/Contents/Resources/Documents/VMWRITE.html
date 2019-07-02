@@ -1,9 +1,35 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-570"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/VMWRITE"></a><title>VMWRITE</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>January 2019</li></ul></nav></header><h1>VMWRITE
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-577"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/VMWRITE"></a><title>VMWRITE</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>VMWRITE
 		&mdash; Write Field to Virtual-Machine Control Structure</h1>
 
 <table>
 <tbody><tr>
-<td><strong>Opcode Instruction Description</strong> NP 0F 79 VMWRITE r64, r/m64 Writes a specified VMCS field (in 64-bit mode) NP 0F 79 VMWRITE r32, r/m32 Writes a specified VMCS field (outside 64-bit mode)</td></tr></tbody></table>
+<th>Opcode/Instruction</th>
+<th>Op/En</th>
+<th>Description</th></tr>
+<tr>
+<td>NP 0F 79 VMWRITE r64, r/m64</td>
+<td>RM</td>
+<td>Writes a specified VMCS field (in 64-bit mode).</td></tr>
+<tr>
+<td>NP 0F 79 VMWRITE r32, r/m32</td>
+<td>RM</td>
+<td>Writes a specified VMCS field (outside 64-bit mode).</td></tr></tbody></table>
+<h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="VMWRITE.html#instruction-operand-encoding">
+			&para;
+		</a></h2>
+<table>
+<tbody><tr>
+<td>Op/En</td>
+<td>Operand 1</td>
+<td>Operand 2</td>
+<td>Operand 3</td>
+<td>Operand 4</td></tr>
+<tr>
+<td>RM</td>
+<td>ModRM:reg (r)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td>
+<td>NA</td></tr></tbody></table>
 <h2 id="description">Description<a class="anchor" href="VMWRITE.html#description">
 			&para;
 		</a></h2>
@@ -30,16 +56,17 @@ ELSIF VMCS field indexed by secondary source operand is a VM-exit information fi
 processor does not support writing to such fields<sup>6</sup>
     THEN VMfailValid(VMWRITE to read-only VMCS component);
     ELSE
-            IF in VMX root operation
-                THEN field indexed by secondary source operand in current VMCS &larr; primary source operand;
-                ELSE field indexed by secondary source operand in VMCS referenced by VMCS link pointer &larr; primary source operand;
-        FI;
-        VMsucceed;
-FI;
 </pre>
 <blockquote>
 <p>5. The VMWRITE bit for a secondary source operand is defined as follows. Let <em>x</em> be the value of bits 14:0 of the secondary source operand and let <em>addr</em> be the VMWRITE-bitmap address. The corresponding VMWRITE bit is in bit position <em>x</em> &amp; 7 of the byte at physical address <em>addr</em> | (x &raquo; 3).</p>
 <p>6. Software can discover whether these fields can be written by reading the VMX capability MSR IA32_VMX_MISC (see Appendix A.6).</p></blockquote>
+<pre>        IF in VMX root operation
+            THEN field indexed by secondary source operand in current VMCS &larr; primary source operand;
+            ELSE field indexed by secondary source operand in VMCS referenced by VMCS link pointer &larr; primary source operand;
+    FI;
+    VMsucceed;
+FI;
+</pre>
 <h2 id="flags-affected">Flags Affected<a class="anchor" href="VMWRITE.html#flags-affected">
 			&para;
 		</a></h2>

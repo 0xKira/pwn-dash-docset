@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-342"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/PHADDW%2FPHADDD"></a><title>PHADDW/PHADDD</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>January 2019</li></ul></nav></header><h1>PHADDW/PHADDD
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-346"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/PHADDW%2FPHADDD"></a><title>PHADDW/PHADDD</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>PHADDW/PHADDD
 		&mdash; Packed Horizontal Add</h1>
 
 
@@ -58,7 +58,7 @@
 <td>AVX2</td>
 <td>Add 32-bit signed integers horizontally, pack to <em>ymm1</em>.</td></tr></tbody></table>
 <blockquote>
-<p>1. See note in Section 2.4, &ldquo;AVX and SSE Instruction Exception Specification&rdquo; in the <em>Intel<sup>&reg;</sup> 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 2A</em> and Section 22.25.3, &ldquo;Exception Conditions of Legacy SIMD Instructions Operating on MMX Registers&rdquo; in the <em>Intel<sup>&reg;</sup> 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 3A</em>.</p></blockquote>
+<p>1. See note in Section 2.4, &ldquo;AVX and SSE Instruction Exception Specification&rdquo; in the <em>Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 2A</em> and Section 22.25.3, &ldquo;Exception Conditions of Legacy SIMD Instructions Operating on MMX Registers&rdquo; in the <em>Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 3A</em>.</p></blockquote>
 <h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="./PHADDW:PHADDD.html#instruction-operand-encoding">
 			&para;
 		</a></h2>
@@ -93,7 +93,7 @@
 <p>VEX.256 encoded version: Horizontal addition of two adjacent data elements of the low 16-bytes of the first and second source operands are packed into the low 16-bytes of the destination operand. Horizontal addition of two adjacent data elements of the high 16-bytes of the first and second source operands are packed into the high 16-bytes of the destination operand. The first source and destination operands are YMM registers. The second source operand can be an YMM register or a 256-bit memory location.</p>
 <p>Note: VEX.L must be 0, otherwise the instruction will #UD.</p>
 <svg style="width: 411.79407588pt; height: 62.49604800000006pt" viewBox="127.52152749999999 0.0 348.1617299 57.080040000000054">
-<g xmlns="http://www.w3.org/2000/svg" style="fill: none; stroke: none">
+<g xmlns="http://www.w3.org/2000/svg" style="stroke: none; fill: none">
 <rect height="0.48004" style="fill: rgb(0%, 0%, 0%)" width="144.24" x="303.78000000000003" y="0.0"></rect>
 <rect height="18.240000000000002" style="fill: rgb(0%, 0%, 0%)" width="0.47998" x="447.54" y="0.2400400000000218"></rect>
 <rect height="0.48004" style="fill: rgb(0%, 0%, 0%)" width="144.24" x="303.54" y="18.0"></rect>
@@ -204,7 +204,7 @@
 <p>S7 S3 S3 S4 S3 S2 S1 S0</p>
 <figure id="fig-4-10">
 <svg style="width: 309.45599999999996pt; height: 76.39200000000002pt" viewBox="170.84 0.0 262.88 68.66000000000003">
-<g xmlns="http://www.w3.org/2000/svg" style="fill: none; stroke: none">
+<g xmlns="http://www.w3.org/2000/svg" style="stroke: none; fill: none">
 <rect height="18.0" style="fill: rgb(100%, 100%, 100%)" width="144.0" x="249.12" y="45.420000000000016"></rect>
 <rect height="0.48001000000000005" style="fill: rgb(0%, 0%, 0%)" width="144.24" x="249.12" y="45.17999000000003"></rect>
 <rect height="18.240000000000002" style="fill: rgb(0%, 0%, 0%)" width="0.48001000000000005" x="392.88" y="45.420000000000016"></rect>

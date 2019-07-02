@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-120"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/EGETKEY"></a><title>EGETKEY</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>January 2019</li></ul></nav></header><h1>EGETKEY
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-121"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/EGETKEY"></a><title>EGETKEY</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>EGETKEY
 		&mdash; Retrieves a Cryptographic Key</h1>
 
 <table>
@@ -45,14 +45,14 @@
 <td>Enclave write access</td></tr></tbody></table>
 <p>After validating the operands, the instruction determines which key is to be produced and performs the following actions:</p>
 <ul>
-<li>The instruction assembles the derivation data for the key based on the <a href="EGETKEY.html#tbl-40-64">Table 40-64</a>.</li>
+<li>The instruction assembles the derivation data for the key based on the <span class="not-imported">Table 40-64</span>.</li>
 <li>Computes derived key using the derivation data and package specific value.</li>
 <li>Outputs the calculated key to the address in RCX.</li></ul>
 <p>The instruction fails with #GP(0) if the operands are not properly aligned. Successful completion of the instruction will clear RFLAGS.{ZF, CF, AF, OF, SF, PF}. The instruction returns an error code if the user tries to request a key based on an invalid CPUSVN or ISVSVN (when the user request is accepted, see the table below), requests a key for which it has not been granted the attribute to request, or requests a key that is not supported by the hardware. These checks may be performed in any order. Thus, an indication by error number of one cause (for example, invalid attribute) does not imply that there are not also other errors. Different processors may thus give different error numbers for the same Enclave. The correctness of software should not rely on the order resulting from the checks documented in this section. In such cases the ZF flag is set and the corresponding error bit (SGX_INVALID_SVN, SGX_INVALID_ATTRIBUTE, SGX_INVALID_KEYNAME) is set in RAX and the data at the address specified by RCX is unmodified.</p>
 <p><strong>Requesting Keys</strong></p>
 <p>The KEYREQUEST structure (see Section 37.17.1) identifies the key to be provided. The Keyrequest.KeyName field identifies which type of key is requested.</p>
 <p><strong>Deriving Keys</strong></p>
-<p>Key derivation is based on a combination of the enclave specific values (see <a href="EGETKEY.html#tbl-40-64">Table 40-64</a>) and a processor key. Depending on the key being requested a field may either be included by definition or the value may be included from the KeyRequest. A &ldquo;yes&rdquo; in <a href="EGETKEY.html#tbl-40-64">Table 40-64</a> indicates the value for the field is included from its default location, identified in the source row, and a &ldquo;request&rdquo; indicates the values for the field is included from its corresponding KeyRequest field.</p>
+<p>Key derivation is based on a combination of the enclave specific values (see <span class="not-imported">Table 40-64</span>) and a processor key. Depending on the key being requested a field may either be included by definition or the value may be included from the KeyRequest. A &ldquo;yes&rdquo; in <span class="not-imported">Table 40-64</span> indicates the value for the field is included from its default location, identified in the source row, and a &ldquo;request&rdquo; indicates the values for the field is included from its corresponding KeyRequest field.</p>
 <figure id="tbl-40-64">
 <table>
 <tbody><tr>
@@ -163,7 +163,7 @@
 <td>Request</td>
 <td>Request</td>
 <td>Yes</td></tr></tbody></table>
-<figcaption><a href="EGETKEY.html#tbl-40-64">Table 40-64</a>. Key Derivation</figcaption></figure>
+<figcaption><span class="not-imported">Table 40-64</span>. Key Derivation</figcaption></figure>
 <p>Keys that permit the specification of a CPU or ISV&#39;s code&#39;s, or enclave configuration&#39;s SVNs have additional requirements. The caller may not request a key for an SVN beyond the current CPU, ISV or enclave configuration&#39;s SVN, respectively.</p>
 <p>Several keys are access controlled. Access to the Provisioning Key and Provisioning Seal key requires the enclave&#39;s ATTRIBUTES.PROVISIONKEY be set. The EINITTOKEN Key requires ATTRIBUTES.EINITTOKEN_KEY be set and SECS.MRSIGNER equal IA32_SGXLEPUBKEYHASH.</p>
 <p>Some keys are derived based on a hardcode PKCS padding constant (352 byte string):</p>
@@ -197,7 +197,7 @@
 <td>SGX_INVALID_KEYNAME</td>
 <td></td>
 <td>If KEYREQUEST.KEYNAME is an unsupported value.</td></tr></tbody></table>
-<figcaption><a href="EGETKEY.html#tbl-40-65">Table 40-65</a>. EGETKEY Return Value in RAX</figcaption></figure>
+<figcaption><span class="not-imported">Table 40-65</span>. EGETKEY Return Value in RAX</figcaption></figure>
 <h3 id="concurrency-restrictions">Concurrency Restrictions<a class="anchor" href="EGETKEY.html#concurrency-restrictions">
 			&para;
 		</a></h3>
@@ -222,7 +222,7 @@
 <td>Concurrent</td>
 <td></td>
 <td></td></tr></tbody></table>
-<figcaption><a href="EGETKEY.html#tbl-40-66">Table 40-66</a>. Base Concurrency Restrictions of EGETKEY</figcaption></figure>
+<figcaption><span class="not-imported">Table 40-66</span>. Base Concurrency Restrictions of EGETKEY</figcaption></figure>
 <figure id="tbl-40-67">
 <table>
 <tbody><tr>
@@ -257,7 +257,7 @@
 <td></td>
 <td>Concurrent</td>
 <td></td></tr></tbody></table>
-<figcaption><a href="EGETKEY.html#tbl-40-67">Table 40-67</a>. Additional Concurrency Restrictions of EGETKEY</figcaption></figure>
+<figcaption><span class="not-imported">Table 40-67</span>. Additional Concurrency Restrictions of EGETKEY</figcaption></figure>
 <h3 id="operation">Operation<a class="anchor" href="EGETKEY.html#operation">
 			&para;
 		</a></h3>
