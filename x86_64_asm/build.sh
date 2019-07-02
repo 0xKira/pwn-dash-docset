@@ -1,6 +1,6 @@
 #!/bin/bash
 
-wget -r -p -k -np "http://www.felixcloutier.com/x86/"
+wget -r -p -k -np "https://www.felixcloutier.com/x86/"
 mv www.felixcloutier.com/x86 html
 rm -rf www.felixcloutier.com
 # rename 's/:/\-/g' html/*
