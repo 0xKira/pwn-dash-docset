@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-599"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/VPERMI2B"></a><title>VPERMI2B</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>VPERMI2B
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-620"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/VPERMI2B"></a><title>VPERMI2B</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>VPERMI2B
 		&mdash; Full Permute of Bytes from Two Tables Overwriting the Index</h1>
 
 <table>
@@ -59,24 +59,24 @@
 		</a></h4>
 <pre>(KL, VL) = (16, 128), (32, 256), (64, 512)
 IF VL = 128:
-    id &larr; 3;
+    id := 3;
 ELSE IF VL = 256:
-    id &larr; 4;
+    id := 4;
 ELSE IF VL = 512:
-    id &larr; 5;
+    id := 5;
 FI;
-TMP_DEST[VL-1:0] &larr; DEST[VL-1:0];
-FOR j &larr; 0 TO KL-1
-    off &larr; 8*SRC1[j*8 + id: j*8] ;
+TMP_DEST[VL-1:0] := DEST[VL-1:0];
+FOR j := 0 TO KL-1
+    off := 8*SRC1[j*8 + id: j*8] ;
     IF k1[j] OR *no writemask*:
-        DEST[j*8 + 7: j*8] &larr; TMP_DEST[j*8+id+1]? SRC2[off+7:off] : SRC1[off+7:off];
+        DEST[j*8 + 7: j*8] := TMP_DEST[j*8+id+1]? SRC2[off+7:off] : SRC1[off+7:off];
     ELSE IF *zeroing-masking*
-        DEST[j*8 + 7: j*8] &larr; 0;
+        DEST[j*8 + 7: j*8] := 0;
     *ELSE
         DEST[j*8 + 7: j*8] remains unchanged*
     FI;
 ENDFOR
-DEST[MAX_VL-1:VL] &larr; 0;
+DEST[MAX_VL-1:VL] := 0;
 </pre>
 <h3 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="VPERMI2B.html#intel-c-c++-compiler-intrinsic-equivalent">
 			&para;
@@ -106,9 +106,9 @@ DEST[MAX_VL-1:VL] &larr; 0;
 <h3 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="VPERMI2B.html#other-exceptions">
 			&para;
 		</a></h3>
-<p>See Exceptions Type E4NF.nb.</p><footer><p>
+<p>See Exceptions Type E4NF.nb in <span class="not-imported">Table 2-50</span>, &ldquo;Type E4NF Class Exception Conditions&rdquo;.</p><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

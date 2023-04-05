@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-217"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/INVVPID"></a><title>INVVPID</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>INVVPID
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-226"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/INVVPID"></a><title>INVVPID</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>INVVPID
 		&mdash; Invalidate Translations Based on VPID</h1>
 
 <table>
@@ -46,7 +46,7 @@
 <p>The INVVPID descriptor comprises 128 bits and consists of a VPID and a linear address as shown in <a href="INVVPID.html#fig-30-2">Figure 30-2</a>.</p>
 <figure id="fig-30-2">
 <svg style="width: 455.616pt; height: 91.07999999999997pt" viewBox="109.10000000000001 0.0 384.68 80.89999999999998">
-<g xmlns="http://www.w3.org/2000/svg" style="fill: none; stroke: none">
+<g xmlns="http://www.w3.org/2000/svg" style="stroke: none; fill: none">
 <rect height="74.88" style="fill: rgb(0%, 0%, 0%)" width="0.48" x="111.60000000000001" y="0.539999999999992"></rect>
 <rect height="74.88" style="fill: rgb(0%, 0%, 0%)" width="0.47998" x="490.8" y="0.539999999999992"></rect>
 <rect height="0.48" style="fill: rgb(0%, 0%, 0%)" width="379.68" x="111.60000000000001" y="0.0"></rect>
@@ -60,12 +60,12 @@
 <rect height="18.54" style="fill: rgb(0%, 0%, 0%)" width="1.02" x="420.42" y="29.279999999999973"></rect>
 <rect height="1.02" style="fill: rgb(0%, 0%, 0%)" width="115.26" x="305.64" y="46.799999999999955"></rect>
 <rect height="18.48" style="fill: rgb(0%, 0%, 0%)" width="1.02" x="305.64" y="28.799999999999983"></rect>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 10.107835200000011pt; fill: #000" textLength="14.993288879999994" x="149.52" y="27.591069199999964">127</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 10.107835200000011pt; fill: #000" textLength="21.53168155999998" x="294.96" y="27.591069199999964">6463</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 10.107835200000011pt; fill: #000" textLength="50.990224559999945" x="409.5607516" y="27.591069199999964">1615 0</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 10.107835200000011pt; fill: #000" textLength="60.44956424000003" x="199.92008324" y="42.89139715999997">Linear Address</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 10.107835200000011pt; fill: #000" textLength="98.85933799999992" x="313.92034248" y="42.89139715999997">Reserved (must be zero)</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 10.107835200000011pt; fill: #000" textLength="21.057990000000018" x="429.12158644000004" y="42.89139715999997">VPID</text></g></svg>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 10.104152400000004pt; fill: #000" textLength="14.991447619999974" x="149.52" y="27.590372899999977">127</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 10.104152400000004pt; fill: #000" textLength="21.530174199999976" x="294.96" y="27.590372899999977">6463</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 10.104152400000004pt; fill: #000" textLength="50.98975401999991" x="409.55973925" y="27.590372899999977">1615 0</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 10.104152400000004pt; fill: #000" textLength="60.43840406000004" x="199.91940092" y="42.89055850999998">Linear Address</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 10.104152400000004pt; fill: #000" textLength="98.86134487999999" x="313.91977199" y="42.89055850999998">Reserved (must be zero)</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 10.104152400000004pt; fill: #000" textLength="21.053033669999934" x="429.1116363" y="42.89055850999998">VPID</text></g></svg>
 <figcaption><a href="INVVPID.html#fig-30-2">Figure 30-2</a>. INVVPID Descriptor</figcaption></figure>
 <h2 id="operation">Operation<a class="anchor" href="INVVPID.html#operation">
 			&para;
@@ -77,23 +77,23 @@ ELSIF in VMX non-root operation
 ELSIF CPL &gt; 0
     THEN #GP(0);
     ELSE
-        INVVPID_TYPE &larr; value of register operand;
+        INVVPID_TYPE := value of register operand;
         IF IA32_VMX_EPT_VPID_CAP MSR indicates that processor does not support
         INVVPID_TYPE
             THEN VMfail(Invalid operand to INVEPT/INVVPID);
             ELSE // INVVPID_TYPE must be in the range 0&ndash;3
-                INVVPID_DESC &larr; value of memory operand;
+                INVVPID_DESC := value of memory operand;
                 IF INVVPID_DESC[63:16] ≠ 0
                     THEN VMfail(Invalid operand to INVEPT/INVVPID);
                     ELSE
                         CASE INVVPID_TYPE OF
                             0:
                                             // individual-address invalidation
-                                VPID &larr; INVVPID_DESC[15:0];
+                                VPID := INVVPID_DESC[15:0];
                                 IF VPID = 0
                                     THEN VMfail(Invalid operand to INVEPT/INVVPID);
                                     ELSE
-                                        GL_ADDR &larr; INVVPID_DESC[127:64];
+                                        GL_ADDR := INVVPID_DESC[127:64];
                                         IF (GL_ADDR is not in a canonical form)
                                             THEN
                                                 VMfail(Invalid operand to INVEPT/INVVPID);
@@ -105,7 +105,7 @@ ELSIF CPL &gt; 0
                                 BREAK;
                             1:
                                             // single-context invalidation
-                                VPID &larr; INVVPID_DESC[15:0];
+                                VPID := INVVPID_DESC[15:0];
                                 IF VPID = 0
                                     THEN VMfail(Invalid operand to INVEPT/INVVPID);
                                     ELSE
@@ -120,7 +120,7 @@ ELSIF CPL &gt; 0
                                 BREAK;
                             3:
                                             // single-context invalidation retaining globals
-                                VPID &larr; INVVPID_DESC[15:0];
+                                VPID := INVVPID_DESC[15:0];
                                 IF VPID = 0
                                     THEN VMfail(Invalid operand to INVEPT/INVVPID);
                                     ELSE
@@ -210,6 +210,6 @@ FI;
 <td>If the logical processor supports VPIDs (IA32_VMX_PROCBASED_CTLS2[37]=1) but does not support the INVVPID instruction (IA32_VMX_EPT_VPID_CAP[32]=0).</td></tr></tbody></table><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

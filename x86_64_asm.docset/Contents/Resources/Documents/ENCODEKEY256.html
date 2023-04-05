@@ -1,0 +1,99 @@
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-139"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/ENCODEKEY256"></a><title>ENCODEKEY256</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>ENCODEKEY256
+		&mdash; Encode 256-Bit Key with Key Locker</h1>
+
+<table>
+<tbody><tr>
+<th>Opcode/Instruction</th>
+<th>Op/En</th>
+<th>64/32-bit Mode</th>
+<th>CPUID Feature Flag</th>
+<th>Description</th></tr>
+<tr>
+<td>F3 0F 38 FB 11:rrr:bbb ENCODEKEY256 r32, r32 &lt;XMM0-6&gt;</td>
+<td>A</td>
+<td>V/V</td>
+<td>AESKLE</td>
+<td>Wrap a 256-bit AES key from XMM1:XMM0 into a key handle and store it in XMM0-3.</td></tr></tbody></table>
+<h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="ENCODEKEY256.html#instruction-operand-encoding">
+			&para;
+		</a></h2>
+<table>
+<tbody><tr>
+<td>Op/En</td>
+<td>Tuple</td>
+<td>Operand 1</td>
+<td>Operand 2</td>
+<td>Operands 3 - 4</td>
+<td>Operands 5 - 9</td></tr>
+<tr>
+<td>A</td>
+<td>NA</td>
+<td>ModRM:reg (w)</td>
+<td>ModRM:r/m (r)</td>
+<td>Implicit XMM0-1 (r, w)</td>
+<td>Implicit XMM2-6 (w)</td></tr></tbody></table>
+<h2 id="description">Description<a class="anchor" href="ENCODEKEY256.html#description">
+			&para;
+		</a></h2>
+<p>The ENCODEKEY256<sup>1</sup> instruction wraps a 256-bit AES key from the implicit operand XMM1:XMM0 into a key handle that is then stored in the implicit destination operands XMM0-3.</p>
+<p>The explicit source operand is a general-purpose register and specifies what handle restrictions should be built into the handle.</p>
+<p>The explicit destination operand is populated with information on the source of the key and its attributes. XMM4 through XMM6 are reserved for future usages and software should not rely upon them being zeroed.</p>
+<h2 id="operation">Operation<a class="anchor" href="ENCODEKEY256.html#operation">
+			&para;
+		</a></h2>
+<h4 id="encodekey256">ENCODEKEY256<a class="anchor" href="ENCODEKEY256.html#encodekey256">
+			&para;
+		</a></h4>
+<pre>#GP (0) if a reserved bit<sup>2</sup> in SRC[31:0] is set
+InputKey[255:0] := XMM1:XMM0;
+KeyMetadata[2:0] = SRC[2:0];
+KeyMetadata[23:3] = 0; // Reserved for future usage
+KeyMetadata[27:24] = 1; // KeyType is AES-256 (value of 1)
+KeyMetadata[127:28] = 0; // Reserved for future usage
+// KeyMetadata is the AAD input and InputKey is the Plaintext input for WrapKey256
+Handle[511:0] := WrapKey256(InputKey[255:0], KeyMetadata[127:0], IWKey.Integrity Key[127:0], IWKey.Encryption Key[255:0]);
+DEST[0] := IWKey.NoBackup;
+DEST[4:1] := IWKey.KeySource[3:0];
+DEST[31:5] = 0;
+XMM0 := Handle[127:0]; // AAD
+XMM1 := Handle[255:128]; // Integrity Tag
+XMM2 := Handle[383:256]; // CipherText[127:0]
+XMM3 := Handle[511:384]; // CipherText[255:128]
+XMM4 := 0;
+    // Reserved for future usage
+XMM5 := 0;
+    // Reserved for future usage
+XMM6 := 0;
+    // Reserved for future usage
+RFLAGS.OF, SF, ZF, AF, PF, CF := 0;
+1. Further details on Key Locker and usage of this instruction can be found here:
+</pre>
+<h3 id="https---software-intel-com-content-www-us-en-develop-download-intel-key-locker-specification-html-">https://software.intel.com/content/www/us/en/develop/download/intel-key-locker-specification.html.<a class="anchor" href="ENCODEKEY256.html#https---software-intel-com-content-www-us-en-develop-download-intel-key-locker-specification-html-">
+			&para;
+		</a></h3>
+<p>2. SRC[31:3] are currently reserved for future usages. SRC[2], which indicates a no-decrypt restriction, is reserved if CPUID.19H:EAX[2] is 0. SRC[1], which indicates a no-encrypt restriction, is reserved if CPUID.19H:EAX[1] is 0. SRC[0], which indicates a CPL0-only restriction, is reserved if CPUID.19H:EAX[0] is 0.</p>
+<h2 id="flags-affected">Flags Affected<a class="anchor" href="ENCODEKEY256.html#flags-affected">
+			&para;
+		</a></h2>
+<p>All arithmetic flags (OF, SF, ZF, AF, PF, CF) are cleared to 0. Although they are cleared for the currently defined operations, future extensions may report information in the flags.</p>
+<h2 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="ENCODEKEY256.html#intel-c-c++-compiler-intrinsic-equivalent">
+			&para;
+		</a></h2>
+<pre>ENCODEKEY256 unsigned int _mm_encodekey256_u32(unsigned int htype, __m128i key_lo, __m128i key_hi, void* h);
+</pre>
+<h2 id="exceptions--all-operating-modes-">Exceptions (All Operating Modes)<a class="anchor" href="ENCODEKEY256.html#exceptions--all-operating-modes-">
+			&para;
+		</a></h2>
+<p>#GP If reserved bit is set in source register value.</p>
+<p>#UD If the LOCK prefix is used.</p>
+<p>If CPUID.07H:ECX.KL [bit 23] = 0.</p>
+<p>If CR4.KL = 0.</p>
+<p>If CPUID.19H:EBX.AESKLE [bit 0] = 0.</p>
+<p>If CR0.EM = 1.</p>
+<p>If CR4.OSFXSR = 0.</p>
+<p>#NM If CR0.TS = 1.</p><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+	</p></footer>
+</body></html>

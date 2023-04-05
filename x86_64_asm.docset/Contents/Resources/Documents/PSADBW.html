@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-379"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/PSADBW"></a><title>PSADBW</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>PSADBW
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-389"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/PSADBW"></a><title>PSADBW</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>PSADBW
 		&mdash; Compute Sum of Absolute Differences</h1>
 
 <table>
@@ -37,7 +37,7 @@
 <td>C</td>
 <td>V/V</td>
 <td>AVX512VL AVX512BW</td>
-<td>Computes the absolute differences of the packed unsigned byte integers from xmm3 /m128 and xmm2; then each consecutive 8 differences are summed separately to produce four unsigned word integer results.</td></tr>
+<td>Computes the absolute differences of the packed unsigned byte integers from xmm3 /m128 and xmm2; then each consecutive 8 differences are summed separately to produce two unsigned word integer results.</td></tr>
 <tr>
 <td>EVEX.256.66.0F.WIG F6 /r VPSADBW ymm1, ymm2, ymm3/m256</td>
 <td>C</td>
@@ -49,7 +49,7 @@
 <td>C</td>
 <td>V/V</td>
 <td>AVX512BW</td>
-<td>Computes the absolute differences of the packed unsigned byte integers from zmm3 /m512 and zmm2; then each consecutive 8 differences are summed separately to produce four unsigned word integer results.</td></tr></tbody></table>
+<td>Computes the absolute differences of the packed unsigned byte integers from zmm3 /m512 and zmm2; then each consecutive 8 differences are summed separately to produce eight unsigned word integer results.</td></tr></tbody></table>
 <blockquote>
 <p>1. See note in Section 2.4, &ldquo;AVX and SSE Instruction Exception Specification&rdquo; in the <em>Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 2A</em> and Section 22.25.3, &ldquo;Exception Conditions of Legacy SIMD Instructions Operating on MMX Registers&rdquo; in the <em>Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 3A</em>.</p></blockquote>
 <h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="PSADBW.html#instruction-operand-encoding">
@@ -260,39 +260,18 @@
 <rect height="0.48" style="fill: rgb(0%, 0%, 0%)" width="71.46000000000001" x="386.94" y="123.30001000000001"></rect>
 <rect height="18.240000000000002" style="fill: rgb(0%, 0%, 0%)" width="0.48001000000000005" x="386.94" y="105.30000999999999"></rect>
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="16.86740279999998" x="148.4410266" y="25.925919399999998">SRC</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="9.783381300000002" x="182.52104340000002" y="26.466111000000012">X7</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="9.783381300000002" x="217.38098180000003" y="26.466111000000012">X6</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="9.722649700000005" x="253.86069590000002" y="26.466111000000012">X5</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="9.783381299999974" x="292.4404448" y="26.466111000000012">X4</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="9.783381299999974" x="326.22" y="26.466111000000012">X3</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="9.783381299999974" x="363.9590957" y="26.466111000000012">X2</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="9.783381299999974" x="400.79840479999996" y="26.466111000000012">X1</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="9.783381299999974" x="436.8577922999999" y="26.466111000000012">X0</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="119.70278269999997" x="182.52104340000002" y="26.466111000000012">X7 X6 X5 X4</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="120.42117359999986" x="326.22" y="26.466111000000012">X3 X2 X1 X0</text>
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="21.32638079999998" x="144.001227" y="54.84614750000003">DEST</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="9.783381300000002" x="181.9211109" y="56.40611100000001">Y7</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="9.783381300000002" x="216.7810493" y="56.40611100000001">Y6</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="9.783381300000002" x="253.2607634" y="56.40611100000001">Y5</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="9.783381299999974" x="291.8405123" y="56.40611100000001">Y4</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="9.722649699999977" x="325.68" y="56.40611100000001">Y3</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="9.783381299999974" x="363.35836409999996" y="56.40611100000001">Y2</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="9.783381299999974" x="400.19767319999994" y="56.40611100000001">Y1</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="9.783381299999974" x="436.2570606999999" y="56.40611100000001">Y0</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="119.70278269999997" x="181.9211109" y="56.40611100000001">Y7 Y6 Y5 Y4</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="120.36044199999986" x="325.68" y="56.40611100000001">Y3 Y2 Y1 Y0</text>
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="22.194203399999992" x="143.1014404" y="85.80567880000004">TEMP</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 6.695999999999998pt; fill: #000" textLength="32.30759999999992" x="170.76000000000002" y="84.42600999999999">ABS(X7:Y7)</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 6.695999999999998pt; fill: #000" textLength="32.33879999999991" x="207.48959999999997" y="84.42600999999999">ABS(X6:Y6)</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 6.695999999999998pt; fill: #000" textLength="32.35440000000008" x="243.3503999999999" y="84.42600999999999">ABS(X5:Y5)</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 6.695999999999998pt; fill: #000" textLength="32.302200000000255" x="280.1268" y="84.42600999999999">ABS(X4:Y4)</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 6.695999999999998pt; fill: #000" textLength="32.35320000000024" x="316.49100000000027" y="84.42600999999999">ABS(X3:Y3)</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 6.695999999999998pt; fill: #000" textLength="32.30760000000021" x="352.7262000000005" y="84.42600999999999">ABS(X2:Y2)</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 6.695999999999998pt; fill: #000" textLength="32.372999999999195" x="389.09580000000074" y="84.42600999999999">ABS(X1:Y1)</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 6.695999999999998pt; fill: #000" textLength="32.29860000000019" x="424.92" y="84.42600999999999">ABS(X0:Y0)</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 6.695999999999998pt; fill: #000" textLength="69.08040000000011" x="170.76000000000002" y="84.42600999999999">ABS(X7:Y7) ABS(X6:Y6)</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 6.695999999999998pt; fill: #000" textLength="69.08579999999989" x="243.36240000000015" y="84.42600999999999">ABS(X5:Y5) ABS(X4:Y4)</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 6.695999999999998pt; fill: #000" textLength="140.70840000000015" x="316.51020000000005" y="84.42600999999999">ABS(X3:Y3) ABS(X2:Y2) ABS(X1:Y1) ABS(X0:Y0)</text>
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="21.32638079999998" x="144.0" y="117.486111">DEST</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="14.647502999999972" x="181.38104339999998" y="119.046111">00H</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="14.647502999999972" x="216.2409818" y="119.046111">00H</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="14.707435500000003" x="252.66076339999998" y="119.046111">00H</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="14.647503000000029" x="291.3004448" y="119.046111">00H</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="14.647503000000029" x="325.08" y="119.046111">00H</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="14.647503000000029" x="362.81669840000006" y="119.046111">00H</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="124.56690440000003" x="181.38104339999998" y="119.046111">00H 00H 00H 00H</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="52.38420140000011" x="325.08" y="119.046111">00H 00H</text>
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 6.695999999999998pt; fill: #000" textLength="62.27580000000006" x="391.32" y="117.00600999999997">SUM(TEMP7...TEMP0)</text></g></svg>
 <figcaption><a href="PSADBW.html#fig-4-14">Figure 4-14</a>. PSADBW Instruction Operation Using 64-bit Operands</figcaption></figure>
 <h2 id="operation">Operation<a class="anchor" href="PSADBW.html#operation">
@@ -302,83 +281,83 @@
 			&para;
 		</a></h4>
 <pre>VL = 128, 256, 512
-TEMP0&larr;ABS(SRC1[7:0] - SRC2[7:0])
+TEMP0 := ABS(SRC1[7:0] - SRC2[7:0])
 (* Repeat operation for bytes 1 through 15 *)
-TEMP15&larr;ABS(SRC1[127:120] - SRC2[127:120])
-DEST[15:0] &larr;SUM(TEMP0:TEMP7)
-DEST[63:16] &larr; 000000000000H
-DEST[79:64] &larr; SUM(TEMP8:TEMP15)
-DEST[127:80] &larr; 00000000000H
+TEMP15 := ABS(SRC1[127:120] - SRC2[127:120])
+DEST[15:0] := SUM(TEMP0:TEMP7)
+DEST[63:16] := 000000000000H
+DEST[79:64] := SUM(TEMP8:TEMP15)
+DEST[127:80] := 00000000000H
 IF VL &gt;= 256
     (* Repeat operation for bytes 16 through 31*)
-    TEMP31&larr;ABS(SRC1[255:248] - SRC2[255:248])
-    DEST[143:128] &larr;SUM(TEMP16:TEMP23)
-    DEST[191:144] &larr; 000000000000H
-    DEST[207:192] &larr; SUM(TEMP24:TEMP31)
-    DEST[223:208] &larr; 00000000000H
+    TEMP31 := ABS(SRC1[255:248] - SRC2[255:248])
+    DEST[143:128] := SUM(TEMP16:TEMP23)
+    DEST[191:144] := 000000000000H
+    DEST[207:192] := SUM(TEMP24:TEMP31)
+    DEST[223:208] := 00000000000H
 FI;
 IF VL &gt;= 512
 (* Repeat operation for bytes 32 through 63*)
-    TEMP63&larr;ABS(SRC1[511:504] - SRC2[511:504])
-    DEST[271:256] &larr;SUM(TEMP0:TEMP7)
-    DEST[319:272] &larr; 000000000000H
-    DEST[335:320] &larr; SUM(TEMP8:TEMP15)
-    DEST[383:336] &larr; 00000000000H
-    DEST[399:384] &larr;SUM(TEMP16:TEMP23)
-    DEST[447:400] &larr; 000000000000H
-    DEST[463:448] &larr; SUM(TEMP24:TEMP31)
-    DEST[511:464] &larr; 00000000000H
+    TEMP63 := ABS(SRC1[511:504] - SRC2[511:504])
+    DEST[271:256] := SUM(TEMP0:TEMP7)
+    DEST[319:272] := 000000000000H
+    DEST[335:320] := SUM(TEMP8:TEMP15)
+    DEST[383:336] := 00000000000H
+    DEST[399:384] := SUM(TEMP16:TEMP23)
+    DEST[447:400] := 000000000000H
+    DEST[463:448] := SUM(TEMP24:TEMP31)
+    DEST[511:464] := 00000000000H
 FI;
-DEST[MAXVL-1:VL] &larr; 0
+DEST[MAXVL-1:VL] := 0
 </pre>
 <h4 id="vpsadbw--vex-256-encoded-version-">VPSADBW (VEX.256 encoded version)<a class="anchor" href="PSADBW.html#vpsadbw--vex-256-encoded-version-">
 			&para;
 		</a></h4>
-<pre>TEMP0&larr;ABS(SRC1[7:0] - SRC2[7:0])
+<pre>TEMP0 := ABS(SRC1[7:0] - SRC2[7:0])
 (* Repeat operation for bytes 2 through 30*)
-TEMP31&larr;ABS(SRC1[255:248] - SRC2[255:248])
-DEST[15:0] &larr;SUM(TEMP0:TEMP7)
-DEST[63:16] &larr; 000000000000H
-DEST[79:64] &larr; SUM(TEMP8:TEMP15)
-DEST[127:80] &larr; 00000000000H
-DEST[143:128] &larr;SUM(TEMP16:TEMP23)
-DEST[191:144] &larr; 000000000000H
-DEST[207:192] &larr; SUM(TEMP24:TEMP31)
-DEST[223:208] &larr; 00000000000H
-DEST[MAXVL-1:256] &larr; 0
+TEMP31 := ABS(SRC1[255:248] - SRC2[255:248])
+DEST[15:0] := SUM(TEMP0:TEMP7)
+DEST[63:16] := 000000000000H
+DEST[79:64] := SUM(TEMP8:TEMP15)
+DEST[127:80] := 00000000000H
+DEST[143:128] := SUM(TEMP16:TEMP23)
+DEST[191:144] := 000000000000H
+DEST[207:192] := SUM(TEMP24:TEMP31)
+DEST[223:208] := 00000000000H
+DEST[MAXVL-1:256] := 0
 </pre>
 <h4 id="vpsadbw--vex-128-encoded-version-">VPSADBW (VEX.128 encoded version)<a class="anchor" href="PSADBW.html#vpsadbw--vex-128-encoded-version-">
 			&para;
 		</a></h4>
-<pre>TEMP0&larr;ABS(SRC1[7:0] - SRC2[7:0])
+<pre>TEMP0 := ABS(SRC1[7:0] - SRC2[7:0])
 (* Repeat operation for bytes 2 through 14 *)
-TEMP15&larr;ABS(SRC1[127:120] - SRC2[127:120])
-DEST[15:0] &larr;SUM(TEMP0:TEMP7)
-DEST[63:16] &larr; 000000000000H
-DEST[79:64] &larr; SUM(TEMP8:TEMP15)
-DEST[127:80] &larr; 00000000000H
-DEST[MAXVL-1:128] &larr; 0
+TEMP15 := ABS(SRC1[127:120] - SRC2[127:120])
+DEST[15:0] := SUM(TEMP0:TEMP7)
+DEST[63:16] := 000000000000H
+DEST[79:64] := SUM(TEMP8:TEMP15)
+DEST[127:80] := 00000000000H
+DEST[MAXVL-1:128] := 0
 </pre>
 <h4 id="psadbw--128-bit-legacy-sse-version-">PSADBW (128-bit Legacy SSE version)<a class="anchor" href="PSADBW.html#psadbw--128-bit-legacy-sse-version-">
 			&para;
 		</a></h4>
-<pre>TEMP0&larr;ABS(DEST[7:0] - SRC[7:0])
+<pre>TEMP0 := ABS(DEST[7:0] - SRC[7:0])
 (* Repeat operation for bytes 2 through 14 *)
-TEMP15&larr;ABS(DEST[127:120] - SRC[127:120])
-DEST[15:0] &larr;SUM(TEMP0:TEMP7)
-DEST[63:16] &larr; 000000000000H
-DEST[79:64] &larr; SUM(TEMP8:TEMP15)
-DEST[127:80] &larr; 00000000000
+TEMP15 := ABS(DEST[127:120] - SRC[127:120])
+DEST[15:0] := SUM(TEMP0:TEMP7)
+DEST[63:16] := 000000000000H
+DEST[79:64] := SUM(TEMP8:TEMP15)
+DEST[127:80] := 00000000000
 DEST[MAXVL-1:128] (Unmodified)
 </pre>
 <h4 id="psadbw--64-bit-operand-">PSADBW (64-bit operand)<a class="anchor" href="PSADBW.html#psadbw--64-bit-operand-">
 			&para;
 		</a></h4>
-<pre>TEMP0&larr;ABS(DEST[7:0] - SRC[7:0])
+<pre>TEMP0 := ABS(DEST[7:0] - SRC[7:0])
 (* Repeat operation for bytes 2 through 6 *)
-TEMP7&larr;ABS(DEST[63:56] - SRC[63:56])
-DEST[15:0] &larr;SUM(TEMP0:TEMP7)
-DEST[63:16] &larr; 000000000000H
+TEMP7 := ABS(DEST[63:56] - SRC[63:56])
+DEST[15:0] := SUM(TEMP0:TEMP7)
+DEST[63:16] := 000000000000H
 </pre>
 <h3 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="PSADBW.html#intel-c-c++-compiler-intrinsic-equivalent">
 			&para;
@@ -402,10 +381,10 @@ DEST[63:16] &larr; 000000000000H
 <h2 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="PSADBW.html#other-exceptions">
 			&para;
 		</a></h2>
-<p>Non-EVEX-encoded instruction, see Exceptions Type 4.</p>
-<p>EVEX-encoded instruction, see Exceptions Type E4NF.nb.</p><footer><p>
+<p>Non-EVEX-encoded instruction, see <span class="not-imported">Table 2-21</span>, &ldquo;Type 4 Class Exception Conditions&rdquo;.</p>
+<p>EVEX-encoded instruction, see Exceptions Type E4NF.nb in <span class="not-imported">Table 2-50</span>, &ldquo;Type E4NF Class Exception Conditions&rdquo;.</p><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

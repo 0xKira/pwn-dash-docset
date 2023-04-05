@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-263"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/MOV"></a><title>MOV</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>MOV
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-273"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/MOV"></a><title>MOV</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>MOV
 		&mdash; Move to/from Control Registers</h1>
 
 <table>
@@ -73,9 +73,8 @@
 <h2 id="description">Description<a class="anchor" href="MOV-1.html#description">
 			&para;
 		</a></h2>
-<p>Moves the contents of a control register (CR0, CR2, CR3, CR4, or CR8) to a general-purpose register or the contents of a general purpose register to a control register. The operand size for these instructions is always 32 bits in non-64-bit modes, regardless of the operand-size attribute. (See &ldquo;Control Registers&rdquo; in Chapter 2 of the <em>Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 3A</em>, for a detailed description of the flags and fields in the control registers.) This instruction can be executed only when the current privilege level is 0.</p>
-<p>At the opcode level, the <em>reg</em> field within the ModR/M byte specifies which of the control registers is loaded or read. The 2 bits in the <em>mod</em> field are ignored. The <em>r/m</em> field specifies the general-purpose register loaded or read. Attempts to reference CR1, CR5, CR6, CR7, and CR9&ndash;CR15 result in undefined opcode (#UD) exceptions.</p>
-<p>When loading control registers, programs should not attempt to change the reserved bits; that is, always set reserved bits to the value previously read. An attempt to change CR4&#39;s reserved bits will cause a general protection fault. Reserved bits in CR0 and CR3 remain clear after any load of those registers; attempts to set them have no impact. On Pentium 4, Intel Xeon and P6 family processors, CR0.ET remains set after any load of CR0; attempts to clear this bit have no impact.</p>
+<p>Moves the contents of a control register (CR0, CR2, CR3, CR4, or CR8) to a general-purpose register or the contents of a general-purpose register to a control register. The operand size for these instructions is always 32 bits in non-64-bit modes, regardless of the operand-size attribute. On a 64-bit capable processor, an execution of MOV to CR outside of 64-bit mode zeros the upper 32 bits of the control register. (See &ldquo;Control Registers&rdquo; in Chapter 2 of the <em>Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 3A</em>, for a detailed description of the flags and fields in the control registers.) This instruction can be executed only when the current privilege level is 0.</p>
+<p>At the opcode level, the <em>reg</em> field within the ModR/M byte specifies which of the control registers is loaded or read. The 2 bits in the <em>mod</em> field are ignored. The <em>r/m</em> field specifies the general-purpose register loaded or read. Some of the bits in CR0, CR3 and CR4 are reserved and must be written with zeros. Attempting to set any reserved bits in CR0[31:0] is ignored. Attempting to set any reserved bits in CR0[63:32] results in a general-protection exception, #GP(0). When PCIDs are not enabled, bits 2:0 and bits 11:5 of CR3 are not used and attempts to set them are ignored. Attempting to set any reserved bits in CR3[63:MAXPHYADDR] results in #GP(0). Attempting to set any reserved bits in CR4 results in #GP(0). On Pentium 4, Intel Xeon and P6 family processors, CR0.ET remains set after any load of CR0; attempts to clear this bit have no impact.</p>
 <p>In certain cases, these instructions have the side effect of invalidating entries in the TLBs and the paging-structure caches. See Section 4.10.4.1, &ldquo;Operations that Invalidate TLBs and Paging-Structure Caches,&rdquo; in the <em>Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 3A</em> for details.</p>
 <p>The following side effects are implementation-specific for the Pentium 4, Intel Xeon, and P6 processor family: when modifying PE or PG in register CR0, or PSE or PAE in register CR4, all TLB entries are flushed, including global entries. Software should not depend on this functionality in all Intel 64 or IA-32 processors.</p>
 <p>In 64-bit mode, the instruction&rsquo;s default operation size is 64 bits. The REX.R prefix must be used to access CR8. Use of REX.B permits access to additional registers (R8-R15). Use of the REX.W prefix or 66H prefix is ignored. Use of</p>
@@ -85,7 +84,7 @@
 <h2 id="operation">Operation<a class="anchor" href="MOV-1.html#operation">
 			&para;
 		</a></h2>
-<pre>DEST &larr; SRC;
+<pre>DEST := SRC;
 </pre>
 <h2 id="flags-affected">Flags Affected<a class="anchor" href="MOV-1.html#flags-affected">
 			&para;
@@ -110,7 +109,7 @@
 <td rowspan="2">#UD</td>
 <td>If the LOCK prefix is used.</td></tr>
 <tr>
-<td>If an attempt is made to access CR1, CR5, CR6, or CR7.</td></tr></tbody></table>
+<td>If an attempt is made to access CR1, CR5, CR6, CR7, or CR9&ndash;CR15.</td></tr></tbody></table>
 <h2 class="exceptions" id="real-address-mode-exceptions">Real-Address Mode Exceptions<a class="anchor" href="MOV-1.html#real-address-mode-exceptions">
 			&para;
 		</a></h2>
@@ -126,7 +125,7 @@
 <td rowspan="2">#UD</td>
 <td>If the LOCK prefix is used.</td></tr>
 <tr>
-<td>If an attempt is made to access CR1, CR5, CR6, or CR7.</td></tr></tbody></table>
+<td>If an attempt is made to access CR1, CR5, CR6, CR7, or CR9&ndash;CR15.</td></tr></tbody></table>
 <h2 class="exceptions" id="virtual-8086-mode-exceptions">Virtual-8086 Mode Exceptions<a class="anchor" href="MOV-1.html#virtual-8086-mode-exceptions">
 			&para;
 		</a></h2>
@@ -139,7 +138,7 @@
 		</a></h2>
 <table>
 <tbody><tr>
-<td rowspan="6">#GP(0)</td>
+<td rowspan="5">#GP(0)</td>
 <td>If the current privilege level is not 0.</td></tr>
 <tr>
 <td>If an attempt is made to write invalid bit combinations in CR0 (such as setting the PG flag to 1 when the PE flag is set to 0, or setting the CD flag to 0 when the NW flag is set to 1).</td></tr>
@@ -148,14 +147,12 @@
 <tr>
 <td>If an attempt is made to clear CR0.PG[bit 31] while CR4.PCIDE = 1.</td></tr>
 <tr>
-<td>If an attempt is made to write a 1 to any reserved bit in CR3.</td></tr>
-<tr>
 <td>If an attempt is made to leave IA-32e mode by clearing CR4.PAE[bit 5].</td></tr>
 <tr>
 <td rowspan="2">#UD</td>
 <td>If the LOCK prefix is used.</td></tr>
 <tr>
-<td>If an attempt is made to access CR1, CR5, CR6, or CR7.</td></tr></tbody></table>
+<td>If an attempt is made to access CR1, CR5, CR6, CR7, or CR9&ndash;CR15.</td></tr></tbody></table>
 <h2 class="exceptions" id="64-bit-mode-exceptions">64-Bit Mode Exceptions<a class="anchor" href="MOV-1.html#64-bit-mode-exceptions">
 			&para;
 		</a></h2>
@@ -174,18 +171,18 @@
 <tr>
 <td>If an attempt is made to write a 1 to any reserved bit in CR8.</td></tr>
 <tr>
-<td>If an attempt is made to write a 1 to any reserved bit in CR3.</td></tr>
+<td>If an attempt is made to write a 1 to any reserved bit in CR3[63:MAXPHYADDR].</td></tr>
 <tr>
 <td>If an attempt is made to leave IA-32e mode by clearing CR4.PAE[bit 5].</td></tr>
 <tr>
 <td rowspan="3">#UD</td>
 <td>If the LOCK prefix is used.</td></tr>
 <tr>
-<td>If an attempt is made to access CR1, CR5, CR6, or CR7.</td></tr>
+<td>If an attempt is made to access CR1, CR5, CR6, CR7, or CR9&ndash;CR15.</td></tr>
 <tr>
 <td>If the REX.R prefix is used to specify a register other than CR8.</td></tr></tbody></table><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

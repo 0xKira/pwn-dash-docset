@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-331"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/PBLENDW"></a><title>PBLENDW</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>PBLENDW
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-340"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/PBLENDW"></a><title>PBLENDW</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>PBLENDW
 		&mdash; Blend Packed Words</h1>
 
 <table>
@@ -61,79 +61,79 @@
 <h3 id="pblendw--128-bit-legacy-sse-version-">PBLENDW (128-bit Legacy SSE version)<a class="anchor" href="PBLENDW.html#pblendw--128-bit-legacy-sse-version-">
 			&para;
 		</a></h3>
-<pre>IF (imm8[0] = 1) THEN DEST[15:0]&larr;SRC[15:0]
-ELSE DEST[15:0]&larr;DEST[15:0]
-IF (imm8[1] = 1) THEN DEST[31:16]&larr;SRC[31:16]
-ELSE DEST[31:16]&larr;DEST[31:16]
-IF (imm8[2] = 1) THEN DEST[47:32]&larr;SRC[47:32]
-ELSE DEST[47:32]&larr;DEST[47:32]
-IF (imm8[3] = 1) THEN DEST[63:48]&larr;SRC[63:48]
-ELSE DEST[63:48]&larr;DEST[63:48]
-IF (imm8[4] = 1) THEN DEST[79:64]&larr;SRC[79:64]
-ELSE DEST[79:64]&larr;DEST[79:64]
-IF (imm8[5] = 1) THEN DEST[95:80]&larr;SRC[95:80]
-ELSE DEST[95:80]&larr;DEST[95:80]
-IF (imm8[6] = 1) THEN DEST[111:96]&larr;SRC[111:96]
-ELSE DEST[111:96]&larr;DEST[111:96]
-IF (imm8[7] = 1) THEN DEST[127:112]&larr;SRC[127:112]
-ELSE DEST[127:112]&larr;DEST[127:112]
+<pre>IF (imm8[0] = 1) THEN DEST[15:0] := SRC[15:0]
+ELSE DEST[15:0] := DEST[15:0]
+IF (imm8[1] = 1) THEN DEST[31:16] := SRC[31:16]
+ELSE DEST[31:16] := DEST[31:16]
+IF (imm8[2] = 1) THEN DEST[47:32] := SRC[47:32]
+ELSE DEST[47:32] := DEST[47:32]
+IF (imm8[3] = 1) THEN DEST[63:48] := SRC[63:48]
+ELSE DEST[63:48] := DEST[63:48]
+IF (imm8[4] = 1) THEN DEST[79:64] := SRC[79:64]
+ELSE DEST[79:64] := DEST[79:64]
+IF (imm8[5] = 1) THEN DEST[95:80] := SRC[95:80]
+ELSE DEST[95:80] := DEST[95:80]
+IF (imm8[6] = 1) THEN DEST[111:96] := SRC[111:96]
+ELSE DEST[111:96] := DEST[111:96]
+IF (imm8[7] = 1) THEN DEST[127:112] := SRC[127:112]
+ELSE DEST[127:112] := DEST[127:112]
 </pre>
 <h3 id="vpblendw--vex-128-encoded-version-">VPBLENDW (VEX.128 encoded version)<a class="anchor" href="PBLENDW.html#vpblendw--vex-128-encoded-version-">
 			&para;
 		</a></h3>
-<pre>IF (imm8[0] = 1) THEN DEST[15:0]&larr;SRC2[15:0]
-ELSE DEST[15:0]&larr;SRC1[15:0]
-IF (imm8[1] = 1) THEN DEST[31:16]&larr;SRC2[31:16]
-ELSE DEST[31:16]&larr;SRC1[31:16]
-IF (imm8[2] = 1) THEN DEST[47:32]&larr;SRC2[47:32]
-ELSE DEST[47:32]&larr;SRC1[47:32]
-IF (imm8[3] = 1) THEN DEST[63:48]&larr;SRC2[63:48]
-ELSE DEST[63:48]&larr;SRC1[63:48]
-IF (imm8[4] = 1) THEN DEST[79:64]&larr;SRC2[79:64]
-ELSE DEST[79:64]&larr;SRC1[79:64]
-IF (imm8[5] = 1) THEN DEST[95:80]&larr;SRC2[95:80]
-ELSE DEST[95:80]&larr;SRC1[95:80]
-IF (imm8[6] = 1) THEN DEST[111:96]&larr;SRC2[111:96]
-ELSE DEST[111:96]&larr;SRC1[111:96]
-IF (imm8[7] = 1) THEN DEST[127:112]&larr;SRC2[127:112]
-ELSE DEST[127:112]&larr;SRC1[127:112]
-DEST[MAXVL-1:128] &larr; 0
+<pre>IF (imm8[0] = 1) THEN DEST[15:0] := SRC2[15:0]
+ELSE DEST[15:0] := SRC1[15:0]
+IF (imm8[1] = 1) THEN DEST[31:16] := SRC2[31:16]
+ELSE DEST[31:16] := SRC1[31:16]
+IF (imm8[2] = 1) THEN DEST[47:32] := SRC2[47:32]
+ELSE DEST[47:32] := SRC1[47:32]
+IF (imm8[3] = 1) THEN DEST[63:48] := SRC2[63:48]
+ELSE DEST[63:48] := SRC1[63:48]
+IF (imm8[4] = 1) THEN DEST[79:64] := SRC2[79:64]
+ELSE DEST[79:64] := SRC1[79:64]
+IF (imm8[5] = 1) THEN DEST[95:80] := SRC2[95:80]
+ELSE DEST[95:80] := SRC1[95:80]
+IF (imm8[6] = 1) THEN DEST[111:96] := SRC2[111:96]
+ELSE DEST[111:96] := SRC1[111:96]
+IF (imm8[7] = 1) THEN DEST[127:112] := SRC2[127:112]
+ELSE DEST[127:112] := SRC1[127:112]
+DEST[MAXVL-1:128] := 0
 </pre>
 <h3 id="vpblendw--vex-256-encoded-version-">VPBLENDW (VEX.256 encoded version)<a class="anchor" href="PBLENDW.html#vpblendw--vex-256-encoded-version-">
 			&para;
 		</a></h3>
-<pre>IF (imm8[0] == 1) THEN DEST[15:0]&larr;SRC2[15:0]
-ELSE DEST[15:0]&larr;SRC1[15:0]
-IF (imm8[1] == 1) THEN DEST[31:16]&larr;SRC2[31:16]
-ELSE DEST[31:16]&larr;SRC1[31:16]
-IF (imm8[2] == 1) THEN DEST[47:32]&larr;SRC2[47:32]
-ELSE DEST[47:32]&larr;SRC1[47:32]
-IF (imm8[3] == 1) THEN DEST[63:48]&larr;SRC2[63:48]
-ELSE DEST[63:48]&larr;SRC1[63:48]
-IF (imm8[4] == 1) THEN DEST[79:64]&larr;SRC2[79:64]
-ELSE DEST[79:64]&larr;SRC1[79:64]
-IF (imm8[5] == 1) THEN DEST[95:80]&larr;SRC2[95:80]
-ELSE DEST[95:80]&larr;SRC1[95:80]
-IF (imm8[6] == 1) THEN DEST[111:96]&larr;SRC2[111:96]
-ELSE DEST[111:96]&larr;SRC1[111:96]
-IF (imm8[7] == 1) THEN DEST[127:112]&larr;SRC2[127:112]
-ELSE DEST[127:112]&larr;SRC1[127:112]
-IF (imm8[0] == 1) THEN DEST[143:128]&larr;SRC2[143:128]
-ELSE DEST[143:128]&larr;SRC1[143:128]
-IF (imm8[1] == 1) THEN DEST[159:144]&larr;SRC2[159:144]
-ELSE DEST[159:144]&larr;SRC1[159:144]
-IF (imm8[2] == 1) THEN DEST[175:160]&larr;SRC2[175:160]
-ELSE DEST[175:160]&larr;SRC1[175:160]
-IF (imm8[3] == 1) THEN DEST[191:176]&larr;SRC2[191:176]
-ELSE DEST[191:176]&larr;SRC1[191:176]
-IF (imm8[4] == 1) THEN DEST[207:192]&larr;SRC2[207:192]
-ELSE DEST[207:192]&larr;SRC1[207:192]
-IF (imm8[5] == 1) THEN DEST[223:208]&larr;SRC2[223:208]
-ELSE DEST[223:208]&larr;SRC1[223:208]
-IF (imm8[6] == 1) THEN DEST[239:224]&larr;SRC2[239:224]
-ELSE DEST[239:224]&larr;SRC1[239:224]
-IF (imm8[7] == 1) THEN DEST[255:240]&larr;SRC2[255:240]
-ELSE DEST[255:240]&larr;SRC1[255:240]
+<pre>IF (imm8[0] == 1) THEN DEST[15:0] := SRC2[15:0]
+ELSE DEST[15:0] := SRC1[15:0]
+IF (imm8[1] == 1) THEN DEST[31:16] := SRC2[31:16]
+ELSE DEST[31:16] := SRC1[31:16]
+IF (imm8[2] == 1) THEN DEST[47:32] := SRC2[47:32]
+ELSE DEST[47:32] := SRC1[47:32]
+IF (imm8[3] == 1) THEN DEST[63:48] := SRC2[63:48]
+ELSE DEST[63:48] := SRC1[63:48]
+IF (imm8[4] == 1) THEN DEST[79:64] := SRC2[79:64]
+ELSE DEST[79:64] := SRC1[79:64]
+IF (imm8[5] == 1) THEN DEST[95:80] := SRC2[95:80]
+ELSE DEST[95:80] := SRC1[95:80]
+IF (imm8[6] == 1) THEN DEST[111:96] := SRC2[111:96]
+ELSE DEST[111:96] := SRC1[111:96]
+IF (imm8[7] == 1) THEN DEST[127:112]
+ELSE DEST[127:112] := SRC1[127:112]
+IF (imm8[0] == 1) THEN DEST[143:128]
+ELSE DEST[143:128] := SRC1[143:128]
+IF (imm8[1] == 1) THEN DEST[159:144]
+ELSE DEST[159:144] := SRC1[159:144]
+IF (imm8[2] == 1) THEN DEST[175:160]
+ELSE DEST[175:160] := SRC1[175:160]
+IF (imm8[3] == 1) THEN DEST[191:176]
+ELSE DEST[191:176] := SRC1[191:176]
+IF (imm8[4] == 1) THEN DEST[207:192]
+ELSE DEST[207:192] := SRC1[207:192]
+IF (imm8[5] == 1) THEN DEST[223:208]
+ELSE DEST[223:208] := SRC1[223:208]
+IF (imm8[6] == 1) THEN DEST[239:224]
+ELSE DEST[239:224] := SRC1[239:224]
+IF (imm8[7] == 1) THEN DEST[255:240]
+ELSE DEST[255:240] := SRC1[255:240]
 </pre>
 <h2 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="PBLENDW.html#intel-c-c++-compiler-intrinsic-equivalent">
 			&para;
@@ -153,13 +153,13 @@ ELSE DEST[255:240]&larr;SRC1[255:240]
 <h2 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="PBLENDW.html#other-exceptions">
 			&para;
 		</a></h2>
-<p>See Exceptions Type 4; additionally</p>
+<p>See <span class="not-imported">Table 2-21</span>, &ldquo;Type 4 Class Exception Conditions&rdquo;; additionally:</p>
 <table>
 <tbody><tr>
 <td>#UD</td>
 <td>If VEX.L = 1 and AVX2 = 0.</td></tr></tbody></table><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

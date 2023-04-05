@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-201"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/HADDPD"></a><title>HADDPD</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>HADDPD
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-208"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/HADDPD"></a><title>HADDPD</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>HADDPD
 		&mdash; Packed Double-FP Horizontal Add</h1>
 
 <table>
@@ -57,7 +57,7 @@
 <p>See <a href="HADDPD.html#fig-3-16">Figure 3-16</a> for HADDPD; see <a href="HADDPD.html#fig-3-17">Figure 3-17</a> for VHADDPD.</p>
 <figure id="fig-3-16">
 <svg style="width: 397.87799999999993pt; height: 217.50719999999998pt" viewBox="130.561 0.0 336.56499999999994 186.256">
-<g xmlns="http://www.w3.org/2000/svg" style="fill: none; stroke: none">
+<g xmlns="http://www.w3.org/2000/svg" style="stroke: none; fill: none">
 <rect height="181.256" style="stroke: rgb(0%, 0%, 0%)" width="331.565" x="133.061" y="0.0"></rect>
 <rect height="26.525000000000002" style="fill: rgb(100%, 100%, 100%)" width="132.626" x="292.212" y="25.42100000000005"></rect>
 <rect height="26.525000000000002" style="stroke: rgb(0%, 0%, 0%)" width="132.626" x="292.212" y="25.420000000000016"></rect>
@@ -77,25 +77,25 @@
 <path d="M 361.236 124.993 L 358.525 130.416 L 355.813 124.993 L 361.236 124.993" style="fill: rgb(100%, 100%, 100%); fill-rule: evenodd"></path>
 <path d="M 225.899 51.946000000000026 L 225.899 62.448000000000036" style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)"></path>
 <path d="M 358.525 99.47000000000003 L 358.525 110.52200000000002" style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)"></path>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.269852500000013pt; fill: #000" textLength="104.36364470000001" x="240.031" y="17.82435300000003">HADDPD xmm1, xmm2/m128</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.269852500000013pt; fill: #000" textLength="21.393014600000015" x="430.09402376" y="37.975598200000036">xmm2</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.269852500000013pt; fill: #000" textLength="28.403510200000028" x="211.69320000000002" y="42.69135300000005">[127:64]</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.269852500000013pt; fill: #000" textLength="19.663968600000032" x="348.69100000000003" y="42.69135300000005">[63:0]</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.269852500000013pt; fill: #000" textLength="21.840994700000067" x="430.09402376" y="47.40675820000001">/m128</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.269852499999985pt; fill: #000" textLength="21.393014600000015" x="430.09402376" y="90.21557937000003">xmm1</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.269852500000013pt; fill: #000" textLength="28.403510200000028" x="211.69320000000002" y="90.215753">[127:64]</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.269852500000013pt; fill: #000" textLength="19.663968600000032" x="348.69100000000003" y="90.215753">[63:0]</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.269852500000013pt; fill: #000" textLength="24.458141599999976" x="430.0945017700001" y="142.97130425">Result:</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.269852500000013pt; fill: #000" textLength="69.67269450000003" x="191.0625" y="142.971553">xmm2/m128[63:0] +</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.269852500000013pt; fill: #000" textLength="99.81311000000011" x="308.61830000000003" y="147.687153">xmm1[63:0] + xmm1[127:64]</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.269852500000013pt; fill: #000" textLength="21.393014600000015" x="430.0945017700001" y="152.40246425">xmm1</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.269852500000013pt; fill: #000" textLength="71.63751950000005" x="190.0800875" y="152.402713">xmm2/m128[127:64]</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.269852500000013pt; fill: #000" textLength="28.403510200000028" x="211.70341709000002" y="170.90954506000003">[127:64]</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.269852500000013pt; fill: #000" textLength="19.663968600000032" x="353.1220894300001" y="170.90954506000003">[63:0]</text></g></svg>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.27771180000002pt; fill: #000" textLength="104.36364470000001" x="240.031" y="17.82435300000003">HADDPD xmm1, xmm2/m128</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.27771180000002pt; fill: #000" textLength="21.393014600000015" x="430.09402376" y="37.975598200000036">xmm2</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.27771180000002pt; fill: #000" textLength="28.403510200000028" x="211.69320000000002" y="42.69135300000005">[127:64]</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.27771180000002pt; fill: #000" textLength="19.663968600000032" x="348.69100000000003" y="42.69135300000005">[63:0]</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.27771180000002pt; fill: #000" textLength="21.840994700000067" x="430.09402376" y="47.40675820000001">/m128</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.277711799999992pt; fill: #000" textLength="21.393014600000015" x="430.09402376" y="90.21557937000003">xmm1</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.27771180000002pt; fill: #000" textLength="28.403510200000028" x="211.69320000000002" y="90.215753">[127:64]</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.27771180000002pt; fill: #000" textLength="19.663968600000032" x="348.69100000000003" y="90.215753">[63:0]</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.277711799999992pt; fill: #000" textLength="24.458141599999976" x="430.0945017700001" y="142.97130425">Result:</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.277711799999992pt; fill: #000" textLength="69.67269450000003" x="191.0625" y="142.971553">xmm2/m128[63:0] +</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.277711799999992pt; fill: #000" textLength="99.81311000000011" x="308.61830000000003" y="147.687153">xmm1[63:0] + xmm1[127:64]</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.277711799999992pt; fill: #000" textLength="21.393014600000015" x="430.0945017700001" y="152.40246425">xmm1</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.277711799999992pt; fill: #000" textLength="71.63751950000005" x="190.0800875" y="152.402713">xmm2/m128[127:64]</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.277711799999992pt; fill: #000" textLength="28.403510200000028" x="211.70341709000002" y="170.90954506000003">[127:64]</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.277711799999992pt; fill: #000" textLength="19.663968600000032" x="353.1220894300001" y="170.90954506000003">[63:0]</text></g></svg>
 <figcaption><a href="HADDPD.html#fig-3-16">Figure 3-16</a>. HADDPD&mdash;Packed Double-FP Horizontal Add</figcaption></figure>
 <figure id="fig-3-17">
 <svg style="width: 381.0220230000001pt; height: 97.77600000000002pt" viewBox="139.58164749999997 0.0 322.5183525000001 86.48000000000002">
-<g xmlns="http://www.w3.org/2000/svg" style="fill: none; stroke: none">
+<g xmlns="http://www.w3.org/2000/svg" style="stroke: none; fill: none">
 <rect height="0.47998" style="fill: rgb(0%, 0%, 0%)" width="74.46000000000001" x="162.36" y="67.50002000000006"></rect>
 <rect height="13.74" style="fill: rgb(0%, 0%, 0%)" width="0.48" x="236.34" y="67.74000000000001"></rect>
 <rect height="0.47998" style="fill: rgb(0%, 0%, 0%)" width="74.46000000000001" x="162.12" y="81.00002000000006"></rect>
@@ -200,17 +200,17 @@
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 8.414416800000026pt; fill: #000" textLength="9.17216670000002" x="198.18" y="10.350897799999984">X3</text>
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 8.414416800000026pt; fill: #000" textLength="9.172166699999991" x="272.46" y="10.350897799999984">X2</text>
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 8.414416800000026pt; fill: #000" textLength="9.172166699999991" x="346.68" y="10.350897799999984">X1</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.414416800000026pt; fill: #000" textLength="9.172166699999991" x="420.96000000000004" y="10.350897799999984">X0</text>
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 8.414416800000026pt; fill: #000" textLength="20.028724720000014" x="142.38035447999997" y="11.971200820000035">SRC1</text>
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 8.414416800000026pt; fill: #000" textLength="9.17216670000002" x="198.18" y="40.7108978">Y3</text>
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 8.414416800000026pt; fill: #000" textLength="9.172166699999991" x="272.46" y="40.7108978">Y2</text>
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 8.414416800000026pt; fill: #000" textLength="9.172166699999991" x="346.68" y="40.7108978">Y1</text>
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 8.414416800000026pt; fill: #000" textLength="9.172166699999991" x="420.96000000000004" y="40.7108978">Y0</text>
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 8.414416800000026pt; fill: #000" textLength="19.970668259999997" x="142.08164749999997" y="42.33120082000005">SRC2</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.414416800000026pt; fill: #000" textLength="19.963882439999992" x="142.08175882" y="77.85089779999998">DEST</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.414416800000026pt; fill: #000" textLength="26.867323320000054" x="186.0" y="77.85089779999998">Y2 + Y3</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.414416800000026pt; fill: #000" textLength="26.879386999999895" x="260.22" y="77.85089779999998">X2 + X3</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.414416800000026pt; fill: #000" textLength="26.86732331999991" x="334.5" y="77.85089779999998">Y0 + Y1</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.414416800000026pt; fill: #000" textLength="26.879386999999895" x="408.72" y="77.85089779999998">X0 + X1</text></g></svg>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.414416800000026pt; fill: #000" textLength="70.78631847999998" x="142.08175882" y="77.85089779999998">DEST Y2 + Y3</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.414416800000026pt; fill: #000" textLength="26.87787904000004" x="260.22" y="77.85089779999998">X2 + X3</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.414416800000026pt; fill: #000" textLength="26.86807730000004" x="334.5" y="77.85089779999998">Y0 + Y1</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.414416800000026pt; fill: #000" textLength="26.87787904000004" x="408.72" y="77.85089779999998">X0 + X1</text></g></svg>
 <figcaption><a href="HADDPD.html#fig-3-17">Figure 3-17</a>. VHADDPD operation</figcaption></figure>
 <p>128-bit Legacy SSE version: The second source can be an XMM register or an 128-bit memory location. The destination is not distinct from the first source XMM register and the upper bits (MAXVL-1:128) of the corresponding YMM register destination are unmodified.</p>
 <p>VEX.128 encoded version: the first source operand is an XMM register or 128-bit memory location. The destination operand is an XMM register. The upper bits (MAXVL-1:128) of the corresponding YMM register destination are zeroed.</p>
@@ -221,24 +221,24 @@
 <h3 id="haddpd--128-bit-legacy-sse-version-">HADDPD (128-bit Legacy SSE version)<a class="anchor" href="HADDPD.html#haddpd--128-bit-legacy-sse-version-">
 			&para;
 		</a></h3>
-<pre>DEST[63:0]&larr;SRC1[127:64] + SRC1[63:0]
-DEST[127:64]&larr;SRC2[127:64] + SRC2[63:0]
+<pre>DEST[63:0] := SRC1[127:64] + SRC1[63:0]
+DEST[127:64] := SRC2[127:64] + SRC2[63:0]
 DEST[MAXVL-1:128] (Unmodified)
 </pre>
 <h3 id="vhaddpd--vex-128-encoded-version-">VHADDPD (VEX.128 encoded version)<a class="anchor" href="HADDPD.html#vhaddpd--vex-128-encoded-version-">
 			&para;
 		</a></h3>
-<pre>DEST[63:0]&larr;SRC1[127:64] + SRC1[63:0]
-DEST[127:64]&larr;SRC2[127:64] + SRC2[63:0]
-DEST[MAXVL-1:128] &larr; 0
+<pre>DEST[63:0] := SRC1[127:64] + SRC1[63:0]
+DEST[127:64] := SRC2[127:64] + SRC2[63:0]
+DEST[MAXVL-1:128] := 0
 </pre>
 <h3 id="vhaddpd--vex-256-encoded-version-">VHADDPD (VEX.256 encoded version)<a class="anchor" href="HADDPD.html#vhaddpd--vex-256-encoded-version-">
 			&para;
 		</a></h3>
-<pre>DEST[63:0]&larr;SRC1[127:64] + SRC1[63:0]
-DEST[127:64]&larr;SRC2[127:64] + SRC2[63:0]
-DEST[191:128]&larr;SRC1[255:192] + SRC1[191:128]
-DEST[255:192]&larr;SRC2[255:192] + SRC2[191:128]
+<pre>DEST[63:0] := SRC1[127:64] + SRC1[63:0]
+DEST[127:64] := SRC2[127:64] + SRC2[63:0]
+DEST[191:128] := SRC1[255:192] + SRC1[191:128]
+DEST[255:192] := SRC2[255:192] + SRC2[191:128]
 </pre>
 <h2 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="HADDPD.html#intel-c-c++-compiler-intrinsic-equivalent">
 			&para;
@@ -258,9 +258,9 @@ DEST[255:192]&larr;SRC2[255:192] + SRC2[191:128]
 <h2 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="HADDPD.html#other-exceptions">
 			&para;
 		</a></h2>
-<p>See Exceptions Type 2.</p><footer><p>
+<p>See <span class="not-imported">Table 2-19</span>, &ldquo;Type 2 Class Exception Conditions&rdquo;.</p><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

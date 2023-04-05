@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-416"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/RET"></a><title>RET</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>RET
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-427"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/RET"></a><title>RET</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>RET
 		&mdash; Return from Procedure</h1>
 
 <table>
@@ -74,7 +74,8 @@
 <p>When executing a far return, the processor pops the return instruction pointer from the top of the stack into the EIP register, then pops the segment selector from the top of the stack into the CS register. The processor then begins program execution in the new code segment at the new instruction pointer.</p>
 <p>The mechanics of an inter-privilege-level far return are similar to an intersegment return, except that the processor examines the privilege levels and access rights of the code and stack segments being returned to determine if the control transfer is allowed to be made. The DS, ES, FS, and GS segment registers are cleared by the RET instruction during an inter-privilege-level return if they refer to segments that are not allowed to be accessed at the new privilege level. Since a stack switch also occurs on an inter-privilege level return, the ESP and SS registers are loaded from the stack.</p>
 <p>If parameters are passed to the called procedure during an inter-privilege level call, the optional source operand must be used with the RET instruction to release the parameters on the return. Here, the parameters are released both from the called procedure&rsquo;s stack and the calling procedure&rsquo;s stack (that is, the stack being returned to).</p>
-<p>In 64-bit mode, the default operation size of this instruction is the stack-address size, i.e. 64 bits. This applies to near returns, not far returns; the default operation size of far returns is 32 bits.</p>
+<p>In 64-bit mode, the default operation size of this instruction is the stack-address size, i.e., 64 bits. This applies to near returns, not far returns; the default operation size of far returns is 32 bits.</p>
+<p>Refer to Chapter 6, &ldquo;Procedure Calls, Interrupts, and Exceptions&rdquo; and Chapter 18, &ldquo;Control-Flow Enforcement Technology (CET)&rdquo; in the <em>Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 1</em> for CET details.</p>
 <p><strong>Instruction ordering.</strong> Instructions following a far return may be fetched from memory before earlier instructions complete execution, but they will not execute (even speculatively) until all instructions prior to the far return have completed execution (the later instructions may execute before data stored by the earlier instructions have become globally visible).</p>
 <p>Unlike near indirect CALL and near indirect JMP, the processor will not speculatively execute the next sequential instruction after a near RET unless that instruction is also the target of a jump or is a target in a branch predictor.</p>
 <h2 id="operation">Operation<a class="anchor" href="RET.html#operation">
@@ -83,239 +84,314 @@
 <pre>(* Near return *)
 IF instruction = near return
     THEN;
-        IF OperandSize = 32
-            THEN
-                IF top 4 bytes of stack not within stack limits
-                    THEN #SS(0); FI;
-                EIP &larr; Pop();
-            ELSE
-                IF OperandSize = 64
+            IF OperandSize = 32
                     THEN
-                        IF top 8 bytes of stack not within stack limits
+                        IF top 4 bytes of stack not within stack limits
                             THEN #SS(0); FI;
-                        RIP &larr; Pop();
-                    ELSE (* OperandSize = 16 *)
-                        IF top 2 bytes of stack not within stack limits
-                            THEN #SS(0); FI;
-                        tempEIP &larr; Pop();
-                        tempEIP &larr; tempEIP AND 0000FFFFH;
-                        IF tempEIP not within code segment limits
-                            THEN #GP(0); FI;
-                        EIP &larr; tempEIP;
-                FI;
-        FI;
-    IF instruction has immediate operand
-        THEN (* Release parameters from stack *)
-            IF StackAddressSize = 32
-                THEN
-                    ESP &larr; ESP + SRC;
-                ELSE
-                    IF StackAddressSize = 64
-                        THEN
-                            RSP &larr; RSP + SRC;
-                        ELSE (* StackAddressSize = 16 *)
-                            SP &larr; SP + SRC;
-                    FI;
+                        EIP := Pop();
+                        IF ShadowStackEnabled(CPL)
+                            tempSsEIP = ShadowStackPop4B();
+                            IF EIP != TempSsEIP
+                                THEN #CP(NEAR_RET); FI;
+                        FI;
+                    ELSE
+                        IF OperandSize = 64
+                            THEN
+                                IF top 8 bytes of stack not within stack limits
+                                    THEN #SS(0); FI;
+                                RIP := Pop();
+                                IF ShadowStackEnabled(CPL)
+                                    tempSsEIP = ShadowStackPop8B();
+                                    IF RIP != tempSsEIP
+                                        THEN #CP(NEAR_RET); FI;
+                                FI;
+                            ELSE (* OperandSize = 16 *)
+                                IF top 2 bytes of stack not within stack limits
+                                    THEN #SS(0); FI;
+                                tempEIP := Pop();
+                                tempEIP := tempEIP AND 0000FFFFH;
+                                IF tempEIP not within code segment limits
+                                    THEN #GP(0); FI;
+                                EIP := tempEIP;
+                                IF ShadowStackEnabled(CPL)
+                                    tempSsEip = ShadowStackPop4B();
+                                    IF EIP != tempSsEIP
+                                        THEN #CP(NEAR_RET); FI;
+                                FI;
+                        FI;
             FI;
+    IF instruction has immediate operand
+            THEN (* Release parameters from stack *)
+                    IF StackAddressSize = 32
+                        THEN
+                            ESP := ESP + SRC;
+                        ELSE
+                            IF StackAddressSize = 64
+                                THEN
+                                    RSP := RSP + SRC;
+                                ELSE (* StackAddressSize = 16 *)
+                                    SP := SP + SRC;
+                            FI;
+                    FI;
     FI;
 FI;
 (* Real-address mode or virtual-8086 mode *)
 IF ((PE = 0) or (PE = 1 AND VM = 1)) and instruction = far return
     THEN
-        IF OperandSize = 32
-            THEN
-                IF top 8 bytes of stack not within stack limits
-                    THEN #SS(0); FI;
-                EIP &larr; Pop();
-                CS &larr; Pop(); (* 32-bit pop, high-order 16 bits discarded *)
-            ELSE (* OperandSize = 16 *)
-                IF top 4 bytes of stack not within stack limits
-                    THEN #SS(0); FI;
-                tempEIP &larr; Pop();
-                tempEIP &larr; tempEIP AND 0000FFFFH;
-                IF tempEIP not within code segment limits
-                    THEN #GP(0); FI;
-                EIP &larr; tempEIP;
-                CS &larr; Pop(); (* 16-bit pop *)
-        FI;
+            IF OperandSize = 32
+                    THEN
+                        IF top 8 bytes of stack not within stack limits
+                            THEN #SS(0); FI;
+                        EIP := Pop();
+                        CS := Pop(); (* 32-bit pop, high-order 16 bits discarded *)
+                    ELSE (* OperandSize = 16 *)
+                        IF top 4 bytes of stack not within stack limits
+                            THEN #SS(0); FI;
+                        tempEIP := Pop();
+                        tempEIP := tempEIP AND 0000FFFFH;
+                        IF tempEIP not within code segment limits
+                            THEN #GP(0); FI;
+                        EIP := tempEIP;
+                        CS := Pop(); (* 16-bit pop *)
+            FI;
     IF instruction has immediate operand
-        THEN (* Release parameters from stack *)
-            SP &larr; SP + (SRC AND FFFFH);
+            THEN (* Release parameters from stack *)
+                    SP := SP + (SRC AND FFFFH);
     FI;
 FI;
 (* Protected mode, not virtual-8086 mode *)
 IF (PE = 1 and VM = 0 and IA32_EFER.LMA = 0) and instruction = far return
     THEN
-        IF OperandSize = 32
-            THEN
-                IF second doubleword on stack is not within stack limits
-                    THEN #SS(0); FI;
-            ELSE (* OperandSize = 16 *)
-                IF second word on stack is not within stack limits
-                    THEN #SS(0); FI;
-        FI;
+            IF OperandSize = 32
+                    THEN
+                        IF second doubleword on stack is not within stack limits
+                            THEN #SS(0); FI;
+                    ELSE (* OperandSize = 16 *)
+                        IF second word on stack is not within stack limits
+                            THEN #SS(0); FI;
+            FI;
     IF return code segment selector is NULL
-        THEN #GP(0); FI;
+            THEN #GP(0); FI;
     IF return code segment selector addresses descriptor beyond descriptor table limit
-        THEN #GP(selector); FI;
+            THEN #GP(selector); FI;
     Obtain descriptor to which return code segment selector points from descriptor table;
     IF return code segment descriptor is not a code segment
-        THEN #GP(selector); FI;
+            THEN #GP(selector); FI;
     IF return code segment selector RPL &lt; CPL
-        THEN #GP(selector); FI;
+            THEN #GP(selector); FI;
     IF return code segment descriptor is conforming
     and return code segment DPL &gt; return code segment selector RPL
-        THEN #GP(selector); FI;
+            THEN #GP(selector); FI;
     IF return code segment descriptor is non-conforming and return code
     segment DPL ≠ return code segment selector RPL
-        THEN #GP(selector); FI;
+            THEN #GP(selector); FI;
     IF return code segment descriptor is not present
-        THEN #NP(selector); FI:
+            THEN #NP(selector); FI:
     IF return code segment selector RPL &gt; CPL
-        THEN GOTO RETURN-TO-OUTER-PRIVILEGE-LEVEL;
-        ELSE GOTO RETURN-TO-SAME-PRIVILEGE-LEVEL;
+            THEN GOTO RETURN-TO-OUTER-PRIVILEGE-LEVEL;
+            ELSE GOTO RETURN-TO-SAME-PRIVILEGE-LEVEL;
     FI;
 FI;
 RETURN-TO-SAME-PRIVILEGE-LEVEL:
     IF the return instruction pointer is not within the return code segment limit
-        THEN #GP(0); FI;
+            THEN #GP(0); FI;
     IF OperandSize = 32
-        THEN
-            EIP &larr; Pop();
-            CS &larr; Pop(); (* 32-bit pop, high-order 16 bits discarded *)
-        ELSE (* OperandSize = 16 *)
-            EIP &larr; Pop();
-            EIP &larr; EIP AND 0000FFFFH;
-            CS &larr; Pop(); (* 16-bit pop *)
+            THEN
+                    EIP := Pop();
+                    CS := Pop(); (* 32-bit pop, high-order 16 bits discarded *)
+            ELSE (* OperandSize = 16 *)
+                    EIP := Pop();
+                    EIP := EIP AND 0000FFFFH;
+                    CS := Pop(); (* 16-bit pop *)
     FI;
     IF instruction has immediate operand
-        THEN (* Release parameters from stack *)
-            IF StackAddressSize = 32
-                THEN
-                    ESP &larr; ESP + SRC;
-                ELSE (* StackAddressSize = 16 *)
-                    SP &larr; SP + SRC;
-            FI;
+            THEN (* Release parameters from stack *)
+                    IF StackAddressSize = 32
+                        THEN
+                            ESP := ESP + SRC;
+                        ELSE (* StackAddressSize = 16 *)
+                            SP := SP + SRC;
+                    FI;
+    FI;
+    IF ShadowStackEnabled(CPL)
+            (* SSP must be 8 byte aligned *)
+            IF SSP AND 0x7 != 0
+                    THEN #CP(FAR-RET/IRET); FI;
+            tempSsCS = shadow_stack_load 8 bytes from SSP+16;
+            tempSsLIP = shadow_stack_load 8 bytes from SSP+8;
+            prevSSP = shadow_stack_load 8 bytes from SSP;
+            SSP = SSP + 24;
+            (* do a 64 bit-compare to check if any bits beyond bit 15 are set *)
+            tempCS = CS; (* zero pad to 64 bit *)
+            IF tempCS != tempSsCS
+                    THEN #CP(FAR-RET/IRET); FI;
+            (* do a 64 bit-compare; pad CSBASE+RIP with 0 for 32 bit LIP*)
+            IF CSBASE + RIP != tempSsLIP
+                    THEN #CP(FAR-RET/IRET); FI;
+            (* prevSSP must be 4 byte aligned *)
+            IF prevSSP AND 0x3 != 0
+                    THEN #CP(FAR-RET/IRET); FI;
+            (* In legacy mode SSP must be in low 4GB *)
+            IF prevSSP[63:32] != 0
+                    THEN #GP(0); FI;
+            SSP := prevSSP
     FI;
 RETURN-TO-OUTER-PRIVILEGE-LEVEL:
     IF top (16 + SRC) bytes of stack are not within stack limits (OperandSize = 32)
     or top (8 + SRC) bytes of stack are not within stack limits (OperandSize = 16)
-            THEN #SS(0); FI;
+                    THEN #SS(0); FI;
     Read return segment selector;
     IF stack segment selector is NULL
-        THEN #GP(0); FI;
+            THEN #GP(0); FI;
     IF return stack segment selector index is not within its descriptor table limits
-        THEN #GP(selector); FI;
+            THEN #GP(selector); FI;
     Read segment descriptor pointed to by return segment selector;
     IF stack segment selector RPL ≠ RPL of the return code segment selector
     or stack segment is not a writable data segment
     or stack segment descriptor DPL ≠ RPL of the return code segment selector
-            THEN #GP(selector); FI;
+                    THEN #GP(selector); FI;
     IF stack segment not present
-        THEN #SS(StackSegmentSelector); FI;
+            THEN #SS(StackSegmentSelector); FI;
     IF the return instruction pointer is not within the return code segment limit
-        THEN #GP(0); FI;
-    CPL &larr; ReturnCodeSegmentSelector(RPL);
+            THEN #GP(0); FI;
     IF OperandSize = 32
-        THEN
-            EIP &larr; Pop();
-            CS &larr; Pop(); (* 32-bit pop, high-order 16 bits discarded; segment descriptor loaded *)
-            CS(RPL) &larr; CPL;
-            IF instruction has immediate operand
-                THEN (* Release parameters from called procedure&rsquo;s stack *)
-                    IF StackAddressSize = 32
-                        THEN
-                            ESP &larr; ESP + SRC;
-                        ELSE (* StackAddressSize = 16 *)
-                            SP &larr; SP + SRC;
+            THEN
+                    EIP := Pop();
+                    CS := Pop(); (* 32-bit pop, high-order 16 bits discarded; segment descriptor loaded *)
+                    CS(RPL) := ReturnCodeSegmentSelector(RPL);
+                    IF instruction has immediate operand
+                        THEN (* Release parameters from called procedure&rsquo;s stack *)
+                            IF StackAddressSize = 32
+                                THEN
+                                    ESP := ESP + SRC;
+                                ELSE (* StackAddressSize = 16 *)
+                                    SP := SP + SRC;
+                            FI;
                     FI;
-            FI;
-            tempESP &larr; Pop();
-            tempSS &larr; Pop(); (* 32-bit pop, high-order 16 bits discarded; seg. descriptor loaded *)
-            ESP &larr; tempESP;
-            SS &larr; tempSS;
-        ELSE (* OperandSize = 16 *)
-            EIP &larr; Pop();
-            EIP &larr; EIP AND 0000FFFFH;
-            CS &larr; Pop(); (* 16-bit pop; segment descriptor loaded *)
-            CS(RPL) &larr; CPL;
-            IF instruction has immediate operand
-                THEN (* Release parameters from called procedure&rsquo;s stack *)
-                    IF StackAddressSize = 32
-                        THEN
-                            ESP &larr; ESP + SRC;
-                        ELSE (* StackAddressSize = 16 *)
-                            SP &larr; SP + SRC;
+                    tempESP := Pop();
+                    tempSS := Pop(); (* 32-bit pop, high-order 16 bits discarded; seg. descriptor loaded *)
+            ELSE (* OperandSize = 16 *)
+                    EIP := Pop();
+                    EIP := EIP AND 0000FFFFH;
+                    CS := Pop(); (* 16-bit pop; segment descriptor loaded *)
+                    CS(RPL) := ReturnCodeSegmentSelector(RPL);
+                    IF instruction has immediate operand
+                        THEN (* Release parameters from called procedure&rsquo;s stack *)
+                            IF StackAddressSize = 32
+                                THEN
+                                    ESP := ESP + SRC;
+                                ELSE (* StackAddressSize = 16 *)
+                                    SP := SP + SRC;
+                            FI;
                     FI;
+                    tempESP := Pop();
+                    tempSS := Pop(); (* 16-bit pop; segment descriptor loaded *)
             FI;
-            tempESP &larr; Pop();
-            tempSS &larr; Pop(); (* 16-bit pop; segment descriptor loaded *)
-            ESP &larr; tempESP;
-            SS &larr; tempSS;
+    IF ShadowStackEnabled(CPL)
+            (* check if 8 byte aligned *)
+            IF SSP AND 0x7 != 0
+                    THEN #CP(FAR-RET/IRET); FI;
+            IF ReturnCodeSegmentSelector(RPL) !=3
+                    THEN
+                        tempSsCS = shadow_stack_load 8 bytes from SSP+16;
+                        tempSsLIP = shadow_stack_load 8 bytes from SSP+8;
+                        tempSSP = shadow_stack_load 8 bytes from SSP;
+                        SSP = SSP + 24;
+                        (* Do 64 bit compare to detect bits beyond 15 being set *)
+                        tempCS = CS; (* zero extended to 64 bit *)
+                        IF tempCS != tempSsCS
+                            THEN #CP(FAR-RET/IRET); FI;
+                        (* Do 64 bit compare; pad CSBASE+RIP with 0 for 32 bit LA *)
+                        IF CSBASE + RIP != tempSsLIP
+                            THEN #CP(FAR-RET/IRET); FI;
+                        (* check if 4 byte aligned *)
+                        IF tempSSP AND 0x3 != 0
+                            THEN #CP(FAR-RET/IRET); FI;
+            FI;
+    FI;
+            tempOldCPL = CPL;
+            CPL := ReturnCodeSegmentSelector(RPL);
+            ESP := tempESP;
+            SS := tempSS;
+            tempOldSSP = SSP;
+            IF ShadowStackEnabled(CPL)
+                    IF CPL = 3
+                        THEN tempSSP := IA32_PL3_SSP; FI;
+                    IF tempSSP[63:32] != 0
+                        THEN #GP(0); FI;
+                    SSP := tempSSP
+            FI;
+            (* Now past all faulting points; safe to free the token. The token free is done using the old SSP
+                * and using a supervisor override as old CPL was a supervisor privilege level *)
+            IF ShadowStackEnabled(tempOldCPL)
+                    expected_token_value = tempOldSSP | BUSY_BIT (* busy bit - bit position 0 - must be set *)
+                    new_token_value = tempOldSSP (* clear the busy bit *)
+                    shadow_stack_lock_cmpxchg8b(tempOldSSP, new_token_value, expected_token_value)
+            FI;
     FI;
     FOR each SegReg in (ES, FS, GS, and DS)
-        DO
-            tempDesc &larr; descriptor cache for SegReg (* hidden part of segment register *)
-            IF (SegmentSelector == NULL) OR (tempDesc(DPL) &lt; CPL AND tempDesc(Type) is (data or non-conforming code)))
-                THEN (* Segment register invalid *)
-                    SegmentSelector &larr; 0; (*Segment selector becomes null*)
-            FI;
-        OD;
+            DO
+                    tempDesc := descriptor cache for SegReg (* hidden part of segment register *)
+                    IF (SegmentSelector == NULL) OR (tempDesc(DPL) &lt; CPL AND tempDesc(Type) is (data or non-conforming code)))
+                        THEN (* Segment register invalid *)
+                            SegmentSelector := 0; (*Segment selector becomes null*)
+                    FI;
+            OD;
     IF instruction has immediate operand
-        THEN (* Release parameters from calling procedure&rsquo;s stack *)
-            IF StackAddressSize = 32
-                THEN
-                    ESP &larr; ESP + SRC;
-                ELSE (* StackAddressSize = 16 *)
-                    SP &larr; SP + SRC;
-            FI;
+            THEN (* Release parameters from calling procedure&rsquo;s stack *)
+                    IF StackAddressSize = 32
+                        THEN
+                            ESP := ESP + SRC;
+                        ELSE (* StackAddressSize = 16 *)
+                            SP := SP + SRC;
+                    FI;
     FI;
 (* IA-32e Mode *)
     IF (PE = 1 and VM = 0 and IA32_EFER.LMA = 1) and instruction = far return
-        THEN
-            IF OperandSize = 32
-                THEN
-                    IF second doubleword on stack is not within stack limits
-                        THEN #SS(0); FI;
-                    IF first or second doubleword on stack is not in canonical space
-                        THEN #SS(0); FI;
-                ELSE
-                    IF OperandSize = 16
+            THEN
+                    IF OperandSize = 32
                         THEN
-                            IF second word on stack is not within stack limits
+                            IF second doubleword on stack is not within stack limits
                                 THEN #SS(0); FI;
-                            IF first or second word on stack is not in canonical space
+                            IF first or second doubleword on stack is not in canonical space
                                 THEN #SS(0); FI;
-                        ELSE (* OperandSize = 64 *)
-                            IF first or second quadword on stack is not in canonical space
-                                THEN #SS(0); FI;
-                    FI
+                        ELSE
+                            IF OperandSize = 16
+                                THEN
+                                    IF second word on stack is not within stack limits
+                                        THEN #SS(0); FI;
+                                    IF first or second word on stack is not in canonical space
+                                        THEN #SS(0); FI;
+                                ELSE (* OperandSize = 64 *)
+                                    IF first or second quadword on stack is not in canonical space
+                                        THEN #SS(0); FI;
+                            FI
+                    FI;
+            IF return code segment selector is NULL
+                    THEN GP(0); FI;
+            IF return code segment selector addresses descriptor beyond descriptor table limit
+                    THEN GP(selector); FI;
+            IF return code segment selector addresses descriptor in non-canonical space
+                    THEN GP(selector); FI;
+            Obtain descriptor to which return code segment selector points from descriptor table;
+            IF return code segment descriptor is not a code segment
+                    THEN #GP(selector); FI;
+            IF return code segment descriptor has L-bit = 1 and D-bit = 1
+                    THEN #GP(selector); FI;
+            IF return code segment selector RPL &lt; CPL
+                    THEN #GP(selector); FI;
+            IF return code segment descriptor is conforming
+            and return code segment DPL &gt; return code segment selector RPL
+                    THEN #GP(selector); FI;
+            IF return code segment descriptor is non-conforming
+            and return code segment DPL ≠ return code segment selector RPL
+                    THEN #GP(selector); FI;
+            IF return code segment descriptor is not present
+                    THEN #NP(selector); FI:
+            IF return code segment selector RPL &gt; CPL
+                    THEN GOTO IA-32E-MODE-RETURN-TO-OUTER-PRIVILEGE-LEVEL;
+                    ELSE GOTO IA-32E-MODE-RETURN-TO-SAME-PRIVILEGE-LEVEL;
             FI;
-        IF return code segment selector is NULL
-            THEN GP(0); FI;
-        IF return code segment selector addresses descriptor beyond descriptor table limit
-            THEN GP(selector); FI;
-        IF return code segment selector addresses descriptor in non-canonical space
-            THEN GP(selector); FI;
-        Obtain descriptor to which return code segment selector points from descriptor table;
-        IF return code segment descriptor is not a code segment
-            THEN #GP(selector); FI;
-        IF return code segment descriptor has L-bit = 1 and D-bit = 1
-            THEN #GP(selector); FI;
-        IF return code segment selector RPL &lt; CPL
-            THEN #GP(selector); FI;
-        IF return code segment descriptor is conforming
-        and return code segment DPL &gt; return code segment selector RPL
-            THEN #GP(selector); FI;
-        IF return code segment descriptor is non-conforming
-        and return code segment DPL ≠ return code segment selector RPL
-            THEN #GP(selector); FI;
-        IF return code segment descriptor is not present
-            THEN #NP(selector); FI:
-        IF return code segment selector RPL &gt; CPL
-            THEN GOTO IA-32E-MODE-RETURN-TO-OUTER-PRIVILEGE-LEVEL;
-            ELSE GOTO IA-32E-MODE-RETURN-TO-SAME-PRIVILEGE-LEVEL;
-        FI;
     FI;
 IA-32E-MODE-RETURN-TO-SAME-PRIVILEGE-LEVEL:
 IF the return instruction pointer is not within the return code segment limit
@@ -324,53 +400,72 @@ IF the return instruction pointer is not within canonical address space
     THEN #GP(0); FI;
 IF OperandSize = 32
     THEN
-        EIP &larr; Pop();
-        CS &larr; Pop(); (* 32-bit pop, high-order 16 bits discarded *)
+            EIP := Pop();
+            CS := Pop(); (* 32-bit pop, high-order 16 bits discarded *)
     ELSE
-        IF OperandSize = 16
-            THEN
-                EIP &larr; Pop();
-                EIP &larr; EIP AND 0000FFFFH;
-                CS &larr; Pop(); (* 16-bit pop *)
-            ELSE (* OperandSize = 64 *)
-                RIP &larr; Pop();
-                CS &larr; Pop(); (* 64-bit pop, high-order 48 bits discarded *)
-        FI;
+            IF OperandSize = 16
+                    THEN
+                        EIP := Pop();
+                        EIP := EIP AND 0000FFFFH;
+                        CS := Pop(); (* 16-bit pop *)
+                    ELSE (* OperandSize = 64 *)
+                        RIP := Pop();
+                        CS := Pop(); (* 64-bit pop, high-order 48 bits discarded *)
+            FI;
 FI;
 IF instruction has immediate operand
     THEN (* Release parameters from stack *)
-        IF StackAddressSize = 32
-            THEN
-                ESP &larr; ESP + SRC;
-            ELSE
-                IF StackAddressSize = 16
+            IF StackAddressSize = 32
                     THEN
-                        SP &larr; SP + SRC;
-                    ELSE (* StackAddressSize = 64 *)
-                        RSP &larr; RSP + SRC;
-                FI;
-        FI;
+                        ESP := ESP + SRC;
+                    ELSE
+                        IF StackAddressSize = 16
+                            THEN
+                                SP := SP + SRC;
+                            ELSE (* StackAddressSize = 64 *)
+                                RSP := RSP + SRC;
+                        FI;
+            FI;
+FI;
+IF ShadowStackEnabled(CPL)
+    IF SSP AND 0x7 != 0 (* check if aligned to 8 bytes *)
+            THEN #CP(FAR-RET/IRET); FI;
+    tempSsCS = shadow_stack_load 8 bytes from SSP+16;
+    tempSsLIP = shadow_stack_load 8 bytes from SSP+8;
+    tempSSP = shadow_stack_load 8 bytes from SSP;
+    SSP = SSP + 24;
+    tempCS = CS; (* zero padded to 64 bit *)
+    IF tempCS != tempSsCS (* 64 bit compare; CS zero padded to 64 bits *)
+            THEN #CP(FAR-RET/IRET); FI;
+    IF CSBASE + RIP != tempSsLIP (* 64 bit compare *)
+            THEN #CP(FAR-RET/IRET); FI;
+    IF tempSSP AND 0x3 != 0 (* check if aligned to 4 bytes *)
+            THEN #CP(FAR-RET/IRET); FI;
+    IF (CS.L = 0 AND tempSSP[63:32] != 0) OR
+        (CS.L = 1 AND tempSSP is not canonical relative to the current paging mode)
+            THEN #GP(0); FI;
+    SSP := tempSSP
 FI;
 IA-32E-MODE-RETURN-TO-OUTER-PRIVILEGE-LEVEL:
 IF top (16 + SRC) bytes of stack are not within stack limits (OperandSize = 32)
 or top (8 + SRC) bytes of stack are not within stack limits (OperandSize = 16)
     THEN #SS(0); FI;
-IF top (16 + SRC) bytes of stack are not in canonical address space (OperandSize = 32)
+IF top (16 + SRC) bytes of stack are not in canonical address space (OperandSize =32)
 or top (8 + SRC) bytes of stack are not in canonical address space (OperandSize = 16)
 or top (32 + SRC) bytes of stack are not in canonical address space (OperandSize = 64)
     THEN #SS(0); FI;
 Read return stack segment selector;
 IF stack segment selector is NULL
     THEN
-        IF new CS descriptor L-bit = 0
-            THEN #GP(selector);
-        IF stack segment selector RPL = 3
-            THEN #GP(selector);
+            IF new CS descriptor L-bit = 0
+                    THEN #GP(selector);
+            IF stack segment selector RPL = 3
+                    THEN #GP(selector);
 FI;
 IF return stack segment descriptor is not within descriptor table limits
-        THEN #GP(selector); FI;
+            THEN #GP(selector); FI;
 IF return stack segment descriptor is in non-canonical address space
-        THEN #GP(selector); FI;
+            THEN #GP(selector); FI;
 Read segment descriptor pointed to by return segment selector;
 IF stack segment selector RPL ≠ RPL of the return code segment selector
 or stack segment is not a writable data segment
@@ -382,89 +477,124 @@ IF the return instruction pointer is not within the return code segment limit
     THEN #GP(0); FI:
 IF the return instruction pointer is not within canonical address space
     THEN #GP(0); FI;
-CPL &larr; ReturnCodeSegmentSelector(RPL);
 IF OperandSize = 32
     THEN
-        EIP &larr; Pop();
-        CS &larr; Pop(); (* 32-bit pop, high-order 16 bits discarded, segment descriptor loaded *)
-        CS(RPL) &larr; CPL;
-        IF instruction has immediate operand
-            THEN (* Release parameters from called procedure&rsquo;s stack *)
-                IF StackAddressSize = 32
-                    THEN
-                        ESP &larr; ESP + SRC;
-                    ELSE
-                        IF StackAddressSize = 16
-                            THEN
-                                SP &larr; SP + SRC;
-                            ELSE (* StackAddressSize = 64 *)
-                                RSP &larr; RSP + SRC;
-                        FI;
-                FI;
-        FI;
-        tempESP &larr; Pop();
-        tempSS &larr; Pop(); (* 32-bit pop, high-order 16 bits discarded, segment descriptor loaded *)
-        ESP &larr; tempESP;
-        SS &larr; tempSS;
-    ELSE
-        IF OperandSize = 16
-            THEN
-                EIP &larr; Pop();
-                EIP &larr; EIP AND 0000FFFFH;
-                CS &larr; Pop(); (* 16-bit pop; segment descriptor loaded *)
-                CS(RPL) &larr; CPL;
-                IF instruction has immediate operand
+            EIP := Pop();
+            CS := Pop(); (* 32-bit pop, high-order 16 bits discarded, segment descriptor loaded *)
+            CS(RPL) := ReturnCodeSegmentSelector(RPL);
+            IF instruction has immediate operand
                     THEN (* Release parameters from called procedure&rsquo;s stack *)
                         IF StackAddressSize = 32
                             THEN
-                                ESP &larr; ESP + SRC;
+                                ESP := ESP + SRC;
                             ELSE
                                 IF StackAddressSize = 16
                                     THEN
-                                        SP &larr; SP + SRC;
+                                        SP := SP + SRC;
                                     ELSE (* StackAddressSize = 64 *)
-                                        RSP &larr; RSP + SRC;
+                                        RSP := RSP + SRC;
                                 FI;
                         FI;
-                FI;
-                tempESP &larr; Pop();
-                tempSS &larr; Pop(); (* 16-bit pop; segment descriptor loaded *)
-                ESP &larr; tempESP;
-                SS &larr; tempSS;
-            ELSE (* OperandSize = 64 *)
-                RIP &larr; Pop();
-                CS &larr; Pop(); (* 64-bit pop; high-order 48 bits discarded; seg. descriptor loaded *)
-                CS(RPL) &larr; CPL;
-                IF instruction has immediate operand
-                    THEN (* Release parameters from called procedure&rsquo;s stack *)
-                        RSP &larr; RSP + SRC;
-                FI;
-                tempESP &larr; Pop();
-                tempSS &larr; Pop(); (* 64-bit pop; high-order 48 bits discarded; seg. desc. loaded *)
-                ESP &larr; tempESP;
-                SS &larr; tempSS;
-        FI;
+            FI;
+            tempESP := Pop();
+            tempSS := Pop(); (* 32-bit pop, high-order 16 bits discarded, segment descriptor loaded *)
+    ELSE
+            IF OperandSize = 16
+                    THEN
+                        EIP := Pop();
+                        EIP := EIP AND 0000FFFFH;
+                        CS := Pop(); (* 16-bit pop; segment descriptor loaded *)
+                        CS(RPL) := ReturnCodeSegmentSelector(RPL);
+                        IF instruction has immediate operand
+                            THEN (* Release parameters from called procedure&rsquo;s stack *)
+                                IF StackAddressSize = 32
+                                    THEN
+                                        ESP := ESP + SRC;
+                                    ELSE
+                                        IF StackAddressSize = 16
+                                            THEN
+                                                SP := SP + SRC;
+                                            ELSE (* StackAddressSize = 64 *)
+                                                RSP := RSP + SRC;
+                                        FI;
+                                FI;
+                        FI;
+                        tempESP := Pop();
+                        tempSS := Pop(); (* 16-bit pop; segment descriptor loaded *)
+                    ELSE (* OperandSize = 64 *)
+                        RIP := Pop();
+                        CS := Pop(); (* 64-bit pop; high-order 48 bits discarded; seg. descriptor loaded *)
+                        CS(RPL) := ReturnCodeSegmentSelector(RPL);
+                        IF instruction has immediate operand
+                            THEN (* Release parameters from called procedure&rsquo;s stack *)
+                                RSP := RSP + SRC;
+                        FI;
+                        tempESP := Pop();
+                        tempSS := Pop(); (* 64-bit pop; high-order 48 bits discarded; seg. desc. loaded *)
+            FI;
+FI;
+IF ShadowStackEnabled(CPL)
+    (* check if 8 byte aligned *)
+    IF SSP AND 0x7 != 0
+            THEN #CP(FAR-RET/IRET); FI;
+    IF ReturnCodeSegmentSelector(RPL) !=3
+            THEN
+                    tempSsCS = shadow_stack_load 8 bytes from SSP+16;
+                    tempSsLIP = shadow_stack_load 8 bytes from SSP+8;
+                    tempSSP = shadow_stack_load 8 bytes from SSP;
+                    SSP = SSP + 24;
+                    (* Do 64 bit compare to detect bits beyond 15 being set *)
+                    tempCS = CS; (* zero padded to 64 bit *)
+                    IF tempCS != tempSsCS
+                        THEN #CP(FAR-RET/IRET); FI;
+                    (* Do 64 bit compare; pad CSBASE+RIP with 0 for 32 bit LIP *)
+                    IF CSBASE + RIP != tempSsLIP
+                        THEN #CP(FAR-RET/IRET); FI;
+                    (* check if 4 byte aligned *)
+                    IF tempSSP AND 0x3 != 0
+                        THEN #CP(FAR-RET/IRET); FI;
+    FI;
+FI;
+tempOldCPL = CPL;
+CPL := ReturnCodeSegmentSelector(RPL);
+ESP := tempESP;
+SS := tempSS;
+tempOldSSP = SSP;
+IF ShadowStackEnabled(CPL)
+    IF CPL = 3
+            THEN tempSSP := IA32_PL3_SSP; FI;
+    IF (CS.L = 0 AND tempSSP[63:32] != 0) OR
+        (CS.L = 1 AND tempSSP is not canonical relative to the current paging mode)
+            THEN #GP(0); FI;
+    SSP := tempSSP
+FI;
+(* Now past all faulting points; safe to free the token. The token free is done using the old SSP
+* and using a supervisor override as old CPL was a supervisor privilege level *)
+IF ShadowStackEnabled(tempOldCPL)
+    expected_token_value = tempOldSSP | BUSY_BIT (* busy bit - bit position 0 - must be set *)
+    new_token_value = tempOldSSP (* clear the busy bit *)
+    shadow_stack_lock_cmpxchg8b(tempOldSSP, new_token_value, expected_token_value)
 FI;
 FOR each of segment register (ES, FS, GS, and DS)
     DO
-        IF segment register points to data or non-conforming code segment
-        and CPL &gt; segment descriptor DPL; (* DPL in hidden part of segment register *)
-            THEN SegmentSelector &larr; 0; (* SegmentSelector invalid *)
-        FI;
+            IF segment register points to data or non-conforming code segment
+            and CPL &gt; segment descriptor DPL; (* DPL in hidden part of segment register *)
+                    THEN SegmentSelector := 0; (* SegmentSelector invalid *)
+            FI;
     OD;
 IF instruction has immediate operand
     THEN (* Release parameters from calling procedure&rsquo;s stack *)
-        IF StackAddressSize = 32
-            THEN
-                ESP &larr; ESP + SRC;
-            ELSE
-                IF StackAddressSize = 16
+            IF StackAddressSize = 32
                     THEN
-                        SP &larr; SP + SRC;
-                    ELSE (* StackAddressSize = 64 *)
-                        RSP &larr; RSP + SRC;
-                FI;
-        FI;
+                        ESP := ESP + SRC;
+                    ELSE
+                        IF StackAddressSize = 16
+                            THEN
+                                SP := SP + SRC;
+                            ELSE (* StackAddressSize = 64 *)
+                                RSP := RSP + SRC;
+                        FI;
+            FI;
 FI;
 </pre>
 <h2 id="flags-affected">Flags Affected<a class="anchor" href="RET.html#flags-affected">
@@ -476,10 +606,12 @@ FI;
 		</a></h2>
 <table>
 <tbody><tr>
-<td rowspan="2">#GP(0)</td>
+<td rowspan="3">#GP(0)</td>
 <td>If the return code or stack segment selector is NULL.</td></tr>
 <tr>
-<td>If the return instruction pointer is not within the return code segment limit</td></tr>
+<td>If the return instruction pointer is not within the return code segment limit.</td></tr>
+<tr>
+<td>If returning to 32-bit or compatibility mode and the previous SSP from shadow stack (when returning to CPL &lt;3) or from IA32_PL3_SSP (returning to CPL 3) is beyond 4GB.</td></tr>
 <tr>
 <td rowspan="8">#GP(selector)</td>
 <td>If the RPL of the return code segment selector is less then the CPL.</td></tr>
@@ -510,7 +642,12 @@ FI;
 <td>If a page fault occurs.</td></tr>
 <tr>
 <td>#AC(0)</td>
-<td>If an unaligned memory access occurs when the CPL is 3 and alignment checking is enabled.</td></tr></tbody></table>
+<td>If an unaligned memory access occurs when the CPL is 3 and alignment checking is enabled.</td></tr>
+<tr>
+<td rowspan="2">#CP(Far-RET/IRET)</td>
+<td>If the previous SSP from shadow stack (when returning to CPL &lt;3) or from IA32_PL3_SSP (returning to CPL 3) is not 4 byte aligned.</td></tr>
+<tr>
+<td>If return instruction pointer from stack and shadow stack do not match.</td></tr></tbody></table>
 <h2 class="exceptions" id="real-address-mode-exceptions">Real-Address Mode Exceptions<a class="anchor" href="RET.html#real-address-mode-exceptions">
 			&para;
 		</a></h2>
@@ -546,7 +683,7 @@ FI;
 		</a></h2>
 <table>
 <tbody><tr>
-<td rowspan="6">#GP(0)</td>
+<td rowspan="7">#GP(0)</td>
 <td>If the return instruction pointer is non-canonical.</td></tr>
 <tr>
 <td>If the return instruction pointer is not within the return code segment limit.</td></tr>
@@ -558,6 +695,8 @@ FI;
 <td>If a NULL stack segment selector RPL is not equal to CPL going back to non-CPL3 64-bit mode.</td></tr>
 <tr>
 <td>If the return code segment selector is NULL.</td></tr>
+<tr>
+<td>If returning to 32-bit or compatibility mode and the previous SSP from shadow stack (when returning to CPL &lt;3) or from IA32_PL3_SSP (returning to CPL 3) is beyond 4GB.</td></tr>
 <tr>
 <td rowspan="10">#GP(selector)</td>
 <td>If the proposed segment descriptor for a code segment does not indicate it is a code segment.</td></tr>
@@ -592,9 +731,14 @@ FI;
 <td>If a page fault occurs.</td></tr>
 <tr>
 <td>#AC(0)</td>
-<td>If alignment checking is enabled and an unaligned memory reference is made while the current privilege level is 3.</td></tr></tbody></table><footer><p>
+<td>If alignment checking is enabled and an unaligned memory reference is made while the current privilege level is 3.</td></tr>
+<tr>
+<td rowspan="2">#CP(Far-RET/IRET)</td>
+<td>If the previous SSP from shadow stack (when returning to CPL &lt;3) or from IA32_PL3_SSP (returning to CPL 3) is not 4 byte aligned.</td></tr>
+<tr>
+<td>If return instruction pointer from stack and shadow stack do not match.</td></tr></tbody></table><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

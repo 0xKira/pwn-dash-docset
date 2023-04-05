@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-207"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/IMUL"></a><title>IMUL</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>IMUL
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-215"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/IMUL"></a><title>IMUL</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>IMUL
 		&mdash; Signed Multiply</h1>
 
 <table>
@@ -15,91 +15,91 @@
 <td>M</td>
 <td>Valid</td>
 <td>Valid</td>
-<td>AX&larr; AL &lowast; <em>r/m</em> byte.</td></tr>
+<td>AX:= AL &lowast; <em>r/m</em> byte.</td></tr>
 <tr>
 <td>F7 /5</td>
 <td>IMUL <em>r/m16</em></td>
 <td>M</td>
 <td>Valid</td>
 <td>Valid</td>
-<td>DX:AX &larr; AX &lowast; <em>r/m</em> word.</td></tr>
+<td>DX:AX := AX &lowast; <em>r/m</em> word.</td></tr>
 <tr>
 <td>F7 /5</td>
 <td>IMUL <em>r/m32</em></td>
 <td>M</td>
 <td>Valid</td>
 <td>Valid</td>
-<td>EDX:EAX &larr; EAX &lowast; <em>r/m</em>32.</td></tr>
+<td>EDX:EAX := EAX &lowast; <em>r/m</em>32.</td></tr>
 <tr>
 <td>REX.W + F7 /5</td>
 <td>IMUL <em>r/m64</em></td>
 <td>M</td>
 <td>Valid</td>
 <td>N.E.</td>
-<td>RDX:RAX &larr; RAX &lowast; <em>r/m</em>64.</td></tr>
+<td>RDX:RAX := RAX &lowast; <em>r/m</em>64.</td></tr>
 <tr>
 <td>0F AF /<em>r</em></td>
 <td>IMUL <em>r16, r/m16</em></td>
 <td>RM</td>
 <td>Valid</td>
 <td>Valid</td>
-<td>word register &larr; word register &lowast; <em>r/m</em>16.</td></tr>
+<td>word register := word register &lowast; <em>r/m</em>16.</td></tr>
 <tr>
 <td>0F AF /<em>r</em></td>
 <td>IMUL <em>r32, r/m32</em></td>
 <td>RM</td>
 <td>Valid</td>
 <td>Valid</td>
-<td>doubleword register &larr; doubleword register &lowast; <em>r/m32.</em></td></tr>
+<td>doubleword register := doubleword register &lowast; <em>r/m32.</em></td></tr>
 <tr>
 <td>REX.W + 0F AF /<em>r</em></td>
 <td>IMUL <em>r64, r/m64</em></td>
 <td>RM</td>
 <td>Valid</td>
 <td>N.E.</td>
-<td>Quadword register &larr; Quadword register &lowast; <em>r/m64</em>.</td></tr>
+<td>Quadword register := Quadword register &lowast; <em>r/m64</em>.</td></tr>
 <tr>
 <td>6B /<em>r ib</em></td>
 <td>IMUL <em>r16, r/m16, imm8</em></td>
 <td>RMI</td>
 <td>Valid</td>
 <td>Valid</td>
-<td>word register &larr; <em>r/m16</em> &lowast; sign-extended immediate byte.</td></tr>
+<td>word register := <em>r/m16</em> &lowast; sign-extended immediate byte.</td></tr>
 <tr>
 <td>6B /<em>r ib</em></td>
 <td>IMUL <em>r32, r/m32, imm8</em></td>
 <td>RMI</td>
 <td>Valid</td>
 <td>Valid</td>
-<td>doubleword register &larr; <em>r/m32</em> &lowast; sign-extended immediate byte.</td></tr>
+<td>doubleword register := <em>r/m32</em> &lowast; sign-extended immediate byte.</td></tr>
 <tr>
 <td>REX.W + 6B /<em>r ib</em></td>
 <td>IMUL <em>r64, r/m64, imm8</em></td>
 <td>RMI</td>
 <td>Valid</td>
 <td>N.E.</td>
-<td>Quadword register &larr; <em>r/m64</em> &lowast; sign-extended immediate byte.</td></tr>
+<td>Quadword register := <em>r/m64</em> &lowast; sign-extended immediate byte.</td></tr>
 <tr>
 <td>69 /<em>r iw</em></td>
 <td>IMUL <em>r16, r/m16, imm16</em></td>
 <td>RMI</td>
 <td>Valid</td>
 <td>Valid</td>
-<td>word register &larr; <em>r/m16</em> &lowast; immediate word.</td></tr>
+<td>word register := <em>r/m16</em> &lowast; immediate word.</td></tr>
 <tr>
 <td>69 /<em>r id</em></td>
 <td>IMUL <em>r32, r/m32, imm32</em></td>
 <td>RMI</td>
 <td>Valid</td>
 <td>Valid</td>
-<td>doubleword register &larr; <em>r/m32</em> &lowast; immediate doubleword.</td></tr>
+<td>doubleword register := <em>r/m32</em> &lowast; immediate doubleword.</td></tr>
 <tr>
 <td>REX.W + 69 /<em>r id</em></td>
 <td>IMUL <em>r64, r/m64, imm32</em></td>
 <td>RMI</td>
 <td>Valid</td>
 <td>N.E.</td>
-<td>Quadword register &larr; <em>r/m64</em> &lowast; immediate doubleword.</td></tr>
+<td>Quadword register := <em>r/m64</em> &lowast; immediate doubleword.</td></tr>
 <tr>
 <td colspan="6"><strong>NOTES:</strong> * In64-bitmode,r/m8cannotbeencodedtoaccessthefollowingbyteregistersifaREXprefixisused:AH,BH,CH,DH.</td></tr></tbody></table>
 <h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="IMUL.html#instruction-operand-encoding">
@@ -153,46 +153,46 @@
 <pre>IF (NumberOfOperands = 1)
     THEN IF (OperandSize = 8)
         THEN
-            TMP_XP &larr; AL &lowast; SRC (* Signed multiplication; TMP_XP is a signed integer at twice the width of the SRC *);
-            AX &larr; TMP_XP[15:0];
+            TMP_XP := AL &lowast; SRC (* Signed multiplication; TMP_XP is a signed integer at twice the width of the SRC *);
+            AX := TMP_XP[15:0];
             IF SignExtend(TMP_XP[7:0]) = TMP_XP
-                THEN CF &larr; 0; OF &larr; 0;
-                ELSE CF &larr; 1; OF &larr; 1; FI;
+                THEN CF := 0; OF := 0;
+                ELSE CF := 1; OF := 1; FI;
         ELSE IF OperandSize = 16
             THEN
-                TMP_XP &larr; AX &lowast; SRC (* Signed multiplication; TMP_XP is a signed integer at twice the width of the SRC *)
-                DX:AX &larr; TMP_XP[31:0];
+                TMP_XP := AX &lowast; SRC (* Signed multiplication; TMP_XP is a signed integer at twice the width of the SRC *)
+                DX:AX := TMP_XP[31:0];
                 IF SignExtend(TMP_XP[15:0]) = TMP_XP
-                    THEN CF &larr; 0; OF &larr; 0;
-                    ELSE CF &larr; 1; OF &larr; 1; FI;
+                    THEN CF := 0; OF := 0;
+                    ELSE CF := 1; OF := 1; FI;
             ELSE IF OperandSize = 32
                 THEN
-                    TMP_XP &larr; EAX &lowast; SRC (* Signed multiplication; TMP_XP is a signed integer at twice the width of the SRC*)
-                    EDX:EAX &larr; TMP_XP[63:0];
+                    TMP_XP := EAX &lowast; SRC (* Signed multiplication; TMP_XP is a signed integer at twice the width of the SRC*)
+                    EDX:EAX := TMP_XP[63:0];
                     IF SignExtend(TMP_XP[31:0]) = TMP_XP
-                        THEN CF &larr; 0; OF &larr; 0;
-                        ELSE CF &larr; 1; OF &larr; 1; FI;
+                        THEN CF := 0; OF := 0;
+                        ELSE CF := 1; OF := 1; FI;
                 ELSE (* OperandSize = 64 *)
-                    TMP_XP &larr; RAX &lowast; SRC (* Signed multiplication; TMP_XP is a signed integer at twice the width of the SRC *)
-                    EDX:EAX &larr; TMP_XP[127:0];
+                    TMP_XP := RAX &lowast; SRC (* Signed multiplication; TMP_XP is a signed integer at twice the width of the SRC *)
+                    EDX:EAX := TMP_XP[127:0];
                     IF SignExtend(TMP_XP[63:0]) = TMP_XP
-                        THEN CF &larr; 0; OF &larr; 0;
-                        ELSE CF &larr; 1; OF &larr; 1; FI;
+                        THEN CF := 0; OF := 0;
+                        ELSE CF := 1; OF := 1; FI;
                 FI;
         FI;
     ELSE IF (NumberOfOperands = 2)
         THEN
-            TMP_XP &larr; DEST &lowast; SRC (* Signed multiplication; TMP_XP is a signed integer at twice the width of the SRC *)
-            DEST &larr; TruncateToOperandSize(TMP_XP);
+            TMP_XP := DEST &lowast; SRC (* Signed multiplication; TMP_XP is a signed integer at twice the width of the SRC *)
+            DEST := TruncateToOperandSize(TMP_XP);
             IF SignExtend(DEST) ≠ TMP_XP
-                THEN CF &larr; 1; OF &larr; 1;
-                ELSE CF &larr; 0; OF &larr; 0; FI;
+                THEN CF := 1; OF := 1;
+                ELSE CF := 0; OF := 0; FI;
         ELSE (* NumberOfOperands = 3 *)
-            TMP_XP &larr; SRC1 &lowast; SRC2 (* Signed multiplication; TMP_XP is a signed integer at twice the width of the SRC1 *)
-            DEST &larr; TruncateToOperandSize(TMP_XP);
+            TMP_XP := SRC1 &lowast; SRC2 (* Signed multiplication; TMP_XP is a signed integer at twice the width of the SRC1 *)
+            DEST := TruncateToOperandSize(TMP_XP);
             IF SignExtend(DEST) ≠ TMP_XP
-                THEN CF &larr; 1; OF &larr; 1;
-                ELSE CF &larr; 0; OF &larr; 0; FI;
+                THEN CF := 1; OF := 1;
+                ELSE CF := 0; OF := 0; FI;
     FI;
 FI;
 </pre>
@@ -278,6 +278,6 @@ FI;
 <td>If the LOCK prefix is used.</td></tr></tbody></table><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

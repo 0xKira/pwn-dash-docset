@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-369"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/PMULLW"></a><title>PMULLW</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>PMULLW
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-379"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/PMULLW"></a><title>PMULLW</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>PMULLW
 		&mdash; Multiply Packed Signed Integers and Store Low Result</h1>
 
 <table>
@@ -190,10 +190,10 @@
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="9.783381299999974" x="291.2991959" y="51.186080999999945">Y2</text>
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="9.783381299999974" x="328.31830249999996" y="51.186080999999945">Y1</text>
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="9.783381299999974" x="364.79721749999993" y="51.186080999999945">Y0</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 9.616881137499945pt; fill: #000" textLength="46.143608599999965" x="181.8604716" y="80.3246284375">Z3 = X3 &lowast; Y3</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 9.6165034375pt; fill: #000" textLength="46.196745299999975" x="254.93934389999998" y="80.3246284375">Z2 = X2 &lowast; Y2</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 9.6165034375pt; fill: #000" textLength="46.14413970000004" x="328.25194949999997" y="80.3246284375">Z1 = X1 &lowast; Y1</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 9.6165034375pt; fill: #000" textLength="46.21373100000005" x="397.2519474" y="80.3246284375">Z0 = X0 &lowast; Y0</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 9.616881137499945pt; fill: #000" textLength="46.15799239999998" x="181.8604716" y="80.3246284375">Z3 = X3 &lowast; Y3</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 9.6165034375pt; fill: #000" textLength="46.19195069999995" x="254.9537277" y="80.3246284375">Z2 = X2 &lowast; Y2</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 9.6165034375pt; fill: #000" textLength="46.13215320000006" x="328.26153869999996" y="80.3246284375">Z1 = X1 &lowast; Y1</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 9.6165034375pt; fill: #000" textLength="46.212132800000006" x="397.2495501" y="80.3246284375">Z0 = X0 &lowast; Y0</text>
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="22.194203399999992" x="144.1209579" y="80.40597159999993">TEMP</text>
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="21.32638079999998" x="203.4016546" y="105.3666902">DEST</text>
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 8.720879999999966pt; fill: #000" textLength="25.99908000000005" x="246.42000000000002" y="106.50333999999998">Z3[15:0]</text>
@@ -207,101 +207,77 @@
 <h3 id="pmullw--with-64-bit-operands-">PMULLW (with 64-bit operands)<a class="anchor" href="PMULLW.html#pmullw--with-64-bit-operands-">
 			&para;
 		</a></h3>
-<pre>TEMP0[31:0] &larr;
-    DEST[15:0] &lowast; SRC[15:0]; (* Signed multiplication *)
-TEMP1[31:0] &larr;
-    DEST[31:16] &lowast; SRC[31:16];
-TEMP2[31:0] &larr;
-    DEST[47:32] &lowast; SRC[47:32];
-TEMP3[31:0] &larr;
-    DEST[63:48] &lowast; SRC[63:48];
-DEST[15:0] &larr;
-    TEMP0[15:0];
-DEST[31:16] &larr;
-    TEMP1[15:0];
-DEST[47:32] &larr;
-    TEMP2[15:0];
-DEST[63:48] &larr;
-    TEMP3[15:0];
+<pre>TEMP0[31:0] := DEST[15:0] &lowast; SRC[15:0]; (* Signed multiplication *)
+TEMP1[31:0] := DEST[31:16] &lowast; SRC[31:16];
+TEMP2[31:0] := DEST[47:32] &lowast; SRC[47:32];
+TEMP3[31:0] := DEST[63:48] &lowast; SRC[63:48];
+DEST[15:0] := TEMP0[15:0];
+DEST[31:16] := TEMP1[15:0];
+DEST[47:32] := TEMP2[15:0];
+DEST[63:48] := TEMP3[15:0];
 </pre>
 <h3 id="pmullw--with-128-bit-operands-">PMULLW (with 128-bit operands)<a class="anchor" href="PMULLW.html#pmullw--with-128-bit-operands-">
 			&para;
 		</a></h3>
-<pre>    TEMP0[31:0] &larr;
-        DEST[15:0] &lowast; SRC[15:0]; (* Signed multiplication *)
-    TEMP1[31:0] &larr;
-        DEST[31:16] &lowast; SRC[31:16];
-    TEMP2[31:0] &larr;
-        DEST[47:32] &lowast; SRC[47:32];
-    TEMP3[31:0] &larr;
-        DEST[63:48] &lowast; SRC[63:48];
-    TEMP4[31:0] &larr;
-        DEST[79:64] &lowast; SRC[79:64];
-    TEMP5[31:0] &larr;
-        DEST[95:80] &lowast; SRC[95:80];
-    TEMP6[31:0] &larr;
-        DEST[111:96] &lowast; SRC[111:96];
-    TEMP7[31:0] &larr;
-        DEST[127:112] &lowast; SRC[127:112];
-    DEST[15:0] &larr;
-        TEMP0[15:0];
-    DEST[31:16] &larr;
-        TEMP1[15:0];
-    DEST[47:32] &larr;
-        TEMP2[15:0];
-    DEST[63:48] &larr;
-        TEMP3[15:0];
-    DEST[79:64] &larr;
-        TEMP4[15:0];
-    DEST[95:80] &larr;
-        TEMP5[15:0];
-    DEST[111:96] &larr;
-        TEMP6[15:0];
-    DEST[127:112] &larr;
-        TEMP7[15:0];
-DEST[MAXVL-1:256] &larr; 0
+<pre>    TEMP0[31:0] := DEST[15:0] &lowast; SRC[15:0]; (* Signed multiplication *)
+    TEMP1[31:0] := DEST[31:16] &lowast; SRC[31:16];
+    TEMP2[31:0] := DEST[47:32] &lowast; SRC[47:32];
+    TEMP3[31:0] := DEST[63:48] &lowast; SRC[63:48];
+    TEMP4[31:0] := DEST[79:64] &lowast; SRC[79:64];
+    TEMP5[31:0] := DEST[95:80] &lowast; SRC[95:80];
+    TEMP6[31:0] := DEST[111:96] &lowast; SRC[111:96];
+    TEMP7[31:0] := DEST[127:112] &lowast; SRC[127:112];
+    DEST[15:0] := TEMP0[15:0];
+    DEST[31:16] := TEMP1[15:0];
+    DEST[47:32] := TEMP2[15:0];
+    DEST[63:48] := TEMP3[15:0];
+    DEST[79:64] := TEMP4[15:0];
+    DEST[95:80] := TEMP5[15:0];
+    DEST[111:96] := TEMP6[15:0];
+    DEST[127:112] := TEMP7[15:0];
+DEST[MAXVL-1:256] := 0
 </pre>
 <h3 id="vpmullw--vex-128-encoded-version-">VPMULLW (VEX.128 encoded version)<a class="anchor" href="PMULLW.html#vpmullw--vex-128-encoded-version-">
 			&para;
 		</a></h3>
-<pre>Temp0[31:0]&larr;SRC1[15:0] * SRC2[15:0]
-Temp1[31:0]&larr;SRC1[31:16] * SRC2[31:16]
-Temp2[31:0]&larr;SRC1[47:32] * SRC2[47:32]
-Temp3[31:0]&larr;SRC1[63:48] * SRC2[63:48]
-Temp4[31:0]&larr;SRC1[79:64] * SRC2[79:64]
-Temp5[31:0]&larr;SRC1[95:80] * SRC2[95:80]
-Temp6[31:0]&larr;SRC1[111:96] * SRC2[111:96]
-Temp7[31:0]&larr;SRC1[127:112] * SRC2[127:112]
-DEST[15:0] &larr; Temp0[15:0]
-DEST[31:16] &larr; Temp1[15:0]
-DEST[47:32] &larr; Temp2[15:0]
-DEST[63:48] &larr; Temp3[15:0]
-DEST[79:64] &larr; Temp4[15:0]
-DEST[95:80] &larr; Temp5[15:0]
-DEST[111:96] &larr; Temp6[15:0]
-DEST[127:112] &larr; Temp7[15:0]
-DEST[MAXVL-1:128] &larr; 0
+<pre>Temp0[31:0] := SRC1[15:0] * SRC2[15:0]
+Temp1[31:0] := SRC1[31:16] * SRC2[31:16]
+Temp2[31:0] := SRC1[47:32] * SRC2[47:32]
+Temp3[31:0] := SRC1[63:48] * SRC2[63:48]
+Temp4[31:0] := SRC1[79:64] * SRC2[79:64]
+Temp5[31:0] := SRC1[95:80] * SRC2[95:80]
+Temp6[31:0] := SRC1[111:96] * SRC2[111:96]
+Temp7[31:0] := SRC1[127:112] * SRC2[127:112]
+DEST[15:0] := Temp0[15:0]
+DEST[31:16] := Temp1[15:0]
+DEST[47:32] := Temp2[15:0]
+DEST[63:48] := Temp3[15:0]
+DEST[79:64] := Temp4[15:0]
+DEST[95:80] := Temp5[15:0]
+DEST[111:96] := Temp6[15:0]
+DEST[127:112] := Temp7[15:0]
+DEST[MAXVL-1:128] := 0
 </pre>
 <h3 id="pmullw--evex-encoded-versions-">PMULLW (EVEX encoded versions)<a class="anchor" href="PMULLW.html#pmullw--evex-encoded-versions-">
 			&para;
 		</a></h3>
 <pre>(KL, VL) = (8, 128), (16, 256), (32, 512)
-FOR j&larr;0 TO KL-1
-    i&larr;j * 16
+FOR j := 0 TO KL-1
+    i := j * 16
     IF k1[j] OR *no writemask*
         THEN
-            temp[31:0]&larr;SRC1[i+15:i] * SRC2[i+15:i]
-            DEST[i+15:i] &larr; temp[15:0]
+            temp[31:0] := SRC1[i+15:i] * SRC2[i+15:i]
+            DEST[i+15:i] := temp[15:0]
         ELSE
             IF *merging-masking* ; merging-masking
                 THEN *DEST[i+15:i] remains unchanged*
                 ELSE *zeroing-masking*
                         ; zeroing-masking
-                    DEST[i+15:i] &larr; 0
+                    DEST[i+15:i] := 0
             FI
     FI;
 ENDFOR
-DEST[MAXVL-1:VL] &larr; 0
+DEST[MAXVL-1:VL] := 0
 </pre>
 <h2 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="PMULLW.html#intel-c-c++-compiler-intrinsic-equivalent">
 			&para;
@@ -337,10 +313,10 @@ DEST[MAXVL-1:VL] &larr; 0
 <h2 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="PMULLW.html#other-exceptions">
 			&para;
 		</a></h2>
-<p>Non-EVEX-encoded instruction, see Exceptions Type 4.</p>
-<p>EVEX-encoded instruction, see Exceptions Type E4.nb.</p><footer><p>
+<p>Non-EVEX-encoded instruction, see <span class="not-imported">Table 2-21</span>, &ldquo;Type 4 Class Exception Conditions&rdquo;.</p>
+<p>EVEX-encoded instruction, see Exceptions Type E4.nb in <span class="not-imported">Table 2-49</span>, &ldquo;Type E4 Class Exception Conditions&rdquo;.</p><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

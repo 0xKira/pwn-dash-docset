@@ -1,0 +1,124 @@
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-254"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/LOADIWKEY"></a><title>LOADIWKEY</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>LOADIWKEY
+		&mdash; Load Internal Wrapping Key with Key Locker</h1>
+
+<table>
+<tbody><tr>
+<th>Opcode/Instruction</th>
+<th>Op/En</th>
+<th>64/32-bit Mode</th>
+<th>CPUID Feature Flag</th>
+<th>Description</th></tr>
+<tr>
+<td>F3 0F 38 DC 11:rrr:bbb LOADIWKEY xmm1, xmm2, &lt;EAX&gt;, &lt;XMM0&gt;</td>
+<td>A</td>
+<td>V/V</td>
+<td>KL</td>
+<td>Load internal wrapping key from xmm1, xmm2, and XMM0.</td></tr></tbody></table>
+<h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="LOADIWKEY.html#instruction-operand-encoding">
+			&para;
+		</a></h2>
+<table>
+<tbody><tr>
+<td>Op/En</td>
+<td>Tuple</td>
+<td>Operand 1</td>
+<td>Operand 2</td>
+<td>Operand 3</td>
+<td>Operand 4</td></tr>
+<tr>
+<td>A</td>
+<td>NA</td>
+<td>ModRM:reg (r)</td>
+<td>ModRM:r/m (r)</td>
+<td>Implicit EAX (r)</td>
+<td>Implicit XMM0 (r)</td></tr></tbody></table>
+<h2 id="description">Description<a class="anchor" href="LOADIWKEY.html#description">
+			&para;
+		</a></h2>
+<p>The LOADIWKEY<sup>1</sup> instruction writes the Key Locker internal wrapping key, which is called IWKey. This IWKey is used by the ENCODEKEY* instructions to wrap keys into handles. Conversely, the AESENC/DEC*KL instructions use IWKey to unwrap those keys from the handles and help verify the handle integrity. For security reasons, no instruction is designed to allow software to directly read the IWKey value.</p>
+<p>IWKey includes two cryptographic keys as well as metadata. The two cryptographic keys are loaded from register sources so that LOADIWKEY can be executed without the keys ever being in memory.</p>
+<p>The key input operands are:</p>
+<ul>
+<li>The 256-bit encryption key is loaded from the two explicit operands.</li>
+<li>The 128-bit integrity key is loaded from the implicit operand XMM0.</li></ul>
+<p>The implicit operand EAX specifies the KeySource and whether backing up the key is permitted:</p>
+<ul>
+<li>EAX[0] &ndash; When set, the wrapping key being initialized is not permitted to be backed up to platform-scoped storage.</li>
+<li>EAX[4:1] &ndash; This specifies the KeySource, which is the type of key. Currently only two encodings are supported. A KeySource of 0 indicates that the key input operands described above should be directly stored as the internal wrapping keys. LOADIWKEY with a KeySource of 1 will have random numbers from the on-chip random number generator XORed with the source registers (including XMM0) so that the software that executes the LOADIWKEY does not know the actual IWKey encryption and integrity keys. Software can choose to put additional random data into the source registers so that other sources of random data are combined with the hardware random number generator supplied value. Software should always check ZF after executing LOADIWKEY with KeySource of 1 as this operation may fail due to it being unable to get sufficient full-entropy data from the on-chip random number generator. Both KeySource of 0 and 1 specify that IWKey be used with the AES-GCM-SIV algorithm. CPUID.19H.ECX[1] enumerates support for KeySource of 1. All other KeySource encodings are reserved.</li>
+<li>EAX[31:5] &ndash; Reserved.</li></ul>
+<p>1. Further details on Key Locker and usage of this instruction can be found here:</p>
+<h3 id="https---software-intel-com-content-www-us-en-develop-download-intel-key-locker-specification-html-">https://software.intel.com/content/www/us/en/develop/download/intel-key-locker-specification.html.<a class="anchor" href="LOADIWKEY.html#https---software-intel-com-content-www-us-en-develop-download-intel-key-locker-specification-html-">
+			&para;
+		</a></h3>
+<h2 id="operation">Operation<a class="anchor" href="LOADIWKEY.html#operation">
+			&para;
+		</a></h2>
+<h4 id="loadiwkey">LOADIWKEY<a class="anchor" href="LOADIWKEY.html#loadiwkey">
+			&para;
+		</a></h4>
+<pre>IF CPL &gt; 0
+                    // LOADKWKEY only allowed at ring 0 (supervisor mode)
+    THEN #GP (0); FI;
+IF EAX[4:1] &gt; 1
+                    // Reserved KeySource encoding used
+    THEN #GP (0); FI;
+IF EAX[31:5] != 0
+                    // Reserved bit in EAX is set
+    THEN #GP (0); FI;
+IF EAX[0] AND (CPUID.19H.ECX[0] == 0)
+                        // NoBackup is not supported on this part
+    THEN #GP (0); FI;
+IF (EAX[4:1] == 1) AND (CPUID.19H.ECX[1] == 0)
+                        // KeySource of 1 is not supported on this part
+    THEN #GP (0); FI;
+IF (EAX[4:1] == 0) // KeySource of 0
+    THEN
+        IWKey.Encryption Key[127:0] := SRC2[127:0]:
+        IWKey.Encryption Key[255:128] := SRC1[127:0];
+        IWKey.IntegrityKey[127:0] := XMM0[127:0];
+        IWKey.NoBackup = EAX [0];
+        IWKey.KeySource = EAX [4:1];
+        RFLAGS.ZF := 0;
+    ELSE // KeySource of 1. See RDSEED definition for details of randomness
+        IF HW_NRND_GEN.ready == 1 // Full-entropy random data from RDSEED hardware block was received
+            THEN
+                IWKey.Encryption Key[127:0] := SRC2[127:0] XOR HW_NRND_GEN.data[127:0];
+                IWKey.Encryption Key[255:128] := SRC1[127:0] XOR HW_NRND_GEN.data[255:128];
+                IWKey.IntegrityKey[127:0] := XMM0[127:0] XOR HW_NRND_GEN.data[383:256];
+                IWKey.NoBackup = EAX [0];
+                IWKey.KeySource = EAX [4:1];
+                RFLAGS.ZF := 0;
+            ELSE // Random data was not returned from RDSEED hardware block. IWKey was not loaded
+                RFLAGS.ZF := 1;
+        FI;
+FI;
+RFLAGS.OF, SF, AF, PF, CF := 0;
+</pre>
+<h2 id="flags-affected">Flags Affected<a class="anchor" href="LOADIWKEY.html#flags-affected">
+			&para;
+		</a></h2>
+<p>ZF is set to 0 if the operation succeeded and set to 1 if the operation failed due to full-entropy random data not being received from RDSEED. The other arithmetic flags (OF, SF, AF, PF, CF) are cleared to 0.</p>
+<h2 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="LOADIWKEY.html#intel-c-c++-compiler-intrinsic-equivalent">
+			&para;
+		</a></h2>
+<pre>LOADIWKEY void _mm_loadiwkey(unsigned int ctl, __m128i intkey, __m128i enkey_lo, __m128i enkey_hi);
+</pre>
+<h2 id="exceptions--all-operating-modes-">Exceptions (All Operating Modes)<a class="anchor" href="LOADIWKEY.html#exceptions--all-operating-modes-">
+			&para;
+		</a></h2>
+<p>#GP If CPL &gt; 0. (Does not apply in real-address mode.)</p>
+<p>If EAX[4:1] &gt; 1.</p>
+<p>If EAX[31:5] != 0.</p>
+<p>If (EAX[0] == 1) AND (CPUID.19H.ECX[0] == 0).</p>
+<p>If (EAX[4:1] == 1) AND (CPUID.19H.ECX[1] == 0).</p>
+<p>#UD If the LOCK prefix is used.</p>
+<p>If CPUID.07H:ECX.KL [bit 23] = 0.</p>
+<p>If CR4.KL = 0.</p>
+<p>If CR0.EM = 1.</p>
+<p>If CR4.OSFXSR = 0.</p>
+<p>#NM If CR0.TS = 1.</p><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+	</p></footer>
+</body></html>

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-325"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/PAND"></a><title>PAND</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>PAND
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-335"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/PAND"></a><title>PAND</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>PAND
 		&mdash; Logical AND</h1>
 
 <table>
@@ -118,70 +118,70 @@
 <h4 id="pand--64-bit-operand-">PAND (64-bit operand)<a class="anchor" href="PAND.html#pand--64-bit-operand-">
 			&para;
 		</a></h4>
-<pre>DEST&larr;DEST AND SRC
+<pre>DEST := DEST AND SRC
 </pre>
 <h4 id="pand--128-bit-legacy-sse-version-">PAND (128-bit Legacy SSE version)<a class="anchor" href="PAND.html#pand--128-bit-legacy-sse-version-">
 			&para;
 		</a></h4>
-<pre>DEST&larr;DEST AND SRC
+<pre>DEST := DEST AND SRC
 DEST[MAXVL-1:128] (Unmodified)
 </pre>
 <h4 id="vpand--vex-128-encoded-version-">VPAND (VEX.128 encoded version)<a class="anchor" href="PAND.html#vpand--vex-128-encoded-version-">
 			&para;
 		</a></h4>
-<pre>DEST&larr;SRC1 AND SRC2
-DEST[MAXVL-1:128] &larr; 0
+<pre>DEST := SRC1 AND SRC2
+DEST[MAXVL-1:128] := 0
 </pre>
 <h4 id="vpand--vex-256-encoded-instruction-">VPAND (VEX.256 encoded instruction)<a class="anchor" href="PAND.html#vpand--vex-256-encoded-instruction-">
 			&para;
 		</a></h4>
-<pre>DEST[255:0]&larr;(SRC1[255:0] AND SRC2[255:0])
-DEST[MAXVL-1:256] &larr; 0
+<pre>DEST[255:0] := (SRC1[255:0] AND SRC2[255:0])
+DEST[MAXVL-1:256] := 0
 </pre>
 <h4 id="vpandd--evex-encoded-versions-">VPANDD (EVEX encoded versions)<a class="anchor" href="PAND.html#vpandd--evex-encoded-versions-">
 			&para;
 		</a></h4>
 <pre>(KL, VL) = (4, 128), (8, 256), (16, 512)
-FOR j&larr;0 TO KL-1
-    i&larr;j * 32
+FOR j := 0 TO KL-1
+    i := j * 32
     IF k1[j] OR *no writemask*
         THEN
             IF (EVEX.b = 1) AND (SRC2 *is memory*)
-                THEN DEST[i+31:i]&larr;SRC1[i+31:i] BITWISE AND SRC2[31:0]
-                ELSE DEST[i+31:i]&larr;SRC1[i+31:i] BITWISE AND SRC2[i+31:i]
+                THEN DEST[i+31:i] := SRC1[i+31:i] BITWISE AND SRC2[31:0]
+                ELSE DEST[i+31:i] := SRC1[i+31:i] BITWISE AND SRC2[i+31:i]
             FI;
         ELSE
             IF *merging-masking* ; merging-masking
                 THEN *DEST[i+31:i] remains unchanged*
                 ELSE
                         ; zeroing-masking
-                    DEST[i+31:i] &larr; 0
+                    DEST[i+31:i] := 0
             FI
     FI;
 ENDFOR
-DEST[MAXVL-1:VL] &larr; 0
+DEST[MAXVL-1:VL] := 0
 </pre>
 <h4 id="vpandq--evex-encoded-versions-">VPANDQ (EVEX encoded versions)<a class="anchor" href="PAND.html#vpandq--evex-encoded-versions-">
 			&para;
 		</a></h4>
 <pre>(KL, VL) = (2, 128), (4, 256), (8, 512)
-FOR j&larr;0 TO KL-1
-    i&larr;j * 64
+FOR j := 0 TO KL-1
+    i := j * 64
     IF k1[j] OR *no writemask*
         THEN
             IF (EVEX.b = 1) AND (SRC2 *is memory*)
-                THEN DEST[i+63:i]&larr;SRC1[i+63:i] BITWISE AND SRC2[63:0]
-                ELSE DEST[i+63:i]&larr;SRC1[i+63:i] BITWISE AND SRC2[i+63:i]
+                THEN DEST[i+63:i] := SRC1[i+63:i] BITWISE AND SRC2[63:0]
+                ELSE DEST[i+63:i] := SRC1[i+63:i] BITWISE AND SRC2[i+63:i]
             FI;
         ELSE
             IF *merging-masking* ; merging-masking
                 THEN *DEST[i+63:i] remains unchanged*
                 ELSE ; zeroing-masking
-                    DEST[i+63:i] &larr; 0
+                    DEST[i+63:i] := 0
             FI
     FI;
 ENDFOR
-DEST[MAXVL-1:VL] &larr; 0
+DEST[MAXVL-1:VL] := 0
 </pre>
 <h3 id="intel-c-c++-compiler-intrinsic-equivalents">Intel C/C++ Compiler Intrinsic Equivalents<a class="anchor" href="PAND.html#intel-c-c++-compiler-intrinsic-equivalents">
 			&para;
@@ -231,10 +231,10 @@ DEST[MAXVL-1:VL] &larr; 0
 <h2 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="PAND.html#other-exceptions">
 			&para;
 		</a></h2>
-<p>Non-EVEX-encoded instruction, see Exceptions Type 4.</p>
-<p>EVEX-encoded instruction, see Exceptions Type E4.</p><footer><p>
+<p>Non-EVEX-encoded instruction, see <span class="not-imported">Table 2-21</span>, &ldquo;Type 4 Class Exception Conditions&rdquo;.</p>
+<p>EVEX-encoded instruction, see <span class="not-imported">Table 2-49</span>, &ldquo;Type E4 Class Exception Conditions&rdquo;.</p><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

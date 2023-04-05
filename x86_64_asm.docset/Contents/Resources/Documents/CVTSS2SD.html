@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-90"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/CVTSS2SD"></a><title>CVTSS2SD</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>CVTSS2SD
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-98"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/CVTSS2SD"></a><title>CVTSS2SD</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>CVTSS2SD
 		&mdash; Convert Scalar Single-Precision Floating-Point Value to Scalar Double-Precision Floating-Point Value</h1>
 
 <table>
@@ -21,7 +21,7 @@
 <td>AVX</td>
 <td>Convert one single-precision floating-point value in xmm3/m32 to one double-precision floating-point value and merge with high bits of xmm2.</td></tr>
 <tr>
-<td>EVEX.LIG.F3.0F.W0 5A /r VCVTSS2SD xmm1 {k1}{z}, xmm2, xmm3/m32{sae}</td>
+<td>EVEX.LLIG.F3.0F.W0 5A /r VCVTSS2SD xmm1 {k1}{z}, xmm2, xmm3/m32{sae}</td>
 <td>C</td>
 <td>V/V</td>
 <td>AVX512F</td>
@@ -40,7 +40,7 @@
 <tr>
 <td>A</td>
 <td>NA</td>
-<td>ModRM:reg (w)</td>
+<td>ModRM:reg (r, w)</td>
 <td>ModRM:r/m (r)</td>
 <td>NA</td>
 <td>NA</td></tr>
@@ -48,14 +48,14 @@
 <td>B</td>
 <td>NA</td>
 <td>ModRM:reg (w)</td>
-<td>VEX.vvvv</td>
+<td>VEX.vvvv (r)</td>
 <td>ModRM:r/m (r)</td>
 <td>NA</td></tr>
 <tr>
 <td>C</td>
 <td>Tuple1 Scalar</td>
 <td>ModRM:reg (w)</td>
-<td>EVEX.vvvv</td>
+<td>EVEX.vvvv (r)</td>
 <td>ModRM:r/m (r)</td>
 <td>NA</td></tr></tbody></table>
 <h2 id="description">Description<a class="anchor" href="CVTSS2SD.html#description">
@@ -72,7 +72,7 @@
 			&para;
 		</a></h3>
 <pre>IF k1[0] or *no writemask*
-    THEN DEST[63:0] &larr; Convert_Single_Precision_To_Double_Precision_Floating_Point(SRC2[31:0]);
+    THEN DEST[63:0] := Convert_Single_Precision_To_Double_Precision_Floating_Point(SRC2[31:0]);
     ELSE
         IF *merging-masking* ; merging-masking
             THEN *DEST[63:0] remains unchanged*
@@ -80,20 +80,20 @@
                 THEN DEST[63:0] = 0
         FI;
 FI;
-DEST[127:64] &larr; SRC1[127:64]
-DEST[MAXVL-1:128] &larr; 0
+DEST[127:64] := SRC1[127:64]
+DEST[MAXVL-1:128] := 0
 </pre>
 <h3 id="vcvtss2sd--vex-128-encoded-version-">VCVTSS2SD (VEX.128 encoded version)<a class="anchor" href="CVTSS2SD.html#vcvtss2sd--vex-128-encoded-version-">
 			&para;
 		</a></h3>
-<pre>DEST[63:0] &larr;Convert_Single_Precision_To_Double_Precision_Floating_Point(SRC2[31:0])
-DEST[127:64] &larr;SRC1[127:64]
-DEST[MAXVL-1:128] &larr;0
+<pre>DEST[63:0] := Convert_Single_Precision_To_Double_Precision_Floating_Point(SRC2[31:0])
+DEST[127:64] := SRC1[127:64]
+DEST[MAXVL-1:128] := 0
 </pre>
 <h3 id="cvtss2sd--128-bit-legacy-sse-version-">CVTSS2SD (128-bit Legacy SSE version)<a class="anchor" href="CVTSS2SD.html#cvtss2sd--128-bit-legacy-sse-version-">
 			&para;
 		</a></h3>
-<pre>DEST[63:0] &larr;Convert_Single_Precision_To_Double_Precision_Floating_Point(SRC[31:0]);
+<pre>DEST[63:0] := Convert_Single_Precision_To_Double_Precision_Floating_Point(SRC[31:0]);
 DEST[MAXVL-1:64] (Unmodified)
 </pre>
 <h2 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="CVTSS2SD.html#intel-c-c++-compiler-intrinsic-equivalent">
@@ -118,10 +118,10 @@ DEST[MAXVL-1:64] (Unmodified)
 <h2 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="CVTSS2SD.html#other-exceptions">
 			&para;
 		</a></h2>
-<p>VEX-encoded instructions, see Exceptions Type 3.</p>
-<p>EVEX-encoded instructions, see Exceptions Type E3.</p><footer><p>
+<p>VEX-encoded instructions, see <span class="not-imported">Table 2-20</span>, &ldquo;Type 3 Class Exception Conditions&rdquo;.</p>
+<p>EVEX-encoded instructions, see <span class="not-imported">Table 2-47</span>, &ldquo;Type E3 Class Exception Conditions&rdquo;.</p><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

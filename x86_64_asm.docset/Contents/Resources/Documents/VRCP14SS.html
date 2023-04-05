@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-643"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/VRCP14SS"></a><title>VRCP14SS</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>VRCP14SS
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-671"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/VRCP14SS"></a><title>VRCP14SS</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>VRCP14SS
 		&mdash; Compute Approximate Reciprocal of Scalar Float32 Value</h1>
 
 <table>
@@ -9,7 +9,7 @@
 <th>CPUID Feature Flag</th>
 <th>Description</th></tr>
 <tr>
-<td>EVEX.LIG.66.0F38.W0 4D /r VRCP14SS xmm1 {k1}{z}, xmm2, xmm3/m32</td>
+<td>EVEX.LLIG.66.0F38.W0 4D /r VRCP14SS xmm1 {k1}{z}, xmm2, xmm3/m32</td>
 <td>A</td>
 <td>V/V</td>
 <td>AVX512F</td>
@@ -36,7 +36,7 @@
 			&para;
 		</a></h3>
 <p>This instruction performs a SIMD computation of the approximate reciprocal of the low single-precision floating-point value in the second source operand (the third operand) and stores the result in the low quadword element of the destination operand (the first operand) according to the writemask k1. Bits (127:32) of the XMM register destination are copied from corresponding bits in the first source operand (the second operand). The maximum relative error for this approximation is less than 2<sup>-14</sup>. The source operand can be an XMM register or a 32-bit memory location. The destination operand is an XMM register.</p>
-<p>The VRCP14SS instruction is not affected by the rounding control bits in the MXCSR register. When a source value is a 0.0, an &infin; with the sign of the source value is returned. A denormal source value will be treated as zero only in case of DAZ bit set in MXCSR. Otherwise it is treated correctly (i.e. not as a 0.0). Underflow results are flushed to zero only in case of FTZ bit set in MXCSR. Otherwise it will be treated correctly (i.e. correct underflow result is written) with the sign of the operand. When a source value is a SNaN or QNaN, the SNaN is converted to a QNaN or the source QNaN is returned. See <a href="VRCP14PS.html#tbl-5-23">Table 5-23</a> for special-case input values.</p>
+<p>The VRCP14SS instruction is not affected by the rounding control bits in the MXCSR register. When a source value is a 0.0, an &infin; with the sign of the source value is returned. A denormal source value will be treated as zero only in case of DAZ bit set in MXCSR. Otherwise it is treated correctly (i.e., not as a 0.0). Underflow results are flushed to zero only in case of FTZ bit set in MXCSR. Otherwise it will be treated correctly (i.e., correct underflow result is written) with the sign of the operand. When a source value is a SNaN or QNaN, the SNaN is converted to a QNaN or the source QNaN is returned. See <a href="VRCP14PS.html#tbl-5-23">Table 5-23</a> for special-case input values.</p>
 <p>MXCSR exception flags are not affected by this instruction and floating-point exceptions are not reported.</p>
 <h3 id="a-numerically-exact-implementation-of-vrcp14xx-can-be-found-at-https---software-intel-com-en-us-articles-refer-">A numerically exact implementation of VRCP14xx can be found at https://software.intel.com/en-us/articles/refer-<a class="anchor" href="VRCP14SS.html#a-numerically-exact-implementation-of-vrcp14xx-can-be-found-at-https---software-intel-com-en-us-articles-refer-">
 			&para;
@@ -51,16 +51,17 @@
 			&para;
 		</a></h4>
 <pre>IF k1[0] OR *no writemask*
-        THEN DEST[31:0]&larr;APPROXIMATE(1.0/SRC2[31:0]);
+        THEN DEST[31:0] := APPROXIMATE(1.0/SRC2[31:0]);
     ELSE
         IF *merging-masking* ; merging-masking
             THEN *DEST[31:0] remains unchanged*
-            ELSE ; zeroing-masking
-                DEST[31:0] &larr; 0
+            ELSE
+                    ; zeroing-masking
+                DEST[31:0] := 0
         FI;
 FI;
-DEST[127:32] &larr; SRC1[127:32]
-DEST[MAXVL-1:128] &larr; 0
+DEST[127:32] := SRC1[127:32]
+DEST[MAXVL-1:128] := 0
 </pre>
 <h3 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="VRCP14SS.html#intel-c-c++-compiler-intrinsic-equivalent">
 			&para;
@@ -78,9 +79,9 @@ DEST[MAXVL-1:128] &larr; 0
 <h3 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="VRCP14SS.html#other-exceptions">
 			&para;
 		</a></h3>
-<p>See Exceptions Type E5.</p><footer><p>
+<p>See <span class="not-imported">Table 2-51</span>, &ldquo;Type E5 Class Exception Conditions&rdquo;.</p><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

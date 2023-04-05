@@ -8,14 +8,14 @@ global index_content
 
 def handle(filename):
     global index_content
-    print 'Processing: ', filename
+    print('Processing: ', filename)
     patt = re.compile('<title>(.*?)</title>', re.S)
     with open(filename, 'r') as f:
         content = f.read()
     res = patt.findall(content)
     if res:
         new_title = res[0].split('\n')[0]
-        # print 'new', new_title
+        # print('new', new_title)
         content = patt.sub(
             '<title>{}</title>'.format(new_title), content, count=1)
         with open(filename, 'w') as f:
@@ -24,8 +24,8 @@ def handle(filename):
     # rename filename to be compatible with Windows
     if ':' in filename:
         new_name = filename.replace(':', '-')
-        print 'old name:', filename
-        print 'new name:', new_name
+        print('old name:', filename)
+        print('new name:', new_name)
         os.rename(filename, new_name)
         index_content = index_content.replace(filename, new_name)
 

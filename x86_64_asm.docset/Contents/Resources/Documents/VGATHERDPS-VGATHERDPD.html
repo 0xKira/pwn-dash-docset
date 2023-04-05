@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-553"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/VGATHERDPS%2FVGATHERDPD"></a><title>VGATHERDPS/VGATHERDPD</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>VGATHERDPS/VGATHERDPD
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-568"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/VGATHERDPS%2FVGATHERDPD"></a><title>VGATHERDPS/VGATHERDPD</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>VGATHERDPS/VGATHERDPD
 		&mdash; Gather Packed Single, Packed Double with Signed Dword</h1>
 
 
@@ -92,35 +92,35 @@ DISP is the optional 1 or 4 byte displacement
 			&para;
 		</a></h4>
 <pre>(KL, VL) = (4, 128), (8, 256), (16, 512)
-FOR j&larr;0 TO KL-1
-    i&larr;j * 32
+FOR j := 0 TO KL-1
+    i := j * 32
     IF k1[j]
-        THEN DEST[i+31:i]&larr;
+        THEN DEST[i+31:i] :=
             MEM[BASE_ADDR +
                 SignExtend(VINDEX[i+31:i]) * SCALE + DISP]
-            k1[j] &larr; 0
-        ELSE *DEST[i+31:i]&larr;remains unchanged*
+            k1[j] := 0
+        ELSE *DEST[i+31:i] := remains unchanged*
     FI;
 ENDFOR
-k1[MAX_KL-1:KL] &larr; 0
-DEST[MAXVL-1:VL] &larr; 0
+k1[MAX_KL-1:KL] := 0
+DEST[MAXVL-1:VL] := 0
 </pre>
 <h4 id="vgatherdpd--evex-encoded-version-">VGATHERDPD (EVEX encoded version)<a class="anchor" href="./VGATHERDPS:VGATHERDPD.html#vgatherdpd--evex-encoded-version-">
 			&para;
 		</a></h4>
 <pre>(KL, VL) = (2, 128), (4, 256), (8, 512)
-FOR j&larr;0 TO KL-1
-    i&larr;j * 64
-    k&larr;j * 32
+FOR j := 0 TO KL-1
+    i := j * 64
+    k := j * 32
     IF k1[j]
-        THEN DEST[i+63:i]&larr;MEM[BASE_ADDR +
+        THEN DEST[i+63:i] := MEM[BASE_ADDR +
                 SignExtend(VINDEX[k+31:k]) * SCALE + DISP]
-            k1[j] &larr; 0
-        ELSE *DEST[i+63:i]&larr;remains unchanged*
+            k1[j] := 0
+        ELSE *DEST[i+63:i] := remains unchanged*
     FI;
 ENDFOR
-k1[MAX_KL-1:KL] &larr; 0
-DEST[MAXVL-1:VL] &larr; 0
+k1[MAX_KL-1:KL] := 0
+DEST[MAXVL-1:VL] := 0
 </pre>
 <h3 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="./VGATHERDPS:VGATHERDPD.html#intel-c-c++-compiler-intrinsic-equivalent">
 			&para;
@@ -148,9 +148,9 @@ DEST[MAXVL-1:VL] &larr; 0
 <h3 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="./VGATHERDPS:VGATHERDPD.html#other-exceptions">
 			&para;
 		</a></h3>
-<p>See Exceptions Type E12.</p><footer><p>
+<p>See <span class="not-imported">Table 2-61</span>, &ldquo;Type E12 Class Exception Conditions&rdquo;.</p><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

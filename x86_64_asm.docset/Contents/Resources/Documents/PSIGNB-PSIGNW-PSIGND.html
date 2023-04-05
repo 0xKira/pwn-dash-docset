@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-385"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/PSIGNB%2FPSIGNW%2FPSIGND"></a><title>PSIGNB/PSIGNW/PSIGND</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>PSIGNB/PSIGNW/PSIGND
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-395"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/PSIGNB%2FPSIGNW%2FPSIGND"></a><title>PSIGNB/PSIGNW/PSIGND</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>PSIGNB/PSIGNW/PSIGND
 		&mdash; Packed SIGN</h1>
 
 
@@ -110,7 +110,7 @@
 			&para;
 		</a></h2>
 <p>(V)PSIGNB/(V)PSIGNW/(V)PSIGND negates each data element of the destination operand (the first operand) if the signed integer value of the corresponding data element in the source operand (the second operand) is less than zero. If the signed integer value of a data element in the source operand is positive, the corresponding data element in the destination operand is unchanged. If a data element in the source operand is zero, the corresponding data element in the destination operand is set to zero.</p>
-<p>(V)PSIGNB operates on signed bytes. (V)PSIGNW operates on 16-bit signed words. (V)PSIGND operates on signed 32-bit integers. When the source operand is a 128bit memory operand, the operand must be aligned on a 16-byte boundary or a general-protection exception (#GP) will be generated.</p>
+<p>(V)PSIGNB operates on signed bytes. (V)PSIGNW operates on 16-bit signed words. (V)PSIGND operates on signed 32-bit integers.</p>
 <p>Legacy SSE instructions: Both operands can be MMX registers. In 64-bit mode, use the REX prefix to access additional registers.</p>
 <p>128-bit Legacy SSE version: The first source and destination operands are XMM registers. The second source operand is an XMM register or a 128-bit memory location. Bits (MAXVL-1:128) of the corresponding YMM destination register remain unchanged.</p>
 <p>VEX.128 encoded version: The first source and destination operands are XMM registers. The second source operand is an XMM register or a 128-bit memory location. Bits (MAXVL-1:128) of the destination YMM register are zeroed. VEX.L must be 0, otherwise instructions will #UD.</p>
@@ -118,139 +118,102 @@
 <h2 id="operation">Operation<a class="anchor" href="./PSIGNB:PSIGNW:PSIGND.html#operation">
 			&para;
 		</a></h2>
-<h3 id="psignb--with-64-bit-operands-">PSIGNB (with 64 bit operands)<a class="anchor" href="./PSIGNB:PSIGNW:PSIGND.html#psignb--with-64-bit-operands-">
-			&para;
-		</a></h3>
-<pre>IF (SRC[7:0] &lt; 0 )
-    DEST[7:0] &larr; Neg(DEST[7:0])
-ELSEIF (SRC[7:0] = 0 )
-    DEST[7:0] &larr; 0
-ELSEIF (SRC[7:0] &gt; 0 )
-    DEST[7:0] &larr; DEST[7:0]
-Repeat operation for 2nd through 7th bytes
-IF (SRC[63:56] &lt; 0 )
-    DEST[63:56] &larr; Neg(DEST[63:56])
-ELSEIF (SRC[63:56] = 0 )
-    DEST[63:56] &larr; 0
-ELSEIF (SRC[63:56] &gt; 0 )
-    DEST[63:56] &larr; DEST[63:56]
+<pre>def byte_sign(control, input_val):
+    if control&lt;0:
+        return negate(input_val)
+    elif control==0:
+        return 0
+    return input_val
+def word_sign(control, input_val):
+    if control&lt;0:
+        return negate(input_val)
+    elif control==0:
+        return 0
+    return input_val
+def dword_sign(control, input_val):
+    if control&lt;0:
+        return negate(input_val)
+    elif control==0:
+        return 0
+    return input_val
 </pre>
-<h3 id="psignb--with-128-bit-operands-">PSIGNB (with 128 bit operands)<a class="anchor" href="./PSIGNB:PSIGNW:PSIGND.html#psignb--with-128-bit-operands-">
+<h3 id="psignb-srcdest--src">PSIGNB srcdest, src<a class="anchor" href="./PSIGNB:PSIGNW:PSIGND.html#psignb-srcdest--src">
 			&para;
 		</a></h3>
-<pre>IF (SRC[7:0] &lt; 0 )
-    DEST[7:0] &larr; Neg(DEST[7:0])
-ELSEIF (SRC[7:0] = 0 )
-    DEST[7:0] &larr; 0
-ELSEIF (SRC[7:0] &gt; 0 )
-    DEST[7:0] &larr; DEST[7:0]
-Repeat operation for 2nd through 15th bytes
-IF (SRC[127:120] &lt; 0 )
-    DEST[127:120] &larr; Neg(DEST[127:120])
-ELSEIF (SRC[127:120] = 0 )
-    DEST[127:120] &larr; 0
-ELSEIF (SRC[127:120] &gt; 0 )
-    DEST[127:120] &larr; DEST[127:120]
+<h3 id="---mmx-64-bit-operands">// MMX 64-bit operands<a class="anchor" href="./PSIGNB:PSIGNW:PSIGND.html#---mmx-64-bit-operands">
+			&para;
+		</a></h3>
+<pre>VL=64
+KL := VL/8
+for i in 0...KL-1:
+    srcdest.byte[i] := byte_sign(src.byte[i], srcdest.byte[i])
 </pre>
-<h3 id="vpsignb--vex-128-encoded-version-">VPSIGNB (VEX.128 encoded version)<a class="anchor" href="./PSIGNB:PSIGNW:PSIGND.html#vpsignb--vex-128-encoded-version-">
+<h3 id="psignw-srcdest--src----mmx-64-bit-operands">PSIGNW srcdest, src // MMX 64-bit operands<a class="anchor" href="./PSIGNB:PSIGNW:PSIGND.html#psignw-srcdest--src----mmx-64-bit-operands">
 			&para;
 		</a></h3>
-<pre>DEST[127:0]&larr;BYTE_SIGN(SRC1, SRC2)
-DEST[MAXVL-1:128] &larr; 0
+<pre>VL=64
+KL := VL/16
+FOR i in 0...KL-1:
+    srcdest.word[i] := word_sign(src.word[i], srcdest.word[i])
 </pre>
-<h3 id="vpsignb--vex-256-encoded-version-">VPSIGNB (VEX.256 encoded version)<a class="anchor" href="./PSIGNB:PSIGNW:PSIGND.html#vpsignb--vex-256-encoded-version-">
+<h3 id="psignd-srcdest--src----mmx-64-bit-operands">PSIGND srcdest, src // MMX 64-bit operands<a class="anchor" href="./PSIGNB:PSIGNW:PSIGND.html#psignd-srcdest--src----mmx-64-bit-operands">
 			&para;
 		</a></h3>
-<pre>DEST[255:0]&larr;BYTE_SIGN_256b(SRC1, SRC2)
+<pre>VL=64
+KL := VL/32
+FOR i in 0...KL-1:
+    srcdest.dword[i] := dword_sign(src.dword[i], srcdest.dword[i])
 </pre>
-<h3 id="psignw--with-64-bit-operands-">PSIGNW (with 64 bit operands)<a class="anchor" href="./PSIGNB:PSIGNW:PSIGND.html#psignw--with-64-bit-operands-">
+<h3 id="psignb-srcdest--src----sse-128-bit-operands">PSIGNB srcdest, src // SSE 128-bit operands<a class="anchor" href="./PSIGNB:PSIGNW:PSIGND.html#psignb-srcdest--src----sse-128-bit-operands">
 			&para;
 		</a></h3>
-<pre>    IF (SRC[15:0] &lt; 0 )
-        DEST[15:0] &larr; Neg(DEST[15:0])
-    ELSEIF (SRC[15:0] = 0 )
-        DEST[15:0] &larr; 0
-    ELSEIF (SRC[15:0] &gt; 0 )
-        DEST[15:0] &larr; DEST[15:0]
-Repeat operation for 2nd through 3rd words
-    IF (SRC[63:48] &lt; 0 )
-        DEST[63:48] &larr; Neg(DEST[63:48])
-    ELSEIF (SRC[63:48] = 0 )
-        DEST[63:48] &larr; 0
-    ELSEIF (SRC[63:48] &gt; 0 )
-        DEST[63:48] &larr; DEST[63:48]
+<pre>VL=128
+KL := VL/8
+FOR i in 0...KL-1:
+    srcdest.byte[i] := byte_sign(src.byte[i], srcdest.byte[i])
 </pre>
-<h3 id="psignw--with-128-bit-operands-">PSIGNW (with 128 bit operands)<a class="anchor" href="./PSIGNB:PSIGNW:PSIGND.html#psignw--with-128-bit-operands-">
+<h3 id="psignw-srcdest--src----sse-128-bit-operands">PSIGNW srcdest, src // SSE 128-bit operands<a class="anchor" href="./PSIGNB:PSIGNW:PSIGND.html#psignw-srcdest--src----sse-128-bit-operands">
 			&para;
 		</a></h3>
-<pre>IF (SRC[15:0] &lt; 0 )
-    DEST[15:0] &larr; Neg(DEST[15:0])
-ELSEIF (SRC[15:0] = 0 )
-    DEST[15:0] &larr; 0
-ELSEIF (SRC[15:0] &gt; 0 )
-    DEST[15:0] &larr; DEST[15:0]
-Repeat operation for 2nd through 7th words
-IF (SRC[127:112] &lt; 0 )
-    DEST[127:112] &larr; Neg(DEST[127:112])
-ELSEIF (SRC[127:112] = 0 )
-    DEST[127:112] &larr; 0
-ELSEIF (SRC[127:112] &gt; 0 )
-    DEST[127:112] &larr; DEST[127:112]
+<pre>VL=128
+KL := VL/16
+FOR i in 0...KL-1:
+    srcdest.word[i] := word_sign(src.word[i], srcdest.word[i])
 </pre>
-<h3 id="vpsignw--vex-128-encoded-version-">VPSIGNW (VEX.128 encoded version)<a class="anchor" href="./PSIGNB:PSIGNW:PSIGND.html#vpsignw--vex-128-encoded-version-">
+<h3 id="psignd-srcdest--src----sse-128-bit-operands">PSIGND srcdest, src // SSE 128-bit operands<a class="anchor" href="./PSIGNB:PSIGNW:PSIGND.html#psignd-srcdest--src----sse-128-bit-operands">
 			&para;
 		</a></h3>
-<pre>DEST[127:0]&larr;WORD_SIGN(SRC1, SRC2)
-DEST[MAXVL-1:128] &larr; 0
+<pre>VL=128
+KL := VL/32
+FOR i in 0...KL-1:
+    srcdest.dword[i] := dword_sign(src.dword[i], srcdest.dword[i])
 </pre>
-<h3 id="vpsignw--vex-256-encoded-version-">VPSIGNW (VEX.256 encoded version)<a class="anchor" href="./PSIGNB:PSIGNW:PSIGND.html#vpsignw--vex-256-encoded-version-">
+<h3 id="vpsignb-dest--src1--src2----avx-128-bit-or-256-bit-operands">VPSIGNB dest, src1, src2 // AVX 128-bit or 256-bit operands<a class="anchor" href="./PSIGNB:PSIGNW:PSIGND.html#vpsignb-dest--src1--src2----avx-128-bit-or-256-bit-operands">
 			&para;
 		</a></h3>
-<pre>DEST[255:0]&larr;WORD_SIGN(SRC1, SRC2)
+<pre>VL=(128,256)
+KL := VL/8
+FOR i in 0...KL-1:
+    dest.byte[i] := byte_sign(src2.byte[i], src1.byte[i])
+DEST[MAXVL-1:VL] := 0
 </pre>
-<h3 id="psignd--with-64-bit-operands-">PSIGND (with 64 bit operands)<a class="anchor" href="./PSIGNB:PSIGNW:PSIGND.html#psignd--with-64-bit-operands-">
+<h3 id="vpsignw-dest--src1--src2----avx-128-bit-or-256-bit-operands">VPSIGNW dest, src1, src2 // AVX 128-bit or 256-bit operands<a class="anchor" href="./PSIGNB:PSIGNW:PSIGND.html#vpsignw-dest--src1--src2----avx-128-bit-or-256-bit-operands">
 			&para;
 		</a></h3>
-<pre>IF (SRC[31:0] &lt; 0 )
-    DEST[31:0] &larr; Neg(DEST[31:0])
-ELSEIF (SRC[31:0] = 0 )
-    DEST[31:0] &larr; 0
-ELSEIF (SRC[31:0] &gt; 0 )
-    DEST[31:0] &larr; DEST[31:0]
-IF (SRC[63:32] &lt; 0 )
-    DEST[63:32] &larr; Neg(DEST[63:32])
-ELSEIF (SRC[63:32] = 0 )
-    DEST[63:32] &larr; 0
-ELSEIF (SRC[63:32] &gt; 0 )
-    DEST[63:32] &larr; DEST[63:32]
+<pre>VL=(128,256)
+KL := VL/16
+FOR i in 0...KL-1:
+    dest.word[i] := word_sign(src2.word[i], src1.word[i])
+DEST[MAXVL-1:VL] := 0
 </pre>
-<h3 id="psignd--with-128-bit-operands-">PSIGND (with 128 bit operands)<a class="anchor" href="./PSIGNB:PSIGNW:PSIGND.html#psignd--with-128-bit-operands-">
+<h3 id="vpsignd-dest--src1--src2----avx-128-bit-or-256-bit-operands">VPSIGND dest, src1, src2 // AVX 128-bit or 256-bit operands<a class="anchor" href="./PSIGNB:PSIGNW:PSIGND.html#vpsignd-dest--src1--src2----avx-128-bit-or-256-bit-operands">
 			&para;
 		</a></h3>
-<pre>IF (SRC[31:0] &lt; 0 )
-    DEST[31:0] &larr; Neg(DEST[31:0])
-ELSEIF (SRC[31:0] = 0 )
-    DEST[31:0] &larr; 0
-ELSEIF (SRC[31:0] &gt; 0 )
-    DEST[31:0] &larr; DEST[31:0]
-Repeat operation for 2nd through 3rd double words
-IF (SRC[127:96] &lt; 0 )
-    DEST[127:96] &larr; Neg(DEST[127:96])
-ELSEIF (SRC[127:96] = 0 )
-    DEST[127:96] &larr; 0
-ELSEIF (SRC[127:96] &gt; 0 )
-    DEST[127:96] &larr; DEST[127:96]
-</pre>
-<h3 id="vpsignd--vex-128-encoded-version-">VPSIGND (VEX.128 encoded version)<a class="anchor" href="./PSIGNB:PSIGNW:PSIGND.html#vpsignd--vex-128-encoded-version-">
-			&para;
-		</a></h3>
-<pre>DEST[127:0]&larr;DWORD_SIGN(SRC1, SRC2)
-DEST[MAXVL-1:128] &larr; 0
-</pre>
-<h3 id="vpsignd--vex-256-encoded-version-">VPSIGND (VEX.256 encoded version)<a class="anchor" href="./PSIGNB:PSIGNW:PSIGND.html#vpsignd--vex-256-encoded-version-">
-			&para;
-		</a></h3>
-<pre>DEST[255:0]&larr;DWORD_SIGN(SRC1, SRC2)
+<pre>VL=(128,256)
+KL := VL/32
+FOR i in 0...KL-1:
+    dest.dword[i] := dword_sign(src2.dword[i], src1.dword[i])
+DEST[MAXVL-1:VL] := 0
 </pre>
 <h2 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="./PSIGNB:PSIGNW:PSIGND.html#intel-c-c++-compiler-intrinsic-equivalent">
 			&para;
@@ -280,13 +243,13 @@ DEST[MAXVL-1:128] &larr; 0
 <h2 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="./PSIGNB:PSIGNW:PSIGND.html#other-exceptions">
 			&para;
 		</a></h2>
-<p>See Exceptions Type 4; additionally</p>
+<p>See <span class="not-imported">Table 2-21</span>, &ldquo;Type 4 Class Exception Conditions&rdquo;; additionally:</p>
 <table>
 <tbody><tr>
 <td>#UD</td>
 <td>If VEX.L = 1.</td></tr></tbody></table><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

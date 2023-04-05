@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-590"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/VPCMPQ%2FVPCMPUQ"></a><title>VPCMPQ/VPCMPUQ</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>VPCMPQ/VPCMPUQ
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-606"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/VPCMPQ%2FVPCMPUQ"></a><title>VPCMPQ/VPCMPUQ</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>VPCMPQ/VPCMPUQ
 		&mdash; Compare Packed Integer Values into Mask</h1>
 
 
@@ -74,57 +74,57 @@
 			&para;
 		</a></h3>
 <pre>CASE (COMPARISON PREDICATE) OF
-    0: OP&larr;EQ;
-    1: OP&larr;LT;
-    2: OP&larr;LE;
-    3: OP&larr;FALSE;
-    4: OP&larr;NEQ;
-    5: OP&larr;NLT;
-    6: OP&larr;NLE;
-    7: OP&larr;TRUE;
+    0: OP := EQ;
+    1: OP := LT;
+    2: OP := LE;
+    3: OP := FALSE;
+    4: OP := NEQ;
+    5: OP := NLT;
+    6: OP := NLE;
+    7: OP := TRUE;
 ESAC;
 </pre>
 <h4 id="vpcmpq--evex-encoded-versions-">VPCMPQ (EVEX encoded versions)<a class="anchor" href="./VPCMPQ:VPCMPUQ.html#vpcmpq--evex-encoded-versions-">
 			&para;
 		</a></h4>
 <pre>(KL, VL) = (2, 128), (4, 256), (8, 512)
-FOR j&larr;0 TO KL-1
-    i&larr;j * 64
+FOR j := 0 TO KL-1
+    i := j * 64
     IF k2[j] OR *no writemask*
         THEN
             IF (EVEX.b = 1) AND (SRC2 *is memory*)
-                THEN CMP&larr;SRC1[i+63:i] OP SRC2[63:0];
-                ELSE CMP&larr;SRC1[i+63:i] OP SRC2[i+63:i];
+                THEN CMP := SRC1[i+63:i] OP SRC2[63:0];
+                ELSE CMP := SRC1[i+63:i] OP SRC2[i+63:i];
             FI;
             IF CMP = TRUE
-                THEN DEST[j]&larr;1;
-                ELSE DEST[j]&larr;0; FI;
-        ELSE DEST[j]&larr;0
+                THEN DEST[j] := 1;
+                ELSE DEST[j] := 0; FI;
+        ELSE DEST[j] := 0
                     ; zeroing-masking only
     FI;
 ENDFOR
-DEST[MAX_KL-1:KL] &larr; 0
+DEST[MAX_KL-1:KL] := 0
 </pre>
 <h4 id="vpcmpuq--evex-encoded-versions-">VPCMPUQ (EVEX encoded versions)<a class="anchor" href="./VPCMPQ:VPCMPUQ.html#vpcmpuq--evex-encoded-versions-">
 			&para;
 		</a></h4>
 <pre>(KL, VL) = (2, 128), (4, 256), (8, 512)
-FOR j&larr;0 TO KL-1
-    i&larr;j * 64
+FOR j := 0 TO KL-1
+    i := j * 64
     IF k2[j] OR *no writemask*
         THEN
             IF (EVEX.b = 1) AND (SRC2 *is memory*)
-                THEN CMP&larr;SRC1[i+63:i] OP SRC2[63:0];
-                ELSE CMP&larr;SRC1[i+63:i] OP SRC2[i+63:i];
+                THEN CMP := SRC1[i+63:i] OP SRC2[63:0];
+                ELSE CMP := SRC1[i+63:i] OP SRC2[i+63:i];
             FI;
             IF CMP = TRUE
-                THEN DEST[j]&larr;1;
-                ELSE DEST[j]&larr;0; FI;
-        ELSE DEST[j]&larr;0
+                THEN DEST[j] := 1;
+                ELSE DEST[j] := 0; FI;
+        ELSE DEST[j] := 0
                     ; zeroing-masking only
     FI;
 ENDFOR
-DEST[MAX_KL-1:KL] &larr; 0
+DEST[MAX_KL-1:KL] := 0
 </pre>
 <h3 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="./VPCMPQ:VPCMPUQ.html#intel-c-c++-compiler-intrinsic-equivalent">
 			&para;
@@ -184,9 +184,9 @@ DEST[MAX_KL-1:KL] &larr; 0
 <h3 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="./VPCMPQ:VPCMPUQ.html#other-exceptions">
 			&para;
 		</a></h3>
-<p>EVEX-encoded instruction, see Exceptions Type E4.</p><footer><p>
+<p>EVEX-encoded instruction, see <span class="not-imported">Table 2-49</span>, &ldquo;Type E4 Class Exception Conditions&rdquo;.</p><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

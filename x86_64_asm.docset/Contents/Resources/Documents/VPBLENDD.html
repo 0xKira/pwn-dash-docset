@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-582"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/VPBLENDD"></a><title>VPBLENDD</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>VPBLENDD
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-598"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/VPBLENDD"></a><title>VPBLENDD</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>VPBLENDD
 		&mdash; Blend Packed Dwords</h1>
 
 <table>
@@ -33,7 +33,7 @@
 <tr>
 <td>RVMI</td>
 <td>ModRM:reg (w)</td>
-<td>VEX.vvvv</td>
+<td>VEX.vvvv (r)</td>
 <td>ModRM:r/m (r)</td>
 <td>Imm8</td></tr></tbody></table>
 <h2 id="description">Description<a class="anchor" href="VPBLENDD.html#description">
@@ -48,35 +48,35 @@
 <h3 id="vpblendd--vex-256-encoded-version-">VPBLENDD (VEX.256 encoded version)<a class="anchor" href="VPBLENDD.html#vpblendd--vex-256-encoded-version-">
 			&para;
 		</a></h3>
-<pre>IF (imm8[0] == 1) THEN DEST[31:0]&larr;SRC2[31:0]
-ELSE DEST[31:0]&larr;SRC1[31:0]
-IF (imm8[1] == 1) THEN DEST[63:32]&larr;SRC2[63:32]
-ELSE DEST[63:32]&larr;SRC1[63:32]
-IF (imm8[2] == 1) THEN DEST[95:64]&larr;SRC2[95:64]
-ELSE DEST[95:64]&larr;SRC1[95:64]
-IF (imm8[3] == 1) THEN DEST[127:96]&larr;SRC2[127:96]
-ELSE DEST[127:96]&larr;SRC1[127:96]
-IF (imm8[4] == 1) THEN DEST[159:128]&larr;SRC2[159:128]
-ELSE DEST[159:128]&larr;SRC1[159:128]
-IF (imm8[5] == 1) THEN DEST[191:160]&larr;SRC2[191:160]
-ELSE DEST[191:160]&larr;SRC1[191:160]
-IF (imm8[6] == 1) THEN DEST[223:192]&larr;SRC2[223:192]
-ELSE DEST[223:192]&larr;SRC1[223:192]
-IF (imm8[7] == 1) THEN DEST[255:224]&larr;SRC2[255:224]
-ELSE DEST[255:224]&larr;SRC1[255:224]
+<pre>IF (imm8[0] == 1) THEN DEST[31:0] := SRC2[31:0]
+ELSE DEST[31:0] := SRC1[31:0]
+IF (imm8[1] == 1) THEN DEST[63:32] := SRC2[63:32]
+ELSE DEST[63:32] := SRC1[63:32]
+IF (imm8[2] == 1) THEN DEST[95:64] := SRC2[95:64]
+ELSE DEST[95:64] := SRC1[95:64]
+IF (imm8[3] == 1) THEN DEST[127:96] := SRC2[127:96]
+ELSE DEST[127:96] := SRC1[127:96]
+IF (imm8[4] == 1) THEN DEST[159:128] := SRC2[159:128]
+ELSE DEST[159:128] := SRC1[159:128]
+IF (imm8[5] == 1) THEN DEST[191:160] := SRC2[191:160]
+ELSE DEST[191:160] := SRC1[191:160]
+IF (imm8[6] == 1) THEN DEST[223:192] := SRC2[223:192]
+ELSE DEST[223:192] := SRC1[223:192]
+IF (imm8[7] == 1) THEN DEST[255:224] := SRC2[255:224]
+ELSE DEST[255:224] := SRC1[255:224]
 </pre>
 <h3 id="vpblendd--vex-128-encoded-version-">VPBLENDD (VEX.128 encoded version)<a class="anchor" href="VPBLENDD.html#vpblendd--vex-128-encoded-version-">
 			&para;
 		</a></h3>
-<pre>IF (imm8[0] == 1) THEN DEST[31:0]&larr;SRC2[31:0]
-ELSE DEST[31:0]&larr;SRC1[31:0]
-IF (imm8[1] == 1) THEN DEST[63:32]&larr;SRC2[63:32]
-ELSE DEST[63:32]&larr;SRC1[63:32]
-IF (imm8[2] == 1) THEN DEST[95:64]&larr;SRC2[95:64]
-ELSE DEST[95:64]&larr;SRC1[95:64]
-IF (imm8[3] == 1) THEN DEST[127:96]&larr;SRC2[127:96]
-ELSE DEST[127:96]&larr;SRC1[127:96]
-DEST[MAXVL-1:128] &larr; 0
+<pre>IF (imm8[0] == 1) THEN DEST[31:0] := SRC2[31:0]
+ELSE DEST[31:0] := SRC1[31:0]
+IF (imm8[1] == 1) THEN DEST[63:32] := SRC2[63:32]
+ELSE DEST[63:32] := SRC1[63:32]
+IF (imm8[2] == 1) THEN DEST[95:64] := SRC2[95:64]
+ELSE DEST[95:64] := SRC1[95:64]
+IF (imm8[3] == 1) THEN DEST[127:96] := SRC2[127:96]
+ELSE DEST[127:96] := SRC1[127:96]
+DEST[MAXVL-1:128] := 0
 </pre>
 <h2 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="VPBLENDD.html#intel-c-c++-compiler-intrinsic-equivalent">
 			&para;
@@ -92,13 +92,13 @@ DEST[MAXVL-1:128] &larr; 0
 <h2 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="VPBLENDD.html#other-exceptions">
 			&para;
 		</a></h2>
-<p>See Exceptions Type 4; additionally</p>
+<p>See <span class="not-imported">Table 2-21</span>, &ldquo;Type 4 Class Exception Conditions&rdquo;; additionally:</p>
 <table>
 <tbody><tr>
 <td>#UD</td>
 <td>If VEX.W = 1.</td></tr></tbody></table><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

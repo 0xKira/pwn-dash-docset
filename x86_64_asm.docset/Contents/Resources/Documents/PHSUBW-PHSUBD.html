@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-349"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/PHSUBW%2FPHSUBD"></a><title>PHSUBW/PHSUBD</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>PHSUBW/PHSUBD
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-359"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/PHSUBW%2FPHSUBD"></a><title>PHSUBW/PHSUBD</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>PHSUBW/PHSUBD
 		&mdash; Packed Horizontal Subtract</h1>
 
 
@@ -90,7 +90,6 @@
 <p>In 64-bit mode, use the REX prefix to access additional registers.</p>
 <p>VEX.128 encoded version: The first source and destination operands are XMM registers. The second source operand is an XMM register or a 128-bit memory location. Bits (MAXVL-1:128) of the destination YMM register are zeroed.</p>
 <p>VEX.256 encoded version: The first source and destination operands are YMM registers. The second source operand can be an YMM register or a 256-bit memory location.</p>
-<p>Note: VEX.L must be 0, otherwise the instruction will #UD.</p>
 <h2 id="operation">Operation<a class="anchor" href="./PHSUBW:PHSUBD.html#operation">
 			&para;
 		</a></h2>
@@ -117,35 +116,35 @@ xmm1[127-112] = xmm2/m128[111-96] - xmm2/m128[127-112];
 <h3 id="vphsubw--vex-128-encoded-version-">VPHSUBW (VEX.128 encoded version)<a class="anchor" href="./PHSUBW:PHSUBD.html#vphsubw--vex-128-encoded-version-">
 			&para;
 		</a></h3>
-<pre>DEST[15:0]&larr;SRC1[15:0] - SRC1[31:16]
-DEST[31:16]&larr;SRC1[47:32] - SRC1[63:48]
-DEST[47:32]&larr;SRC1[79:64] - SRC1[95:80]
-DEST[63:48]&larr;SRC1[111:96] - SRC1[127:112]
-DEST[79:64]&larr;SRC2[15:0] - SRC2[31:16]
-DEST[95:80]&larr;SRC2[47:32] - SRC2[63:48]
-DEST[111:96]&larr;SRC2[79:64] - SRC2[95:80]
-DEST[127:112]&larr;SRC2[111:96] - SRC2[127:112]
-DEST[MAXVL-1:128] &larr; 0
+<pre>DEST[15:0] := SRC1[15:0] - SRC1[31:16]
+DEST[31:16] := SRC1[47:32] - SRC1[63:48]
+DEST[47:32] := SRC1[79:64] - SRC1[95:80]
+DEST[63:48] := SRC1[111:96] - SRC1[127:112]
+DEST[79:64] := SRC2[15:0] - SRC2[31:16]
+DEST[95:80] := SRC2[47:32] - SRC2[63:48]
+DEST[111:96] := SRC2[79:64] - SRC2[95:80]
+DEST[127:112] := SRC2[111:96] - SRC2[127:112]
+DEST[MAXVL-1:128] := 0
 </pre>
 <h3 id="vphsubw--vex-256-encoded-version-">VPHSUBW (VEX.256 encoded version)<a class="anchor" href="./PHSUBW:PHSUBD.html#vphsubw--vex-256-encoded-version-">
 			&para;
 		</a></h3>
-<pre>DEST[15:0]&larr;SRC1[15:0] - SRC1[31:16]
-DEST[31:16]&larr;SRC1[47:32] - SRC1[63:48]
-DEST[47:32]&larr;SRC1[79:64] - SRC1[95:80]
-DEST[63:48]&larr;SRC1[111:96] - SRC1[127:112]
-DEST[79:64]&larr;SRC2[15:0] - SRC2[31:16]
-DEST[95:80]&larr;SRC2[47:32] - SRC2[63:48]
-DEST[111:96]&larr;SRC2[79:64] - SRC2[95:80]
-DEST[127:112]&larr;SRC2[111:96] - SRC2[127:112]
-DEST[143:128]&larr;SRC1[143:128] - SRC1[159:144]
-DEST[159:144]&larr;SRC1[175:160] - SRC1[191:176]
-DEST[175:160]&larr;SRC1[207:192] - SRC1[223:208]
-DEST[191:176]&larr;SRC1[239:224] - SRC1[255:240]
-DEST[207:192]&larr;SRC2[143:128] - SRC2[159:144]
-DEST[223:208]&larr;SRC2[175:160] - SRC2[191:176]
-DEST[239:224]&larr;SRC2[207:192] - SRC2[223:208]
-DEST[255:240]&larr;SRC2[239:224] - SRC2[255:240]
+<pre>DEST[15:0] := SRC1[15:0] - SRC1[31:16]
+DEST[31:16] := SRC1[47:32] - SRC1[63:48]
+DEST[47:32] := SRC1[79:64] - SRC1[95:80]
+DEST[63:48] := SRC1[111:96] - SRC1[127:112]
+DEST[79:64] := SRC2[15:0] - SRC2[31:16]
+DEST[95:80] := SRC2[47:32] - SRC2[63:48]
+DEST[111:96] := SRC2[79:64] - SRC2[95:80]
+DEST[127:112] := SRC2[111:96] - SRC2[127:112]
+DEST[143:128] := SRC1[143:128] - SRC1[159:144]
+DEST[159:144] := SRC1[175:160] - SRC1[191:176]
+DEST[175:160] := SRC1[207:192] - SRC1[223:208]
+DEST[191:176] := SRC1[239:224] - SRC1[255:240]
+DEST[207:192] := SRC2[143:128] - SRC2[159:144]
+DEST[223:208] := SRC2[175:160] - SRC2[191:176]
+DEST[239:224] := SRC2[207:192] - SRC2[223:208]
+DEST[255:240] := SRC2[239:224] - SRC2[255:240]
 </pre>
 <h3 id="phsubd--with-64-bit-operands-">PHSUBD (with 64-bit operands)<a class="anchor" href="./PHSUBW:PHSUBD.html#phsubd--with-64-bit-operands-">
 			&para;
@@ -164,23 +163,23 @@ xmm1[127-96] = xmm2/m128[95-64] - xmm2/m128[127-96];
 <h3 id="vphsubd--vex-128-encoded-version-">VPHSUBD (VEX.128 encoded version)<a class="anchor" href="./PHSUBW:PHSUBD.html#vphsubd--vex-128-encoded-version-">
 			&para;
 		</a></h3>
-<pre>DEST[31-0]&larr;SRC1[31-0] - SRC1[63-32]
-DEST[63-32]&larr;SRC1[95-64] - SRC1[127-96]
-DEST[95-64]&larr;SRC2[31-0] - SRC2[63-32]
-DEST[127-96]&larr;SRC2[95-64] - SRC2[127-96]
-DEST[MAXVL-1:128] &larr; 0
+<pre>DEST[31-0] := SRC1[31-0] - SRC1[63-32]
+DEST[63-32] := SRC1[95-64] - SRC1[127-96]
+DEST[95-64] := SRC2[31-0] - SRC2[63-32]
+DEST[127-96] := SRC2[95-64] - SRC2[127-96]
+DEST[MAXVL-1:128] := 0
 </pre>
 <h3 id="vphsubd--vex-256-encoded-version-">VPHSUBD (VEX.256 encoded version)<a class="anchor" href="./PHSUBW:PHSUBD.html#vphsubd--vex-256-encoded-version-">
 			&para;
 		</a></h3>
-<pre>DEST[31:0]&larr;SRC1[31:0] - SRC1[63:32]
-DEST[63:32]&larr;SRC1[95:64] - SRC1[127:96]
-DEST[95:64]&larr;SRC2[31:0] - SRC2[63:32]
-DEST[127:96]&larr;SRC2[95:64] - SRC2[127:96]
-DEST[159:128]&larr;SRC1[159:128] - SRC1[191:160]
-DEST[191:160]&larr;SRC1[223:192] - SRC1[255:224]
-DEST[223:192]&larr;SRC2[159:128] - SRC2[191:160]
-DEST[255:224]&larr;SRC2[223:192] - SRC2[255:224]
+<pre>DEST[31:0] := SRC1[31:0] - SRC1[63:32]
+DEST[63:32] := SRC1[95:64] - SRC1[127:96]
+DEST[95:64] := SRC2[31:0] - SRC2[63:32]
+DEST[127:96] := SRC2[95:64] - SRC2[127:96]
+DEST[159:128] := SRC1[159:128] - SRC1[191:160]
+DEST[191:160] := SRC1[223:192] - SRC1[255:224]
+DEST[223:192] := SRC2[159:128] - SRC2[191:160]
+DEST[255:224] := SRC2[223:192] - SRC2[255:224]
 </pre>
 <h2 id="intel-c-c++-compiler-intrinsic-equivalents">Intel C/C++ Compiler Intrinsic Equivalents<a class="anchor" href="./PHSUBW:PHSUBD.html#intel-c-c++-compiler-intrinsic-equivalents">
 			&para;
@@ -204,13 +203,13 @@ DEST[255:224]&larr;SRC2[223:192] - SRC2[255:224]
 <h2 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="./PHSUBW:PHSUBD.html#other-exceptions">
 			&para;
 		</a></h2>
-<p>See Exceptions Type 4; additionally</p>
+<p>See <span class="not-imported">Table 2-21</span>, &ldquo;Type 4 Class Exception Conditions&rdquo;; additionally:</p>
 <table>
 <tbody><tr>
 <td>#UD</td>
 <td>If VEX.L = 1.</td></tr></tbody></table><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

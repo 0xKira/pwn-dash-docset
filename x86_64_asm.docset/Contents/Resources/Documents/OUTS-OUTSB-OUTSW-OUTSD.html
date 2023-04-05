@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-316"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/OUTS%2FOUTSB%2FOUTSW%2FOUTSD"></a><title>OUTS/OUTSB/OUTSW/OUTSD</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>OUTS/OUTSB/OUTSW/OUTSD
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-326"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/OUTS%2FOUTSB%2FOUTSW%2FOUTSD"></a><title>OUTS/OUTSB/OUTSW/OUTSD</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>OUTS/OUTSB/OUTSW/OUTSD
 		&mdash; Output String to Port</h1>
 
 
@@ -80,7 +80,7 @@
 <p>At the assembly-code level, two forms of this instruction are allowed: the &ldquo;explicit-operands&rdquo; form and the &ldquo;no-operands&rdquo; form. The explicit-operands form (specified with the OUTS mnemonic) allows the source and destination operands to be specified explicitly. Here, the source operand should be a symbol that indicates the size of the I/O port and the source address, and the destination operand must be DX. This explicit-operands form is provided to allow documentation; however, note that the documentation provided by this form can be misleading. That is, the source operand symbol must specify the correct <strong>type</strong> (size) of the operand (byte, word, or doubleword), but it does not have to specify the correct <strong>location</strong>. The location is always specified by the DS:(E)SI or RSI registers, which must be loaded correctly before the OUTS instruction is executed.</p>
 <p>The no-operands form provides &ldquo;short forms&rdquo; of the byte, word, and doubleword versions of the OUTS instructions. Here also DS:(E)SI is assumed to be the source operand and DX is assumed to be the destination operand. The size of the I/O port is specified with the choice of mnemonic: OUTSB (byte), OUTSW (word), or OUTSD (doubleword).</p>
 <p>After the byte, word, or doubleword is transferred from the memory location to the I/O port, the SI/ESI/RSI register is incremented or decremented automatically according to the setting of the DF flag in the EFLAGS register. (If the DF flag is 0, the (E)SI register is incremented; if the DF flag is 1, the SI/ESI/RSI register is decremented.) The SI/ESI/RSI register is incremented or decremented by 1 for byte operations, by 2 for word operations, and by 4 for doubleword operations.</p>
-<p>The OUTS, OUTSB, OUTSW, and OUTSD instructions can be preceded by the REP prefix for block input of ECX bytes, words, or doublewords. See &ldquo;REP/REPE/REPZ /REPNE/REPNZ&mdash;Repeat String Operation Prefix&rdquo; in this chapter for a description of the REP prefix. This instruction is only useful for accessing I/O ports located in the processor&rsquo;s I/O address space. See Chapter 18, &ldquo;Input/Output,&rdquo; in the <em>Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 1</em>, for more information on accessing I/O ports in the I/O address space.</p>
+<p>The OUTS, OUTSB, OUTSW, and OUTSD instructions can be preceded by the REP prefix for block input of ECX bytes, words, or doublewords. See &ldquo;REP/REPE/REPZ /REPNE/REPNZ&mdash;Repeat String Operation Prefix&rdquo; in this chapter for a description of the REP prefix. This instruction is only useful for accessing I/O ports located in the processor&rsquo;s I/O address space. See Chapter 19, &ldquo;Input/Output,&rdquo; in the <em>Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 1</em>, for more information on accessing I/O ports in the I/O address space.</p>
 <p>In 64-bit mode, the default operand size is 32 bits; operand size is not promoted by the use of REX.W. In 64-bit mode, the default address size is 64 bits, and 64-bit address is specified using RSI by default. 32-bit address using ESI is support using the prefix 67H, but 16-bit address is not supported in 64-bit mode.</p>
 <h2 id="ia-32-architecture-compatibility">IA-32 Architecture Compatibility<a class="anchor" href="./OUTS:OUTSB:OUTSW:OUTSD.html#ia-32-architecture-compatibility">
 			&para;
@@ -96,10 +96,10 @@
             THEN (* I/O operation is not allowed *)
                 #GP(0);
             ELSE (* I/O operation is allowed *)
-                DEST &larr; SRC; (* Writes to I/O port *)
+                DEST := SRC; (* Writes to I/O port *)
         FI;
     ELSE (Real Mode or Protected Mode or 64-Bit Mode with CPL &le; IOPL *)
-        DEST &larr; SRC; (* Writes to I/O port *)
+        DEST := SRC; (* Writes to I/O port *)
 FI;
 Byte transfer:
     IF 64-bit mode
@@ -107,19 +107,19 @@ Byte transfer:
             IF 64-Bit Address Size
                 THEN
                     IF DF = 0
-                        THEN RSI &larr; RSI RSI + 1;
-                        ELSE RSI &larr; RSI or &ndash; 1;
+                        THEN RSI := RSI RSI + 1;
+                        ELSE RSI := RSI or &ndash; 1;
                     FI;
                 ELSE (* 32-Bit Address Size *)
                     IF DF = 0
-                        THEN ESI &larr; ESI + 1;
-                        ELSE ESI &larr; ESI &ndash; 1;
+                        THEN ESI := ESI + 1;
+                        ELSE ESI := ESI &ndash; 1;
                     FI;
             FI;
         ELSE
             IF DF = 0
-                THEN (E)SI &larr; (E)SI + 1;
-                ELSE (E)SI &larr; (E)SI &ndash; 1;
+                THEN (E)SI := (E)SI + 1;
+                ELSE (E)SI := (E)SI &ndash; 1;
             FI;
     FI;
 Word transfer:
@@ -128,19 +128,19 @@ Word transfer:
             IF 64-Bit Address Size
                 THEN
                     IF DF = 0
-                        THEN RSI &larr; RSI RSI + 2;
-                        ELSE RSI &larr; RSI or &ndash; 2;
+                        THEN RSI := RSI RSI + 2;
+                        ELSE RSI := RSI or &ndash; 2;
                     FI;
                 ELSE (* 32-Bit Address Size *)
                     IF DF = 0
-                        THEN ESI &larr; ESI + 2;
-                        ELSE ESI &larr; ESI &ndash; 2;
+                        THEN ESI := ESI + 2;
+                        ELSE ESI := ESI &ndash; 2;
                     FI;
             FI;
         ELSE
             IF DF = 0
-                THEN (E)SI &larr; (E)SI + 2;
-                ELSE (E)SI &larr; (E)SI &ndash; 2;
+                THEN (E)SI := (E)SI + 2;
+                ELSE (E)SI := (E)SI &ndash; 2;
             FI;
     FI;
 Doubleword transfer:
@@ -149,19 +149,19 @@ Doubleword transfer:
             IF 64-Bit Address Size
                 THEN
                     IF DF = 0
-                        THEN RSI &larr; RSI RSI + 4;
-                        ELSE RSI &larr; RSI or &ndash; 4;
+                        THEN RSI := RSI RSI + 4;
+                        ELSE RSI := RSI or &ndash; 4;
                     FI;
                 ELSE (* 32-Bit Address Size *)
                     IF DF = 0
-                        THEN ESI &larr; ESI + 4;
-                        ELSE ESI &larr; ESI &ndash; 4;
+                        THEN ESI := ESI + 4;
+                        ELSE ESI := ESI &ndash; 4;
                     FI;
             FI;
         ELSE
             IF DF = 0
-                THEN (E)SI &larr; (E)SI + 4;
-                ELSE (E)SI &larr; (E)SI &ndash; 4;
+                THEN (E)SI := (E)SI + 4;
+                ELSE (E)SI := (E)SI &ndash; 4;
             FI;
     FI;
 </pre>
@@ -245,6 +245,6 @@ Doubleword transfer:
 <td>If the LOCK prefix is used.</td></tr></tbody></table><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

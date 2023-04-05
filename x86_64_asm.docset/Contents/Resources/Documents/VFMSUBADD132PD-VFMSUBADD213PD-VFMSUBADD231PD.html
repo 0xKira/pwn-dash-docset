@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-538"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/VFMSUBADD132PD%2FVFMSUBADD213PD%2FVFMSUBADD231PD"></a><title>VFMSUBADD132PD/VFMSUBADD213PD/VFMSUBADD231PD</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>VFMSUBADD132PD/VFMSUBADD213PD/VFMSUBADD231PD
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-553"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/VFMSUBADD132PD%2FVFMSUBADD213PD%2FVFMSUBADD231PD"></a><title>VFMSUBADD132PD/VFMSUBADD213PD/VFMSUBADD231PD</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>VFMSUBADD132PD/VFMSUBADD213PD/VFMSUBADD231PD
 		&mdash; Fused Multiply-Alternating Subtract/Add of Packed Double-Precision Floating-Point Values</h1>
 
 
@@ -145,39 +145,39 @@ rounding).
 			&para;
 		</a></h4>
 <pre>IF (VEX.128) THEN
-    DEST[63:0]&larr;RoundFPControl_MXCSR(DEST[63:0]*SRC3[63:0] + SRC2[63:0])
-    DEST[127:64]&larr;RoundFPControl_MXCSR(DEST[127:64]*SRC3[127:64] - SRC2[127:64])
-    DEST[MAXVL-1:128] &larr;0
+    DEST[63:0] := RoundFPControl_MXCSR(DEST[63:0]*SRC3[63:0] + SRC2[63:0])
+    DEST[127:64] := RoundFPControl_MXCSR(DEST[127:64]*SRC3[127:64] - SRC2[127:64])
+    DEST[MAXVL-1:128] := 0
 ELSEIF (VEX.256)
-    DEST[63:0]&larr;RoundFPControl_MXCSR(DEST[63:0]*SRC3[63:0] + SRC2[63:0])
-    DEST[127:64]&larr;RoundFPControl_MXCSR(DEST[127:64]*SRC3[127:64] - SRC2[127:64])
-    DEST[191:128]&larr;RoundFPControl_MXCSR(DEST[191:128]*SRC3[191:128] + SRC2[191:128])
-    DEST[255:192]&larr;RoundFPControl_MXCSR(DEST[255:192]*SRC3[255:192] - SRC2[255:192]
+    DEST[63:0] := RoundFPControl_MXCSR(DEST[63:0]*SRC3[63:0] + SRC2[63:0])
+    DEST[127:64] := RoundFPControl_MXCSR(DEST[127:64]*SRC3[127:64] - SRC2[127:64])
+    DEST[191:128] := RoundFPControl_MXCSR(DEST[191:128]*SRC3[191:128] + SRC2[191:128])
+    DEST[255:192] := RoundFPControl_MXCSR(DEST[255:192]*SRC3[255:192] - SRC2[255:192]
 FI
 VFMSUBADD213PD DEST, SRC2, SRC3
 IF (VEX.128) THEN
-    DEST[63:0]&larr;RoundFPControl_MXCSR(SRC2[63:0]*DEST[63:0] + SRC3[63:0])
-    DEST[127:64]&larr;RoundFPControl_MXCSR(SRC2[127:64]*DEST[127:64] - SRC3[127:64])
-    DEST[MAXVL-1:128] &larr;0
+    DEST[63:0] := RoundFPControl_MXCSR(SRC2[63:0]*DEST[63:0] + SRC3[63:0])
+    DEST[127:64] := RoundFPControl_MXCSR(SRC2[127:64]*DEST[127:64] - SRC3[127:64])
+    DEST[MAXVL-1:128] := 0
 ELSEIF (VEX.256)
-    DEST[63:0]&larr;RoundFPControl_MXCSR(SRC2[63:0]*DEST[63:0] + SRC3[63:0])
-    DEST[127:64]&larr;RoundFPControl_MXCSR(SRC2[127:64]*DEST[127:64] - SRC3[127:64])
-    DEST[191:128]&larr;RoundFPControl_MXCSR(SRC2[191:128]*DEST[191:128] + SRC3[191:128])
-    DEST[255:192]&larr;RoundFPControl_MXCSR(SRC2[255:192]*DEST[255:192] - SRC3[255:192]
+    DEST[63:0] := RoundFPControl_MXCSR(SRC2[63:0]*DEST[63:0] + SRC3[63:0])
+    DEST[127:64] := RoundFPControl_MXCSR(SRC2[127:64]*DEST[127:64] - SRC3[127:64])
+    DEST[191:128] := RoundFPControl_MXCSR(SRC2[191:128]*DEST[191:128] + SRC3[191:128])
+    DEST[255:192] := RoundFPControl_MXCSR(SRC2[255:192]*DEST[255:192] - SRC3[255:192]
 FI
 </pre>
 <h4 id="vfmsubadd231pd-dest--src2--src3">VFMSUBADD231PD DEST, SRC2, SRC3<a class="anchor" href="./VFMSUBADD132PD:VFMSUBADD213PD:VFMSUBADD231PD.html#vfmsubadd231pd-dest--src2--src3">
 			&para;
 		</a></h4>
 <pre>IF (VEX.128) THEN
-    DEST[63:0]&larr;RoundFPControl_MXCSR(SRC2[63:0]*SRC3[63:0] + DEST[63:0])
-    DEST[127:64]&larr;RoundFPControl_MXCSR(SRC2[127:64]*SRC3[127:64] - DEST[127:64])
-    DEST[MAXVL-1:128] &larr;0
+    DEST[63:0] := RoundFPControl_MXCSR(SRC2[63:0]*SRC3[63:0] + DEST[63:0])
+    DEST[127:64] := RoundFPControl_MXCSR(SRC2[127:64]*SRC3[127:64] - DEST[127:64])
+    DEST[MAXVL-1:128] := 0
 ELSEIF (VEX.256)
-    DEST[63:0]&larr;RoundFPControl_MXCSR(SRC2[63:0]*SRC3[63:0] + DEST[63:0])
-    DEST[127:64]&larr;RoundFPControl_MXCSR(SRC2[127:64]*SRC3[127:64] - DEST[127:64])
-    DEST[191:128]&larr;RoundFPControl_MXCSR(SRC2[191:128]*SRC3[191:128] + DEST[191:128])
-    DEST[255:192]&larr;RoundFPControl_MXCSR(SRC2[255:192]*SRC3[255:192] - DEST[255:192]
+    DEST[63:0] := RoundFPControl_MXCSR(SRC2[63:0]*SRC3[63:0] + DEST[63:0])
+    DEST[127:64] := RoundFPControl_MXCSR(SRC2[127:64]*SRC3[127:64] - DEST[127:64])
+    DEST[191:128] := RoundFPControl_MXCSR(SRC2[191:128]*SRC3[191:128] + DEST[191:128])
+    DEST[255:192] := RoundFPControl_MXCSR(SRC2[255:192]*SRC3[255:192] - DEST[255:192]
 FI
 </pre>
 <h4 id="vfmsubadd132pd-dest--src2--src3--evex-encoded-version--when-src3-operand-is-a-register-">VFMSUBADD132PD DEST, SRC2, SRC3 (EVEX encoded version, when src3 operand is a register)<a class="anchor" href="./VFMSUBADD132PD:VFMSUBADD213PD:VFMSUBADD231PD.html#vfmsubadd132pd-dest--src2--src3--evex-encoded-version--when-src3-operand-is-a-register-">
@@ -186,55 +186,55 @@ FI
 <pre>(KL, VL) = (2, 128), (4, 256), (8, 512)
 IF (VL = 512) AND (EVEX.b = 1)
     THEN
-        SET_RM(EVEX.RC);
+        SET_ROUNDING_MODE_FOR_THIS_INSTRUCTION(EVEX.RC);
     ELSE
-        SET_RM(MXCSR.RM);
+        SET_ROUNDING_MODE_FOR_THIS_INSTRUCTION(MXCSR.RC);
 FI;
-FOR j&larr;0 TO KL-1
-    i&larr;j * 64
+FOR j := 0 TO KL-1
+    i := j * 64
     IF k1[j] OR *no writemask*
         THEN
             IF j *is even*
-                THEN DEST[i+63:i]&larr;
+                THEN DEST[i+63:i] :=
                     RoundFPControl(DEST[i+63:i]*SRC3[i+63:i] + SRC2[i+63:i])
-                ELSE DEST[i+63:i]&larr;
+                ELSE DEST[i+63:i] :=
                     RoundFPControl(DEST[i+63:i]*SRC3[i+63:i] - SRC2[i+63:i])
             FI
         ELSE
             IF *merging-masking* ; merging-masking
                 THEN *DEST[i+63:i] remains unchanged*
                 ELSE ; zeroing-masking
-                    DEST[i+63:i] &larr; 0
+                    DEST[i+63:i] := 0
             FI
     FI;
 ENDFOR
-DEST[MAXVL-1:VL] &larr; 0
+DEST[MAXVL-1:VL] := 0
 </pre>
 <h4 id="vfmsubadd132pd-dest--src2--src3--evex-encoded-version--when-src3-operand-is-a-memory-source-">VFMSUBADD132PD DEST, SRC2, SRC3 (EVEX encoded version, when src3 operand is a memory source)<a class="anchor" href="./VFMSUBADD132PD:VFMSUBADD213PD:VFMSUBADD231PD.html#vfmsubadd132pd-dest--src2--src3--evex-encoded-version--when-src3-operand-is-a-memory-source-">
 			&para;
 		</a></h4>
 <pre>(KL, VL) = (2, 128), (4, 256), (8, 512)
-FOR j&larr;0 TO KL-1
-    i&larr;j * 64
+FOR j := 0 TO KL-1
+    i := j * 64
     IF k1[j] OR *no writemask*
         THEN
             IF j *is even*
                 THEN
                     IF (EVEX.b = 1)
                         THEN
-                            DEST[i+63:i] &larr;
+                            DEST[i+63:i] :=
                     RoundFPControl_MXCSR(DEST[i+63:i]*SRC3[63:0] + SRC2[i+63:i])
                         ELSE
-                            DEST[i+63:i] &larr;
+                            DEST[i+63:i] :=
                     RoundFPControl_MXCSR(DEST[i+63:i]*SRC3[i+63:i] + SRC2[i+63:i])
                     FI;
                 ELSE
                     IF (EVEX.b = 1)
                         THEN
-                            DEST[i+63:i] &larr;
+                            DEST[i+63:i] :=
                     RoundFPControl_MXCSR(DEST[i+63:i]*SRC3[63:0] - SRC2[i+63:i])
                         ELSE
-                            DEST[i+63:i] &larr;
+                            DEST[i+63:i] :=
                     RoundFPControl_MXCSR(DEST[i+63:i]*SRC3[i+63:i] - SRC2[i+63:i])
                     FI;
             FI
@@ -242,11 +242,11 @@ FOR j&larr;0 TO KL-1
             IF *merging-masking* ; merging-masking
                 THEN *DEST[i+63:i] remains unchanged*
                 ELSE ; zeroing-masking
-                    DEST[i+63:i] &larr; 0
+                    DEST[i+63:i] := 0
             FI
     FI;
 ENDFOR
-DEST[MAXVL-1:VL] &larr; 0
+DEST[MAXVL-1:VL] := 0
 </pre>
 <h4 id="vfmsubadd213pd-dest--src2--src3--evex-encoded-version--when-src3-operand-is-a-register-">VFMSUBADD213PD DEST, SRC2, SRC3 (EVEX encoded version, when src3 operand is a register)<a class="anchor" href="./VFMSUBADD132PD:VFMSUBADD213PD:VFMSUBADD231PD.html#vfmsubadd213pd-dest--src2--src3--evex-encoded-version--when-src3-operand-is-a-register-">
 			&para;
@@ -254,55 +254,55 @@ DEST[MAXVL-1:VL] &larr; 0
 <pre>(KL, VL) = (2, 128), (4, 256), (8, 512)
 IF (VL = 512) AND (EVEX.b = 1)
     THEN
-        SET_RM(EVEX.RC);
+        SET_ROUNDING_MODE_FOR_THIS_INSTRUCTION(EVEX.RC);
     ELSE
-        SET_RM(MXCSR.RM);
+        SET_ROUNDING_MODE_FOR_THIS_INSTRUCTION(MXCSR.RC);
 FI;
-FOR j&larr;0 TO KL-1
-    i&larr;j * 64
+FOR j := 0 TO KL-1
+    i := j * 64
     IF k1[j] OR *no writemask*
         THEN
             IF j *is even*
-                THEN DEST[i+63:i]&larr;
+                THEN DEST[i+63:i] :=
                     RoundFPControl(SRC2[i+63:i]*DEST[i+63:i] + SRC3[i+63:i])
-                ELSE DEST[i+63:i]&larr;
+                ELSE DEST[i+63:i] :=
                     RoundFPControl(SRC2[i+63:i]*DEST[i+63:i] - SRC3[i+63:i])
             FI
         ELSE
             IF *merging-masking* ; merging-masking
                 THEN *DEST[i+63:i] remains unchanged*
                 ELSE ; zeroing-masking
-                    DEST[i+63:i] &larr; 0
+                    DEST[i+63:i] := 0
             FI
     FI;
 ENDFOR
-DEST[MAXVL-1:VL] &larr; 0
+DEST[MAXVL-1:VL] := 0
 </pre>
 <h4 id="vfmsubadd213pd-dest--src2--src3--evex-encoded-version--when-src3-operand-is-a-memory-source-">VFMSUBADD213PD DEST, SRC2, SRC3 (EVEX encoded version, when src3 operand is a memory source)<a class="anchor" href="./VFMSUBADD132PD:VFMSUBADD213PD:VFMSUBADD231PD.html#vfmsubadd213pd-dest--src2--src3--evex-encoded-version--when-src3-operand-is-a-memory-source-">
 			&para;
 		</a></h4>
 <pre>(KL, VL) = (2, 128), (4, 256), (8, 512)
-FOR j&larr;0 TO KL-1
-    i&larr;j * 64
+FOR j := 0 TO KL-1
+    i := j * 64
     IF k1[j] OR *no writemask*
         THEN
             IF j *is even*
                 THEN
                     IF (EVEX.b = 1)
                         THEN
-                            DEST[i+63:i] &larr;
+                            DEST[i+63:i] :=
                     RoundFPControl_MXCSR(SRC2[i+63:i]*DEST[i+63:i] + SRC3[63:0])
                         ELSE
-                            DEST[i+63:i] &larr;
+                            DEST[i+63:i] :=
                     RoundFPControl_MXCSR(SRC2[i+63:i]*DEST[i+63:i] + SRC3[i+63:i])
                     FI;
                 ELSE
                     IF (EVEX.b = 1)
                         THEN
-                            DEST[i+63:i] &larr;
+                            DEST[i+63:i] :=
                     RoundFPControl_MXCSR(SRC2[i+63:i]*DEST[i+63:i] - SRC3[63:0])
                         ELSE
-                            DEST[i+63:i] &larr;
+                            DEST[i+63:i] :=
                     RoundFPControl_MXCSR(SRC2[i+63:i]*DEST[i+63:i] - SRC3[i+63:i])
                     FI;
             FI
@@ -310,11 +310,11 @@ FOR j&larr;0 TO KL-1
             IF *merging-masking* ; merging-masking
                 THEN *DEST[i+63:i] remains unchanged*
                 ELSE ; zeroing-masking
-                    DEST[i+63:i] &larr; 0
+                    DEST[i+63:i] := 0
             FI
     FI;
 ENDFOR
-DEST[MAXVL-1:VL] &larr; 0
+DEST[MAXVL-1:VL] := 0
 </pre>
 <h4 id="vfmsubadd231pd-dest--src2--src3--evex-encoded-version--when-src3-operand-is-a-register-">VFMSUBADD231PD DEST, SRC2, SRC3 (EVEX encoded version, when src3 operand is a register)<a class="anchor" href="./VFMSUBADD132PD:VFMSUBADD213PD:VFMSUBADD231PD.html#vfmsubadd231pd-dest--src2--src3--evex-encoded-version--when-src3-operand-is-a-register-">
 			&para;
@@ -322,55 +322,55 @@ DEST[MAXVL-1:VL] &larr; 0
 <pre>(KL, VL) = (2, 128), (4, 256), (8, 512)
 IF (VL = 512) AND (EVEX.b = 1)
     THEN
-        SET_RM(EVEX.RC);
+        SET_ROUNDING_MODE_FOR_THIS_INSTRUCTION(EVEX.RC);
     ELSE
-        SET_RM(MXCSR.RM);
+        SET_ROUNDING_MODE_FOR_THIS_INSTRUCTION(MXCSR.RC);
 FI;
-FOR j&larr;0 TO KL-1
-    i&larr;j * 64
+FOR j := 0 TO KL-1
+    i := j * 64
     IF k1[j] OR *no writemask*
         THEN
             IF j *is even*
-                THEN DEST[i+63:i]&larr;
+                THEN DEST[i+63:i] :=
                     RoundFPControl(SRC2[i+63:i]*SRC3[i+63:i] + DEST[i+63:i])
-                ELSE DEST[i+63:i]&larr;
+                ELSE DEST[i+63:i] :=
                     RoundFPControl(SRC2[i+63:i]*SRC3[i+63:i] - DEST[i+63:i])
             FI
         ELSE
             IF *merging-masking* ; merging-masking
                 THEN *DEST[i+63:i] remains unchanged*
                 ELSE ; zeroing-masking
-                    DEST[i+63:i] &larr; 0
+                    DEST[i+63:i] := 0
             FI
     FI;
 ENDFOR
-DEST[MAXVL-1:VL] &larr; 0
+DEST[MAXVL-1:VL] := 0
 </pre>
 <h4 id="vfmsubadd231pd-dest--src2--src3--evex-encoded-version--when-src3-operand-is-a-memory-source-">VFMSUBADD231PD DEST, SRC2, SRC3 (EVEX encoded version, when src3 operand is a memory source)<a class="anchor" href="./VFMSUBADD132PD:VFMSUBADD213PD:VFMSUBADD231PD.html#vfmsubadd231pd-dest--src2--src3--evex-encoded-version--when-src3-operand-is-a-memory-source-">
 			&para;
 		</a></h4>
 <pre>(KL, VL) = (2, 128), (4, 256), (8, 512)
-FOR j&larr;0 TO KL-1
-    i&larr;j * 64
+FOR j := 0 TO KL-1
+    i := j * 64
     IF k1[j] OR *no writemask*
         THEN
             IF j *is even*
                 THEN
                     IF (EVEX.b = 1)
                         THEN
-                            DEST[i+63:i] &larr;
+                            DEST[i+63:i] :=
                     RoundFPControl_MXCSR(SRC2[i+63:i]*SRC3[63:0] + DEST[i+63:i])
                         ELSE
-                            DEST[i+63:i] &larr;
+                            DEST[i+63:i] :=
                     RoundFPControl_MXCSR(SRC2[i+63:i]*SRC3[i+63:i] + DEST[i+63:i])
                     FI;
                 ELSE
                     IF (EVEX.b = 1)
                         THEN
-                            DEST[i+63:i] &larr;
+                            DEST[i+63:i] :=
                     RoundFPControl_MXCSR(SRC2[i+63:i]*SRC3[63:0] - DEST[i+63:i])
                         ELSE
-                            DEST[i+63:i] &larr;
+                            DEST[i+63:i] :=
                     RoundFPControl_MXCSR(SRC2[i+63:i]*SRC3[i+63:i] - DEST[i+63:i])
                     FI;
             FI
@@ -378,11 +378,11 @@ FOR j&larr;0 TO KL-1
             IF *merging-masking* ; merging-masking
                 THEN *DEST[i+63:i] remains unchanged*
                 ELSE ; zeroing-masking
-                    DEST[i+63:i] &larr; 0
+                    DEST[i+63:i] := 0
             FI
     FI;
 ENDFOR
-DEST[MAXVL-1:VL] &larr; 0
+DEST[MAXVL-1:VL] := 0
 </pre>
 <h3 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="./VFMSUBADD132PD:VFMSUBADD213PD:VFMSUBADD231PD.html#intel-c-c++-compiler-intrinsic-equivalent">
 			&para;
@@ -426,10 +426,10 @@ DEST[MAXVL-1:VL] &larr; 0
 <h3 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="./VFMSUBADD132PD:VFMSUBADD213PD:VFMSUBADD231PD.html#other-exceptions">
 			&para;
 		</a></h3>
-<p>VEX-encoded instructions, see Exceptions Type 2.</p>
-<p>EVEX-encoded instructions, see Exceptions Type E2.</p><footer><p>
+<p>VEX-encoded instructions, see <span class="not-imported">Table 2-19</span>, &ldquo;Type 2 Class Exception Conditions&rdquo;.</p>
+<p>EVEX-encoded instructions, see <span class="not-imported">Table 2-46</span>, &ldquo;Type E2 Class Exception Conditions&rdquo;.</p><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-705"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/WBNOINVD"></a><title>WBNOINVD</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>WBNOINVD
+		&mdash; Write Back and Do Not Invalidate Cache</h1>
+
+<table>
+<tbody><tr>
+<th>Opcode / Instruction</th>
+<th>Op/En</th>
+<th>64/32 bit Mode Support</th>
+<th>CPUID Feature Flag</th>
+<th>Description</th></tr>
+<tr>
+<td>F3 0F 09 WBNOINVD</td>
+<td>ZO</td>
+<td>V/V</td>
+<td>WBNOINVD</td>
+<td>Write back and do not flush internal caches; initiate writing-back without flushing of external caches.</td></tr></tbody></table>
+<h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="WBNOINVD.html#instruction-operand-encoding">
+			&para;
+		</a></h2>
+<table>
+<tbody><tr>
+<th>Op/En</th>
+<th>Tuple</th>
+<th>Operand 1</th>
+<th>Operand 2</th>
+<th>Operand 3</th>
+<th>Operand 4</th></tr>
+<tr>
+<td>ZO</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td></tr></tbody></table>
+<h2 id="description">Description<a class="anchor" href="WBNOINVD.html#description">
+			&para;
+		</a></h2>
+<p>The WBNOINVD instruction writes back all modified cache lines in the processor&rsquo;s internal cache to main memory but does not invalidate (flush) the internal caches.</p>
+<p>After executing this instruction, the processor does not wait for the external caches to complete their write-back operation before proceeding with instruction execution. It is the responsibility of hardware to respond to the cache write-back signal. The amount of time or cycles for WBNOINVD to complete will vary due to size and other factors of different cache hierarchies. As a consequence, the use of the WBNOINVD instruction can have an impact on logical processor interrupt/event response time.</p>
+<p>The WBNOINVD instruction is a privileged instruction. When the processor is running in protected mode, the CPL of a program or procedure must be 0 to execute this instruction. This instruction is also a serializing instruction (see &ldquo;Serializing Instructions&rdquo; in Chapter 8 of the <em>Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 3A</em>).</p>
+<p>This instruction&rsquo;s operation is the same in non-64-bit modes and 64-bit mode.</p>
+<h2 id="operation">Operation<a class="anchor" href="WBNOINVD.html#operation">
+			&para;
+		</a></h2>
+<pre>WriteBack(InternalCaches);
+Continue; (* Continue execution *)
+</pre>
+<h3 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="WBNOINVD.html#intel-c-c++-compiler-intrinsic-equivalent">
+			&para;
+		</a></h3>
+<pre>WBNOINVD void _wbnoinvd(void);
+</pre>
+<h2 id="flags-affected">Flags Affected<a class="anchor" href="WBNOINVD.html#flags-affected">
+			&para;
+		</a></h2>
+<p>None.</p>
+<h2 class="exceptions" id="protected-mode-exceptions">Protected Mode Exceptions<a class="anchor" href="WBNOINVD.html#protected-mode-exceptions">
+			&para;
+		</a></h2>
+<table>
+<tbody><tr>
+<td>#GP(0)</td>
+<td>If the current privilege level is not 0.</td></tr>
+<tr>
+<td>#UD</td>
+<td>If the LOCK prefix is used.</td></tr></tbody></table>
+<h2 class="exceptions" id="real-address-mode-exceptions">Real-Address Mode Exceptions<a class="anchor" href="WBNOINVD.html#real-address-mode-exceptions">
+			&para;
+		</a></h2>
+<table>
+<tbody><tr>
+<td>#UD</td>
+<td>If the LOCK prefix is used.</td></tr></tbody></table>
+<h2 class="exceptions" id="virtual-8086-mode-exceptions">Virtual-8086 Mode Exceptions<a class="anchor" href="WBNOINVD.html#virtual-8086-mode-exceptions">
+			&para;
+		</a></h2>
+<table>
+<tbody><tr>
+<td>#GP(0)</td>
+<td>WBNOINVD cannot be executed at the virtual-8086 mode.</td></tr></tbody></table>
+<h2 class="exceptions" id="compatibility-mode-exceptions">Compatibility Mode Exceptions<a class="anchor" href="WBNOINVD.html#compatibility-mode-exceptions">
+			&para;
+		</a></h2>
+<p>Same exceptions as in protected mode.</p>
+<h2 class="exceptions" id="64-bit-mode-exceptions">64-Bit Mode Exceptions<a class="anchor" href="WBNOINVD.html#64-bit-mode-exceptions">
+			&para;
+		</a></h2>
+<p>Same exceptions as in protected mode.</p><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+	</p></footer>
+</body></html>

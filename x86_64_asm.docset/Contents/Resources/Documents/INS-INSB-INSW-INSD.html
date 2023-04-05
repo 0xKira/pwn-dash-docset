@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-210"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/INS%2FINSB%2FINSW%2FINSD"></a><title>INS/INSB/INSW/INSD</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>INS/INSB/INSW/INSD
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-219"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/INS%2FINSB%2FINSW%2FINSD"></a><title>INS/INSB/INSW/INSD</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>INS/INSB/INSW/INSD
 		&mdash; Input from Port to String</h1>
 
 
@@ -80,7 +80,7 @@
 <p>The no-operands form provides &ldquo;short forms&rdquo; of the byte, word, and doubleword versions of the INS instructions. Here also DX is assumed by the processor to be the source operand and ES:(E)DI is assumed to be the destination operand. The size of the I/O port is specified with the choice of mnemonic: INSB (byte), INSW (word), or INSD (doubleword).</p>
 <p>After the byte, word, or doubleword is transfer from the I/O port to the memory location, the DI/EDI/RDI register is incremented or decremented automatically according to the setting of the DF flag in the EFLAGS register. (If the DF flag is 0, the (E)DI register is incremented; if the DF flag is 1, the (E)DI register is decremented.) The (E)DI register is incremented or decremented by 1 for byte operations, by 2 for word operations, or by 4 for doubleword operations.</p>
 <p>The INS, INSB, INSW, and INSD instructions can be preceded by the REP prefix for block input of ECX bytes, words, or doublewords. See &ldquo;REP/REPE/REPZ /REPNE/REPNZ&mdash;Repeat String Operation Prefix&rdquo; in Chapter 4 of the <em>Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 2B</em>, for a description of the REP prefix.</p>
-<p>These instructions are only useful for accessing I/O ports located in the processor&rsquo;s I/O address space. See Chapter 18, &ldquo;Input/Output,&rdquo; in the <em>Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 1</em>, for more information on accessing I/O ports in the I/O address space.</p>
+<p>These instructions are only useful for accessing I/O ports located in the processor&rsquo;s I/O address space. See Chapter 19, &ldquo;Input/Output,&rdquo; in the <em>Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 1</em>, for more information on accessing I/O ports in the I/O address space.</p>
 <p>In 64-bit mode, default address size is 64 bits, 32 bit address size is supported using the prefix 67H. The address of the memory destination is specified by RDI or EDI. 16-bit address size is not supported in 64-bit mode. The operand size is not promoted.</p>
 <p>These instructions may read from the I/O port without writing to the memory location if an exception or VM exit occurs due to the write (e.g. #PF). If this would be problematic, for example because the I/O port read has side-effects, software should ensure the write to the memory location does not cause an exception or VM exit.</p>
 <h2 id="operation">Operation<a class="anchor" href="./INS:INSB:INSW:INSD.html#operation">
@@ -92,39 +92,39 @@
             THEN (* I/O operation is not allowed *)
                 #GP(0);
             ELSE (* I/O operation is allowed *)
-                DEST &larr; SRC; (* Read from I/O port *)
+                DEST := SRC; (* Read from I/O port *)
         FI;
     ELSE (Real Mode or Protected Mode with CPL IOPL *)
-        DEST &larr; SRC; (* Read from I/O port *)
+        DEST := SRC; (* Read from I/O port *)
 FI;
 Non-64-bit Mode:
 IF (Byte transfer)
     THEN IF DF = 0
-        THEN (E)DI &larr; (E)DI + 1;
-        ELSE (E)DI &larr; (E)DI &ndash; 1; FI;
+        THEN (E)DI := (E)DI + 1;
+        ELSE (E)DI := (E)DI &ndash; 1; FI;
     ELSE IF (Word transfer)
         THENIFDF =0
-            THEN (E)DI &larr; (E)DI + 2;
-            ELSE (E)DI &larr; (E)DI &ndash; 2; FI;
+            THEN (E)DI := (E)DI + 2;
+            ELSE (E)DI := (E)DI &ndash; 2; FI;
         ELSE (* Doubleword transfer *)
             THEN IF DF = 0
-                THEN (E)DI &larr; (E)DI + 4;
-                ELSE (E)DI &larr; (E)DI &ndash; 4; FI;
+                THEN (E)DI := (E)DI + 4;
+                ELSE (E)DI := (E)DI &ndash; 4; FI;
         FI;
 FI;
 FI64-bit Mode:
 IF (Byte transfer)
     THEN IF DF = 0
-        THEN (E|R)DI &larr; (E|R)DI + 1;
-        ELSE (E|R)DI &larr; (E|R)DI &ndash; 1; FI;
+        THEN (E|R)DI := (E|R)DI + 1;
+        ELSE (E|R)DI := (E|R)DI &ndash; 1; FI;
     ELSE IF (Word transfer)
         THENIFDF =0
-            THEN (E)DI &larr; (E)DI + 2;
-            ELSE (E)DI &larr; (E)DI &ndash; 2; FI;
+            THEN (E)DI := (E)DI + 2;
+            ELSE (E)DI := (E)DI &ndash; 2; FI;
         ELSE (* Doubleword transfer *)
             THEN IF DF = 0
-                THEN (E|R)DI &larr; (E|R)DI + 4;
-                ELSE (E|R)DI &larr; (E|R)DI &ndash; 4; FI;
+                THEN (E|R)DI := (E|R)DI + 4;
+                ELSE (E|R)DI := (E|R)DI &ndash; 4; FI;
         FI;
 FI;
 </pre>
@@ -208,6 +208,6 @@ FI;
 <td>If the LOCK prefix is used.</td></tr></tbody></table><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

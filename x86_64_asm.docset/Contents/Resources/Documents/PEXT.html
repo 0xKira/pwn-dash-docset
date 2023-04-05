@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-342"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/PEXT"></a><title>PEXT</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>PEXT
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-352"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/PEXT"></a><title>PEXT</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>PEXT
 		&mdash; Parallel Bits Extract</h1>
 
 <table>
@@ -42,7 +42,7 @@
 <p>PEXT uses a mask in the second source operand (the third operand) to transfer either contiguous or non-contiguous bits in the first source operand (the second operand) to contiguous low order bit positions in the destination (the first operand). For each bit set in the MASK, PEXT extracts the corresponding bits from the first source operand and writes them into contiguous lower bits of destination operand. The remaining upper bits of destination are zeroed.</p>
 <figure id="fig-4-9">
 <svg style="width: 415.5476399999999pt; height: 147.02399999999997pt" viewBox="120.8597 0.0 351.2896999999999 127.51999999999998">
-<g xmlns="http://www.w3.org/2000/svg" style="fill: none; stroke: none">
+<g xmlns="http://www.w3.org/2000/svg" style="stroke: none; fill: none">
 <rect height="28.98" style="fill: rgb(0%, 0%, 0%)" width="0.47998" x="358.14" y="18.359999999999957"></rect>
 <rect height="0.23999" style="fill: rgb(0%, 0%, 0%)" width="0.48001000000000005" x="421.26" y="18.120010000000036"></rect>
 <rect height="28.98" style="fill: rgb(0%, 0%, 0%)" width="0.48001000000000005" x="421.26" y="18.359999999999957"></rect>
@@ -281,45 +281,13 @@
 <rect height="1.02" style="fill: rgb(0%, 0%, 0%)" width="8.22" x="274.32" y="111.42000000000002"></rect>
 <rect height="1.02" style="fill: rgb(0%, 0%, 0%)" width="8.16" x="288.78000000000003" y="111.42000000000002"></rect>
 <rect height="1.02" style="fill: rgb(0%, 0%, 0%)" width="4.44" x="303.24" y="111.42000000000002"></rect>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 10.925999999999988pt; fill: #000" textLength="24.382800000000003" x="125.22" y="9.02069999999992">SRC1</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 12.829800000000034pt; fill: #000" textLength="15.321120000000036" x="158.04" y="15.064799999999991">S31</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 12.829800000000034pt; fill: #000" textLength="15.320880000000017" x="176.52" y="15.064799999999991">S30</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 12.829800000000034pt; fill: #000" textLength="15.261120000000005" x="197.76" y="15.064799999999991">S29</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 12.829800000000034pt; fill: #000" textLength="15.261120000000034" x="215.22" y="15.064799999999991">S28</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 12.829800000000034pt; fill: #000" textLength="15.261120000000034" x="233.4" y="15.064799999999991">S27</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 12.829800000000034pt; fill: #000" textLength="10.699200000000019" x="315.54" y="15.064799999999991">S7</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 12.829800000000034pt; fill: #000" textLength="10.699200000000019" x="333.66" y="15.064799999999991">S6</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 12.829800000000034pt; fill: #000" textLength="10.699200000000019" x="351.78000000000003" y="15.064799999999991">S5</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 12.829800000000034pt; fill: #000" textLength="10.699199999999962" x="371.70000000000005" y="15.064799999999991">S4</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 12.829800000000034pt; fill: #000" textLength="10.699200000000019" x="393.42" y="15.064799999999991">S3</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 12.829800000000034pt; fill: #000" textLength="10.759200000000021" x="414.0" y="15.064799999999991">S2</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 12.829800000000034pt; fill: #000" textLength="10.699200000000019" x="432.78000000000003" y="15.064799999999991">S1</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 12.829800000000034pt; fill: #000" textLength="10.699199999999962" x="452.70000000000005" y="15.064799999999991">S0</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 10.925999999999988pt; fill: #000" textLength="24.382800000000003" x="123.3597" y="54.02069999999992">SRC2</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 10.926000000000002pt; fill: #000" textLength="5.7239999999999895" x="394.02" y="57.861000000000004">0</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 10.926000000000002pt; fill: #000" textLength="5.7239999999999895" x="160.26059999999995" y="58.64099999999998">0</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 10.926000000000002pt; fill: #000" textLength="5.7239999999999895" x="185.22029999999995" y="58.64099999999998">0</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 10.926000000000002pt; fill: #000" textLength="5.7239999999999895" x="202.14029999999994" y="58.64099999999998">0</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 10.926000000000002pt; fill: #000" textLength="5.7239999999999895" x="239.64059999999995" y="58.64099999999998">0</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 10.926000000000002pt; fill: #000" textLength="5.7239999999999895" x="334.0208999999999" y="58.64099999999998">0</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 10.926000000000002pt; fill: #000" textLength="5.7239999999999895" x="374.64059999999995" y="58.64099999999998">0</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 10.926000000000002pt; fill: #000" textLength="5.7239999999999895" x="416.52029999999996" y="58.64099999999998">1</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 10.926000000000002pt; fill: #000" textLength="5.7239999999999895" x="436.5003" y="58.64099999999998">0</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 10.926000000000002pt; fill: #000" textLength="5.7239999999999895" x="454.62" y="58.64099999999998">0</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 16.97010000000006pt; fill: #000" textLength="123.44112000000004" x="125.22" y="15.064799999999991">SRC1 S31S30 S29S28S27</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 12.829800000000034pt; fill: #000" textLength="147.8592" x="315.54" y="15.064799999999991">S7 S6 S5 S4 S3 S2 S1 S0</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 15.54630000000003pt; fill: #000" textLength="122.00489999999994" x="123.3597" y="58.64099999999996">SRC2 0 0 0 1 0</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 11.70599999999996pt; fill: #000" textLength="139.46310000000005" x="320.88089999999994" y="58.64099999999996">1 0 1 0 0 1 0 0</text>
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 10.925999999999988pt; fill: #000" textLength="32.364000000000004" x="123.3597" y="64.9403999999999">(mask)</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 12.829800000000034pt; fill: #000" textLength="10.699200000000019" x="454.02" y="115.56479999999999">S2</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 10.926000000000002pt; fill: #000" textLength="5.7239999999999895" x="188.3397" y="114.921">0</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 10.926000000000002pt; fill: #000" textLength="5.7239999999999895" x="205.25969999999998" y="114.921">0</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 10.926000000000002pt; fill: #000" textLength="5.7239999999999895" x="220.26" y="114.921">0</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 10.926000000000002pt; fill: #000" textLength="5.7239999999999895" x="242.76" y="114.921">0</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 10.926000000000002pt; fill: #000" textLength="5.7239999999999895" x="324.0003" y="114.921">0</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 10.926000000000002pt; fill: #000" textLength="5.7239999999999895" x="337.14029999999997" y="114.921">0</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 10.926000000000002pt; fill: #000" textLength="5.7239999999999895" x="362.09999999999997" y="114.921">0</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 10.926000000000002pt; fill: #000" textLength="5.7239999999999895" x="377.76" y="114.921">0</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 12.769799999999975pt; fill: #000" textLength="10.699199999999962" x="413.40000000000003" y="116.76479999999998">S7</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 12.769799999999975pt; fill: #000" textLength="10.759200000000021" x="433.98" y="116.76479999999998">S5</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 10.925999999999988pt; fill: #000" textLength="24.3288" x="125.22" y="115.28099999999995">DEST</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 12.830100000000016pt; fill: #000" textLength="15.320820000000026" x="394.6203" y="117.4848">S28</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 14.74980000000005pt; fill: #000" textLength="140.71890000000002" x="324.0003" y="117.4848">0 0 0 0 S28 S7 S5 S2</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 11.285999999999945pt; fill: #000" textLength="123.26399999999998" x="125.22" y="115.28099999999995">DEST 0 0 0 0 0</text>
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 10.925999999999988pt; fill: #000" textLength="20.489399999999932" x="449.16" y="137.96099999999996">bit 0</text>
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 10.925999999999988pt; fill: #000" textLength="26.189999999999998" x="151.68030000000005" y="140.48099999999994">bit 31</text></g></svg>
 <figcaption><a href="PEXT.html#fig-4-9">Figure 4-9</a>. PEXT Example</figcaption></figure>
@@ -327,16 +295,16 @@
 <h2 id="operation">Operation<a class="anchor" href="PEXT.html#operation">
 			&para;
 		</a></h2>
-<pre>TEMP &larr; SRC1;
-MASK &larr; SRC2;
-DEST &larr; 0 ;
-m&larr; 0, k&larr; 0;
-DO WHILE m&lt; OperandSize
+<pre>TEMP := SRC1;
+MASK := SRC2;
+DEST := 0 ;
+m := 0, k := 0;
+DO WHILE m &lt; OperandSize
     IF MASK[ m] = 1 THEN
-        DEST[ k] &larr; TEMP[ m];
-        k &larr; k+ 1;
+        DEST[ k] := TEMP[ m];
+        k := k+ 1;
     FI
-    m &larr; m+ 1;
+    m := m+ 1;
 OD
 </pre>
 <h2 id="flags-affected">Flags Affected<a class="anchor" href="PEXT.html#flags-affected">
@@ -357,9 +325,9 @@ OD
 <h2 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="PEXT.html#other-exceptions">
 			&para;
 		</a></h2>
-<p>See Exceptions Type 13.</p><footer><p>
+<p>See <span class="not-imported">Table 2-29</span>, &ldquo;Type 13 Class Exception Conditions&rdquo;.</p><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

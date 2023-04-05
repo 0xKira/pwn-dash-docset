@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-123"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/EINIT"></a><title>EINIT</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>EINIT
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-129"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/EINIT"></a><title>EINIT</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>EINIT
 		&mdash; Initialize an Enclave for Execution</h1>
 
 <table>
@@ -39,9 +39,9 @@
 <p>q1 = floor(Signature<sup>2</sup> / Modulus);</p>
 <p>q2 = floor((Signature<sup>3</sup> - q1 * Signature * Modulus) / Modulus);</p>
 <p>The EINITTOKEN contains the MRENCLAVE, MRSIGNER, and ATTRIBUTES. These values must match the corresponding values in the SECS. If the EINITTOKEN was created with a debug launch key, the enclave must be in debug mode as well.</p>
-<figure id="fig-40-1">
+<figure id="fig-37-1">
 <svg style="width: 614.0160000000001pt; height: 344.232012pt" viewBox="43.64 0.0 516.6800000000001 291.86001">
-<g xmlns="http://www.w3.org/2000/svg" style="stroke: none; fill: none">
+<g xmlns="http://www.w3.org/2000/svg" style="fill: none; stroke: none">
 <rect height="285.90000000000003" style="fill: rgb(0%, 0%, 0%)" width="0.48001000000000005" x="46.14" y="0.48000999999999294"></rect>
 <rect height="285.90000000000003" style="fill: rgb(0%, 0%, 0%)" width="0.47998" x="557.34" y="0.48000999999999294"></rect>
 <rect height="0.48001000000000005" style="fill: rgb(0%, 0%, 0%)" width="511.68" x="46.14" y="0.0"></rect>
@@ -259,34 +259,35 @@
 <rect height="26.94" style="fill: rgb(0%, 0%, 0%)" width="0.48" x="222.12" y="138.48001"></rect>
 <rect height="0.47998" style="fill: rgb(0%, 0%, 0%)" width="0.24001000000000003" x="221.88" y="138.00002999999998"></rect>
 <rect height="0.47998" style="fill: rgb(0%, 0%, 0%)" width="39.84" x="222.12" y="138.00002999999998"></rect>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.958243600000003pt; fill: #000" textLength="34.226751689999986" x="112.97980028999999" y="36.07423759000005">Signature</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.963153999999975pt; fill: #000" textLength="34.22704039999999" x="112.98112969999997" y="36.07431785">Signature</text>
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 7.803183600000011pt; fill: #000" textLength="17.474656319999987" x="60.300000000000004" y="43.83534309999999">Verify</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.958243600000003pt; fill: #000" textLength="27.557034300000055" x="314.22" y="52.27372810000003">Hashed</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.958243600000003pt; fill: #000" textLength="28.069965989999986" x="116.16" y="54.31372810000005">PubKey</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.958243600000003pt; fill: #000" textLength="49.15956582000001" x="112.62" y="70.15372810000002">ATTRIBUTES</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.958243600000003pt; fill: #000" textLength="66.49328555999999" x="112.25963211" y="79.93382317000004">ATTRIBUTEMASK</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.958243600000003pt; fill: #000" textLength="22.668530399999952" x="324.42003597" y="80.29392607000005">Check</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.958243600000003pt; fill: #000" textLength="49.21976907000004" x="112.43943915" y="90.37386943000001">MRENCLAVE</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.958243600000003pt; fill: #000" textLength="65.38554575999996" x="368.21990712" y="113.29413688000005">If VALID=1, Check</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.958243600000003pt; fill: #000" textLength="43.12158120000004" x="273.96" y="115.51372810000004">MRSIGNER</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.963153999999975pt; fill: #000" textLength="27.55607649999996" x="314.22" y="52.27465649999999">Hashed</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.963153999999975pt; fill: #000" textLength="28.071698800000007" x="116.16" y="54.31465650000001">PubKey</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.963153999999975pt; fill: #000" textLength="49.164024100000006" x="112.62" y="70.15465649999999">ATTRIBUTES</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.963153999999975pt; fill: #000" textLength="66.49841054999999" x="112.2599036" y="79.93433835000002">ATTRIBUTEMASK</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.963153999999975pt; fill: #000" textLength="22.67131820000003" x="324.420005" y="80.29415054999998">Check</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.963153999999975pt; fill: #000" textLength="49.221850900000035" x="112.4398092" y="90.37448520000004">MRENCLAVE</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.963153999999975pt; fill: #000" textLength="65.40452025000008" x="368.21979025" y="113.29397775000001">If VALID=1, Check</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.963153999999975pt; fill: #000" textLength="43.121926650000034" x="273.96" y="115.5146565">MRSIGNER</text>
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 8.905680000000018pt; fill: #000" textLength="46.14355199999996" x="113.82000000000001" y="115.74379000000005">SIGSTRUCT</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.958243600000003pt; fill: #000" textLength="43.113554100000044" x="487.44" y="122.77372810000003">MRSIGNER</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.963153999999975pt; fill: #000" textLength="43.113895149999905" x="487.44" y="122.77465649999999">MRSIGNER</text>
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 7.803183600000011pt; fill: #000" textLength="26.038580399999972" x="138.54" y="138.8753431">DS:RBX</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.958243600000003pt; fill: #000" textLength="49.21736093999999" x="273.06016209" y="141.19402642000006">ATTRIBUTES</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.958243600000003pt; fill: #000" textLength="40.57458237000003" x="366.0" y="148.87372810000005">If VALID=1,</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.958243600000003pt; fill: #000" textLength="49.15153871999996" x="274.02" y="152.3537281">MRENCLAVE</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.958243600000003pt; fill: #000" textLength="22.670938530000058" x="366.0" y="157.81350937000008">Check</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.963153999999975pt; fill: #000" textLength="49.21944144999992" x="273.05966885" y="141.1945746">ATTRIBUTES</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.963153999999975pt; fill: #000" textLength="40.58638209999987" x="366.0" y="148.87465650000001">If VALID=1,</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.963153999999975pt; fill: #000" textLength="49.153583149999974" x="274.02" y="152.35465649999998">MRENCLAVE</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.963153999999975pt; fill: #000" textLength="22.67131820000003" x="366.0" y="157.81451915000002">Check</text>
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 7.803183600000011pt; fill: #000" textLength="26.38608776999999" x="186.3" y="159.03534310000003">DS:RDX</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.958243599999975pt; fill: #000" textLength="47.882454210000105" x="274.2" y="169.87372810000002">EINITTOKEN</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.963153999999975pt; fill: #000" textLength="47.88460614999997" x="274.2" y="169.87465650000001">EINITTOKEN</text>
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 10.043999999999983pt; fill: #000" textLength="23.021999999999963" x="132.72" y="171.27901000000003">EINIT</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.958243600000003pt; fill: #000" textLength="18.710367390000044" x="430.8" y="181.87372810000002">Copy</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.958243600000003pt; fill: #000" textLength="21.792773790000012" x="179.4" y="215.89372810000003">SECS</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.963154000000003pt; fill: #000" textLength="18.712591849999967" x="430.8" y="181.87465650000001">Copy</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.963154000000003pt; fill: #000" textLength="49.22024459999989" x="389.04" y="211.57465650000003">ATTRIBUTES</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.963154000000003pt; fill: #000" textLength="21.795081549999992" x="179.4" y="215.89465650000002">SECS</text>
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 7.803183600000011pt; fill: #000" textLength="26.441325360000036" x="126.72" y="221.2553431">DS:RCX</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.958243600000003pt; fill: #000" textLength="49.208531129999926" x="390.06024441" y="222.79400848000003">MRENCLAVE</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.958243600000003pt; fill: #000" textLength="22.670938530000058" x="289.2" y="228.07372810000004">Check</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.963154000000003pt; fill: #000" textLength="49.21140994999996" x="390.0600005" y="222.79466200000005">MRENCLAVE</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.963154000000003pt; fill: #000" textLength="22.67131820000003" x="289.2" y="228.07465650000003">Check</text>
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 8.90567999999999pt; fill: #000" textLength="37.60016400000006" x="178.44" y="241.56379000000004">ENCLAVE</text>
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 8.90567999999999pt; fill: #000" textLength="16.441992" x="178.86" y="268.98379">EPC</text></g></svg>
-<figcaption><span class="not-imported">Figure 40-1</span>. Relationships Between SECS, SIGSTRUCT and EINITTOKEN</figcaption></figure>
+<figcaption><span class="not-imported">Figure 37-1</span>. Relationships Between SECS, SIGSTRUCT and EINITTOKEN</figcaption></figure>
 <h2 id="einit-memory-parameter-semantics">EINIT Memory Parameter Semantics<a class="anchor" href="EINIT.html#einit-memory-parameter-semantics">
 			&para;
 		</a></h2>
@@ -299,7 +300,7 @@
 <td>Read/Write access by Enclave</td>
 <td>Access by non-Enclave</td></tr></tbody></table>
 <p>Access by non-Enclave</p>
-<p>EINIT performs the following steps, which can be seen in <span class="not-imported">Figure 40-1</span>:</p>
+<p>EINIT performs the following steps, which can be seen in <span class="not-imported">Figure 37-1</span>:</p>
 <p>Validates that SIGSTRUCT is signed using the enclosed public key.</p>
 <p>Checks that the completed computation of SECS.MRENCLAVE equals SIGSTRUCT.HASHENCLAVE.</p>
 <p>Checks that no reserved bits are set to 1 in SIGSTRUCT.ATTRIBUTES and no reserved bits in SIGSTRUCT.ATTRIBUTESMASK are set to 0.</p>
@@ -314,10 +315,10 @@
 <p>Periodically, EINIT polls for certain asynchronous events. If such an event is detected, it completes with failure code (ZF=1 and RAX = SGX_UNMASKED_EVENT), and RIP is incremented to point to the next instruction. These events includes external interrupts, non-maskable interrupts, system-management interrupts, machine checks, INIT signals, and the VMX-preemption timer. EINIT does not fail if the pending event is inhibited (e.g., external interrupts could be inhibited due to blocking by MOV SS blocking or by STI).</p>
 <p>The following bits in RFLAGS are cleared: CF, PF, AF, OF, and SF. When the instruction completes with an error, RFLAGS.ZF is set to 1, and the corresponding error bit is set in RAX. If no error occurs, RFLAGS.ZF is cleared and RAX is set to 0.</p>
 <p>The error codes are:</p>
-<figure id="tbl-40-25">
+<figure id="tbl-37-25">
 <table>
 <tbody><tr>
-<th>Error Code (see <span class="not-imported">Table 40-4</span>)</th>
+<th>Error Code (see <span class="not-imported">Table 37-4</span>)</th>
 <th>Description</th></tr>
 <tr>
 <td>No Error</td>
@@ -343,54 +344,78 @@
 <tr>
 <td>SGX_UNMASKED_EVENT</td>
 <td>If an unmasked event is received before the instruction completes its operation.</td></tr></tbody></table>
-<figcaption><span class="not-imported">Table 40-25</span>. EINIT Return Value in RAX</figcaption></figure>
+<figcaption><span class="not-imported">Table 37-25</span>. EINIT Return Value in RAX</figcaption></figure>
 <h3 id="concurrency-restrictions">Concurrency Restrictions<a class="anchor" href="EINIT.html#concurrency-restrictions">
 			&para;
 		</a></h3>
-<figure id="tbl-40-26">
+<figure id="tbl-37-26">
 <table>
 <tbody><tr>
 <th rowspan="2">Leaf</th>
 <th rowspan="2">Parameter</th>
 <th colspan="3">Base Concurrency Restrictions</th></tr>
 <tr>
-<th>Access</th>
-<th>On Conflict</th>
-<th>SGX_CONFLICT VM Exit Qualification</th></tr>
+<th></th>
+<th>On Conflict </th>
+<th></th></tr>
 <tr>
-<td>EINIT</td>
+<td>EINIT EINIT
+SECS [DS:RCX]
+Shared  EINIT
+SECS [DS:RCX]
+</td>
 <td>SECS [DS:RCX]</td>
-<td>Shared</td>
-<td>#GP</td>
+<td></td>
+<td></td>
 <td></td></tr></tbody></table>
-<figcaption><span class="not-imported">Table 40-26</span>. Base Concurrency Restrictions of EINIT</figcaption></figure>
-<figure id="tbl-40-27">
+<figcaption><span class="not-imported">Table 37-26</span>. Base Concurrency Restrictions of EINIT</figcaption></figure>
+<figure id="tbl-37-27">
 <table>
 <tbody><tr>
-<th rowspan="3">Leaf</th>
-<th rowspan="3">Parameter</th>
-<th colspan="6">Additional Concurrency Restrictions</th></tr>
+<td rowspan="3"><strong>Leaf Access On Conflict
+</strong>EINIT
+SECS [DS:RCX]
+Concurrent
+Exclusive  <strong>Access On Conflict
+</strong>EINIT
+SECS [DS:RCX]
+Concurrent
+</td>
+<td rowspan="3"><strong>Parameter</strong></td>
+<td colspan="6"><strong>Additional Concurrency Restrictions</strong></td></tr>
 <tr>
-<th colspan="2">vs. EACCEPT, EACCEPTCOPY, EMODPE, EMODPR, EMODT</th>
-<th colspan="2">vs. EADD, EEXTEND, EINIT</th>
-<th colspan="2">vs. ETRACK, ETRACKC</th></tr>
+<td colspan="2"><strong>vs. EACCEPT, EACCEPTCOPY, vs. EADD, EEXTEND, EINIT
+vs. ETRACK, ETRACKC
+Access  vs. ETRACK, ETRACKC
+Access On Conflict
+Access  vs. ETRACK, ETRACKC
+Access On Conflict
+ EMODPE, EMODPR, EMODT</strong></td>
+<td colspan="2"><strong>vs. EADD, EEXTEND, EINIT vs. EADD, EEXTEND, EINIT
+vs. ETRACK, ETRACKC
+</strong></td>
+<td colspan="2"><strong>vs. ETRACK, ETRACKC</strong></td></tr>
 <tr>
-<th>Access</th>
-<th>On Conflict</th>
-<th>Access</th>
-<th>On Conflict</th>
-<th>Access</th>
-<th>On Conflict</th></tr>
+<td><strong>Access On Conflict
+Access On Conflict
+Access  Access On Conflict
+Access On Conflict
+</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td></tr>
 <tr>
 <td>EINIT</td>
 <td>SECS [DS:RCX]</td>
 <td>Concurrent</td>
 <td></td>
-<td>Exclusive</td>
-<td>#GP</td>
+<td></td>
+<td></td>
 <td>Concurrent</td>
 <td></td></tr></tbody></table>
-<figcaption><span class="not-imported">Table 40-27</span>. Additional Concurrency Restrictions of ENIT</figcaption></figure>
+<figcaption><span class="not-imported">Table 37-27</span>. Additional Concurrency Restrictions of ENIT</figcaption></figure>
 <h3 id="operation">Operation<a class="anchor" href="EINIT.html#operation">
 			&para;
 		</a></h3>
@@ -452,27 +477,27 @@
 <p>(* make sure the SECS is inside the EPC *)</p>
 <p>IF (DS:RCX does not resolve within an EPC)</p>
 <p>THEN #PF(DS:RCX); FI;</p>
-<p>TMP_SIG[14463:0]&larr;DS:RBX[14463:0]; // 1808 bytes</p>
-<p>TMP_TOKEN[2423:0]&larr;DS:RDX[2423:0]; // 304 bytes</p>
+<p>TMP_SIG[14463:0] := DS:RBX[14463:0]; // 1808 bytes</p>
+<p>TMP_TOKEN[2423:0] := DS:RDX[2423:0]; // 304 bytes</p>
 <p>(* Verify SIGSTRUCT Header. *)</p>
 <p>IF ( (TMP_SIG.HEADER ≠ 06000000E10000000000010000000000h) or</p>
 <p>((TMP_SIG.VENDOR ≠ 0) and (TMP_SIG.VENDOR ≠ 00008086h) ) or</p>
 <p>(TMP_SIG HEADER2 ≠ 01010000600000006000000001000000h) or</p>
 <p>(TMP_SIG.EXPONENT ≠ 00000003h) or (Reserved space is not 0&rsquo;s) )</p>
 <p>THEN</p>
-<p>RFLAGS.ZF &larr; 1;</p>
-<p>RAX &larr; SGX_INVALID_SIG_STRUCT;</p>
+<p>RFLAGS.ZF := 1;</p>
+<p>RAX := SGX_INVALID_SIG_STRUCT;</p>
 <p>GOTO EXIT;</p>
 <p>FI;</p>
 <p>(* Open &ldquo;Event Window&rdquo; Check for Interrupts. Verify signature using embedded public key, q1, and q2. Save upper 352 bytes of the PKCS1.5 encoded message into the TMP_SIG_PADDING*)</p>
 <p>IF (interrupt was pending) THEN</p>
-<p>RFLAGS.ZF &larr; 1;</p>
-<p>RAX &larr; SGX_UNMASKED_EVENT;</p>
+<p>RFLAGS.ZF := 1;</p>
+<p>RAX := SGX_UNMASKED_EVENT;</p>
 <p>GOTO EXIT;</p>
 <p>FI</p>
 <p>IF (signature failed to verify) THEN</p>
-<p>RFLAGS.ZF &larr; 1;</p>
-<p>RAX &larr; SGX_INVALID_SIGNATURE;</p>
+<p>RFLAGS.ZF := 1;</p>
+<p>RAX := SGX_INVALID_SIGNATURE;</p>
 <p>GOTO EXIT;</p>
 <p>FI;</p>
 <p>(*Close &ldquo;Event Window&rdquo; *)</p>
@@ -484,8 +509,8 @@
 <p>(* Verify ISVFAMILYID is not used on an enclave with KSS disabled *)</p>
 <p>IF ((TMP_SIG.ISVFAMILYID != 0) AND (DS:RCX.ATTRIBUTES.KSS == 0))</p>
 <p>THEN</p>
-<p>RFLAGS.ZF &larr; 1;</p>
-<p>RAX &larr; SGX_INVALID_SIG_STRUCT;</p>
+<p>RFLAGS.ZF := 1;</p>
+<p>RAX := SGX_INVALID_SIG_STRUCT;</p>
 <p>GOTO EXIT;</p>
 <p>FI;</p>
 <p>(* make sure no other instruction is accessing MRENCLAVE or ATTRIBUTES.INIT *)</p>
@@ -493,120 +518,132 @@
 <p>THEN #GP(0); FI;</p>
 <p>(* Calculate finalized version of MRENCLAVE *)</p>
 <p>(* SHA256 algorithm requires one last update that compresses the length of the hashed message into the output SHA256 digest *)</p>
-<p>TMP_ENCLAVE &larr; SHA256FINAL( (DS:RCX).MRENCLAVE, enclave&rsquo;s MRENCLAVE update count *512);</p>
+<p>TMP_ENCLAVE := SHA256FINAL( (DS:RCX).MRENCLAVE, enclave&rsquo;s MRENCLAVE update count *512);</p>
 <p>(* Verify MRENCLAVE from SIGSTRUCT *)</p>
 <p>IF (TMP_SIG.ENCLAVEHASH ≠ TMP_MRENCLAVE)</p>
-<p>RFLAGS.ZF &larr; 1;</p>
-<p>RAX &larr; SGX_INVALID_MEASUREMENT;</p>
+<p>RFLAGS.ZF := 1;</p>
+<p>RAX := SGX_INVALID_MEASUREMENT;</p>
 <p>GOTO EXIT;</p>
-<p>TMP_MRSIGNER &larr; SHA256(TMP_SIG.MODULUS)</p>
+<p>TMP_MRSIGNER := SHA256(TMP_SIG.MODULUS)</p>
 <p>(* if controlled ATTRIBUTES are set, SIGSTRUCT must be signed using an authorized key *)</p>
-<p>CONTROLLED_ATTRIBUTES &larr; 0000000000000020H;</p>
+<p>CONTROLLED_ATTRIBUTES := 0000000000000020H;</p>
 <p>IF ( ( (DS:RCX.ATTRIBUTES &amp; CONTROLLED_ATTRIBUTES) ≠ 0) and (TMP_MRSIGNER ≠ IA32_SGXLEPUBKEYHASH) )</p>
-<p>RFLAGS.ZF &larr; 1;</p>
-<p>RAX &larr; SGX_INVALID_ATTRIBUTE;</p>
+<p>RFLAGS.ZF := 1;</p>
+<p>RAX := SGX_INVALID_ATTRIBUTE;</p>
 <p>GOTO EXIT;</p>
 <p>FI;</p>
 <p>(* Verify SIGSTRUCT.ATTRIBUTE requirements are met *)</p>
 <p>IF ( (DS:RCX.ATTRIBUTES &amp; TMP_SIG.ATTRIBUTEMASK) ≠ (TMP_SIG.ATTRIBUTE &amp; TMP_SIG.ATTRIBUTEMASK) )</p>
-<p>RFLAGS.ZF &larr; 1;</p>
-<p>RAX &larr; SGX_INVALID_ATTRIBUTE;</p>
+<p>RFLAGS.ZF := 1;</p>
+<p>RAX := SGX_INVALID_ATTRIBUTE;</p>
 <p>GOTO EXIT;</p>
 <p>FI;</p>
 <p>( *Verify SIGSTRUCT.MISCSELECT requirements are met *)</p>
 <p>IF ( (DS:RCX.MISCSELECT &amp; TMP_SIG.MISCMASK) ≠ (TMP_SIG.MISCSELECT &amp; TMP_SIG.MISCMASK) )</p>
 <p>THEN</p>
-<p>RFLAGS.ZF &larr; 1;</p>
-<p>RAX &larr; SGX_INVALID_ATTRIBUTE;</p>
+<p>RFLAGS.ZF := 1;</p>
+<p>RAX := SGX_INVALID_ATTRIBUTE;</p>
 <p>GOTO EXIT</p>
 <p>FI;</p>
-<p>(* if EINITTOKEN.VALID[0] is 0, verify the enclave is signed by an authorized key *)</p>
+<p>IF (CPUID.(EAX=12H, ECX=1):EAX[6] = 1)</p>
+<p>IF ( DS:RCX.CET_ATTRIBUTES &amp; TMP_SIG.CET_ATTRIBUTES_MASK ≠ TMP_SIG.CET_ATTRIBUTES &amp;</p>
+<p>TMP_SIG.CET_ATTRIB-UTES_MASK )</p>
+<p>THEN</p>
+<p>RFLAGS.ZF := 1;</p>
+<p>RAX := SGX_INVALID_ATTRIBUTE;</p>
+<p>GOTO EXIT</p>
+<p>FI;</p>
+<p>FI;</p>
+<p>(* If EINITTOKEN.VALID[0] is 0, verify the enclave is signed by an authorized key *)</p>
 <p>IF (TMP_TOKEN.VALID[0] = 0)</p>
 <p>IF (TMP_MRSIGNER ≠ IA32_SGXLEPUBKEYHASH)</p>
-<p>RFLAGS.ZF &larr; 1;</p>
-<p>RAX &larr; SGX_INVALID_EINITTOKEN;</p>
+<p>RFLAGS.ZF := 1;</p>
+<p>RAX := SGX_INVALID_EINITTOKEN;</p>
 <p>GOTO EXIT;</p>
 <p>FI;</p>
 <p>GOTO COMMIT;</p>
 <p>FI;</p>
 <p>(* Debug Launch Enclave cannot launch Production Enclaves *)</p>
 <p>IF ( (DS:RDX.MASKEDATTRIBUTESLE.DEBUG = 1) and (DS:RCX.ATTRIBUTES.DEBUG = 0) )</p>
-<p>RFLAGS.ZF &larr; 1;</p>
-<p>RAX &larr; SGX_INVALID_EINITTOKEN;</p>
+<p>RFLAGS.ZF := 1;</p>
+<p>RAX := SGX_INVALID_EINITTOKEN;</p>
 <p>GOTO EXIT;</p>
-<p>FI;</p>
 <p>(* Check reserve space in EINIT token includes reserved regions and upper bits in valid field *)</p>
 <p>IF (TMP_TOKEN reserved space is not clear)</p>
-<p>RFLAGS.ZF &larr; 1;</p>
-<p>RAX &larr; SGX_INVALID_EINITTOKEN;</p>
+<p>RFLAGS.ZF := 1;</p>
+<p>RAX := SGX_INVALID_EINITTOKEN;</p>
 <p>GOTO EXIT;</p>
 <p>FI;</p>
-<p>(* EINIT token must be &le; CR_CPUSVN *)</p>
-<p>IF (TMP_TOKEN.CPUSVN &gt; CR_CPUSVN)</p>
-<p>RFLAGS.ZF &larr; 1;</p>
-<p>RAX &larr; SGX_INVALID_CPUSVN;</p>
+<p>(* EINIT token must not have been created by a configuration beyond the current CPU configuration *)</p>
+<p>IF (TMP_TOKEN.CPUSVN must not be a configuration beyond CR_CPUSVN)</p>
+<p>RFLAGS.ZF := 1;</p>
+<p>RAX := SGX_INVALID_CPUSVN;</p>
 <p>GOTO EXIT;</p>
 <p>FI;</p>
 <p>(* Derive Launch key used to calculate EINITTOKEN.MAC *)</p>
-<p>HARDCODED_PKCS1_5_PADDING[15:0] &larr; 0100H;</p>
-<p>HARDCODED_PKCS1_5_PADDING[2655:16]&larr;SignExtend330Byte(-1); // 330 bytes of 0FFH</p>
-<p>HARDCODED_PKCS1_5_PADDING[2815:2656] &larr; 2004000501020403650148866009060D30313000H;</p>
-<p>TMP_KEYDEPENDENCIES.KEYNAME &larr; EINITTOKEN_KEY;</p>
-<p>TMP_KEYDEPENDENCIES.ISVFAMILYID &larr; 0;</p>
-<p>TMP_KEYDEPENDENCIES.ISVEXTPRODID &larr; 0;</p>
-<p>TMP_KEYDEPENDENCIES.ISVPRODID &larr; TMP_TOKEN.ISVPRODIDLE;</p>
-<p>TMP_KEYDEPENDENCIES.ISVSVN &larr; TMP_TOKEN.ISVSVN;</p>
-<p>TMP_KEYDEPENDENCIES.SGXOWNEREPOCH &larr; CR_SGXOWNEREPOCH;</p>
-<p>TMP_KEYDEPENDENCIES.ATTRIBUTES &larr; TMP_TOKEN.MASKEDATTRIBUTESLE;</p>
-<p>TMP_KEYDEPENDENCIES.ATTRIBUTESMASK &larr; 0;</p>
-<p>TMP_KEYDEPENDENCIES.MRENCLAVE &larr; 0;</p>
-<p>TMP_KEYDEPENDENCIES.MRSIGNER &larr; IA32_SGXLEPUBKEYHASH;</p>
-<p>TMP_KEYDEPENDENCIES.KEYID &larr; TMP_TOKEN.KEYID;</p>
-<p>TMP_KEYDEPENDENCIES.SEAL_KEY_FUSES &larr; CR_SEAL_FUSES;</p>
-<p>TMP_KEYDEPENDENCIES.CPUSVN &larr; TMP_TOKEN.CPUSVN;</p>
-<p>TMP_KEYDEPENDENCIES.MISCSELECT &larr; TMP_TOKEN.MASKEDMISCSELECTLE;</p>
-<p>TMP_KEYDEPENDENCIES.MISCMASK &larr; 0;</p>
-<p>TMP_KEYDEPENDENCIES.PADDING &larr; HARDCODED_PKCS1_5_PADDING;</p>
-<p>TMP_KEYDEPENDENCIES.KEYPOLICY &larr; 0;</p>
-<p>TMP_KEYDEPENDENCIES.CONFIGID &larr; 0;</p>
-<p>TMP_KEYDEPENDENCIES.CONFIGSVN &larr; 0;</p>
+<p>HARDCODED_PKCS1_5_PADDING[15:0] := 0100H;</p>
+<p>HARDCODED_PKCS1_5_PADDING[2655:16] := SignExtend330Byte(-1); // 330 bytes of 0FFH</p>
+<p>HARDCODED_PKCS1_5_PADDING[2815:2656] := 2004000501020403650148866009060D30313000H;</p>
+<p>TMP_KEYDEPENDENCIES.KEYNAME := EINITTOKEN_KEY;</p>
+<p>TMP_KEYDEPENDENCIES.ISVFAMILYID := 0;</p>
+<p>TMP_KEYDEPENDENCIES.ISVEXTPRODID := 0;</p>
+<p>TMP_KEYDEPENDENCIES.ISVPRODID := TMP_TOKEN.ISVPRODIDLE;</p>
+<p>TMP_KEYDEPENDENCIES.ISVSVN := TMP_TOKEN.ISVSVNLE;</p>
+<p>TMP_KEYDEPENDENCIES.SGXOWNEREPOCH := CR_SGXOWNEREPOCH;</p>
+<p>TMP_KEYDEPENDENCIES.ATTRIBUTES := TMP_TOKEN.MASKEDATTRIBUTESLE;</p>
+<p>TMP_KEYDEPENDENCIES.ATTRIBUTESMASK := 0;</p>
+<p>TMP_KEYDEPENDENCIES.MRENCLAVE := 0;</p>
+<p>TMP_KEYDEPENDENCIES.MRSIGNER := IA32_SGXLEPUBKEYHASH;</p>
+<p>TMP_KEYDEPENDENCIES.KEYID := TMP_TOKEN.KEYID;</p>
+<p>TMP_KEYDEPENDENCIES.SEAL_KEY_FUSES := CR_SEAL_FUSES;</p>
+<p>TMP_KEYDEPENDENCIES.CPUSVN := TMP_TOKEN.CPUSVNLE;</p>
+<p>TMP_KEYDEPENDENCIES.MISCSELECT := TMP_TOKEN.MASKEDMISCSELECTLE;</p>
+<p>TMP_KEYDEPENDENCIES.MISCMASK := 0;</p>
+<p>TMP_KEYDEPENDENCIES.PADDING := HARDCODED_PKCS1_5_PADDING;</p>
+<p>TMP_KEYDEPENDENCIES.KEYPOLICY := 0;</p>
+<p>TMP_KEYDEPENDENCIES.CONFIGID := 0;</p>
+<p>TMP_KEYDEPENDENCIES.CONFIGSVN := 0;</p>
+<p>IF (CPUID.(EAX=12H, ECX=1):EAX[6] = 1))</p>
+<p>TMP_KEYDEPENDENCIES.CET_ATTRIBUTES := TMP_TOKEN.CET_MASKED_ATTRIBUTES_ LE;</p>
+<p>TMP_KEYDEPENDENCIES.CET_ATTRIBUTES_MASK := 0;</p>
+<p>FI;</p>
 <p>(* Calculate the derived key*)</p>
-<p>TMP_EINITTOKENKEY &larr; derivekey(TMP_KEYDEPENDENCIES);</p>
+<p>TMP_EINITTOKENKEY := derivekey(TMP_KEYDEPENDENCIES);</p>
 <p>(* Verify EINITTOKEN was generated using this CPU&#39;s Launch key and that it has not been modified since issuing by the Launch Enclave. Only 192 bytes of EINITTOKEN are CMACed *)</p>
 <p>IF (TMP_TOKEN.MAC ≠ CMAC(TMP_EINITTOKENKEY, TMP_TOKEN[1535:0] ) )</p>
-<p>RFLAGS.ZF &larr; 1;</p>
-<p>RAX &larr; SGX_INVALID_EINITTOKEN;</p>
+<p>RFLAGS.ZF := 1;</p>
+<p>RAX := SGX_INVALID_EINITTOKEN;</p>
 <p>GOTO EXIT;</p>
 <p>FI;</p>
 <p>(* Verify EINITTOKEN (RDX) is for this enclave *)</p>
 <p>IF ( (TMP_TOKEN.MRENCLAVE ≠ TMP_MRENCLAVE) or (TMP_TOKEN.MRSIGNER ≠ TMP_MRSIGNER) )</p>
-<p>RFLAGS.ZF &larr; 1;</p>
-<p>RAX &larr; SGX_INVALID_MEASUREMENT;</p>
+<p>RFLAGS.ZF := 1;</p>
+<p>RAX := SGX_INVALID_MEASUREMENT;</p>
 <p>GOTO EXIT;</p>
 <p>FI;</p>
 <p>(* Verify ATTRIBUTES in EINITTOKEN are the same as the enclave&rsquo;s *)</p>
 <p>IF (TMP_TOKEN.ATTRIBUTES ≠ DS:RCX.ATTRIBUTES)</p>
-<p>RFLAGS.ZF &larr; 1;</p>
-<p>RAX &larr; SGX_INVALID_EINIT_ATTRIBUTE;</p>
+<p>RFLAGS.ZF := 1;</p>
+<p>RAX := SGX_INVALID_EINIT_ATTRIBUTE;</p>
 <p>GOTO EXIT;</p>
 <p>FI;</p>
 <p>COMMIT:</p>
 <p>(* Commit changes to the SECS; Set ISVPRODID, ISVSVN, MRSIGNER, INIT ATTRIBUTE fields in SECS (RCX) *)</p>
-<p>DS:RCX.MRENCLAVE &larr; TMP_MRENCLAVE;</p>
+<p>DS:RCX.MRENCLAVE := TMP_MRENCLAVE;</p>
 <p>(* MRSIGNER stores a SHA256 in little endian implemented natively on x86 *)</p>
-<p>DS:RCX.MRSIGNER &larr; TMP_MRSIGNER;</p>
-<p>DS:RCX.ISVEXTPRODID &larr; TMP_SIG.ISVEXTPRODID;</p>
-<p>DS:RCX.ISVPRODID &larr; TMP_SIG.ISVPRODID;</p>
-<p>DS:RCX.ISVSVN &larr; TMP_SIG.ISVSVN;</p>
-<p>DS:RCX.ISVFAMILYID &larr; TMP_SIG.ISVFAMILYID;</p>
-<p>DS:RCX.PADDING &larr; TMP_SIG_PADDING;</p>
+<p>DS:RCX.MRSIGNER := TMP_MRSIGNER;</p>
+<p>DS:RCX.ISVEXTPRODID := TMP_SIG.ISVEXTPRODID;</p>
+<p>DS:RCX.ISVPRODID := TMP_SIG.ISVPRODID;</p>
+<p>DS:RCX.ISVSVN := TMP_SIG.ISVSVN;</p>
+<p>DS:RCX.ISVFAMILYID := TMP_SIG.ISVFAMILYID;</p>
+<p>DS:RCX.PADDING := TMP_SIG_PADDING;</p>
 <p>(* Mark the SECS as initialized *)</p>
 <p>Update DS:RCX to initialized;</p>
 <p>(* Set RAX and ZF for success*)</p>
-<p>RFLAGS.ZF &larr; 0;</p>
-<p>RAX&larr;0;</p>
+<p>RFLAGS.ZF := 0;</p>
+<p>RAX := 0;</p>
 <p>EXIT:</p>
-<p>RFLAGS.CF,PF,AF,OF,SF &larr; 0;</p>
+<p>RFLAGS.CF,PF,AF,OF,SF := 0;</p>
 <h3 id="flags-affected">Flags Affected<a class="anchor" href="EINIT.html#flags-affected">
 			&para;
 		</a></h3>
@@ -653,6 +690,6 @@
 <td>If the memory address is not a valid, uninitialized SECS.</td></tr></tbody></table><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

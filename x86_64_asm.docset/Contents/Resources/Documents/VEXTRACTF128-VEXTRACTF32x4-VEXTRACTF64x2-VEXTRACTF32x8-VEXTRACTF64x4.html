@@ -1,5 +1,5 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-522"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/VEXTRACTF128%2FVEXTRACTF32x4%2FVEXTRACTF64x2%2FVEXTRACTF32x8%2FVEXTRACTF64x4"></a><title>VEXTRACTF128/VEXTRACTF32x4/VEXTRACTF64x2/VEXTRACTF32x8/VEXTRACTF64x4</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>VEXTRACTF128/VEXTRACTF32x4/VEXTRACTF64x2/VEXTRACTF32x8/VEXTRACTF64x4
-		&mdash; Extra ct Packed Floating-Point Values</h1>
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-537"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/VEXTRACTF128%2FVEXTRACTF32x4%2FVEXTRACTF64x2%2FVEXTRACTF32x8%2FVEXTRACTF64x4"></a><title>VEXTRACTF128/VEXTRACTF32x4/VEXTRACTF64x2/VEXTRACTF32x8/VEXTRACTF64x4</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>VEXTRACTF128/VEXTRACTF32x4/VEXTRACTF64x2/VEXTRACTF32x8/VEXTRACTF64x4
+		&mdash; Extr act Packed Floating-Point Values</h1>
 
 
 
@@ -112,33 +112,33 @@
 <pre>VL = 256, 512
 IF VL = 256
     CASE (imm8[0]) OF
-        0: TMP_DEST[127:0]&larr;SRC1[127:0]
-        1: TMP_DEST[127:0]&larr;SRC1[255:128]
+        0: TMP_DEST[127:0] := SRC1[127:0]
+        1: TMP_DEST[127:0] := SRC1[255:128]
     ESAC.
 FI;
 IF VL = 512
     CASE (imm8[1:0]) OF
-        00: TMP_DEST[127:0]&larr;SRC1[127:0]
-        01: TMP_DEST[127:0]&larr;SRC1[255:128]
-        10: TMP_DEST[127:0]&larr;SRC1[383:256]
-        11: TMP_DEST[127:0]&larr;SRC1[511:384]
+        00: TMP_DEST[127:0] := SRC1[127:0]
+        01: TMP_DEST[127:0] := SRC1[255:128]
+        10: TMP_DEST[127:0] := SRC1[383:256]
+        11: TMP_DEST[127:0] := SRC1[511:384]
     ESAC.
 FI;
-FOR j&larr;0 TO 3
-    i&larr;j * 32
+FOR j := 0 TO 3
+    i := j * 32
     IF k1[j] OR *no writemask*
-        THEN DEST[i+31:i]&larr;TMP_DEST[i+31:i]
+        THEN DEST[i+31:i] := TMP_DEST[i+31:i]
         ELSE
             IF *merging-masking*
                         ; merging-masking
                 THEN *DEST[i+31:i] remains unchanged*
                 ELSE *zeroing-masking*
                             ; zeroing-masking
-                    DEST[i+31:i] &larr; 0
+                    DEST[i+31:i] := 0
             FI
     FI;
 ENDFOR
-DEST[MAXVL-1:128] &larr; 0
+DEST[MAXVL-1:128] := 0
 </pre>
 <h4 id="vextractf32x4--evex-encoded-versions--when-destination-is-memory">VEXTRACTF32x4 (EVEX encoded versions) when destination is memory<a class="anchor" href="./VEXTRACTF128:VEXTRACTF32x4:VEXTRACTF64x2:VEXTRACTF32x8:VEXTRACTF64x4.html#vextractf32x4--evex-encoded-versions--when-destination-is-memory">
 			&para;
@@ -146,22 +146,22 @@ DEST[MAXVL-1:128] &larr; 0
 <pre>VL = 256, 512
 IF VL = 256
     CASE (imm8[0]) OF
-        0: TMP_DEST[127:0]&larr;SRC1[127:0]
-        1: TMP_DEST[127:0]&larr;SRC1[255:128]
+        0: TMP_DEST[127:0] := SRC1[127:0]
+        1: TMP_DEST[127:0] := SRC1[255:128]
     ESAC.
 FI;
 IF VL = 512
     CASE (imm8[1:0]) OF
-        00: TMP_DEST[127:0]&larr;SRC1[127:0]
-        01: TMP_DEST[127:0]&larr;SRC1[255:128]
-        10: TMP_DEST[127:0]&larr;SRC1[383:256]
-        11: TMP_DEST[127:0]&larr;SRC1[511:384]
+        00: TMP_DEST[127:0] := SRC1[127:0]
+        01: TMP_DEST[127:0] := SRC1[255:128]
+        10: TMP_DEST[127:0] := SRC1[383:256]
+        11: TMP_DEST[127:0] := SRC1[511:384]
     ESAC.
 FI;
-FOR j&larr;0 TO 3
-    i&larr;j * 32
+FOR j := 0 TO 3
+    i := j * 32
     IF k1[j] OR *no writemask*
-        THEN DEST[i+31:i]&larr;TMP_DEST[i+31:i]
+        THEN DEST[i+31:i] := TMP_DEST[i+31:i]
         ELSE *DEST[i+31:i] remains unchanged*
             ; merging-masking
     FI;
@@ -173,33 +173,33 @@ ENDFOR
 <pre>VL = 256, 512
 IF VL = 256
     CASE (imm8[0]) OF
-        0: TMP_DEST[127:0]&larr;SRC1[127:0]
-        1: TMP_DEST[127:0]&larr;SRC1[255:128]
+        0: TMP_DEST[127:0] := SRC1[127:0]
+        1: TMP_DEST[127:0] := SRC1[255:128]
     ESAC.
 FI;
 IF VL = 512
     CASE (imm8[1:0]) OF
-        00: TMP_DEST[127:0]&larr;SRC1[127:0]
-        01: TMP_DEST[127:0]&larr;SRC1[255:128]
-        10: TMP_DEST[127:0]&larr;SRC1[383:256]
-        11: TMP_DEST[127:0]&larr;SRC1[511:384]
+        00: TMP_DEST[127:0] := SRC1[127:0]
+        01: TMP_DEST[127:0] := SRC1[255:128]
+        10: TMP_DEST[127:0] := SRC1[383:256]
+        11: TMP_DEST[127:0] := SRC1[511:384]
     ESAC.
 FI;
-FOR j&larr;0 TO 1
-    i&larr;j * 64
+FOR j := 0 TO 1
+    i := j * 64
     IF k1[j] OR *no writemask*
-        THEN DEST[i+63:i]&larr;TMP_DEST[i+63:i]
+        THEN DEST[i+63:i] := TMP_DEST[i+63:i]
         ELSE
             IF *merging-masking*
                         ; merging-masking
                 THEN *DEST[i+63:i] remains unchanged*
                 ELSE *zeroing-masking*
                             ; zeroing-masking
-                    DEST[i+63:i] &larr; 0
+                    DEST[i+63:i] := 0
             FI
     FI;
 ENDFOR
-DEST[MAXVL-1:128] &larr; 0
+DEST[MAXVL-1:128] := 0
 </pre>
 <h4 id="vextractf64x2--evex-encoded-versions--when-destination-is-memory">VEXTRACTF64x2 (EVEX encoded versions) when destination is memory<a class="anchor" href="./VEXTRACTF128:VEXTRACTF32x4:VEXTRACTF64x2:VEXTRACTF32x8:VEXTRACTF64x4.html#vextractf64x2--evex-encoded-versions--when-destination-is-memory">
 			&para;
@@ -207,22 +207,22 @@ DEST[MAXVL-1:128] &larr; 0
 <pre>VL = 256, 512
 IF VL = 256
     CASE (imm8[0]) OF
-        0: TMP_DEST[127:0]&larr;SRC1[127:0]
-        1: TMP_DEST[127:0]&larr;SRC1[255:128]
+        0: TMP_DEST[127:0] := SRC1[127:0]
+        1: TMP_DEST[127:0] := SRC1[255:128]
     ESAC.
 FI;
 IF VL = 512
     CASE (imm8[1:0]) OF
-        00: TMP_DEST[127:0]&larr;SRC1[127:0]
-        01: TMP_DEST[127:0]&larr;SRC1[255:128]
-        10: TMP_DEST[127:0]&larr;SRC1[383:256]
-        11: TMP_DEST[127:0]&larr;SRC1[511:384]
+        00: TMP_DEST[127:0] := SRC1[127:0]
+        01: TMP_DEST[127:0] := SRC1[255:128]
+        10: TMP_DEST[127:0] := SRC1[383:256]
+        11: TMP_DEST[127:0] := SRC1[511:384]
     ESAC.
 FI;
-FOR j&larr;0 TO 1
-    i&larr;j * 64
+FOR j := 0 TO 1
+    i := j * 64
     IF k1[j] OR *no writemask*
-        THEN DEST[i+63:i]&larr;TMP_DEST[i+63:i]
+        THEN DEST[i+63:i] := TMP_DEST[i+63:i]
         ELSE *DEST[i+63:i] remains unchanged* ; merging-masking
     FI;
 ENDFOR
@@ -232,36 +232,36 @@ ENDFOR
 		</a></h4>
 <pre>VL = 512
 CASE (imm8[0]) OF
-    0: TMP_DEST[255:0]&larr;SRC1[255:0]
-    1: TMP_DEST[255:0]&larr;SRC1[511:256]
+    0: TMP_DEST[255:0] := SRC1[255:0]
+    1: TMP_DEST[255:0] := SRC1[511:256]
 ESAC.
-FOR j&larr;0 TO 7
-    i&larr;j * 32
+FOR j := 0 TO 7
+    i := j * 32
     IF k1[j] OR *no writemask*
-        THEN DEST[i+31:i]&larr;TMP_DEST[i+31:i]
+        THEN DEST[i+31:i] := TMP_DEST[i+31:i]
         ELSE
             IF *merging-masking*
                         ; merging-masking
                 THEN *DEST[i+31:i] remains unchanged*
                 ELSE *zeroing-masking*
                             ; zeroing-masking
-                    DEST[i+31:i] &larr; 0
+                    DEST[i+31:i] := 0
             FI
     FI;
 ENDFOR
-DEST[MAXVL-1:256] &larr; 0
+DEST[MAXVL-1:256] := 0
 </pre>
 <h4 id="vextractf32x8--evex-u1-512-encoded-version--when-destination-is-memory">VEXTRACTF32x8 (EVEX.U1.512 encoded version) when destination is memory<a class="anchor" href="./VEXTRACTF128:VEXTRACTF32x4:VEXTRACTF64x2:VEXTRACTF32x8:VEXTRACTF64x4.html#vextractf32x8--evex-u1-512-encoded-version--when-destination-is-memory">
 			&para;
 		</a></h4>
 <pre>CASE (imm8[0]) OF
-    0: TMP_DEST[255:0]&larr;SRC1[255:0]
-    1: TMP_DEST[255:0]&larr;SRC1[511:256]
+    0: TMP_DEST[255:0] := SRC1[255:0]
+    1: TMP_DEST[255:0] := SRC1[511:256]
 ESAC.
-FOR j&larr;0 TO 7
-    i&larr;j * 32
+FOR j := 0 TO 7
+    i := j * 32
     IF k1[j] OR *no writemask*
-        THEN DEST[i+31:i]&larr;TMP_DEST[i+31:i]
+        THEN DEST[i+31:i] := TMP_DEST[i+31:i]
         ELSE *DEST[i+31:i] remains unchanged*
             ; merging-masking
     FI;
@@ -272,34 +272,34 @@ ENDFOR
 		</a></h4>
 <pre>VL = 512
 CASE (imm8[0]) OF
-    0: TMP_DEST[255:0]&larr;SRC1[255:0]
-    1: TMP_DEST[255:0]&larr;SRC1[511:256]
+    0: TMP_DEST[255:0] := SRC1[255:0]
+    1: TMP_DEST[255:0] := SRC1[511:256]
 ESAC.
-FOR j&larr;0 TO 3
-    i&larr;j * 64
+FOR j := 0 TO 3
+    i := j * 64
     IF k1[j] OR *no writemask*
-        THEN DEST[i+63:i]&larr;TMP_DEST[i+63:i]
+        THEN DEST[i+63:i] := TMP_DEST[i+63:i]
         ELSE
             IF *merging-masking*
                 THEN *DEST[i+63:i] remains unchanged*
                 ELSE *zeroing-masking* ; zeroing-masking
-                    DEST[i+63:i] &larr; 0
+                    DEST[i+63:i] := 0
             FI
     FI;
 ENDFOR
-DEST[MAXVL-1:256] &larr; 0
+DEST[MAXVL-1:256] := 0
 </pre>
 <h4 id="vextractf64x4--evex-512-encoded-version--when-destination-is-memory">VEXTRACTF64x4 (EVEX.512 encoded version) when destination is memory<a class="anchor" href="./VEXTRACTF128:VEXTRACTF32x4:VEXTRACTF64x2:VEXTRACTF32x8:VEXTRACTF64x4.html#vextractf64x4--evex-512-encoded-version--when-destination-is-memory">
 			&para;
 		</a></h4>
 <pre>CASE (imm8[0]) OF
-    0: TMP_DEST[255:0]&larr;SRC1[255:0]
-    1: TMP_DEST[255:0]&larr;SRC1[511:256]
+    0: TMP_DEST[255:0] := SRC1[255:0]
+    1: TMP_DEST[255:0] := SRC1[511:256]
 ESAC.
-FOR j&larr;0 TO 3
-    i&larr;j * 64
+FOR j := 0 TO 3
+    i := j * 64
     IF k1[j] OR *no writemask*
-        THEN DEST[i+63:i]&larr;TMP_DEST[i+63:i]
+        THEN DEST[i+63:i] := TMP_DEST[i+63:i]
         ELSE ; merging-masking
             *DEST[i+63:i] remains unchanged*
     FI;
@@ -309,18 +309,18 @@ ENDFOR
 			&para;
 		</a></h4>
 <pre>CASE (imm8[0]) OF
-    0: DEST[127:0]&larr;SRC1[127:0]
-    1: DEST[127:0]&larr;SRC1[255:128]
+    0: DEST[127:0] := SRC1[127:0]
+    1: DEST[127:0] := SRC1[255:128]
 ESAC.
 </pre>
 <h4 id="vextractf128--register-destination-form-">VEXTRACTF128 (register destination form)<a class="anchor" href="./VEXTRACTF128:VEXTRACTF32x4:VEXTRACTF64x2:VEXTRACTF32x8:VEXTRACTF64x4.html#vextractf128--register-destination-form-">
 			&para;
 		</a></h4>
 <pre>CASE (imm8[0]) OF
-    0: DEST[127:0]&larr;SRC1[127:0]
-    1: DEST[127:0]&larr;SRC1[255:128]
+    0: DEST[127:0] := SRC1[127:0]
+    1: DEST[127:0] := SRC1[255:128]
 ESAC.
-DEST[MAXVL-1:128] &larr;0
+DEST[MAXVL-1:128] := 0
 </pre>
 <h3 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="./VEXTRACTF128:VEXTRACTF32x4:VEXTRACTF64x2:VEXTRACTF32x8:VEXTRACTF64x4.html#intel-c-c++-compiler-intrinsic-equivalent">
 			&para;
@@ -374,8 +374,9 @@ DEST[MAXVL-1:128] &larr;0
 <h3 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="./VEXTRACTF128:VEXTRACTF32x4:VEXTRACTF64x2:VEXTRACTF32x8:VEXTRACTF64x4.html#other-exceptions">
 			&para;
 		</a></h3>
-<p>VEX-encoded instructions, see Exceptions Type 6;</p>
-<p>EVEX-encoded instructions, see Exceptions Type E6NF.</p>
+<p>VEX-encoded instructions, see <span class="not-imported">Table 2-23</span>, &ldquo;Type 6 Class Exception Conditions&rdquo;.</p>
+<p>EVEX-encoded instructions, see <span class="not-imported">Table 2-54</span>, &ldquo;Type E6NF Class Exception Conditions&rdquo;.</p>
+<p>Additionally:</p>
 <table>
 <tbody><tr>
 <td>#UD</td>
@@ -385,6 +386,6 @@ DEST[MAXVL-1:128] &larr;0
 <td>If VEX.vvvv != 1111B or EVEX.vvvv != 1111B.</td></tr></tbody></table><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

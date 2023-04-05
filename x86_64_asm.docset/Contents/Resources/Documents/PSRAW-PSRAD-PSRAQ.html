@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-388"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/PSRAW%2FPSRAD%2FPSRAQ"></a><title>PSRAW/PSRAD/PSRAQ</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>PSRAW/PSRAD/PSRAQ
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-398"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/PSRAW%2FPSRAD%2FPSRAQ"></a><title>PSRAW/PSRAD/PSRAQ</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>PSRAW/PSRAD/PSRAQ
 		&mdash; Shift Packed Data Right Arithmetic</h1>
 
 
@@ -283,7 +283,7 @@
 <p>Shifts the bits in the individual data elements (words, doublewords or quadwords) in the destination operand (first operand) to the right by the number of bits specified in the count operand (second operand). As the bits in the data elements are shifted right, the empty high-order bits are filled with the initial value of the sign bit of the data element. If the value specified by the count operand is greater than 15 (for words), 31 (for doublewords), or 63 (for quadwords), each destination data element is filled with the initial value of the sign bit of the element. (<a href="./PSRAW:PSRAD:PSRAQ.html#fig-4-18">Figure 4-18</a> gives an example of shifting words in a 64-bit operand.)</p>
 <figure id="fig-4-18">
 <svg style="width: 455.616pt; height: 126.287976pt" viewBox="109.64 0.0 384.68 110.23998">
-<g xmlns="http://www.w3.org/2000/svg" style="fill: none; stroke: none">
+<g xmlns="http://www.w3.org/2000/svg" style="stroke: none; fill: none">
 <rect height="104.28" style="fill: rgb(0%, 0%, 0%)" width="0.48" x="112.14" y="0.47998000000001184"></rect>
 <rect height="104.28" style="fill: rgb(0%, 0%, 0%)" width="0.47998" x="491.34000000000003" y="0.47998000000001184"></rect>
 <rect height="0.47998" style="fill: rgb(0%, 0%, 0%)" width="379.68" x="112.14" y="0.0"></rect>
@@ -356,19 +356,19 @@
 <rect height="0.48001000000000005" style="fill: rgb(0%, 0%, 0%)" width="25.92" x="333.36" y="44.51997"></rect>
 <rect height="12.9" style="fill: rgb(0%, 0%, 0%)" width="0.47998" x="358.8" y="44.75998000000004"></rect>
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="31.021861099999967" x="160.07982600000003" y="21.185806799999966">Pre-Shift</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="9.722649699999977" x="407.94" y="25.266080999999986">X0</text>
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="9.783381300000002" x="220.9211901" y="25.266628499999968">X3</text>
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="9.783381299999974" x="284.6398259" y="25.266628499999968">X2</text>
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="9.783381299999974" x="345.6591019" y="25.266628499999968">X1</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="9.722649699999977" x="407.94" y="25.266080999999986">X0</text>
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="21.32638079999998" x="170.58" y="29.466080999999974">DEST</text>
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 8.720880000000022pt; fill: #000" textLength="31.414656000000036" x="159.0" y="42.60334">Shift Right</text>
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 8.720880000000022pt; fill: #000" textLength="27.52819200000002" x="163.02" y="49.863339999999994">with Sign</text>
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 8.720880000000022pt; fill: #000" textLength="29.38164000000006" x="161.160288" y="57.663411999999994">Extension</text>
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="34.55068669999997" x="155.21969980000003" y="74.04547269999995">Post-Shift</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 10.208730624999987pt; fill: #000" textLength="53.67090920000004" x="386.5201245" y="80.31630812499998">X0 &gt;&gt; COUNT</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 10.208183125000005pt; fill: #000" textLength="53.6589324" x="198.9001148" y="80.31630812499998">X3 &gt;&gt; COUNT</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 10.208183125000005pt; fill: #000" textLength="53.58762089999999" x="262.6803064" y="80.31630812499998">X2 &gt;&gt; COUNT</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 10.208183125000005pt; fill: #000" textLength="53.59298820000009" x="325.9205328" y="80.31630812499998">X1 &gt;&gt; COUNT</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 10.208730624999987pt; fill: #000" textLength="53.6597218" x="386.5201245" y="80.31630812499998">X0 &gt;&gt; COUNT</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 10.208183125000005pt; fill: #000" textLength="53.65973149999999" x="198.9001148" y="80.31630812499998">X3 &gt;&gt; COUNT</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 10.208183125000005pt; fill: #000" textLength="53.61479029999998" x="262.6803064" y="80.31630812499998">X2 &gt;&gt; COUNT</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 10.208183125000005pt; fill: #000" textLength="53.59618460000007" x="325.9205328" y="80.31630812499998">X1 &gt;&gt; COUNT</text>
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="21.32078709999996" x="169.56" y="82.02608099999998">DEST</text></g></svg>
 <figcaption><a href="./PSRAW:PSRAD:PSRAQ.html#fig-4-18">Figure 4-18</a>. PSRAW and PSRAD Instruction Operation Using a 64-bit Operand</figcaption></figure>
 <p>Note that only the first 64-bits of a 128-bit count operand are checked to compute the count. If the second source operand is a memory address, 128 bits are loaded.</p>
@@ -388,96 +388,96 @@
 			&para;
 		</a></h3>
 <pre>IF (COUNT &gt; 15)
-    THEN COUNT &larr; 16;
+    THEN COUNT := 16;
 FI;
-DEST[15:0] &larr; SignExtend(DEST[15:0] &gt;&gt; COUNT);
+DEST[15:0] := SignExtend(DEST[15:0] &gt;&gt; COUNT);
 (* Repeat shift operation for 2nd and 3rd words *)
-DEST[63:48] &larr; SignExtend(DEST[63:48] &gt;&gt; COUNT);
+DEST[63:48] := SignExtend(DEST[63:48] &gt;&gt; COUNT);
 </pre>
 <h3 id="psrad--with-64-bit-operand-">PSRAD (with 64-bit operand)<a class="anchor" href="./PSRAW:PSRAD:PSRAQ.html#psrad--with-64-bit-operand-">
 			&para;
 		</a></h3>
 <pre>    IF (COUNT &gt; 31)
-        THEN COUNT &larr; 32;
+        THEN COUNT := 32;
     FI;
-    DEST[31:0] &larr; SignExtend(DEST[31:0] &gt;&gt; COUNT);
-    DEST[63:32] &larr; SignExtend(DEST[63:32] &gt;&gt; COUNT);
+    DEST[31:0] := SignExtend(DEST[31:0] &gt;&gt; COUNT);
+    DEST[63:32] := SignExtend(DEST[63:32] &gt;&gt; COUNT);
 ARITHMETIC_RIGHT_SHIFT_DWORDS1(SRC, COUNT_SRC)
-COUNT &larr; COUNT_SRC[63:0];
+COUNT := COUNT_SRC[63:0];
 IF (COUNT &gt; 31)
 THEN
-    DEST[31:0] &larr; SignBit
+    DEST[31:0] := SignBit
 ELSE
-    DEST[31:0]&larr;SignExtend(SRC[31:0] &gt;&gt; COUNT);
+    DEST[31:0] := SignExtend(SRC[31:0] &gt;&gt; COUNT);
 FI;
 ARITHMETIC_RIGHT_SHIFT_QWORDS1(SRC, COUNT_SRC)
-COUNT &larr; COUNT_SRC[63:0];
+COUNT := COUNT_SRC[63:0];
 IF (COUNT &gt; 63)
 THEN
-    DEST[63:0] &larr; SignBit
+    DEST[63:0] := SignBit
 ELSE
-    DEST[63:0]&larr;SignExtend(SRC[63:0] &gt;&gt; COUNT);
+    DEST[63:0] := SignExtend(SRC[63:0] &gt;&gt; COUNT);
 FI;
 ARITHMETIC_RIGHT_SHIFT_WORDS_256b(SRC, COUNT_SRC)
-COUNT &larr; COUNT_SRC[63:0];
+COUNT := COUNT_SRC[63:0];
 IF (COUNT &gt; 15)
-    THEN COUNT &larr; 16;
+    THEN COUNT := 16;
 FI;
-DEST[15:0]&larr;SignExtend(SRC[15:0] &gt;&gt; COUNT);
+DEST[15:0] := SignExtend(SRC[15:0] &gt;&gt; COUNT);
     (* Repeat shift operation for 2nd through 15th words *)
-DEST[255:240]&larr;SignExtend(SRC[255:240] &gt;&gt; COUNT);
+DEST[255:240] := SignExtend(SRC[255:240] &gt;&gt; COUNT);
 ARITHMETIC_RIGHT_SHIFT_DWORDS_256b(SRC, COUNT_SRC)
-COUNT &larr; COUNT_SRC[63:0];
+COUNT := COUNT_SRC[63:0];
 IF (COUNT &gt; 31)
-    THEN COUNT &larr; 32;
+    THEN COUNT := 32;
 FI;
-DEST[31:0]&larr;SignExtend(SRC[31:0] &gt;&gt; COUNT);
+DEST[31:0] := SignExtend(SRC[31:0] &gt;&gt; COUNT);
     (* Repeat shift operation for 2nd through 7th words *)
-DEST[255:224]&larr;SignExtend(SRC[255:224] &gt;&gt; COUNT);
+DEST[255:224] := SignExtend(SRC[255:224] &gt;&gt; COUNT);
 ARITHMETIC_RIGHT_SHIFT_QWORDS(SRC, COUNT_SRC, VL)
             ; VL: 128b, 256b or 512b
-COUNT &larr; COUNT_SRC[63:0];
+COUNT := COUNT_SRC[63:0];
 IF (COUNT &gt; 63)
-    THEN COUNT &larr; 64;
+    THEN COUNT := 64;
 FI;
-DEST[63:0]&larr;SignExtend(SRC[63:0] &gt;&gt; COUNT);
+DEST[63:0] := SignExtend(SRC[63:0] &gt;&gt; COUNT);
     (* Repeat shift operation for 2nd through 7th words *)
-DEST[VL-1:VL-64]&larr;SignExtend(SRC[VL-1:VL-64] &gt;&gt; COUNT);
+DEST[VL-1:VL-64] := SignExtend(SRC[VL-1:VL-64] &gt;&gt; COUNT);
 ARITHMETIC_RIGHT_SHIFT_WORDS(SRC, COUNT_SRC)
-COUNT &larr; COUNT_SRC[63:0];
+COUNT := COUNT_SRC[63:0];
 IF (COUNT &gt; 15)
-    THEN COUNT &larr; 16;
+    THEN COUNT := 16;
 FI;
-DEST[15:0]&larr;SignExtend(SRC[15:0] &gt;&gt; COUNT);
+DEST[15:0] := SignExtend(SRC[15:0] &gt;&gt; COUNT);
     (* Repeat shift operation for 2nd through 7th words *)
-DEST[127:112]&larr;SignExtend(SRC[127:112] &gt;&gt; COUNT);
+DEST[127:112] := SignExtend(SRC[127:112] &gt;&gt; COUNT);
 ARITHMETIC_RIGHT_SHIFT_DWORDS(SRC, COUNT_SRC)
-COUNT &larr; COUNT_SRC[63:0];
+COUNT := COUNT_SRC[63:0];
 IF (COUNT &gt; 31)
-    THEN COUNT &larr; 32;
+    THEN COUNT := 32;
 FI;
-DEST[31:0]&larr;SignExtend(SRC[31:0] &gt;&gt; COUNT);
+DEST[31:0] := SignExtend(SRC[31:0] &gt;&gt; COUNT);
     (* Repeat shift operation for 2nd through 3rd words *)
-DEST[127:96]&larr;SignExtend(SRC[127:96] &gt;&gt; COUNT);
+DEST[127:96] := SignExtend(SRC[127:96] &gt;&gt; COUNT);
 </pre>
 <h3 id="vpsraw--evex-versions--xmm-m128-">VPSRAW (EVEX versions, xmm/m128)<a class="anchor" href="./PSRAW:PSRAD:PSRAQ.html#vpsraw--evex-versions--xmm-m128-">
 			&para;
 		</a></h3>
 <pre>(KL, VL) = (8, 128), (16, 256), (32, 512)
 IF VL = 128
-    TMP_DEST[127:0]&larr;ARITHMETIC_RIGHT_SHIFT_WORDS_128b(SRC1[127:0], SRC2)
+    TMP_DEST[127:0] := ARITHMETIC_RIGHT_SHIFT_WORDS_128b(SRC1[127:0], SRC2)
 FI;
 IF VL = 256
-    TMP_DEST[255:0]&larr;ARITHMETIC_RIGHT_SHIFT_WORDS_256b(SRC1[255:0], SRC2)
+    TMP_DEST[255:0] := ARITHMETIC_RIGHT_SHIFT_WORDS_256b(SRC1[255:0], SRC2)
 FI;
 IF VL = 512
-    TMP_DEST[255:0]&larr;ARITHMETIC_RIGHT_SHIFT_WORDS_256b(SRC1[255:0], SRC2)
-    TMP_DEST[511:256]&larr;ARITHMETIC_RIGHT_SHIFT_WORDS_256b(SRC1[511:256], SRC2)
+    TMP_DEST[255:0] := ARITHMETIC_RIGHT_SHIFT_WORDS_256b(SRC1[255:0], SRC2)
+    TMP_DEST[511:256] := ARITHMETIC_RIGHT_SHIFT_WORDS_256b(SRC1[511:256], SRC2)
 FI;
-FOR j&larr;0 TO KL-1
-    i&larr;j * 16
+FOR j := 0 TO KL-1
+    i := j * 16
     IF k1[j] OR *no writemask*
-        THEN DEST[i+15:i]&larr;TMP_DEST[i+15:i]
+        THEN DEST[i+15:i] := TMP_DEST[i+15:i]
         ELSE
             IF *merging-masking*
                         ; merging-masking
@@ -488,26 +488,26 @@ FOR j&larr;0 TO KL-1
             FI
     FI;
 ENDFOR
-DEST[MAXVL-1:VL] &larr; 0
+DEST[MAXVL-1:VL] := 0
 </pre>
 <h3 id="vpsraw--evex-versions--imm8-">VPSRAW (EVEX versions, imm8)<a class="anchor" href="./PSRAW:PSRAD:PSRAQ.html#vpsraw--evex-versions--imm8-">
 			&para;
 		</a></h3>
 <pre>(KL, VL) = (8, 128), (16, 256), (32, 512)
 IF VL = 128
-    TMP_DEST[127:0]&larr;ARITHMETIC_RIGHT_SHIFT_WORDS_128b(SRC1[127:0], imm8)
+    TMP_DEST[127:0] := ARITHMETIC_RIGHT_SHIFT_WORDS_128b(SRC1[127:0], imm8)
 FI;
 IF VL = 256
-    TMP_DEST[255:0]&larr;ARITHMETIC_RIGHT_SHIFT_WORDS_256b(SRC1[255:0], imm8)
+    TMP_DEST[255:0] := ARITHMETIC_RIGHT_SHIFT_WORDS_256b(SRC1[255:0], imm8)
 FI;
 IF VL = 512
-    TMP_DEST[255:0]&larr;ARITHMETIC_RIGHT_SHIFT_WORDS_256b(SRC1[255:0], imm8)
-    TMP_DEST[511:256]&larr;ARITHMETIC_RIGHT_SHIFT_WORDS_256b(SRC1[511:256], imm8)
+    TMP_DEST[255:0] := ARITHMETIC_RIGHT_SHIFT_WORDS_256b(SRC1[255:0], imm8)
+    TMP_DEST[511:256] := ARITHMETIC_RIGHT_SHIFT_WORDS_256b(SRC1[511:256], imm8)
 FI;
-FOR j&larr;0 TO KL-1
-    i&larr;j * 16
+FOR j := 0 TO KL-1
+    i := j * 16
     IF k1[j] OR *no writemask*
-        THEN DEST[i+15:i]&larr;TMP_DEST[i+15:i]
+        THEN DEST[i+15:i] := TMP_DEST[i+15:i]
         ELSE
             IF *merging-masking*
                         ; merging-masking
@@ -518,173 +518,173 @@ FOR j&larr;0 TO KL-1
             FI
     FI;
 ENDFOR
-DEST[MAXVL-1:VL] &larr; 0
+DEST[MAXVL-1:VL] := 0
 </pre>
 <h3 id="vpsraw--ymm--ymm--xmm-m128----vex">VPSRAW (ymm, ymm, xmm/m128) - VEX<a class="anchor" href="./PSRAW:PSRAD:PSRAQ.html#vpsraw--ymm--ymm--xmm-m128----vex">
 			&para;
 		</a></h3>
-<pre>DEST[255:0]&larr;ARITHMETIC_RIGHT_SHIFT_WORDS_256b(SRC1, SRC2)
-DEST[MAXVL-1:256] &larr; 0
+<pre>DEST[255:0] := ARITHMETIC_RIGHT_SHIFT_WORDS_256b(SRC1, SRC2)
+DEST[MAXVL-1:256] := 0
 </pre>
 <h3 id="vpsraw--ymm--imm8----vex">VPSRAW (ymm, imm8) - VEX<a class="anchor" href="./PSRAW:PSRAD:PSRAQ.html#vpsraw--ymm--imm8----vex">
 			&para;
 		</a></h3>
-<pre>DEST[255:0]&larr;ARITHMETIC_RIGHT_SHIFT_WORDS_256b(SRC1, imm8)
-DEST[MAXVL-1:256] &larr; 0
+<pre>DEST[255:0] := ARITHMETIC_RIGHT_SHIFT_WORDS_256b(SRC1, imm8)
+DEST[MAXVL-1:256] := 0
 </pre>
 <h3 id="vpsraw--xmm--xmm--xmm-m128----vex">VPSRAW (xmm, xmm, xmm/m128) - VEX<a class="anchor" href="./PSRAW:PSRAD:PSRAQ.html#vpsraw--xmm--xmm--xmm-m128----vex">
 			&para;
 		</a></h3>
-<pre>DEST[127:0]&larr;ARITHMETIC_RIGHT_SHIFT_WORDS(SRC1, SRC2)
-DEST[MAXVL-1:128] &larr; 0
+<pre>DEST[127:0] := ARITHMETIC_RIGHT_SHIFT_WORDS(SRC1, SRC2)
+DEST[MAXVL-1:128] := 0
 </pre>
 <h3 id="vpsraw--xmm--imm8----vex">VPSRAW (xmm, imm8) - VEX<a class="anchor" href="./PSRAW:PSRAD:PSRAQ.html#vpsraw--xmm--imm8----vex">
 			&para;
 		</a></h3>
-<pre>DEST[127:0]&larr;ARITHMETIC_RIGHT_SHIFT_WORDS(SRC1, imm8)
-DEST[MAXVL-1:128] &larr; 0
+<pre>DEST[127:0] := ARITHMETIC_RIGHT_SHIFT_WORDS(SRC1, imm8)
+DEST[MAXVL-1:128] := 0
 </pre>
 <h3 id="psraw--xmm--xmm--xmm-m128-">PSRAW (xmm, xmm, xmm/m128)<a class="anchor" href="./PSRAW:PSRAD:PSRAQ.html#psraw--xmm--xmm--xmm-m128-">
 			&para;
 		</a></h3>
-<pre>DEST[127:0]&larr;ARITHMETIC_RIGHT_SHIFT_WORDS(DEST, SRC)
+<pre>DEST[127:0] := ARITHMETIC_RIGHT_SHIFT_WORDS(DEST, SRC)
 DEST[MAXVL-1:128] (Unmodified)
 </pre>
 <h3 id="psraw--xmm--imm8-">PSRAW (xmm, imm8)<a class="anchor" href="./PSRAW:PSRAD:PSRAQ.html#psraw--xmm--imm8-">
 			&para;
 		</a></h3>
-<pre>DEST[127:0]&larr;ARITHMETIC_RIGHT_SHIFT_WORDS(DEST, imm8)
+<pre>DEST[127:0] := ARITHMETIC_RIGHT_SHIFT_WORDS(DEST, imm8)
 DEST[MAXVL-1:128] (Unmodified)
 </pre>
 <h3 id="vpsrad--evex-versions--imm8-">VPSRAD (EVEX versions, imm8)<a class="anchor" href="./PSRAW:PSRAD:PSRAQ.html#vpsrad--evex-versions--imm8-">
 			&para;
 		</a></h3>
 <pre>(KL, VL) = (4, 128), (8, 256), (16, 512)
-FOR j&larr;0 TO KL-1
-    i&larr;j * 32
+FOR j := 0 TO KL-1
+    i := j * 32
     IF k1[j] OR *no writemask* THEN
             IF (EVEX.b = 1) AND (SRC1 *is memory*)
-                THEN DEST[i+31:i]&larr;ARITHMETIC_RIGHT_SHIFT_DWORDS1(SRC1[31:0], imm8)
-                ELSE DEST[i+31:i]&larr;ARITHMETIC_RIGHT_SHIFT_DWORDS1(SRC1[i+31:i], imm8)
+                THEN DEST[i+31:i] := ARITHMETIC_RIGHT_SHIFT_DWORDS1(SRC1[31:0], imm8)
+                ELSE DEST[i+31:i] := ARITHMETIC_RIGHT_SHIFT_DWORDS1(SRC1[i+31:i], imm8)
             FI;
         ELSE
             IF *merging-masking* ; merging-masking
                 THEN *DEST[i+31:i] remains unchanged*
                 ELSE *zeroing-masking*
                         ; zeroing-masking
-                    DEST[i+31:i] &larr; 0
+                    DEST[i+31:i] := 0
             FI
     FI;
 ENDFOR
-DEST[MAXVL-1:VL] &larr; 0
+DEST[MAXVL-1:VL] := 0
 </pre>
 <h3 id="vpsrad--evex-versions--xmm-m128-">VPSRAD (EVEX versions, xmm/m128)<a class="anchor" href="./PSRAW:PSRAD:PSRAQ.html#vpsrad--evex-versions--xmm-m128-">
 			&para;
 		</a></h3>
 <pre>(KL, VL) = (4, 128), (8, 256), (16, 512)
 IF VL = 128
-    TMP_DEST[127:0]&larr;ARITHMETIC_RIGHT_SHIFT_DWORDS_128b(SRC1[127:0], SRC2)
+    TMP_DEST[127:0] := ARITHMETIC_RIGHT_SHIFT_DWORDS_128b(SRC1[127:0], SRC2)
 FI;
 IF VL = 256
-    TMP_DEST[255:0]&larr;ARITHMETIC_RIGHT_SHIFT_DWORDS_256b(SRC1[255:0], SRC2)
+    TMP_DEST[255:0] := ARITHMETIC_RIGHT_SHIFT_DWORDS_256b(SRC1[255:0], SRC2)
 FI;
 IF VL = 512
-    TMP_DEST[255:0]&larr;ARITHMETIC_RIGHT_SHIFT_DWORDS_256b(SRC1[255:0], SRC2)
-    TMP_DEST[511:256]&larr;ARITHMETIC_RIGHT_SHIFT_DWORDS_256b(SRC1[511:256], SRC2)
+    TMP_DEST[255:0] := ARITHMETIC_RIGHT_SHIFT_DWORDS_256b(SRC1[255:0], SRC2)
+    TMP_DEST[511:256] := ARITHMETIC_RIGHT_SHIFT_DWORDS_256b(SRC1[511:256], SRC2)
 FI;
-FOR j&larr;0 TO KL-1
-    i&larr;j * 32
+FOR j := 0 TO KL-1
+    i := j * 32
     IF k1[j] OR *no writemask*
-        THEN DEST[i+31:i]&larr;TMP_DEST[i+31:i]
+        THEN DEST[i+31:i] := TMP_DEST[i+31:i]
         ELSE
             IF *merging-masking*
                         ; merging-masking
                 THEN *DEST[i+31:i] remains unchanged*
                 ELSE *zeroing-masking*
                             ; zeroing-masking
-                    DEST[i+31:i] &larr; 0
+                    DEST[i+31:i] := 0
             FI
     FI;
 ENDFOR
-DEST[MAXVL-1:VL] &larr; 0
+DEST[MAXVL-1:VL] := 0
 </pre>
 <h3 id="vpsrad--ymm--ymm--xmm-m128----vex">VPSRAD (ymm, ymm, xmm/m128) - VEX<a class="anchor" href="./PSRAW:PSRAD:PSRAQ.html#vpsrad--ymm--ymm--xmm-m128----vex">
 			&para;
 		</a></h3>
-<pre>DEST[255:0]&larr;ARITHMETIC_RIGHT_SHIFT_DWORDS_256b(SRC1, SRC2)
-DEST[MAXVL-1:256] &larr; 0
+<pre>DEST[255:0] := ARITHMETIC_RIGHT_SHIFT_DWORDS_256b(SRC1, SRC2)
+DEST[MAXVL-1:256] := 0
 </pre>
 <h3 id="vpsrad--ymm--imm8----vex">VPSRAD (ymm, imm8) - VEX<a class="anchor" href="./PSRAW:PSRAD:PSRAQ.html#vpsrad--ymm--imm8----vex">
 			&para;
 		</a></h3>
-<pre>DEST[255:0]&larr;ARITHMETIC_RIGHT_SHIFT_DWORDS_256b(SRC1, imm8)
-DEST[MAXVL-1:256] &larr; 0
+<pre>DEST[255:0] := ARITHMETIC_RIGHT_SHIFT_DWORDS_256b(SRC1, imm8)
+DEST[MAXVL-1:256] := 0
 </pre>
 <h3 id="vpsrad--xmm--xmm--xmm-m128----vex">VPSRAD (xmm, xmm, xmm/m128) - VEX<a class="anchor" href="./PSRAW:PSRAD:PSRAQ.html#vpsrad--xmm--xmm--xmm-m128----vex">
 			&para;
 		</a></h3>
-<pre>DEST[127:0]&larr;ARITHMETIC_RIGHT_SHIFT_DWORDS(SRC1, SRC2)
-DEST[MAXVL-1:128] &larr;0
+<pre>DEST[127:0] := ARITHMETIC_RIGHT_SHIFT_DWORDS(SRC1, SRC2)
+DEST[MAXVL-1:128] := 0
 </pre>
 <h3 id="vpsrad--xmm--imm8----vex">VPSRAD (xmm, imm8) - VEX<a class="anchor" href="./PSRAW:PSRAD:PSRAQ.html#vpsrad--xmm--imm8----vex">
 			&para;
 		</a></h3>
-<pre>DEST[127:0]&larr;ARITHMETIC_RIGHT_SHIFT_DWORDS(SRC1, imm8)
-DEST[MAXVL-1:128] &larr;0
+<pre>DEST[127:0] := ARITHMETIC_RIGHT_SHIFT_DWORDS(SRC1, imm8)
+DEST[MAXVL-1:128] := 0
 </pre>
 <h3 id="psrad--xmm--xmm--xmm-m128-">PSRAD (xmm, xmm, xmm/m128)<a class="anchor" href="./PSRAW:PSRAD:PSRAQ.html#psrad--xmm--xmm--xmm-m128-">
 			&para;
 		</a></h3>
-<pre>DEST[127:0]&larr;ARITHMETIC_RIGHT_SHIFT_DWORDS(DEST, SRC)
+<pre>DEST[127:0] := ARITHMETIC_RIGHT_SHIFT_DWORDS(DEST, SRC)
 DEST[MAXVL-1:128] (Unmodified)
 </pre>
 <h3 id="psrad--xmm--imm8-">PSRAD (xmm, imm8)<a class="anchor" href="./PSRAW:PSRAD:PSRAQ.html#psrad--xmm--imm8-">
 			&para;
 		</a></h3>
-<pre>DEST[127:0]&larr;ARITHMETIC_RIGHT_SHIFT_DWORDS(DEST, imm8)
+<pre>DEST[127:0] := ARITHMETIC_RIGHT_SHIFT_DWORDS(DEST, imm8)
 DEST[MAXVL-1:128] (Unmodified)
 </pre>
 <h3 id="vpsraq--evex-versions--imm8-">VPSRAQ (EVEX versions, imm8)<a class="anchor" href="./PSRAW:PSRAD:PSRAQ.html#vpsraq--evex-versions--imm8-">
 			&para;
 		</a></h3>
 <pre>(KL, VL) = (2, 128), (4, 256), (8, 512)
-FOR j&larr;0 TO KL-1
-    i&larr;j * 64
+FOR j := 0 TO KL-1
+    i := j * 64
     IF k1[j] OR *no writemask* THEN
             IF (EVEX.b = 1) AND (SRC1 *is memory*)
-                THEN DEST[i+63:i]&larr;ARITHMETIC_RIGHT_SHIFT_QWORDS1(SRC1[63:0], imm8)
-                ELSE DEST[i+63:i]&larr;ARITHMETIC_RIGHT_SHIFT_QWORDS1(SRC1[i+63:i], imm8)
+                THEN DEST[i+63:i] := ARITHMETIC_RIGHT_SHIFT_QWORDS1(SRC1[63:0], imm8)
+                ELSE DEST[i+63:i] := ARITHMETIC_RIGHT_SHIFT_QWORDS1(SRC1[i+63:i], imm8)
             FI;
         ELSE
             IF *merging-masking* ; merging-masking
                 THEN *DEST[i+63:i] remains unchanged*
                 ELSE *zeroing-masking* ; zeroing-masking
-                    DEST[i+63:i] &larr; 0
+                    DEST[i+63:i] := 0
             FI
     FI;
 ENDFOR
-DEST[MAXVL-1:VL] &larr; 0
+DEST[MAXVL-1:VL] := 0
 </pre>
 <h3 id="vpsraq--evex-versions--xmm-m128-">VPSRAQ (EVEX versions, xmm/m128)<a class="anchor" href="./PSRAW:PSRAD:PSRAQ.html#vpsraq--evex-versions--xmm-m128-">
 			&para;
 		</a></h3>
 <pre>(KL, VL) = (2, 128), (4, 256), (8, 512)
-TMP_DEST[VL-1:0]&larr;ARITHMETIC_RIGHT_SHIFT_QWORDS(SRC1[VL-1:0], SRC2, VL)
-FOR j&larr;0 TO 7
-    i&larr;j * 64
+TMP_DEST[VL-1:0] := ARITHMETIC_RIGHT_SHIFT_QWORDS(SRC1[VL-1:0], SRC2, VL)
+FOR j := 0 TO 7
+    i := j * 64
     IF k1[j] OR *no writemask*
-        THEN DEST[i+63:i]&larr;TMP_DEST[i+63:i]
+        THEN DEST[i+63:i] := TMP_DEST[i+63:i]
         ELSE
             IF *merging-masking*
                         ; merging-masking
                 THEN *DEST[i+63:i] remains unchanged*
                 ELSE *zeroing-masking*
                             ; zeroing-masking
-                    DEST[i+63:i] &larr; 0
+                    DEST[i+63:i] := 0
             FI
     FI;
 ENDFOR
-DEST[MAXVL-1:VL] &larr; 0
+DEST[MAXVL-1:VL] := 0
 </pre>
 <h2 id="intel-c-c++-compiler-intrinsic-equivalents">Intel C/C++ Compiler Intrinsic Equivalents<a class="anchor" href="./PSRAW:PSRAD:PSRAQ.html#intel-c-c++-compiler-intrinsic-equivalents">
 			&para;
@@ -809,14 +809,14 @@ DEST[MAXVL-1:VL] &larr; 0
 			&para;
 		</a></h2>
 <p>VEX-encoded instructions:</p>
-<p>Syntax with RM/RVM operand encoding (A/C in the operand encoding table), see Exceptions Type 4.</p>
-<p>Syntax with MI/VMI operand encoding (B/D in the operand encoding table), see Exceptions Type 7.</p>
-<p>EVEX-encoded VPSRAW (E in the operand encoding table), see Exceptions Type E4NF.nb.</p>
+<p>Syntax with RM/RVM operand encoding (A/C in the operand encoding table), see <span class="not-imported">Table 2-21</span>, &ldquo;Type 4 Class Exception Conditions&rdquo;.</p>
+<p>Syntax with MI/VMI operand encoding (B/D in the operand encoding table), see <span class="not-imported">Table 2-24</span>, &ldquo;Type 7 Class Exception Conditions&rdquo;.</p>
+<p>EVEX-encoded VPSRAW (E in the operand encoding table), see Exceptions Type E4NF.nb in <span class="not-imported">Table 2-50</span>, &ldquo;Type E4NF Class Exception Conditions&rdquo;.</p>
 <p>EVEX-encoded VPSRAD/Q:</p>
-<p>Syntax with Mem128 tuple type (G in the operand encoding table), see Exceptions Type E4NF.nb.</p>
-<p>Syntax with Full tuple type (F in the operand encoding table), see Exceptions Type E4.</p><footer><p>
+<p>Syntax with Mem128 tuple type (G in the operand encoding table), see Exceptions Type E4NF.nb in <span class="not-imported">Table 2-50</span>, &ldquo;Type E4NF Class Exception Conditions&rdquo;.</p>
+<p>Syntax with Full tuple type (F in the operand encoding table), see <span class="not-imported">Table 2-49</span>, &ldquo;Type E4 Class Exception Conditions&rdquo;.</p><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

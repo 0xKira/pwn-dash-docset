@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-374"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/POPF%2FPOPFD%2FPOPFQ"></a><title>POPF/POPFD/POPFQ</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>POPF/POPFD/POPFQ
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-384"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/POPF%2FPOPFD%2FPOPFQ"></a><title>POPF/POPFD/POPFQ</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>POPF/POPFD/POPFQ
 		&mdash; Pop Stack into EFLAGS Register</h1>
 
 
@@ -53,7 +53,7 @@
 		</a></h2>
 <p>Pops a doubleword (POPFD) from the top of the stack (if the current operand-size attribute is 32) and stores the value in the EFLAGS register, or pops a word from the top of the stack (if the operand-size attribute is 16) and stores it in the lower 16 bits of the EFLAGS register (that is, the FLAGS register). These instructions reverse the operation of the PUSHF/PUSHFD/PUSHFQ instructions.</p>
 <p>The POPF (pop flags) and POPFD (pop flags double) mnemonics reference the same opcode. The POPF instruction is intended for use when the operand-size attribute is 16; the POPFD instruction is intended for use when the operand-size attribute is 32. Some assemblers may force the operand size to 16 for POPF and to 32 for POPFD. Others may treat the mnemonics as synonyms (POPF/POPFD) and use the setting of the operand-size attribute to determine the size of values to pop from the stack.</p>
-<p>The effect of POPF/POPFD on the EFLAGS register changes, depending on the mode of operation. See <a href="./POPF:POPFD:POPFQ.html#tbl-4-15">Table 4-15</a> and the key below for details.</p>
+<p>The effect of POPF/POPFD on the EFLAGS register changes, depending on the mode of operation. See <a href="./POPF:POPFD:POPFQ.html#tbl-4-21">Table 4-21</a> and the key below for details.</p>
 <p>When operating in protected, compatibility, or 64-bit mode at privilege level 0 (or in real-address mode, the equivalent to privilege level 0), all non-reserved flags in the EFLAGS register except RF<sup>1</sup>, VIP, VIF, and VM may be modified. VIP, VIF and VM remain unaffected.</p>
 <blockquote>
 <p>1. RF is always zero after the execution of POPF. This is because POPF, like all instructions, clears RF as it begins to execute.</p></blockquote>
@@ -62,7 +62,7 @@
 <p>(The protected-mode virtual-interrupt feature &mdash; enabled by setting CR4.PVI &mdash; affects the CLI and STI instructions in the same manner as the virtual-8086 mode extensions. POPF, however, is not affected by CR4.PVI.)</p>
 <p>In 64-bit mode, the mnemonic assigned is POPFQ (note that the 32-bit operand is not encodable). POPFQ pops 64 bits from the stack. Reserved bits of RFLAGS (including the upper 32 bits of RFLAGS) are not affected.</p>
 <p>See Chapter 3 of the <em>Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 1</em>, for more information about the EFLAGS registers.</p>
-<figure id="tbl-4-15">
+<figure id="tbl-4-21">
 <table>
 <tbody><tr>
 <th rowspan="3">Mode</th>
@@ -463,7 +463,7 @@
 <td>S</td>
 <td>S</td>
 <td></td></tr></tbody></table>
-<figcaption><a href="./POPF:POPFD:POPFQ.html#tbl-4-15">Table 4-15</a>. Effect of POPF/POPFD on the EFLAGS Register</figcaption></figure>
+<figcaption><a href="./POPF:POPFD:POPFQ.html#tbl-4-21">Table 4-21</a>. Effect of POPF/POPFD on the EFLAGS Register</figcaption></figure>
 <blockquote>
 <p>1. #GP fault - no flag update</p>
 <p>2. #GP fault with no flag update if VIP=1 in EFLAGS register and IF=1 in FLAGS value on stack</p>
@@ -494,7 +494,7 @@
         THEN
             IF OperandSize = 32;
                 THEN
-                    EFLAGS &larr; Pop(); (* 32-bit pop *)
+                    EFLAGS := Pop(); (* 32-bit pop *)
                     (* All non-reserved flags except RF, VIP, VIF, and VM can be modified;
                     VIP, VIF, VM, and all reserved bits are unaffected. RF is cleared. *)
                 ELSE IF (Operandsize = 64)
@@ -502,7 +502,7 @@
                     (* All non-reserved flags except RF, VIP, VIF, and VM can be modified;
                     VIP, VIF, VM, and all reserved bits are unaffected. RF is cleared. *)
                 ELSE (* OperandSize = 16 *)
-                    EFLAGS[15:0] &larr; Pop(); (* 16-bit pop *)
+                    EFLAGS[15:0] := Pop(); (* 16-bit pop *)
                     (* All non-reserved flags can be modified. *)
             FI;
         ELSE (* CPL &gt; 0 *)
@@ -510,27 +510,27 @@
                 THEN
                     IF CPL &gt; IOPL
                         THEN
-                            EFLAGS &larr; Pop(); (* 32-bit pop *)
+                            EFLAGS := Pop(); (* 32-bit pop *)
                             (* All non-reserved bits except IF, IOPL, VIP, VIF, VM and RF can be modified;
                             IF, IOPL, VIP, VIF, VM and all reserved bits are unaffected; RF is cleared. *)
                         ELSE
-                            EFLAGS &larr; Pop(); (* 32-bit pop *)
+                            EFLAGS := Pop(); (* 32-bit pop *)
                             (* All non-reserved bits except IOPL, VIP, VIF, VM and RF can be modified;
                             IOPL, VIP, VIF, VM and all reserved bits are unaffected; RF is cleared. *)
                     FI;
                 ELSE IF (Operandsize = 64)
                     IF CPL &gt; IOPL
                         THEN
-                            RFLAGS &larr; Pop(); (* 64-bit pop *)
+                            RFLAGS := Pop(); (* 64-bit pop *)
                             (* All non-reserved bits except IF, IOPL, VIP, VIF, VM and RF can be modified;
                             IF, IOPL, VIP, VIF, VM and all reserved bits are unaffected; RF is cleared. *)
                         ELSE
-                            RFLAGS &larr; Pop(); (* 64-bit pop *)
+                            RFLAGS := Pop(); (* 64-bit pop *)
                             (* All non-reserved bits except IOPL, VIP, VIF, VM and RF can be modified;
                             IOPL, VIP, VIF, VM and all reserved bits are unaffected; RF is cleared. *)
                     FI;
                 ELSE (* OperandSize = 16 *)
-                    EFLAGS[15:0] &larr; Pop(); (* 16-bit pop *)
+                    EFLAGS[15:0] := Pop(); (* 16-bit pop *)
                     (* All non-reserved bits except IOPL can be modified; IOPL and all
                     reserved bits are unaffected. *)
             FI;
@@ -540,23 +540,23 @@
             THEN
                 IF OperandSize = 32
                     THEN
-                        EFLAGS &larr; Pop();
+                        EFLAGS := Pop();
                         (* All non-reserved bits except IOPL, VIP, VIF, VM, and RF can be modified;
                         VIP, VIF, VM, IOPL and all reserved bits are unaffected. RF is cleared. *)
                     ELSE
-                        EFLAGS[15:0] &larr; Pop(); FI;
+                        EFLAGS[15:0] := Pop(); FI;
                         (* All non-reserved bits except IOPL can be modified; IOPL and all reserved bits are unaffected. *)
                 FI;
             ELSE (* IOPL &lt; 3 *)
                 IF (Operandsize = 32) OR (CR4.VME = 0)
                     THEN #GP(0); (* Trap to virtual-8086 monitor. *)
                     ELSE (* Operandsize = 16 and CR4.VME = 1 *)
-                        tempFLAGS &larr; Pop();
+                        tempFLAGS := Pop();
                         IF (EFLAGS.VIP = 1 AND tempFLAGS[9] = 1) OR tempFLAGS[8] = 1
                             THEN #GP(0);
                             ELSE
-                                EFLAGS.VIF &larr; tempFLAGS[9];
-                                EFLAGS[15:0] &larr; tempFLAGS;
+                                EFLAGS.VIF := tempFLAGS[9];
+                                EFLAGS[15:0] := tempFLAGS;
                                 (* All non-reserved bits except IOPL and IF can be modified;
                                 IOPL, IF, and all reserved bits are unaffected. *)
                         FI;
@@ -630,9 +630,6 @@ FI;
 		</a></h2>
 <table>
 <tbody><tr>
-<td>#GP(0)</td>
-<td>If the memory address is in a non-canonical form.</td></tr>
-<tr>
 <td>#SS(0)</td>
 <td>If the stack address is in a non-canonical form.</td></tr>
 <tr>
@@ -646,6 +643,6 @@ FI;
 <td>If the LOCK prefix is used.</td></tr></tbody></table><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

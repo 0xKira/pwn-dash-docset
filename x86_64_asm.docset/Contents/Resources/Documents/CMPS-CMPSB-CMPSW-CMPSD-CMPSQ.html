@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-67"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/CMPS%2FCMPSB%2FCMPSW%2FCMPSD%2FCMPSQ"></a><title>CMPS/CMPSB/CMPSW/CMPSD/CMPSQ</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>CMPS/CMPSB/CMPSW/CMPSD/CMPSQ
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-75"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/CMPS%2FCMPSB%2FCMPSW%2FCMPSD%2FCMPSQ"></a><title>CMPS/CMPSB/CMPSW/CMPSD/CMPSQ</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>CMPS/CMPSB/CMPSW/CMPSD/CMPSQ
 		&mdash; Compare String Operands</h1>
 
 
@@ -99,79 +99,80 @@
 <h2 id="operation">Operation<a class="anchor" href="./CMPS:CMPSB:CMPSW:CMPSD:CMPSQ.html#operation">
 			&para;
 		</a></h2>
-<pre>temp &larr; SRC1 - SRC2;
+<pre>temp := SRC1 - SRC2;
 SetStatusFlags(temp);
 IF (64-Bit Mode)
     THEN
         IF (Byte comparison)
         THEN IF DF = 0
             THEN
-                (R|E)SI &larr; (R|E)SI + 1;
-                (R|E)DI &larr; (R|E)DI + 1;
+                (R|E)SI := (R|E)SI + 1;
+                (R|E)DI := (R|E)DI + 1;
             ELSE
-                (R|E)SI &larr; (R|E)SI &ndash; 1;
-                (R|E)DI &larr; (R|E)DI &ndash; 1;
+                (R|E)SI := (R|E)SI &ndash; 1;
+                (R|E)DI := (R|E)DI &ndash; 1;
             FI;
         ELSE IF (Word comparison)
             THEN IF DF = 0
                 THEN
                     (R|E)SI
-                        &larr; (R|E)SI + 2;
+                        := (R|E)SI + 2;
                     (R|E)DI
-                        &larr; (R|E)DI + 2;
+                        := (R|E)DI + 2;
                 ELSE
                     (R|E)SI
-                        &larr; (R|E)SI &ndash; 2;
+                        := (R|E)SI &ndash; 2;
                     (R|E)DI
-                        &larr; (R|E)DI &ndash; 2;
+                        := (R|E)DI &ndash; 2;
                 FI;
         ELSE IF (Doubleword
                         comparison)
             THEN IF DF = 0
                 THEN
                     (R|E)SI
-                        &larr; (R|E)SI + 4;
+                        := (R|E)SI + 4;
                     (R|E)DI
-                        &larr; (R|E)DI + 4;
+                        := (R|E)DI + 4;
                 ELSE
                     (R|E)SI
-                        &larr; (R|E)SI &ndash; 4;
-                        &larr; (R|E)DI &ndash; 4;
+                        := (R|E)SI &ndash; 4;
+                    (R|E)DI
+                        := (R|E)DI &ndash; 4;
                 FI;
         ELSE (* Quadword comparison *)
             THEN IF DF = 0
-                (R|E)SI &larr; (R|E)SI + 8;
-                (R|E)DI &larr; (R|E)DI + 8;
+                (R|E)SI := (R|E)SI + 8;
+                (R|E)DI := (R|E)DI + 8;
             ELSE
-                (R|E)SI &larr; (R|E)SI &ndash; 8;
-                (R|E)DI &larr; (R|E)DI &ndash; 8;
+                (R|E)SI := (R|E)SI &ndash; 8;
+                (R|E)DI := (R|E)DI &ndash; 8;
             FI;
         FI;
     ELSE (* Non-64-bit Mode *)
         IF (byte comparison)
         THEN IF DF = 0
             THEN
-                (E)SI &larr; (E)SI + 1;
-                (E)DI &larr; (E)DI + 1;
+                (E)SI := (E)SI + 1;
+                (E)DI := (E)DI + 1;
             ELSE
-                (E)SI &larr; (E)SI &ndash; 1;
-                (E)DI &larr; (E)DI &ndash; 1;
+                (E)SI := (E)SI &ndash; 1;
+                (E)DI := (E)DI &ndash; 1;
             FI;
         ELSE IF (Word comparison)
             THENIFDF =0
-                (E)SI &larr; (E)SI + 2;
-                (E)DI &larr; (E)DI + 2;
+                (E)SI := (E)SI + 2;
+                (E)DI := (E)DI + 2;
             ELSE
-                (E)SI &larr; (E)SI &ndash; 2;
-                (E)DI &larr; (E)DI &ndash; 2;
+                (E)SI := (E)SI &ndash; 2;
+                (E)DI := (E)DI &ndash; 2;
             FI;
         ELSE (* Doubleword comparison *)
             THEN IF DF = 0
-                (E)SI &larr; (E)SI + 4;
-                (E)DI &larr; (E)DI + 4;
+                (E)SI := (E)SI + 4;
+                (E)DI := (E)DI + 4;
             ELSE
-                (E)SI &larr; (E)SI &ndash; 4;
-                (E)DI &larr; (E)DI &ndash; 4;
+                (E)SI := (E)SI &ndash; 4;
+                (E)DI := (E)DI &ndash; 4;
             FI;
         FI;
 FI;
@@ -258,6 +259,6 @@ FI;
 <td>If the LOCK prefix is used.</td></tr></tbody></table><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

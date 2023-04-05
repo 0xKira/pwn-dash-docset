@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-380"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/PSHUFB"></a><title>PSHUFB</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>PSHUFB
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-390"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/PSHUFB"></a><title>PSHUFB</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>PSHUFB
 		&mdash; Packed Shuffle Bytes</h1>
 
 <table>
@@ -102,26 +102,26 @@
 <h3 id="pshufb--with-64-bit-operands-">PSHUFB (with 64 bit operands)<a class="anchor" href="PSHUFB.html#pshufb--with-64-bit-operands-">
 			&para;
 		</a></h3>
-<pre>TEMP &larr; DEST
+<pre>TEMP := DEST
 for i = 0 to 7 {
     if (SRC[(i * 8)+7] = 1 ) then
-        DEST[(i*8)+7...(i*8)+0] &larr; 0;
+        DEST[(i*8)+7...(i*8)+0] := 0;
     else
-        index[2..0] &larr; SRC[(i*8)+2 .. (i*8)+0];
-        DEST[(i*8)+7...(i*8)+0] &larr; TEMP[(index*8+7)..(index*8+0)];
+        index[2..0] := SRC[(i*8)+2 .. (i*8)+0];
+        DEST[(i*8)+7...(i*8)+0] := TEMP[(index*8+7)..(index*8+0)];
     endif;
 }
 </pre>
 <h3 id="pshufb--with-128-bit-operands-">PSHUFB (with 128 bit operands)<a class="anchor" href="PSHUFB.html#pshufb--with-128-bit-operands-">
 			&para;
 		</a></h3>
-<pre>TEMP &larr; DEST
+<pre>TEMP := DEST
 for i = 0 to 15 {
     if (SRC[(i * 8)+7] = 1 ) then
-            DEST[(i*8)+7..(i*8)+0] &larr; 0;
+            DEST[(i*8)+7..(i*8)+0] := 0;
         else
-            index[3..0] &larr; SRC[(i*8)+3 .. (i*8)+0];
-            DEST[(i*8)+7..(i*8)+0] &larr; TEMP[(index*8+7)..(index*8+0)];
+            index[3..0] := SRC[(i*8)+3 .. (i*8)+0];
+            DEST[(i*8)+7..(i*8)+0] := TEMP[(index*8+7)..(index*8+0)];
     endif
 }
 </pre>
@@ -130,29 +130,29 @@ for i = 0 to 15 {
 		</a></h3>
 <pre>for i = 0 to 15 {
     if (SRC2[(i * 8)+7] = 1) then
-        DEST[(i*8)+7..(i*8)+0] &larr; 0;
+        DEST[(i*8)+7..(i*8)+0] := 0;
         else
-        index[3..0]&larr;SRC2[(i*8)+3 .. (i*8)+0];
-        DEST[(i*8)+7..(i*8)+0] &larr; SRC1[(index*8+7)..(index*8+0)];
+        index[3..0] := SRC2[(i*8)+3 .. (i*8)+0];
+        DEST[(i*8)+7..(i*8)+0] := SRC1[(index*8+7)..(index*8+0)];
     endif
 }
-DEST[MAXVL-1:128] &larr; 0
+DEST[MAXVL-1:128] := 0
 </pre>
 <h3 id="vpshufb--vex-256-encoded-version-">VPSHUFB (VEX.256 encoded version)<a class="anchor" href="PSHUFB.html#vpshufb--vex-256-encoded-version-">
 			&para;
 		</a></h3>
 <pre>for i = 0 to 15 {
     if (SRC2[(i * 8)+7] == 1 ) then
-        DEST[(i*8)+7..(i*8)+0] &larr; 0;
+        DEST[(i*8)+7..(i*8)+0] := 0;
         else
-        index[3..0]&larr;SRC2[(i*8)+3 .. (i*8)+0];
-        DEST[(i*8)+7..(i*8)+0] &larr; SRC1[(index*8+7)..(index*8+0)];
+        index[3..0] := SRC2[(i*8)+3 .. (i*8)+0];
+        DEST[(i*8)+7..(i*8)+0] := SRC1[(index*8+7)..(index*8+0)];
     endif
     if (SRC2[128 + (i * 8)+7] == 1 ) then
-        DEST[128 + (i*8)+7..(i*8)+0]&larr;0;
+        DEST[128 + (i*8)+7..(i*8)+0] := 0;
         else
-        index[3..0]&larr;SRC2[128 + (i*8)+3 .. (i*8)+0];
-        DEST[128 + (i*8)+7..(i*8)+0]&larr;SRC1[128 + (index*8+7)..(index*8+0)];
+        index[3..0] := SRC2[128 + (i*8)+3 .. (i*8)+0];
+        DEST[128 + (i*8)+7..(i*8)+0] := SRC1[128 + (index*8+7)..(index*8+0)];
     endif
 }
 </pre>
@@ -160,25 +160,25 @@ DEST[MAXVL-1:128] &larr; 0
 			&para;
 		</a></h3>
 <pre>(KL, VL) = (16, 128), (32, 256), (64, 512)
-jmask&larr;(KL-1) &amp; ~0xF
+jmask := (KL-1) &amp; ~0xF
                 // 0x00, 0x10, 0x30 depending on the VL
 FOR j = 0 TO KL-1
                 // dest
     IF kl[ i ] or no_masking
-        index&larr;src.byte[ j ];
+        index := src.byte[ j ];
         IF index &amp; 0x80
-            Dest.byte[ j ]&larr;0;
+            Dest.byte[ j ] := 0;
         ELSE
-            index&larr;(index &amp; 0xF) + (j &amp; jmask);
+            index := (index &amp; 0xF) + (j &amp; jmask);
                 // 16-element in-lane lookup
-            Dest.byte[ j ]&larr;src.byte[ index ];
+            Dest.byte[ j ] := src.byte[ index ];
     ELSE if zeroing
-        Dest.byte[ j ]&larr;0;
-DEST[MAXVL-1:VL] &larr; 0;
+        Dest.byte[ j ] := 0;
+DEST[MAXVL-1:VL] := 0;
 </pre>
 <figure id="fig-4-15">
 <svg style="width: 460.512pt; height: 202.896012pt" viewBox="107.06 0.0 388.76 174.08001000000002">
-<g xmlns="http://www.w3.org/2000/svg" style="fill: none; stroke: none">
+<g xmlns="http://www.w3.org/2000/svg" style="stroke: none; fill: none">
 <rect height="168.12" style="fill: rgb(0%, 0%, 0%)" width="0.48" x="109.56" y="0.48000999999999294"></rect>
 <rect height="168.12" style="fill: rgb(0%, 0%, 0%)" width="0.47998" x="492.84000000000003" y="0.48000999999999294"></rect>
 <rect height="0.48001000000000005" style="fill: rgb(0%, 0%, 0%)" width="383.76" x="109.56" y="0.0"></rect>
@@ -235,33 +235,33 @@ DEST[MAXVL-1:VL] &larr; 0;
 <path d="M 479.164 164.06901 L 481.372 161.86100999999996 L 479.164 159.65301" style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)"></path>
 <path d="M 118.528 23.529010000000028 L 121.92800000000001 23.529010000000028" style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)"></path>
 <path d="M 120.736 21.32101 L 118.528 23.529010000000028 L 120.736 25.737009999999998" style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)"></path>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.400185000000022pt; fill: #000" textLength="17.776444400000003" x="268.3832" y="27.60905200000002">MM2</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.400185000000022pt; fill: #000" textLength="14.672366799999992" x="139.87210000000002" y="45.852652000000035">07H</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.400185000000022pt; fill: #000" textLength="14.672366799999992" x="174.56096720000014" y="45.852652000000035">07H</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.400185000000022pt; fill: #000" textLength="15.552388799999989" x="220.37011240000032" y="45.852652000000035">FFH</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.400185000000022pt; fill: #000" textLength="14.672366800000077" x="269.28333520000035" y="45.852652000000035">80H</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.400185000000022pt; fill: #000" textLength="14.672366800000077" x="317.3165360000002" y="45.852652000000035">01H</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.400185000000022pt; fill: #000" textLength="14.672366800000077" x="356.45351440000013" y="45.852652000000035">00H</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.400185000000022pt; fill: #000" textLength="14.672366800000077" x="404.4867152" y="45.852652000000035">00H</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.400185000000022pt; fill: #000" textLength="14.672366800000077" x="445.8477491999999" y="45.852652000000035">00H</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.400185000000022pt; fill: #000" textLength="17.776444400000003" x="268.3832" y="68.0260624">MM1</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.400185000000022pt; fill: #000" textLength="14.672366799999992" x="139.87210000000002" y="86.57367000000005">04H</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.400185000000022pt; fill: #000" textLength="14.672366799999992" x="174.56096720000014" y="86.57367000000005">01H</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.400185000000022pt; fill: #000" textLength="14.672366799999992" x="220.37011240000032" y="86.57367000000005">07H</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.400185000000022pt; fill: #000" textLength="14.672366800000077" x="268.40331320000035" y="86.57367000000005">03H</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.400185000000022pt; fill: #000" textLength="14.672366800000077" x="316.4365140000002" y="86.57367000000005">02H</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.400185000000022pt; fill: #000" textLength="14.672366800000077" x="355.57349240000013" y="86.57367000000005">02H</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.400185000000022pt; fill: #000" textLength="15.552388800000017" x="403.6066932" y="86.57367000000005">FFH</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.400185000000022pt; fill: #000" textLength="14.672366800000077" x="445.84774919999984" y="86.57367000000005">01H</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.400185000000022pt; fill: #000" textLength="17.776444400000003" x="267.59918039999997" y="123.25944320000002">MM1</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.400185000000022pt; fill: #000" textLength="14.672366799999992" x="142.13615660000002" y="138.73497400000002">04H</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.400185000000022pt; fill: #000" textLength="14.672366799999992" x="176.82502380000014" y="138.73497400000002">04H</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.400185000000022pt; fill: #000" textLength="14.672366799999992" x="222.63416900000033" y="138.73497400000002">00H</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.400185000000022pt; fill: #000" textLength="14.672366800000077" x="270.66736980000036" y="138.73497400000002">00H</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.400185000000022pt; fill: #000" textLength="15.552388800000017" x="318.7005706000002" y="138.73497400000002">FFH</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.400185000000022pt; fill: #000" textLength="14.672366800000077" x="358.7175710000001" y="138.73497400000002">01H</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.400185000000022pt; fill: #000" textLength="14.672366800000077" x="406.75077179999994" y="138.73497400000002">01H</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.400185000000022pt; fill: #000" textLength="14.672366800000077" x="448.11180579999984" y="138.73497400000002">01H</text></g></svg>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.408185199999991pt; fill: #000" textLength="17.776444400000003" x="268.3832" y="27.60905200000002">MM2</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.408185199999991pt; fill: #000" textLength="14.672366799999992" x="139.87210000000002" y="45.852652000000035">07H</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.408185199999991pt; fill: #000" textLength="14.672366799999992" x="174.56096720000014" y="45.852652000000035">07H</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.408185199999991pt; fill: #000" textLength="15.552388799999989" x="220.37011240000032" y="45.852652000000035">FFH</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.408185199999991pt; fill: #000" textLength="14.672366800000077" x="269.28333520000035" y="45.852652000000035">80H</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.408185199999991pt; fill: #000" textLength="14.672366800000077" x="317.3165360000002" y="45.852652000000035">01H</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.408185199999991pt; fill: #000" textLength="14.672366800000077" x="356.45351440000013" y="45.852652000000035">00H</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.408185199999991pt; fill: #000" textLength="14.672366800000077" x="404.4867152" y="45.852652000000035">00H</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.408185199999991pt; fill: #000" textLength="14.672366800000077" x="445.8477491999999" y="45.852652000000035">00H</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.408185199999991pt; fill: #000" textLength="17.776444400000003" x="268.3832" y="68.0260624">MM1</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.408185199999991pt; fill: #000" textLength="14.672366799999992" x="139.87210000000002" y="86.57367000000005">04H</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.408185199999991pt; fill: #000" textLength="14.672366799999992" x="174.56096720000014" y="86.57367000000005">01H</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.408185199999991pt; fill: #000" textLength="14.672366799999992" x="220.37011240000032" y="86.57367000000005">07H</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.408185199999991pt; fill: #000" textLength="14.672366800000077" x="268.40331320000035" y="86.57367000000005">03H</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.408185199999991pt; fill: #000" textLength="14.672366800000077" x="316.4365140000002" y="86.57367000000005">02H</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.408185199999991pt; fill: #000" textLength="14.672366800000077" x="355.57349240000013" y="86.57367000000005">02H</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.408185199999991pt; fill: #000" textLength="15.552388800000017" x="403.6066932" y="86.57367000000005">FFH</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.408185199999991pt; fill: #000" textLength="14.672366800000077" x="445.84774919999984" y="86.57367000000005">01H</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.408185199999991pt; fill: #000" textLength="17.776444400000003" x="267.59918039999997" y="123.25944320000002">MM1</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.408185199999991pt; fill: #000" textLength="14.672366799999992" x="142.13615660000002" y="138.73497400000002">04H</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.408185199999991pt; fill: #000" textLength="14.672366799999992" x="176.82502380000014" y="138.73497400000002">04H</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.408185199999991pt; fill: #000" textLength="14.672366799999992" x="222.63416900000033" y="138.73497400000002">00H</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.408185199999991pt; fill: #000" textLength="14.672366800000077" x="270.66736980000036" y="138.73497400000002">00H</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.408185199999991pt; fill: #000" textLength="15.552388800000017" x="318.7005706000002" y="138.73497400000002">FFH</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.408185199999991pt; fill: #000" textLength="14.672366800000077" x="358.7175710000001" y="138.73497400000002">01H</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.408185199999991pt; fill: #000" textLength="14.672366800000077" x="406.75077179999994" y="138.73497400000002">01H</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.408185199999991pt; fill: #000" textLength="14.672366800000077" x="448.11180579999984" y="138.73497400000002">01H</text></g></svg>
 <figcaption><a href="PSHUFB.html#fig-4-15">Figure 4-15</a>. PSHUFB with 64-Bit Operands</figcaption></figure>
 <h2 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="PSHUFB.html#intel-c-c++-compiler-intrinsic-equivalent">
 			&para;
@@ -293,10 +293,10 @@ DEST[MAXVL-1:VL] &larr; 0;
 <h2 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="PSHUFB.html#other-exceptions">
 			&para;
 		</a></h2>
-<p>Non-EVEX-encoded instruction, see Exceptions Type 4.</p>
-<p>EVEX-encoded instruction, see Exceptions Type E4NF.nb.</p><footer><p>
+<p>Non-EVEX-encoded instruction, see <span class="not-imported">Table 2-21</span>, &ldquo;Type 4 Class Exception Conditions&rdquo;.</p>
+<p>EVEX-encoded instruction, see Exceptions Type E4NF.nb in <span class="not-imported">Table 2-50</span>, &ldquo;Type E4NF Class Exception Conditions&rdquo;.</p><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

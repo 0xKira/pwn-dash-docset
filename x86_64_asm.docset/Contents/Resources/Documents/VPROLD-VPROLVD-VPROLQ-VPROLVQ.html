@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-627"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/VPROLD%2FVPROLVD%2FVPROLQ%2FVPROLVQ"></a><title>VPROLD/VPROLVD/VPROLQ/VPROLVQ</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>VPROLD/VPROLVD/VPROLQ/VPROLVQ
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-650"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/VPROLD%2FVPROLVD%2FVPROLQ%2FVPROLVQ"></a><title>VPROLD/VPROLVD/VPROLQ/VPROLVQ</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>VPROLD/VPROLVD/VPROLQ/VPROLVQ
 		&mdash; Bit Rotate Left</h1>
 
 
@@ -119,99 +119,99 @@
 			&para;
 		</a></h3>
 <pre>LEFT_ROTATE_DWORDS(SRC, COUNT_SRC)
-COUNT&larr; COUNT_SRC modulo 32;
-DEST[31:0]&larr;(SRC &lt;&lt; COUNT) | (SRC &gt;&gt; (32 - COUNT));
+COUNT := COUNT_SRC modulo 32;
+DEST[31:0] := (SRC &lt;&lt; COUNT) | (SRC &gt;&gt; (32 - COUNT));
 LEFT_ROTATE_QWORDS(SRC, COUNT_SRC)
-COUNT&larr; COUNT_SRC modulo 64;
-DEST[63:0]&larr;(SRC &lt;&lt; COUNT) | (SRC &gt;&gt; (64 - COUNT));
+COUNT := COUNT_SRC modulo 64;
+DEST[63:0] := (SRC &lt;&lt; COUNT) | (SRC &gt;&gt; (64 - COUNT));
 </pre>
 <h4 id="vprold--evex-encoded-versions-">VPROLD (EVEX encoded versions)<a class="anchor" href="./VPROLD:VPROLVD:VPROLQ:VPROLVQ.html#vprold--evex-encoded-versions-">
 			&para;
 		</a></h4>
 <pre>(KL, VL) = (4, 128), (8, 256), (16, 512)
-FOR j&larr;0 TO KL-1
-    i&larr;j * 32
+FOR j := 0 TO KL-1
+    i := j * 32
     IF k1[j] OR *no writemask* THEN
             IF (EVEX.b = 1) AND (SRC1 *is memory*)
-                THEN DEST[i+31:i]&larr;LEFT_ROTATE_DWORDS(SRC1[31:0], imm8)
-                ELSE DEST[i+31:i]&larr;LEFT_ROTATE_DWORDS(SRC1[i+31:i], imm8)
+                THEN DEST[i+31:i] := LEFT_ROTATE_DWORDS(SRC1[31:0], imm8)
+                ELSE DEST[i+31:i] := LEFT_ROTATE_DWORDS(SRC1[i+31:i], imm8)
             FI;
         ELSE
             IF *merging-masking* ; merging-masking
                 THEN *DEST[i+31:i] remains unchanged*
                 ELSE *zeroing-masking*
                         ; zeroing-masking
-                    DEST[i+31:i] &larr; 0
+                    DEST[i+31:i] := 0
             FI
     FI;
 ENDFOR
-DEST[MAXVL-1:VL] &larr; 0
+DEST[MAXVL-1:VL] := 0
 </pre>
 <h4 id="vprolvd--evex-encoded-versions-">VPROLVD (EVEX encoded versions)<a class="anchor" href="./VPROLD:VPROLVD:VPROLQ:VPROLVQ.html#vprolvd--evex-encoded-versions-">
 			&para;
 		</a></h4>
 <pre>(KL, VL) = (4, 128), (8, 256), (16, 512)
-FOR j&larr;0 TO KL-1
-    i&larr;j * 32
+FOR j := 0 TO KL-1
+    i := j * 32
     IF k1[j] OR *no writemask* THEN
             IF (EVEX.b = 1) AND (SRC2 *is memory*)
-                THEN DEST[i+31:i]&larr;LEFT_ROTATE_DWORDS(SRC1[i+31:i], SRC2[31:0])
-                ELSE DEST[i+31:i]&larr;LEFT_ROTATE_DWORDS(SRC1[i+31:i], SRC2[i+31:i])
+                THEN DEST[i+31:i] := LEFT_ROTATE_DWORDS(SRC1[i+31:i], SRC2[31:0])
+                ELSE DEST[i+31:i] := LEFT_ROTATE_DWORDS(SRC1[i+31:i], SRC2[i+31:i])
             FI;
         ELSE
             IF *merging-masking* ; merging-masking
                 THEN *DEST[i+31:i] remains unchanged*
                 ELSE *zeroing-masking*
                         ; zeroing-masking
-                    DEST[i+31:i] &larr; 0
+                    DEST[i+31:i] := 0
             FI
     FI;
 ENDFOR
-DEST[MAXVL-1:VL] &larr; 0
+DEST[MAXVL-1:VL] := 0
 </pre>
 <h4 id="vprolq--evex-encoded-versions-">VPROLQ (EVEX encoded versions)<a class="anchor" href="./VPROLD:VPROLVD:VPROLQ:VPROLVQ.html#vprolq--evex-encoded-versions-">
 			&para;
 		</a></h4>
 <pre>(KL, VL) = (2, 128), (4, 256), (8, 512)
-FOR j&larr;0 TO KL-1
-    i&larr;j * 64
+FOR j := 0 TO KL-1
+    i := j * 64
     IF k1[j] OR *no writemask* THEN
             IF (EVEX.b = 1) AND (SRC1 *is memory*)
-                THEN DEST[i+63:i]&larr;LEFT_ROTATE_QWORDS(SRC1[63:0], imm8)
-                ELSE DEST[i+63:i]&larr;LEFT_ROTATE_QWORDS(SRC1[i+63:i], imm8)
+                THEN DEST[i+63:i] := LEFT_ROTATE_QWORDS(SRC1[63:0], imm8)
+                ELSE DEST[i+63:i] := LEFT_ROTATE_QWORDS(SRC1[i+63:i], imm8)
             FI;
         ELSE
             IF *merging-masking* ; merging-masking
                 THEN *DEST[i+63:i] remains unchanged*
                 ELSE *zeroing-masking*
                         ; zeroing-masking
-                    DEST[i+63:i] &larr; 0
+                    DEST[i+63:i] := 0
             FI
     FI;
 ENDFOR
-DEST[MAXVL-1:VL] &larr; 0
+DEST[MAXVL-1:VL] := 0
 </pre>
 <h4 id="vprolvq--evex-encoded-versions-">VPROLVQ (EVEX encoded versions)<a class="anchor" href="./VPROLD:VPROLVD:VPROLQ:VPROLVQ.html#vprolvq--evex-encoded-versions-">
 			&para;
 		</a></h4>
 <pre>(KL, VL) = (2, 128), (4, 256), (8, 512)
-FOR j&larr;0 TO KL-1
-    i&larr;j * 64
+FOR j := 0 TO KL-1
+    i := j * 64
     IF k1[j] OR *no writemask* THEN
             IF (EVEX.b = 1) AND (SRC2 *is memory*)
-                THEN DEST[i+63:i]&larr;LEFT_ROTATE_QWORDS(SRC1[i+63:i], SRC2[63:0])
-                ELSE DEST[i+63:i]&larr;LEFT_ROTATE_QWORDS(SRC1[i+63:i], SRC2[i+63:i])
+                THEN DEST[i+63:i] := LEFT_ROTATE_QWORDS(SRC1[i+63:i], SRC2[63:0])
+                ELSE DEST[i+63:i] := LEFT_ROTATE_QWORDS(SRC1[i+63:i], SRC2[i+63:i])
             FI;
         ELSE
             IF *merging-masking* ; merging-masking
                 THEN *DEST[i+63:i] remains unchanged*
                 ELSE *zeroing-masking*
                         ; zeroing-masking
-                    DEST[i+63:i] &larr; 0
+                    DEST[i+63:i] := 0
             FI
     FI;
 ENDFOR
-DEST[MAXVL-1:VL] &larr; 0
+DEST[MAXVL-1:VL] := 0
 </pre>
 <h3 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="./VPROLD:VPROLVD:VPROLQ:VPROLVQ.html#intel-c-c++-compiler-intrinsic-equivalent">
 			&para;
@@ -295,9 +295,9 @@ DEST[MAXVL-1:VL] &larr; 0
 <h3 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="./VPROLD:VPROLVD:VPROLQ:VPROLVQ.html#other-exceptions">
 			&para;
 		</a></h3>
-<p>EVEX-encoded instruction, see Exceptions Type E4.</p><footer><p>
+<p>EVEX-encoded instruction, see <span class="not-imported">Table 2-49</span>, &ldquo;Type E4 Class Exception Conditions&rdquo;.</p><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

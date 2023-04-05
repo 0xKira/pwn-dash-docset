@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-199"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/GF2P8AFFINEQB"></a><title>GF2P8AFFINEQB</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>GF2P8AFFINEQB
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-206"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/GF2P8AFFINEQB"></a><title>GF2P8AFFINEQB</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>GF2P8AFFINEQB
 		&mdash; Galois Field Affine Transformation</h1>
 
 <table>
@@ -13,6 +13,36 @@
 <td>A</td>
 <td>V/V</td>
 <td>GFNI</td>
+<td>Computes affine transformation in the finite field GF(2^8).</td></tr>
+<tr>
+<td>VEX.128.66.0F3A.W1 CE /r /ib VGF2P8AFFINEQB xmm1, xmm2, xmm3/m128, imm8</td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX GFNI</td>
+<td>Computes affine transformation in the finite field GF(2^8).</td></tr>
+<tr>
+<td>VEX.256.66.0F3A.W1 CE /r /ib VGF2P8AFFINEQB ymm1, ymm2, ymm3/m256, imm8</td>
+<td>B</td>
+<td>V/V</td>
+<td>AVX GFNI</td>
+<td>Computes affine transformation in the finite field GF(2^8).</td></tr>
+<tr>
+<td>EVEX.128.66.0F3A.W1 CE /r /ib VGF2P8AFFINEQB xmm1{k1}{z}, xmm2, xmm3/m128/m64bcst, imm8</td>
+<td>C</td>
+<td>V/V</td>
+<td>AVX512VL GFNI</td>
+<td>Computes affine transformation in the finite field GF(2^8).</td></tr>
+<tr>
+<td>EVEX.256.66.0F3A.W1 CE /r /ib VGF2P8AFFINEQB ymm1{k1}{z}, ymm2, ymm3/m256/m64bcst, imm8</td>
+<td>C</td>
+<td>V/V</td>
+<td>AVX512VL GFNI</td>
+<td>Computes affine transformation in the finite field GF(2^8).</td></tr>
+<tr>
+<td>EVEX.512.66.0F3A.W1 CE /r /ib VGF2P8AFFINEQB zmm1{k1}{z}, zmm2, zmm3/m512/m64bcst, imm8</td>
+<td>C</td>
+<td>V/V</td>
+<td>AVX512F GFNI</td>
 <td>Computes affine transformation in the finite field GF(2^8).</td></tr></tbody></table>
 <h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="GF2P8AFFINEQB.html#instruction-operand-encoding">
 			&para;
@@ -31,41 +61,93 @@
 <td>ModRM:reg (r, w)</td>
 <td>ModRM:r/m (r)</td>
 <td>imm8 (r)</td>
-<td>NA</td></tr></tbody></table>
+<td>NA</td></tr>
+<tr>
+<td>B</td>
+<td>NA</td>
+<td>ModRM:reg (w)</td>
+<td>VEX.vvvv (r)</td>
+<td>ModRM:r/m (r)</td>
+<td>imm8 (r)</td></tr>
+<tr>
+<td>C</td>
+<td>Full</td>
+<td>ModRM:reg (w)</td>
+<td>EVEX.vvvv (r)</td>
+<td>ModRM:r/m (r)</td>
+<td>imm8 (r)</td></tr></tbody></table>
 <h3 id="description">Description<a class="anchor" href="GF2P8AFFINEQB.html#description">
 			&para;
 		</a></h3>
 <p>The AFFINEB instruction computes an affine transformation in the Galois Field 2<sup>8</sup>. For this instruction, an affine transformation is defined by A * x + b where &ldquo;A&rdquo; is an 8 by 8 bit matrix, and &ldquo;x&rdquo; and &ldquo;b&rdquo; are 8-bit vectors. One SIMD register (operand 1) holds &ldquo;x&rdquo; as either 16, 32 or 64 8-bit vectors. A second SIMD (operand 2) register or memory operand contains 2, 4, or 8 &ldquo;A&rdquo; values, which are operated upon by the correspondingly aligned 8 &ldquo;x&rdquo; values in the first register. The &ldquo;b&rdquo; vector is constant for all calculations and contained in the immediate byte.</p>
-<p>The SSE encoded forms of the instruction require16B alignment on their memory operations.</p>
+<p>The EVEX encoded form of this instruction does not support memory fault suppression. The SSE encoded forms of the instruction require16B alignment on their memory operations.</p>
 <h3 id="operation">Operation<a class="anchor" href="GF2P8AFFINEQB.html#operation">
 			&para;
 		</a></h3>
 <pre>define parity(x):
-    t &larr; 0 // single bit
-    FOR i &larr; 0 to 7:
+    t := 0 // single bit
+    FOR i := 0 to 7:
         t = t xor x.bit[i]
     return t
 define affine_byte(tsrc2qw, src1byte, imm):
-    FOR i &larr; 0 to 7:
+    FOR i := 0 to 7:
         * parity(x) = 1 if x has an odd number of 1s in it, and 0 otherwise.*
-        retbyte.bit[i] &larr; parity(tsrc2qw.byte[7-i] AND src1byte) XOR imm8.bit[i]
+        retbyte.bit[i] := parity(tsrc2qw.byte[7-i] AND src1byte) XOR imm8.bit[i]
     return retbyte
+</pre>
+<h4 id="vgf2p8affineqb-dest--src1--src2--imm8--evex-encoded-version-">VGF2P8AFFINEQB dest, src1, src2, imm8 (EVEX encoded version)<a class="anchor" href="GF2P8AFFINEQB.html#vgf2p8affineqb-dest--src1--src2--imm8--evex-encoded-version-">
+			&para;
+		</a></h4>
+<pre>(KL, VL) = (2, 128), (4, 256), (8, 512)
+FOR j := 0 TO KL-1:
+    IF SRC2 is memory and EVEX.b==1:
+        tsrc2 := SRC2.qword[0]
+    ELSE:
+        tsrc2 := SRC2.qword[j]
+    FOR b := 0 to 7:
+        IF k1[j*8+b] OR *no writemask*:
+            DEST.qword[j].byte[b] := affine_byte(tsrc2, SRC1.qword[j].byte[b], imm8)
+        ELSE IF *zeroing*:
+            DEST.qword[j].byte[b] := 0
+        *ELSE DEST.qword[j].byte[b] remains unchanged*
+DEST[MAX_VL-1:VL] := 0
+</pre>
+<h4 id="vgf2p8affineqb-dest--src1--src2--imm8--128b-and-256b-vex-encoded-versions-">VGF2P8AFFINEQB dest, src1, src2, imm8 (128b and 256b VEX encoded versions)<a class="anchor" href="GF2P8AFFINEQB.html#vgf2p8affineqb-dest--src1--src2--imm8--128b-and-256b-vex-encoded-versions-">
+			&para;
+		</a></h4>
+<pre>(KL, VL) = (2, 128), (4, 256)
+FOR j := 0 TO KL-1:
+    FOR b := 0 to 7:
+        DEST.qword[j].byte[b] := affine_byte(SRC2.qword[j], SRC1.qword[j].byte[b], imm8)
+DEST[MAX_VL-1:VL] := 0
 </pre>
 <h4 id="gf2p8affineqb-srcdest--src1--imm8--128b-sse-encoded-version-">GF2P8AFFINEQB srcdest, src1, imm8 (128b SSE encoded version)<a class="anchor" href="GF2P8AFFINEQB.html#gf2p8affineqb-srcdest--src1--imm8--128b-sse-encoded-version-">
 			&para;
 		</a></h4>
-<pre>FOR j &larr; 0 TO 1:
-    FOR b &larr; 0 to 7:
-        SRCDEST.qword[j].byte[b] &larr; affine_byte(SRC1.qword[j], SRCDEST.qword[j].byte[b], imm8)
+<pre>FOR j := 0 TO 1:
+    FOR b := 0 to 7:
+        SRCDEST.qword[j].byte[b] := affine_byte(SRC1.qword[j], SRCDEST.qword[j].byte[b], imm8)
 </pre>
 <h3 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="GF2P8AFFINEQB.html#intel-c-c++-compiler-intrinsic-equivalent">
 			&para;
 		</a></h3>
-<pre>GF2P8AFFINEQB __m128i _mm_gf2p8affine_epi64_epi8(__m128i, __m128i, int);
+<pre>(V)GF2P8AFFINEQB __m128i _mm_gf2p8affine_epi64_epi8(__m128i, __m128i, int);
 </pre>
-<pre>GF2P8AFFINEQB __m128i _mm_mask_gf2p8affine_epi64_epi8(__m128i, __mmask16, __m128i, __m128i, int);
+<pre>(V)GF2P8AFFINEQB __m128i _mm_mask_gf2p8affine_epi64_epi8(__m128i, __mmask16, __m128i, __m128i, int);
 </pre>
-<pre>GF2P8AFFINEQB __m128i _mm_maskz_gf2p8affine_epi64_epi8(__mmask16, __m128i, __m128i, int);
+<pre>(V)GF2P8AFFINEQB __m128i _mm_maskz_gf2p8affine_epi64_epi8(__mmask16, __m128i, __m128i, int);
+</pre>
+<pre>VGF2P8AFFINEQB __m256i _mm256_gf2p8affine_epi64_epi8(__m256i, __m256i, int);
+</pre>
+<pre>VGF2P8AFFINEQB __m256i _mm256_mask_gf2p8affine_epi64_epi8(__m256i, __mmask32, __m256i, __m256i, int);
+</pre>
+<pre>VGF2P8AFFINEQB __m256i _mm256_maskz_gf2p8affine_epi64_epi8(__mmask32, __m256i, __m256i, int);
+</pre>
+<pre>VGF2P8AFFINEQB __m512i _mm512_gf2p8affine_epi64_epi8(__m512i, __m512i, int);
+</pre>
+<pre>VGF2P8AFFINEQB __m512i _mm512_mask_gf2p8affine_epi64_epi8(__m512i, __mmask64, __m512i, __m512i, int);
+</pre>
+<pre>VGF2P8AFFINEQB __m512i _mm512_maskz_gf2p8affine_epi64_epi8(__mmask64, __m512i, __m512i, int);
 </pre>
 <h3 class="exceptions" id="simd-floating-point-exceptions">SIMD Floating-Point Exceptions<a class="anchor" href="GF2P8AFFINEQB.html#simd-floating-point-exceptions">
 			&para;
@@ -74,9 +156,10 @@ define affine_byte(tsrc2qw, src1byte, imm):
 <h3 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="GF2P8AFFINEQB.html#other-exceptions">
 			&para;
 		</a></h3>
-<p>Legacy-encoded: Exceptions Type 4.</p><footer><p>
+<p>Legacy-encoded and VEX-encoded: See <span class="not-imported">Table 2-21</span>, &ldquo;Type 4 Class Exception Conditions&rdquo;.</p>
+<p>EVEX-encoded: See <span class="not-imported">Table 2-50</span>, &ldquo;Type E4NF Class Exception Conditions&rdquo;.</p><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

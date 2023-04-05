@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-350"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/PINSRB%2FPINSRD%2FPINSRQ"></a><title>PINSRB/PINSRD/PINSRQ</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>PINSRB/PINSRD/PINSRQ
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-360"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/PINSRB%2FPINSRD%2FPINSRQ"></a><title>PINSRB/PINSRD/PINSRQ</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>PINSRB/PINSRD/PINSRQ
 		&mdash; Insert Byte/Dword/Qword</h1>
 
 
@@ -111,38 +111,38 @@
 			&para;
 		</a></h2>
 <pre>CASE OF
-    PINSRB: SEL&larr;COUNT[3:0];
-            MASK&larr;(0FFH &lt;&lt; (SEL * 8));
-            TEMP&larr;(((SRC[7:0] &lt;&lt; (SEL *8)) AND MASK);
-    PINSRD: SEL&larr;COUNT[1:0];
-            MASK&larr;(0FFFFFFFFH &lt;&lt; (SEL * 32));
-            TEMP&larr;(((SRC &lt;&lt; (SEL *32)) AND MASK) ;
-    PINSRQ: SEL&larr;COUNT[0]
-            MASK&larr;(0FFFFFFFFFFFFFFFFH &lt;&lt; (SEL * 64));
-            TEMP&larr;(((SRC &lt;&lt; (SEL *64)) AND MASK) ;
+    PINSRB: SEL:=COUNT[3:0];
+            MASK := (0FFH &lt;&lt; (SEL * 8));
+            TEMP := (((SRC[7:0] &lt;&lt; (SEL *8)) AND MASK);
+    PINSRD: SEL := COUNT[1:0];
+            MASK := (0FFFFFFFFH &lt;&lt; (SEL * 32));
+            TEMP := (((SRC &lt;&lt; (SEL *32)) AND MASK) ;
+    PINSRQ: SEL:=COUNT[0]
+            MASK := (0FFFFFFFFFFFFFFFFH &lt;&lt; (SEL * 64));
+            TEMP := (((SRC &lt;&lt; (SEL *64)) AND MASK) ;
 ESAC;
-        DEST&larr;((DEST AND NOT MASK) OR TEMP);
+        DEST := ((DEST AND NOT MASK) OR TEMP);
 </pre>
 <h3 id="vpinsrb--vex-evex-encoded-version-">VPINSRB (VEX/EVEX encoded version)<a class="anchor" href="./PINSRB:PINSRD:PINSRQ.html#vpinsrb--vex-evex-encoded-version-">
 			&para;
 		</a></h3>
-<pre>SEL &larr; imm8[3:0]
-DEST[127:0]&larr;write_b_element(SEL, SRC2, SRC1)
-DEST[MAXVL-1:128] &larr; 0
+<pre>SEL := imm8[3:0]
+DEST[127:0] := write_b_element(SEL, SRC2, SRC1)
+DEST[MAXVL-1:128] := 0
 </pre>
 <h3 id="vpinsrd--vex-evex-encoded-version-">VPINSRD (VEX/EVEX encoded version)<a class="anchor" href="./PINSRB:PINSRD:PINSRQ.html#vpinsrd--vex-evex-encoded-version-">
 			&para;
 		</a></h3>
-<pre>SEL &larr; imm8[1:0]
-DEST[127:0]&larr;write_d_element(SEL, SRC2, SRC1)
-DEST[MAXVL-1:128] &larr; 0
+<pre>SEL := imm8[1:0]
+DEST[127:0] := write_d_element(SEL, SRC2, SRC1)
+DEST[MAXVL-1:128] := 0
 </pre>
 <h3 id="vpinsrq--vex-evex-encoded-version-">VPINSRQ (VEX/EVEX encoded version)<a class="anchor" href="./PINSRB:PINSRD:PINSRQ.html#vpinsrq--vex-evex-encoded-version-">
 			&para;
 		</a></h3>
-<pre>SEL &larr; imm8[0]
-DEST[127:0]&larr;write_q_element(SEL, SRC2, SRC1)
-DEST[MAXVL-1:128] &larr; 0
+<pre>SEL := imm8[0]
+DEST[127:0] := write_q_element(SEL, SRC2, SRC1)
+DEST[MAXVL-1:128] := 0
 </pre>
 <h2 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="./PINSRB:PINSRD:PINSRQ.html#intel-c-c++-compiler-intrinsic-equivalent">
 			&para;
@@ -164,14 +164,15 @@ DEST[MAXVL-1:128] &larr; 0
 <h2 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="./PINSRB:PINSRD:PINSRQ.html#other-exceptions">
 			&para;
 		</a></h2>
-<p>EVEX-encoded instruction, see Exceptions Type 5;</p>
-<p>EVEX-encoded instruction, see Exceptions Type E9NF.</p>
+<p>EVEX-encoded instruction, see <span class="not-imported">Table 2-22</span>, &ldquo;Type 5 Class Exception Conditions&rdquo;.</p>
+<p>EVEX-encoded instruction, see <span class="not-imported">Table 2-57</span>, &ldquo;Type E9NF Class Exception Conditions&rdquo;.</p>
+<p>Additionally:</p>
 <table>
 <tbody><tr>
 <td>#UD</td>
 <td>If VEX.L = 1 or EVEX.L&rsquo;L &gt; 0.</td></tr></tbody></table><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

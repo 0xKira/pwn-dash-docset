@@ -5,7 +5,7 @@ mv www.felixcloutier.com/x86 html
 rm -rf www.felixcloutier.com
 # rename 's/:/\-/g' html/*
 
-python2 handle.py
+python3 handle.py
 
 # build docset
 cp ./dashing.json ./html/

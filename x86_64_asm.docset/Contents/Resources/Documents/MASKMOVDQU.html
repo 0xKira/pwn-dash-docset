@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-251"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/MASKMOVDQU"></a><title>MASKMOVDQU</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>MASKMOVDQU
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-261"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/MASKMOVDQU"></a><title>MASKMOVDQU</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>MASKMOVDQU
 		&mdash; Store Selected Bytes of Double Quadword</h1>
 
 <table>
@@ -58,12 +58,12 @@
 			&para;
 		</a></h2>
 <pre>IF (MASK[7] = 1)
-    THEN DEST[DI/EDI] &larr; SRC[7:0] ELSE (* Memory location unchanged *); FI;
+    THEN DEST[DI/EDI] := SRC[7:0] ELSE (* Memory location unchanged *); FI;
 IF (MASK[15] = 1)
-    THEN DEST[DI/EDI +1] &larr; SRC[15:8] ELSE (* Memory location unchanged *); FI;
+    THEN DEST[DI/EDI +1] := SRC[15:8] ELSE (* Memory location unchanged *); FI;
     (* Repeat operation for 3rd through 14th bytes in source operand *)
 IF (MASK[127] = 1)
-    THEN DEST[DI/EDI +15] &larr; SRC[127:120] ELSE (* Memory location unchanged *); FI;
+    THEN DEST[DI/EDI +15] := SRC[127:120] ELSE (* Memory location unchanged *); FI;
 </pre>
 <h2 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="MASKMOVDQU.html#intel-c-c++-compiler-intrinsic-equivalent">
 			&para;
@@ -73,7 +73,7 @@ IF (MASK[127] = 1)
 <h2 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="MASKMOVDQU.html#other-exceptions">
 			&para;
 		</a></h2>
-<p>See Exceptions Type 4; additionally</p>
+<p>See <span class="not-imported">Table 2-21</span>, &ldquo;Type 4 Class Exception Conditions&rdquo;; additionally:</p>
 <table>
 <tbody><tr>
 <td rowspan="2">#UD</td>
@@ -82,6 +82,6 @@ IF (MASK[127] = 1)
 <td>If VEX.vvvv ≠ 1111B.</td></tr></tbody></table><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

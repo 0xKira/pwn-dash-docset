@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-17"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/AESENCLAST"></a><title>AESENCLAST</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>AESENCLAST
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-23"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/AESENCLAST"></a><title>AESENCLAST</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>AESENCLAST
 		&mdash; Perform Last Round of an AES Encryption Flow</h1>
 
 <table>
@@ -10,71 +10,123 @@
 <th>Description</th></tr>
 <tr>
 <td>66 0F 38 DD /r AESENCLAST xmm1, xmm2/m128</td>
-<td>RM</td>
+<td>A</td>
 <td>V/V</td>
 <td>AES</td>
-<td>Perform the last round of an AES encryption flow, operating on a 128-bit data (state) from xmm1 with a 128-bit round key from xmm2/m128.</td></tr>
+<td>Perform the last round of an AES encryption flow, using one 128-bit data (state) from xmm1 with one 128-bit round key from xmm2/m128.</td></tr>
 <tr>
 <td>VEX.128.66.0F38.WIG DD /r VAESENCLAST xmm1, xmm2, xmm3/m128</td>
-<td>RVM</td>
+<td>B</td>
 <td>V/V</td>
-<td>Both AES and AVX flags</td>
-<td>Perform the last round of an AES encryption flow, operating on a 128-bit data (state) from xmm2 with a 128 bit round key from xmm3/m128; store the result in xmm1.</td></tr></tbody></table>
+<td>AES AVX</td>
+<td>Perform the last round of an AES encryption flow, using one 128-bit data (state) from xmm2 with one 128-bit round key from xmm3/m128; store the result in xmm1.</td></tr>
+<tr>
+<td>VEX.256.66.0F38.WIG DD /r VAESENCLAST ymm1, ymm2, ymm3/m256</td>
+<td>B</td>
+<td>V/V</td>
+<td>VAES</td>
+<td>Perform the last round of an AES encryption flow, using two 128-bit data (state) from ymm2 with two 128-bit round keys from ymm3/m256; store the result in ymm1.</td></tr>
+<tr>
+<td>EVEX.128.66.0F38.WIG DD /r VAESENCLAST xmm1, xmm2, xmm3/m128</td>
+<td>C</td>
+<td>V/V</td>
+<td>VAES AVX512VL</td>
+<td>Perform the last round of an AES encryption flow, using one 128-bit data (state) from xmm2 with one 128-bit round key from xmm3/m128; store the result in xmm1.</td></tr>
+<tr>
+<td>EVEX.256.66.0F38.WIG DD /r VAESENCLAST ymm1, ymm2, ymm3/m256</td>
+<td>C</td>
+<td>V/V</td>
+<td>VAES AVX512VL</td>
+<td>Perform the last round of an AES encryption flow, using two 128-bit data (state) from ymm2 with two 128-bit round keys from ymm3/m256; store the result in ymm1.</td></tr>
+<tr>
+<td>EVEX.512.66.0F38.WIG DD /r VAESENCLAST zmm1, zmm2, zmm3/m512</td>
+<td>C</td>
+<td>V/V</td>
+<td>VAES AVX512F</td>
+<td>Perform the last round of an AES encryption flow, using four 128-bit data (state) from zmm2 with four 128-bit round keys from zmm3/m512; store the result in zmm1.</td></tr></tbody></table>
 <h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="AESENCLAST.html#instruction-operand-encoding">
 			&para;
 		</a></h2>
 <table>
 <tbody><tr>
 <td>Op/En</td>
+<td>Tuple</td>
 <td>Operand 1</td>
 <td>Operand2</td>
 <td>Operand3</td>
 <td>Operand4</td></tr>
 <tr>
-<td>RM</td>
+<td>A</td>
+<td>NA</td>
 <td>ModRM:reg (r, w)</td>
 <td>ModRM:r/m (r)</td>
 <td>NA</td>
 <td>NA</td></tr>
 <tr>
-<td>RVM</td>
+<td>B</td>
+<td>NA</td>
 <td>ModRM:reg (w)</td>
 <td>VEX.vvvv (r)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td></tr>
+<tr>
+<td>C</td>
+<td>Full Mem</td>
+<td>ModRM:reg (w)</td>
+<td>EVEX.vvvv (r)</td>
 <td>ModRM:r/m (r)</td>
 <td>NA</td></tr></tbody></table>
 <h2 id="description">Description<a class="anchor" href="AESENCLAST.html#description">
 			&para;
 		</a></h2>
-<p>This instruction performs the last round of an AES encryption flow using a round key from the second source operand, operating on 128-bit data (state) from the first source operand, and store the result in the destination operand.</p>
-<p>128-bit Legacy SSE version: The first source operand and the destination operand are the same and must be an XMM register. The second source operand can be an XMM register or a 128-bit memory location. Bits (MAXVL-1:128) of the corresponding YMM destination register remain unchanged.</p>
-<p>VEX.128 encoded version: The first source operand and the destination operand are XMM registers. The second source operand can be an XMM register or a 128-bit memory location. Bits (MAXVL-1:128) of the destination YMM register are zeroed.</p>
+<p>This instruction performs the last round of an AES encryption flow using one/two/four (depending on vector length) 128-bit data (state) from the first source operand with one/two/four (depending on vector length) round key(s) from the second source operand, and stores the result in the destination operand.</p>
+<p>VEX and EVEX encoded versions of the instruction allows 3-operand (non-destructive) operation. The legacy encoded versions of the instruction require that the first source operand and the destination operand are the same and must be an XMM register.</p>
+<p>The EVEX encoded form of this instruction does not support memory fault suppression.</p>
 <h2 id="operation">Operation<a class="anchor" href="AESENCLAST.html#operation">
 			&para;
 		</a></h2>
 <h3 id="aesenclast">AESENCLAST<a class="anchor" href="AESENCLAST.html#aesenclast">
 			&para;
 		</a></h3>
-<pre>STATE &larr; SRC1;
-RoundKey &larr; SRC2;
-STATE &larr; ShiftRows( STATE );
-STATE &larr; SubBytes( STATE );
-DEST[127:0] &larr; STATE XOR RoundKey;
+<pre>STATE := SRC1;
+RoundKey := SRC2;
+STATE := ShiftRows( STATE );
+STATE := SubBytes( STATE );
+DEST[127:0] := STATE XOR RoundKey;
 DEST[MAXVL-1:128] (Unmodified)
 </pre>
-<h3 id="vaesenclast">VAESENCLAST<a class="anchor" href="AESENCLAST.html#vaesenclast">
+<h3 id="vaesenclast--128b-and-256b-vex-encoded-versions-">VAESENCLAST (128b and 256b VEX encoded versions)<a class="anchor" href="AESENCLAST.html#vaesenclast--128b-and-256b-vex-encoded-versions-">
 			&para;
 		</a></h3>
-<pre>STATE &larr; SRC1;
-RoundKey &larr; SRC2;
-STATE&larr;ShiftRows( STATE );
-STATE&larr;SubBytes( STATE );
-DEST[127:0]&larr;STATE XOR RoundKey;
-DEST[MAXVL-1:128] &larr; 0
+<pre>(KL, VL) = (1,128), (2,256)
+FOR I=0 to KL-1:
+    STATE := SRC1.xmm[i]
+    RoundKey := SRC2.xmm[i]
+    STATE := ShiftRows( STATE )
+    STATE := SubBytes( STATE )
+    DEST.xmm[i] := STATE XOR RoundKey
+DEST[MAXVL-1:VL] := 0
+</pre>
+<h3 id="vaesenclast--evex-encoded-version-">VAESENCLAST (EVEX encoded version)<a class="anchor" href="AESENCLAST.html#vaesenclast--evex-encoded-version-">
+			&para;
+		</a></h3>
+<pre>(KL,VL) = (1,128), (2,256), (4,512)
+FOR i = 0 to KL-1:
+    STATE := SRC1.xmm[i]
+    RoundKey := SRC2.xmm[i]
+    STATE := ShiftRows( STATE )
+    STATE := SubBytes( STATE )
+    DEST.xmm[i] := STATE XOR RoundKey
+DEST[MAXVL-1:VL] := 0
 </pre>
 <h2 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="AESENCLAST.html#intel-c-c++-compiler-intrinsic-equivalent">
 			&para;
 		</a></h2>
-<pre>(V)AESENCLAST: __m128i _mm_aesenclast (__m128i, __m128i)
+<pre>(V)AESENCLAST __m128i _mm_aesenclast (__m128i, __m128i)
+</pre>
+<pre>VAESENCLAST __m256i _mm256_aesenclast_epi128(__m256i, __m256i);
+</pre>
+<pre>VAESENCLAST __m512i _mm512_aesenclast_epi128(__m512i, __m512i);
 </pre>
 <h2 class="exceptions" id="simd-floating-point-exceptions">SIMD Floating-Point Exceptions<a class="anchor" href="AESENCLAST.html#simd-floating-point-exceptions">
 			&para;
@@ -83,9 +135,10 @@ DEST[MAXVL-1:128] &larr; 0
 <h2 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="AESENCLAST.html#other-exceptions">
 			&para;
 		</a></h2>
-<p>See Exceptions Type 4.</p><footer><p>
+<p>See <span class="not-imported">Table 2-21</span>, &ldquo;Type 4 Class Exception Conditions&rdquo;.</p>
+<p>EVEX-encoded: See <span class="not-imported">Table 2-50</span>, &ldquo;Type E4NF Class Exception Conditions&rdquo;.</p><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

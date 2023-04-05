@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-503"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/VCVTTPD2UDQ"></a><title>VCVTTPD2UDQ</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>VCVTTPD2UDQ
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-517"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/VCVTTPD2UDQ"></a><title>VCVTTPD2UDQ</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>VCVTTPD2UDQ
 		&mdash; Convert with Truncation Packed Double-Precision Floating-Point Values to Packed Unsigned Doubleword Integers</h1>
 
 <table>
@@ -48,7 +48,7 @@
 			&para;
 		</a></h3>
 <p>Converts with truncation packed double-precision floating-point values in the source operand (the second operand) to packed unsigned doubleword integers in the destination operand (the first operand).</p>
-<p>When a conversion is inexact, the value returned is rounded according to the rounding control bits in the MXCSR register. If a converted result cannot be represented in the destination format, the floating-point invalid exception is raised, and if this exception is masked, the integer value 2<sup>w</sup> &ndash; 1 is returned, where w represents the number of bits in the destination format.</p>
+<p>When a conversion is inexact, a truncated (round toward zero) value is returned. If a converted result cannot be represented in the destination format, the floating-point invalid exception is raised, and if this exception is masked, the integer value 2<sup>w</sup> &ndash; 1 is returned, where w represents the number of bits in the destination format.</p>
 <p>The source operand is a ZMM/YMM/XMM register, a 512/256/128-bit memory location, or a 512/256/128-bit vector broadcasted from a 64-bit memory location. The destination operand is a YMM/XMM/XMM (low 64 bits) register conditionally updated with writemask k1. The upper bits (MAXVL-1:256) of the corresponding destination are zeroed.</p>
 <p>Note: EVEX.vvvv is reserved and must be 1111b, otherwise instructions will #UD.</p>
 <h3 id="operation">Operation<a class="anchor" href="VCVTTPD2UDQ.html#operation">
@@ -58,49 +58,49 @@
 			&para;
 		</a></h4>
 <pre>(KL, VL) = (2, 128), (4, 256),(8, 512)
-FOR j&larr;0 TO KL-1
-    i&larr;j * 32
-    k&larr;j * 64
+FOR j := 0 TO KL-1
+    i := j * 32
+    k := j * 64
     IF k1[j] OR *no writemask*
         THEN
-            DEST[i+31:i] &larr;
+            DEST[i+31:i] :=
             Convert_Double_Precision_Floating_Point_To_UInteger_Truncate(SRC[k+63:k])
         ELSE
             IF *merging-masking* ; merging-masking
                 THEN *DEST[i+31:i] remains unchanged*
                 ELSE ; zeroing-masking
-                    DEST[i+31:i] &larr; 0
+                    DEST[i+31:i] := 0
             FI
     FI;
 ENDFOR
-DEST[MAXVL-1:VL/2] &larr; 0
+DEST[MAXVL-1:VL/2] := 0
 </pre>
 <h4 id="vcvttpd2udq--evex-encoded-versions--when-src-operand-is-a-memory-source">VCVTTPD2UDQ (EVEX encoded versions) when src operand is a memory source<a class="anchor" href="VCVTTPD2UDQ.html#vcvttpd2udq--evex-encoded-versions--when-src-operand-is-a-memory-source">
 			&para;
 		</a></h4>
 <pre>(KL, VL) = (2, 128), (4, 256),(8, 512)
-FOR j&larr;0 TO KL-1
-    i&larr;j * 32
-    k&larr;j * 64
+FOR j := 0 TO KL-1
+    i := j * 32
+    k := j * 64
     IF k1[j] OR *no writemask*
         THEN
             IF (EVEX.b = 1)
                 THEN
-                    DEST[i+31:i] &larr;
+                    DEST[i+31:i] :=
             Convert_Double_Precision_Floating_Point_To_UInteger_Truncate(SRC[63:0])
                 ELSE
-                    DEST[i+31:i] &larr;
+                    DEST[i+31:i] :=
             Convert_Double_Precision_Floating_Point_To_UInteger_Truncate(SRC[k+63:k])
             FI;
         ELSE
             IF *merging-masking* ; merging-masking
                 THEN *DEST[i+31:i] remains unchanged*
                 ELSE ; zeroing-masking
-                    DEST[i+31:i] &larr; 0
+                    DEST[i+31:i] := 0
             FI
     FI;
 ENDFOR
-DEST[MAXVL-1:VL/2] &larr; 0
+DEST[MAXVL-1:VL/2] := 0
 </pre>
 <h3 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="VCVTTPD2UDQ.html#intel-c-c++-compiler-intrinsic-equivalent">
 			&para;
@@ -132,13 +132,13 @@ DEST[MAXVL-1:VL/2] &larr; 0
 <h3 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="VCVTTPD2UDQ.html#other-exceptions">
 			&para;
 		</a></h3>
-<p>EVEX-encoded instructions, see Exceptions Type E2.</p>
+<p>EVEX-encoded instructions, see <span class="not-imported">Table 2-46</span>, &ldquo;Type E2 Class Exception Conditions&rdquo;; additionally:</p>
 <table>
 <tbody><tr>
 <td>#UD</td>
 <td>If EVEX.vvvv != 1111B.</td></tr></tbody></table><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

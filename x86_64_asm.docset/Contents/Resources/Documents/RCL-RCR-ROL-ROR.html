@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-403"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/RCL%2FRCR%2FROL%2FROR"></a><title>RCL/RCR/ROL/ROR</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>RCL/RCR/ROL/ROR
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-413"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/RCL%2FRCR%2FROL%2FROR"></a><title>RCL/RCR/ROL/ROR</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>RCL/RCR/ROL/ROR
 		&mdash; Rotate</h1>
 
 
@@ -479,41 +479,41 @@
 			&para;
 		</a></h2>
 <pre>(* RCL and RCR instructions *)
-SIZE &larr; OperandSize;
+SIZE := OperandSize;
 CASE (determine count) OF
-    SIZE &larr; 8:
-            tempCOUNT &larr; (COUNT AND 1FH) MOD 9;
-    SIZE &larr; 16:
-            tempCOUNT &larr; (COUNT AND 1FH) MOD 17;
-    SIZE &larr; 32:
-            tempCOUNT &larr; COUNT AND 1FH;
-    SIZE &larr; 64:
-            tempCOUNT &larr; COUNT AND 3FH;
+    SIZE := 8:
+            tempCOUNT := (COUNT AND 1FH) MOD 9;
+    SIZE := 16:
+            tempCOUNT := (COUNT AND 1FH) MOD 17;
+    SIZE := 32:
+            tempCOUNT := COUNT AND 1FH;
+    SIZE := 64:
+            tempCOUNT := COUNT AND 3FH;
 ESAC;
 (* RCL instruction operation *)
 WHILE (tempCOUNT ≠ 0)
     DO
-        tempCF &larr; MSB(DEST);
-        DEST &larr; (DEST &lowast; 2) + CF;
-        CF &larr; tempCF;
-        tempCOUNT &larr; tempCOUNT &ndash; 1;
+        tempCF := MSB(DEST);
+        DEST := (DEST &lowast; 2) + CF;
+        CF := tempCF;
+        tempCOUNT := tempCOUNT &ndash; 1;
     OD;
 ELIHW;
 IF (COUNT &amp; COUNTMASK) = 1
-    THEN OF &larr; MSB(DEST) XOR CF;
+    THEN OF := MSB(DEST) XOR CF;
     ELSE OF is undefined;
 FI;
 (* RCR instruction operation *)
 IF (COUNT &amp; COUNTMASK) = 1
-    THEN OF &larr; MSB(DEST) XOR CF;
+    THEN OF := MSB(DEST) XOR CF;
     ELSE OF is undefined;
 FI;
 WHILE (tempCOUNT ≠ 0)
     DO
-        tempCF &larr; LSB(SRC);
-        DEST &larr; (DEST / 2) + (CF * 2<sup>SIZE</sup>);
-        CF &larr; tempCF;
-        tempCOUNT &larr; tempCOUNT &ndash; 1;
+        tempCF := LSB(SRC);
+        DEST := (DEST / 2) + (CF * 2<sup>SIZE</sup>);
+        CF := tempCF;
+        tempCOUNT := tempCOUNT &ndash; 1;
     OD;
 (* ROL and ROR instructions *)
 IF OperandSize = 64
@@ -521,35 +521,35 @@ IF OperandSize = 64
     ELSE COUNTMASK = 1FH;
 FI;
 (* ROL instruction operation *)
-tempCOUNT &larr; (COUNT &amp; COUNTMASK) MOD SIZE
+tempCOUNT := (COUNT &amp; COUNTMASK) MOD SIZE
 WHILE (tempCOUNT ≠ 0)
     DO
-        tempCF &larr; MSB(DEST);
-        DEST &larr; (DEST &lowast; 2) + tempCF;
-        tempCOUNT &larr; tempCOUNT &ndash; 1;
+        tempCF := MSB(DEST);
+        DEST := (DEST &lowast; 2) + tempCF;
+        tempCOUNT := tempCOUNT &ndash; 1;
     OD;
 ELIHW;
 IF (COUNT &amp; COUNTMASK) ≠ 0
-    THEN CF &larr; LSB(DEST);
+    THEN CF := LSB(DEST);
 FI;
 IF (COUNT &amp; COUNTMASK) = 1
-    THEN OF &larr; MSB(DEST) XOR CF;
+    THEN OF := MSB(DEST) XOR CF;
     ELSE OF is undefined;
 FI;
 (* ROR instruction operation *)
-tempCOUNT &larr; (COUNT &amp; COUNTMASK) MOD SIZE
+tempCOUNT := (COUNT &amp; COUNTMASK) MOD SIZE
 WHILE (tempCOUNT ≠ 0)
     DO
-        tempCF &larr; LSB(SRC);
-        DEST &larr; (DEST / 2) + (tempCF &lowast; 2<sup>SIZE</sup>);
-        tempCOUNT &larr; tempCOUNT &ndash; 1;
+        tempCF := LSB(SRC);
+        DEST := (DEST / 2) + (tempCF &lowast; 2<sup>SIZE</sup>);
+        tempCOUNT := tempCOUNT &ndash; 1;
     OD;
 ELIHW;
 IF (COUNT &amp; COUNTMASK) ≠ 0
-    THEN CF &larr; MSB(DEST);
+    THEN CF := MSB(DEST);
 FI;
 IF (COUNT &amp; COUNTMASK) = 1
-    THEN OF &larr; MSB(DEST) XOR MSB &minus; 1(DEST);
+    THEN OF := MSB(DEST) XOR MSB &minus; 1(DEST);
     ELSE OF is undefined;
 </pre>
 <h2 id="flags-affected">Flags Affected<a class="anchor" href="./RCL:RCR:ROL:ROR.html#flags-affected">
@@ -638,6 +638,6 @@ IF (COUNT &amp; COUNTMASK) = 1
 <td>If the LOCK prefix is used.</td></tr></tbody></table><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

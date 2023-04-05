@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-178"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/FSAVE%2FFNSAVE"></a><title>FSAVE/FNSAVE</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>FSAVE/FNSAVE
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-185"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/FSAVE%2FFNSAVE"></a><title>FSAVE/FNSAVE</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>FSAVE/FNSAVE
 		&mdash; Store x87 FPU State</h1>
 
 
@@ -42,27 +42,27 @@
 			&para;
 		</a></h2>
 <pre>(* Save FPU State and Registers *)
-DEST[FPUControlWord] &larr; FPUControlWord;
-DEST[FPUStatusWord] &larr; FPUStatusWord;
-DEST[FPUTagWord] &larr; FPUTagWord;
-DEST[FPUDataPointer] &larr; FPUDataPointer;
-DEST[FPUInstructionPointer] &larr; FPUInstructionPointer;
-DEST[FPULastInstructionOpcode] &larr; FPULastInstructionOpcode;
-DEST[ST(0)] &larr; ST(0);
-DEST[ST(1)] &larr; ST(1);
-DEST[ST(2)] &larr; ST(2);
-DEST[ST(3)] &larr; ST(3);
-DEST[ST(4)]&larr; ST(4);
-DEST[ST(5)] &larr; ST(5);
-DEST[ST(6)] &larr; ST(6);
-DEST[ST(7)] &larr; ST(7);
+DEST[FPUControlWord] := FPUControlWord;
+DEST[FPUStatusWord] := FPUStatusWord;
+DEST[FPUTagWord] := FPUTagWord;
+DEST[FPUDataPointer] := FPUDataPointer;
+DEST[FPUInstructionPointer] := FPUInstructionPointer;
+DEST[FPULastInstructionOpcode] := FPULastInstructionOpcode;
+DEST[ST(0)] := ST(0);
+DEST[ST(1)] := ST(1);
+DEST[ST(2)] := ST(2);
+DEST[ST(3)] := ST(3);
+DEST[ST(4)]:= ST(4);
+DEST[ST(5)] := ST(5);
+DEST[ST(6)] := ST(6);
+DEST[ST(7)] := ST(7);
 (* Initialize FPU *)
-FPUControlWord &larr; 037FH;
-FPUStatusWord &larr; 0;
-FPUTagWord &larr; FFFFH;
-FPUDataPointer &larr; 0;
-FPUInstructionPointer &larr; 0;
-FPULastInstructionOpcode &larr; 0;
+FPUControlWord := 037FH;
+FPUStatusWord := 0;
+FPUTagWord := FFFFH;
+FPUDataPointer := 0;
+FPUInstructionPointer := 0;
+FPULastInstructionOpcode := 0;
 </pre>
 <h2 id="fpu-flags-affected">FPU Flags Affected<a class="anchor" href="./FSAVE:FNSAVE.html#fpu-flags-affected">
 			&para;
@@ -164,6 +164,6 @@ FPULastInstructionOpcode &larr; 0;
 <td>If alignment checking is enabled and an unaligned memory reference is made while the current privilege level is 3.</td></tr></tbody></table><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

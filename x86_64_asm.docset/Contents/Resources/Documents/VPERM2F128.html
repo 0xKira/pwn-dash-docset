@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-595"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/VPERM2F128"></a><title>VPERM2F128</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>VPERM2F128
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-616"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/VPERM2F128"></a><title>VPERM2F128</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>VPERM2F128
 		&mdash; Permute Floating-Point Values</h1>
 
 <table>
@@ -114,7 +114,7 @@
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 8.414416800000026pt; fill: #000" textLength="20.02646278000003" x="144.59976564000002" y="54.69115131999996">SRC1</text>
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 8.414416800000026pt; fill: #000" textLength="57.89737021999997" x="359.81955672000004" y="119.97055204000003">X0, X1, Y0, or Y1</text>
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 8.414416800000026pt; fill: #000" textLength="19.963882439999992" x="144.36" y="120.57090779999999">DEST</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.414416800000026pt; fill: #000" textLength="57.897370219999914" x="214.68" y="121.71090780000003">X0, X1, Y0, or Y1</text></g></svg>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.414416800000026pt; fill: #000" textLength="57.89510827999993" x="214.68" y="121.71090780000003">X0, X1, Y0, or Y1</text></g></svg>
 <figcaption><a href="VPERM2F128.html#fig-5-21">Figure 5-21</a>. VPERM2F128 Operation</figcaption></figure>
 <p>Imm8[1:0] select the source for the first destination 128-bit field, imm8[5:4] select the source for the second destination field. If imm8[3] is set, the low 128-bit field is zeroed. If imm8[7] is set, the high 128-bit field is zeroed.</p>
 <p>VEX.L must be 1, otherwise the instruction will #UD.</p>
@@ -125,22 +125,22 @@
 			&para;
 		</a></h3>
 <pre>CASE IMM8[1:0] of
-0: DEST[127:0]&larr;SRC1[127:0]
-1: DEST[127:0]&larr;SRC1[255:128]
-2: DEST[127:0]&larr;SRC2[127:0]
-3: DEST[127:0]&larr;SRC2[255:128]
+0: DEST[127:0] := SRC1[127:0]
+1: DEST[127:0] := SRC1[255:128]
+2: DEST[127:0] := SRC2[127:0]
+3: DEST[127:0] := SRC2[255:128]
 ESAC
 CASE IMM8[5:4] of
-0: DEST[255:128]&larr;SRC1[127:0]
-1: DEST[255:128]&larr;SRC1[255:128]
-2: DEST[255:128]&larr;SRC2[127:0]
-3: DEST[255:128]&larr;SRC2[255:128]
+0: DEST[255:128] := SRC1[127:0]
+1: DEST[255:128] := SRC1[255:128]
+2: DEST[255:128] := SRC2[127:0]
+3: DEST[255:128] := SRC2[255:128]
 ESAC
 IF (imm8[3])
-DEST[127:0] &larr; 0
+DEST[127:0] := 0
 FI
 IF (imm8[7])
-DEST[MAXVL-1:128] &larr; 0
+DEST[MAXVL-1:128] := 0
 FI
 </pre>
 <h2 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="VPERM2F128.html#intel-c-c++-compiler-intrinsic-equivalent">
@@ -159,7 +159,7 @@ FI
 <h2 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="VPERM2F128.html#other-exceptions">
 			&para;
 		</a></h2>
-<p>See Exceptions Type 6; additionally</p>
+<p>See <span class="not-imported">Table 2-23</span>, &ldquo;Type 6 Class Exception Conditions&rdquo;; additionally:</p>
 <table>
 <tbody><tr>
 <td rowspan="2">#UD</td>
@@ -168,6 +168,6 @@ FI
 <td>If VEX.W = 1.</td></tr></tbody></table><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

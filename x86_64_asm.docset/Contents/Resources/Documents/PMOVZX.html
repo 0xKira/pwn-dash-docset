@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-363"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/PMOVZX"></a><title>PMOVZX</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>PMOVZX
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-373"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/PMOVZX"></a><title>PMOVZX</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>PMOVZX
 		&mdash; Packed Move with Zero Extend</h1>
 
 <table>
@@ -278,48 +278,48 @@
 <h4 id="packed_zero_extend_byte_to_word-dest--src-">Packed_Zero_Extend_BYTE_to_WORD(DEST, SRC)<a class="anchor" href="PMOVZX.html#packed_zero_extend_byte_to_word-dest--src-">
 			&para;
 		</a></h4>
-<pre>DEST[15:0] &larr;ZeroExtend(SRC[7:0]);
-DEST[31:16] &larr;ZeroExtend(SRC[15:8]);
-DEST[47:32] &larr;ZeroExtend(SRC[23:16]);
-DEST[63:48] &larr;ZeroExtend(SRC[31:24]);
-DEST[79:64] &larr;ZeroExtend(SRC[39:32]);
-DEST[95:80] &larr;ZeroExtend(SRC[47:40]);
-DEST[111:96] &larr;ZeroExtend(SRC[55:48]);
-DEST[127:112] &larr;ZeroExtend(SRC[63:56]);
+<pre>DEST[15:0] := ZeroExtend(SRC[7:0]);
+DEST[31:16] := ZeroExtend(SRC[15:8]);
+DEST[47:32] := ZeroExtend(SRC[23:16]);
+DEST[63:48] := ZeroExtend(SRC[31:24]);
+DEST[79:64] := ZeroExtend(SRC[39:32]);
+DEST[95:80] := ZeroExtend(SRC[47:40]);
+DEST[111:96] := ZeroExtend(SRC[55:48]);
+DEST[127:112] := ZeroExtend(SRC[63:56]);
 </pre>
 <h4 id="packed_zero_extend_byte_to_dword-dest--src-">Packed_Zero_Extend_BYTE_to_DWORD(DEST, SRC)<a class="anchor" href="PMOVZX.html#packed_zero_extend_byte_to_dword-dest--src-">
 			&para;
 		</a></h4>
-<pre>DEST[31:0] &larr;ZeroExtend(SRC[7:0]);
-DEST[63:32] &larr;ZeroExtend(SRC[15:8]);
-DEST[95:64] &larr;ZeroExtend(SRC[23:16]);
-DEST[127:96] &larr;ZeroExtend(SRC[31:24]);
+<pre>DEST[31:0] := ZeroExtend(SRC[7:0]);
+DEST[63:32] := ZeroExtend(SRC[15:8]);
+DEST[95:64] := ZeroExtend(SRC[23:16]);
+DEST[127:96] := ZeroExtend(SRC[31:24]);
 </pre>
 <h4 id="packed_zero_extend_byte_to_qword-dest--src-">Packed_Zero_Extend_BYTE_to_QWORD(DEST, SRC)<a class="anchor" href="PMOVZX.html#packed_zero_extend_byte_to_qword-dest--src-">
 			&para;
 		</a></h4>
-<pre>DEST[63:0] &larr;ZeroExtend(SRC[7:0]);
-DEST[127:64] &larr;ZeroExtend(SRC[15:8]);
+<pre>DEST[63:0] := ZeroExtend(SRC[7:0]);
+DEST[127:64] := ZeroExtend(SRC[15:8]);
 </pre>
 <h4 id="packed_zero_extend_word_to_dword-dest--src-">Packed_Zero_Extend_WORD_to_DWORD(DEST, SRC)<a class="anchor" href="PMOVZX.html#packed_zero_extend_word_to_dword-dest--src-">
 			&para;
 		</a></h4>
-<pre>DEST[31:0] &larr;ZeroExtend(SRC[15:0]);
-DEST[63:32] &larr;ZeroExtend(SRC[31:16]);
-DEST[95:64] &larr;ZeroExtend(SRC[47:32]);
-DEST[127:96] &larr;ZeroExtend(SRC[63:48]);
+<pre>DEST[31:0] := ZeroExtend(SRC[15:0]);
+DEST[63:32] := ZeroExtend(SRC[31:16]);
+DEST[95:64] := ZeroExtend(SRC[47:32]);
+DEST[127:96] := ZeroExtend(SRC[63:48]);
 </pre>
 <h4 id="packed_zero_extend_word_to_qword-dest--src-">Packed_Zero_Extend_WORD_to_QWORD(DEST, SRC)<a class="anchor" href="PMOVZX.html#packed_zero_extend_word_to_qword-dest--src-">
 			&para;
 		</a></h4>
-<pre>DEST[63:0] &larr;ZeroExtend(SRC[15:0]);
-DEST[127:64] &larr;ZeroExtend(SRC[31:16]);
+<pre>DEST[63:0] := ZeroExtend(SRC[15:0]);
+DEST[127:64] := ZeroExtend(SRC[31:16]);
 </pre>
 <h4 id="packed_zero_extend_dword_to_qword-dest--src-">Packed_Zero_Extend_DWORD_to_QWORD(DEST, SRC)<a class="anchor" href="PMOVZX.html#packed_zero_extend_dword_to_qword-dest--src-">
 			&para;
 		</a></h4>
-<pre>DEST[63:0] &larr;ZeroExtend(SRC[31:0]);
-DEST[127:64] &larr;ZeroExtend(SRC[63:32]);
+<pre>DEST[63:0] := ZeroExtend(SRC[31:0]);
+DEST[127:64] := ZeroExtend(SRC[63:32]);
 </pre>
 <h4 id="vpmovzxbw--evex-encoded-versions-">VPMOVZXBW (EVEX encoded versions)<a class="anchor" href="PMOVZX.html#vpmovzxbw--evex-encoded-versions-">
 			&para;
@@ -333,21 +333,21 @@ IF VL &gt;= 512
     Packed_Zero_Extend_BYTE_to_WORD(TMP_DEST[383:256], SRC[191:128])
     Packed_Zero_Extend_BYTE_to_WORD(TMP_DEST[511:384], SRC[255:192])
 FI;
-FOR j&larr;0 TO KL-1
-    i&larr;j * 16
+FOR j := 0 TO KL-1
+    i := j * 16
     IF k1[j] OR *no writemask*
-        THEN DEST[i+15:i]&larr;TEMP_DEST[i+15:i]
+        THEN DEST[i+15:i] := TEMP_DEST[i+15:i]
         ELSE
             IF *merging-masking*
                         ; merging-masking
                 THEN *DEST[i+15:i] remains unchanged*
                 ELSE *zeroing-masking*
                             ; zeroing-masking
-                    DEST[i+15:i] &larr; 0
+                    DEST[i+15:i] := 0
             FI
     FI;
 ENDFOR
-DEST[MAXVL-1:VL] &larr; 0
+DEST[MAXVL-1:VL] := 0
 </pre>
 <h4 id="vpmovzxbd--evex-encoded-versions-">VPMOVZXBD (EVEX encoded versions)<a class="anchor" href="PMOVZX.html#vpmovzxbd--evex-encoded-versions-">
 			&para;
@@ -361,20 +361,20 @@ IF VL &gt;= 512
     Packed_Zero_Extend_BYTE_to_DWORD(TMP_DEST[383:256], SRC[95:64])
     Packed_Zero_Extend_BYTE_to_DWORD(TMP_DEST[511:384], SRC[127:96])
 FI;
-FOR j&larr;0 TO KL-1
-    i&larr;j * 32
+FOR j := 0 TO KL-1
+    i := j * 32
     IF k1[j] OR *no writemask*
-        THEN DEST[i+31:i]&larr;TEMP_DEST[i+31:i]
+        THEN DEST[i+31:i] := TEMP_DEST[i+31:i]
         ELSE
             IF *merging-masking* ; merging-masking
                 THEN *DEST[i+31:i] remains unchanged*
                 ELSE *zeroing-masking*
                         ; zeroing-masking
-                    DEST[i+31:i] &larr; 0
+                    DEST[i+31:i] := 0
             FI
     FI;
 ENDFOR
-DEST[MAXVL-1:VL] &larr; 0
+DEST[MAXVL-1:VL] := 0
 </pre>
 <h4 id="vpmovzxbq--evex-encoded-versions-">VPMOVZXBQ (EVEX encoded versions)<a class="anchor" href="PMOVZX.html#vpmovzxbq--evex-encoded-versions-">
 			&para;
@@ -388,21 +388,21 @@ IF VL &gt;= 512
     Packed_Zero_Extend_BYTE_to_QWORD(TMP_DEST[383:256], SRC[47:32])
     Packed_Zero_Extend_BYTE_to_QWORD(TMP_DEST[511:384], SRC[63:48])
 FI;
-FOR j&larr;0 TO KL-1
-    i&larr;j * 64
+FOR j := 0 TO KL-1
+    i := j * 64
     IF k1[j] OR *no writemask*
-        THEN DEST[i+63:i]&larr;TEMP_DEST[i+63:i]
+        THEN DEST[i+63:i] := TEMP_DEST[i+63:i]
         ELSE
             IF *merging-masking*
                         ; merging-masking
                 THEN *DEST[i+63:i] remains unchanged*
                 ELSE *zeroing-masking*
                             ; zeroing-masking
-                    DEST[i+63:i] &larr; 0
+                    DEST[i+63:i] := 0
             FI
     FI;
 ENDFOR
-DEST[MAXVL-1:VL] &larr; 0
+DEST[MAXVL-1:VL] := 0
 </pre>
 <h4 id="vpmovzxwd--evex-encoded-versions-">VPMOVZXWD (EVEX encoded versions)<a class="anchor" href="PMOVZX.html#vpmovzxwd--evex-encoded-versions-">
 			&para;
@@ -416,19 +416,19 @@ IF VL &gt;= 512
     Packed_Zero_Extend_WORD_to_DWORD(TMP_DEST[383:256], SRC[191:128])
     Packed_Zero_Extend_WORD_to_DWORD(TMP_DEST[511:384], SRC[256:192])
 FI;
-FOR j&larr;0 TO KL-1
-    i&larr;j * 32
+FOR j := 0 TO KL-1
+    i := j * 32
     IF k1[j] OR *no writemask*
-        THEN DEST[i+31:i]&larr;TEMP_DEST[i+31:i]
+        THEN DEST[i+31:i] := TEMP_DEST[i+31:i]
         ELSE
             IF *merging-masking*
                 THEN *DEST[i+31:i] remains unchanged*
                 ELSE *zeroing-masking* ; zeroing-masking
-                    DEST[i+31:i] &larr; 0
+                    DEST[i+31:i] := 0
             FI
     FI;
 ENDFOR
-DEST[MAXVL-1:VL] &larr; 0
+DEST[MAXVL-1:VL] := 0
 </pre>
 <h4 id="vpmovzxwq--evex-encoded-versions-">VPMOVZXWQ (EVEX encoded versions)<a class="anchor" href="PMOVZX.html#vpmovzxwq--evex-encoded-versions-">
 			&para;
@@ -442,21 +442,21 @@ IF VL &gt;= 512
     Packed_Zero_Extend_WORD_to_QWORD(TMP_DEST[383:256], SRC[95:64])
     Packed_Zero_Extend_WORD_to_QWORD(TMP_DEST[511:384], SRC[127:96])
 FI;
-FOR j&larr;0 TO KL-1
-    i&larr;j * 64
+FOR j := 0 TO KL-1
+    i := j * 64
     IF k1[j] OR *no writemask*
-        THEN DEST[i+63:i]&larr;TEMP_DEST[i+63:i]
+        THEN DEST[i+63:i] := TEMP_DEST[i+63:i]
         ELSE
             IF *merging-masking*
                         ; merging-masking
                 THEN *DEST[i+63:i] remains unchanged*
                 ELSE *zeroing-masking*
                             ; zeroing-masking
-                    DEST[i+63:i] &larr; 0
+                    DEST[i+63:i] := 0
             FI
     FI;
 ENDFOR
-DEST[MAXVL-1:VL] &larr; 0
+DEST[MAXVL-1:VL] := 0
 </pre>
 <h4 id="vpmovzxdq--evex-encoded-versions-">VPMOVZXDQ (EVEX encoded versions)<a class="anchor" href="PMOVZX.html#vpmovzxdq--evex-encoded-versions-">
 			&para;
@@ -470,99 +470,99 @@ IF VL &gt;= 512
     Packed_Zero_Extend_DWORD_to_QWORD(TEMP_DEST[383:256], SRC[191:128])
     Packed_Zero_Extend_DWORD_to_QWORD(TEMP_DEST[511:384], SRC[255:192])
 FI;
-FOR j&larr;0 TO KL-1
-    i&larr;j * 64
+FOR j := 0 TO KL-1
+    i := j * 64
     IF k1[j] OR *no writemask*
-        THEN DEST[i+63:i]&larr;TEMP_DEST[i+63:i]
+        THEN DEST[i+63:i] := TEMP_DEST[i+63:i]
         ELSE
             IF *merging-masking*
                         ; merging-masking
                 THEN *DEST[i+63:i] remains unchanged*
                 ELSE *zeroing-masking*
                             ; zeroing-masking
-                    DEST[i+63:i] &larr; 0
+                    DEST[i+63:i] := 0
             FI
     FI;
 ENDFOR
-DEST[MAXVL-1:VL] &larr; 0
+DEST[MAXVL-1:VL] := 0
 </pre>
 <h4 id="vpmovzxbw--vex-256-encoded-version-">VPMOVZXBW (VEX.256 encoded version)<a class="anchor" href="PMOVZX.html#vpmovzxbw--vex-256-encoded-version-">
 			&para;
 		</a></h4>
 <pre>Packed_Zero_Extend_BYTE_to_WORD(DEST[127:0], SRC[63:0])
 Packed_Zero_Extend_BYTE_to_WORD(DEST[255:128], SRC[127:64])
-DEST[MAXVL-1:256] &larr; 0
+DEST[MAXVL-1:256] := 0
 </pre>
 <h4 id="vpmovzxbd--vex-256-encoded-version-">VPMOVZXBD (VEX.256 encoded version)<a class="anchor" href="PMOVZX.html#vpmovzxbd--vex-256-encoded-version-">
 			&para;
 		</a></h4>
 <pre>Packed_Zero_Extend_BYTE_to_DWORD(DEST[127:0], SRC[31:0])
 Packed_Zero_Extend_BYTE_to_DWORD(DEST[255:128], SRC[63:32])
-DEST[MAXVL-1:256] &larr; 0
+DEST[MAXVL-1:256] := 0
 </pre>
 <h4 id="vpmovzxbq--vex-256-encoded-version-">VPMOVZXBQ (VEX.256 encoded version)<a class="anchor" href="PMOVZX.html#vpmovzxbq--vex-256-encoded-version-">
 			&para;
 		</a></h4>
 <pre>Packed_Zero_Extend_BYTE_to_QWORD(DEST[127:0], SRC[15:0])
 Packed_Zero_Extend_BYTE_to_QWORD(DEST[255:128], SRC[31:16])
-DEST[MAXVL-1:256] &larr; 0
+DEST[MAXVL-1:256] := 0
 </pre>
 <h4 id="vpmovzxwd--vex-256-encoded-version-">VPMOVZXWD (VEX.256 encoded version)<a class="anchor" href="PMOVZX.html#vpmovzxwd--vex-256-encoded-version-">
 			&para;
 		</a></h4>
 <pre>Packed_Zero_Extend_WORD_to_DWORD(DEST[127:0], SRC[63:0])
 Packed_Zero_Extend_WORD_to_DWORD(DEST[255:128], SRC[127:64])
-DEST[MAXVL-1:256] &larr; 0
+DEST[MAXVL-1:256] := 0
 </pre>
 <h4 id="vpmovzxwq--vex-256-encoded-version-">VPMOVZXWQ (VEX.256 encoded version)<a class="anchor" href="PMOVZX.html#vpmovzxwq--vex-256-encoded-version-">
 			&para;
 		</a></h4>
 <pre>Packed_Zero_Extend_WORD_to_QWORD(DEST[127:0], SRC[31:0])
 Packed_Zero_Extend_WORD_to_QWORD(DEST[255:128], SRC[63:32])
-DEST[MAXVL-1:256] &larr; 0
+DEST[MAXVL-1:256] := 0
 </pre>
 <h4 id="vpmovzxdq--vex-256-encoded-version-">VPMOVZXDQ (VEX.256 encoded version)<a class="anchor" href="PMOVZX.html#vpmovzxdq--vex-256-encoded-version-">
 			&para;
 		</a></h4>
 <pre>Packed_Zero_Extend_DWORD_to_QWORD(DEST[127:0], SRC[63:0])
 Packed_Zero_Extend_DWORD_to_QWORD(DEST[255:128], SRC[127:64])
-DEST[MAXVL-1:256] &larr; 0
+DEST[MAXVL-1:256] := 0
 </pre>
 <h4 id="vpmovzxbw--vex-128-encoded-version-">VPMOVZXBW (VEX.128 encoded version)<a class="anchor" href="PMOVZX.html#vpmovzxbw--vex-128-encoded-version-">
 			&para;
 		</a></h4>
 <pre>Packed_Zero_Extend_BYTE_to_WORD()
-DEST[MAXVL-1:128] &larr;0
+DEST[MAXVL-1:128] := 0
 </pre>
 <h4 id="vpmovzxbd--vex-128-encoded-version-">VPMOVZXBD (VEX.128 encoded version)<a class="anchor" href="PMOVZX.html#vpmovzxbd--vex-128-encoded-version-">
 			&para;
 		</a></h4>
 <pre>Packed_Zero_Extend_BYTE_to_DWORD()
-DEST[MAXVL-1:128] &larr;0
+DEST[MAXVL-1:128] := 0
 </pre>
 <h4 id="vpmovzxbq--vex-128-encoded-version-">VPMOVZXBQ (VEX.128 encoded version)<a class="anchor" href="PMOVZX.html#vpmovzxbq--vex-128-encoded-version-">
 			&para;
 		</a></h4>
 <pre>Packed_Zero_Extend_BYTE_to_QWORD()
-DEST[MAXVL-1:128] &larr;0
+DEST[MAXVL-1:128] := 0
 </pre>
 <h4 id="vpmovzxwd--vex-128-encoded-version-">VPMOVZXWD (VEX.128 encoded version)<a class="anchor" href="PMOVZX.html#vpmovzxwd--vex-128-encoded-version-">
 			&para;
 		</a></h4>
 <pre>Packed_Zero_Extend_WORD_to_DWORD()
-DEST[MAXVL-1:128] &larr;0
+DEST[MAXVL-1:128] := 0
 </pre>
 <h4 id="vpmovzxwq--vex-128-encoded-version-">VPMOVZXWQ (VEX.128 encoded version)<a class="anchor" href="PMOVZX.html#vpmovzxwq--vex-128-encoded-version-">
 			&para;
 		</a></h4>
 <pre>Packed_Zero_Extend_WORD_to_QWORD()
-DEST[MAXVL-1:128] &larr;0
+DEST[MAXVL-1:128] := 0
 </pre>
 <h4 id="vpmovzxdq--vex-128-encoded-version">VPMOVZXDQ (VEX.128 encoded version<a class="anchor" href="PMOVZX.html#vpmovzxdq--vex-128-encoded-version">
 			&para;
 		</a></h4>
 <pre>Packed_Zero_Extend_DWORD_to_QWORD()
-DEST[MAXVL-1:128] &larr;0
+DEST[MAXVL-1:128] := 0
 </pre>
 <h4 id="pmovzxbw">PMOVZXBW<a class="anchor" href="PMOVZX.html#pmovzxbw">
 			&para;
@@ -718,14 +718,15 @@ DEST[MAXVL-1:128] (Unmodified)
 <h3 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="PMOVZX.html#other-exceptions">
 			&para;
 		</a></h3>
-<p>Non-EVEX-encoded instruction, see Exceptions Type 5.</p>
-<p>EVEX-encoded instruction, see Exceptions Type E5.</p>
+<p>Non-EVEX-encoded instruction, see <span class="not-imported">Table 2-22</span>, &ldquo;Type 5 Class Exception Conditions&rdquo;.</p>
+<p>EVEX-encoded instruction, see <span class="not-imported">Table 2-51</span>, &ldquo;Type E5 Class Exception Conditions&rdquo;.</p>
+<p>Additionally:</p>
 <table>
 <tbody><tr>
 <td>#UD</td>
 <td>If VEX.vvvv != 1111B, or EVEX.vvvv != 1111B.</td></tr></tbody></table><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

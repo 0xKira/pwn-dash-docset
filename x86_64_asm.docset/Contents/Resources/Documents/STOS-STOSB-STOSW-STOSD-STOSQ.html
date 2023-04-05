@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-459"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/STOS%2FSTOSB%2FSTOSW%2FSTOSD%2FSTOSQ"></a><title>STOS/STOSB/STOSW/STOSD/STOSQ</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>STOS/STOSB/STOSW/STOSD/STOSQ
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-471"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/STOS%2FSTOSB%2FSTOSW%2FSTOSD%2FSTOSQ"></a><title>STOS/STOSB/STOSW/STOSD/STOSQ</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>STOS/STOSB/STOSW/STOSD/STOSQ
 		&mdash; Store String</h1>
 
 
@@ -94,65 +94,65 @@
 <p>After the byte, word, or doubleword is transferred from the register to the memory location, the (E)DI register is incremented or decremented according to the setting of the DF flag in the EFLAGS register. If the DF flag is 0, the register is incremented; if the DF flag is 1, the register is decremented (the register is incremented or decremented by 1 for byte operations, by 2 for word operations, by 4 for doubleword operations).</p>
 <p>NOTE: To improve performance, more recent processors support modifications to the processor&rsquo;s operation during the string store operations initiated with STOS and STOSB. See Section 7.3.9.3 in the <em>Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 1</em> for additional information on fast-string operation.</p>
 <p>In 64-bit mode, the default address size is 64 bits, 32-bit address size is supported using the prefix 67H. Using a REX prefix in the form of REX.W promotes operation on doubleword operand to 64 bits. The promoted no-operand mnemonic is STOSQ. STOSQ (and its explicit operands variant) store a quadword from the RAX register into the destination addressed by RDI or EDI. See the summary chart at the beginning of this section for encoding data and limits.</p>
-<p>The STOS, STOSB, STOSW, STOSD, STOSQ instructions can be preceded by the REP prefix for block loads of ECX bytes, words, or doublewords. More often, however, these instructions are used within a LOOP construct because data needs to be moved into the AL, AX, or EAX register before it can be stored. See &ldquo;REP/REPE/REPZ /REPNE/REPNZ&mdash;Repeat String Operation Prefix&rdquo; in this chapter for a description of the REP prefix.</p>
+<p>The STOS, STOSB, STOSW, STOSD, STOSQ instructions can be preceded by the REP prefix for block stores of ECX bytes, words, or doublewords. More often, however, these instructions are used within a LOOP construct because data needs to be moved into the AL, AX, or EAX register before it can be stored. See &ldquo;REP/REPE/REPZ /REPNE/REPNZ&mdash;Repeat String Operation Prefix&rdquo; in this chapter for a description of the REP prefix.</p>
 <h2 id="operation">Operation<a class="anchor" href="./STOS:STOSB:STOSW:STOSD:STOSQ.html#operation">
 			&para;
 		</a></h2>
 <pre>Non-64-bit Mode:
 IF (Byte store)
     THEN
-        DEST &larr; AL;
+        DEST := AL;
             THEN IF DF = 0
-                THEN (E)DI &larr; (E)DI + 1;
-                ELSE (E)DI &larr; (E)DI &ndash; 1;
+                THEN (E)DI := (E)DI + 1;
+                ELSE (E)DI := (E)DI &ndash; 1;
             FI;
     ELSE IF (Word store)
         THEN
-            DEST &larr; AX;
+            DEST := AX;
                 THEN IF DF = 0
-                    THEN (E)DI &larr; (E)DI + 2;
-                    ELSE (E)DI &larr; (E)DI &ndash; 2;
+                    THEN (E)DI := (E)DI + 2;
+                    ELSE (E)DI := (E)DI &ndash; 2;
                 FI;
         FI;
     ELSE IF (Doubleword store)
         THEN
-            DEST &larr; EAX;
+            DEST := EAX;
                 THEN IF DF = 0
-                    THEN (E)DI &larr; (E)DI + 4;
-                    ELSE (E)DI &larr; (E)DI &ndash; 4;
+                    THEN (E)DI := (E)DI + 4;
+                    ELSE (E)DI := (E)DI &ndash; 4;
                 FI;
         FI;
 FI;
 64-bit Mode:
 IF (Byte store)
     THEN
-        DEST &larr; AL;
+        DEST := AL;
             THEN IF DF = 0
-                THEN (R|E)DI &larr; (R|E)DI + 1;
-                ELSE (R|E)DI &larr; (R|E)DI &ndash; 1;
+                THEN (R|E)DI := (R|E)DI + 1;
+                ELSE (R|E)DI := (R|E)DI &ndash; 1;
             FI;
     ELSE IF (Word store)
         THEN
-            DEST &larr; AX;
+            DEST := AX;
                 THEN IF DF = 0
-                    THEN (R|E)DI &larr; (R|E)DI + 2;
-                    ELSE (R|E)DI &larr; (R|E)DI &ndash; 2;
+                    THEN (R|E)DI := (R|E)DI + 2;
+                    ELSE (R|E)DI := (R|E)DI &ndash; 2;
                 FI;
         FI;
     ELSE IF (Doubleword store)
         THEN
-            DEST &larr; EAX;
+            DEST := EAX;
                 THEN IF DF = 0
-                    THEN (R|E)DI &larr; (R|E)DI + 4;
-                    ELSE (R|E)DI &larr; (R|E)DI &ndash; 4;
+                    THEN (R|E)DI := (R|E)DI + 4;
+                    ELSE (R|E)DI := (R|E)DI &ndash; 4;
                 FI;
         FI;
     ELSE IF (Quadword store using REX.W )
         THEN
-            DEST &larr; RAX;
+            DEST := RAX;
                 THEN IF DF = 0
-                    THEN (R|E)DI &larr; (R|E)DI + 8;
-                    ELSE (R|E)DI &larr; (R|E)DI &ndash; 8;
+                    THEN (R|E)DI := (R|E)DI + 8;
+                    ELSE (R|E)DI := (R|E)DI &ndash; 8;
                 FI;
         FI;
 FI;
@@ -229,6 +229,6 @@ FI;
 <td>If the LOCK prefix is used.</td></tr></tbody></table><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

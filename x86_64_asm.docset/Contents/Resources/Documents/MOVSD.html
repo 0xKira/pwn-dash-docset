@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-293"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/MOVSD"></a><title>MOVSD</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>MOVSD
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-303"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/MOVSD"></a><title>MOVSD</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>MOVSD
 		&mdash; Move or Merge Scalar Double-Precision Floating-Point Value</h1>
 
 <table>
@@ -51,25 +51,25 @@
 <td>AVX</td>
 <td>Store scalar double-precision floating-point value from xmm1 register to m64.</td></tr>
 <tr>
-<td>EVEX.LIG.F2.0F.W1 10 /r VMOVSD xmm1 {k1}{z}, xmm2, xmm3</td>
+<td>EVEX.LLIG.F2.0F.W1 10 /r VMOVSD xmm1 {k1}{z}, xmm2, xmm3</td>
 <td>B</td>
 <td>V/V</td>
 <td>AVX512F</td>
 <td>Merge scalar double-precision floating-point value from xmm2 and xmm3 registers to xmm1 under writemask k1.</td></tr>
 <tr>
-<td>EVEX.LIG.F2.0F.W1 10 /r VMOVSD xmm1 {k1}{z}, m64</td>
+<td>EVEX.LLIG.F2.0F.W1 10 /r VMOVSD xmm1 {k1}{z}, m64</td>
 <td>F</td>
 <td>V/V</td>
 <td>AVX512F</td>
 <td>Load scalar double-precision floating-point value from m64 to xmm1 register under writemask k1.</td></tr>
 <tr>
-<td>EVEX.LIG.F2.0F.W1 11 /r VMOVSD xmm1 {k1}{z}, xmm2, xmm3</td>
+<td>EVEX.LLIG.F2.0F.W1 11 /r VMOVSD xmm1 {k1}{z}, xmm2, xmm3</td>
 <td>E</td>
 <td>V/V</td>
 <td>AVX512F</td>
 <td>Merge scalar double-precision floating-point value from xmm2 and xmm3 registers to xmm1 under writemask k1.</td></tr>
 <tr>
-<td>EVEX.LIG.F2.0F.W1 11 /r VMOVSD m64 {k1}, xmm1</td>
+<td>EVEX.LLIG.F2.0F.W1 11 /r VMOVSD m64 {k1}, xmm1</td>
 <td>G</td>
 <td>V/V</td>
 <td>AVX512F</td>
@@ -146,80 +146,80 @@
 <h3 id="operation">Operation<a class="anchor" href="MOVSD.html#operation">
 			&para;
 		</a></h3>
-<h4 id="vmovsd--evex-lig-f2-0f-10--r--vmovsd-xmm1--m64-with-support-for-32-registers-">VMOVSD (EVEX.LIG.F2.0F 10 /r: VMOVSD xmm1, m64 with support for 32 registers)<a class="anchor" href="MOVSD.html#vmovsd--evex-lig-f2-0f-10--r--vmovsd-xmm1--m64-with-support-for-32-registers-">
+<h4 id="vmovsd--evex-llig-f2-0f-10--r--vmovsd-xmm1--m64-with-support-for-32-registers-">VMOVSD (EVEX.LLIG.F2.0F 10 /r: VMOVSD xmm1, m64 with support for 32 registers)<a class="anchor" href="MOVSD.html#vmovsd--evex-llig-f2-0f-10--r--vmovsd-xmm1--m64-with-support-for-32-registers-">
 			&para;
 		</a></h4>
 <pre>IF k1[0] or *no writemask*
-    THEN DEST[63:0] &larr; SRC[63:0]
+    THEN DEST[63:0] := SRC[63:0]
     ELSE
         IF *merging-masking* ; merging-masking
             THEN *DEST[63:0] remains unchanged*
             ELSE ; zeroing-masking
-                THEN DEST[63:0]&larr;0
+                THEN DEST[63:0] := 0
         FI;
 FI;
-DEST[MAXVL-1:64] &larr; 0
+DEST[MAXVL-1:64] := 0
 </pre>
-<h4 id="vmovsd--evex-lig-f2-0f-11--r--vmovsd-m64--xmm1-with-support-for-32-registers-">VMOVSD (EVEX.LIG.F2.0F 11 /r: VMOVSD m64, xmm1 with support for 32 registers)<a class="anchor" href="MOVSD.html#vmovsd--evex-lig-f2-0f-11--r--vmovsd-m64--xmm1-with-support-for-32-registers-">
+<h4 id="vmovsd--evex-llig-f2-0f-11--r--vmovsd-m64--xmm1-with-support-for-32-registers-">VMOVSD (EVEX.LLIG.F2.0F 11 /r: VMOVSD m64, xmm1 with support for 32 registers)<a class="anchor" href="MOVSD.html#vmovsd--evex-llig-f2-0f-11--r--vmovsd-m64--xmm1-with-support-for-32-registers-">
 			&para;
 		</a></h4>
 <pre>IF k1[0] or *no writemask*
-    THEN DEST[63:0] &larr; SRC[63:0]
+    THEN DEST[63:0] := SRC[63:0]
     ELSE *DEST[63:0] remains unchanged* ; merging-masking
 FI;
 </pre>
-<h4 id="vmovsd--evex-lig-f2-0f-11--r--vmovsd-xmm1--xmm2--xmm3-">VMOVSD (EVEX.LIG.F2.0F 11 /r: VMOVSD xmm1, xmm2, xmm3)<a class="anchor" href="MOVSD.html#vmovsd--evex-lig-f2-0f-11--r--vmovsd-xmm1--xmm2--xmm3-">
+<h4 id="vmovsd--evex-llig-f2-0f-11--r--vmovsd-xmm1--xmm2--xmm3-">VMOVSD (EVEX.LLIG.F2.0F 11 /r: VMOVSD xmm1, xmm2, xmm3)<a class="anchor" href="MOVSD.html#vmovsd--evex-llig-f2-0f-11--r--vmovsd-xmm1--xmm2--xmm3-">
 			&para;
 		</a></h4>
 <pre>IF k1[0] or *no writemask*
-    THEN DEST[63:0] &larr; SRC2[63:0]
+    THEN DEST[63:0] := SRC2[63:0]
     ELSE
         IF *merging-masking* ; merging-masking
             THEN *DEST[63:0] remains unchanged*
             ELSE
                     ; zeroing-masking
-                THEN DEST[63:0]&larr;0
+                THEN DEST[63:0] := 0
         FI;
 FI;
-DEST[127:64] &larr; SRC1[127:64]
-DEST[MAXVL-1:128] &larr; 0
+DEST[127:64] := SRC1[127:64]
+DEST[MAXVL-1:128] := 0
 </pre>
 <h4 id="movsd--128-bit-legacy-sse-version--movsd-xmm1--xmm2-">MOVSD (128-bit Legacy SSE version: MOVSD XMM1, XMM2)<a class="anchor" href="MOVSD.html#movsd--128-bit-legacy-sse-version--movsd-xmm1--xmm2-">
 			&para;
 		</a></h4>
-<pre>DEST[63:0] &larr;SRC[63:0]
+<pre>DEST[63:0] := SRC[63:0]
 DEST[MAXVL-1:64] (Unmodified)
 </pre>
 <h4 id="vmovsd--vex-128-f2-0f-11--r--vmovsd-xmm1--xmm2--xmm3-">VMOVSD (VEX.128.F2.0F 11 /r: VMOVSD xmm1, xmm2, xmm3)<a class="anchor" href="MOVSD.html#vmovsd--vex-128-f2-0f-11--r--vmovsd-xmm1--xmm2--xmm3-">
 			&para;
 		</a></h4>
-<pre>DEST[63:0] &larr;SRC2[63:0]
-DEST[127:64] &larr;SRC1[127:64]
-DEST[MAXVL-1:128] &larr;0
+<pre>DEST[63:0] := SRC2[63:0]
+DEST[127:64] := SRC1[127:64]
+DEST[MAXVL-1:128] := 0
 </pre>
 <h4 id="vmovsd--vex-128-f2-0f-10--r--vmovsd-xmm1--xmm2--xmm3-">VMOVSD (VEX.128.F2.0F 10 /r: VMOVSD xmm1, xmm2, xmm3)<a class="anchor" href="MOVSD.html#vmovsd--vex-128-f2-0f-10--r--vmovsd-xmm1--xmm2--xmm3-">
 			&para;
 		</a></h4>
-<pre>DEST[63:0] &larr;SRC2[63:0]
-DEST[127:64] &larr;SRC1[127:64]
-DEST[MAXVL-1:128] &larr;0
+<pre>DEST[63:0] := SRC2[63:0]
+DEST[127:64] := SRC1[127:64]
+DEST[MAXVL-1:128] := 0
 </pre>
 <h4 id="vmovsd--vex-128-f2-0f-10--r--vmovsd-xmm1--m64-">VMOVSD (VEX.128.F2.0F 10 /r: VMOVSD xmm1, m64)<a class="anchor" href="MOVSD.html#vmovsd--vex-128-f2-0f-10--r--vmovsd-xmm1--m64-">
 			&para;
 		</a></h4>
-<pre>DEST[63:0] &larr;SRC[63:0]
-DEST[MAXVL-1:64] &larr;0
+<pre>DEST[63:0] := SRC[63:0]
+DEST[MAXVL-1:64] := 0
 </pre>
 <h4 id="movsd-vmovsd--128-bit-versions--movsd-m64--xmm1-or-vmovsd-m64--xmm1-">MOVSD/VMOVSD (128-bit versions: MOVSD m64, xmm1 or VMOVSD m64, xmm1)<a class="anchor" href="MOVSD.html#movsd-vmovsd--128-bit-versions--movsd-m64--xmm1-or-vmovsd-m64--xmm1-">
 			&para;
 		</a></h4>
-<pre>DEST[63:0] &larr;SRC[63:0]
+<pre>DEST[63:0] := SRC[63:0]
 </pre>
 <h4 id="movsd--128-bit-legacy-sse-version--movsd-xmm1--m64-">MOVSD (128-bit Legacy SSE version: MOVSD XMM1, m64)<a class="anchor" href="MOVSD.html#movsd--128-bit-legacy-sse-version--movsd-xmm1--m64-">
 			&para;
 		</a></h4>
-<pre>DEST[63:0] &larr;SRC[63:0]
-DEST[127:64] &larr;0
+<pre>DEST[63:0] := SRC[63:0]
+DEST[127:64] := 0
 DEST[MAXVL-1:128] (Unmodified)
 </pre>
 <h3 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="MOVSD.html#intel-c-c++-compiler-intrinsic-equivalent">
@@ -248,14 +248,14 @@ DEST[MAXVL-1:128] (Unmodified)
 <h3 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="MOVSD.html#other-exceptions">
 			&para;
 		</a></h3>
-<p>Non-EVEX-encoded instruction, see Exceptions Type 5; additionally</p>
+<p>Non-EVEX-encoded instruction, see <span class="not-imported">Table 2-22</span>, &ldquo;Type 5 Class Exception Conditions&rdquo;; additionally:</p>
 <table>
 <tbody><tr>
 <td>#UD</td>
 <td>If VEX.vvvv != 1111B.</td></tr></tbody></table>
-<p>EVEX-encoded instruction, see Exceptions Type E10.</p><footer><p>
+<p>EVEX-encoded instruction, see <span class="not-imported">Table 2-58</span>, &ldquo;Type E10 Class Exception Conditions&rdquo;.</p><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

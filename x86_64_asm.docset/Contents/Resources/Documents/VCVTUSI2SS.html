@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-515"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/VCVTUSI2SS"></a><title>VCVTUSI2SS</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>VCVTUSI2SS
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-529"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/VCVTUSI2SS"></a><title>VCVTUSI2SS</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>VCVTUSI2SS
 		&mdash; Convert Unsigned Integer to Scalar Single-Precision Floating-Point Value</h1>
 
 <table>
@@ -9,13 +9,13 @@
 <th>CPUID Feature Flag</th>
 <th>Description</th></tr>
 <tr>
-<td>EVEX.LIG.F3.0F.W0 7B /r VCVTUSI2SS xmm1, xmm2, r/m32{er}</td>
+<td>EVEX.LLIG.F3.0F.W0 7B /r VCVTUSI2SS xmm1, xmm2, r/m32{er}</td>
 <td>A</td>
 <td>V/V</td>
 <td>AVX512F</td>
 <td>Convert one signed doubleword integer from r/m32 to one single-precision floating-point value in xmm1.</td></tr>
 <tr>
-<td>EVEX.LIG.F3.0F.W1 7B /r VCVTUSI2SS xmm1, xmm2, r/m64{er}</td>
+<td>EVEX.LLIG.F3.0F.W1 7B /r VCVTUSI2SS xmm1, xmm2, r/m64{er}</td>
 <td>A</td>
 <td>V/N.E.<sup>1</sup></td>
 <td>AVX512F</td>
@@ -37,7 +37,7 @@
 <td>A</td>
 <td>Tuple1 Scalar</td>
 <td>ModRM:reg (w)</td>
-<td>VEX.vvvv</td>
+<td>VEX.vvvv (r)</td>
 <td>ModRM:r/m (r)</td>
 <td>NA</td></tr></tbody></table>
 <h3 id="description">Description<a class="anchor" href="VCVTUSI2SS.html#description">
@@ -54,18 +54,18 @@
 		</a></h4>
 <pre>IF (SRC2 *is register*) AND (EVEX.b = 1)
     THEN
-        SET_RM(EVEX.RC);
+        SET_ROUNDING_MODE_FOR_THIS_INSTRUCTION(EVEX.RC);
     ELSE
-        SET_RM(MXCSR.RM);
+        SET_ROUNDING_MODE_FOR_THIS_INSTRUCTION(MXCSR.RC);
 FI;
 IF 64-Bit Mode And OperandSize = 64
 THEN
-    DEST[31:0] &larr; Convert_UInteger_To_Single_Precision_Floating_Point(SRC[63:0]);
+    DEST[31:0] := Convert_UInteger_To_Single_Precision_Floating_Point(SRC[63:0]);
 ELSE
-    DEST[31:0] &larr; Convert_UInteger_To_Single_Precision_Floating_Point(SRC[31:0]);
+    DEST[31:0] := Convert_UInteger_To_Single_Precision_Floating_Point(SRC[31:0]);
 FI;
-DEST[127:32] &larr; SRC1[127:32]
-DEST[MAXVL-1:128] &larr; 0
+DEST[127:32] := SRC1[127:32]
+DEST[MAXVL-1:128] := 0
 </pre>
 <h3 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="VCVTUSI2SS.html#intel-c-c++-compiler-intrinsic-equivalent">
 			&para;
@@ -85,9 +85,9 @@ DEST[MAXVL-1:128] &larr; 0
 <h3 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="VCVTUSI2SS.html#other-exceptions">
 			&para;
 		</a></h3>
-<p>See Exceptions Type E3NF.</p><footer><p>
+<p>See <span class="not-imported">Table 2-48</span>, &ldquo;Type E3NF Class Exception Conditions&rdquo;.</p><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

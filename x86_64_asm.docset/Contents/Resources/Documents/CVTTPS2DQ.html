@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-94"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/CVTTPS2DQ"></a><title>CVTTPS2DQ</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>CVTTPS2DQ
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-102"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/CVTTPS2DQ"></a><title>CVTTPS2DQ</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>CVTTPS2DQ
 		&mdash; Convert with Truncation Packed Single-Precision Floating-Point Values to Packed Signed Doubleword Integer Values</h1>
 
 <table>
@@ -86,75 +86,75 @@
 			&para;
 		</a></h3>
 <pre>(KL, VL) = (4, 128), (8, 256), (16, 512)
-FOR j&larr;0 TO KL-1
-    i&larr;j * 32
+FOR j := 0 TO KL-1
+    i := j * 32
     IF k1[j] OR *no writemask*
-        THEN DEST[i+31:i]&larr;
+        THEN DEST[i+31:i] :=
             Convert_Single_Precision_Floating_Point_To_Integer_Truncate(SRC[i+31:i])
         ELSE
             IF *merging-masking* ; merging-masking
                 THEN *DEST[i+31:i] remains unchanged*
                 ELSE ; zeroing-masking
-                    DEST[i+31:i] &larr; 0
+                    DEST[i+31:i] := 0
             FI
     FI;
 ENDFOR
-DEST[MAXVL-1:VL] &larr; 0
+DEST[MAXVL-1:VL] := 0
 </pre>
 <h3 id="vcvttps2dq--evex-encoded-versions--when-src-operand-is-a-memory-source">VCVTTPS2DQ (EVEX encoded versions) when src operand is a memory source<a class="anchor" href="CVTTPS2DQ.html#vcvttps2dq--evex-encoded-versions--when-src-operand-is-a-memory-source">
 			&para;
 		</a></h3>
 <pre>(KL, VL) = (4, 128), (8, 256), (16, 512)
-FOR j&larr;0 TO 15
-    i&larr;j * 32
+FOR j := 0 TO 15
+    i := j * 32
     IF k1[j] OR *no writemask*
         THEN
             IF (EVEX.b = 1)
                 THEN
-                    DEST[i+31:i] &larr;
+                    DEST[i+31:i] :=
             Convert_Single_Precision_Floating_Point_To_Integer_Truncate(SRC[31:0])
                 ELSE
-                    DEST[i+31:i] &larr;
+                    DEST[i+31:i] :=
             Convert_Single_Precision_Floating_Point_To_Integer_Truncate(SRC[i+31:i])
             FI;
         ELSE
             IF *merging-masking* ; merging-masking
                 THEN *DEST[i+31:i] remains unchanged*
                 ELSE ; zeroing-masking
-                    DEST[i+31:i] &larr; 0
+                    DEST[i+31:i] := 0
             FI
     FI;
 ENDFOR
-DEST[MAXVL-1:VL] &larr; 0
+DEST[MAXVL-1:VL] := 0
 </pre>
 <h3 id="vcvttps2dq--vex-256-encoded-version-">VCVTTPS2DQ (VEX.256 encoded version)<a class="anchor" href="CVTTPS2DQ.html#vcvttps2dq--vex-256-encoded-version-">
 			&para;
 		</a></h3>
-<pre>DEST[31:0] &larr;Convert_Single_Precision_Floating_Point_To_Integer_Truncate(SRC[31:0])
-DEST[63:32] &larr;Convert_Single_Precision_Floating_Point_To_Integer_Truncate(SRC[63:32])
-DEST[95:64] &larr;Convert_Single_Precision_Floating_Point_To_Integer_Truncate(SRC[95:64])
-DEST[127:96] &larr;Convert_Single_Precision_Floating_Point_To_Integer_Truncate(SRC[127:96)
-DEST[159:128] &larr;Convert_Single_Precision_Floating_Point_To_Integer_Truncate(SRC[159:128])
-DEST[191:160] &larr;Convert_Single_Precision_Floating_Point_To_Integer_Truncate(SRC[191:160])
-DEST[223:192] &larr;Convert_Single_Precision_Floating_Point_To_Integer_Truncate(SRC[223:192])
-DEST[255:224] &larr;Convert_Single_Precision_Floating_Point_To_Integer_Truncate(SRC[255:224])
+<pre>DEST[31:0] := Convert_Single_Precision_Floating_Point_To_Integer_Truncate(SRC[31:0])
+DEST[63:32] := Convert_Single_Precision_Floating_Point_To_Integer_Truncate(SRC[63:32])
+DEST[95:64] := Convert_Single_Precision_Floating_Point_To_Integer_Truncate(SRC[95:64])
+DEST[127:96] := Convert_Single_Precision_Floating_Point_To_Integer_Truncate(SRC[127:96)
+DEST[159:128] := Convert_Single_Precision_Floating_Point_To_Integer_Truncate(SRC[159:128])
+DEST[191:160] := Convert_Single_Precision_Floating_Point_To_Integer_Truncate(SRC[191:160])
+DEST[223:192] := Convert_Single_Precision_Floating_Point_To_Integer_Truncate(SRC[223:192])
+DEST[255:224] := Convert_Single_Precision_Floating_Point_To_Integer_Truncate(SRC[255:224])
 </pre>
 <h3 id="vcvttps2dq--vex-128-encoded-version-">VCVTTPS2DQ (VEX.128 encoded version)<a class="anchor" href="CVTTPS2DQ.html#vcvttps2dq--vex-128-encoded-version-">
 			&para;
 		</a></h3>
-<pre>DEST[31:0] &larr;Convert_Single_Precision_Floating_Point_To_Integer_Truncate(SRC[31:0])
-DEST[63:32] &larr;Convert_Single_Precision_Floating_Point_To_Integer_Truncate(SRC[63:32])
-DEST[95:64] &larr;Convert_Single_Precision_Floating_Point_To_Integer_Truncate(SRC[95:64])
-DEST[127:96] &larr;Convert_Single_Precision_Floating_Point_To_Integer_Truncate(SRC[127:96])
-DEST[MAXVL-1:128] &larr;0
+<pre>DEST[31:0] := Convert_Single_Precision_Floating_Point_To_Integer_Truncate(SRC[31:0])
+DEST[63:32] := Convert_Single_Precision_Floating_Point_To_Integer_Truncate(SRC[63:32])
+DEST[95:64] := Convert_Single_Precision_Floating_Point_To_Integer_Truncate(SRC[95:64])
+DEST[127:96] := Convert_Single_Precision_Floating_Point_To_Integer_Truncate(SRC[127:96])
+DEST[MAXVL-1:128] := 0
 </pre>
 <h3 id="cvttps2dq--128-bit-legacy-sse-version-">CVTTPS2DQ (128-bit Legacy SSE version)<a class="anchor" href="CVTTPS2DQ.html#cvttps2dq--128-bit-legacy-sse-version-">
 			&para;
 		</a></h3>
-<pre>DEST[31:0] &larr;Convert_Single_Precision_Floating_Point_To_Integer_Truncate(SRC[31:0])
-DEST[63:32] &larr;Convert_Single_Precision_Floating_Point_To_Integer_Truncate(SRC[63:32])
-DEST[95:64] &larr;Convert_Single_Precision_Floating_Point_To_Integer_Truncate(SRC[95:64])
-DEST[127:96] &larr;Convert_Single_Precision_Floating_Point_To_Integer_Truncate(SRC[127:96])
+<pre>DEST[31:0] := Convert_Single_Precision_Floating_Point_To_Integer_Truncate(SRC[31:0])
+DEST[63:32] := Convert_Single_Precision_Floating_Point_To_Integer_Truncate(SRC[63:32])
+DEST[95:64] := Convert_Single_Precision_Floating_Point_To_Integer_Truncate(SRC[95:64])
+DEST[127:96] := Convert_Single_Precision_Floating_Point_To_Integer_Truncate(SRC[127:96])
 DEST[MAXVL-1:128] (unmodified)
 </pre>
 <h2 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="CVTTPS2DQ.html#intel-c-c++-compiler-intrinsic-equivalent">
@@ -191,14 +191,15 @@ DEST[MAXVL-1:128] (unmodified)
 <h2 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="CVTTPS2DQ.html#other-exceptions">
 			&para;
 		</a></h2>
-<p>VEX-encoded instructions, see Exceptions Type 2; additionally</p>
-<p>EVEX-encoded instructions, see Exceptions Type E2.</p>
+<p>VEX-encoded instructions, see <span class="not-imported">Table 2-19</span>, &ldquo;Type 2 Class Exception Conditions&rdquo;.</p>
+<p>EVEX-encoded instructions, see <span class="not-imported">Table 2-46</span>, &ldquo;Type E2 Class Exception Conditions&rdquo;.</p>
+<p>Additionally:</p>
 <table>
 <tbody><tr>
 <td>#UD</td>
 <td>If VEX.vvvv != 1111B or EVEX.vvvv != 1111B.</td></tr></tbody></table><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

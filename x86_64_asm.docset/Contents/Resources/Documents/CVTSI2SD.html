@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-88"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/CVTSI2SD"></a><title>CVTSI2SD</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>CVTSI2SD
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-96"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/CVTSI2SD"></a><title>CVTSI2SD</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>CVTSI2SD
 		&mdash; Convert Doubleword Integer to Scalar Double-Precision Floating-Point Value</h1>
 
 <table>
@@ -33,13 +33,13 @@
 <td>AVX</td>
 <td>Convert one signed quadword integer from r/m64 to one double-precision floating-point value in xmm1.</td></tr>
 <tr>
-<td>EVEX.LIG.F2.0F.W0 2A /r VCVTSI2SD xmm1, xmm2, r/m32</td>
+<td>EVEX.LLIG.F2.0F.W0 2A /r VCVTSI2SD xmm1, xmm2, r/m32</td>
 <td>C</td>
 <td>V/V</td>
 <td>AVX512F</td>
 <td>Convert one signed doubleword integer from r/m32 to one double-precision floating-point value in xmm1.</td></tr>
 <tr>
-<td>EVEX.LIG.F2.0F.W1 2A /r VCVTSI2SD xmm1, xmm2, r/m64{er}</td>
+<td>EVEX.LLIG.F2.0F.W1 2A /r VCVTSI2SD xmm1, xmm2, r/m64{er}</td>
 <td>C</td>
 <td>V/N.E.<sup>1</sup></td>
 <td>AVX512F</td>
@@ -68,14 +68,14 @@
 <td>B</td>
 <td>NA</td>
 <td>ModRM:reg (w)</td>
-<td>VEX.vvvv</td>
+<td>VEX.vvvv (r)</td>
 <td>ModRM:r/m (r)</td>
 <td>NA</td></tr>
 <tr>
 <td>C</td>
 <td>Tuple1 Scalar</td>
 <td>ModRM:reg (w)</td>
-<td>EVEX.vvvv</td>
+<td>EVEX.vvvv (r)</td>
 <td>ModRM:r/m (r)</td>
 <td>NA</td></tr></tbody></table>
 <h2 id="description">Description<a class="anchor" href="CVTSI2SD.html#description">
@@ -96,39 +96,39 @@
 		</a></h3>
 <pre>IF (SRC2 *is register*) AND (EVEX.b = 1)
     THEN
-        SET_RM(EVEX.RC);
+        SET_ROUNDING_MODE_FOR_THIS_INSTRUCTION(EVEX.RC);
     ELSE
-        SET_RM(MXCSR.RM);
+        SET_ROUNDING_MODE_FOR_THIS_INSTRUCTION(MXCSR.RC);
 FI;
 IF 64-Bit Mode And OperandSize = 64
 THEN
-    DEST[63:0] &larr; Convert_Integer_To_Double_Precision_Floating_Point(SRC2[63:0]);
+    DEST[63:0] := Convert_Integer_To_Double_Precision_Floating_Point(SRC2[63:0]);
 ELSE
-    DEST[63:0] &larr; Convert_Integer_To_Double_Precision_Floating_Point(SRC2[31:0]);
+    DEST[63:0] := Convert_Integer_To_Double_Precision_Floating_Point(SRC2[31:0]);
 FI;
-DEST[127:64] &larr; SRC1[127:64]
-DEST[MAXVL-1:128] &larr; 0
+DEST[127:64] := SRC1[127:64]
+DEST[MAXVL-1:128] := 0
 </pre>
 <h3 id="vcvtsi2sd--vex-128-encoded-version-">VCVTSI2SD (VEX.128 encoded version)<a class="anchor" href="CVTSI2SD.html#vcvtsi2sd--vex-128-encoded-version-">
 			&para;
 		</a></h3>
 <pre>IF 64-Bit Mode And OperandSize = 64
 THEN
-    DEST[63:0] &larr;Convert_Integer_To_Double_Precision_Floating_Point(SRC2[63:0]);
+    DEST[63:0] := Convert_Integer_To_Double_Precision_Floating_Point(SRC2[63:0]);
 ELSE
-    DEST[63:0] &larr;Convert_Integer_To_Double_Precision_Floating_Point(SRC2[31:0]);
+    DEST[63:0] := Convert_Integer_To_Double_Precision_Floating_Point(SRC2[31:0]);
 FI;
-DEST[127:64] &larr;SRC1[127:64]
-DEST[MAXVL-1:128] &larr;0
+DEST[127:64] := SRC1[127:64]
+DEST[MAXVL-1:128] := 0
 </pre>
 <h3 id="cvtsi2sd">CVTSI2SD<a class="anchor" href="CVTSI2SD.html#cvtsi2sd">
 			&para;
 		</a></h3>
 <pre>IF 64-Bit Mode And OperandSize = 64
 THEN
-    DEST[63:0] &larr;Convert_Integer_To_Double_Precision_Floating_Point(SRC[63:0]);
+    DEST[63:0] := Convert_Integer_To_Double_Precision_Floating_Point(SRC[63:0]);
 ELSE
-    DEST[63:0] &larr;Convert_Integer_To_Double_Precision_Floating_Point(SRC[31:0]);
+    DEST[63:0] := Convert_Integer_To_Double_Precision_Floating_Point(SRC[31:0]);
 FI;
 DEST[MAXVL-1:64] (Unmodified)
 </pre>
@@ -152,10 +152,10 @@ DEST[MAXVL-1:64] (Unmodified)
 <h2 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="CVTSI2SD.html#other-exceptions">
 			&para;
 		</a></h2>
-<p>VEX-encoded instructions, see Exceptions Type 3 if W1, else Type 5.</p>
-<p>EVEX-encoded instructions, see Exceptions Type E3NF if W1, else Type E10NF.</p><footer><p>
+<p>VEX-encoded instructions, see <span class="not-imported">Table 2-20</span>, &ldquo;Type 3 Class Exception Conditions&rdquo; if W1; else see <span class="not-imported">Table 2-22</span>, &ldquo;Type 5 Class Exception Conditions&rdquo;.</p>
+<p>EVEX-encoded instructions, see <span class="not-imported">Table 2-48</span>, &ldquo;Type E3NF Class Exception Conditions&rdquo; if W1; else see <span class="not-imported">Table 2-59</span>, &ldquo;Type E10NF Class Exception Conditions&rdquo;.</p><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-174"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/FPREM1"></a><title>FPREM1</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>FPREM1
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-181"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/FPREM1"></a><title>FPREM1</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>FPREM1
 		&mdash; Partial Remainder</h1>
 
 <table>
@@ -18,7 +18,7 @@
 			&para;
 		</a></h2>
 <p>Computes the IEEE remainder obtained from dividing the value in the ST(0) register (the dividend) by the value in the ST(1) register (the divisor or <strong>modulus</strong>), and stores the result in ST(0). The remainder represents the following value:</p>
-<p>Remainder &larr; ST(0) &minus; (Q &lowast; ST(1))</p>
+<p>Remainder := ST(0) &minus; (Q &lowast; ST(1))</p>
 <p>Here, Q is an integer value that is obtained by rounding the floating-point number quotient of [ST(0) / ST(1)] toward the nearest integer value. The magnitude of the remainder is less than or equal to half the magnitude of the modulus, unless a partial remainder was computed (as described below).</p>
 <p>This instruction produces an exact result; the precision (inexact) exception does not occur and the rounding control has no effect. The following table shows the results obtained when computing the remainder of various classes of numbers, assuming that underflow does not occur.</p>
 <figure id="tbl-3-32">
@@ -112,18 +112,18 @@
 <h2 id="operation">Operation<a class="anchor" href="FPREM1.html#operation">
 			&para;
 		</a></h2>
-<pre>D &larr; exponent(ST(0)) &ndash; exponent(ST(1));
+<pre>D := exponent(ST(0)) &ndash; exponent(ST(1));
 IF D &lt; 64
     THEN
-        Q &larr; Integer(RoundTowardNearestInteger(ST(0) / ST(1)));
-        ST(0) &larr; ST(0) &ndash; (ST(1) &lowast; Q);
-        C2 &larr; 0;
-        C0, C3, C1 &larr; LeastSignificantBits(Q); (* Q2, Q1, Q0 *)
+        Q := Integer(RoundTowardNearestInteger(ST(0) / ST(1)));
+        ST(0) := ST(0) &ndash; (ST(1) &lowast; Q);
+        C2 := 0;
+        C0, C3, C1 := LeastSignificantBits(Q); (* Q2, Q1, Q0 *)
     ELSE
-        C2 &larr; 1;
-        N &larr; An implementation-dependent number between 32 and 63;
-        QQ &larr; Integer(TruncateTowardZero((ST(0) / ST(1)) / 2<sup>(D &minus; N)</sup>));
-        ST(0) &larr; ST(0) &ndash; (ST(1) &lowast; QQ &lowast; 2<sup>(D &minus; N)</sup>);
+        C2 := 1;
+        N := An implementation-dependent number between 32 and 63;
+        QQ := Integer(TruncateTowardZero((ST(0) / ST(1)) / 2<sup>(D &minus; N)</sup>));
+        ST(0) := ST(0) &ndash; (ST(1) &lowast; QQ &lowast; 2<sup>(D &minus; N)</sup>);
 FI;
 </pre>
 <h2 id="fpu-flags-affected">FPU Flags Affected<a class="anchor" href="FPREM1.html#fpu-flags-affected">
@@ -189,6 +189,6 @@ FI;
 <p>Same exceptions as in protected mode.</p><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

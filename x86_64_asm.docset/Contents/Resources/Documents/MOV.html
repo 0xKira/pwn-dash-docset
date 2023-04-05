@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-265"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/MOV"></a><title>MOV</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>MOV
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-275"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/MOV"></a><title>MOV</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>MOV
 		&mdash; Move</h1>
 
 <table>
@@ -87,12 +87,12 @@
 <td>Valid</td>
 <td>Move segment register to <em>r/m16.</em></td></tr>
 <tr>
-<td>REX.W + 8C /<em>r</em></td>
+<td>8C /<em>r</em></td>
 <td>MOV <em>r16/r32/m16, Sreg</em>**</td>
 <td>MR</td>
 <td>Valid</td>
 <td>Valid</td>
-<td>Move zero extended 16-bit segment register to <em>r16/r32/r64/m16.</em></td></tr>
+<td>Move zero extended 16-bit segment register to <em>r16/r32/m16.</em></td></tr>
 <tr>
 <td>REX.W + 8C /<em>r</em></td>
 <td>MOV <em>r64/m16, Sreg</em>**</td>
@@ -317,7 +317,7 @@
 <h2 id="operation">Operation<a class="anchor" href="MOV.html#operation">
 			&para;
 		</a></h2>
-<pre>DEST &larr; SRC;
+<pre>DEST := SRC;
 Loading a segment register while in protected mode results in special checks and actions, as described in the
 following listing. These checks are performed on the segment selector and the segment descriptor to which it
 points.
@@ -333,8 +333,8 @@ IF SS is loaded
         IF segment not marked present
             THEN #SS(selector);
             ELSE
-                SS &larr; segment selector;
-                SS &larr; segment descriptor; FI;
+                SS := segment selector;
+                SS := segment descriptor; FI;
 FI;
 IF DS, ES, FS, or GS is loaded with non-NULL selector
 THEN
@@ -345,13 +345,13 @@ THEN
     IF segment not marked present
         THEN #NP(selector);
         ELSE
-            SegmentRegister &larr; segment selector;
-            SegmentRegister &larr; segment descriptor; FI;
+            SegmentRegister := segment selector;
+            SegmentRegister := segment descriptor; FI;
 FI;
 IF DS, ES, FS, or GS is loaded with NULL selector
     THEN
-        SegmentRegister &larr; segment selector;
-        SegmentRegister &larr; segment descriptor;
+        SegmentRegister := segment selector;
+        SegmentRegister := segment descriptor;
 FI;
 </pre>
 <h2 id="flags-affected">Flags Affected<a class="anchor" href="MOV.html#flags-affected">
@@ -485,6 +485,6 @@ FI;
 <td>If the LOCK prefix is used.</td></tr></tbody></table><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

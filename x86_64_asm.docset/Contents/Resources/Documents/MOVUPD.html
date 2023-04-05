@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-298"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/MOVUPD"></a><title>MOVUPD</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>MOVUPD
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-308"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/MOVUPD"></a><title>MOVUPD</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>MOVUPD
 		&mdash; Move Unaligned Packed Double-Precision Floating-Point Values</h1>
 
 <table>
@@ -141,29 +141,29 @@
 			&para;
 		</a></h4>
 <pre>(KL, VL) = (2, 128), (4, 256), (8, 512)
-FOR j&larr;0 TO KL-1
-    i&larr;j * 64
+FOR j := 0 TO KL-1
+    i := j * 64
     IF k1[j] OR *no writemask*
-        THEN DEST[i+63:i]&larr;SRC[i+63:i]
+        THEN DEST[i+63:i] := SRC[i+63:i]
         ELSE
             IF *merging-masking*
                     ; merging-masking
                 THEN *DEST[i+63:i] remains unchanged*
-                ELSE DEST[i+63:i]&larr;0
+                ELSE DEST[i+63:i] := 0
                     ; zeroing-masking
             FI
     FI;
 ENDFOR
-DEST[MAXVL-1:VL] &larr; 0
+DEST[MAXVL-1:VL] := 0
 </pre>
 <h4 id="vmovupd--evex-encoded-versions--store-form-">VMOVUPD (EVEX encoded versions, store-form)<a class="anchor" href="MOVUPD.html#vmovupd--evex-encoded-versions--store-form-">
 			&para;
 		</a></h4>
 <pre>(KL, VL) = (2, 128), (4, 256), (8, 512)
-FOR j&larr;0 TO KL-1
-    i&larr;j * 64
+FOR j := 0 TO KL-1
+    i := j * 64
     IF k1[j] OR *no writemask*
-        THEN DEST[i+63:i]&larr;SRC[i+63:i]
+        THEN DEST[i+63:i] := SRC[i+63:i]
         ELSE *DEST[i+63:i] remains unchanged*
             ; merging-masking
     FI;
@@ -173,43 +173,43 @@ ENDFOR;
 			&para;
 		</a></h4>
 <pre>(KL, VL) = (2, 128), (4, 256), (8, 512)
-FOR j&larr;0 TO KL-1
-    i&larr;j * 64
+FOR j := 0 TO KL-1
+    i := j * 64
     IF k1[j] OR *no writemask*
-        THEN DEST[i+63:i]&larr;SRC[i+63:i]
+        THEN DEST[i+63:i] := SRC[i+63:i]
         ELSE
             IF *merging-masking*
                 THEN *DEST[i+63:i] remains unchanged*
-                ELSE DEST[i+63:i]&larr;0 ; zeroing-masking
+                ELSE DEST[i+63:i] := 0 ; zeroing-masking
             FI
     FI;
 ENDFOR
-DEST[MAXVL-1:VL] &larr; 0
+DEST[MAXVL-1:VL] := 0
 VMOVUPD (VEX.256 encoded version, load - and register copy)
-DEST[255:0] &larr; SRC[255:0]
-DEST[MAXVL-1:256] &larr; 0
+DEST[255:0] := SRC[255:0]
+DEST[MAXVL-1:256] := 0
 </pre>
 <h4 id="vmovupd--vex-256-encoded-version--store-form-">VMOVUPD (VEX.256 encoded version, store-form)<a class="anchor" href="MOVUPD.html#vmovupd--vex-256-encoded-version--store-form-">
 			&para;
 		</a></h4>
-<pre>DEST[255:0] &larr; SRC[255:0]
+<pre>DEST[255:0] := SRC[255:0]
 </pre>
 <h4 id="vmovupd--vex-128-encoded-version-">VMOVUPD (VEX.128 encoded version)<a class="anchor" href="MOVUPD.html#vmovupd--vex-128-encoded-version-">
 			&para;
 		</a></h4>
-<pre>DEST[127:0] &larr; SRC[127:0]
-DEST[MAXVL-1:128] &larr; 0
+<pre>DEST[127:0] := SRC[127:0]
+DEST[MAXVL-1:128] := 0
 </pre>
 <h4 id="movupd--128-bit-load--and-register-copy--form-legacy-sse-version-">MOVUPD (128-bit load- and register-copy- form Legacy SSE version)<a class="anchor" href="MOVUPD.html#movupd--128-bit-load--and-register-copy--form-legacy-sse-version-">
 			&para;
 		</a></h4>
-<pre>DEST[127:0] &larr; SRC[127:0]
+<pre>DEST[127:0] := SRC[127:0]
 DEST[MAXVL-1:128] (Unmodified)
 </pre>
 <h4 id="-v-movupd--128-bit-store-form-version-">(V)MOVUPD (128-bit store-form version)<a class="anchor" href="MOVUPD.html#-v-movupd--128-bit-store-form-version-">
 			&para;
 		</a></h4>
-<pre>DEST[127:0] &larr; SRC[127:0]
+<pre>DEST[127:0] := SRC[127:0]
 </pre>
 <h3 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="MOVUPD.html#intel-c-c++-compiler-intrinsic-equivalent">
 			&para;
@@ -251,15 +251,15 @@ DEST[MAXVL-1:128] (Unmodified)
 <h3 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="MOVUPD.html#other-exceptions">
 			&para;
 		</a></h3>
-<p>Non-EVEX-encoded instruction, see Exceptions Type 4.</p>
-<p>Note treatment of #AC varies; additionally</p>
+<p>Non-EVEX-encoded instruction, see <span class="not-imported">Table 2-21</span>, &ldquo;Type 4 Class Exception Conditions&rdquo;.</p>
+<p>Note treatment of #AC varies; additionally:</p>
 <table>
 <tbody><tr>
 <td>#UD</td>
 <td>If VEX.vvvv != 1111B.</td></tr></tbody></table>
-<p>EVEX-encoded instruction, see Exceptions Type E4.nb.</p><footer><p>
+<p>EVEX-encoded instruction, see Exceptions Type E4.nb in <span class="not-imported">Table 2-49</span>, &ldquo;Type E4 Class Exception Conditions&rdquo;.</p><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

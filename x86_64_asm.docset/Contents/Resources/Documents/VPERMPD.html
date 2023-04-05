@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-603"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/VPERMPD"></a><title>VPERMPD</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>VPERMPD
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-624"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/VPERMPD"></a><title>VPERMPD</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>VPERMPD
 		&mdash; Permute Double-Precision Floating-Point Elements</h1>
 
 <table>
@@ -87,90 +87,90 @@
 			&para;
 		</a></h4>
 <pre>(KL, VL) = (4, 256), (8, 512)
-FOR j&larr;0 TO KL-1
-    i&larr;j * 64
+FOR j := 0 TO KL-1
+    i := j * 64
     IF (EVEX.b = 1) AND (SRC *is memory*)
-        THEN TMP_SRC[i+63:i]&larr;SRC[63:0];
-        ELSE TMP_SRC[i+63:i]&larr;SRC[i+63:i];
+        THEN TMP_SRC[i+63:i] := SRC[63:0];
+        ELSE TMP_SRC[i+63:i] := SRC[i+63:i];
     FI;
 ENDFOR;
-TMP_DEST[63:0]&larr;(TMP_SRC[256:0] &gt;&gt; (IMM8[1:0] * 64))[63:0];
-TMP_DEST[127:64]&larr;(TMP_SRC[256:0] &gt;&gt; (IMM8[3:2] * 64))[63:0];
-TMP_DEST[191:128]&larr;(TMP_SRC[256:0] &gt;&gt; (IMM8[5:4] * 64))[63:0];
-TMP_DEST[255:192]&larr;(TMP_SRC[256:0] &gt;&gt; (IMM8[7:6] * 64))[63:0];
+TMP_DEST[63:0] := (TMP_SRC[256:0] &gt;&gt; (IMM8[1:0] * 64))[63:0];
+TMP_DEST[127:64] := (TMP_SRC[256:0] &gt;&gt; (IMM8[3:2] * 64))[63:0];
+TMP_DEST[191:128] := (TMP_SRC[256:0] &gt;&gt; (IMM8[5:4] * 64))[63:0];
+TMP_DEST[255:192] := (TMP_SRC[256:0] &gt;&gt; (IMM8[7:6] * 64))[63:0];
 IF VL &gt;= 512
-    TMP_DEST[319:256]&larr;(TMP_SRC[511:256] &gt;&gt; (IMM8[1:0] * 64))[63:0];
-    TMP_DEST[383:320]&larr;(TMP_SRC[511:256] &gt;&gt; (IMM8[3:2] * 64))[63:0];
-    TMP_DEST[447:384]&larr;(TMP_SRC[511:256] &gt;&gt; (IMM8[5:4] * 64))[63:0];
-    TMP_DEST[511:448]&larr;(TMP_SRC[511:256] &gt;&gt; (IMM8[7:6] * 64))[63:0];
+    TMP_DEST[319:256] := (TMP_SRC[511:256] &gt;&gt; (IMM8[1:0] * 64))[63:0];
+    TMP_DEST[383:320] := (TMP_SRC[511:256] &gt;&gt; (IMM8[3:2] * 64))[63:0];
+    TMP_DEST[447:384] := (TMP_SRC[511:256] &gt;&gt; (IMM8[5:4] * 64))[63:0];
+    TMP_DEST[511:448] := (TMP_SRC[511:256] &gt;&gt; (IMM8[7:6] * 64))[63:0];
 FI;
-FOR j&larr;0 TO KL-1
-    i&larr;j * 64
+FOR j := 0 TO KL-1
+    i := j * 64
     IF k1[j] OR *no writemask*
-        THEN DEST[i+63:i]&larr;TMP_DEST[i+63:i]
+        THEN DEST[i+63:i] := TMP_DEST[i+63:i]
         ELSE
             IF *merging-masking* ; merging-masking
                 THEN *DEST[i+63:i] remains unchanged*
                 ELSE
                         ; zeroing-masking
-                    DEST[i+63:i] &larr; 0
+                    DEST[i+63:i] := 0
                             ;zeroing-masking
             FI;
     FI;
 ENDFOR
-DEST[MAXVL-1:VL] &larr; 0
+DEST[MAXVL-1:VL] := 0
 </pre>
 <h4 id="vpermpd--evex---vector-control-forms-">VPERMPD (EVEX - vector control forms)<a class="anchor" href="VPERMPD.html#vpermpd--evex---vector-control-forms-">
 			&para;
 		</a></h4>
 <pre>(KL, VL) = (4, 256), (8, 512)
-FOR j&larr;0 TO KL-1
-    i&larr;j * 64
+FOR j := 0 TO KL-1
+    i := j * 64
     IF (EVEX.b = 1) AND (SRC2 *is memory*)
-        THEN TMP_SRC2[i+63:i]&larr;SRC2[63:0];
-        ELSE TMP_SRC2[i+63:i]&larr;SRC2[i+63:i];
+        THEN TMP_SRC2[i+63:i] := SRC2[63:0];
+        ELSE TMP_SRC2[i+63:i] := SRC2[i+63:i];
     FI;
 ENDFOR;
 IF VL = 256
-    TMP_DEST[63:0]&larr;(TMP_SRC2[255:0] &gt;&gt; (SRC1[1:0] * 64))[63:0];
-    TMP_DEST[127:64]&larr;(TMP_SRC2[255:0] &gt;&gt; (SRC1[65:64] * 64))[63:0];
-    TMP_DEST[191:128]&larr;(TMP_SRC2[255:0] &gt;&gt; (SRC1[129:128] * 64))[63:0];
-    TMP_DEST[255:192]&larr;(TMP_SRC2[255:0] &gt;&gt; (SRC1[193:192] * 64))[63:0];
+    TMP_DEST[63:0] := (TMP_SRC2[255:0] &gt;&gt; (SRC1[1:0] * 64))[63:0];
+    TMP_DEST[127:64] := (TMP_SRC2[255:0] &gt;&gt; (SRC1[65:64] * 64))[63:0];
+    TMP_DEST[191:128] := (TMP_SRC2[255:0] &gt;&gt; (SRC1[129:128] * 64))[63:0];
+    TMP_DEST[255:192] := (TMP_SRC2[255:0] &gt;&gt; (SRC1[193:192] * 64))[63:0];
 FI;
 IF VL = 512
-    TMP_DEST[63:0]&larr;(TMP_SRC2[511:0] &gt;&gt; (SRC1[2:0] * 64))[63:0];
-    TMP_DEST[127:64]&larr;(TMP_SRC2[511:0] &gt;&gt; (SRC1[66:64] * 64))[63:0];
-    TMP_DEST[191:128]&larr;(TMP_SRC2[511:0] &gt;&gt; (SRC1[130:128] * 64))[63:0];
-    TMP_DEST[255:192]&larr;(TMP_SRC2[511:0] &gt;&gt; (SRC1[194:192] * 64))[63:0];
-    TMP_DEST[319:256]&larr;(TMP_SRC2[511:0] &gt;&gt; (SRC1[258:256] * 64))[63:0];
-    TMP_DEST[383:320]&larr;(TMP_SRC2[511:0] &gt;&gt; (SRC1[322:320] * 64))[63:0];
-    TMP_DEST[447:384]&larr;(TMP_SRC2[511:0] &gt;&gt; (SRC1[386:384] * 64))[63:0];
-    TMP_DEST[511:448]&larr;(TMP_SRC2[511:0] &gt;&gt; (SRC1[450:448] * 64))[63:0];
+    TMP_DEST[63:0] := (TMP_SRC2[511:0] &gt;&gt; (SRC1[2:0] * 64))[63:0];
+    TMP_DEST[127:64] := (TMP_SRC2[511:0] &gt;&gt; (SRC1[66:64] * 64))[63:0];
+    TMP_DEST[191:128] := (TMP_SRC2[511:0] &gt;&gt; (SRC1[130:128] * 64))[63:0];
+    TMP_DEST[255:192] := (TMP_SRC2[511:0] &gt;&gt; (SRC1[194:192] * 64))[63:0];
+    TMP_DEST[319:256] := (TMP_SRC2[511:0] &gt;&gt; (SRC1[258:256] * 64))[63:0];
+    TMP_DEST[383:320] := (TMP_SRC2[511:0] &gt;&gt; (SRC1[322:320] * 64))[63:0];
+    TMP_DEST[447:384] := (TMP_SRC2[511:0] &gt;&gt; (SRC1[386:384] * 64))[63:0];
+    TMP_DEST[511:448] := (TMP_SRC2[511:0] &gt;&gt; (SRC1[450:448] * 64))[63:0];
 FI;
-FOR j&larr;0 TO KL-1
-    i&larr;j * 64
+FOR j := 0 TO KL-1
+    i := j * 64
     IF k1[j] OR *no writemask*
-        THEN DEST[i+63:i]&larr;TMP_DEST[i+63:i]
+        THEN DEST[i+63:i] := TMP_DEST[i+63:i]
         ELSE
             IF *merging-masking*
                 THEN *DEST[i+63:i] remains unchanged*
                 ELSE
                         ; zeroing-masking
-                    DEST[i+63:i] &larr; 0
+                    DEST[i+63:i] := 0
                             ;zeroing-masking
             FI;
     FI;
 ENDFOR
-DEST[MAXVL-1:VL] &larr; 0
+DEST[MAXVL-1:VL] := 0
 </pre>
 <h4 id="vpermpd--vex-256-encoded-version-">VPERMPD (VEX.256 encoded version)<a class="anchor" href="VPERMPD.html#vpermpd--vex-256-encoded-version-">
 			&para;
 		</a></h4>
-<pre>DEST[63:0]&larr;(SRC[255:0] &gt;&gt; (IMM8[1:0] * 64))[63:0];
-DEST[127:64]&larr;(SRC[255:0] &gt;&gt; (IMM8[3:2] * 64))[63:0];
-DEST[191:128]&larr;(SRC[255:0] &gt;&gt; (IMM8[5:4] * 64))[63:0];
-DEST[255:192]&larr;(SRC[255:0] &gt;&gt; (IMM8[7:6] * 64))[63:0];
-DEST[MAXVL-1:256] &larr; 0
+<pre>DEST[63:0] := (SRC[255:0] &gt;&gt; (IMM8[1:0] * 64))[63:0];
+DEST[127:64] := (SRC[255:0] &gt;&gt; (IMM8[3:2] * 64))[63:0];
+DEST[191:128] := (SRC[255:0] &gt;&gt; (IMM8[5:4] * 64))[63:0];
+DEST[255:192] := (SRC[255:0] &gt;&gt; (IMM8[7:6] * 64))[63:0];
+DEST[MAXVL-1:256] := 0
 </pre>
 <h3 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="VPERMPD.html#intel-c-c++-compiler-intrinsic-equivalent">
 			&para;
@@ -206,14 +206,14 @@ DEST[MAXVL-1:256] &larr; 0
 <h3 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="VPERMPD.html#other-exceptions">
 			&para;
 		</a></h3>
-<p>Non-EVEX-encoded instruction, see Exceptions Type 4; additionally</p>
+<p>Non-EVEX-encoded instruction, see <span class="not-imported">Table 2-21</span>, &ldquo;Type 4 Class Exception Conditions&rdquo;; additionally:</p>
 <table>
 <tbody><tr>
 <td rowspan="2">#UD</td>
 <td>If VEX.L = 0.</td></tr>
 <tr>
 <td>If VEX.vvvv != 1111B.</td></tr></tbody></table>
-<p>EVEX-encoded instruction, see Exceptions Type E4NF.</p>
+<p>EVEX-encoded instruction, see <span class="not-imported">Table 2-50</span>, &ldquo;Type E4NF Class Exception Conditions&rdquo;; additionally:</p>
 <table>
 <tbody><tr>
 <td rowspan="2">#UD</td>
@@ -222,6 +222,6 @@ DEST[MAXVL-1:256] &larr; 0
 <td>If EVEX.vvvv != 1111B and with imm8.</td></tr></tbody></table><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

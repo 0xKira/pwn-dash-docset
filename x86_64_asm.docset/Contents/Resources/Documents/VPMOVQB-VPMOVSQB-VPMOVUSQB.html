@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-622"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/VPMOVQB%2FVPMOVSQB%2FVPMOVUSQB"></a><title>VPMOVQB/VPMOVSQB/VPMOVUSQB</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>VPMOVQB/VPMOVSQB/VPMOVUSQB
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-644"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/VPMOVQB%2FVPMOVSQB%2FVPMOVUSQB"></a><title>VPMOVQB/VPMOVSQB/VPMOVUSQB</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>VPMOVQB/VPMOVSQB/VPMOVUSQB
 		&mdash; Down Convert QWord to Byte</h1>
 
 
@@ -95,31 +95,31 @@
 			&para;
 		</a></h4>
 <pre>(KL, VL) = (2, 128), (4, 256), (8, 512)
-FOR j&larr;0 TO KL-1
-    i&larr;j * 8
-    m&larr;j * 64
+FOR j := 0 TO KL-1
+    i := j * 8
+    m := j * 64
     IF k1[j] OR *no writemask*
-        THEN DEST[i+7:i]&larr;TruncateQuadWordToByte (SRC[m+63:m])
+        THEN DEST[i+7:i] := TruncateQuadWordToByte (SRC[m+63:m])
         ELSE
             IF *merging-masking* ; merging-masking
                 THEN *DEST[i+7:i] remains unchanged*
                 ELSE *zeroing-masking*
                         ; zeroing-masking
-                    DEST[i+7:i] &larr; 0
+                    DEST[i+7:i] := 0
             FI
     FI;
 ENDFOR
-DEST[MAXVL-1:VL/8] &larr; 0;
+DEST[MAXVL-1:VL/8] := 0;
 </pre>
 <h4 id="vpmovqb-instruction--evex-encoded-versions--when-dest-is-memory">VPMOVQB instruction (EVEX encoded versions) when dest is memory<a class="anchor" href="./VPMOVQB:VPMOVSQB:VPMOVUSQB.html#vpmovqb-instruction--evex-encoded-versions--when-dest-is-memory">
 			&para;
 		</a></h4>
 <pre>(KL, VL) = (2, 128), (4, 256), (8, 512)
-FOR j&larr;0 TO KL-1
-    i&larr;j * 8
-    m&larr;j * 64
+FOR j := 0 TO KL-1
+    i := j * 8
+    m := j * 64
     IF k1[j] OR *no writemask*
-        THEN DEST[i+7:i]&larr;TruncateQuadWordToByte (SRC[m+63:m])
+        THEN DEST[i+7:i] := TruncateQuadWordToByte (SRC[m+63:m])
         ELSE
             *DEST[i+7:i] remains unchanged* ; merging-masking
     FI;
@@ -129,31 +129,31 @@ ENDFOR
 			&para;
 		</a></h4>
 <pre>(KL, VL) = (2, 128), (4, 256), (8, 512)
-FOR j&larr;0 TO KL-1
-    i&larr;j * 8
-    m&larr;j * 64
+FOR j := 0 TO KL-1
+    i := j * 8
+    m := j * 64
     IF k1[j] OR *no writemask*
-        THEN DEST[i+7:i]&larr;SaturateSignedQuadWordToByte (SRC[m+63:m])
+        THEN DEST[i+7:i] := SaturateSignedQuadWordToByte (SRC[m+63:m])
         ELSE
             IF *merging-masking* ; merging-masking
                 THEN *DEST[i+7:i] remains unchanged*
                 ELSE *zeroing-masking*
                         ; zeroing-masking
-                    DEST[i+7:i] &larr; 0
+                    DEST[i+7:i] := 0
             FI
     FI;
 ENDFOR
-DEST[MAXVL-1:VL/8] &larr; 0;
+DEST[MAXVL-1:VL/8] := 0;
 </pre>
 <h4 id="vpmovsqb-instruction--evex-encoded-versions--when-dest-is-memory">VPMOVSQB instruction (EVEX encoded versions) when dest is memory<a class="anchor" href="./VPMOVQB:VPMOVSQB:VPMOVUSQB.html#vpmovsqb-instruction--evex-encoded-versions--when-dest-is-memory">
 			&para;
 		</a></h4>
 <pre>(KL, VL) = (2, 128), (4, 256), (8, 512)
-FOR j&larr;0 TO KL-1
-    i&larr;j * 8
-    m&larr;j * 64
+FOR j := 0 TO KL-1
+    i := j * 8
+    m := j * 64
     IF k1[j] OR *no writemask*
-        THEN DEST[i+7:i]&larr;SaturateSignedQuadWordToByte (SRC[m+63:m])
+        THEN DEST[i+7:i] := SaturateSignedQuadWordToByte (SRC[m+63:m])
         ELSE
             *DEST[i+7:i] remains unchanged* ; merging-masking
     FI;
@@ -163,33 +163,34 @@ ENDFOR
 			&para;
 		</a></h4>
 <pre>(KL, VL) = (2, 128), (4, 256), (8, 512)
-FOR j&larr;0 TO KL-1
-    i&larr;j * 8
-    m&larr;j * 64
+FOR j := 0 TO KL-1
+    i := j * 8
+    m := j * 64
     IF k1[j] OR *no writemask*
-        THEN DEST[i+7:i]&larr;SaturateUnsignedQuadWordToByte (SRC[m+63:m])
+        THEN DEST[i+7:i] := SaturateUnsignedQuadWordToByte (SRC[m+63:m])
         ELSE
             IF *merging-masking* ; merging-masking
                 THEN *DEST[i+7:i] remains unchanged*
                 ELSE *zeroing-masking*
                         ; zeroing-masking
-                    DEST[i+7:i] &larr; 0
+                    DEST[i+7:i] := 0
             FI
     FI;
 ENDFOR
-DEST[MAXVL-1:VL/8] &larr; 0;
+DEST[MAXVL-1:VL/8] := 0;
 </pre>
 <h4 id="vpmovusqb-instruction--evex-encoded-versions--when-dest-is-memory">VPMOVUSQB instruction (EVEX encoded versions) when dest is memory<a class="anchor" href="./VPMOVQB:VPMOVSQB:VPMOVUSQB.html#vpmovusqb-instruction--evex-encoded-versions--when-dest-is-memory">
 			&para;
 		</a></h4>
 <pre>(KL, VL) = (2, 128), (4, 256), (8, 512)
-FOR j&larr;0 TO KL-1
-    i&larr;j * 8
-    m&larr;j * 64
+FOR j := 0 TO KL-1
+    i := j * 8
+    m := j * 64
     IF k1[j] OR *no writemask*
-        THEN DEST[i+7:i]&larr;SaturateUnsignedQuadWordToByte (SRC[m+63:m])
+        THEN DEST[i+7:i] := SaturateUnsignedQuadWordToByte (SRC[m+63:m])
         ELSE
-            *DEST[i+7:i] remains unchanged* ; merging-masking
+            *DEST[i+7:i] remains unchanged*
+                ; merging-masking
     FI;
 ENDFOR
 </pre>
@@ -275,13 +276,13 @@ ENDFOR
 <h3 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="./VPMOVQB:VPMOVSQB:VPMOVUSQB.html#other-exceptions">
 			&para;
 		</a></h3>
-<p>EVEX-encoded instruction, see Exceptions Type E6.</p>
+<p>EVEX-encoded instruction, see <span class="not-imported">Table 2-53</span>, &ldquo;Type E6 Class Exception Conditions&rdquo;; additionally:</p>
 <table>
 <tbody><tr>
 <td>#UD</td>
 <td>If EVEX.vvvv != 1111B.</td></tr></tbody></table><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

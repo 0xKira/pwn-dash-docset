@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-617"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/VPMASKMOV"></a><title>VPMASKMOV</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>VPMASKMOV
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-639"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/VPMASKMOV"></a><title>VPMASKMOV</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>VPMASKMOV
 		&mdash; Conditional SIMD Integer Packed Loads and Stores</h1>
 
 <table>
@@ -69,13 +69,13 @@
 <tr>
 <td>RVM</td>
 <td>ModRM:reg (w)</td>
-<td>VEX.vvvv</td>
+<td>VEX.vvvv (r)</td>
 <td>ModRM:r/m (r)</td>
 <td>NA</td></tr>
 <tr>
 <td>MVR</td>
 <td>ModRM:r/m (w)</td>
-<td>VEX.vvvv</td>
+<td>VEX.vvvv (r)</td>
 <td>ModRM:reg (r)</td>
 <td>NA</td></tr></tbody></table>
 <h2 id="description">Description<a class="anchor" href="VPMASKMOV.html#description">
@@ -97,72 +97,72 @@
 <h3 id="vpmaskmovd---256-bit-load">VPMASKMOVD - 256-bit load<a class="anchor" href="VPMASKMOV.html#vpmaskmovd---256-bit-load">
 			&para;
 		</a></h3>
-<pre>DEST[31:0]&larr;IF (SRC1[31]) Load_32(mem) ELSE 0
-DEST[63:32]&larr;IF (SRC1[63]) Load_32(mem + 4) ELSE 0
-DEST[95:64]&larr;IF (SRC1[95]) Load_32(mem + 8) ELSE 0
-DEST[127:96]&larr;IF (SRC1[127]) Load_32(mem + 12) ELSE 0
-DEST[159:128]&larr;IF (SRC1[159]) Load_32(mem + 16) ELSE 0
-DEST[191:160]&larr;IF (SRC1[191]) Load_32(mem + 20) ELSE 0
-DEST[223:192]&larr;IF (SRC1[223]) Load_32(mem + 24) ELSE 0
-DEST[255:224]&larr;IF (SRC1[255]) Load_32(mem + 28) ELSE 0
+<pre>DEST[31:0] := IF (SRC1[31]) Load_32(mem) ELSE 0
+DEST[63:32] := IF (SRC1[63]) Load_32(mem + 4) ELSE 0
+DEST[95:64] := IF (SRC1[95]) Load_32(mem + 8) ELSE 0
+DEST[127:96] := IF (SRC1[127]) Load_32(mem + 12) ELSE 0
+DEST[159:128] := IF (SRC1[159]) Load_32(mem + 16) ELSE 0
+DEST[191:160] := IF (SRC1[191]) Load_32(mem + 20) ELSE 0
+DEST[223:192] := IF (SRC1[223]) Load_32(mem + 24) ELSE 0
+DEST[255:224] := IF (SRC1[255]) Load_32(mem + 28) ELSE 0
 </pre>
 <h3 id="vpmaskmovd--128-bit-load">VPMASKMOVD -128-bit load<a class="anchor" href="VPMASKMOV.html#vpmaskmovd--128-bit-load">
 			&para;
 		</a></h3>
-<pre>DEST[31:0]&larr;IF (SRC1[31]) Load_32(mem) ELSE 0
-DEST[63:32]&larr;IF (SRC1[63]) Load_32(mem + 4) ELSE 0
-DEST[95:64]&larr;IF (SRC1[95]) Load_32(mem + 8) ELSE 0
-DEST[127:97]&larr;IF (SRC1[127]) Load_32(mem + 12) ELSE 0
-DEST[MAXVL-1:128] &larr; 0
+<pre>DEST[31:0] := IF (SRC1[31]) Load_32(mem) ELSE 0
+DEST[63:32] := IF (SRC1[63]) Load_32(mem + 4) ELSE 0
+DEST[95:64] := IF (SRC1[95]) Load_32(mem + 8) ELSE 0
+DEST[127:97] := IF (SRC1[127]) Load_32(mem + 12) ELSE 0
+DEST[MAXVL-1:128] := 0
 </pre>
 <h3 id="vpmaskmovq---256-bit-load">VPMASKMOVQ - 256-bit load<a class="anchor" href="VPMASKMOV.html#vpmaskmovq---256-bit-load">
 			&para;
 		</a></h3>
-<pre>DEST[63:0]&larr;IF (SRC1[63]) Load_64(mem) ELSE 0
-DEST[127:64]&larr;IF (SRC1[127]) Load_64(mem + 8) ELSE 0
-DEST[195:128]&larr;IF (SRC1[191]) Load_64(mem + 16) ELSE 0
-DEST[255:196]&larr;IF (SRC1[255]) Load_64(mem + 24) ELSE 0
+<pre>DEST[63:0] := IF (SRC1[63]) Load_64(mem) ELSE 0
+DEST[127:64] := IF (SRC1[127]) Load_64(mem + 8) ELSE 0
+DEST[195:128] := IF (SRC1[191]) Load_64(mem + 16) ELSE 0
+DEST[255:196] := IF (SRC1[255]) Load_64(mem + 24) ELSE 0
 </pre>
 <h3 id="vpmaskmovq---128-bit-load">VPMASKMOVQ - 128-bit load<a class="anchor" href="VPMASKMOV.html#vpmaskmovq---128-bit-load">
 			&para;
 		</a></h3>
-<pre>DEST[63:0]&larr;IF (SRC1[63]) Load_64(mem) ELSE 0
-DEST[127:64]&larr;IF (SRC1[127]) Load_64(mem + 16) ELSE 0
-DEST[MAXVL-1:128] &larr; 0
+<pre>DEST[63:0] := IF (SRC1[63]) Load_64(mem) ELSE 0
+DEST[127:64] := IF (SRC1[127]) Load_64(mem + 16) ELSE 0
+DEST[MAXVL-1:128] := 0
 </pre>
 <h3 id="vpmaskmovd---256-bit-store">VPMASKMOVD - 256-bit store<a class="anchor" href="VPMASKMOV.html#vpmaskmovd---256-bit-store">
 			&para;
 		</a></h3>
-<pre>IF (SRC1[31]) DEST[31:0]&larr;SRC2[31:0]
-IF (SRC1[63]) DEST[63:32]&larr;SRC2[63:32]
-IF (SRC1[95]) DEST[95:64]&larr;SRC2[95:64]
-IF (SRC1[127]) DEST[127:96]&larr;SRC2[127:96]
-IF (SRC1[159]) DEST[159:128]&larr;SRC2[159:128]
-IF (SRC1[191]) DEST[191:160]&larr;SRC2[191:160]
-IF (SRC1[223]) DEST[223:192]&larr;SRC2[223:192]
-IF (SRC1[255]) DEST[255:224]&larr;SRC2[255:224]
+<pre>IF (SRC1[31]) DEST[31:0] := SRC2[31:0]
+IF (SRC1[63]) DEST[63:32] := SRC2[63:32]
+IF (SRC1[95]) DEST[95:64] := SRC2[95:64]
+IF (SRC1[127]) DEST[127:96] := SRC2[127:96]
+IF (SRC1[159]) DEST[159:128] :=SRC2[159:128]
+IF (SRC1[191]) DEST[191:160] := SRC2[191:160]
+IF (SRC1[223]) DEST[223:192] := SRC2[223:192]
+IF (SRC1[255]) DEST[255:224] := SRC2[255:224]
 </pre>
 <h3 id="vpmaskmovd---128-bit-store">VPMASKMOVD - 128-bit store<a class="anchor" href="VPMASKMOV.html#vpmaskmovd---128-bit-store">
 			&para;
 		</a></h3>
-<pre>IF (SRC1[31]) DEST[31:0]&larr;SRC2[31:0]
-IF (SRC1[63]) DEST[63:32]&larr;SRC2[63:32]
-IF (SRC1[95]) DEST[95:64]&larr;SRC2[95:64]
-IF (SRC1[127]) DEST[127:96]&larr;SRC2[127:96]
+<pre>IF (SRC1[31]) DEST[31:0] := SRC2[31:0]
+IF (SRC1[63]) DEST[63:32] := SRC2[63:32]
+IF (SRC1[95]) DEST[95:64] := SRC2[95:64]
+IF (SRC1[127]) DEST[127:96] := SRC2[127:96]
 </pre>
 <h3 id="vpmaskmovq---256-bit-store">VPMASKMOVQ - 256-bit store<a class="anchor" href="VPMASKMOV.html#vpmaskmovq---256-bit-store">
 			&para;
 		</a></h3>
-<pre>IF (SRC1[63]) DEST[63:0]&larr;SRC2[63:0]
-IF (SRC1[127]) DEST[127:64]&larr;SRC2[127:64]
-IF (SRC1[191]) DEST[191:128]&larr;SRC2[191:128]
-IF (SRC1[255]) DEST[255:192]&larr;SRC2[255:192]
+<pre>IF (SRC1[63]) DEST[63:0] := SRC2[63:0]
+IF (SRC1[127]) DEST[127:64] :=SRC2[127:64]
+IF (SRC1[191]) DEST[191:128] := SRC2[191:128]
+IF (SRC1[255]) DEST[255:192] := SRC2[255:192]
 </pre>
 <h3 id="vpmaskmovq---128-bit-store">VPMASKMOVQ - 128-bit store<a class="anchor" href="VPMASKMOV.html#vpmaskmovq---128-bit-store">
 			&para;
 		</a></h3>
-<pre>IF (SRC1[63]) DEST[63:0]&larr;SRC2[63:0]
-IF (SRC1[127]) DEST[127:64]&larr;SRC2[127:64]
+<pre>IF (SRC1[63]) DEST[63:0] := SRC2[63:0]
+IF (SRC1[127]) DEST[127:64] :=SRC2[127:64]
 </pre>
 <h2 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="VPMASKMOV.html#intel-c-c++-compiler-intrinsic-equivalent">
 			&para;
@@ -190,9 +190,9 @@ IF (SRC1[127]) DEST[127:64]&larr;SRC2[127:64]
 <h2 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="VPMASKMOV.html#other-exceptions">
 			&para;
 		</a></h2>
-<p>See Exceptions Type 6 (No AC# reported for any mask bit combinations).</p><footer><p>
+<p>See <span class="not-imported">Table 2-23</span>, &ldquo;Type 6 Class Exception Conditions&rdquo; (No AC# reported for any mask bit combinations).</p><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>
