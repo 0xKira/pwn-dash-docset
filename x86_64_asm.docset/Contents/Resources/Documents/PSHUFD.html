@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-381"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/PSHUFD"></a><title>PSHUFD</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>PSHUFD
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-391"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/PSHUFD"></a><title>PSHUFD</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>PSHUFD
 		&mdash; Shuffle Packed Doublewords</h1>
 
 <table>
@@ -75,7 +75,7 @@
 <p>Copies doublewords from source operand (second operand) and inserts them in the destination operand (first operand) at the locations selected with the order operand (third operand). <span class="not-imported">Figure 4-16</span> shows the operation of the 256-bit VPSHUFD instruction and the encoding of the order operand. Each 2-bit field in the order operand selects the contents of one doubleword location within a 128-bit lane and copy to the target element in the destination operand. For example, bits 0 and 1 of the order operand targets the first doubleword element in the low and high 128-bit lane of the destination operand for 256-bit VPSHUFD. The encoded value of bits 1:0 of the order operand (see the field encoding in <span class="not-imported">Figure 4-16</span>) determines which doubleword element (from the respective 128-bit lane) of the source operand will be copied to doubleword 0 of the destination operand.</p>
 <p>For 128-bit operation, only the low 128-bit lane are operative. The source operand can be an XMM register or a 128-bit memory location. The destination operand is an XMM register. The order operand is an 8-bit immediate. Note that this instruction permits a doubleword in the source operand to be copied to more than one doubleword location in the destination operand.</p>
 <svg style="width: 380.66318292pt; height: 134.13599999999997pt" viewBox="157.04069090000002 0.0 322.2193191 116.77999999999997">
-<g xmlns="http://www.w3.org/2000/svg" style="stroke: none; fill: none">
+<g xmlns="http://www.w3.org/2000/svg" style="fill: none; stroke: none">
 <rect height="0.47998" style="fill: rgb(0%, 0%, 0%)" width="36.6" x="184.86" y="2.0000000063191692e-05"></rect>
 <rect height="18.240000000000002" style="fill: rgb(0%, 0%, 0%)" width="0.48001000000000005" x="220.98000000000002" y="0.2400000000000091"></rect>
 <rect height="0.47998" style="fill: rgb(0%, 0%, 0%)" width="36.6" x="184.62" y="18.000020000000063"></rect>
@@ -278,35 +278,23 @@
 <path d="M 294.18 50.27999999999997 L 294.42 50.33999999999992 L 294.24 50.819999999999936 L 294.0 50.75999999999999" style="fill: rgb(0%, 0%, 0%); fill-rule: nonzero"></path>
 <path d="M 205.56 19.559999999999945 L 205.38 20.039999999999964 L 294.0 50.75999999999999 L 294.18 50.27999999999997" style="fill: rgb(0%, 0%, 0%); fill-rule: nonzero"></path>
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="16.86740279999998" x="163.9804905" y="13.206303500000104">SRC</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="9.783381300000002" x="196.38" y="13.386101000000053">X7</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="9.783381300000002" x="231.89919590000002" y="13.386101000000053">X6</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="9.783381299999974" x="268.91830250000004" y="13.386101000000053">X5</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="9.722649699999977" x="305.3972175" y="13.386101000000053">X4</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="9.783381299999974" x="348.12" y="15.186101000000008">X3</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="9.722649699999977" x="383.69912839999995" y="15.186101000000008">X2</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="9.722649699999977" x="420.71743589999994" y="15.186101000000008">X1</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="9.783381299999974" x="457.1356192999999" y="15.186101000000008">X0</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="118.73986719999999" x="196.38" y="13.386101000000053">X7 X6 X5 X4</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="118.79900059999989" x="348.12" y="15.186101000000008">X3 X2 X1 X0</text>
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="21.32638079999998" x="159.54069090000002" y="66.36643100000015">DEST</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="9.783381300000002" x="199.56" y="67.566101">Y7</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="9.783381300000002" x="235.07919590000003" y="67.566101">Y6</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="9.783381299999974" x="272.09830250000005" y="67.566101">Y5</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="9.723448799999971" x="308.5772175" y="67.566101">Y4</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="9.722649699999977" x="347.94" y="67.74610099999995">Y3</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="9.783381299999974" x="383.51832929999995" y="67.74610099999995">Y2</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="9.783381299999974" x="420.53743589999993" y="67.74610099999995">Y1</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="9.783381299999974" x="456.9564183999999" y="67.74610099999995">Y0</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="31.148918000000066" x="219.1204879" y="93.36604950000003">00B - X4</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="118.74066629999999" x="199.56" y="67.566101">Y7 Y6 Y5 Y4</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="118.79979969999988" x="347.94" y="67.74610099999995">Y3 Y2 Y1 Y0</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="31.137730600000026" x="219.1204879" y="93.36604950000003">00B - X4</text>
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="33.29769790000006" x="176.5803994" y="93.60737769999992">Encoding</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="31.143324300000018" x="424.7392698" y="98.58589430000006">00B - X0</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="31.1481189000001" x="424.7392698" y="98.58589430000006">00B - X0</text>
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="33.348041200000125" x="382.19918129999996" y="98.76569180000001">Encoding</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="31.148918000000066" x="219.1204879" y="102.3063803">01B - X5</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="38.638083199999926" x="171.2400141" y="102.48697689999995">of Fields in</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="31.137730600000026" x="219.1204879" y="102.3063803">01B - X5</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="38.6244984999999" x="171.2400141" y="102.48697689999995">of Fields in</text>
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="28.86828660000009" x="262.14" y="106.92610100000002">ORDER</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="31.143324300000018" x="424.7392698" y="107.52542600000004">01B - X1</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="38.650069699999904" x="376.8595951" y="107.70602259999998">of Fields in</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="31.148918000000066" x="219.1204879" y="111.24671109999997">10B - X6</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="31.1481189000001" x="424.7392698" y="107.52542600000004">01B - X1</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="38.658060699999794" x="376.8595951" y="107.70602259999998">of Fields in</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="31.137730600000026" x="219.1204879" y="111.24671109999997">10B - X6</text>
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="28.868286599999976" x="181.0801315" y="111.42730769999991">ORDER</text></g></svg>
-<p>10B - X2 ORDER Operand 11B-X7 7 6 5 4 3 2 1 0 Operand 11B-X3</p>
+<p>10B - X2 ORDER 11B - X7 7 6 5 4 3 2 1 0 Operand 11B - X3 Operand</p>
 <figcaption><span class="not-imported">Figure 4-16</span>. 256-bit VPSHUFD Instruction Operation</figcaption>
 <p>The source operand can be an XMM register or a 128-bit memory location. The destination operand is an XMM register. The order operand is an 8-bit immediate. Note that this instruction permits a doubleword in the source operand to be copied to more than one doubleword location in the destination operand.</p>
 <p>In 64-bit mode and not encoded in VEX/EVEX, using REX.R permits this instruction to access XMM8-XMM15.</p>
@@ -322,82 +310,94 @@
 <h3 id="pshufd--128-bit-legacy-sse-version-">PSHUFD (128-bit Legacy SSE version)<a class="anchor" href="PSHUFD.html#pshufd--128-bit-legacy-sse-version-">
 			&para;
 		</a></h3>
-<pre>DEST[31:0]&larr;(SRC &gt;&gt; (ORDER[1:0] * 32))[31:0];
-DEST[63:32]&larr;(SRC &gt;&gt; (ORDER[3:2] * 32))[31:0];
-DEST[95:64]&larr;(SRC &gt;&gt; (ORDER[5:4] * 32))[31:0];
-DEST[127:96]&larr;(SRC &gt;&gt; (ORDER[7:6] * 32))[31:0];
+<pre>DEST[31:0] := (SRC &gt;&gt; (ORDER[1:0] * 32))[31:0];
+DEST[63:32] := (SRC &gt;&gt; (ORDER[3:2] * 32))[31:0];
+DEST[95:64] := (SRC &gt;&gt; (ORDER[5:4] * 32))[31:0];
+DEST[127:96] := (SRC &gt;&gt; (ORDER[7:6] * 32))[31:0];
 DEST[MAXVL-1:128] (Unmodified)
 </pre>
 <h3 id="vpshufd--vex-128-encoded-version-">VPSHUFD (VEX.128 encoded version)<a class="anchor" href="PSHUFD.html#vpshufd--vex-128-encoded-version-">
 			&para;
 		</a></h3>
-<pre>DEST[31:0]&larr;(SRC &gt;&gt; (ORDER[1:0] * 32))[31:0];
-DEST[63:32]&larr;(SRC &gt;&gt; (ORDER[3:2] * 32))[31:0];
-DEST[95:64]&larr;(SRC &gt;&gt; (ORDER[5:4] * 32))[31:0];
-DEST[127:96]&larr;(SRC &gt;&gt; (ORDER[7:6] * 32))[31:0];
-DEST[MAXVL-1:128] &larr; 0
+<pre>DEST[31:0] := (SRC &gt;&gt; (ORDER[1:0] * 32))[31:0];
+DEST[63:32] := (SRC &gt;&gt; (ORDER[3:2] * 32))[31:0];
+DEST[95:64] := (SRC &gt;&gt; (ORDER[5:4] * 32))[31:0];
+DEST[127:96] := (SRC &gt;&gt; (ORDER[7:6] * 32))[31:0];
+DEST[MAXVL-1:128] := 0
 </pre>
 <h3 id="vpshufd--vex-256-encoded-version-">VPSHUFD (VEX.256 encoded version)<a class="anchor" href="PSHUFD.html#vpshufd--vex-256-encoded-version-">
 			&para;
 		</a></h3>
-<pre>DEST[31:0]&larr;(SRC[127:0] &gt;&gt; (ORDER[1:0] * 32))[31:0];
-DEST[63:32]&larr;(SRC[127:0] &gt;&gt; (ORDER[3:2] * 32))[31:0];
-DEST[95:64]&larr;(SRC[127:0] &gt;&gt; (ORDER[5:4] * 32))[31:0];
-DEST[127:96]&larr;(SRC[127:0] &gt;&gt; (ORDER[7:6] * 32))[31:0];
-DEST[159:128]&larr;(SRC[255:128] &gt;&gt; (ORDER[1:0] * 32))[31:0];
-DEST[191:160]&larr;(SRC[255:128] &gt;&gt; (ORDER[3:2] * 32))[31:0];
-DEST[223:192]&larr;(SRC[255:128] &gt;&gt; (ORDER[5:4] * 32))[31:0];
-DEST[255:224]&larr;(SRC[255:128] &gt;&gt; (ORDER[7:6] * 32))[31:0];
-DEST[MAXVL-1:256] &larr; 0
+<pre>DEST[31:0] := (SRC[127:0] &gt;&gt; (ORDER[1:0] * 32))[31:0];
+DEST[63:32] := (SRC[127:0] &gt;&gt; (ORDER[3:2] * 32))[31:0];
+DEST[95:64] := (SRC[127:0] &gt;&gt; (ORDER[5:4] * 32))[31:0];
+DEST[127:96] := (SRC[127:0] &gt;&gt; (ORDER[7:6] * 32))[31:0];
+DEST[159:128] := (SRC[255:128] &gt;&gt; (ORDER[1:0] * 32))[31:0];
+DEST[191:160] := (SRC[255:128] &gt;&gt; (ORDER[3:2] * 32))[31:0];
+DEST[223:192] := (SRC[255:128] &gt;&gt; (ORDER[5:4] * 32))[31:0];
+DEST[255:224] := (SRC[255:128] &gt;&gt; (ORDER[7:6] * 32))[31:0];
+DEST[MAXVL-1:256] := 0
 </pre>
 <h3 id="vpshufd--evex-encoded-versions-">VPSHUFD (EVEX encoded versions)<a class="anchor" href="PSHUFD.html#vpshufd--evex-encoded-versions-">
 			&para;
 		</a></h3>
 <pre>(KL, VL) = (4, 128), (8, 256), (16, 512)
-FOR j&larr;0 TO KL-1
-    i&larr;j * 32
+FOR j := 0 TO KL-1
+    i := j * 32
     IF (EVEX.b = 1) AND (SRC *is memory*)
-        THEN TMP_SRC[i+31:i]&larr;SRC[31:0]
-        ELSE TMP_SRC[i+31:i]&larr;SRC[i+31:i]
+        THEN TMP_SRC[i+31:i] := SRC[31:0]
+        ELSE TMP_SRC[i+31:i] := SRC[i+31:i]
     FI;
 ENDFOR;
 IF VL &gt;= 128
-    TMP_DEST[31:0]&larr;(TMP_SRC[127:0] &gt;&gt; (ORDER[1:0] * 32))[31:0];
-    TMP_DEST[63:32]&larr;(TMP_SRC[127:0] &gt;&gt; (ORDER[3:2] * 32))[31:0];
-    TMP_DEST[95:64]&larr;(TMP_SRC[127:0] &gt;&gt; (ORDER[5:4] * 32))[31:0];
-    TMP_DEST[127:96]&larr;(TMP_SRC[127:0] &gt;&gt; (ORDER[7:6] * 32))[31:0];
+    TMP_DEST[31:0] := (TMP_SRC[127:0] &gt;&gt; (ORDER[1:0] * 32))[31:0];
+    TMP_DEST[63:32] := (TMP_SRC[127:0] &gt;&gt; (ORDER[3:2] * 32))[31:0];
+    TMP_DEST[95:64] := (TMP_SRC[127:0] &gt;&gt; (ORDER[5:4] * 32))[31:0];
+    TMP_DEST[127:96] := (TMP_SRC[127:0] &gt;&gt; (ORDER[7:6] * 32))[31:0];
 FI;
 IF VL &gt;= 256
-    TMP_DEST[159:128]&larr;(TMP_SRC[255:128] &gt;&gt; (ORDER[1:0] * 32))[31:0];
-    TMP_DEST[191:160]&larr;(TMP_SRC[255:128] &gt;&gt; (ORDER[3:2] * 32))[31:0];
-    TMP_DEST[223:192]&larr;(TMP_SRC[255:128] &gt;&gt; (ORDER[5:4] * 32))[31:0];
-    TMP_DEST[255:224]&larr;(TMP_SRC[255:128] &gt;&gt; (ORDER[7:6] * 32))[31:0];
+    TMP_DEST[159:128] := (TMP_SRC[255:128]
+                        &gt;&gt; (ORDER[1:0] * 32))[31:0];
+    TMP_DEST[191:160] := (TMP_SRC[255:128]
+                        &gt;&gt; (ORDER[3:2] * 32))[31:0];
+    TMP_DEST[223:192] := (TMP_SRC[255:128]
+                        &gt;&gt; (ORDER[5:4] * 32))[31:0];
+    TMP_DEST[255:224] := (TMP_SRC[255:128]
+                        &gt;&gt; (ORDER[7:6] * 32))[31:0];
 FI;
 IF VL &gt;= 512
-    TMP_DEST[287:256]&larr;(TMP_SRC[383:256] &gt;&gt; (ORDER[1:0] * 32))[31:0];
-    TMP_DEST[319:288]&larr;(TMP_SRC[383:256] &gt;&gt; (ORDER[3:2] * 32))[31:0];
-    TMP_DEST[351:320]&larr;(TMP_SRC[383:256] &gt;&gt; (ORDER[5:4] * 32))[31:0];
-    TMP_DEST[383:352]&larr;(TMP_SRC[383:256] &gt;&gt; (ORDER[7:6] * 32))[31:0];
-    TMP_DEST[415:384]&larr;(TMP_SRC[511:384] &gt;&gt; (ORDER[1:0] * 32))[31:0];
-    TMP_DEST[447:416]&larr;(TMP_SRC[511:384] &gt;&gt; (ORDER[3:2] * 32))[31:0];
-    TMP_DEST[479:448]&larr;(TMP_SRC[511:384] &gt;&gt; (ORDER[5:4] * 32))[31:0];
-    TMP_DEST[511:480]&larr;(TMP_SRC[511:384] &gt;&gt; (ORDER[7:6] * 32))[31:0];
+    TMP_DEST[287:256] := (TMP_SRC[383:256]
+                        &gt;&gt; (ORDER[1:0] * 32))[31:0];
+    TMP_DEST[319:288] := (TMP_SRC[383:256]
+                        &gt;&gt; (ORDER[3:2] * 32))[31:0];
+    TMP_DEST[351:320] := (TMP_SRC[383:256]
+                        &gt;&gt; (ORDER[5:4] * 32))[31:0];
+    TMP_DEST[383:352] := (TMP_SRC[383:256]
+                        &gt;&gt; (ORDER[7:6] * 32))[31:0];
+    TMP_DEST[415:384] := (TMP_SRC[511:384]
+                        &gt;&gt; (ORDER[1:0] * 32))[31:0];
+    TMP_DEST[447:416] := (TMP_SRC[511:384]
+                        &gt;&gt; (ORDER[3:2] * 32))[31:0];
+    TMP_DEST[479:448] := (TMP_SRC[511:384]
+                        &gt;&gt; (ORDER[5:4] * 32))[31:0];
+    TMP_DEST[511:480] := (TMP_SRC[511:384]
+                        &gt;&gt; (ORDER[7:6] * 32))[31:0];
 FI;
-FOR j&larr;0 TO KL-1
-    i&larr;j * 32
+FOR j := 0 TO KL-1
+    i := j * 32
     IF k1[j] OR *no writemask*
-        THEN DEST[i+31:i]&larr;TMP_DEST[i+31:i]
+        THEN DEST[i+31:i] := TMP_DEST[i+31:i]
         ELSE
             IF *merging-masking*
-                        ; merging-masking
+                            ; merging-masking
                 THEN *DEST[i+31:i] remains unchanged*
                 ELSE *zeroing-masking*
-                            ; zeroing-masking
-                    DEST[i+31:i] &larr; 0
+                                ; zeroing-masking
+                    DEST[i+31:i] := 0
             FI
     FI;
 ENDFOR
-DEST[MAXVL-1:VL] &larr; 0
+DEST[MAXVL-1:VL] := 0
 </pre>
 <h2 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="PSHUFD.html#intel-c-c++-compiler-intrinsic-equivalent">
 			&para;
@@ -431,14 +431,15 @@ DEST[MAXVL-1:VL] &larr; 0
 <h2 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="PSHUFD.html#other-exceptions">
 			&para;
 		</a></h2>
-<p>Non-EVEX-encoded instruction, see Exceptions Type 4.</p>
-<p>EVEX-encoded instruction, see Exceptions Type E4NF.</p>
+<p>Non-EVEX-encoded instruction, see <span class="not-imported">Table 2-21</span>, &ldquo;Type 4 Class Exception Conditions&rdquo;.</p>
+<p>EVEX-encoded instruction, see <span class="not-imported">Table 2-50</span>, &ldquo;Type E4NF Class Exception Conditions&rdquo;.</p>
+<p>Additionally:</p>
 <table>
 <tbody><tr>
 <td>#UD</td>
 <td>If VEX.vvvv ≠ 1111B or EVEX.vvvv ≠ 1111B.</td></tr></tbody></table><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

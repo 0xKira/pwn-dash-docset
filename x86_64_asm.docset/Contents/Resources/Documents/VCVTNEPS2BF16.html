@@ -1,0 +1,124 @@
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-503"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/VCVTNEPS2BF16"></a><title>VCVTNEPS2BF16</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>VCVTNEPS2BF16
+		&mdash; Convert Packed Single Data to Packed BF16 Data</h1>
+
+<table>
+<tbody><tr>
+<th>Opcode/Instruction</th>
+<th>Op/En</th>
+<th>64/32 bit Mode Support</th>
+<th>CPUID Feature Flag</th>
+<th>Description</th></tr>
+<tr>
+<td>EVEX.128.F3.0F38.W0 72 /r VCVTNEPS2BF16 xmm1{k1}{z}, xmm2/m128/m32bcst</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX512VL AVX512_BF16</td>
+<td>Convert packed single data from xmm2/m128 to packed BF16 data in xmm1 with writemask k1.</td></tr>
+<tr>
+<td>EVEX.256.F3.0F38.W0 72 /r VCVTNEPS2BF16 xmm1{k1}{z}, ymm2/m256/m32bcst</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX512VL AVX512_BF16</td>
+<td>Convert packed single data from ymm2/m256 to packed BF16 data in xmm1 with writemask k1.</td></tr>
+<tr>
+<td>EVEX.512.F3.0F38.W0 72 /r VCVTNEPS2BF16 ymm1{k1}{z}, zmm2/m512/m32bcst</td>
+<td>A</td>
+<td>V/V</td>
+<td>AVX512F AVX512_BF16</td>
+<td>Convert packed single data from zmm2/m512 to packed BF16 data in ymm1 with writemask k1.</td></tr></tbody></table>
+<h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="VCVTNEPS2BF16.html#instruction-operand-encoding">
+			&para;
+		</a></h2>
+<table>
+<tbody><tr>
+<th>Op/En</th>
+<th>Tuple</th>
+<th>Operand 1</th>
+<th>Operand 2</th>
+<th>Operand 3</th>
+<th>Operand 4</th></tr>
+<tr>
+<td>A</td>
+<td>Full</td>
+<td>ModRM:reg (w)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td>
+<td>NA</td></tr></tbody></table>
+<h3 id="description">Description<a class="anchor" href="VCVTNEPS2BF16.html#description">
+			&para;
+		</a></h3>
+<p>Converts one SIMD register of packed single data into a single register of packed BF16 data.</p>
+<p>This instruction uses &ldquo;Round to nearest (even)&rdquo; rounding mode. Output denormals are always flushed to zero and input denormals are always treated as zero. MXCSR is not consulted nor updated.</p>
+<p>As the instruction operand encoding table shows, the EVEX.vvvv field is not used for encoding an operand. EVEX.vvvv is reserved and must be 0b1111 otherwise instructions will #UD.</p>
+<h3 id="operation">Operation<a class="anchor" href="VCVTNEPS2BF16.html#operation">
+			&para;
+		</a></h3>
+<pre>Define convert_fp32_to_bfloat16(x):
+    IF x is zero or denormal:
+        dest[15] := x[31] // sign preserving zero (denormal go to zero)
+        dest[14:0] := 0
+    ELSE IF x is infinity:
+        dest[15:0] := x[31:16]
+    ELSE IF x is NAN:
+        dest[15:0] := x[31:16] // truncate and set MSB of the mantissa to force QNAN
+        dest[6] := 1
+    ELSE // normal number
+        LSB := x[16]
+        rounding_bias := 0x00007FFF + LSB
+        temp[31:0] := x[31:0] + rounding_bias // integer add
+        dest[15:0] := temp[31:16]
+    RETURN dest
+</pre>
+<h4 id="vcvtneps2bf16-dest--src">VCVTNEPS2BF16 dest, src<a class="anchor" href="VCVTNEPS2BF16.html#vcvtneps2bf16-dest--src">
+			&para;
+		</a></h4>
+<pre>VL = (128, 256, 512)
+KL = VL/16
+origdest := dest
+FOR i := 0 to KL/2-1:
+    IF k1[ i ] or *no writemask*:
+        IF src is memory and evex.b == 1:
+            t := src.fp32[0]
+        ELSE:
+            t := src.fp32[ i ]
+        dest.word[i] := convert_fp32_to_bfloat16(t)
+    ELSE IF *zeroing*:
+        dest.word[ i ] := 0
+    ELSE: // Merge masking, dest element unchanged
+        dest.word[ i ] := origdest.word[ i ]
+DEST[MAXVL-1:VL/2] := 0
+</pre>
+<h3 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="VCVTNEPS2BF16.html#intel-c-c++-compiler-intrinsic-equivalent">
+			&para;
+		</a></h3>
+<pre>VCVTNEPS2BF16 __m128bh _mm_cvtneps_pbh (__m128);
+</pre>
+<pre>VCVTNEPS2BF16 __m128bh _mm_mask_cvtneps_pbh (__m128bh, __mmask8, __m128);
+</pre>
+<pre>VCVTNEPS2BF16 __m128bh _mm_maskz_cvtneps_pbh (__mmask8, __m128);
+</pre>
+<pre>VCVTNEPS2BF16 __m128bh _mm256_cvtneps_pbh (__m256);
+</pre>
+<pre>VCVTNEPS2BF16 __m128bh _mm256_mask_cvtneps_pbh (__m128bh, __mmask8, __m256);
+</pre>
+<pre>VCVTNEPS2BF16 __m128bh _mm256_maskz_cvtneps_pbh (__mmask8, __m256);
+</pre>
+<pre>VCVTNEPS2BF16 __m256bh _mm512_cvtneps_pbh (__m512);
+</pre>
+<pre>VCVTNEPS2BF16 __m256bh _mm512_mask_cvtneps_pbh (__m256bh, __mmask16, __m512);
+</pre>
+<pre>VCVTNEPS2BF16 __m256bh _mm512_maskz_cvtneps_pbh (__mmask16, __m512);
+</pre>
+<h3 class="exceptions" id="simd-floating-point-exceptions">SIMD Floating-Point Exceptions<a class="anchor" href="VCVTNEPS2BF16.html#simd-floating-point-exceptions">
+			&para;
+		</a></h3>
+<p>None.</p>
+<h3 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="VCVTNEPS2BF16.html#other-exceptions">
+			&para;
+		</a></h3>
+<p>See <span class="not-imported">Table 2-49</span>, &ldquo;Type E4 Class Exception Conditions&rdquo;.</p><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+	</p></footer>
+</body></html>

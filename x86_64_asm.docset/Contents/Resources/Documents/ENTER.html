@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-132"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/ENTER"></a><title>ENTER</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>ENTER
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-142"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/ENTER"></a><title>ENTER</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>ENTER
 		&mdash; Make Stack Frame for Procedure Parameters</h1>
 
 <table>
@@ -62,47 +62,51 @@
 <h2 id="operation">Operation<a class="anchor" href="ENTER.html#operation">
 			&para;
 		</a></h2>
-<pre>AllocSize &larr; imm16;
-NestingLevel &larr; imm8 MOD 32;
+<pre>AllocSize := imm16;
+NestingLevel := imm8 MOD 32;
 IF (OperandSize = 64)
     THEN
         Push(RBP); (* RSP decrements by 8 *)
-        FrameTemp &larr; RSP;
+        FrameTemp := RSP;
     ELSE IF OperandSize = 32
         THEN
             Push(EBP); (* (E)SP decrements by 4 *)
-            FrameTemp &larr; ESP; FI;
+            FrameTemp := ESP; FI;
     ELSE (* OperandSize = 16 *)
             Push(BP); (* RSP or (E)SP decrements by 2 *)
-            FrameTemp &larr; SP;
+            FrameTemp := SP;
 FI;
 IF NestingLevel = 0
     THEN GOTO CONTINUE;
 FI;
 IF (NestingLevel &gt; 1)
-    THEN FOR i &larr; 1 to (NestingLevel - 1)
+    THEN FOR i := 1 to (NestingLevel - 1)
         DO
             IF (OperandSize = 64)
                 THEN
-                    RBP &larr; RBP - 8;
+                    RBP := RBP - 8;
                     Push([RBP]); (* Quadword push *)
                 ELSE IF OperandSize = 32
                     THEN
                         IF StackSize = 32
-                            EBP &larr; EBP - 4;
+                            EBP := EBP - 4;
                             Push([EBP]); (* Doubleword push *)
                         ELSE (* StackSize = 16 *)
-                            BP &larr; BP - 4;
+                            BP := BP - 4;
                             Push([BP]); (* Doubleword push *)
                         FI;
                     FI;
                 ELSE (* OperandSize = 16 *)
-                    IF StackSize = 32
+                    IF StackSize = 64
                         THEN
-                            EBP &larr; EBP - 2;
+                            RBP := RBP - 2;
+                            Push([RBP]); (* Word push *)
+                    ELSE IF StackSize = 32
+                        THEN
+                            EBP := EBP - 2;
                             Push([EBP]); (* Word push *)
                         ELSE (* StackSize = 16 *)
-                            BP &larr; BP - 2;
+                            BP := BP - 2;
                             Push([BP]); (* Word push *)
                     FI;
                 FI;
@@ -120,15 +124,15 @@ FI;
 CONTINUE:
 IF 64-Bit Mode (StackSize = 64)
     THEN
-            RBP &larr; FrameTemp;
-            RSP &larr; RSP &minus; AllocSize;
+            RBP := FrameTemp;
+            RSP := RSP &minus; AllocSize;
     ELSE IF OperandSize = 32
         THEN
-            EBP &larr; FrameTemp;
-            ESP &larr; ESP &minus; AllocSize; FI;
+            EBP := FrameTemp;
+            ESP := ESP &minus; AllocSize; FI;
     ELSE (* OperandSize = 16 *)
-            BP &larr; FrameTemp[15:1]; (* Bits 16 and above of applicable RBP/EBP are unmodified *)
-            SP &larr; SP &minus; AllocSize;
+            BP := FrameTemp[15:1]; (* Bits 16 and above of applicable RBP/EBP are unmodified *)
+            SP := SP &minus; AllocSize;
 FI;
 END;
 </pre>
@@ -191,6 +195,6 @@ END;
 <td>If the LOCK prefix is used.</td></tr></tbody></table><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-142"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/EWB"></a><title>EWB</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>EWB
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-150"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/EWB"></a><title>EWB</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>EWB
 		&mdash; Invalidate an EPC Page and Write out to Main Memory</h1>
 
 <table>
@@ -19,7 +19,7 @@
 		</a></h2>
 <table>
 <tbody><tr>
-<td>Op/En</td>
+<td>Op/En  </td>
 <td colspan="2">EAX</td>
 <td>RBX</td>
 <td>RCX</td>
@@ -53,10 +53,10 @@
 <td>EPC R/W access</td>
 <td>EPC R/W access</td></tr></tbody></table>
 <p>The error codes are:</p>
-<figure id="tbl-40-51">
+<figure id="tbl-37-51">
 <table>
 <tbody><tr>
-<th>Error Code (see <span class="not-imported">Table 40-4</span>)</th>
+<th>Error Code (see <span class="not-imported">Table 37-4</span>)</th>
 <th>Description</th></tr>
 <tr>
 <td>No Error</td>
@@ -73,11 +73,11 @@
 <tr>
 <td>SGX_CHILD_PRESENT</td>
 <td>Child page present while attempting to page out enclave.</td></tr></tbody></table>
-<figcaption><span class="not-imported">Table 40-51</span>. EWB Return Value in RAX</figcaption></figure>
+<figcaption><span class="not-imported">Table 37-51</span>. EWB Return Value in RAX</figcaption></figure>
 <h3 id="concurrency-restrictions">Concurrency Restrictions<a class="anchor" href="EWB.html#concurrency-restrictions">
 			&para;
 		</a></h3>
-<figure id="tbl-40-52">
+<figure id="tbl-37-52">
 <table>
 <tbody><tr>
 <th rowspan="2">Leaf</th>
@@ -98,8 +98,8 @@
 <td>Shared</td>
 <td>#GP</td>
 <td></td></tr></tbody></table>
-<figcaption><span class="not-imported">Table 40-52</span>. Base Concurrency Restrictions of EWB</figcaption></figure>
-<figure id="tbl-40-53">
+<figcaption><span class="not-imported">Table 37-52</span>. Base Concurrency Restrictions of EWB</figcaption></figure>
+<figure id="tbl-37-53">
 <table>
 <tbody><tr>
 <th rowspan="3">Leaf</th>
@@ -133,7 +133,7 @@
 <td></td>
 <td>Exclusive</td>
 <td></td></tr></tbody></table>
-<figcaption><span class="not-imported">Table 40-53</span>. Additional Concurrency Restrictions of EWB</figcaption></figure>
+<figcaption><span class="not-imported">Table 37-53</span>. Additional Concurrency Restrictions of EWB</figcaption></figure>
 <h3 id="operation">Operation<a class="anchor" href="EWB.html#operation">
 			&para;
 		</a></h3>
@@ -202,9 +202,9 @@
 <p>(* EPCPAGE and VASLOT should not resolve to the same EPC page*)</p>
 <p>IF (DS:RCX and DS:RDX resolve to the same EPC page)</p>
 <p>THEN #GP(0); FI;</p>
-<p>TMP_SRCPGE &larr; DS:RBX.SRCPGE;</p>
+<p>TMP_SRCPGE := DS:RBX.SRCPGE;</p>
 <p>(* Note PAGEINFO.PCMD is overlaid on top of PAGEINFO.SECINFO *)</p>
-<p>TMP_PCMD &larr; DS:RBX.PCMD;</p>
+<p>TMP_PCMD := DS:RBX.PCMD;</p>
 <p>If (DS:RBX.LINADDR ≠ 0) OR (DS:RBX.SECS ≠ 0)</p>
 <p>THEN #GP(0); FI;</p>
 <p>IF ( (DS:TMP_PCMD is not 128Byte Aligned) or (DS:TMP_SRCPGE is not 4KByte Aligned) )</p>
@@ -214,11 +214,11 @@
 <p>THEN</p>
 <p>IF (&lt;&lt;VMX non-root operation&gt;&gt; AND &lt;&lt;ENABLE_EPC_VIRTUALIZATION_EXTENSIONS&gt;&gt;)</p>
 <p>THEN</p>
-<p>VMCS.Exit_reason &larr; SGX_CONFLICT;</p>
-<p>VMCS.Exit_qualification.code &larr; EPC_PAGE_CONFLICT_EXCEPTION;</p>
-<p>VMCS.Exit_qualification.error &larr; 0;</p>
-<p>VMCS.Guest-physical_address&larr;&lt;&lt; translation of DS:RCX produced by paging &gt;&gt;;</p>
-<p>VMCS.Guest-linear_address &larr; DS:RCX;</p>
+<p>VMCS.Exit_reason := SGX_CONFLICT;</p>
+<p>VMCS.Exit_qualification.code := EPC_PAGE_CONFLICT_EXCEPTION;</p>
+<p>VMCS.Exit_qualification.error := 0;</p>
+<p>VMCS.Guest-physical_address := &lt;&lt; translation of DS:RCX produced by paging &gt;&gt;;</p>
+<p>VMCS.Guest-linear_address := DS:RCX;</p>
 <p>Deliver VMEXIT;</p>
 <p>ELSE</p>
 <p>#GP(0);</p>
@@ -233,42 +233,46 @@
 <p>IF ( (EPCM(DS:RDX &amp; ~0FFFH).VALID = 0) or (EPCM(DS:RDX &amp; ~FFFH).PT is not PT_VA) )</p>
 <p>THEN #PF(DS:RDX); FI;</p>
 <p>(* Perform page-type-specific exception checks *)</p>
-<p>IF ( (EPCM(DS:RCX).PT is PT_REG) or (EPCM(DS:RCX).PT is PT_TCS) or (EPCM(DS:RCX).PT is PT_TRIM ) )</p>
+<p>IF ( (EPCM(DS:RCX).PT is PT_REG) or (EPCM(DS:RCX).PT is PT_TCS) or (EPCM(DS:RCX).PT is PT_TRIM ) or</p>
+<p>(EPCM(DS:RCX).PT is PT_SS_FIRST ) or (EPCM(DS:RCX).PT is PT_SS_REST))</p>
 <p>THEN</p>
 <p>TMP_SECS = Obtain SECS through EPCM(DS:RCX)</p>
 <p>(* Check that EBLOCK has occurred correctly *)</p>
 <p>IF (EBLOCK is not correct)</p>
 <p>THEN #GP(0); FI;</p>
 <p>FI;</p>
-<p>RFLAGS.ZF,CF,PF,AF,OF,SF &larr; 0;</p>
-<p>RAX&larr;0;</p>
+<p>RFLAGS.ZF,CF,PF,AF,OF,SF := 0;</p>
+<p>RAX := 0;</p>
+<p>(* Zero out TMP_HEADER*)</p>
+<p>TMP_HEADER[ sizeof(TMP_HEADER) - 1 : 0] := 0;</p>
 <p>(* Perform page-type-specific checks *)</p>
-<p>IF ( (EPCM(DS:RCX).PT is PT_REG) or (EPCM(DS:RCX).PT is PT_TCS) or (EPCM(DS:RCX).PT is PT_TRIM ))</p>
+<p>IF ( (EPCM(DS:RCX).PT is PT_REG) or (EPCM(DS:RCX).PT is PT_TCS) or (EPCM(DS:RCX).PT is PT_TRIM )or</p>
+<p>(EPCM(DS:RCX).PT is PT_SS_FIRST ) or (EPCM(DS:RCX).PT is PT_SS_REST))</p>
 <p>THEN</p>
 <p>(* check to see if the page is evictable *)</p>
 <p>IF (EPCM(DS:RCX).BLOCKED = 0)</p>
 <p>THEN</p>
-<p>RAX&larr;SGX_PAGE NOT_BLOCKED;</p>
-<p>RFLAGS.ZF &larr; 1;</p>
+<p>RAX := SGX_PAGE NOT_BLOCKED;</p>
+<p>RFLAGS.ZF := 1;</p>
 <p>GOTO ERROR_EXIT;</p>
 <p>FI;</p>
 <p>(* Check if tracking done correctly *)</p>
 <p>IF (Tracking not correct)</p>
 <p>THEN</p>
-<p>RAX &larr; SGX_NOT_TRACKED;</p>
-<p>RFLAGS.ZF &larr; 1;</p>
+<p>RAX := SGX_NOT_TRACKED;</p>
+<p>RFLAGS.ZF := 1;</p>
 <p>GOTO ERROR_EXIT;</p>
 <p>FI;</p>
 <p>(* Obtain EID to establish cryptographic binding between the paged-out page and the enclave *)</p>
-<p>TMP_HEADER.EID &larr; TMP_SECS.EID;</p>
+<p>TMP_HEADER.EID := TMP_SECS.EID;</p>
 <p>(* Obtain EID as an enclave handle for software *)</p>
-<p>TMP_PCMD_ENCLAVEID &larr; TMP_SECS.EID;</p>
+<p>TMP_PCMD_ENCLAVEID := TMP_SECS.EID;</p>
 <p>ELSE IF (EPCM(DS:RCX).PT is PT_SECS)</p>
 <p>(*check that there are no child pages inside the enclave *)</p>
 <p>IF (DS:RCX has an EPC page associated with it)</p>
 <p>THEN</p>
-<p>RAX &larr; SGX_CHILD_PRESENT;</p>
-<p>RFLAGS.ZF &larr; 1;</p>
+<p>RAX := SGX_CHILD_PRESENT;</p>
+<p>RFLAGS.ZF := 1;</p>
 <p>GOTO ERROR_EXIT;</p>
 <p>FI:</p>
 <p>(* treat SECS as having a child page when VIRTCHILDCNT is non-zero *)</p>
@@ -276,50 +280,48 @@
 <p>&lt;&lt;ENABLE_EPC_VIRTUALIZATION_EXTENSIONS&gt;&gt; AND</p>
 <p>(SECS(DS:RCX).VIRTCHILDCNT ≠ 0))</p>
 <p>THEN</p>
-<p>RFLAGS.ZF &larr; 1;</p>
-<p>RAX &larr; SGX_CHILD_PRESENT;</p>
+<p>RFLAGS.ZF := 1;</p>
+<p>RAX := SGX_CHILD_PRESENT;</p>
 <p>GOTO ERROR_EXIT;</p>
 <p>FI;</p>
-<p>TMP_HEADER.EID &larr; 0;</p>
+<p>TMP_HEADER.EID := 0;</p>
 <p>(* Obtain EID as an enclave handle for software *)</p>
-<p>TMP_PCMD_ENCLAVEID &larr; (DS:RCX).EID;</p>
+<p>TMP_PCMD_ENCLAVEID := (DS:RCX).EID;</p>
 <p>ELSE IF (EPCM(DS:RCX).PT is PT_VA)</p>
-<p>TMP_HEADER.EID&larr;0; // Zero is not a special value</p>
+<p>TMP_HEADER.EID := 0; // Zero is not a special value</p>
 <p>(* No enclave handle for VA pages*)</p>
-<p>TMP_PCMD_ENCLAVEID &larr; 0;</p>
+<p>TMP_PCMD_ENCLAVEID := 0;</p>
 <p>FI;</p>
-<p>(* Zero out TMP_HEADER*)</p>
-<p>TMP_HEADER[ sizeof(TMP_HEADER)-1 : 0]&larr;0;</p>
-<p>TMP_HEADER.LINADDR &larr; EPCM(DS:RCX).ENCLAVEADDRESS;</p>
-<p>TMP_HEADER.SECINFO.FLAGS.PT &larr; EPCM(DS:RCX).PT;</p>
-<p>TMP_HEADER.SECINFO.FLAGS.RWX &larr; EPCM(DS:RCX).RWX;</p>
-<p>TMP_HEADER.SECINFO.FLAGS.PENDING &larr; EPCM(DS:RCX).PENDING;</p>
-<p>TMP_HEADER.SECINFO.FLAGS.MODIFIED &larr; EPCM(DS:RCX).MODIFIED;</p>
-<p>TMP_HEADER.SECINFO.FLAGS.PR &larr; EPCM(DS:RCX).PR;</p>
+<p>TMP_HEADER.LINADDR := EPCM(DS:RCX).ENCLAVEADDRESS;</p>
+<p>TMP_HEADER.SECINFO.FLAGS.PT := EPCM(DS:RCX).PT;</p>
+<p>TMP_HEADER.SECINFO.FLAGS.RWX := EPCM(DS:RCX).RWX;</p>
+<p>TMP_HEADER.SECINFO.FLAGS.PENDING := EPCM(DS:RCX).PENDING;</p>
+<p>TMP_HEADER.SECINFO.FLAGS.MODIFIED := EPCM(DS:RCX).MODIFIED;</p>
+<p>TMP_HEADER.SECINFO.FLAGS.PR := EPCM(DS:RCX).PR;</p>
 <p>(* Encrypt the page, DS:RCX could be encrypted in place. AES-GCM produces 2 values, {ciphertext, MAC}. *)</p>
 <p>(* AES-GCM input parameters: key, GCM Counter, MAC_HDR, MAC_HDR_SIZE, SRC, SRC_SIZE)*)</p>
-<p>{DS:TMP_SRCPGE, DS:TMP_PCMD.MAC}&larr;AES_GCM_ENC(CR_BASE_PK), (TMP_VER &lt;&lt; 32),</p>
+<p>{DS:TMP_SRCPGE, DS:TMP_PCMD.MAC} := AES_GCM_ENC(CR_BASE_PK), (TMP_VER &lt;&lt; 32),</p>
 <p>TMP_HEADER, 128, DS:RCX, 4096);</p>
 <p>(* Write the output *)</p>
 <p>Zero out DS:TMP_PCMD.SECINFO</p>
-<p>DS:TMP_PCMD.SECINFO.FLAGS.PT &larr; EPCM(DS:RCX).PT;</p>
-<p>DS:TMP_PCMD.SECINFO.FLAGS.RWX &larr; EPCM(DS:RCX).RWX;</p>
-<p>DS:TMP_PCMD.SECINFO.FLAGS.PENDING &larr; EPCM(DS:RCX).PENDING;</p>
-<p>DS:TMP_PCMD.SECINFO.FLAGS.MODIFIED &larr; EPCM(DS:RCX).MODIFIED;</p>
-<p>DS:TMP_PCMD.SECINFO.FLAGS.PR &larr; EPCM(DS:RCX).PR;</p>
-<p>DS:TMP_PCMD.RESERVED &larr; 0;</p>
-<p>DS:TMP_PCMD.ENCLAVEID &larr; TMP_PCMD_ENCLAVEID;</p>
-<p>DS:RBX.LINADDR &larr; EPCM(DS:RCX).ENCLAVEADDRESS;</p>
+<p>DS:TMP_PCMD.SECINFO.FLAGS.PT := EPCM(DS:RCX).PT;</p>
+<p>DS:TMP_PCMD.SECINFO.FLAGS.RWX := EPCM(DS:RCX).RWX;</p>
+<p>DS:TMP_PCMD.SECINFO.FLAGS.PENDING := EPCM(DS:RCX).PENDING;</p>
+<p>DS:TMP_PCMD.SECINFO.FLAGS.MODIFIED := EPCM(DS:RCX).MODIFIED;</p>
+<p>DS:TMP_PCMD.SECINFO.FLAGS.PR := EPCM(DS:RCX).PR;</p>
+<p>DS:TMP_PCMD.RESERVED := 0;</p>
+<p>DS:TMP_PCMD.ENCLAVEID := TMP_PCMD_ENCLAVEID;</p>
+<p>DS:RBX.LINADDR := EPCM(DS:RCX).ENCLAVEADDRESS;</p>
 <p>(*Check if version array slot was empty *)</p>
 <p>IF ([DS.RDX])</p>
 <p>THEN</p>
-<p>RAX &larr; SGX_VA_SLOT_OCCUPIED</p>
-<p>RFLAGS.CF &larr; 1;</p>
+<p>RAX := SGX_VA_SLOT_OCCUPIED</p>
+<p>RFLAGS.CF := 1;</p>
 <p>FI;</p>
 <p>(* Write version to Version Array slot *)</p>
-<p>[DS.RDX] &larr; TMP_VER;</p>
+<p>[DS.RDX] := TMP_VER;</p>
 <p>(* Free up EPCM Entry *)</p>
-<p>EPCM.(DS:RCX).VALID &larr; 0;</p>
+<p>EPCM.(DS:RCX).VALID := 0;</p>
 <p>ERROR_EXIT:</p>
 <h3 id="flags-affected">Flags Affected<a class="anchor" href="EWB.html#flags-affected">
 			&para;
@@ -380,6 +382,6 @@
 <td>If one of the EPC memory operands has incorrect page type.</td></tr></tbody></table><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

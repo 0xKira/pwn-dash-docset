@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-109"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/EACCEPT"></a><title>EACCEPT</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>EACCEPT
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-117"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/EACCEPT"></a><title>EACCEPT</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>EACCEPT
 		&mdash; Accept Changes to an EPC Page</h1>
 
 <table>
@@ -19,7 +19,7 @@
 		</a></h2>
 <table>
 <tbody><tr>
-<td>Op/En</td>
+<td>Op/En  </td>
 <td colspan="2">EAX</td>
 <td>RBX</td>
 <td>RCX</td></tr>
@@ -65,10 +65,10 @@
 <td>If security attributes of the SECINFO page make the page inaccessible.</td>
 <td></td></tr></tbody></table>
 <p>The error codes are:</p>
-<figure id="tbl-40-54">
+<figure id="tbl-37-54">
 <table>
 <tbody><tr>
-<th>Error Code (see <span class="not-imported">Table 40-4</span>)</th>
+<th>Error Code (see <span class="not-imported">Table 37-4</span>)</th>
 <th>Description</th></tr>
 <tr>
 <td>No Error</td>
@@ -79,11 +79,11 @@
 <tr>
 <td>SGX_NOT_TRACKED</td>
 <td>The OS did not complete an ETRACK on the target page.</td></tr></tbody></table>
-<figcaption><span class="not-imported">Table 40-54</span>. EACCEPT Return Value in RAX</figcaption></figure>
+<figcaption><span class="not-imported">Table 37-54</span>. EACCEPT Return Value in RAX</figcaption></figure>
 <h3 id="concurrency-restrictions">Concurrency Restrictions<a class="anchor" href="EACCEPT.html#concurrency-restrictions">
 			&para;
 		</a></h3>
-<figure id="tbl-40-55">
+<figure id="tbl-37-55">
 <table>
 <tbody><tr>
 <th rowspan="2">Leaf</th>
@@ -104,8 +104,8 @@
 <td>Concurrent</td>
 <td></td>
 <td></td></tr></tbody></table>
-<figcaption><span class="not-imported">Table 40-55</span>. Base Concurrency Restrictions of EACCEPT</figcaption></figure>
-<figure id="tbl-40-56">
+<figcaption><span class="not-imported">Table 37-55</span>. Base Concurrency Restrictions of EACCEPT</figcaption></figure>
+<figure id="tbl-37-56">
 <table>
 <tbody><tr>
 <th rowspan="3">Leaf</th>
@@ -139,7 +139,7 @@
 <td></td>
 <td>Concurrent</td>
 <td></td></tr></tbody></table>
-<figcaption><span class="not-imported">Table 40-56</span>. Additional Concurrency Restrictions of EACCEPT</figcaption></figure>
+<figcaption><span class="not-imported">Table 37-56</span>. Additional Concurrency Restrictions of EACCEPT</figcaption></figure>
 <h3 id="operation">Operation<a class="anchor" href="EACCEPT.html#operation">
 			&para;
 		</a></h3>
@@ -174,7 +174,7 @@
 <p>(EPCM(DS:RBX &amp;~FFFH).ENCLAVEADDRESS ≠ (DS:RBX &amp; FFFH)) )</p>
 <p>THEN #PF(DS:RBX); FI;</p>
 <p>(* Copy 64 bytes of contents *)</p>
-<p>SCRATCH_SECINFO &larr; DS:RBX;</p>
+<p>SCRATCH_SECINFO := DS:RBX;</p>
 <p>(* Check for misconfigured SECINFO flags*)</p>
 <p>IF (SCRATCH_SECINFO reserved fields are not zero )</p>
 <p>THEN #GP(0); FI;</p>
@@ -185,6 +185,8 @@
 <p>IF (DS:RCX does not resolve within an EPC)</p>
 <p>THEN #PF(DS:RCX); FI;</p>
 <p>(* Check that the combination of requested PT, PENDING and MODIFIED is legal *)</p>
+<p>IF (CPUID.(EAX=12H, ECX=1):EAX[6] = 0 )</p>
+<p>THEN</p>
 <p>IF (NOT (((SCRATCH_SECINFO.FLAGS.PT is PT_REG) and</p>
 <p>((SCRATCH_SECINFO.FLAGS.PR is 1) or</p>
 <p>(SCRATCH_SECINFO.FLAGS.PENDING is 1)) and</p>
@@ -194,9 +196,25 @@
 <p>(SCRATCH_SECINFO.FLAGS.PENDING is 0) and</p>
 <p>(SCRATCH_SECINFO.FLAGS.MODIFIED is 1) )))</p>
 <p>THEN #GP(0); FI</p>
+<p>ELSE</p>
+<p>IF (NOT (((SCRATCH_SECINFO.FLAGS.PT is PT_REG) AND</p>
+<p>((SCRATCH_SECINFO.FLAGS.PR is 1) OR</p>
+<p>(SCRATCH_SECINFO.FLAGS.PENDING is 1)) AND</p>
+<p>(SCRATCH_SECINFO.FLAGS.MODIFIED is 0)) OR</p>
+<p>((SCRATCH_SECINFO.FLAGS.PT is PT_TCS OR PT_TRIM) AND</p>
+<p>(SCRATCH_SECINFO.FLAGS.PENDING is 0) AND</p>
+<p>(SCRATCH_SECINFO.FLAGS.MODIFIED is 1) AND</p>
+<p>(SCRATCH_SECINFO.FLAGS.PR is 0)) OR</p>
+<p>((SCRATCH_SECINFO.FLAGS.PT is PT_SS_FIRST or PT_SS_REST) AND</p>
+<p>(SCRATCH_SECINFO.FLAGS.PENDING is 1) AND</p>
+<p>(SCRATCH_SECINFO.FLAGS.MODIFIED is 0) AND</p>
+<p>(SCRATCH_SECINFO.FLAGS.PR is 0))))</p>
+<p>THEN #GP(0); FI;</p>
+<p>FI;</p>
 <p>(* Check security attributes of the destination EPC page *)</p>
-<p>If ( (EPCM(DS:RCX).VALID is 0) or (EPCM(DS:RCX).BLOCKED is not 0) or</p>
-<p>((EPCM(DS:RCX).PT is not PT_REG) and (EPCM(DS:RCX).PT is not PT_TCS) and (EPCM(DS:RCX).PT is not PT_TRIM)) or</p>
+<p>IF ( (EPCM(DS:RCX).VALID is 0) or (EPCM(DS:RCX).BLOCKED is not 0) or</p>
+<p>((EPCM(DS:RCX).PT is not PT_REG) and (EPCM(DS:RCX).PT is not PT_TCS) and (EPCM(DS:RCX).PT is not PT_TRIM)</p>
+<p>and (EPCM(DS:RCX).PT is not PT_SS_FIRST) and (EPCM(DS:RCX).PT is not PT_SS_REST)) or</p>
 <p>(EPCM(DS:RCX).ENCLAVESECS ≠ CR_ACTIVE_SECS))</p>
 <p>THEN #PF((DS:RCX); FI;</p>
 <p>(* Check the destination EPC page for concurrency *)</p>
@@ -211,36 +229,39 @@
 <p>(EPCM(DS:RCX).W ≠ SCRATCH_SECINFO.FLAGS.W) or (EPCM(DS:RCX).X ≠ SCRATCH_SECINFO.FLAGS.X) or</p>
 <p>(EPCM(DS:RCX).PT ≠ SCRATCH_SECINFO.FLAGS.PT) )</p>
 <p>THEN</p>
-<p>RFLAGS.ZF &larr; 1;</p>
-<p>RAX &larr; SGX_PAGE_ATTRIBUTES_MISMATCH;</p>
+<p>RFLAGS.ZF := 1;</p>
+<p>RAX := SGX_PAGE_ATTRIBUTES_MISMATCH;</p>
 <p>GOTO DONE;</p>
 <p>FI;</p>
 <p>(* Check that all required threads have left enclave *)</p>
 <p>IF (Tracking not correct)</p>
 <p>THEN</p>
-<p>RFLAGS.ZF &larr; 1;</p>
-<p>RAX &larr; SGX_NOT_TRACKED;</p>
+<p>RFLAGS.ZF := 1;</p>
+<p>RAX := SGX_NOT_TRACKED;</p>
 <p>GOTO DONE;</p>
 <p>FI;</p>
 <p>(* Get pointer to the SECS to which the EPC page belongs *)</p>
 <p>TMP_SECS = &lt;&lt; Obtain physical address of SECS through EPCM(DS:RCX)&gt;&gt;</p>
 <p>(* For TCS pages, perform additional checks *)</p>
 <p>IF (SCRATCH_SECINFO.FLAGS.PT = PT_TCS)</p>
+<p>THEN</p>
 <p>IF (DS:RCX.RESERVED ≠ 0) #GP(0); FI;</p>
-<p>FI;</p>
-<p>(* Check that TCS.FLAGS.DBGOPTIN, TCS stack, and TCS status are correctly initialized *) IF ( ((DS:RCX).FLAGS.DBGOPTIN is not 0) or ((DS:RCX).CSSA &ge; (DS:RCX).NSSA) or ((DS:RCX).AEP is not 0) or ((DS:RCX).STATE is not 0)) THEN #GP(0); FI;</p>
+<p>(* Check that TCS.FLAGS.DBGOPTIN, TCS stack, and TCS status are correctly initialized *)</p>
+<p>(* check that TCS.PREVSSP is 0 *) IF ( ((DS:RCX).FLAGS.DBGOPTIN is not 0) or ((DS:RCX).CSSA &ge; (DS:RCX).NSSA) or ((DS:RCX).AEP is not 0) or ((DS:RCX).STATE is not 0) or ((CPUID.(EAX=07H, ECX=0H):ECX[CET_SS] = 1) AND ((DS:RCX).PREVSSP != 0)))</p>
+<p>THEN #GP(0); FI;</p>
 <p>(* Check consistency of FS &amp; GS Limit *)</p>
 <p>IF ( (TMP_SECS.ATTRIBUTES.MODE64BIT is 0) and ((DS:RCX.FSLIMIT &amp; FFFH ≠ FFFH) or (DS:RCX.GSLIMIT &amp; FFFH ≠ FFFH)) )</p>
 <p>THEN #GP(0); FI;</p>
+<p>FI;</p>
 <p>(* Clear PENDING/MODIFIED flags to mark accept operation complete *)</p>
-<p>EPCM(DS:RCX).PENDING &larr; 0;</p>
-<p>EPCM(DS:RCX).MODIFIED &larr; 0;</p>
-<p>EPCM(DS:RCX).PR &larr; 0;</p>
+<p>EPCM(DS:RCX).PENDING := 0;</p>
+<p>EPCM(DS:RCX).MODIFIED := 0;</p>
+<p>EPCM(DS:RCX).PR := 0;</p>
 <p>(* Clear EAX and ZF to indicate successful completion *)</p>
-<p>RFLAGS.ZF &larr; 0;</p>
-<p>RAX&larr;0;</p>
+<p>RFLAGS.ZF := 0;</p>
+<p>RAX := 0;</p>
 <p>DONE:</p>
-<p>RFLAGS.CF,PF,AF,OF,SF &larr; 0;</p>
+<p>RFLAGS.CF,PF,AF,OF,SF := 0;</p>
 <h3 id="flags-affected">Flags Affected<a class="anchor" href="EACCEPT.html#flags-affected">
 			&para;
 		</a></h3>
@@ -287,6 +308,6 @@
 <td>If EPC page has incorrect page type or security attributes.</td></tr></tbody></table><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

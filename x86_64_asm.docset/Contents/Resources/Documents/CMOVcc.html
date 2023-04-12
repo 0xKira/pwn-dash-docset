@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-63"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/CMOVcc"></a><title>CMOVcc</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>CMOVcc
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-71"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/CMOVcc"></a><title>CMOVcc</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>CMOVcc
 		&mdash; Conditional Move</h1>
 
 <table>
@@ -658,7 +658,8 @@
 <h2 id="description">Description<a class="anchor" href="CMOVcc.html#description">
 			&para;
 		</a></h2>
-<p>The CMOV<em>cc</em> instructions check the state of one or more of the status flags in the EFLAGS register (CF, OF, PF, SF, and ZF) and perform a move operation if the flags are in a specified state (or condition). A condition code (<em>cc</em>) is associated with each instruction to indicate the condition being tested for. If the condition is not satisfied, a move is not performed and execution continues with the instruction following the CMOV<em>cc</em> instruction.</p>
+<p>Each of the CMOVcc instructions performs a move operation if the status flags in the EFLAGS register (CF, OF, PF, SF, and ZF) are in a specified state (or condition). A condition code (<em>cc</em>) is associated with each instruction to indicate the condition being tested for. If the condition is not satisfied, a move is not performed and execution continues with the instruction following the CMOV<em>cc</em> instruction.</p>
+<p>Specifically, CMOVcc loads data from its source operand into a temporary register unconditionally (regardless of the condition code and the status flags in the EFLAGS register). If the condition code associated with the instruction (cc) is satisfied, the data in the temporary register is then copied into the instruction&#39;s destination operand.</p>
 <p>These instructions can move 16-bit, 32-bit or 64-bit values from memory to a general-purpose register or from one general-purpose register to another. Conditional moves of 8-bit register operands are not supported.</p>
 <p>The condition for each CMOV<em>cc</em> mnemonic is given in the description column of the above table. The terms &ldquo;less&rdquo; and &ldquo;greater&rdquo; are used for comparisons of signed integers and the terms &ldquo;above&rdquo; and &ldquo;below&rdquo; are used for unsigned integers.</p>
 <p>Because a particular state of the status flags can sometimes be interpreted in two ways, two mnemonics are defined for some opcodes. For example, the CMOVA (conditional move if above) instruction and the CMOVNBE (conditional move if not below or equal) instruction are alternate mnemonics for the opcode 0F 47H.</p>
@@ -667,16 +668,11 @@
 <h2 id="operation">Operation<a class="anchor" href="CMOVcc.html#operation">
 			&para;
 		</a></h2>
-<pre>temp &larr; SRC
+<pre>temp := SRC
 IF condition TRUE
-    THEN
-        DEST &larr; temp;
-    FI;
-ELSE
-    IF (OperandSize = 32 and IA-32e mode active)
-        THEN
-            DEST[63:32] &larr; 0;
-    FI;
+    THEN DEST := temp;
+ELSE IF (OperandSize = 32 and IA-32e mode active)
+    THEN DEST[63:32] := 0;
 FI;
 </pre>
 <h2 id="flags-affected">Flags Affected<a class="anchor" href="CMOVcc.html#flags-affected">
@@ -761,6 +757,6 @@ FI;
 <td>If the LOCK prefix is used.</td></tr></tbody></table><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

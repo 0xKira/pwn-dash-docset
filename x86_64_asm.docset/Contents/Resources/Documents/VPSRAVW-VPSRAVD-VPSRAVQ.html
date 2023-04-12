@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-631"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/VPSRAVW%2FVPSRAVD%2FVPSRAVQ"></a><title>VPSRAVW/VPSRAVD/VPSRAVQ</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>VPSRAVW/VPSRAVD/VPSRAVQ
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-659"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/VPSRAVW%2FVPSRAVD%2FVPSRAVQ"></a><title>VPSRAVW/VPSRAVD/VPSRAVQ</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>VPSRAVW/VPSRAVD/VPSRAVQ
 		&mdash; Variable Bit Shift Right Arithmetic</h1>
 
 
@@ -124,125 +124,126 @@
 			&para;
 		</a></h4>
 <pre>(KL, VL) = (8, 128), (16, 256), (32, 512)
-FOR j&larr;0 TO KL-1
-    i&larr;j * 16
+FOR j := 0 TO KL-1
+    i := j * 16
     IF k1[j] OR *no writemask*
         THEN
-            COUNT &larr; SRC2[i+3:i]
+            COUNT := SRC2[i+3:i]
             IF COUNT &lt; 16
-                THEN DEST[i+15:i]&larr;SignExtend(SRC1[i+15:i] &gt;&gt; COUNT)
+                THEN DEST[i+15:i] := SignExtend(SRC1[i+15:i] &gt;&gt; COUNT)
                 ELSE
-                    FOR k&larr;0 TO 15
-                        DEST[i+k] &larr; SRC1[i+15]
+                    FOR k := 0 TO 15
+                        DEST[i+k] := SRC1[i+15]
                     ENDFOR;
             FI
         ELSE
             IF *merging-masking* ; merging-masking
                 THEN *DEST[i+15:i] remains unchanged*
-                ELSE ; zeroing-masking
-                    DEST[i+15:i] &larr; 0
+                ELSE
+                            ; zeroing-masking
+                    DEST[i+15:i] := 0
             FI
     FI;
 ENDFOR;
-DEST[MAXVL-1:VL] &larr; 0;
+DEST[MAXVL-1:VL] := 0;
 </pre>
 <h4 id="vpsravd--vex-128-version-">VPSRAVD (VEX.128 version)<a class="anchor" href="./VPSRAVW:VPSRAVD:VPSRAVQ.html#vpsravd--vex-128-version-">
 			&para;
 		</a></h4>
-<pre>COUNT_0&larr;SRC2[31 : 0]
+<pre>COUNT_0 := SRC2[31 : 0]
     (* Repeat Each COUNT_i for the 2nd through 4th dwords of SRC2*)
-COUNT_3&larr;SRC2[127 : 96];
-DEST[31:0]&larr;SignExtend(SRC1[31:0] &gt;&gt; COUNT_0);
+COUNT_3 := SRC2[127 : 96];
+DEST[31:0] := SignExtend(SRC1[31:0] &gt;&gt; COUNT_0);
     (* Repeat shift operation for 2nd through 4th dwords *)
-DEST[127:96]&larr;SignExtend(SRC1[127:96] &gt;&gt; COUNT_3);
-DEST[MAXVL-1:128] &larr; 0;
+DEST[127:96] := SignExtend(SRC1[127:96] &gt;&gt; COUNT_3);
+DEST[MAXVL-1:128] := 0;
 </pre>
 <h4 id="vpsravd--vex-256-version-">VPSRAVD (VEX.256 version)<a class="anchor" href="./VPSRAVW:VPSRAVD:VPSRAVQ.html#vpsravd--vex-256-version-">
 			&para;
 		</a></h4>
-<pre>COUNT_0&larr;SRC2[31 : 0];
+<pre>COUNT_0 := SRC2[31 : 0];
     (* Repeat Each COUNT_i for the 2nd through 8th dwords of SRC2*)
-COUNT_7&larr;SRC2[255 : 224];
-DEST[31:0]&larr;SignExtend(SRC1[31:0] &gt;&gt; COUNT_0);
+COUNT_7 := SRC2[255 : 224];
+DEST[31:0] := SignExtend(SRC1[31:0] &gt;&gt; COUNT_0);
     (* Repeat shift operation for 2nd through 7th dwords *)
-DEST[255:224]&larr;SignExtend(SRC1[255:224] &gt;&gt; COUNT_7);
-DEST[MAXVL-1:256] &larr; 0;
+DEST[255:224] := SignExtend(SRC1[255:224] &gt;&gt; COUNT_7);
+DEST[MAXVL-1:256] := 0;
 </pre>
 <h4 id="vpsravd--evex-encoded-version-">VPSRAVD (EVEX encoded version)<a class="anchor" href="./VPSRAVW:VPSRAVD:VPSRAVQ.html#vpsravd--evex-encoded-version-">
 			&para;
 		</a></h4>
 <pre>(KL, VL) = (4, 128), (8, 256), (16, 512)
-FOR j&larr;0 TO KL-1
-    i&larr;j * 32
+FOR j := 0 TO KL-1
+    i := j * 32
     IF k1[j] OR *no writemask* THEN
             IF (EVEX.b = 1) AND (SRC2 *is memory*)
                 THEN
-                    COUNT &larr; SRC2[4:0]
+                    COUNT := SRC2[4:0]
                     IF COUNT &lt; 32
-                        THEN DEST[i+31:i]&larr;SignExtend(SRC1[i+31:i] &gt;&gt; COUNT)
+                        THEN DEST[i+31:i] := SignExtend(SRC1[i+31:i] &gt;&gt; COUNT)
                         ELSE
-                            FOR k&larr;0 TO 31
-                                DEST[i+k] &larr; SRC1[i+31]
+                            FOR k := 0 TO 31
+                                DEST[i+k] := SRC1[i+31]
                             ENDFOR;
                     FI
                 ELSE
-                    COUNT &larr; SRC2[i+4:i]
+                    COUNT := SRC2[i+4:i]
                     IF COUNT &lt; 32
-                        THEN DEST[i+31:i]&larr;SignExtend(SRC1[i+31:i] &gt;&gt; COUNT)
+                        THEN DEST[i+31:i] := SignExtend(SRC1[i+31:i] &gt;&gt; COUNT)
                         ELSE
-                            FOR k&larr;0 TO 31
-                                DEST[i+k] &larr; SRC1[i+31]
+                            FOR k := 0 TO 31
+                                DEST[i+k] := SRC1[i+31]
+                            ENDFOR;
+                    FI
+            FI;
+    ELSE
+        IF *merging-masking*
+            THEN *DEST[31:0] remains unchanged*
+            ELSE ; zeroing-masking
+                DEST[31:0] := 0
+            FI
+    FI;
+ENDFOR;
+DEST[MAXVL-1:VL] := 0;
+</pre>
+<h4 id="vpsravq--evex-encoded-version-">VPSRAVQ (EVEX encoded version)<a class="anchor" href="./VPSRAVW:VPSRAVD:VPSRAVQ.html#vpsravq--evex-encoded-version-">
+			&para;
+		</a></h4>
+<pre>(KL, VL) = (2, 128), (4, 256), (8, 512)
+FOR j := 0 TO KL-1
+    i := j * 64
+    IF k1[j] OR *no writemask* THEN
+            IF (EVEX.b = 1) AND (SRC2 *is memory*)
+                THEN
+                    COUNT := SRC2[5:0]
+                    IF COUNT &lt; 64
+                        THEN DEST[i+63:i] := SignExtend(SRC1[i+63:i] &gt;&gt; COUNT)
+                        ELSE
+                            FOR k := 0 TO 63
+                                DEST[i+k] := SRC1[i+63]
+                            ENDFOR;
+                    FI
+                ELSE
+                    COUNT := SRC2[i+5:i]
+                    IF COUNT &lt; 64
+                        THEN DEST[i+63:i] := SignExtend(SRC1[i+63:i] &gt;&gt; COUNT)
+                        ELSE
+                            FOR k := 0 TO 63
+                                DEST[i+k] := SRC1[i+63]
                             ENDFOR;
                     FI
             FI;
     ELSE
         IF *merging-masking*
                                     ; merging-masking
-            THEN *DEST[31:0] remains unchanged*
+            THEN *DEST[63:0] remains unchanged*
             ELSE
                                     ; zeroing-masking
-                DEST[31:0] &larr; 0
+                DEST[63:0] := 0
             FI
     FI;
 ENDFOR;
-DEST[MAXVL-1:VL] &larr; 0;
-</pre>
-<h4 id="vpsravq--evex-encoded-version-">VPSRAVQ (EVEX encoded version)<a class="anchor" href="./VPSRAVW:VPSRAVD:VPSRAVQ.html#vpsravq--evex-encoded-version-">
-			&para;
-		</a></h4>
-<pre>(KL, VL) = (2, 128), (4, 256), (8, 512)
-FOR j&larr;0 TO KL-1
-    i&larr;j * 64
-    IF k1[j] OR *no writemask* THEN
-            IF (EVEX.b = 1) AND (SRC2 *is memory*)
-                THEN
-                    COUNT &larr; SRC2[5:0]
-                    IF COUNT &lt; 64
-                        THEN DEST[i+63:i]&larr;SignExtend(SRC1[i+63:i] &gt;&gt; COUNT)
-                        ELSE
-                            FOR k&larr;0 TO 63
-                                DEST[i+k] &larr; SRC1[i+63]
-                            ENDFOR;
-                    FI
-                ELSE
-                    COUNT &larr; SRC2[i+5:i]
-                    IF COUNT &lt; 64
-                        THEN DEST[i+63:i]&larr;SignExtend(SRC1[i+63:i] &gt;&gt; COUNT)
-                        ELSE
-                            FOR k&larr;0 TO 63
-                                DEST[i+k] &larr; SRC1[i+63]
-                            ENDFOR;
-                    FI
-            FI;
-    ELSE
-        IF *merging-masking*
-            THEN *DEST[63:0] remains unchanged*
-            ELSE ; zeroing-masking
-                DEST[63:0] &larr; 0
-            FI
-    FI;
-ENDFOR;
-DEST[MAXVL-1:VL] &larr; 0;
+DEST[MAXVL-1:VL] := 0;
 </pre>
 <h3 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="./VPSRAVW:VPSRAVD:VPSRAVQ.html#intel-c-c++-compiler-intrinsic-equivalent">
 			&para;
@@ -310,10 +311,10 @@ DEST[MAXVL-1:VL] &larr; 0;
 <h3 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="./VPSRAVW:VPSRAVD:VPSRAVQ.html#other-exceptions">
 			&para;
 		</a></h3>
-<p>Non-EVEX-encoded instruction, see Exceptions Type 4.</p>
-<p>EVEX-encoded instruction, see Exceptions Type E4.</p><footer><p>
+<p>Non-EVEX-encoded instruction, see <span class="not-imported">Table 2-21</span>, &ldquo;Type 4 Class Exception Conditions&rdquo;.</p>
+<p>EVEX-encoded instruction, see <span class="not-imported">Table 2-49</span>, &ldquo;Type E4 Class Exception Conditions&rdquo;.</p><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

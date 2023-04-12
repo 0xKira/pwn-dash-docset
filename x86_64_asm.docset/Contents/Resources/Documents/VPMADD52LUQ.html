@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-616"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/VPMADD52LUQ"></a><title>VPMADD52LUQ</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>VPMADD52LUQ
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-638"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/VPMADD52LUQ"></a><title>VPMADD52LUQ</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>VPMADD52LUQ
 		&mdash; Packed Multiply of Unsigned 52-bit Integers and Add the Low 52-bit Products to Qword Accumulators</h1>
 
 <table>
@@ -19,13 +19,13 @@
 <td>A</td>
 <td>V/V</td>
 <td>AVX512_IFMA AVX512VL</td>
-<td>Multiply unsigned 52-bit integers in ymm2 and ymm3/m128 and add the low 52 bits of the 104-bit product to the qword unsigned integers in ymm1 using writemask k1.</td></tr>
+<td>Multiply unsigned 52-bit integers in ymm2 and ymm3/m256 and add the low 52 bits of the 104-bit product to the qword unsigned integers in ymm1 using writemask k1.</td></tr>
 <tr>
 <td>EVEX.512.66.0F38.W1 B4 /r VPMADD52LUQ zmm1 {k1}{z}, zmm2,zmm3/m512/m64bcst</td>
 <td>A</td>
 <td>V/V</td>
 <td>AVX512_IFMA</td>
-<td>Multiply unsigned 52-bit integers in zmm2 and zmm3/m128 and add the low 52 bits of the 104-bit product to the qword unsigned integers in zmm1 using writemask k1.</td></tr></tbody></table>
+<td>Multiply unsigned 52-bit integers in zmm2 and zmm3/m512 and add the low 52 bits of the 104-bit product to the qword unsigned integers in zmm1 using writemask k1.</td></tr></tbody></table>
 <h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="VPMADD52LUQ.html#instruction-operand-encoding">
 			&para;
 		</a></h2>
@@ -56,26 +56,26 @@
 			&para;
 		</a></h4>
 <pre>(KL, VL) = (2, 128), (4, 256), (8, 512)
-FOR j &larr; 0 TO KL-1
-    i&larr;j * 64;
+FOR j := 0 TO KL-1
+    i := j * 64;
     IF k1[j] OR *no writemask* THEN
         IF src2 is Memory AND EVEX.b=1 THEN
-            tsrc2[63:0] &larr; ZeroExtend64(src2[51:0]);
+            tsrc2[63:0] := ZeroExtend64(src2[51:0]);
         ELSE
-            tsrc2[63:0] &larr; ZeroExtend64(src2[i+51:i];
+            tsrc2[63:0] := ZeroExtend64(src2[i+51:i];
         FI;
-        Temp128[127:0] &larr; ZeroExtend64(src1[i+51:i]) * tsrc2[63:0];
-        Temp2[63:0] &larr; DEST[i+63:i] + ZeroExtend64(temp128[51:0]) ;
-        DEST[i+63:i] &larr; Temp2[63:0];
+        Temp128[127:0] := ZeroExtend64(src1[i+51:i]) * tsrc2[63:0];
+        Temp2[63:0] := DEST[i+63:i] + ZeroExtend64(temp128[51:0]) ;
+        DEST[i+63:i] := Temp2[63:0];
     ELSE
         IF *zeroing-masking* THEN
-            DEST[i+63:i] &larr; 0;
+            DEST[i+63:i] := 0;
         ELSE *merge-masking*
             DEST[i+63:i] is unchanged;
         FI;
     FI;
 ENDFOR
-DEST[MAX_VL-1:VL] &larr; 0;
+DEST[MAX_VL-1:VL] := 0;
 </pre>
 <h3 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="VPMADD52LUQ.html#intel-c-c++-compiler-intrinsic-equivalent">
 			&para;
@@ -109,9 +109,9 @@ DEST[MAX_VL-1:VL] &larr; 0;
 <h3 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="VPMADD52LUQ.html#other-exceptions">
 			&para;
 		</a></h3>
-<p>See Exceptions Type E4.</p><footer><p>
+<p>See <span class="not-imported">Table 2-49</span>, &ldquo;Type E4 Class Exception Conditions&rdquo;.</p><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

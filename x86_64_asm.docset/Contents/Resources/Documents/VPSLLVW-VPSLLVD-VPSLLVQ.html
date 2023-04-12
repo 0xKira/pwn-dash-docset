@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-630"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/VPSLLVW%2FVPSLLVD%2FVPSLLVQ"></a><title>VPSLLVW/VPSLLVD/VPSLLVQ</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>VPSLLVW/VPSLLVD/VPSLLVQ
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-658"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/VPSLLVW%2FVPSLLVD%2FVPSLLVQ"></a><title>VPSLLVW/VPSLLVD/VPSLLVQ</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>VPSLLVW/VPSLLVD/VPSLLVQ
 		&mdash; Variable Bit Shift Left Logical</h1>
 
 
@@ -136,129 +136,128 @@
 			&para;
 		</a></h4>
 <pre>(KL, VL) = (8, 128), (16, 256), (32, 512)
-FOR j&larr;0 TO KL-1
-    i&larr;j * 16
+FOR j := 0 TO KL-1
+    i := j * 16
     IF k1[j] OR *no writemask*
-        THEN DEST[i+15:i]&larr;ZeroExtend(SRC1[i+15:i] &lt;&lt; SRC2[i+15:i])
+        THEN DEST[i+15:i] := ZeroExtend(SRC1[i+15:i] &lt;&lt; SRC2[i+15:i])
         ELSE
             IF *merging-masking* ; merging-masking
                 THEN *DEST[i+15:i] remains unchanged*
-                ELSE
-                        ; zeroing-masking
-                    DEST[i+15:i] &larr; 0
+                ELSE ; zeroing-masking
+                    DEST[i+15:i] := 0
             FI
     FI;
 ENDFOR;
-DEST[MAXVL-1:VL] &larr; 0;
+DEST[MAXVL-1:VL] := 0;
 </pre>
 <h4 id="vpsllvd--vex-128-version-">VPSLLVD (VEX.128 version)<a class="anchor" href="./VPSLLVW:VPSLLVD:VPSLLVQ.html#vpsllvd--vex-128-version-">
 			&para;
 		</a></h4>
-<pre>COUNT_0&larr;SRC2[31 : 0]
+<pre>COUNT_0 := SRC2[31 : 0]
     (* Repeat Each COUNT_i for the 2nd through 4th dwords of SRC2*)
-COUNT_3&larr;SRC2[127 : 96];
+COUNT_3 := SRC2[127 : 96];
 IF COUNT_0 &lt; 32 THEN
-DEST[31:0]&larr;ZeroExtend(SRC1[31:0] &lt;&lt; COUNT_0);
+DEST[31:0] := ZeroExtend(SRC1[31:0] &lt;&lt; COUNT_0);
 ELSE
-DEST[31:0] &larr;0;
+DEST[31:0] := 0;
     (* Repeat shift operation for 2nd through 4th dwords *)
 IF COUNT_3 &lt; 32 THEN
-DEST[127:96]&larr;ZeroExtend(SRC1[127:96] &lt;&lt; COUNT_3);
+DEST[127:96] := ZeroExtend(SRC1[127:96] &lt;&lt; COUNT_3);
 ELSE
-DEST[127:96] &larr;0;
-DEST[MAXVL-1:128] &larr;0;
+DEST[127:96] := 0;
+DEST[MAXVL-1:128] := 0;
 </pre>
 <h4 id="vpsllvd--vex-256-version-">VPSLLVD (VEX.256 version)<a class="anchor" href="./VPSLLVW:VPSLLVD:VPSLLVQ.html#vpsllvd--vex-256-version-">
 			&para;
 		</a></h4>
-<pre>COUNT_0&larr;SRC2[31 : 0];
+<pre>COUNT_0 := SRC2[31 : 0];
     (* Repeat Each COUNT_i for the 2nd through 7th dwords of SRC2*)
-COUNT_7&larr;SRC2[255 : 224];
+COUNT_7 := SRC2[255 : 224];
 IF COUNT_0 &lt; 32 THEN
-DEST[31:0]&larr;ZeroExtend(SRC1[31:0] &lt;&lt; COUNT_0);
+DEST[31:0] := ZeroExtend(SRC1[31:0] &lt;&lt; COUNT_0);
 ELSE
-DEST[31:0] &larr;0;
+DEST[31:0] := 0;
     (* Repeat shift operation for 2nd through 7th dwords *)
 IF COUNT_7 &lt; 32 THEN
-DEST[255:224]&larr;ZeroExtend(SRC1[255:224] &lt;&lt; COUNT_7);
+DEST[255:224] := ZeroExtend(SRC1[255:224] &lt;&lt; COUNT_7);
 ELSE
-DEST[255:224] &larr;0;
-DEST[MAXVL-1:256] &larr; 0;
+DEST[255:224] := 0;
+DEST[MAXVL-1:256] := 0;
 </pre>
 <h4 id="vpsllvd--evex-encoded-version-">VPSLLVD (EVEX encoded version)<a class="anchor" href="./VPSLLVW:VPSLLVD:VPSLLVQ.html#vpsllvd--evex-encoded-version-">
 			&para;
 		</a></h4>
 <pre>(KL, VL) = (4, 128), (8, 256), (16, 512)
-FOR j&larr;0 TO KL-1
-    i&larr;j * 32
+FOR j := 0 TO KL-1
+    i := j * 32
     IF k1[j] OR *no writemask* THEN
             IF (EVEX.b = 1) AND (SRC2 *is memory*)
-                THEN DEST[i+31:i]&larr;ZeroExtend(SRC1[i+31:i] &lt;&lt; SRC2[31:0])
-                ELSE DEST[i+31:i]&larr;ZeroExtend(SRC1[i+31:i] &lt;&lt; SRC2[i+31:i])
+                THEN DEST[i+31:i] := ZeroExtend(SRC1[i+31:i] &lt;&lt; SRC2[31:0])
+                ELSE DEST[i+31:i] := ZeroExtend(SRC1[i+31:i] &lt;&lt; SRC2[i+31:i])
             FI;
         ELSE
             IF *merging-masking* ; merging-masking
                 THEN *DEST[i+31:i] remains unchanged*
-                ELSE ; zeroing-masking
-                    DEST[i+31:i] &larr; 0
+                ELSE
+                        ; zeroing-masking
+                    DEST[i+31:i] := 0
             FI
     FI;
 ENDFOR;
-DEST[MAXVL-1:VL] &larr; 0;
+DEST[MAXVL-1:VL] := 0;
 </pre>
 <h4 id="vpsllvq--vex-128-version-">VPSLLVQ (VEX.128 version)<a class="anchor" href="./VPSLLVW:VPSLLVD:VPSLLVQ.html#vpsllvq--vex-128-version-">
 			&para;
 		</a></h4>
-<pre>COUNT_0&larr;SRC2[63 : 0];
-COUNT_1&larr;SRC2[127 : 64];
+<pre>COUNT_0 := SRC2[63 : 0];
+COUNT_1 := SRC2[127 : 64];
 IF COUNT_0 &lt; 64THEN
-DEST[63:0]&larr;ZeroExtend(SRC1[63:0] &lt;&lt; COUNT_0);
+DEST[63:0] := ZeroExtend(SRC1[63:0] &lt;&lt; COUNT_0);
 ELSE
-DEST[63:0] &larr;0;
+DEST[63:0] := 0;
 IF COUNT_1 &lt; 64 THEN
-DEST[127:64]&larr;ZeroExtend(SRC1[127:64] &lt;&lt; COUNT_1);
+DEST[127:64] := ZeroExtend(SRC1[127:64] &lt;&lt; COUNT_1);
 ELSE
-DEST[127:96] &larr;0;
-DEST[MAXVL-1:128] &larr;0;
+DEST[127:96] := 0;
+DEST[MAXVL-1:128] := 0;
 </pre>
 <h4 id="vpsllvq--vex-256-version-">VPSLLVQ (VEX.256 version)<a class="anchor" href="./VPSLLVW:VPSLLVD:VPSLLVQ.html#vpsllvq--vex-256-version-">
 			&para;
 		</a></h4>
-<pre>COUNT_0&larr;SRC2[63 : 0];
+<pre>COUNT_0 := SRC2[63 : 0];
     (* Repeat Each COUNT_i for the 2nd through 4th dwords of SRC2*)
-COUNT_3&larr;SRC2[255 : 192];
+COUNT_3 := SRC2[255 : 192];
 IF COUNT_0 &lt; 64THEN
-DEST[63:0]&larr;ZeroExtend(SRC1[63:0] &lt;&lt; COUNT_0);
+DEST[63:0] := ZeroExtend(SRC1[63:0] &lt;&lt; COUNT_0);
 ELSE
-DEST[63:0] &larr;0;
+DEST[63:0] := 0;
     (* Repeat shift operation for 2nd through 4th dwords *)
 IF COUNT_3 &lt; 64 THEN
-DEST[255:192]&larr;ZeroExtend(SRC1[255:192] &lt;&lt; COUNT_3);
+DEST[255:192] := ZeroExtend(SRC1[255:192] &lt;&lt; COUNT_3);
 ELSE
-DEST[255:192] &larr;0;
-DEST[MAXVL-1:256] &larr; 0;
+DEST[255:192] := 0;
+DEST[MAXVL-1:256] := 0;
 </pre>
 <h4 id="vpsllvq--evex-encoded-version-">VPSLLVQ (EVEX encoded version)<a class="anchor" href="./VPSLLVW:VPSLLVD:VPSLLVQ.html#vpsllvq--evex-encoded-version-">
 			&para;
 		</a></h4>
 <pre>(KL, VL) = (2, 128), (4, 256), (8, 512)
-FOR j&larr;0 TO KL-1
-    i&larr;j * 64
+FOR j := 0 TO KL-1
+    i := j * 64
     IF k1[j] OR *no writemask* THEN
             IF (EVEX.b = 1) AND (SRC2 *is memory*)
-                THEN DEST[i+63:i]&larr;ZeroExtend(SRC1[i+63:i] &lt;&lt; SRC2[63:0])
-                ELSE DEST[i+63:i]&larr;ZeroExtend(SRC1[i+63:i] &lt;&lt; SRC2[i+63:i])
+                THEN DEST[i+63:i] := ZeroExtend(SRC1[i+63:i] &lt;&lt; SRC2[63:0])
+                ELSE DEST[i+63:i] := ZeroExtend(SRC1[i+63:i] &lt;&lt; SRC2[i+63:i])
             FI;
         ELSE
             IF *merging-masking* ; merging-masking
                 THEN *DEST[i+63:i] remains unchanged*
-                ELSE
-                        ; zeroing-masking
-                    DEST[i+63:i] &larr; 0
+                ELSE ; zeroing-masking
+                    DEST[i+63:i] := 0
             FI
     FI;
 ENDFOR;
-DEST[MAXVL-1:VL] &larr; 0;
+DEST[MAXVL-1:VL] := 0;
 </pre>
 <h3 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="./VPSLLVW:VPSLLVD:VPSLLVQ.html#intel-c-c++-compiler-intrinsic-equivalent">
 			&para;
@@ -316,11 +315,11 @@ DEST[MAXVL-1:VL] &larr; 0;
 <h3 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="./VPSLLVW:VPSLLVD:VPSLLVQ.html#other-exceptions">
 			&para;
 		</a></h3>
-<p>VEX-encoded instructions, see Exceptions Type 4.</p>
-<p>EVEX-encoded VPSLLVD/VPSLLVQ, see Exceptions Type E4.</p>
-<p>EVEX-encoded VPSLLVW, see Exceptions Type E4.nb.</p><footer><p>
+<p>VEX-encoded instructions, see <span class="not-imported">Table 2-21</span>, &ldquo;Type 4 Class Exception Conditions&rdquo;.</p>
+<p>EVEX-encoded VPSLLVD/VPSLLVQ, see <span class="not-imported">Table 2-49</span>, &ldquo;Type E4 Class Exception Conditions&rdquo;.</p>
+<p>EVEX-encoded VPSLLVW, see Exceptions Type E4.nb in <span class="not-imported">Table 2-49</span>, &ldquo;Type E4 Class Exception Conditions&rdquo;.</p><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

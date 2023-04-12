@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-483"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/V4FMADDPS%2FV4FNMADDPS"></a><title>V4FMADDPS/V4FNMADDPS</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>V4FMADDPS/V4FNMADDPS
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-495"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/V4FMADDPS%2FV4FNMADDPS"></a><title>V4FMADDPS/V4FNMADDPS</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>V4FMADDPS/V4FNMADDPS
 		&mdash; Packed Single-Precision Floating-Point Fused Multiply-Add (4-iterations)</h1>
 
 
@@ -26,9 +26,19 @@
 		</a></h2>
 <table>
 <tbody><tr>
-<td>Op/En Tuple Operand 1 Operand 2 Operand 3 Operand 4</td></tr>
+<td>Op/En Tuple Operand 1 Operand 2 Operand 3 Operand 4</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td></tr>
 <tr>
-<td>A Tuple1_4X ModRM:reg (r, w) EVEX.vvvv (r) ModRM:r/m (r) NA</td></tr></tbody></table>
+<td>A Tuple1_4X ModRM:reg (r, w) EVEX.vvvv (r) ModRM:r/m (r) NA</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td></tr></tbody></table>
 <h3 id="description">Description<a class="anchor" href="./V4FMADDPS:V4FNMADDPS.html#description">
 			&para;
 		</a></h3>
@@ -42,24 +52,24 @@
 		</a></h3>
 <pre>src_reg_id is the 5 bit index of the vector register specified in the instruction as the src1 register.
 define NFMA_PS(kl, vl, dest, k1, msrc, regs_loaded, src_base, posneg):
-    tmpdest &larr; dest
+    tmpdest := dest
     // reg[] is an array representing the SIMD register file.
-    FOR j &larr; 0 to regs_loaded-1:
-        FOR i &larr; 0 to kl-1:
+    FOR j := 0 to regs_loaded-1:
+        FOR i := 0 to kl-1:
             IF k1[i] or *no writemask*:
                 IF posneg = 0:
-                    tmpdest.single[i] &larr; RoundFPControl_MXCSR(tmpdest.single[i] - reg[src_base + j ].single[i] * msrc.single[j])
-            ELSE:
-                    tmpdest.single[i] &larr; RoundFPControl_MXCSR(tmpdest.single[i] + reg[src_base + j ].single[i] * msrc.single[j])
-        ELSE IF *zeroing*:
-            tmpdest.single[i] &larr; 0
-    dest &larr; tmpdst
-    dest[MAX_VL-1:VL] &larr; 0
+                    tmpdest.single[i] := RoundFPControl_MXCSR(tmpdest.single[i] - reg[src_base + j ].single[i] * msrc.single[j])
+                ELSE:
+                    tmpdest.single[i] := RoundFPControl_MXCSR(tmpdest.single[i] + reg[src_base + j ].single[i] * msrc.single[j])
+            ELSE IF *zeroing*:
+                tmpdest.single[i] := 0
+    dest := tmpdst
+    dest[MAX_VL-1:VL] := 0
 V4FMADDPS and V4FNMADDPS dest{k1}, src1, msrc (AVX512)
 KL, VL = (16,512)
-regs_loaded &larr; 4
-src_base &larr; src_reg_id &amp; ~3 // for src1 operand
-posneg &larr; 0 if negative form, 1 otherwise
+regs_loaded := 4
+src_base := src_reg_id &amp; ~3 // for src1 operand
+posneg := 0 if negative form, 1 otherwise
 NFMA_PS(kl, vl, dest, k1, msrc, regs_loaded, src_base, posneg)
 </pre>
 <h3 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="./V4FMADDPS:V4FNMADDPS.html#intel-c-c++-compiler-intrinsic-equivalent">
@@ -94,6 +104,6 @@ NFMA_PS(kl, vl, dest, k1, msrc, regs_loaded, src_base, posneg)
 <td>If the MODRM.mod = 0b11.</td></tr></tbody></table><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

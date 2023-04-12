@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-248"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/LSL"></a><title>LSL</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>LSL
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-258"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/LSL"></a><title>LSL</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>LSL
 		&mdash; Load Segment Limit</h1>
 
 <table>
@@ -15,21 +15,21 @@
 <td>RM</td>
 <td>Valid</td>
 <td>Valid</td>
-<td>Load: <em>r16</em> &larr; segment limit, selector <em>r16/m16.</em></td></tr>
+<td>Load: <em>r16</em> := segment limit, selector <em>r16/m16.</em></td></tr>
 <tr>
 <td>0F 03 /<em>r</em></td>
 <td>LSL <em>r32, r32/m16</em><sup>*</sup></td>
 <td>RM</td>
 <td>Valid</td>
 <td>Valid</td>
-<td>Load: <em>r32</em> &larr; segment limit, selector <em>r32/m16.</em></td></tr>
+<td>Load: <em>r32</em> := segment limit, selector <em>r32/m16.</em></td></tr>
 <tr>
 <td>REX.W + 0F 03 /<em>r</em></td>
 <td>LSL <em>r64, r32/m16</em><sup>*</sup></td>
 <td>RM</td>
 <td>Valid</td>
 <td>Valid</td>
-<td>Load: <em>r64</em> &larr; segment limit, selector <em>r32/m16</em></td></tr></tbody></table>
+<td>Load: <em>r64</em> := segment limit, selector <em>r32/m16</em></td></tr></tbody></table>
 <blockquote>
 <p>* Forallloads(regardlessofdestinationsizing),onlybits16-0areused.Otherbitsareignored.</p></blockquote>
 <h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="LSL.html#instruction-operand-encoding">
@@ -86,23 +86,23 @@
 			&para;
 		</a></h2>
 <pre>IF SRC(Offset) &gt; descriptor table limit
-    THEN ZF &larr; 0; FI;
+    THEN ZF := 0; FI;
 Read segment descriptor;
 IF SegmentDescriptor(Type) ≠ conforming code segment
 and (CPL &gt; DPL) OR (RPL &gt; DPL)
 or Segment type is not valid for instruction
         THEN
-            ZF &larr; 0;
+            ZF := 0;
         ELSE
-            temp &larr; SegmentLimit([SRC]);
-            IF (G &larr; 1)
-                THEN temp &larr; ShiftLeft(12, temp) OR 00000FFFH;
+            temp := SegmentLimit([SRC]);
+            IF (SegmentDescriptor(G) = 1)
+                THEN temp := (temp &lt;&lt; 12) OR 00000FFFH;
             ELSE IF OperandSize = 32
-                THEN DEST &larr; temp; FI;
+                THEN DEST := temp; FI;
             ELSE IF OperandSize = 64 (* REX.W used *)
-                THEN DEST (* Zero-extended *) &larr; temp; FI;
+                THEN DEST := temp(* Zero-extended *); FI;
             ELSE (* OperandSize = 16 *)
-                DEST &larr; temp AND FFFFH;
+                DEST := temp AND FFFFH;
             FI;
 FI;
 </pre>
@@ -170,6 +170,6 @@ FI;
 <td>If the LOCK prefix is used.</td></tr></tbody></table><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

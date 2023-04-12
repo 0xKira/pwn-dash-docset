@@ -1,0 +1,425 @@
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-350"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/PCONFIG"></a><title>PCONFIG</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>PCONFIG
+		&mdash; Platform Configuration</h1>
+
+<table>
+<tbody><tr>
+<th>Opcode/Instruction</th>
+<th>Op/En</th>
+<th>64/32 bit Mode Support</th>
+<th>CPUID Feature Flag</th>
+<th>Description</th></tr>
+<tr>
+<td>NP 0F 01 C5 PCONFIG</td>
+<td>A</td>
+<td>V/V</td>
+<td>PCONFIG</td>
+<td>This instruction is used to execute functions for configuring platform features.</td></tr></tbody></table>
+<h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="PCONFIG.html#instruction-operand-encoding">
+			&para;
+		</a></h2>
+<table>
+<tbody><tr>
+<th>Op/En</th>
+<th>Tuple</th>
+<th>Operand 1</th>
+<th>Operand 2</th>
+<th>Operand 3</th>
+<th>Operand 4</th></tr>
+<tr>
+<td>A</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td></tr></tbody></table>
+<h3 id="description">Description<a class="anchor" href="PCONFIG.html#description">
+			&para;
+		</a></h3>
+<p>PCONFIG allows software to configure certain platform features. PCONFIG supports multiple leaf functions, with a leaf function identified by the value in EAX. The registers RBX, RCX, and RDX may provide input or output information for certain leaves. All leaves write status information to EAX but do not modify RBX, RCX, or RDX unless they are being used as leaf-specific output.</p>
+<p>Each PCONFIG leaf function applies to a specific hardware block called a PCONFIG target, and each PCONFIG target is associated with a numerical <strong>target identifier</strong>. Supported target identifiers are enumerated, along with other PCONFIG capabilities, in the sub-leaves of the PCONFIG-information leaf of CPUID (EAX = 1BH). An attempt to execute an undefined leaf function, or a leaf function that applies to an unsupported target identifier, results in a general-protection exception (#GP). (In the future, the PCONFIG-information leaf of CPUID may enumerate PCONFIG capabilities in addition to the supported target identifiers.)</p>
+<p>Addresses and operands are 32 bits outside 64-bit mode and are 64 bits in 64-bit mode. The value of CS.D does not affect operand size or address size.</p>
+<p><a href="PCONFIG.html#tbl-4-15">Table 4-15</a> shows the leaf encodings for PCONFIG, and <a href="PCONFIG.html#tbl-4-16">Table 4-16</a> shows the leaf register usage for PCONFIG.</p>
+<figure id="tbl-4-15">
+<table>
+<tbody><tr>
+<th>Leaf</th>
+<th>Encoding</th>
+<th>Description</th></tr>
+<tr>
+<td>MKTME_KEY_PROGRAM</td>
+<td>00000000H</td>
+<td>This leaf is used to program the key and encryption mode associated with a KeyID.</td></tr>
+<tr>
+<td>RESERVED</td>
+<td>00000001H - FFFFFFFFH</td>
+<td>Reserved for future use (#GP(0) if used).</td></tr></tbody></table>
+<figcaption><a href="PCONFIG.html#tbl-4-15">Table 4-15</a>. PCONFIG Leaf Encodings</figcaption></figure>
+<figure id="tbl-4-16">
+<table>
+<tbody><tr>
+<th>Leaf</th>
+<th>RBX</th>
+<th>RCX</th>
+<th>RDX</th></tr>
+<tr>
+<td>MKTME_KEY_PROGRAM</td>
+<td>Input only.</td>
+<td>Input only.</td>
+<td>Input only.</td></tr>
+<tr>
+<td>RESERVED</td>
+<td>Reserved for future use.</td>
+<td>Reserved for future use.</td>
+<td>Reserved for future use.</td></tr></tbody></table>
+<figcaption><a href="PCONFIG.html#tbl-4-16">Table 4-16</a>. PCONFIG Leaf Register Usage</figcaption></figure>
+<p>The MKTME_KEY_PROGRAM leaf of PCONFIG pertains to the MKTME<sup>1</sup> target, which has target identifier 1. It is used by software to manage the key associated with a KeyID. The leaf function is invoked by setting the leaf value of 0 in EAX and the address of MKTME_KEY_PROGRAM_STRUCT in RBX. Successful execution of the leaf clears RAX (set to zero) and ZF, CF, PF, AF, OF, and SF are cleared. In case of failure, the failure reason is indicated in RAX with ZF set to 1 and CF, PF, AF, OF, and SF are cleared. The MKTME_KEY_PROGRAM leaf uses the MKTME_KEY_PROGRAM_STRUCT in memory shown in <a href="PCONFIG.html#tbl-4-17">Table 4-17</a>.</p>
+<p>1. Further details on MKTME usage can be found here:</p>
+<h3 id="https---software-intel-com-sites-default-files-managed-a5-16-multi-key-total-memory-encryption-spec-pdf">https://software.intel.com/sites/default/files/managed/a5/16/Multi-Key-Total-Memory-Encryption-Spec.pdf<a class="anchor" href="PCONFIG.html#https---software-intel-com-sites-default-files-managed-a5-16-multi-key-total-memory-encryption-spec-pdf">
+			&para;
+		</a></h3>
+<figure id="tbl-4-17">
+<table>
+<tbody><tr>
+<th>Field</th>
+<th>Offset (bytes)</th>
+<th>Size (bytes)</th>
+<th>Comments</th></tr>
+<tr>
+<td>KEYID</td>
+<td>0</td>
+<td>2</td>
+<td>Key Identifier.</td></tr>
+<tr>
+<td>KEYID_CTRL</td>
+<td>2</td>
+<td>4</td>
+<td>KeyID control: &bull; Bits [7:0]: COMMAND. &bull; Bits [23:8]: ENC_ALG. &bull; Bits [31:24]: Reserved, must be zero.</td></tr>
+<tr>
+<td>RESERVED</td>
+<td>6</td>
+<td>58</td>
+<td>Reserved, must be zero.</td></tr>
+<tr>
+<td>KEY_FIELD_1</td>
+<td>64</td>
+<td>64</td>
+<td>Software supplied KeyID data key or entropy for KeyID data key.</td></tr>
+<tr>
+<td>KEY_FIELD_2</td>
+<td>128</td>
+<td>64</td>
+<td>Software supplied KeyID tweak key or entropy for KeyID tweak key.</td></tr></tbody></table>
+<figcaption><a href="PCONFIG.html#tbl-4-17">Table 4-17</a>. MKTME_KEY_PROGRAM_STRUCT Format</figcaption></figure>
+<p>A description of each of the fields in MKTME_KEY_PROGRAM_STRUCT is provided below:</p>
+<ul>
+<li><strong>KEYID: </strong>Key Identifier being programmed to the MKTME engine.</li>
+<li><strong>KEYID_CTRL: </strong>The KEYID_CTRL field carries two sub-fields used by software to control the behavior of a KeyID: Command and KeyID encryption algorithm.</li></ul>
+<p>The command used controls the encryption mode for a KeyID. <a href="PCONFIG.html#tbl-4-18">Table 4-18</a> provides a summary of the commands supported.</p>
+<figure id="tbl-4-18">
+<table>
+<tbody><tr>
+<th>Command</th>
+<th>Encoding</th>
+<th>Description</th></tr>
+<tr>
+<td>KEYID_SET_KEY_DIRECT</td>
+<td>0</td>
+<td>Software uses this mode to directly program a key for use with KeyID.</td></tr>
+<tr>
+<td>KEYID_SET_KEY_RANDOM</td>
+<td>1</td>
+<td>CPU generates and assigns an ephemeral key for use with a KeyID. Each time the instruction is executed, the CPU generates a new key using a hardware random number generator and the keys are discarded on reset.</td></tr>
+<tr>
+<td>KEYID_CLEAR_KEY</td>
+<td>2</td>
+<td>Clear the (software programmed) key associated with the KeyID. On execution of this command, the KeyID gets TME behavior (encrypt with platform TME key or bypass TME encryption).</td></tr>
+<tr>
+<td>KEYID_NO_ENCRYPT</td>
+<td>3</td>
+<td>Do not encrypt memory when this KeyID is in use.</td></tr></tbody></table>
+<figcaption><a href="PCONFIG.html#tbl-4-18">Table 4-18</a>. Supported Key Programming Commands</figcaption></figure>
+<p>The encryption algorithm field (ENC_ALG) allows software to select one of the activated encryption algorithms for the KeyID. The BIOS can activate a set of algorithms to allow for use when programming keys using the IA32_TME_ACTIVATE MSR (does not apply to KeyID 0 which uses the TME policy when TME encryption is not bypassed). The processor checks to ensure that the algorithm selected by software is one of the algorithms that has been activated by the BIOS.</p>
+<ul>
+<li><strong>KEY_FIELD_1: </strong>This field carries the software supplied data key to be used for the KeyID if the direct key programming option is used (KEYID_SET_KEY_DIRECT). When the random key programming option is used (KEYID_SET_KEY_RANDOM), this field carries the software supplied entropy to be mixed in the CPU generated random data key. It is software&#39;s responsibility to ensure that the key supplied for the direct programming option or the entropy supplied for the random programming option does not result in weak keys. There are no explicit checks in the instruction to detect or prevent weak keys. When AES XTS-128 is used, the upper 48B are treated as reserved and must be zeroed out by software before executing the instruction.</li>
+<li><strong>KEY_FIELD_2: </strong>This field carries the software supplied tweak key to be used for the KeyID if the direct key programming option is used (KEYID_SET_KEY_DIRECT). When the random key programming option is used (KEYID_SET_KEY_RANDOM), this field carries the software supplied entropy to be mixed in the CPU generated random tweak key. It is software&#39;s responsibility to ensure that the key supplied for the direct programming option or the entropy supplied for the random programming option does not result in weak keys. There are no explicit checks in the instruction to detect or prevent weak keys. When AES XTS-128 is used, the upper 48B are treated as reserved and must be zeroed out by software before executing the instruction.</li></ul>
+<p>All KeyIDs default to TME behavior (encrypt with TME key or bypass encryption) on MKTME activation. Software can at any point decide to change the key for a KeyID using the PCONFIG instruction. Change of</p>
+<p>keys for a KeyID does NOT change the state of the TLB caches or memory pipeline. It is software&#39;s responsibility to take appropriate actions to ensure correct behavior.</p>
+<p><a href="PCONFIG.html#tbl-4-19">Table 4-19</a> shows the return values associated with the MKTME_KEY_PROGRAM leaf of PCONFIG. On instruction execution, RAX is populated with the return value.</p>
+<figure id="tbl-4-19">
+<table>
+<tbody><tr>
+<th>Return Value</th>
+<th>Encoding</th>
+<th>Description</th></tr>
+<tr>
+<td>PROG_SUCCESS</td>
+<td>0</td>
+<td>KeyID was successfully programmed.</td></tr>
+<tr>
+<td>INVALID_PROG_CMD</td>
+<td>1</td>
+<td>Invalid KeyID programming command.</td></tr>
+<tr>
+<td>ENTROPY_ERROR</td>
+<td>2</td>
+<td>Insufficient entropy.</td></tr>
+<tr>
+<td>INVALID_KEYID</td>
+<td>3</td>
+<td>KeyID not valid.</td></tr>
+<tr>
+<td>INVALID_ENC_ALG</td>
+<td>4</td>
+<td>Invalid encryption algorithm chosen (not supported).</td></tr>
+<tr>
+<td>DEVICE_BUSY</td>
+<td>5</td>
+<td>Failure to access key table.</td></tr></tbody></table>
+<figcaption><a href="PCONFIG.html#tbl-4-19">Table 4-19</a>. Supported Key Error Codes</figcaption></figure>
+<h3 id="pconfig-concurrency">PCONFIG Concurrency<a class="anchor" href="PCONFIG.html#pconfig-concurrency">
+			&para;
+		</a></h3>
+<p>In a scenario where the MKTME_KEY_PROGRAM leaf of PCONFIG is executed concurrently on multiple logical processors, only one logical processor will succeed in updating the key table. PCONFIG execution will return with an error code (DEVICE_BUSY) on other logical processors and software must retry. In cases where the instruction execution fails with a DEVICE_BUSY error code, the key table is not updated, thereby ensuring that either the key table is updated in its entirety with the information for a KeyID, or it is not updated at all. In order to accomplish this, the MKTME_KEY_PROGRAM leaf of PCONFIG maintains a writer lock for updating the key table. This lock is referred to as the Key table lock and denoted in the instruction flows as KEY_TABLE_LOCK. The lock can either be unlocked, when no logical processor is holding the lock (also the initial state of the lock) or be in an exclusive state where a logical processor is trying to update the key table. There can be only one logical processor holding the lock in exclusive state. The lock, being exclusive, can only be acquired when the lock is in unlocked state.</p>
+<p>PCONFIG uses the following syntax to acquire KEY_TABLE_LOCK in exclusive mode and release the lock:</p>
+<ul>
+<li>KEY_TABLE_LOCK.ACQUIRE(WRITE)</li>
+<li>KEY_TABLE_LOCK.RELEASE()</li></ul>
+<h3 id="operation">Operation<a class="anchor" href="PCONFIG.html#operation">
+			&para;
+		</a></h3>
+<figure id="tbl-4-20">
+<table>
+<tbody><tr>
+<th>Variable Name</th>
+<th>Type</th>
+<th>Size (Bytes)</th>
+<th>Description</th></tr>
+<tr>
+<td>TMP_KEY_PROGRAM_STRUCT</td>
+<td>MKTME_KEY_PROGRAM_STRUCT</td>
+<td>192</td>
+<td>Structure holding the key programming structure.</td></tr>
+<tr>
+<td>TMP_RND_DATA_KEY</td>
+<td>UINT128</td>
+<td>16</td>
+<td>Random data key generated for random key programming option.</td></tr>
+<tr>
+<td>TMP_RND_TWEAK_KEY</td>
+<td>UINT128</td>
+<td>16</td>
+<td>Random tweak key generated for random key programming option.</td></tr></tbody></table>
+<figcaption><a href="PCONFIG.html#tbl-4-20">Table 4-20</a>. PCONFIG Operation Variables</figcaption></figure>
+<p>(* #UD if PCONFIG is not enumerated or CPL&gt;0 *)</p>
+<p>IF (CPUID.7.0:EDX[18] == 0 OR CPL &gt; 0) #UD;</p>
+<p>(* #GP(0) for an unsupported leaf *)</p>
+<p>IF (EAX != 0) #GP(0)</p>
+<p>(* KEY_PROGRAM leaf flow *)</p>
+<p>IF (EAX == 0)</p>
+<p>{</p>
+<p>(* #GP(0) if TME_ACTIVATE MSR is not locked or does not enable hardware encryption or multiple keys are not enabled *)</p>
+<p>IF (IA32_TME_ACTIVATE.LOCK != 1 OR IA32_TME_ACTIVATE.ENABLE != 1 OR IA32_TME_ACTIVATE.MK_TME_KEYID_BITS == 0) #GP(0)</p>
+<p>(* Check MKTME_KEY_PROGRAM_STRUCT is 256B aligned *)</p>
+<p>IF (DS:RBX is not 256B aligned) #GP(0);</p>
+<p>(* Check that MKTME_KEY_PROGRAM_STRUCT is read accessible *)</p>
+<p>&lt;&lt;DS: RBX should be read accessible&gt;&gt;</p>
+<p>(* Copy MKTME_KEY_PROGRAM_STRUCT to a temporary variable *)</p>
+<p>TMP_KEY_PROGRAM_STRUCT = DS:RBX.*;</p>
+<p>(* RSVD field check *)</p>
+<p>IF (TMP_KEY_PROGRAM_STRUCT.RSVD != 0) #GP(0);</p>
+<p>IF (TMP_KEY_PROGRAM_STRUCT.KEYID_CTRL.RSVD !=0) #GP(0);</p>
+<p>IF (TMP_KEY_PROGRAM_STRUCT.KEY_FIELD_1.BYTES[63:16] != 0) #GP(0);</p>
+<p>IF (TMP_KEY_PROGRAM_STRUCT.KEY_FIELD_2.BYTES[63:16] != 0) #GP(0);</p>
+<p>(* Check for a valid command *)</p>
+<p>IF (TMP_KEY_PROGRAM_STRUCT. KEYID_CTRL.COMMAND is not a valid command)</p>
+<p>{</p>
+<p>RFLAGS.ZF = 1;</p>
+<p>RAX = INVALID_PROG_CMD;</p>
+<p>goto EXIT;</p>
+<p>}</p>
+<p>(* Check that the KEYID being operated upon is a valid KEYID *)</p>
+<p>IF (TMP_KEY_PROGRAM_STRUCT.KEYID &gt;</p>
+<p>2^IA32_TME_ACTIVATE.MK_TME_KEYID_BITS - 1</p>
+<p>OR TMP_KEY_PROGRAM_STRUCT.KEYID &gt;</p>
+<p>IA32_TME_CAPABILITY.MK_TME_MAX_KEYS</p>
+<p>OR TMP_KEY_PROGRAM_STRUCT.KEYID == 0)</p>
+<p>{</p>
+<p>RFLAGS.ZF = 1;</p>
+<p>RAX = INVALID_KEYID;</p>
+<p>goto EXIT;</p>
+<p>}</p>
+<p>(* Check that only one algorithm is requested for the KeyID and it is one of the activated algorithms *)</p>
+<p>IF (NUM_BITS(TMP_KEY_PROGRAM_STRUCT.KEYID_CTRL.ENC_ALG) != 1 ||</p>
+<p>(TMP_KEY_PROGRAM_STRUCT.KEYID_CTRL.ENC_ALG &amp;</p>
+<p>IA32_TME_ACTIVATE. MK_TME_CRYPTO_ALGS == 0))</p>
+<p>{</p>
+<p>RFLAGS.ZF = 1;</p>
+<p>RAX = INVALID_ENC_ALG;</p>
+<p>goto EXIT;</p>
+<p>}</p>
+<p>(* Try to acquire exclusive lock *)</p>
+<p>IF (NOT KEY_TABLE_LOCK.ACQUIRE(WRITE))</p>
+<p>{</p>
+<p>//PCONFIG failure</p>
+<p>RFLAGS.ZF = 1;</p>
+<p>RAX = DEVICE_BUSY;</p>
+<p>goto EXIT;</p>
+<p>}</p>
+<p>(* Lock is acquired and key table will be updated as per the command</p>
+<p>Before this point no changes to the key table are made *)</p>
+<p>switch(TMP_KEY_PROGRAM_STRUCT.KEYID_CTRL.COMMAND)</p>
+<p>{</p>
+<p>case KEYID_SET_KEY_DIRECT:</p>
+<p>&lt;&lt;Write</p>
+<p>DATA_KEY=TMP_KEY_PROGRAM_STRUCT.KEY_FIELD_1,</p>
+<p>TWEAK_KEY=TMP_KEY_PROGRAM_STRUCT.KEY_FIELD_2,</p>
+<p>ENCRYPTION_MODE=ENCRYPT_WITH_KEYID_KEY,</p>
+<p>to MKTME Key table at index TMP_KEY_PROGRAM_STRUCT.KEYID</p>
+<p>&gt;&gt;</p>
+<p>break;</p>
+<p>case KEYID_SET_KEY_RANDOM:</p>
+<p>TMP_RND_DATA_KEY = &lt;&lt;Generate a random key using hardware RNG&gt;&gt;</p>
+<p>IF (NOT ENOUGH ENTROPY)</p>
+<p>{</p>
+<p>RFLAGS.ZF = 1;</p>
+<p>RAX = ENTROPY_ERROR;</p>
+<p>goto EXIT;</p>
+<p>}</p>
+<p>TMP_RND_TWEAK_KEY = &lt;&lt;Generate a random key using hardware RNG&gt;&gt;</p>
+<p>IF (NOT ENOUGH ENTROPY)</p>
+<p>{</p>
+<p>RFLAGS.ZF = 1;</p>
+<p>RAX = ENTROPY_ERROR;</p>
+<p>goto EXIT;</p>
+<p>}</p>
+<p>(* Mix user supplied entropy to the data key and tweak key *)</p>
+<p>TMP_RND_DATA_KEY = TMP_RND_KEY XOR</p>
+<p>TMP_KEY_PROGRAM_STRUCT.KEY_FIELD_1.BYTES[15:0];</p>
+<p>TMP_RND_TWEAK_KEY = TMP_RND_TWEAK_KEY XOR</p>
+<p>TMP_KEY_PROGRAM_STRUCT.KEY_FIELD_2.BYTES[15:0];</p>
+<p>&lt;&lt;Write</p>
+<p>DATA_KEY=TMP_RND_DATA_KEY,</p>
+<p>TWEAK_KEY=TMP_RND_TWEAK_KEY,</p>
+<p>ENCRYPTION_MODE=ENCRYPT_WITH_KEYID_KEY,</p>
+<p>to MKTME_KEY_TABLE at index TMP_KEY_PROGRAM_STRUCT.KEYID</p>
+<p>&gt;&gt;</p>
+<p>break;</p>
+<p>case KEYID_CLEAR_KEY:</p>
+<p>&lt;&lt;Write</p>
+<p>DATA_KEY=&#39;0,</p>
+<p>TWEAK_KEY=&#39;0,</p>
+<p>ENCRYPTION_MODE = ENCRYPT_WITH_TME_KEY_OR_BYPASS,</p>
+<p>to MKTME_KEY_TABLE at index TMP_KEY_PROGRAM_STRUCT.KEYID</p>
+<p>&gt;&gt;</p>
+<p>break;</p>
+<p>case KD_NO_ENCRYPT:</p>
+<p>&lt;&lt;Write</p>
+<p>ENCRYPTION_MODE=NO_ENCRYPTION,</p>
+<p>to MKTME_KEY_TABLE at index TMP_KEY_PROGRAM_STRUCT.KEYID</p>
+<p>&gt;&gt;</p>
+<p>break;</p>
+<p>}</p>
+<p>RAX = 0;</p>
+<p>RFLAGS.ZF = 0;</p>
+<p>//Release Lock</p>
+<p>KEY_TABLE_LOCK(RELEASE);</p>
+<p>EXIT:</p>
+<p>RFLAGS.CF=0;</p>
+<p>RFLAGS.PF=0;</p>
+<p>RFLAGS.AF=0;</p>
+<p>RFLAGS.OF=0;</p>
+<p>RFLAGS.SF=0;</p>
+<p>}</p>
+<p>end_of_flow</p>
+<h2 class="exceptions" id="protected-mode-exceptions">Protected Mode Exceptions<a class="anchor" href="PCONFIG.html#protected-mode-exceptions">
+			&para;
+		</a></h2>
+<table>
+<tbody><tr>
+<td rowspan="6">#GP(0)</td>
+<td>If input value in EAX encodes an unsupported leaf.</td></tr>
+<tr>
+<td>If IA32_TME_ACTIVATE MSR is not locked.</td></tr>
+<tr>
+<td>If hardware encryption and MKTME capability are not enabled in IA32_TME_ACTIVATE MSR.</td></tr>
+<tr>
+<td>If the memory operand is not 256B aligned.</td></tr>
+<tr>
+<td>If any of the reserved bits in MKTME_KEY_PROGRAM_STRUCT are set.</td></tr>
+<tr>
+<td>If a memory operand effective address is outside the DS segment limit.</td></tr>
+<tr>
+<td>#PF(fault-code)</td>
+<td>If a page fault occurs in accessing memory operands.</td></tr>
+<tr>
+<td rowspan="3">#UD</td>
+<td>If any of the LOCK/REP/OSIZE/VEX prefixes are used.</td></tr>
+<tr>
+<td>If current privilege level is not 0.</td></tr>
+<tr>
+<td>If CPUID.7.0:EDX[bit 18] = 0</td></tr></tbody></table>
+<h2 class="exceptions" id="real-address-mode-exceptions">Real-Address Mode Exceptions<a class="anchor" href="PCONFIG.html#real-address-mode-exceptions">
+			&para;
+		</a></h2>
+<table>
+<tbody><tr>
+<td rowspan="5">#GP</td>
+<td>If input value in EAX encodes an unsupported leaf.</td></tr>
+<tr>
+<td>If IA32_TME_ACTIVATE MSR is not locked.</td></tr>
+<tr>
+<td>If hardware encryption and MKTME capability are not enabled in IA32_TME_ACTIVATE MSR.</td></tr>
+<tr>
+<td>If a memory operand is not 256B aligned.</td></tr>
+<tr>
+<td>If any of the reserved bits in MKTME_KEY_PROGRAM_STRUCT are set.</td></tr>
+<tr>
+<td rowspan="3">#UD</td>
+<td>If any of the LOCK/REP/OSIZE/VEX prefixes are used.</td></tr>
+<tr>
+<td>If current privilege level is not 0.</td></tr>
+<tr>
+<td>If CPUID.7.0:EDX.PCONFIG[bit 18] = 0</td></tr></tbody></table>
+<h2 class="exceptions" id="virtual-8086-mode-exceptions">Virtual-8086 Mode Exceptions<a class="anchor" href="PCONFIG.html#virtual-8086-mode-exceptions">
+			&para;
+		</a></h2>
+<table>
+<tbody><tr>
+<td>#UD</td>
+<td>PCONFIG instruction is not recognized in virtual-8086 mode.</td></tr></tbody></table>
+<h2 class="exceptions" id="compatibility-mode-exceptions">Compatibility Mode Exceptions<a class="anchor" href="PCONFIG.html#compatibility-mode-exceptions">
+			&para;
+		</a></h2>
+<p>Same exceptions as in protected mode.</p>
+<h2 class="exceptions" id="64-bit-mode-exceptions">64-Bit Mode Exceptions<a class="anchor" href="PCONFIG.html#64-bit-mode-exceptions">
+			&para;
+		</a></h2>
+<table>
+<tbody><tr>
+<td rowspan="6">#GP(0)</td>
+<td>If input value in EAX encodes an unsupported leaf.</td></tr>
+<tr>
+<td>If IA32_TME_ACTIVATE MSR is not locked.</td></tr>
+<tr>
+<td>If hardware encryption and MKTME capability are not enabled in IA32_TME_ACTIVATE MSR.</td></tr>
+<tr>
+<td>If a memory operand is not 256B aligned.</td></tr>
+<tr>
+<td>If any of the reserved bits in MKTME_KEY_PROGRAM_STRUCT are set.</td></tr>
+<tr>
+<td>If a memory operand is non-canonical form.</td></tr>
+<tr>
+<td>#PF(fault-code)</td>
+<td>If a page fault occurs in accessing memory operands.</td></tr>
+<tr>
+<td rowspan="3">#UD</td>
+<td>If any of the LOCK/REP/OSIZE/VEX prefixes are used.</td></tr>
+<tr>
+<td>If the current privilege level is not 0.</td></tr>
+<tr>
+<td>If CPUID.7.0:EDX.PCONFIG[bit 18] = 0.</td></tr></tbody></table><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+	</p></footer>
+</body></html>

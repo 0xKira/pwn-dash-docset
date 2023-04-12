@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-320"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/PACKUSWB"></a><title>PACKUSWB</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>PACKUSWB
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-330"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/PACKUSWB"></a><title>PACKUSWB</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>PACKUSWB
 		&mdash; Pack with Unsigned Saturation</h1>
 
 <table>
@@ -98,180 +98,180 @@
 <h4 id="packuswb--with-64-bit-operands-">PACKUSWB (with 64-bit operands)<a class="anchor" href="PACKUSWB.html#packuswb--with-64-bit-operands-">
 			&para;
 		</a></h4>
-<pre>DEST[7:0] &larr; SaturateSignedWordToUnsignedByte DEST[15:0];
-DEST[15:8] &larr; SaturateSignedWordToUnsignedByte DEST[31:16];
-DEST[23:16] &larr; SaturateSignedWordToUnsignedByte DEST[47:32];
-DEST[31:24] &larr; SaturateSignedWordToUnsignedByte DEST[63:48];
-DEST[39:32] &larr; SaturateSignedWordToUnsignedByte SRC[15:0];
-DEST[47:40] &larr; SaturateSignedWordToUnsignedByte SRC[31:16];
-DEST[55:48] &larr; SaturateSignedWordToUnsignedByte SRC[47:32];
-DEST[63:56] &larr; SaturateSignedWordToUnsignedByte SRC[63:48];
+<pre>DEST[7:0] := SaturateSignedWordToUnsignedByte DEST[15:0];
+DEST[15:8] := SaturateSignedWordToUnsignedByte DEST[31:16];
+DEST[23:16] := SaturateSignedWordToUnsignedByte DEST[47:32];
+DEST[31:24] := SaturateSignedWordToUnsignedByte DEST[63:48];
+DEST[39:32] := SaturateSignedWordToUnsignedByte SRC[15:0];
+DEST[47:40] := SaturateSignedWordToUnsignedByte SRC[31:16];
+DEST[55:48] := SaturateSignedWordToUnsignedByte SRC[47:32];
+DEST[63:56] := SaturateSignedWordToUnsignedByte SRC[63:48];
 </pre>
 <h4 id="packuswb--legacy-sse-instruction-">PACKUSWB (Legacy SSE instruction)<a class="anchor" href="PACKUSWB.html#packuswb--legacy-sse-instruction-">
 			&para;
 		</a></h4>
-<pre>DEST[7:0]&larr;SaturateSignedWordToUnsignedByte (DEST[15:0]);
-DEST[15:8]&larr;SaturateSignedWordToUnsignedByte (DEST[31:16]);
-DEST[23:16]&larr;SaturateSignedWordToUnsignedByte (DEST[47:32]);
-DEST[31:24]&larr;SaturateSignedWordToUnsignedByte (DEST[63:48]);
-DEST[39:32]&larr;SaturateSignedWordToUnsignedByte (DEST[79:64]);
-DEST[47:40]&larr;SaturateSignedWordToUnsignedByte (DEST[95:80]);
-DEST[55:48]&larr;SaturateSignedWordToUnsignedByte (DEST[111:96]);
-DEST[63:56]&larr;SaturateSignedWordToUnsignedByte (DEST[127:112]);
-DEST[71:64]&larr;SaturateSignedWordToUnsignedByte (SRC[15:0]);
-DEST[79:72]&larr;SaturateSignedWordToUnsignedByte (SRC[31:16]);
-DEST[87:80]&larr;SaturateSignedWordToUnsignedByte (SRC[47:32]);
-DEST[95:88]&larr;SaturateSignedWordToUnsignedByte (SRC[63:48]);
-DEST[103:96]&larr;SaturateSignedWordToUnsignedByte (SRC[79:64]);
-DEST[111:104]&larr;SaturateSignedWordToUnsignedByte (SRC[95:80]);
-DEST[119:112]&larr;SaturateSignedWordToUnsignedByte (SRC[111:96]);
-DEST[127:120]&larr;SaturateSignedWordToUnsignedByte (SRC[127:112]);
+<pre>DEST[7:0] := SaturateSignedWordToUnsignedByte (DEST[15:0]);
+DEST[15:8] := SaturateSignedWordToUnsignedByte (DEST[31:16]);
+DEST[23:16] := SaturateSignedWordToUnsignedByte (DEST[47:32]);
+DEST[31:24] := SaturateSignedWordToUnsignedByte (DEST[63:48]);
+DEST[39:32] := SaturateSignedWordToUnsignedByte (DEST[79:64]);
+DEST[47:40] := SaturateSignedWordToUnsignedByte (DEST[95:80]);
+DEST[55:48] := SaturateSignedWordToUnsignedByte (DEST[111:96]);
+DEST[63:56] := SaturateSignedWordToUnsignedByte (DEST[127:112]);
+DEST[71:64] := SaturateSignedWordToUnsignedByte (SRC[15:0]);
+DEST[79:72] := SaturateSignedWordToUnsignedByte (SRC[31:16]);
+DEST[87:80] := SaturateSignedWordToUnsignedByte (SRC[47:32]);
+DEST[95:88] := SaturateSignedWordToUnsignedByte (SRC[63:48]);
+DEST[103:96] := SaturateSignedWordToUnsignedByte (SRC[79:64]);
+DEST[111:104] := SaturateSignedWordToUnsignedByte (SRC[95:80]);
+DEST[119:112] := SaturateSignedWordToUnsignedByte (SRC[111:96]);
+DEST[127:120] := SaturateSignedWordToUnsignedByte (SRC[127:112]);
 </pre>
 <h4 id="packuswb--vex-128-encoded-version-">PACKUSWB (VEX.128 encoded version)<a class="anchor" href="PACKUSWB.html#packuswb--vex-128-encoded-version-">
 			&para;
 		</a></h4>
-<pre>DEST[7:0]&larr;SaturateSignedWordToUnsignedByte (SRC1[15:0]);
-DEST[15:8]&larr;SaturateSignedWordToUnsignedByte (SRC1[31:16]);
-DEST[23:16]&larr;SaturateSignedWordToUnsignedByte (SRC1[47:32]);
-DEST[31:24]&larr;SaturateSignedWordToUnsignedByte (SRC1[63:48]);
-DEST[39:32]&larr;SaturateSignedWordToUnsignedByte (SRC1[79:64]);
-DEST[47:40]&larr;SaturateSignedWordToUnsignedByte (SRC1[95:80]);
-DEST[55:48]&larr;SaturateSignedWordToUnsignedByte (SRC1[111:96]);
-DEST[63:56]&larr;SaturateSignedWordToUnsignedByte (SRC1[127:112]);
-DEST[71:64]&larr;SaturateSignedWordToUnsignedByte (SRC2[15:0]);
-DEST[79:72]&larr;SaturateSignedWordToUnsignedByte (SRC2[31:16]);
-DEST[87:80]&larr;SaturateSignedWordToUnsignedByte (SRC2[47:32]);
-DEST[95:88]&larr;SaturateSignedWordToUnsignedByte (SRC2[63:48]);
-DEST[103:96]&larr;SaturateSignedWordToUnsignedByte (SRC2[79:64]);
-DEST[111:104]&larr;SaturateSignedWordToUnsignedByte (SRC2[95:80]);
-DEST[119:112]&larr;SaturateSignedWordToUnsignedByte (SRC2[111:96]);
-DEST[127:120]&larr;SaturateSignedWordToUnsignedByte (SRC2[127:112]);
-DEST[MAXVL-1:128] &larr; 0;
+<pre>DEST[7:0] := SaturateSignedWordToUnsignedByte (SRC1[15:0]);
+DEST[15:8] := SaturateSignedWordToUnsignedByte (SRC1[31:16]);
+DEST[23:16] := SaturateSignedWordToUnsignedByte (SRC1[47:32]);
+DEST[31:24] := SaturateSignedWordToUnsignedByte (SRC1[63:48]);
+DEST[39:32] := SaturateSignedWordToUnsignedByte (SRC1[79:64]);
+DEST[47:40] := SaturateSignedWordToUnsignedByte (SRC1[95:80]);
+DEST[55:48] := SaturateSignedWordToUnsignedByte (SRC1[111:96]);
+DEST[63:56] := SaturateSignedWordToUnsignedByte (SRC1[127:112]);
+DEST[71:64] := SaturateSignedWordToUnsignedByte (SRC2[15:0]);
+DEST[79:72] := SaturateSignedWordToUnsignedByte (SRC2[31:16]);
+DEST[87:80] := SaturateSignedWordToUnsignedByte (SRC2[47:32]);
+DEST[95:88] := SaturateSignedWordToUnsignedByte (SRC2[63:48]);
+DEST[103:96] := SaturateSignedWordToUnsignedByte (SRC2[79:64]);
+DEST[111:104] := SaturateSignedWordToUnsignedByte (SRC2[95:80]);
+DEST[119:112] := SaturateSignedWordToUnsignedByte (SRC2[111:96]);
+DEST[127:120] := SaturateSignedWordToUnsignedByte (SRC2[127:112]);
+DEST[MAXVL-1:128] := 0;
 </pre>
 <h4 id="vpackuswb--vex-256-encoded-version-">VPACKUSWB (VEX.256 encoded version)<a class="anchor" href="PACKUSWB.html#vpackuswb--vex-256-encoded-version-">
 			&para;
 		</a></h4>
-<pre>DEST[7:0]&larr;SaturateSignedWordToUnsignedByte (SRC1[15:0]);
-DEST[15:8]&larr;SaturateSignedWordToUnsignedByte (SRC1[31:16]);
-DEST[23:16]&larr;SaturateSignedWordToUnsignedByte (SRC1[47:32]);
-DEST[31:24]&larr;SaturateSignedWordToUnsignedByte (SRC1[63:48]);
-DEST[39:32]&larr;SaturateSignedWordToUnsignedByte (SRC1[79:64]);
-DEST[47:40]&larr;SaturateSignedWordToUnsignedByte (SRC1[95:80]);
-DEST[55:48]&larr;SaturateSignedWordToUnsignedByte (SRC1[111:96]);
-DEST[63:56]&larr;SaturateSignedWordToUnsignedByte (SRC1[127:112]);
-DEST[71:64]&larr;SaturateSignedWordToUnsignedByte (SRC2[15:0]);
-DEST[79:72]&larr;SaturateSignedWordToUnsignedByte (SRC2[31:16]);
-DEST[87:80]&larr;SaturateSignedWordToUnsignedByte (SRC2[47:32]);
-DEST[95:88]&larr;SaturateSignedWordToUnsignedByte (SRC2[63:48]);
-DEST[103:96]&larr;SaturateSignedWordToUnsignedByte (SRC2[79:64]);
-DEST[111:104]&larr;SaturateSignedWordToUnsignedByte (SRC2[95:80]);
-DEST[119:112]&larr;SaturateSignedWordToUnsignedByte (SRC2[111:96]);
-DEST[127:120]&larr;SaturateSignedWordToUnsignedByte (SRC2[127:112]);
-DEST[135:128]&larr;SaturateSignedWordToUnsignedByte (SRC1[143:128]);
-DEST[143:136]&larr;SaturateSignedWordToUnsignedByte (SRC1[159:144]);
-DEST[151:144]&larr;SaturateSignedWordToUnsignedByte (SRC1[175:160]);
-DEST[159:152]&larr;SaturateSignedWordToUnsignedByte (SRC1[191:176]);
-DEST[167:160]&larr;SaturateSignedWordToUnsignedByte (SRC1[207:192]);
-DEST[175:168]&larr;SaturateSignedWordToUnsignedByte (SRC1[223:208]);
-DEST[183:176]&larr;SaturateSignedWordToUnsignedByte (SRC1[239:224]);
-DEST[191:184]&larr;SaturateSignedWordToUnsignedByte (SRC1[255:240]);
-DEST[199:192]&larr;SaturateSignedWordToUnsignedByte (SRC2[143:128]);
-DEST[207:200]&larr;SaturateSignedWordToUnsignedByte (SRC2[159:144]);
-DEST[215:208]&larr;SaturateSignedWordToUnsignedByte (SRC2[175:160]);
-DEST[223:216]&larr;SaturateSignedWordToUnsignedByte (SRC2[191:176]);
-DEST[231:224]&larr;SaturateSignedWordToUnsignedByte (SRC2[207:192]);
-DEST[239:232]&larr;SaturateSignedWordToUnsignedByte (SRC2[223:208]);
-DEST[247:240]&larr;SaturateSignedWordToUnsignedByte (SRC2[239:224]);
-DEST[255:248]&larr;SaturateSignedWordToUnsignedByte (SRC2[255:240]);
+<pre>DEST[7:0] := SaturateSignedWordToUnsignedByte (SRC1[15:0]);
+DEST[15:8] := SaturateSignedWordToUnsignedByte (SRC1[31:16]);
+DEST[23:16] := SaturateSignedWordToUnsignedByte (SRC1[47:32]);
+DEST[31:24] := SaturateSignedWordToUnsignedByte (SRC1[63:48]);
+DEST[39:32] := SaturateSignedWordToUnsignedByte (SRC1[79:64]);
+DEST[47:40] := SaturateSignedWordToUnsignedByte (SRC1[95:80]);
+DEST[55:48] := SaturateSignedWordToUnsignedByte (SRC1[111:96]);
+DEST[63:56] := SaturateSignedWordToUnsignedByte (SRC1[127:112]);
+DEST[71:64] := SaturateSignedWordToUnsignedByte (SRC2[15:0]);
+DEST[79:72] := SaturateSignedWordToUnsignedByte (SRC2[31:16]);
+DEST[87:80] := SaturateSignedWordToUnsignedByte (SRC2[47:32]);
+DEST[95:88] := SaturateSignedWordToUnsignedByte (SRC2[63:48]);
+DEST[103:96] := SaturateSignedWordToUnsignedByte (SRC2[79:64]);
+DEST[111:104] := SaturateSignedWordToUnsignedByte (SRC2[95:80]);
+DEST[119:112] := SaturateSignedWordToUnsignedByte (SRC2[111:96]);
+DEST[127:120] := SaturateSignedWordToUnsignedByte (SRC2[127:112]);
+DEST[135:128] := SaturateSignedWordToUnsignedByte (SRC1[143:128]);
+DEST[143:136] := SaturateSignedWordToUnsignedByte (SRC1[159:144]);
+DEST[151:144] := SaturateSignedWordToUnsignedByte (SRC1[175:160]);
+DEST[159:152] := SaturateSignedWordToUnsignedByte (SRC1[191:176]);
+DEST[167:160] := SaturateSignedWordToUnsignedByte (SRC1[207:192]);
+DEST[175:168] := SaturateSignedWordToUnsignedByte (SRC1[223:208]);
+DEST[183:176] := SaturateSignedWordToUnsignedByte (SRC1[239:224]);
+DEST[191:184] := SaturateSignedWordToUnsignedByte (SRC1[255:240]);
+DEST[199:192] := SaturateSignedWordToUnsignedByte (SRC2[143:128]);
+DEST[207:200] := SaturateSignedWordToUnsignedByte (SRC2[159:144]);
+DEST[215:208] := SaturateSignedWordToUnsignedByte (SRC2[175:160]);
+DEST[223:216] := SaturateSignedWordToUnsignedByte (SRC2[191:176]);
+DEST[231:224] := SaturateSignedWordToUnsignedByte (SRC2[207:192]);
+DEST[239:232] := SaturateSignedWordToUnsignedByte (SRC2[223:208]);
+DEST[247:240] := SaturateSignedWordToUnsignedByte (SRC2[239:224]);
+DEST[255:248] := SaturateSignedWordToUnsignedByte (SRC2[255:240]);
 </pre>
 <h4 id="vpackuswb--evex-encoded-versions-">VPACKUSWB (EVEX encoded versions)<a class="anchor" href="PACKUSWB.html#vpackuswb--evex-encoded-versions-">
 			&para;
 		</a></h4>
 <pre>(KL, VL) = (16, 128), (32, 256), (64, 512)
-TMP_DEST[7:0]&larr;SaturateSignedWordToUnsignedByte (SRC1[15:0]);
-TMP_DEST[15:8]&larr;SaturateSignedWordToUnsignedByte (SRC1[31:16]);
-TMP_DEST[23:16]&larr;SaturateSignedWordToUnsignedByte (SRC1[47:32]);
-TMP_DEST[31:24]&larr;SaturateSignedWordToUnsignedByte (SRC1[63:48]);
-TMP_DEST[39:32]&larr;SaturateSignedWordToUnsignedByte (SRC1[79:64]);
-TMP_DEST[47:40]&larr;SaturateSignedWordToUnsignedByte (SRC1[95:80]);
-TMP_DEST[55:48]&larr;SaturateSignedWordToUnsignedByte (SRC1[111:96]);
-TMP_DEST[63:56]&larr;SaturateSignedWordToUnsignedByte (SRC1[127:112]);
-TMP_DEST[71:64]&larr;SaturateSignedWordToUnsignedByte (SRC2[15:0]);
-TMP_DEST[79:72]&larr;SaturateSignedWordToUnsignedByte (SRC2[31:16]);
-TMP_DEST[87:80]&larr;SaturateSignedWordToUnsignedByte (SRC2[47:32]);
-TMP_DEST[95:88]&larr;SaturateSignedWordToUnsignedByte (SRC2[63:48]);
-TMP_DEST[103:96]&larr;SaturateSignedWordToUnsignedByte (SRC2[79:64]);
-TMP_DEST[111:104]&larr;SaturateSignedWordToUnsignedByte (SRC2[95:80]);
-TMP_DEST[119:112]&larr;SaturateSignedWordToUnsignedByte (SRC2[111:96]);
-TMP_DEST[127:120]&larr;SaturateSignedWordToUnsignedByte (SRC2[127:112]);
+TMP_DEST[7:0] := SaturateSignedWordToUnsignedByte (SRC1[15:0]);
+TMP_DEST[15:8] := SaturateSignedWordToUnsignedByte (SRC1[31:16]);
+TMP_DEST[23:16] := SaturateSignedWordToUnsignedByte (SRC1[47:32]);
+TMP_DEST[31:24] := SaturateSignedWordToUnsignedByte (SRC1[63:48]);
+TMP_DEST[39:32] := SaturateSignedWordToUnsignedByte (SRC1[79:64]);
+TMP_DEST[47:40] := SaturateSignedWordToUnsignedByte (SRC1[95:80]);
+TMP_DEST[55:48] := SaturateSignedWordToUnsignedByte (SRC1[111:96]);
+TMP_DEST[63:56] := SaturateSignedWordToUnsignedByte (SRC1[127:112]);
+TMP_DEST[71:64] := SaturateSignedWordToUnsignedByte (SRC2[15:0]);
+TMP_DEST[79:72] := SaturateSignedWordToUnsignedByte (SRC2[31:16]);
+TMP_DEST[87:80] := SaturateSignedWordToUnsignedByte (SRC2[47:32]);
+TMP_DEST[95:88] := SaturateSignedWordToUnsignedByte (SRC2[63:48]);
+TMP_DEST[103:96] := SaturateSignedWordToUnsignedByte (SRC2[79:64]);
+TMP_DEST[111:104] := SaturateSignedWordToUnsignedByte (SRC2[95:80]);
+TMP_DEST[119:112] := SaturateSignedWordToUnsignedByte (SRC2[111:96]);
+TMP_DEST[127:120] := SaturateSignedWordToUnsignedByte (SRC2[127:112]);
 IF VL &gt;= 256
-    TMP_DEST[135:128]&larr;SaturateSignedWordToUnsignedByte (SRC1[143:128]);
-    TMP_DEST[143:136]&larr;SaturateSignedWordToUnsignedByte (SRC1[159:144]);
-    TMP_DEST[151:144]&larr;SaturateSignedWordToUnsignedByte (SRC1[175:160]);
-    TMP_DEST[159:152]&larr;SaturateSignedWordToUnsignedByte (SRC1[191:176]);
-    TMP_DEST[167:160]&larr;SaturateSignedWordToUnsignedByte (SRC1[207:192]);
-    TMP_DEST[175:168]&larr;SaturateSignedWordToUnsignedByte (SRC1[223:208]);
-    TMP_DEST[183:176]&larr;SaturateSignedWordToUnsignedByte (SRC1[239:224]);
-    TMP_DEST[191:184]&larr;SaturateSignedWordToUnsignedByte (SRC1[255:240]);
-    TMP_DEST[199:192]&larr;SaturateSignedWordToUnsignedByte (SRC2[143:128]);
-    TMP_DEST[207:200]&larr;SaturateSignedWordToUnsignedByte (SRC2[159:144]);
-    TMP_DEST[215:208]&larr;SaturateSignedWordToUnsignedByte (SRC2[175:160]);
-    TMP_DEST[223:216]&larr;SaturateSignedWordToUnsignedByte (SRC2[191:176]);
-    TMP_DEST[231:224]&larr;SaturateSignedWordToUnsignedByte (SRC2[207:192]);
-    TMP_DEST[239:232]&larr;SaturateSignedWordToUnsignedByte (SRC2[223:208]);
-    TMP_DEST[247:240]&larr;SaturateSignedWordToUnsignedByte (SRC2[239:224]);
-    TMP_DEST[255:248]&larr;SaturateSignedWordToUnsignedByte (SRC2[255:240]);
+    TMP_DEST[135:128] := SaturateSignedWordToUnsignedByte (SRC1[143:128]);
+    TMP_DEST[143:136] := SaturateSignedWordToUnsignedByte (SRC1[159:144]);
+    TMP_DEST[151:144] := SaturateSignedWordToUnsignedByte (SRC1[175:160]);
+    TMP_DEST[159:152] := SaturateSignedWordToUnsignedByte (SRC1[191:176]);
+    TMP_DEST[167:160] := SaturateSignedWordToUnsignedByte (SRC1[207:192]);
+    TMP_DEST[175:168] := SaturateSignedWordToUnsignedByte (SRC1[223:208]);
+    TMP_DEST[183:176] := SaturateSignedWordToUnsignedByte (SRC1[239:224]);
+    TMP_DEST[191:184] := SaturateSignedWordToUnsignedByte (SRC1[255:240]);
+    TMP_DEST[199:192] := SaturateSignedWordToUnsignedByte (SRC2[143:128]);
+    TMP_DEST[207:200] := SaturateSignedWordToUnsignedByte (SRC2[159:144]);
+    TMP_DEST[215:208] := SaturateSignedWordToUnsignedByte (SRC2[175:160]);
+    TMP_DEST[223:216] := SaturateSignedWordToUnsignedByte (SRC2[191:176]);
+    TMP_DEST[231:224] := SaturateSignedWordToUnsignedByte (SRC2[207:192]);
+    TMP_DEST[239:232] := SaturateSignedWordToUnsignedByte (SRC2[223:208]);
+    TMP_DEST[247:240] := SaturateSignedWordToUnsignedByte (SRC2[239:224]);
+    TMP_DEST[255:248] := SaturateSignedWordToUnsignedByte (SRC2[255:240]);
 FI;
 IF VL &gt;= 512
-    TMP_DEST[263:256]&larr;SaturateSignedWordToUnsignedByte (SRC1[271:256]);
-    TMP_DEST[271:264]&larr;SaturateSignedWordToUnsignedByte (SRC1[287:272]);
-    TMP_DEST[279:272]&larr;SaturateSignedWordToUnsignedByte (SRC1[303:288]);
-    TMP_DEST[287:280]&larr;SaturateSignedWordToUnsignedByte (SRC1[319:304]);
-    TMP_DEST[295:288]&larr;SaturateSignedWordToUnsignedByte (SRC1[335:320]);
-    TMP_DEST[303:296]&larr;SaturateSignedWordToUnsignedByte (SRC1[351:336]);
-    TMP_DEST[311:304]&larr;SaturateSignedWordToUnsignedByte (SRC1[367:352]);
-    TMP_DEST[319:312]&larr;SaturateSignedWordToUnsignedByte (SRC1[383:368]);
-    TMP_DEST[327:320]&larr;SaturateSignedWordToUnsignedByte (SRC2[271:256]);
-    TMP_DEST[335:328]&larr;SaturateSignedWordToUnsignedByte (SRC2[287:272]);
-    TMP_DEST[343:336]&larr;SaturateSignedWordToUnsignedByte (SRC2[303:288]);
-    TMP_DEST[351:344]&larr;SaturateSignedWordToUnsignedByte (SRC2[319:304]);
-    TMP_DEST[359:352]&larr;SaturateSignedWordToUnsignedByte (SRC2[335:320]);
-    TMP_DEST[367:360]&larr;SaturateSignedWordToUnsignedByte (SRC2[351:336]);
-    TMP_DEST[375:368]&larr;SaturateSignedWordToUnsignedByte (SRC2[367:352]);
-    TMP_DEST[383:376]&larr;SaturateSignedWordToUnsignedByte (SRC2[383:368]);
-    TMP_DEST[391:384]&larr;SaturateSignedWordToUnsignedByte (SRC1[399:384]);
-    TMP_DEST[399:392]&larr;SaturateSignedWordToUnsignedByte (SRC1[415:400]);
-    TMP_DEST[407:400]&larr;SaturateSignedWordToUnsignedByte (SRC1[431:416]);
-    TMP_DEST[415:408]&larr;SaturateSignedWordToUnsignedByte (SRC1[447:432]);
-    TMP_DEST[423:416]&larr;SaturateSignedWordToUnsignedByte (SRC1[463:448]);
-    TMP_DEST[431:424]&larr;SaturateSignedWordToUnsignedByte (SRC1[479:464]);
-    TMP_DEST[439:432]&larr;SaturateSignedWordToUnsignedByte (SRC1[495:480]);
-    TMP_DEST[447:440]&larr;SaturateSignedWordToUnsignedByte (SRC1[511:496]);
-    TMP_DEST[455:448]&larr;SaturateSignedWordToUnsignedByte (SRC2[399:384]);
-    TMP_DEST[463:456]&larr;SaturateSignedWordToUnsignedByte (SRC2[415:400]);
-    TMP_DEST[471:464]&larr;SaturateSignedWordToUnsignedByte (SRC2[431:416]);
-    TMP_DEST[479:472]&larr;SaturateSignedWordToUnsignedByte (SRC2[447:432]);
-    TMP_DEST[487:480]&larr;SaturateSignedWordToUnsignedByte (SRC2[463:448]);
-    TMP_DEST[495:488]&larr;SaturateSignedWordToUnsignedByte (SRC2[479:464]);
-    TMP_DEST[503:496]&larr;SaturateSignedWordToUnsignedByte (SRC2[495:480]);
-    TMP_DEST[511:504]&larr;SaturateSignedWordToUnsignedByte (SRC2[511:496]);
+    TMP_DEST[263:256] := SaturateSignedWordToUnsignedByte (SRC1[271:256]);
+    TMP_DEST[271:264] := SaturateSignedWordToUnsignedByte (SRC1[287:272]);
+    TMP_DEST[279:272] := SaturateSignedWordToUnsignedByte (SRC1[303:288]);
+    TMP_DEST[287:280] := SaturateSignedWordToUnsignedByte (SRC1[319:304]);
+    TMP_DEST[295:288] := SaturateSignedWordToUnsignedByte (SRC1[335:320]);
+    TMP_DEST[303:296] := SaturateSignedWordToUnsignedByte (SRC1[351:336]);
+    TMP_DEST[311:304] := SaturateSignedWordToUnsignedByte (SRC1[367:352]);
+    TMP_DEST[319:312] := SaturateSignedWordToUnsignedByte (SRC1[383:368]);
+    TMP_DEST[327:320] := SaturateSignedWordToUnsignedByte (SRC2[271:256]);
+    TMP_DEST[335:328] := SaturateSignedWordToUnsignedByte (SRC2[287:272]);
+    TMP_DEST[343:336] := SaturateSignedWordToUnsignedByte (SRC2[303:288]);
+    TMP_DEST[351:344] := SaturateSignedWordToUnsignedByte (SRC2[319:304]);
+    TMP_DEST[359:352] := SaturateSignedWordToUnsignedByte (SRC2[335:320]);
+    TMP_DEST[367:360] := SaturateSignedWordToUnsignedByte (SRC2[351:336]);
+    TMP_DEST[375:368] := SaturateSignedWordToUnsignedByte (SRC2[367:352]);
+    TMP_DEST[383:376] := SaturateSignedWordToUnsignedByte (SRC2[383:368]);
+    TMP_DEST[391:384] := SaturateSignedWordToUnsignedByte (SRC1[399:384]);
+    TMP_DEST[399:392] := SaturateSignedWordToUnsignedByte (SRC1[415:400]);
+    TMP_DEST[407:400] := SaturateSignedWordToUnsignedByte (SRC1[431:416]);
+    TMP_DEST[415:408] := SaturateSignedWordToUnsignedByte (SRC1[447:432]);
+    TMP_DEST[423:416] := SaturateSignedWordToUnsignedByte (SRC1[463:448]);
+    TMP_DEST[431:424] := SaturateSignedWordToUnsignedByte (SRC1[479:464]);
+    TMP_DEST[439:432] := SaturateSignedWordToUnsignedByte (SRC1[495:480]);
+    TMP_DEST[447:440] := SaturateSignedWordToUnsignedByte (SRC1[511:496]);
+    TMP_DEST[455:448] := SaturateSignedWordToUnsignedByte (SRC2[399:384]);
+    TMP_DEST[463:456] := SaturateSignedWordToUnsignedByte (SRC2[415:400]);
+    TMP_DEST[471:464] := SaturateSignedWordToUnsignedByte (SRC2[431:416]);
+    TMP_DEST[479:472] := SaturateSignedWordToUnsignedByte (SRC2[447:432]);
+    TMP_DEST[487:480] := SaturateSignedWordToUnsignedByte (SRC2[463:448]);
+    TMP_DEST[495:488] := SaturateSignedWordToUnsignedByte (SRC2[479:464]);
+    TMP_DEST[503:496] := SaturateSignedWordToUnsignedByte (SRC2[495:480]);
+    TMP_DEST[511:504] := SaturateSignedWordToUnsignedByte (SRC2[511:496]);
 FI;
-FOR j&larr;0 TO KL-1
-    i&larr;j * 8
+FOR j := 0 TO KL-1
+    i := j * 8
     IF k1[j] OR *no writemask*
         THEN
-            DEST[i+7:i] &larr; TMP_DEST[i+7:i]
+            DEST[i+7:i] := TMP_DEST[i+7:i]
         ELSE
             IF *merging-masking*
                         ; merging-masking
                 THEN *DEST[i+7:i] remains unchanged*
                 ELSE *zeroing-masking*
                             ; zeroing-masking
-                    DEST[i+7:i] &larr; 0
+                    DEST[i+7:i] := 0
             FI
     FI;
 ENDFOR;
-DEST[MAXVL-1:VL] &larr; 0
+DEST[MAXVL-1:VL] := 0
 </pre>
 <h3 id="intel-c-c++-compiler-intrinsic-equivalents">Intel C/C++ Compiler Intrinsic Equivalents<a class="anchor" href="PACKUSWB.html#intel-c-c++-compiler-intrinsic-equivalents">
 			&para;
@@ -307,10 +307,10 @@ DEST[MAXVL-1:VL] &larr; 0
 <h2 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="PACKUSWB.html#other-exceptions">
 			&para;
 		</a></h2>
-<p>Non-EVEX-encoded instruction, see Exceptions Type 4.</p>
-<p>EVEX-encoded instruction, see Exceptions Type E4NF.nb.</p><footer><p>
+<p>Non-EVEX-encoded instruction, see <span class="not-imported">Table 2-21</span>, &ldquo;Type 4 Class Exception Conditions&rdquo;.</p>
+<p>EVEX-encoded instruction, see Exceptions Type E4NF.nb in <span class="not-imported">Table 2-50</span>, &ldquo;Type E4NF Class Exception Conditions&rdquo;.</p><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

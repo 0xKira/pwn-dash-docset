@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-664"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/VSCALEFPD"></a><title>VSCALEFPD</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>VSCALEFPD
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-692"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/VSCALEFPD"></a><title>VSCALEFPD</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>VSCALEFPD
 		&mdash; Scale Packed Float64 Values With Float64 Values</h1>
 
 <table>
@@ -47,7 +47,7 @@
 <h3 id="description">Description<a class="anchor" href="VSCALEFPD.html#description">
 			&para;
 		</a></h3>
-<p>Performs a floating-point scale of the packed double-precision floating-point values in the first source operand by multiplying it by 2 power of the double-precision floating-point values in second source operand.</p>
+<p>Performs a floating-point scale of the packed double-precision floating-point values in the first source operand by multiplying them by 2 to the power of the double-precision floating-point values in second source operand.</p>
 <p>The equation of this operation is given by:</p>
 <p>zmm1 := zmm2*2<sup>floor(zmm3)</sup>.</p>
 <p>Floor(zmm3) means maximum integer value &le; zmm3.</p>
@@ -109,7 +109,7 @@
 <td>&plusmn;0 (Src1 sign)</td>
 <td>Compute Result</td>
 <td>IF Src2 is SNAN</td></tr></tbody></table>
-<figcaption><a href="VSCALEFPD.html#tbl-5-30">Table 5-30</a>. \VSCALEFPD/SD/PS/SS Special Cases</figcaption></figure>
+<figcaption><a href="VSCALEFPD.html#tbl-5-30">Table 5-30</a>. VSCALEFPD/SD/PS/SS Special Cases</figcaption></figure>
 <figure id="tbl-5-31">
 <table>
 <tbody><tr>
@@ -130,12 +130,12 @@
 		</a></h3>
 <pre>SCALE(SRC1, SRC2)
 {
-TMP_SRC2 &larr; SRC2
-TMP_SRC1 &larr; SRC1
+TMP_SRC2 := SRC2
+TMP_SRC1 := SRC1
 IF (SRC2 is denormal AND MXCSR.DAZ) THEN TMP_SRC2=0
 IF (SRC1 is denormal AND MXCSR.DAZ) THEN TMP_SRC1=0
 /* SRC2 is a 64 bits floating-point value */
-DEST[63:0]&larr;TMP_SRC1[63:0] * POW(2, Floor(TMP_SRC2[63:0]))
+DEST[63:0] := TMP_SRC1[63:0] * POW(2, Floor(TMP_SRC2[63:0]))
 }
 </pre>
 <h4 id="vscalefpd--evex-encoded-versions-">VSCALEFPD (EVEX encoded versions)<a class="anchor" href="VSCALEFPD.html#vscalefpd--evex-encoded-versions-">
@@ -144,27 +144,26 @@ DEST[63:0]&larr;TMP_SRC1[63:0] * POW(2, Floor(TMP_SRC2[63:0]))
 <pre>(KL, VL) = (2, 128), (4, 256), (8, 512)
 IF (VL = 512) AND (EVEX.b = 1) AND (SRC2 *is register*)
     THEN
-        SET_RM(EVEX.RC);
+        SET_ROUNDING_MODE_FOR_THIS_INSTRUCTION(EVEX.RC);
     ELSE
-        SET_RM(MXCSR.RM);
+        SET_ROUNDING_MODE_FOR_THIS_INSTRUCTION(MXCSR.RC);
 FI;
-FOR j&larr;0 TO KL-1
-    i&larr;j * 64
+FOR j := 0 TO KL-1
+    i := j * 64
     IF k1[j] OR *no writemask* THEN
             IF (EVEX.b = 1) AND (SRC2 *is memory*)
-                THEN DEST[i+63:i]&larr;SCALE(SRC1[i+63:i], SRC2[63:0]);
-                ELSE DEST[i+63:i]&larr;SCALE(SRC1[i+63:i], SRC2[i+63:i]);
+                THEN DEST[i+63:i] := SCALE(SRC1[i+63:i], SRC2[63:0]);
+                ELSE DEST[i+63:i] := SCALE(SRC1[i+63:i], SRC2[i+63:i]);
             FI;
         ELSE
             IF *merging-masking* ; merging-masking
                 THEN *DEST[i+63:i] remains unchanged*
-                ELSE
-                        ; zeroing-masking
-                    DEST[i+63:i] &larr; 0
+                ELSE ; zeroing-masking
+                    DEST[i+63:i] := 0
             FI
     FI;
 ENDFOR
-DEST[MAXVL-1:VL] &larr; 0
+DEST[MAXVL-1:VL] := 0
 </pre>
 <h3 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="VSCALEFPD.html#intel-c-c++-compiler-intrinsic-equivalent">
 			&para;
@@ -201,9 +200,9 @@ DEST[MAXVL-1:VL] &larr; 0
 <h3 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="VSCALEFPD.html#other-exceptions">
 			&para;
 		</a></h3>
-<p>See Exceptions Type E2.</p><footer><p>
+<p>See <span class="not-imported">Table 2-46</span>, &ldquo;Type E2 Class Exception Conditions&rdquo;.</p><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

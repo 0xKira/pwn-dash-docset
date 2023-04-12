@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-468"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/SYSENTER"></a><title>SYSENTER</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>SYSENTER
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-480"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/SYSENTER"></a><title>SYSENTER</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>SYSENTER
 		&mdash; Fast System Call</h1>
 
 <table>
@@ -58,65 +58,82 @@
 <p>SYSENTER/SYSEXIT_Supported; FI;</p>
 <p>FI;</p>
 <p>When the CPUID instruction is executed on the Pentium Pro processor (model 1), the processor returns a the SEP flag as set, but does not support the SYSENTER/SYSEXIT instructions.</p>
+<p>When shadow stacks are enabled at privilege level where SYSENTER instruction is invoked, the SSP is saved to the IA32_PL3_SSP MSR. If shadow stacks are enabled at privilege level 0, the SSP is loaded with 0. Refer to Chapter 6, &ldquo;Procedure Calls, Interrupts, and Exceptions&rdquo; and Chapter 18, &ldquo;Control-Flow Enforcement Technology (CET)&rdquo; in the <em>Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 1</em> for additional CET details.</p>
 <p><strong>Instruction ordering.</strong> Instructions following a SYSENTER may be fetched from memory before earlier instructions complete execution, but they will not execute (even speculatively) until all instructions prior to the SYSENTER have completed execution (the later instructions may execute before data stored by the earlier instructions have become globally visible).</p>
 <h2 id="operation">Operation<a class="anchor" href="SYSENTER.html#operation">
 			&para;
 		</a></h2>
 <pre>IF CR0.PE = 0 OR IA32_SYSENTER_CS[15:2] = 0 THEN #GP(0); FI;
-RFLAGS.VM &larr; 0;
-            (* Ensures protected mode execution *)
-RFLAGS.IF &larr; 0;
-            (* Mask interrupts *)
+RFLAGS.VM := 0;
+                    (* Ensures protected mode execution *)
+RFLAGS.IF := 0;
+                    (* Mask interrupts *)
 IF in IA-32e mode
     THEN
-        RSP &larr; IA32_SYSENTER_ESP;
-        RIP &larr; IA32_SYSENTER_EIP;
+        RSP := IA32_SYSENTER_ESP;
+        RIP := IA32_SYSENTER_EIP;
 ELSE
-        ESP &larr; IA32_SYSENTER_ESP[31:0];
-        EIP &larr; IA32_SYSENTER_EIP[31:0];
+        ESP := IA32_SYSENTER_ESP[31:0];
+        EIP := IA32_SYSENTER_EIP[31:0];
 FI;
-CS.Selector &larr; IA32_SYSENTER_CS[15:0] AND FFFCH;
-            (* Operating system provides CS; RPL forced to 0 *)
+CS.Selector := IA32_SYSENTER_CS[15:0] AND
+                    FFFCH;
+                    (* Operating system provides CS; RPL forced to 0 *)
 (* Set rest of CS to a fixed value *)
-CS.Base &larr; 0;
-            (* Flat segment *)
-CS.Limit &larr; FFFFFH;
-            (* With 4-KByte granularity, implies a 4-GByte limit *)
-CS.Type &larr; 11;
-            (* Execute/read code, accessed *)
-CS.S &larr; 1;
-CS.DPL &larr; 0;
-CS.P &larr; 1;
+CS.Base := 0;
+                    (* Flat segment *)
+CS.Limit := FFFFFH;
+                    (* With 4-KByte granularity, implies a 4-GByte limit *)
+CS.Type := 11;
+                    (* Execute/read code, accessed *)
+CS.S := 1;
+CS.DPL := 0;
+CS.P := 1;
 IF in IA-32e mode
     THEN
-        CS.L &larr; 1;
-            (* Entry is to 64-bit mode *)
-        CS.D &larr; 0;
-            (* Required if CS.L = 1 *)
+        CS.L := 1;
+                    (* Entry is to 64-bit mode *)
+        CS.D := 0;
+                    (* Required if CS.L = 1 *)
     ELSE
-        CS.L &larr; 0;
-        CS.D &larr; 1;
-            (* 32-bit code segment*)
+        CS.L := 0;
+        CS.D := 1;
+                    (* 32-bit code segment*)
 FI;
-CS.G &larr; 1;
-            (* 4-KByte granularity *)
-CPL &larr; 0;
-SS.Selector &larr; CS.Selector + 8;
-            (* SS just above CS *)
+CS.G := 1;
+                    (* 4-KByte granularity *)
+IF ShadowStackEnabled(CPL)
+    THEN
+        IF IA32_EFER.LMA = 0
+            THEN IA32_PL3_SSP := SSP;
+            ELSE (* adjust so bits 63:N get the value of bit N&ndash;1, where N is the CPU&rsquo;s maximum linear-address width *)
+                IA32_PL3_SSP := LA_adjust(SSP);
+        FI;
+FI;
+CPL := 0;
+IF ShadowStackEnabled(CPL)
+    SSP := 0;
+FI;
+IF EndbranchEnabled(CPL)
+    IA32_S_CET.TRACKER = WAIT_FOR_ENDBRANCH
+    IA32_S_CET.SUPPRESS = 0
+FI;
+SS.Selector := CS.Selector + 8;
+                    (* SS just above CS *)
 (* Set rest of SS to a fixed value *)
-SS.Base &larr; 0;
-            (* Flat segment *)
-SS.Limit &larr; FFFFFH;
-            (* With 4-KByte granularity, implies a 4-GByte limit *)
-SS.Type &larr; 3;
-            (* Read/write data, accessed *)
-SS.S &larr; 1;
-SS.DPL &larr; 0;
-SS.P &larr; 1;
-SS.B &larr; 1;
-            (* 32-bit stack segment*)
-SS.G &larr; 1;
-            (* 4-KByte granularity *)
+SS.Base := 0;
+                    (* Flat segment *)
+SS.Limit := FFFFFH;
+                    (* With 4-KByte granularity, implies a 4-GByte limit *)
+SS.Type := 3;
+                    (* Read/write data, accessed *)
+SS.S := 1;
+SS.DPL := 0;
+SS.P := 1;
+SS.B := 1;
+                    (* 32-bit stack segment*)
+SS.G := 1;
+                    (* 4-KByte granularity *)
 </pre>
 <h2 id="flags-affected">Flags Affected<a class="anchor" href="SYSENTER.html#flags-affected">
 			&para;
@@ -156,6 +173,6 @@ SS.G &larr; 1;
 <p>Same exceptions as in protected mode.</p><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

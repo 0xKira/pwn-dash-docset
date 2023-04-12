@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-135"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/ERDINFO"></a><title>ERDINFO</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>ERDINFO
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-144"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/ERDINFO"></a><title>ERDINFO</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>ERDINFO
 		&mdash; Read Type and Status Information About an EPC Page</h1>
 
 <table>
@@ -20,12 +20,13 @@
 <table>
 <tbody><tr>
 <td>Op/En</td>
-<td>EAX</td>
+<td colspan="2">EAX</td>
 <td>RBX</td>
 <td>RCX</td></tr>
 <tr>
 <td>IR</td>
 <td>ERDINFO (In)</td>
+<td>Return error code (Out)</td>
 <td>Address of a RDINFO structure (In)</td>
 <td>Address of the destination EPC page (In)</td></tr></tbody></table>
 <h3 id="description">Description<a class="anchor" href="ERDINFO.html#description">
@@ -60,7 +61,7 @@
 <td>A memory address is in a non-canonical form (64b mode).</td>
 <td></td></tr></tbody></table>
 <p>The error codes are:</p>
-<figure id="tbl-40-39">
+<figure id="tbl-37-39">
 <table>
 <tbody><tr>
 <th>Error Code</th>
@@ -82,11 +83,11 @@
 <td>SGX_PG_NONEPC</td>
 <td></td>
 <td>Page is not an EPC page.</td></tr></tbody></table>
-<figcaption><span class="not-imported">Table 40-39</span>. ERDINFO Return Value in RAX</figcaption></figure>
+<figcaption><span class="not-imported">Table 37-39</span>. ERDINFO Return Value in RAX</figcaption></figure>
 <h3 id="concurrency-restrictions">Concurrency Restrictions<a class="anchor" href="ERDINFO.html#concurrency-restrictions">
 			&para;
 		</a></h3>
-<figure id="tbl-40-40">
+<figure id="tbl-37-40">
 <table>
 <tbody><tr>
 <th rowspan="2">Leaf</th>
@@ -102,24 +103,36 @@
 <td>Shared</td>
 <td>SGX_EPC_PAGE_ CONFLICT</td>
 <td></td></tr></tbody></table>
-<figcaption><span class="not-imported">Table 40-40</span>. Base Concurrency Restrictions of ERDINFO</figcaption></figure>
-<figure id="tbl-40-41">
+<figcaption><span class="not-imported">Table 37-40</span>. Base Concurrency Restrictions of ERDINFO</figcaption></figure>
+<figure id="tbl-37-41">
 <table>
 <tbody><tr>
 <th rowspan="3">Leaf</th>
 <th rowspan="3">Parameter</th>
 <th colspan="6">Additional Concurrency Restrictions</th></tr>
 <tr>
-<th colspan="2">vs. EACCEPT, EACCEPTCOPY, EMODPE, EMODPR, EMODT</th>
-<th colspan="2">vs. EADD, EEXTEND, EINIT</th>
+<th colspan="2">vs. EACCEPT, EACCEPTCOPY, vs. EADD, EEXTEND, EINIT
+vs. ETRACK, ETRACKC
+Access  vs. ETRACK, ETRACKC
+Access On Conflict
+Access  vs. ETRACK, ETRACKC
+Access On Conflict
+ EMODPE, EMODPR, EMODT</th>
+<th colspan="2">vs. EADD, EEXTEND, EINIT vs. EADD, EEXTEND, EINIT
+vs. ETRACK, ETRACKC
+</th>
 <th colspan="2">vs. ETRACK, ETRACKC</th></tr>
 <tr>
-<th>Access</th>
-<th>On Conflict</th>
-<th>Access</th>
-<th>On Conflict</th>
-<th>Access</th>
-<th>On Conflict</th></tr>
+<th>Access On Conflict
+Access On Conflict
+Access  Access On Conflict
+Access On Conflict
+</th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th></tr>
 <tr>
 <td>ERDINFO</td>
 <td>Target [DS:RCX]</td>
@@ -129,7 +142,7 @@
 <td></td>
 <td>Concurrent</td>
 <td></td></tr></tbody></table>
-<figcaption><span class="not-imported">Table 40-41</span>. Additional Concurrency Restrictions of ERDINFO</figcaption></figure>
+<figcaption><span class="not-imported">Table 37-41</span>. Additional Concurrency Restrictions of ERDINFO</figcaption></figure>
 <h3 id="operation">Operation<a class="anchor" href="ERDINFO.html#operation">
 			&para;
 		</a></h3>
@@ -151,9 +164,9 @@
 <p>#GP(0); FI;</p>
 <p>(* check that EPCPAGE (DS:RCX) is the address of an EPC page *)</p>
 <p>IF (DS:RCX does not resolve within EPC) THEN</p>
-<p>RFLAGS.CF &larr; 1;</p>
-<p>RFLAGS.ZF &larr; 0;</p>
-<p>RAX &larr; SGX_PG_NONEPC;</p>
+<p>RFLAGS.CF := 1;</p>
+<p>RFLAGS.ZF := 0;</p>
+<p>RAX := SGX_PG_NONEPC;</p>
 <p>goto DONE;</p>
 <p>FI;</p>
 <p>(* Check the EPC page for concurrency *)</p>
@@ -171,49 +184,51 @@
 <p>goto DONE;</p>
 <p>FI;</p>
 <p>(* clear the fields of the RDINFO structure *)</p>
-<p>TMP_RDINFO &larr; DS:RBX;</p>
-<p>TMP_RDINFO.STATUS &larr; 0;</p>
-<p>TMP_RDINFO.FLAGS &larr; 0;</p>
-<p>TMP_RDINFO.ENCLAVECONTEXT &larr; 0;</p>
+<p>TMP_RDINFO := DS:RBX;</p>
+<p>TMP_RDINFO.STATUS := 0;</p>
+<p>TMP_RDINFO.FLAGS := 0;</p>
+<p>TMP_RDINFO.ENCLAVECONTEXT := 0;</p>
 <p>(* store page info in RDINFO structure *)</p>
-<p>TMP_RDINFO.FLAGS.RWX &larr; EPCM(DS:RCX).RWX;</p>
-<p>TMP_RDINFO.FLAGS.PENDING &larr; EPCM(DS:RCX).PENDING;</p>
-<p>TMP_RDINFO.FLAGS.MODIFIED &larr; EPCM(DS:RCX).MODIFIED;</p>
-<p>TMP_RDINFO.FLAGS.PR &larr; EPCM(DS:RCX).PR;</p>
-<p>TMP_RDINFO.FLAGS.PAGE_TYPE &larr; EPCM(DS:RCX).PAGE_TYPE;</p>
-<p>TMP_RDINFO.FLAGS.BLOCKED &larr; EPCM(DS:RCX).BLOCKED;</p>
+<p>TMP_RDINFO.FLAGS.RWX := EPCM(DS:RCX).RWX;</p>
+<p>TMP_RDINFO.FLAGS.PENDING := EPCM(DS:RCX).PENDING;</p>
+<p>TMP_RDINFO.FLAGS.MODIFIED := EPCM(DS:RCX).MODIFIED;</p>
+<p>TMP_RDINFO.FLAGS.PR := EPCM(DS:RCX).PR;</p>
+<p>TMP_RDINFO.FLAGS.PAGE_TYPE := EPCM(DS:RCX).PAGE_TYPE;</p>
+<p>TMP_RDINFO.FLAGS.BLOCKED := EPCM(DS:RCX).BLOCKED;</p>
 <p>(* read SECS.ENCLAVECONTEXT for enclave child pages *)</p>
 <p>IF ((EPCM(DS:RCX).PAGE_TYPE = PT_REG) or</p>
 <p>(EPCM(DS:RCX).PAGE_TYPE = PT_TCS) or</p>
-<p>(EPCM(DS:RCX).PAGE_TYPE = PT_TRIM)</p>
+<p>(EPCM(DS:RCX).PAGE_TYPE = PT_TRIM) or</p>
+<p>(EPCM(DS:RCX).PAGE_TYPE = PT_SS_FIRST) or</p>
+<p>(EPCM(DS:RCX).PAGE_TYPE = PT_SS_REST)</p>
 <p>) THEN</p>
-<p>TMP_SECS&larr;Address of SECS for (DS:RCX);</p>
-<p>TMP_RDINFO.ENCLAVECONTEXT &larr; SECS(TMP_SECS).ENCLAVECONTEXT;</p>
+<p>TMP_SECS := Address of SECS for (DS:RCX);</p>
+<p>TMP_RDINFO.ENCLAVECONTEXT := SECS(TMP_SECS).ENCLAVECONTEXT;</p>
 <p>FI;</p>
 <p>(* populate enclave information for SECS pages *)</p>
 <p>IF (EPCM(DS:RCX).PAGE_TYPE = PT_SECS) THEN</p>
 <p>IF ((VMX non-root mode) and</p>
 <p>(ENABLE_EPC_VIRTUALIZATION_EXTENSIONS Execution Control = 1)</p>
 <p>) THEN</p>
-<p>TMP_RDINFO.STATUS.CHILDPRESENT &larr;</p>
+<p>TMP_RDINFO.STATUS.CHILDPRESENT :=</p>
 <p>((SECS(DS:RCX).CHLDCNT ≠ 0) or</p>
 <p>SECS(DS:RCX).VIRTCHILDCNT ≠ 0);</p>
 <p>ELSE</p>
-<p>TMP_RDINFO.STATUS.CHILDPRESENT&larr;(SECS(DS:RCX).CHLDCNT ≠ 0);</p>
-<p>TMP_RDINFO.STATUS.VIRTCHILDPRESENT &larr;</p>
+<p>TMP_RDINFO.STATUS.CHILDPRESENT := (SECS(DS:RCX).CHLDCNT ≠ 0);</p>
+<p>TMP_RDINFO.STATUS.VIRTCHILDPRESENT :=</p>
 <p>(SECS(DS:RCX).VIRTCHILDCNT ≠ 0);</p>
-<p>TMP_RDINFO.ENCLAVECONTEXT &larr; SECS(DS_RCX).ENCLAVECONTEXT;</p>
+<p>TMP_RDINFO.ENCLAVECONTEXT := SECS(DS_RCX).ENCLAVECONTEXT;</p>
 <p>FI;</p>
 <p>FI;</p>
-<p>RAX&larr;0;</p>
-<p>RFLAGS.ZF &larr; 0;</p>
-<p>RFLAGS.CF &larr; 0;</p>
+<p>RAX := 0;</p>
+<p>RFLAGS.ZF := 0;</p>
+<p>RFLAGS.CF := 0;</p>
 <p>DONE:</p>
 <p>(* clear flags *)</p>
-<p>RFLAGS.PF &larr; 0;</p>
-<p>RFLAGS.AF &larr; 0;</p>
-<p>RFLAGS.OF &larr; 0;</p>
-<p>RFLAGS.SF&larr;? 0;</p>
+<p>RFLAGS.PF := 0;</p>
+<p>RFLAGS.AF := 0;</p>
+<p>RFLAGS.OF := 0;</p>
+<p>RFLAGS.SF := ? 0;</p>
 <h3 id="flags-affected">Flags Affected<a class="anchor" href="ERDINFO.html#flags-affected">
 			&para;
 		</a></h3>
@@ -248,6 +263,6 @@
 <td>code) If a page fault occurs in accessing memory operands.</td></tr></tbody></table><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

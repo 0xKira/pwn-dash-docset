@@ -1,0 +1,97 @@
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-16"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/AESDEC256KL"></a><title>AESDEC256KL</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>AESDEC256KL
+		&mdash; Perform 14 Rounds of AES Decryption Flow with Key Locker Using 256-Bit Key</h1>
+
+<table>
+<tbody><tr>
+<th>Opcode/Instruction</th>
+<th>Op/En</th>
+<th>64/32-bit Mode</th>
+<th>CPUID Feature Flag</th>
+<th>Description</th></tr>
+<tr>
+<td>F3 0F 38 DF !(11):rrr:bbb AESDEC256KL xmm, m512</td>
+<td>A</td>
+<td>V/V</td>
+<td>AESKLE</td>
+<td>Decrypt xmm using 256-bit AES key indicated by handle at m512 and store result in xmm.</td></tr></tbody></table>
+<h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="AESDEC256KL.html#instruction-operand-encoding">
+			&para;
+		</a></h2>
+<table>
+<tbody><tr>
+<td>Op/En</td>
+<td>Tuple</td>
+<td>Operand 1</td>
+<td>Operand 2</td>
+<td>Operand 3</td>
+<td>Operand 4</td></tr>
+<tr>
+<td>A</td>
+<td>NA</td>
+<td>ModRM:reg (r, w)</td>
+<td>ModRM:r/m (r)</td>
+<td>NA</td>
+<td>NA</td></tr></tbody></table>
+<h2 id="description">Description<a class="anchor" href="AESDEC256KL.html#description">
+			&para;
+		</a></h2>
+<p>The AESDEC256KL<sup>1</sup> instruction performs 14 rounds of AES to decrypt the first operand using the 256-bit key indicated by the handle from the second operand. It stores the result in the first operand if the operation succeeds (e.g., does not run into a handle violation failure).</p>
+<h2 id="operation">Operation<a class="anchor" href="AESDEC256KL.html#operation">
+			&para;
+		</a></h2>
+<h4 id="aesdec256kl">AESDEC256KL<a class="anchor" href="AESDEC256KL.html#aesdec256kl">
+			&para;
+		</a></h4>
+<pre>Handle := UnalignedLoad of 512 bit (SRC); // Load is not guaranteed to be atomic.
+Illegal Handle = (HandleReservedBitSet (Handle) ||
+                (Handle[0] AND (CPL &gt; 0)) ||
+                Handle [2] ||
+                HandleKeyType (Handle) != HANDLE_KEY_TYPE_AES256);
+IF (Illegal Handle)
+    THEN RFLAGS.ZF := 1;
+    ELSE
+        (UnwrappedKey, Authentic) := UnwrapKeyAndAuthenticate512 (Handle[511:0], IWKey);
+        IF (Authentic == 0)
+            THEN RFLAGS.ZF := 1;
+            ELSE
+                    DEST := AES256Decrypt (DEST, UnwrappedKey) ;
+                    RFLAGS.ZF := 0;
+        FI;
+FI;
+RFLAGS.OF, SF, AF, PF, CF := 0;
+</pre>
+<h2 id="flags-affected">Flags Affected<a class="anchor" href="AESDEC256KL.html#flags-affected">
+			&para;
+		</a></h2>
+<p>ZF is set to 0 if the operation succeeded and set to 1 if the operation failed due to a handle violation. The other arithmetic flags (OF, SF, AF, PF, CF) are cleared to 0.</p>
+<h2 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="AESDEC256KL.html#intel-c-c++-compiler-intrinsic-equivalent">
+			&para;
+		</a></h2>
+<pre>AESDEC256KL unsigned char _mm_aesdec256kl_u8(__m128i* odata, __m128i idata, const void* h);
+</pre>
+<pre>1. Further details on Key Locker and usage of this instruction can be found here:
+</pre>
+<h3 id="https---software-intel-com-content-www-us-en-develop-download-intel-key-locker-specification-html-">https://software.intel.com/content/www/us/en/develop/download/intel-key-locker-specification.html.<a class="anchor" href="AESDEC256KL.html#https---software-intel-com-content-www-us-en-develop-download-intel-key-locker-specification-html-">
+			&para;
+		</a></h3>
+<h2 id="exceptions--all-operating-modes-">Exceptions (All Operating Modes)<a class="anchor" href="AESDEC256KL.html#exceptions--all-operating-modes-">
+			&para;
+		</a></h2>
+<p>#UD If the LOCK prefix is used.</p>
+<p>If CPUID.07H:ECX.KL [bit 23] = 0.</p>
+<p>If CR4.KL = 0.</p>
+<p>If CPUID.19H:EBX.AESKLE [bit 0] = 0.</p>
+<p>If CR0.EM = 1.</p>
+<p>If CR4.OSFXSR = 0.</p>
+<p>#NM If CR0.TS = 1.</p>
+<p>#PF If a page fault occurs.</p>
+<p>#GP(0) If a memory operand effective address is outside the CS, DS, ES, FS, or GS segment limit.</p>
+<p>If the DS, ES, FS, or GS register is used to access memory and it contains a NULL segment selector.</p>
+<p>If the memory address is in a non-canonical form.</p>
+<p>#SS(0) If a memory operand effective address is outside the SS segment limit.</p>
+<p>If a memory address referencing the SS segment is in a non-canonical form.</p><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+	</p></footer>
+</body></html>

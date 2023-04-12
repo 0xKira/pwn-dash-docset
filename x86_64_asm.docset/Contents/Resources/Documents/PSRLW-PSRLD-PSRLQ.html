@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-390"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/PSRLW%2FPSRLD%2FPSRLQ"></a><title>PSRLW/PSRLD/PSRLQ</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>PSRLW/PSRLD/PSRLQ
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-400"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/PSRLW%2FPSRLD%2FPSRLQ"></a><title>PSRLW/PSRLD/PSRLQ</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>PSRLW/PSRLD/PSRLQ
 		&mdash; Shift Packed Data Right Logical</h1>
 
 
@@ -322,7 +322,7 @@
 <td>G</td>
 <td>Mem128</td>
 <td>ModRM:reg (w)</td>
-<td>VEX.vvvv (r)</td>
+<td>EVEX.vvvv (r)</td>
 <td>ModRM:r/m (r)</td>
 <td>NA</td></tr></tbody></table>
 <h2 id="description">Description<a class="anchor" href="./PSRLW:PSRLD:PSRLQ.html#description">
@@ -332,7 +332,7 @@
 <p>Note that only the low 64-bits of a 128-bit count operand are checked to compute the count.</p>
 <figure id="fig-4-19">
 <svg style="width: 455.616pt; height: 106.34401199999998pt" viewBox="109.64 0.0 384.68 93.62000999999998">
-<g xmlns="http://www.w3.org/2000/svg" style="stroke: none; fill: none">
+<g xmlns="http://www.w3.org/2000/svg" style="fill: none; stroke: none">
 <rect height="87.66" style="fill: rgb(0%, 0%, 0%)" width="0.48" x="112.14" y="0.48000999999999294"></rect>
 <rect height="87.66" style="fill: rgb(0%, 0%, 0%)" width="0.47998" x="491.34000000000003" y="0.48000999999999294"></rect>
 <rect height="0.48001000000000005" style="fill: rgb(0%, 0%, 0%)" width="379.68" x="112.14" y="0.0"></rect>
@@ -405,19 +405,19 @@
 <rect height="0.48" style="fill: rgb(0%, 0%, 0%)" width="25.92" x="333.36" y="44.46001000000001"></rect>
 <rect height="12.96" style="fill: rgb(0%, 0%, 0%)" width="0.47998" x="358.8" y="44.70000999999999"></rect>
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="31.021861099999967" x="160.07982600000003" y="21.185836800000004">Pre-Shift</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="9.722649699999977" x="407.94" y="25.266111000000024">X0</text>
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="9.783381300000002" x="220.9211901" y="25.266658500000005">X3</text>
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="9.783381299999974" x="284.6398259" y="25.266658500000005">X2</text>
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="9.783381299999974" x="345.6591019" y="25.266658500000005">X1</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="9.722649699999977" x="407.94" y="25.266111000000024">X0</text>
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="21.32638079999998" x="170.58" y="29.466111000000012">DEST</text>
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 8.720879999999994pt; fill: #000" textLength="31.414656000000036" x="159.0" y="42.603369999999984">Shift Right</text>
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 8.720879999999994pt; fill: #000" textLength="28.494936000000024" x="161.70000000000002" y="49.863369999999975">with Zero</text>
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 8.720879999999994pt; fill: #000" textLength="29.38164000000006" x="161.159904" y="57.663441999999975">Extension</text>
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="34.55068669999997" x="155.21969980000003" y="74.04550270000001">Post-Shift</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 10.208730624999987pt; fill: #000" textLength="53.67090920000004" x="386.5201245" y="80.31633812500002">X0 &gt;&gt; COUNT</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 10.208183125000005pt; fill: #000" textLength="53.6589324" x="198.9001148" y="80.31633812500002">X3 &gt;&gt; COUNT</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 10.208183125000005pt; fill: #000" textLength="53.58762089999999" x="262.6803064" y="80.31633812500002">X2 &gt;&gt; COUNT</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 10.208183125000005pt; fill: #000" textLength="53.59298820000009" x="325.9205328" y="80.31633812500002">X1 &gt;&gt; COUNT</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 10.208730624999987pt; fill: #000" textLength="53.6597218" x="386.5201245" y="80.31633812500002">X0 &gt;&gt; COUNT</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 10.208183125000005pt; fill: #000" textLength="53.65973149999999" x="198.9001148" y="80.31633812500002">X3 &gt;&gt; COUNT</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 10.208183125000005pt; fill: #000" textLength="53.61479029999998" x="262.6803064" y="80.31633812500002">X2 &gt;&gt; COUNT</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 10.208183125000005pt; fill: #000" textLength="53.59618460000007" x="325.9205328" y="80.31633812500002">X1 &gt;&gt; COUNT</text>
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="21.32078709999996" x="169.56" y="82.02611100000001">DEST</text></g></svg>
 <figcaption><a href="./PSRLW:PSRLD:PSRLQ.html#fig-4-19">Figure 4-19</a>. PSRLW, PSRLD, and PSRLQ Instruction Operation Using 64-bit Operand</figcaption></figure>
 <p>The (V)PSRLW instruction shifts each of the words in the destination operand to the right by the number of bits specified in the count operand; the (V)PSRLD instruction shifts each of the doublewords in the destination operand; and the PSRLQ instruction shifts the quadword (or quadwords) in the destination operand.</p>
@@ -437,11 +437,11 @@
 		</a></h3>
 <pre>IF (COUNT &gt; 15)
 THEN
-    DEST[64:0] &larr; 0000000000000000H
+    DEST[64:0] := 0000000000000000H
 ELSE
-    DEST[15:0] &larr; ZeroExtend(DEST[15:0] &gt;&gt; COUNT);
+    DEST[15:0] := ZeroExtend(DEST[15:0] &gt;&gt; COUNT);
     (* Repeat shift operation for 2nd and 3rd words *)
-    DEST[63:48] &larr; ZeroExtend(DEST[63:48] &gt;&gt; COUNT);
+    DEST[63:48] := ZeroExtend(DEST[63:48] &gt;&gt; COUNT);
 FI;
 </pre>
 <h3 id="psrld--with-64-bit-operand-">PSRLD (with 64-bit operand)<a class="anchor" href="./PSRLW:PSRLD:PSRLQ.html#psrld--with-64-bit-operand-">
@@ -449,10 +449,10 @@ FI;
 		</a></h3>
 <pre>IF (COUNT &gt; 31)
 THEN
-    DEST[64:0] &larr; 0000000000000000H
+    DEST[64:0] := 0000000000000000H
 ELSE
-    DEST[31:0] &larr; ZeroExtend(DEST[31:0] &gt;&gt; COUNT);
-    DEST[63:32] &larr; ZeroExtend(DEST[63:32] &gt;&gt; COUNT);
+    DEST[31:0] := ZeroExtend(DEST[31:0] &gt;&gt; COUNT);
+    DEST[63:32] := ZeroExtend(DEST[63:32] &gt;&gt; COUNT);
 FI;
 </pre>
 <h3 id="psrlq--with-64-bit-operand-">PSRLQ (with 64-bit operand)<a class="anchor" href="./PSRLW:PSRLD:PSRLQ.html#psrlq--with-64-bit-operand-">
@@ -460,85 +460,85 @@ FI;
 		</a></h3>
 <pre>    IF (COUNT &gt; 63)
     THEN
-        DEST[64:0] &larr; 0000000000000000H
+        DEST[64:0] := 0000000000000000H
     ELSE
-        DEST &larr; ZeroExtend(DEST &gt;&gt; COUNT);
+        DEST := ZeroExtend(DEST &gt;&gt; COUNT);
     FI;
 LOGICAL_RIGHT_SHIFT_DWORDS1(SRC, COUNT_SRC)
-COUNT &larr; COUNT_SRC[63:0];
+COUNT := COUNT_SRC[63:0];
 IF (COUNT &gt; 31)
 THEN
-    DEST[31:0] &larr; 0
+    DEST[31:0] := 0
 ELSE
-    DEST[31:0]&larr;ZeroExtend(SRC[31:0] &gt;&gt; COUNT);
+    DEST[31:0] := ZeroExtend(SRC[31:0] &gt;&gt; COUNT);
 FI;
 LOGICAL_RIGHT_SHIFT_QWORDS1(SRC, COUNT_SRC)
-COUNT &larr; COUNT_SRC[63:0];
+COUNT := COUNT_SRC[63:0];
 IF (COUNT &gt; 63)
 THEN
-    DEST[63:0] &larr; 0
+    DEST[63:0] := 0
 ELSE
-    DEST[63:0]&larr;ZeroExtend(SRC[63:0] &gt;&gt; COUNT);
+    DEST[63:0] := ZeroExtend(SRC[63:0] &gt;&gt; COUNT);
 FI;
 LOGICAL_RIGHT_SHIFT_WORDS_256b(SRC, COUNT_SRC)
-COUNT &larr;COUNT_SRC[63:0];
+COUNT := COUNT_SRC[63:0];
 IF (COUNT &gt; 15)
 THEN
-    DEST[255:0] &larr;0
+    DEST[255:0] := 0
 ELSE
-    DEST[15:0]&larr;ZeroExtend(SRC[15:0] &gt;&gt; COUNT);
+    DEST[15:0] := ZeroExtend(SRC[15:0] &gt;&gt; COUNT);
     (* Repeat shift operation for 2nd through 15th words *)
-    DEST[255:240]&larr;ZeroExtend(SRC[255:240] &gt;&gt; COUNT);
+    DEST[255:240] := ZeroExtend(SRC[255:240] &gt;&gt; COUNT);
 FI;
 LOGICAL_RIGHT_SHIFT_WORDS(SRC, COUNT_SRC)
-COUNT &larr;COUNT_SRC[63:0];
+COUNT := COUNT_SRC[63:0];
 IF (COUNT &gt; 15)
 THEN
-    DEST[127:0] &larr;00000000000000000000000000000000H
+    DEST[127:0] := 00000000000000000000000000000000H
 ELSE
-    DEST[15:0]&larr;ZeroExtend(SRC[15:0] &gt;&gt; COUNT);
+    DEST[15:0] := ZeroExtend(SRC[15:0] &gt;&gt; COUNT);
     (* Repeat shift operation for 2nd through 7th words *)
-    DEST[127:112]&larr;ZeroExtend(SRC[127:112] &gt;&gt; COUNT);
+    DEST[127:112] := ZeroExtend(SRC[127:112] &gt;&gt; COUNT);
 FI;
 LOGICAL_RIGHT_SHIFT_DWORDS_256b(SRC, COUNT_SRC)
-COUNT &larr;COUNT_SRC[63:0];
+COUNT := COUNT_SRC[63:0];
 IF (COUNT &gt; 31)
 THEN
-    DEST[255:0] &larr;0
+    DEST[255:0] := 0
 ELSE
-    DEST[31:0]&larr;ZeroExtend(SRC[31:0] &gt;&gt; COUNT);
+    DEST[31:0] := ZeroExtend(SRC[31:0] &gt;&gt; COUNT);
     (* Repeat shift operation for 2nd through 3rd words *)
-    DEST[255:224]&larr;ZeroExtend(SRC[255:224] &gt;&gt; COUNT);
+    DEST[255:224] := ZeroExtend(SRC[255:224] &gt;&gt; COUNT);
 FI;
 LOGICAL_RIGHT_SHIFT_DWORDS(SRC, COUNT_SRC)
-COUNT &larr;COUNT_SRC[63:0];
+COUNT := COUNT_SRC[63:0];
 IF (COUNT &gt; 31)
 THEN
-    DEST[127:0] &larr;00000000000000000000000000000000H
+    DEST[127:0] := 00000000000000000000000000000000H
 ELSE
-    DEST[31:0]&larr;ZeroExtend(SRC[31:0] &gt;&gt; COUNT);
+    DEST[31:0] := ZeroExtend(SRC[31:0] &gt;&gt; COUNT);
     (* Repeat shift operation for 2nd through 3rd words *)
-    DEST[127:96]&larr;ZeroExtend(SRC[127:96] &gt;&gt; COUNT);
+    DEST[127:96] := ZeroExtend(SRC[127:96] &gt;&gt; COUNT);
 FI;
 LOGICAL_RIGHT_SHIFT_QWORDS_256b(SRC, COUNT_SRC)
-COUNT &larr;COUNT_SRC[63:0];
+COUNT := COUNT_SRC[63:0];
 IF (COUNT &gt; 63)
 THEN
-    DEST[255:0] &larr;0
+    DEST[255:0] := 0
 ELSE
-    DEST[63:0]&larr;ZeroExtend(SRC[63:0] &gt;&gt; COUNT);
-    DEST[127:64]&larr;ZeroExtend(SRC[127:64] &gt;&gt; COUNT);
-    DEST[191:128]&larr;ZeroExtend(SRC[191:128] &gt;&gt; COUNT);
-    DEST[255:192]&larr;ZeroExtend(SRC[255:192] &gt;&gt; COUNT);
+    DEST[63:0] := ZeroExtend(SRC[63:0] &gt;&gt; COUNT);
+    DEST[127:64] := ZeroExtend(SRC[127:64] &gt;&gt; COUNT);
+    DEST[191:128] := ZeroExtend(SRC[191:128] &gt;&gt; COUNT);
+    DEST[255:192] := ZeroExtend(SRC[255:192] &gt;&gt; COUNT);
 FI;
 LOGICAL_RIGHT_SHIFT_QWORDS(SRC, COUNT_SRC)
-COUNT &larr;COUNT_SRC[63:0];
+COUNT := COUNT_SRC[63:0];
 IF (COUNT &gt; 63)
 THEN
-    DEST[127:0] &larr;00000000000000000000000000000000H
+    DEST[127:0] := 00000000000000000000000000000000H
 ELSE
-    DEST[63:0]&larr;ZeroExtend(SRC[63:0] &gt;&gt; COUNT);
-    DEST[127:64]&larr;ZeroExtend(SRC[127:64] &gt;&gt; COUNT);
+    DEST[63:0] := ZeroExtend(SRC[63:0] &gt;&gt; COUNT);
+    DEST[127:64] := ZeroExtend(SRC[127:64] &gt;&gt; COUNT);
 FI;
 </pre>
 <h3 id="vpsrlw--evex-versions--xmm-m128-">VPSRLW (EVEX versions, xmm/m128)<a class="anchor" href="./PSRLW:PSRLD:PSRLQ.html#vpsrlw--evex-versions--xmm-m128-">
@@ -546,19 +546,19 @@ FI;
 		</a></h3>
 <pre>(KL, VL) = (8, 128), (16, 256), (32, 512)
 IF VL = 128
-    TMP_DEST[127:0]&larr;LOGICAL_RIGHT_SHIFT_WORDS_128b(SRC1[127:0], SRC2)
+    TMP_DEST[127:0] := LOGICAL_RIGHT_SHIFT_WORDS_128b(SRC1[127:0], SRC2)
 FI;
 IF VL = 256
-    TMP_DEST[255:0]&larr;LOGICAL_RIGHT_SHIFT_WORDS_256b(SRC1[255:0], SRC2)
+    TMP_DEST[255:0] := LOGICAL_RIGHT_SHIFT_WORDS_256b(SRC1[255:0], SRC2)
 FI;
 IF VL = 512
-    TMP_DEST[255:0]&larr;LOGICAL_RIGHT_SHIFT_WORDS_256b(SRC1[255:0], SRC2)
-    TMP_DEST[511:256]&larr;LOGICAL_RIGHT_SHIFT_WORDS_256b(SRC1[511:256], SRC2)
+    TMP_DEST[255:0] := LOGICAL_RIGHT_SHIFT_WORDS_256b(SRC1[255:0], SRC2)
+    TMP_DEST[511:256] := LOGICAL_RIGHT_SHIFT_WORDS_256b(SRC1[511:256], SRC2)
 FI;
-FOR j&larr;0 TO KL-1
-    i&larr;j * 16
+FOR j := 0 TO KL-1
+    i := j * 16
     IF k1[j] OR *no writemask*
-        THEN DEST[i+15:i]&larr;TMP_DEST[i+15:i]
+        THEN DEST[i+15:i] := TMP_DEST[i+15:i]
         ELSE
             IF *merging-masking*
                         ; merging-masking
@@ -569,26 +569,26 @@ FOR j&larr;0 TO KL-1
             FI
     FI;
 ENDFOR
-DEST[MAXVL-1:VL] &larr; 0
+DEST[MAXVL-1:VL] := 0
 </pre>
 <h3 id="vpsrlw--evex-versions--imm8-">VPSRLW (EVEX versions, imm8)<a class="anchor" href="./PSRLW:PSRLD:PSRLQ.html#vpsrlw--evex-versions--imm8-">
 			&para;
 		</a></h3>
 <pre>(KL, VL) = (8, 128), (16, 256), (32, 512)
 IF VL = 128
-    TMP_DEST[127:0]&larr;LOGICAL_RIGHT_SHIFT_WORDS_128b(SRC1[127:0], imm8)
+    TMP_DEST[127:0] := LOGICAL_RIGHT_SHIFT_WORDS_128b(SRC1[127:0], imm8)
 FI;
 IF VL = 256
-    TMP_DEST[255:0]&larr;LOGICAL_RIGHT_SHIFT_WORDS_256b(SRC1[255:0], imm8)
+    TMP_DEST[255:0] := LOGICAL_RIGHT_SHIFT_WORDS_256b(SRC1[255:0], imm8)
 FI;
 IF VL = 512
-    TMP_DEST[255:0]&larr;LOGICAL_RIGHT_SHIFT_WORDS_256b(SRC1[255:0], imm8)
-    TMP_DEST[511:256]&larr;LOGICAL_RIGHT_SHIFT_WORDS_256b(SRC1[511:256], imm8)
+    TMP_DEST[255:0] := LOGICAL_RIGHT_SHIFT_WORDS_256b(SRC1[255:0], imm8)
+    TMP_DEST[511:256] := LOGICAL_RIGHT_SHIFT_WORDS_256b(SRC1[511:256], imm8)
 FI;
-FOR j&larr;0 TO KL-1
-    i&larr;j * 16
+FOR j := 0 TO KL-1
+    i := j * 16
     IF k1[j] OR *no writemask*
-        THEN DEST[i+15:i]&larr;TMP_DEST[i+15:i]
+        THEN DEST[i+15:i] := TMP_DEST[i+15:i]
         ELSE
             IF *merging-masking*
                         ; merging-masking
@@ -599,42 +599,42 @@ FOR j&larr;0 TO KL-1
             FI
     FI;
 ENDFOR
-DEST[MAXVL-1:VL] &larr; 0
+DEST[MAXVL-1:VL] := 0
 </pre>
 <h3 id="vpsrlw--ymm--ymm--xmm-m128----vex-256-encoding">VPSRLW (ymm, ymm, xmm/m128) - VEX.256 encoding<a class="anchor" href="./PSRLW:PSRLD:PSRLQ.html#vpsrlw--ymm--ymm--xmm-m128----vex-256-encoding">
 			&para;
 		</a></h3>
-<pre>DEST[255:0]&larr;LOGICAL_RIGHT_SHIFT_WORDS_256b(SRC1, SRC2)
-DEST[MAXVL-1:256] &larr;0;
+<pre>DEST[255:0] := LOGICAL_RIGHT_SHIFT_WORDS_256b(SRC1, SRC2)
+DEST[MAXVL-1:256] := 0;
 </pre>
 <h3 id="vpsrlw--ymm--imm8----vex-256-encoding">VPSRLW (ymm, imm8) - VEX.256 encoding<a class="anchor" href="./PSRLW:PSRLD:PSRLQ.html#vpsrlw--ymm--imm8----vex-256-encoding">
 			&para;
 		</a></h3>
-<pre>DEST[255:0]&larr;LOGICAL_RIGHT_SHIFT_WORDS_256b(SRC1, imm8)
-DEST[MAXVL-1:256] &larr;0;
+<pre>DEST[255:0] := LOGICAL_RIGHT_SHIFT_WORDS_256b(SRC1, imm8)
+DEST[MAXVL-1:256] := 0;
 </pre>
 <h3 id="vpsrlw--xmm--xmm--xmm-m128----vex-128-encoding">VPSRLW (xmm, xmm, xmm/m128) - VEX.128 encoding<a class="anchor" href="./PSRLW:PSRLD:PSRLQ.html#vpsrlw--xmm--xmm--xmm-m128----vex-128-encoding">
 			&para;
 		</a></h3>
-<pre>DEST[127:0]&larr;LOGICAL_RIGHT_SHIFT_WORDS(SRC1, SRC2)
-DEST[MAXVL-1:128] &larr;0
+<pre>DEST[127:0] := LOGICAL_RIGHT_SHIFT_WORDS(SRC1, SRC2)
+DEST[MAXVL-1:128] := 0
 </pre>
 <h3 id="vpsrlw--xmm--imm8----vex-128-encoding">VPSRLW (xmm, imm8) - VEX.128 encoding<a class="anchor" href="./PSRLW:PSRLD:PSRLQ.html#vpsrlw--xmm--imm8----vex-128-encoding">
 			&para;
 		</a></h3>
-<pre>DEST[127:0]&larr;LOGICAL_RIGHT_SHIFT_WORDS(SRC1, imm8)
-DEST[MAXVL-1:128] &larr;0
+<pre>DEST[127:0] := LOGICAL_RIGHT_SHIFT_WORDS(SRC1, imm8)
+DEST[MAXVL-1:128] := 0
 </pre>
 <h3 id="psrlw--xmm--xmm--xmm-m128-">PSRLW (xmm, xmm, xmm/m128)<a class="anchor" href="./PSRLW:PSRLD:PSRLQ.html#psrlw--xmm--xmm--xmm-m128-">
 			&para;
 		</a></h3>
-<pre>DEST[127:0]&larr;LOGICAL_RIGHT_SHIFT_WORDS(DEST, SRC)
+<pre>DEST[127:0] := LOGICAL_RIGHT_SHIFT_WORDS(DEST, SRC)
 DEST[MAXVL-1:128] (Unmodified)
 </pre>
 <h3 id="psrlw--xmm--imm8-">PSRLW (xmm, imm8)<a class="anchor" href="./PSRLW:PSRLD:PSRLQ.html#psrlw--xmm--imm8-">
 			&para;
 		</a></h3>
-<pre>DEST[127:0]&larr;LOGICAL_RIGHT_SHIFT_WORDS(DEST, imm8)
+<pre>DEST[127:0] := LOGICAL_RIGHT_SHIFT_WORDS(DEST, imm8)
 DEST[MAXVL-1:128] (Unmodified)
 </pre>
 <h3 id="vpsrld--evex-versions--xmm-m128-">VPSRLD (EVEX versions, xmm/m128)<a class="anchor" href="./PSRLW:PSRLD:PSRLQ.html#vpsrld--evex-versions--xmm-m128-">
@@ -642,177 +642,177 @@ DEST[MAXVL-1:128] (Unmodified)
 		</a></h3>
 <pre>(KL, VL) = (4, 128), (8, 256), (16, 512)
 IF VL = 128
-    TMP_DEST[127:0]&larr;LOGICAL_RIGHT_SHIFT_DWORDS_128b(SRC1[127:0], SRC2)
+    TMP_DEST[127:0] := LOGICAL_RIGHT_SHIFT_DWORDS_128b(SRC1[127:0], SRC2)
 FI;
 IF VL = 256
-    TMP_DEST[255:0]&larr;LOGICAL_RIGHT_SHIFT_DWORDS_256b(SRC1[255:0], SRC2)
+    TMP_DEST[255:0] := LOGICAL_RIGHT_SHIFT_DWORDS_256b(SRC1[255:0], SRC2)
 FI;
 IF VL = 512
-    TMP_DEST[255:0]&larr;LOGICAL_RIGHT_SHIFT_DWORDS_256b(SRC1[255:0], SRC2)
-    TMP_DEST[511:256]&larr;LOGICAL_RIGHT_SHIFT_DWORDS_256b(SRC1[511:256], SRC2)
+    TMP_DEST[255:0] := LOGICAL_RIGHT_SHIFT_DWORDS_256b(SRC1[255:0], SRC2)
+    TMP_DEST[511:256] := LOGICAL_RIGHT_SHIFT_DWORDS_256b(SRC1[511:256], SRC2)
 FI;
-FOR j&larr;0 TO KL-1
-    i&larr;j * 32
+FOR j := 0 TO KL-1
+    i := j * 32
     IF k1[j] OR *no writemask*
-        THEN DEST[i+31:i]&larr;TMP_DEST[i+31:i]
+        THEN DEST[i+31:i] := TMP_DEST[i+31:i]
         ELSE
             IF *merging-masking*
                         ; merging-masking
                 THEN *DEST[i+31:i] remains unchanged*
                 ELSE *zeroing-masking*
                             ; zeroing-masking
-                    DEST[i+31:i] &larr; 0
+                    DEST[i+31:i] := 0
             FI
     FI;
 ENDFOR
-DEST[MAXVL-1:VL] &larr; 0
+DEST[MAXVL-1:VL] := 0
 </pre>
 <h3 id="vpsrld--evex-versions--imm8-">VPSRLD (EVEX versions, imm8)<a class="anchor" href="./PSRLW:PSRLD:PSRLQ.html#vpsrld--evex-versions--imm8-">
 			&para;
 		</a></h3>
 <pre>(KL, VL) = (4, 128), (8, 256), (16, 512)
-FOR j&larr;0 TO KL-1
-    i&larr;j * 32
+FOR j := 0 TO KL-1
+    i := j * 32
     IF k1[j] OR *no writemask* THEN
             IF (EVEX.b = 1) AND (SRC1 *is memory*)
-                THEN DEST[i+31:i]&larr;LOGICAL_RIGHT_SHIFT_DWORDS1(SRC1[31:0], imm8)
-                ELSE DEST[i+31:i]&larr;LOGICAL_RIGHT_SHIFT_DWORDS1(SRC1[i+31:i], imm8)
+                THEN DEST[i+31:i] := LOGICAL_RIGHT_SHIFT_DWORDS1(SRC1[31:0], imm8)
+                ELSE DEST[i+31:i] := LOGICAL_RIGHT_SHIFT_DWORDS1(SRC1[i+31:i], imm8)
             FI;
         ELSE
             IF *merging-masking* ; merging-masking
                 THEN *DEST[i+31:i] remains unchanged*
                 ELSE *zeroing-masking*
                         ; zeroing-masking
-                    DEST[i+31:i] &larr; 0
+                    DEST[i+31:i] := 0
             FI
     FI;
 ENDFOR
-DEST[MAXVL-1:VL] &larr; 0
+DEST[MAXVL-1:VL] := 0
 </pre>
 <h3 id="vpsrld--ymm--ymm--xmm-m128----vex-256-encoding">VPSRLD (ymm, ymm, xmm/m128) - VEX.256 encoding<a class="anchor" href="./PSRLW:PSRLD:PSRLQ.html#vpsrld--ymm--ymm--xmm-m128----vex-256-encoding">
 			&para;
 		</a></h3>
-<pre>DEST[255:0]&larr;LOGICAL_RIGHT_SHIFT_DWORDS_256b(SRC1, SRC2)
-DEST[MAXVL-1:256] &larr;0;
+<pre>DEST[255:0] := LOGICAL_RIGHT_SHIFT_DWORDS_256b(SRC1, SRC2)
+DEST[MAXVL-1:256] := 0;
 </pre>
 <h3 id="vpsrld--ymm--imm8----vex-256-encoding">VPSRLD (ymm, imm8) - VEX.256 encoding<a class="anchor" href="./PSRLW:PSRLD:PSRLQ.html#vpsrld--ymm--imm8----vex-256-encoding">
 			&para;
 		</a></h3>
-<pre>DEST[255:0]&larr;LOGICAL_RIGHT_SHIFT_DWORDS_256b(SRC1, imm8)
-DEST[MAXVL-1:256] &larr;0;
+<pre>DEST[255:0] := LOGICAL_RIGHT_SHIFT_DWORDS_256b(SRC1, imm8)
+DEST[MAXVL-1:256] := 0;
 </pre>
 <h3 id="vpsrld--xmm--xmm--xmm-m128----vex-128-encoding">VPSRLD (xmm, xmm, xmm/m128) - VEX.128 encoding<a class="anchor" href="./PSRLW:PSRLD:PSRLQ.html#vpsrld--xmm--xmm--xmm-m128----vex-128-encoding">
 			&para;
 		</a></h3>
-<pre>DEST[127:0]&larr;LOGICAL_RIGHT_SHIFT_DWORDS(SRC1, SRC2)
-DEST[MAXVL-1:128] &larr;0
+<pre>DEST[127:0] := LOGICAL_RIGHT_SHIFT_DWORDS(SRC1, SRC2)
+DEST[MAXVL-1:128] := 0
 </pre>
 <h3 id="vpsrld--xmm--imm8----vex-128-encoding">VPSRLD (xmm, imm8) - VEX.128 encoding<a class="anchor" href="./PSRLW:PSRLD:PSRLQ.html#vpsrld--xmm--imm8----vex-128-encoding">
 			&para;
 		</a></h3>
-<pre>DEST[127:0]&larr;LOGICAL_RIGHT_SHIFT_DWORDS(SRC1, imm8)
-DEST[MAXVL-1:128] &larr;0
+<pre>DEST[127:0] := LOGICAL_RIGHT_SHIFT_DWORDS(SRC1, imm8)
+DEST[MAXVL-1:128] := 0
 </pre>
 <h3 id="psrld--xmm--xmm--xmm-m128-">PSRLD (xmm, xmm, xmm/m128)<a class="anchor" href="./PSRLW:PSRLD:PSRLQ.html#psrld--xmm--xmm--xmm-m128-">
 			&para;
 		</a></h3>
-<pre>DEST[127:0]&larr;LOGICAL_RIGHT_SHIFT_DWORDS(DEST, SRC)
+<pre>DEST[127:0] := LOGICAL_RIGHT_SHIFT_DWORDS(DEST, SRC)
 DEST[MAXVL-1:128] (Unmodified)
 </pre>
 <h3 id="psrld--xmm--imm8-">PSRLD (xmm, imm8)<a class="anchor" href="./PSRLW:PSRLD:PSRLQ.html#psrld--xmm--imm8-">
 			&para;
 		</a></h3>
-<pre>DEST[127:0]&larr;LOGICAL_RIGHT_SHIFT_DWORDS(DEST, imm8)
+<pre>DEST[127:0] := LOGICAL_RIGHT_SHIFT_DWORDS(DEST, imm8)
 DEST[MAXVL-1:128] (Unmodified)
 </pre>
 <h3 id="vpsrlq--evex-versions--xmm-m128-">VPSRLQ (EVEX versions, xmm/m128)<a class="anchor" href="./PSRLW:PSRLD:PSRLQ.html#vpsrlq--evex-versions--xmm-m128-">
 			&para;
 		</a></h3>
 <pre>(KL, VL) = (2, 128), (4, 256), (8, 512)
-TMP_DEST[255:0]&larr;LOGICAL_RIGHT_SHIFT_QWORDS_256b(SRC1[255:0], SRC2)
-TMP_DEST[511:256]&larr;LOGICAL_RIGHT_SHIFT_QWORDS_256b(SRC1[511:256], SRC2)
+TMP_DEST[255:0] := LOGICAL_RIGHT_SHIFT_QWORDS_256b(SRC1[255:0], SRC2)
+TMP_DEST[511:256] := LOGICAL_RIGHT_SHIFT_QWORDS_256b(SRC1[511:256], SRC2)
 IF VL = 128
-    TMP_DEST[127:0]&larr;LOGICAL_RIGHT_SHIFT_QWORDS_128b(SRC1[127:0], SRC2)
+    TMP_DEST[127:0] := LOGICAL_RIGHT_SHIFT_QWORDS_128b(SRC1[127:0], SRC2)
 FI;
 IF VL = 256
-    TMP_DEST[255:0]&larr;LOGICAL_RIGHT_SHIFT_QWORDS_256b(SRC1[255:0], SRC2)
+    TMP_DEST[255:0] := LOGICAL_RIGHT_SHIFT_QWORDS_256b(SRC1[255:0], SRC2)
 FI;
 IF VL = 512
-    TMP_DEST[255:0]&larr;LOGICAL_RIGHT_SHIFT_QWORDS_256b(SRC1[255:0], SRC2)
-    TMP_DEST[511:256]&larr;LOGICAL_RIGHT_SHIFT_QWORDS_256b(SRC1[511:256], SRC2)
+    TMP_DEST[255:0] := LOGICAL_RIGHT_SHIFT_QWORDS_256b(SRC1[255:0], SRC2)
+    TMP_DEST[511:256] := LOGICAL_RIGHT_SHIFT_QWORDS_256b(SRC1[511:256], SRC2)
 FI;
-FOR j&larr;0 TO KL-1
-    i&larr;j * 64
+FOR j := 0 TO KL-1
+    i := j * 64
     IF k1[j] OR *no writemask*
-        THEN DEST[i+63:i]&larr;TMP_DEST[i+63:i]
+        THEN DEST[i+63:i] := TMP_DEST[i+63:i]
         ELSE
             IF *merging-masking*
                         ; merging-masking
                 THEN *DEST[i+63:i] remains unchanged*
                 ELSE *zeroing-masking*
                             ; zeroing-masking
-                    DEST[i+63:i] &larr; 0
+                    DEST[i+63:i] := 0
             FI
     FI;
 ENDFOR
-DEST[MAXVL-1:VL] &larr; 0
+DEST[MAXVL-1:VL] := 0
 </pre>
 <h3 id="vpsrlq--evex-versions--imm8-">VPSRLQ (EVEX versions, imm8)<a class="anchor" href="./PSRLW:PSRLD:PSRLQ.html#vpsrlq--evex-versions--imm8-">
 			&para;
 		</a></h3>
 <pre>(KL, VL) = (2, 128), (4, 256), (8, 512)
-FOR j&larr;0 TO KL-1
-    i&larr;j * 64
+FOR j := 0 TO KL-1
+    i := j * 64
     IF k1[j] OR *no writemask* THEN
             IF (EVEX.b = 1) AND (SRC1 *is memory*)
-                THEN DEST[i+63:i]&larr;LOGICAL_RIGHT_SHIFT_QWORDS1(SRC1[63:0], imm8)
-                ELSE DEST[i+63:i]&larr;LOGICAL_RIGHT_SHIFT_QWORDS1(SRC1[i+63:i], imm8)
+                THEN DEST[i+63:i] := LOGICAL_RIGHT_SHIFT_QWORDS1(SRC1[63:0], imm8)
+                ELSE DEST[i+63:i] := LOGICAL_RIGHT_SHIFT_QWORDS1(SRC1[i+63:i], imm8)
             FI;
         ELSE
             IF *merging-masking* ; merging-masking
                 THEN *DEST[i+63:i] remains unchanged*
                 ELSE *zeroing-masking*
                         ; zeroing-masking
-                    DEST[i+63:i] &larr; 0
+                    DEST[i+63:i] := 0
             FI
     FI;
 ENDFOR
-DEST[MAXVL-1:VL] &larr; 0
+DEST[MAXVL-1:VL] := 0
 </pre>
 <h3 id="vpsrlq--ymm--ymm--xmm-m128----vex-256-encoding">VPSRLQ (ymm, ymm, xmm/m128) - VEX.256 encoding<a class="anchor" href="./PSRLW:PSRLD:PSRLQ.html#vpsrlq--ymm--ymm--xmm-m128----vex-256-encoding">
 			&para;
 		</a></h3>
-<pre>DEST[255:0]&larr;LOGICAL_RIGHT_SHIFT_QWORDS_256b(SRC1, SRC2)
-DEST[MAXVL-1:256] &larr;0;
+<pre>DEST[255:0] := LOGICAL_RIGHT_SHIFT_QWORDS_256b(SRC1, SRC2)
+DEST[MAXVL-1:256] := 0;
 </pre>
 <h3 id="vpsrlq--ymm--imm8----vex-256-encoding">VPSRLQ (ymm, imm8) - VEX.256 encoding<a class="anchor" href="./PSRLW:PSRLD:PSRLQ.html#vpsrlq--ymm--imm8----vex-256-encoding">
 			&para;
 		</a></h3>
-<pre>DEST[255:0]&larr;LOGICAL_RIGHT_SHIFT_QWORDS_256b(SRC1, imm8)
-DEST[MAXVL-1:256] &larr;0;
+<pre>DEST[255:0] := LOGICAL_RIGHT_SHIFT_QWORDS_256b(SRC1, imm8)
+DEST[MAXVL-1:256] := 0;
 </pre>
 <h3 id="vpsrlq--xmm--xmm--xmm-m128----vex-128-encoding">VPSRLQ (xmm, xmm, xmm/m128) - VEX.128 encoding<a class="anchor" href="./PSRLW:PSRLD:PSRLQ.html#vpsrlq--xmm--xmm--xmm-m128----vex-128-encoding">
 			&para;
 		</a></h3>
-<pre>DEST[127:0]&larr;LOGICAL_RIGHT_SHIFT_QWORDS(SRC1, SRC2)
-DEST[MAXVL-1:128] &larr;0
+<pre>DEST[127:0] := LOGICAL_RIGHT_SHIFT_QWORDS(SRC1, SRC2)
+DEST[MAXVL-1:128] := 0
 </pre>
 <h3 id="vpsrlq--xmm--imm8----vex-128-encoding">VPSRLQ (xmm, imm8) - VEX.128 encoding<a class="anchor" href="./PSRLW:PSRLD:PSRLQ.html#vpsrlq--xmm--imm8----vex-128-encoding">
 			&para;
 		</a></h3>
-<pre>DEST[127:0]&larr;LOGICAL_RIGHT_SHIFT_QWORDS(SRC1, imm8)
-DEST[MAXVL-1:128] &larr;0
+<pre>DEST[127:0] := LOGICAL_RIGHT_SHIFT_QWORDS(SRC1, imm8)
+DEST[MAXVL-1:128] := 0
 </pre>
 <h3 id="psrlq--xmm--xmm--xmm-m128-">PSRLQ (xmm, xmm, xmm/m128)<a class="anchor" href="./PSRLW:PSRLD:PSRLQ.html#psrlq--xmm--xmm--xmm-m128-">
 			&para;
 		</a></h3>
-<pre>DEST[127:0]&larr;LOGICAL_RIGHT_SHIFT_QWORDS(DEST, SRC)
+<pre>DEST[127:0] := LOGICAL_RIGHT_SHIFT_QWORDS(DEST, SRC)
 DEST[MAXVL-1:128] (Unmodified)
 </pre>
 <h3 id="psrlq--xmm--imm8-">PSRLQ (xmm, imm8)<a class="anchor" href="./PSRLW:PSRLD:PSRLQ.html#psrlq--xmm--imm8-">
 			&para;
 		</a></h3>
-<pre>DEST[127:0]&larr;LOGICAL_RIGHT_SHIFT_QWORDS(DEST, imm8)
+<pre>DEST[127:0] := LOGICAL_RIGHT_SHIFT_QWORDS(DEST, imm8)
 DEST[MAXVL-1:128] (Unmodified)
 </pre>
 <h2 id="intel-c-c++-compiler-intrinsic-equivalents">Intel C/C++ Compiler Intrinsic Equivalents<a class="anchor" href="./PSRLW:PSRLD:PSRLQ.html#intel-c-c++-compiler-intrinsic-equivalents">
@@ -950,14 +950,14 @@ DEST[MAXVL-1:128] (Unmodified)
 			&para;
 		</a></h2>
 <p>VEX-encoded instructions:</p>
-<p>Syntax with RM/RVM operand encoding (A/C in the operand encoding table), see Exceptions Type 4.</p>
-<p>Syntax with MI/VMI operand encoding (B/D in the operand encoding table), see Exceptions Type 7.</p>
-<p>EVEX-encoded VPSRLW (E in the operand encoding table), see Exceptions Type E4NF.nb.</p>
+<p>Syntax with RM/RVM operand encoding (A/C in the operand encoding table), see <span class="not-imported">Table 2-21</span>, &ldquo;Type 4 Class Exception Conditions&rdquo;.</p>
+<p>Syntax with MI/VMI operand encoding (B/D in the operand encoding table), see <span class="not-imported">Table 2-24</span>, &ldquo;Type 7 Class Exception Conditions&rdquo;.</p>
+<p>EVEX-encoded VPSRLW (E in the operand encoding table), see Exceptions Type E4NF.nb in <span class="not-imported">Table 2-50</span>, &ldquo;Type E4NF Class Exception Conditions&rdquo;.</p>
 <p>EVEX-encoded VPSRLD/Q:</p>
-<p>Syntax with Mem128 tuple type (G in the operand encoding table), see Exceptions Type E4NF.nb.</p>
-<p>Syntax with Full tuple type (F in the operand encoding table), see Exceptions Type E4.</p><footer><p>
+<p>Syntax with Mem128 tuple type (G in the operand encoding table), see Exceptions Type E4NF.nb in <span class="not-imported">Table 2-50</span>, &ldquo;Type E4NF Class Exception Conditions&rdquo;.</p>
+<p>Syntax with Full tuple type (F in the operand encoding table), see <span class="not-imported">Table 2-49</span>, &ldquo;Type E4 Class Exception Conditions&rdquo;.</p><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

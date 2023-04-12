@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-508"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/VCVTTSD2USI"></a><title>VCVTTSD2USI</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>VCVTTSD2USI
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-522"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/VCVTTSD2USI"></a><title>VCVTTSD2USI</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>VCVTTSD2USI
 		&mdash; Convert with Truncation Scalar Double-Precision Floating-Point Value to Unsigned Integer</h1>
 
 <table>
@@ -9,13 +9,13 @@
 <th>CPUID Feature Flag</th>
 <th>Description</th></tr>
 <tr>
-<td>EVEX.LIG.F2.0F.W0 78 /r VCVTTSD2USI r32, xmm1/m64{sae}</td>
+<td>EVEX.LLIG.F2.0F.W0 78 /r VCVTTSD2USI r32, xmm1/m64{sae}</td>
 <td>A</td>
 <td>V/V</td>
 <td>AVX512F</td>
 <td>Convert one double-precision floating-point value from xmm1/m64 to one unsigned doubleword integer r32 using truncation.</td></tr>
 <tr>
-<td>EVEX.LIG.F2.0F.W1 78 /r VCVTTSD2USI r64, xmm1/m64{sae}</td>
+<td>EVEX.LLIG.F2.0F.W1 78 /r VCVTTSD2USI r64, xmm1/m64{sae}</td>
 <td>A</td>
 <td>V/N.E.<sup>1</sup></td>
 <td>AVX512F</td>
@@ -44,7 +44,7 @@
 			&para;
 		</a></h3>
 <p>Converts with truncation a double-precision floating-point value in the source operand (the second operand) to an unsigned doubleword integer (or unsigned quadword integer if operand size is 64 bits) in the destination operand (the first operand). The source operand can be an XMM register or a 64-bit memory location. The destination operand is a general-purpose register. When the source operand is an XMM register, the double-precision floating-point value is contained in the low quadword of the register.</p>
-<p>When a conversion is inexact, the value returned is rounded according to the rounding control bits in the MXCSR register. If a converted result cannot be represented in the destination format, the floating-point invalid exception is raised, and if this exception is masked, the integer value 2<sup>w</sup> &ndash; 1 is returned, where w represents the number of bits in the destination format.</p>
+<p>When a conversion is inexact, a truncated (round toward zero) value is returned. If a converted result cannot be represented in the destination format, the floating-point invalid exception is raised, and if this exception is masked, the integer value 2<sup>w</sup> &ndash; 1 is returned, where w represents the number of bits in the destination format.</p>
 <p>EVEX.W1 version: promotes the instruction to produce 64-bit data in 64-bit mode.</p>
 <h3 id="operation">Operation<a class="anchor" href="VCVTTSD2USI.html#operation">
 			&para;
@@ -53,8 +53,8 @@
 			&para;
 		</a></h4>
 <pre>IF 64-Bit Mode and OperandSize = 64
-    THEN DEST[63:0] &larr; Convert_Double_Precision_Floating_Point_To_UInteger_Truncate(SRC[63:0]);
-    ELSE DEST[31:0] &larr; Convert_Double_Precision_Floating_Point_To_UInteger_Truncate(SRC[63:0]);
+    THEN DEST[63:0] := Convert_Double_Precision_Floating_Point_To_UInteger_Truncate(SRC[63:0]);
+    ELSE DEST[31:0] := Convert_Double_Precision_Floating_Point_To_UInteger_Truncate(SRC[63:0]);
 FI
 </pre>
 <h3 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="VCVTTSD2USI.html#intel-c-c++-compiler-intrinsic-equivalent">
@@ -75,9 +75,9 @@ FI
 <h3 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="VCVTTSD2USI.html#other-exceptions">
 			&para;
 		</a></h3>
-<p>EVEX-encoded instructions, see Exceptions Type E3NF.</p><footer><p>
+<p>EVEX-encoded instructions, see <span class="not-imported">Table 2-48</span>, &ldquo;Type E3NF Class Exception Conditions&rdquo;.</p><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

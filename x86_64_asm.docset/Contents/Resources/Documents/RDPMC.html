@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-410"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/RDPMC"></a><title>RDPMC</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>RDPMC
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-420"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/RDPMC"></a><title>RDPMC</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>RDPMC
 		&mdash; Read Performance-Monitoring Counters</h1>
 
 <table>
@@ -35,26 +35,32 @@
 <h2 id="description">Description<a class="anchor" href="RDPMC.html#description">
 			&para;
 		</a></h2>
-<p>The EAX register is loaded with the low-order 32 bits. The EDX register is loaded with the supported high-order bits of the counter. The number of high-order bits loaded into EDX is implementation specific on processors that do no support architectural performance monitoring. The width of fixed-function and general-purpose performance counters on processors supporting architectural performance monitoring are reported by CPUID 0AH leaf. See below for the treatment of the EDX register for &ldquo;fast&rdquo; reads.</p>
-<p>The ECX register specifies the counter type (if the processor supports architectural performance monitoring) and counter index. Counter type is specified in ECX[30] to select one of two type of performance counters. If the processor does not support architectural performance monitoring, ECX[30:0] specifies the counter index; otherwise ECX[29:0] specifies the index relative to the base of each counter type. ECX[31] selects &ldquo;fast&rdquo; read mode if supported. The two counter types are:</p>
+<p>Reads the contents of the performance monitoring counter (PMC) specified in ECX register into registers EDX:EAX. (On processors that support the Intel 64 architecture, the high-order 32 bits of RCX are ignored.) The EDX register is loaded with the high-order 32 bits of the PMC and the EAX register is loaded with the low-order 32 bits. (On processors that support the Intel 64 architecture, the high-order 32 bits of each of RAX and RDX are cleared.) If fewer than 64 bits are implemented in the PMC being read, unimplemented bits returned to EDX:EAX will have value zero.</p>
+<p>The width of PMCs on processors supporting architectural performance monitoring (CPUID.0AH:EAX[7:0] ≠ 0) are reported by CPUID.0AH:EAX[23:16]. On processors that do not support architectural performance monitoring (CPUID.0AH:EAX[7:0]=0), the width of general-purpose performance PMCs is 40 bits, while the widths of special-purpose PMCs are implementation specific.</p>
+<p>Use of ECX to specify a PMC depends on whether the processor supports architectural performance monitoring:</p>
 <ul>
-<li>General-purpose or special-purpose performance counters are specified with ECX[30] = 0: The number of general-purpose performance counters on processor supporting architectural performance monitoring are reported by CPUID 0AH leaf. The availability of special-purpose counters, as well as the number of general-purpose counters if the processor does not support architectural performance monitoring, is model specific; see Chapter 18, &ldquo;Performance Monitoring&rdquo; of <em>Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual, </em><em>Volume 3B</em>.</li>
-<li>Fixed-function performance counters are specified with ECX[30] = 1. The number fixed-function performance counters is enumerated by CPUID 0AH leaf. See Chapter 18, &ldquo;Performance Monitoring&rdquo; of <em>Intel&reg; 64 and IA-32 </em><em>Architectures Software Developer&rsquo;s Manual, Volume 3B</em>. This counter type is selected if ECX[30] is set.</li></ul>
-<p>The width of fixed-function performance counters and general-purpose performance counters on processors supporting architectural performance monitoring are reported by CPUID 0AH leaf. The width of general-purpose performance counters are 40-bits for processors that do not support architectural performance monitoring counters. The width of special-purpose performance counters are implementation specific.</p>
-<p>When in protected or virtual 8086 mode, the performance-monitoring counters enabled (PCE) flag in register CR4 restricts the use of the RDPMC instruction as follows. When the PCE flag is set, the RDPMC instruction can be executed at any privilege level; when the flag is clear, the instruction can only be executed at privilege level 0. (When in real-address mode, the RDPMC instruction is always enabled.)</p>
-<p>The performance-monitoring counters can also be read with the RDMSR instruction, when executing at privilege level 0.</p>
-<p>The performance-monitoring counters are event counters that can be programmed to count events such as the number of instructions decoded, number of interrupts received, or number of cache loads. Chapter 19, &ldquo;Performance Monitoring Events,&rdquo; in the <em>Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 3B</em>, lists the events that can be counted for various processors in the Intel 64 and IA-32 architecture families.</p>
+<li>If the processor does not support architectural performance monitoring (CPUID.0AH:EAX[7:0]=0), ECX[30:0] specifies the index of the PMC to be read. Setting ECX[31] selects &ldquo;fast&rdquo; read mode if supported. In this mode, RDPMC returns bits 31:0 of the PMC in EAX while clearing EDX to zero.</li>
+<li>If the processor does support architectural performance monitoring (CPUID.0AH:EAX[7:0] ≠ 0), ECX[31:16] specifies type of PMC while ECX[15:0] specifies the index of the PMC to be read within that type. The following PMC types are currently defined:
+<ul>
+<li>General-purpose counters use type 0. The index x (to read IA32_PMCx) must be less than the value enumerated by CPUID.0AH.EAX[15:8] (thus ECX[15:8] must be zero).</li>
+<li>General-purpose counters use type 0. The index x (to read IA32_PMCx) must be less than the value enumerated by CPUID.0AH.EAX[15:8] (thus ECX[15:8] must be zero).</li>
+<li>Fixed-function counters use type 4000H. The index x (to read IA32_FIXED_CTRx) can be used if either CPUID.0AH.EDX[4:0] &gt; x or CPUID.0AH.ECX[x] = 1 (thus ECX[15:5] must be 0).</li>
+<li>Fixed-function counters use type 4000H. The index x (to read IA32_FIXED_CTRx) can be used if either CPUID.0AH.EDX[4:0] &gt; x or CPUID.0AH.ECX[x] = 1 (thus ECX[15:5] must be 0).</li>
+<li>Performance metrics use type 2000H. This type can be used only if IA32_PERF_CAPABILITIES.PERF_METRICS_AVAILABLE[bit 15]=1. For this type, the index in ECX[15:0] is implementation specific.</li>
+<li>Performance metrics use type 2000H. This type can be used only if IA32_PERF_CAPABILITIES.PERF_METRICS_AVAILABLE[bit 15]=1. For this type, the index in ECX[15:0] is implementation specific.</li></ul></li></ul>
+<p>Specifying an unsupported PMC encoding will cause a general protection exception #GP(0). For PMC details see Chapter 19, &ldquo;Performance Monitoring&rdquo;, in the <em>Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 3B</em>.</p>
+<p>When in protected or virtual 8086 mode, the <strong>Performance-monitoring Counters Enabled</strong> (PCE) flag in register CR4 restricts the use of the RDPMC instruction. When the PCE flag is set, the RDPMC instruction can be executed at any privilege level; when the flag is clear, the instruction can only be executed at privilege level 0. (When in real-address mode, the RDPMC instruction is always enabled.) The PMCs can also be read with the RDMSR instruction, when executing at privilege level 0.</p>
 <p>The RDPMC instruction is not a serializing instruction; that is, it does not imply that all the events caused by the preceding instructions have been completed or that events caused by subsequent instructions have not begun. If an exact event count is desired, software must insert a serializing instruction (such as the CPUID instruction) before and/or after the RDPMC instruction.</p>
 <p>Performing back-to-back fast reads are not guaranteed to be monotonic. To guarantee monotonicity on back-to-back reads, a serializing instruction must be placed between the two RDPMC instructions.</p>
-<p>The RDPMC instruction can execute in 16-bit addressing mode or virtual-8086 mode; however, the full contents of the ECX register are used to select the counter, and the event count is stored in the full EAX and EDX registers. The RDPMC instruction was introduced into the IA-32 Architecture in the Pentium Pro processor and the Pentium processor with MMX technology. The earlier Pentium processors have performance-monitoring counters, but they must be read with the RDMSR instruction.</p>
+<p>The RDPMC instruction can execute in 16-bit addressing mode or virtual-8086 mode; however, the full contents of the ECX register are used to select the PMC, and the event count is stored in the full EAX and EDX registers. The RDPMC instruction was introduced into the IA-32 Architecture in the Pentium Pro processor and the Pentium processor with MMX technology. The earlier Pentium processors have PMCs, but they must be read with the RDMSR instruction.</p>
 <h2 id="operation">Operation<a class="anchor" href="RDPMC.html#operation">
 			&para;
 		</a></h2>
 <pre>MSCB = Most Significant Counter Bit (* Model-specific *)
 IF (((CR4.PCE = 1) or (CPL = 0) or (CR0.PE = 0)) and (ECX indicates a supported counter))
     THEN
-        EAX &larr; counter[31:0];
-        EDX &larr; ZeroExtend(counter[MSCB:32]);
+        EAX := counter[31:0];
+        EDX := ZeroExtend(counter[MSCB:32]);
     ELSE (* ECX is not valid or CR4.PCE is 0 and CPL is 1, 2, or 3 and CR0.PE is 1 *)
         #GP(0);
 FI;
@@ -115,6 +121,6 @@ FI;
 <td>If the LOCK prefix is used.</td></tr></tbody></table><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

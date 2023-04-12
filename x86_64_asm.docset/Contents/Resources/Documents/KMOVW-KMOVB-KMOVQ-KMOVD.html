@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-224"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/KMOVW%2FKMOVB%2FKMOVQ%2FKMOVD"></a><title>KMOVW/KMOVB/KMOVQ/KMOVD</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>KMOVW/KMOVB/KMOVQ/KMOVD
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-233"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/KMOVW%2FKMOVB%2FKMOVQ%2FKMOVD"></a><title>KMOVW/KMOVB/KMOVQ/KMOVD</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>KMOVW/KMOVB/KMOVQ/KMOVD
 		&mdash; Move from and to Mask Registers</h1>
 
 
@@ -139,33 +139,33 @@
 			&para;
 		</a></h3>
 <pre>IF *destination is a memory location*
-    DEST[15:0] &larr; SRC[15:0]
+    DEST[15:0] := SRC[15:0]
 IF *destination is a mask register or a GPR *
-    DEST &larr; ZeroExtension(SRC[15:0])
+    DEST := ZeroExtension(SRC[15:0])
 </pre>
 <h3 id="kmovb">KMOVB<a class="anchor" href="./KMOVW:KMOVB:KMOVQ:KMOVD.html#kmovb">
 			&para;
 		</a></h3>
 <pre>IF *destination is a memory location*
-    DEST[7:0] &larr; SRC[7:0]
+    DEST[7:0] := SRC[7:0]
 IF *destination is a mask register or a GPR *
-    DEST &larr; ZeroExtension(SRC[7:0])
+    DEST := ZeroExtension(SRC[7:0])
 </pre>
 <h3 id="kmovq">KMOVQ<a class="anchor" href="./KMOVW:KMOVB:KMOVQ:KMOVD.html#kmovq">
 			&para;
 		</a></h3>
 <pre>IF *destination is a memory location or a GPR*
-    DEST[63:0] &larr; SRC[63:0]
+    DEST[63:0] := SRC[63:0]
 IF *destination is a mask register*
-    DEST &larr; ZeroExtension(SRC[63:0])
+    DEST := ZeroExtension(SRC[63:0])
 </pre>
 <h3 id="kmovd">KMOVD<a class="anchor" href="./KMOVW:KMOVB:KMOVQ:KMOVD.html#kmovd">
 			&para;
 		</a></h3>
 <pre>IF *destination is a memory location*
-    DEST[31:0] &larr; SRC[31:0]
+    DEST[31:0] := SRC[31:0]
 IF *destination is a mask register or a GPR *
-    DEST &larr; ZeroExtension(SRC[31:0])
+    DEST := ZeroExtension(SRC[31:0])
 </pre>
 <h2 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="./KMOVW:KMOVB:KMOVQ:KMOVD.html#intel-c-c++-compiler-intrinsic-equivalent">
 			&para;
@@ -183,10 +183,10 @@ IF *destination is a mask register or a GPR *
 <h2 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="./KMOVW:KMOVB:KMOVQ:KMOVD.html#other-exceptions">
 			&para;
 		</a></h2>
-<p>Instructions with RR operand encoding See Exceptions Type K20.</p>
-<p>Instructions with RM or MR operand encoding See Exceptions Type K21.</p><footer><p>
+<p>Instructions with RR operand encoding, see <span class="not-imported">Table 2-63</span>, &ldquo;TYPE K20 Exception Definition (VEX-Encoded OpMask Instructions w/o Memory Arg)&rdquo;.</p>
+<p>Instructions with RM or MR operand encoding, see <span class="not-imported">Table 2-64</span>, &ldquo;TYPE K21 Exception Definition (VEX-Encoded OpMask Instructions Addressing Memory)&rdquo;.</p><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

@@ -1,18 +1,18 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-191"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/FXAM"></a><title>FXAM</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>FXAM
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-198"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/FXAM"></a><title>FXAM</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>FXAM
 		&mdash; Examine Floating-Point</h1>
 
 <table>
 <tbody><tr>
-<th>Opcode</th>
-<th>Instruction</th>
-<th>64-Bit Mode</th>
-<th>Compat/Leg Mode</th>
+<th>Opcode      </th>
+<th></th>
+<th>Mode</th>
+<th>Leg Mode</th>
 <th>Description</th></tr>
 <tr>
-<td>D9 E5</td>
-<td>FXAM</td>
-<td>Valid</td>
-<td>Valid</td>
+<td>D9 E5      </td>
+<td></td>
+<td></td>
+<td></td>
 <td>Classify value or number in ST(0).</td></tr></tbody></table>
 <h2 id="description">Description<a class="anchor" href="FXAM.html#description">
 			&para;
@@ -66,21 +66,21 @@
 <h2 id="operation">Operation<a class="anchor" href="FXAM.html#operation">
 			&para;
 		</a></h2>
-<pre>C1 &larr; sign bit of ST; (* 0 for positive, 1 for negative *)
+<pre>C1 := sign bit of ST; (* 0 for positive, 1 for negative *)
 CASE (class of value or number in ST(0)) OF
-    Unsupported:C3, C2, C0 &larr; 000;
+    Unsupported:C3, C2, C0 := 000;
     NaN:
-        C3, C2, C0 &larr; 001;
+        C3, C2, C0 := 001;
     Normal:
-        C3, C2, C0 &larr; 010;
+        C3, C2, C0 := 010;
     Infinity:
-        C3, C2, C0 &larr; 011;
+        C3, C2, C0 := 011;
     Zero:
-        C3, C2, C0 &larr; 100;
+        C3, C2, C0 := 100;
     Empty:
-        C3, C2, C0 &larr; 101;
+        C3, C2, C0 := 101;
     Denormal:
-        C3, C2, C0 &larr; 110;
+        C3, C2, C0 := 110;
 ESAC;
 </pre>
 <h2 id="fpu-flags-affected">FPU Flags Affected<a class="anchor" href="FXAM.html#fpu-flags-affected">
@@ -128,6 +128,6 @@ ESAC;
 <p>Same exceptions as in protected mode.</p><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

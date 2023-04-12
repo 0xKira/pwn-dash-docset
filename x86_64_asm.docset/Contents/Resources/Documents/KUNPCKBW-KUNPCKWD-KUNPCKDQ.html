@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-231"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/KUNPCKBW%2FKUNPCKWD%2FKUNPCKDQ"></a><title>KUNPCKBW/KUNPCKWD/KUNPCKDQ</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>KUNPCKBW/KUNPCKWD/KUNPCKDQ
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-240"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/KUNPCKBW%2FKUNPCKWD%2FKUNPCKDQ"></a><title>KUNPCKBW/KUNPCKWD/KUNPCKDQ</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>KUNPCKBW/KUNPCKWD/KUNPCKDQ
 		&mdash; Unpack for Mask Registers</h1>
 
 
@@ -52,23 +52,23 @@
 <h3 id="kunpckbw">KUNPCKBW<a class="anchor" href="./KUNPCKBW:KUNPCKWD:KUNPCKDQ.html#kunpckbw">
 			&para;
 		</a></h3>
-<pre>DEST[7:0] &larr; SRC2[7:0]
-DEST[15:8] &larr; SRC1[7:0]
-DEST[MAX_KL-1:16] &larr; 0
+<pre>DEST[7:0] := SRC2[7:0]
+DEST[15:8] := SRC1[7:0]
+DEST[MAX_KL-1:16] := 0
 </pre>
 <h3 id="kunpckwd">KUNPCKWD<a class="anchor" href="./KUNPCKBW:KUNPCKWD:KUNPCKDQ.html#kunpckwd">
 			&para;
 		</a></h3>
-<pre>DEST[15:0] &larr; SRC2[15:0]
-DEST[31:16] &larr; SRC1[15:0]
-DEST[MAX_KL-1:32] &larr; 0
+<pre>DEST[15:0] := SRC2[15:0]
+DEST[31:16] := SRC1[15:0]
+DEST[MAX_KL-1:32] := 0
 </pre>
 <h3 id="kunpckdq">KUNPCKDQ<a class="anchor" href="./KUNPCKBW:KUNPCKWD:KUNPCKDQ.html#kunpckdq">
 			&para;
 		</a></h3>
-<pre>DEST[31:0] &larr; SRC2[31:0]
-DEST[63:32] &larr; SRC1[31:0]
-DEST[MAX_KL-1:64] &larr; 0
+<pre>DEST[31:0] := SRC2[31:0]
+DEST[63:32] := SRC1[31:0]
+DEST[MAX_KL-1:64] := 0
 </pre>
 <h2 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="./KUNPCKBW:KUNPCKWD:KUNPCKDQ.html#intel-c-c++-compiler-intrinsic-equivalent">
 			&para;
@@ -90,9 +90,9 @@ DEST[MAX_KL-1:64] &larr; 0
 <h2 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="./KUNPCKBW:KUNPCKWD:KUNPCKDQ.html#other-exceptions">
 			&para;
 		</a></h2>
-<p>See Exceptions Type K20.</p><footer><p>
+<p>See <span class="not-imported">Table 2-63</span>, &ldquo;TYPE K20 Exception Definition (VEX-Encoded OpMask Instructions w/o Memory Arg)&rdquo;.</p><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

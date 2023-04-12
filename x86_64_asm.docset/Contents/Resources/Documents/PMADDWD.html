@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-353"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/PMADDWD"></a><title>PMADDWD</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>PMADDWD
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-363"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/PMADDWD"></a><title>PMADDWD</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>PMADDWD
 		&mdash; Multiply and Add Packed Integers</h1>
 
 <table>
@@ -181,14 +181,16 @@
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="9.783381299999974" x="290.51912839999994" y="51.246081000000004">Y2</text>
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="9.783381299999974" x="327.53823499999993" y="51.246081000000004">Y1</text>
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="9.783381299999974" x="363.9572174999999" y="51.246081000000004">Y0</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 9.616813637500002pt; fill: #000" textLength="27.962117300000017" x="192.4803647" y="80.3246284375">X3 &lowast; Y3</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 9.6165034375pt; fill: #000" textLength="27.9580868999999" x="265.61800230000006" y="80.3246284375">X2 &lowast; Y2</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 9.6165034375pt; fill: #000" textLength="28.02461470000003" x="338.8714745" y="80.3246284375">X1 &lowast; Y1</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 9.6165034375pt; fill: #000" textLength="28.03413850000004" x="407.8715399" y="80.3246284375">X0 &lowast; Y0</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 9.616813637500002pt; fill: #000" textLength="27.963715500000006" x="192.4803647" y="80.3246284375">X3 &lowast; Y3</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="9.722649699999977" x="265.61960050000005" y="79.626081">X2</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 9.6165034375pt; fill: #000" textLength="15.960084699999982" x="277.62" y="80.3246284375">&lowast; Y2</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="9.778586700000005" x="338.87547" y="79.626081">X1</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 9.6165034375pt; fill: #000" textLength="16.02008470000004" x="350.88" y="80.3246284375">&lowast; Y1</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 9.6165034375pt; fill: #000" textLength="28.02614749999998" x="407.87553540000005" y="80.3246284375">X0 &lowast; Y0</text>
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="22.239752100000004" x="143.280643" y="80.46604450000001">TEMP</text>
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 8.917956000000004pt; fill: #000" textLength="21.32638079999998" x="202.62121900000002" y="105.3666902">DEST</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 9.6165034375pt; fill: #000" textLength="66.6203888" x="317.76" y="109.18462843750001">(X1&lowast;Y1) + (X0&lowast;Y0)</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 9.6165034375pt; fill: #000" textLength="66.59610650000002" x="245.94030929999997" y="109.54462843750002">(X3&lowast;Y3) + (X2&lowast;Y2)</text></g></svg>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 9.6165034375pt; fill: #000" textLength="66.6203888" x="317.76" y="109.18462843750001">(X1&lowast;Y1)+(X0&lowast;Y0)</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 9.6165034375pt; fill: #000" textLength="66.59610650000002" x="245.94030929999997" y="109.54462843750002">(X3&lowast;Y3)+(X2&lowast;Y2)</text></g></svg>
 <figcaption><a href="PMADDWD.html#fig-4-11">Figure 4-11</a>. PMADDWD Execution Model Using 64-bit Operands</figcaption></figure>
 <h2 id="operation">Operation<a class="anchor" href="PMADDWD.html#operation">
 			&para;
@@ -196,47 +198,47 @@
 <h3 id="pmaddwd--with-64-bit-operands-">PMADDWD (with 64-bit operands)<a class="anchor" href="PMADDWD.html#pmaddwd--with-64-bit-operands-">
 			&para;
 		</a></h3>
-<pre>DEST[31:0] &larr; (DEST[15:0] &lowast; SRC[15:0]) + (DEST[31:16] &lowast; SRC[31:16]);
-DEST[63:32] &larr; (DEST[47:32] &lowast; SRC[47:32]) + (DEST[63:48] &lowast; SRC[63:48]);
+<pre>DEST[31:0] := (DEST[15:0] &lowast; SRC[15:0]) + (DEST[31:16] &lowast; SRC[31:16]);
+DEST[63:32] := (DEST[47:32] &lowast; SRC[47:32]) + (DEST[63:48] &lowast; SRC[63:48]);
 </pre>
 <h3 id="pmaddwd--with-128-bit-operands-">PMADDWD (with 128-bit operands)<a class="anchor" href="PMADDWD.html#pmaddwd--with-128-bit-operands-">
 			&para;
 		</a></h3>
-<pre>DEST[31:0] &larr; (DEST[15:0] &lowast; SRC[15:0]) + (DEST[31:16] &lowast; SRC[31:16]);
-DEST[63:32] &larr; (DEST[47:32] &lowast; SRC[47:32]) + (DEST[63:48] &lowast; SRC[63:48]);
-DEST[95:64] &larr; (DEST[79:64] &lowast; SRC[79:64]) + (DEST[95:80] &lowast; SRC[95:80]);
-DEST[127:96] &larr; (DEST[111:96] &lowast; SRC[111:96]) + (DEST[127:112] &lowast; SRC[127:112]);
+<pre>DEST[31:0] := (DEST[15:0] &lowast; SRC[15:0]) + (DEST[31:16] &lowast; SRC[31:16]);
+DEST[63:32] := (DEST[47:32] &lowast; SRC[47:32]) + (DEST[63:48] &lowast; SRC[63:48]);
+DEST[95:64] := (DEST[79:64] &lowast; SRC[79:64]) + (DEST[95:80] &lowast; SRC[95:80]);
+DEST[127:96] := (DEST[111:96] &lowast; SRC[111:96]) + (DEST[127:112] &lowast; SRC[127:112]);
 </pre>
 <h3 id="vpmaddwd--vex-128-encoded-version-">VPMADDWD (VEX.128 encoded version)<a class="anchor" href="PMADDWD.html#vpmaddwd--vex-128-encoded-version-">
 			&para;
 		</a></h3>
-<pre>DEST[31:0]&larr;(SRC1[15:0] * SRC2[15:0]) + (SRC1[31:16] * SRC2[31:16])
-DEST[63:32]&larr;(SRC1[47:32] * SRC2[47:32]) + (SRC1[63:48] * SRC2[63:48])
-DEST[95:64]&larr;(SRC1[79:64] * SRC2[79:64]) + (SRC1[95:80] * SRC2[95:80])
-DEST[127:96]&larr;(SRC1[111:96] * SRC2[111:96]) + (SRC1[127:112] * SRC2[127:112])
-DEST[MAXVL-1:128] &larr; 0
+<pre>DEST[31:0] := (SRC1[15:0] * SRC2[15:0]) + (SRC1[31:16] * SRC2[31:16])
+DEST[63:32] := (SRC1[47:32] * SRC2[47:32]) + (SRC1[63:48] * SRC2[63:48])
+DEST[95:64] := (SRC1[79:64] * SRC2[79:64]) + (SRC1[95:80] * SRC2[95:80])
+DEST[127:96] := (SRC1[111:96] * SRC2[111:96]) + (SRC1[127:112] * SRC2[127:112])
+DEST[MAXVL-1:128] := 0
 </pre>
 <h3 id="vpmaddwd--vex-256-encoded-version-">VPMADDWD (VEX.256 encoded version)<a class="anchor" href="PMADDWD.html#vpmaddwd--vex-256-encoded-version-">
 			&para;
 		</a></h3>
-<pre>DEST[31:0]&larr;(SRC1[15:0] * SRC2[15:0]) + (SRC1[31:16] * SRC2[31:16])
-DEST[63:32]&larr;(SRC1[47:32] * SRC2[47:32]) + (SRC1[63:48] * SRC2[63:48])
-DEST[95:64]&larr;(SRC1[79:64] * SRC2[79:64]) + (SRC1[95:80] * SRC2[95:80])
-DEST[127:96]&larr;(SRC1[111:96] * SRC2[111:96]) + (SRC1[127:112] * SRC2[127:112])
-DEST[159:128]&larr;(SRC1[143:128] * SRC2[143:128]) + (SRC1[159:144] * SRC2[159:144])
-DEST[191:160]&larr;(SRC1[175:160] * SRC2[175:160]) + (SRC1[191:176] * SRC2[191:176])
-DEST[223:192]&larr;(SRC1[207:192] * SRC2[207:192]) + (SRC1[223:208] * SRC2[223:208])
-DEST[255:224]&larr;(SRC1[239:224] * SRC2[239:224]) + (SRC1[255:240] * SRC2[255:240])
-DEST[MAXVL-1:256] &larr; 0
+<pre>DEST[31:0] := (SRC1[15:0] * SRC2[15:0]) + (SRC1[31:16] * SRC2[31:16])
+DEST[63:32] := (SRC1[47:32] * SRC2[47:32]) + (SRC1[63:48] * SRC2[63:48])
+DEST[95:64] := (SRC1[79:64] * SRC2[79:64]) + (SRC1[95:80] * SRC2[95:80])
+DEST[127:96] := (SRC1[111:96] * SRC2[111:96]) + (SRC1[127:112] * SRC2[127:112])
+DEST[159:128] := (SRC1[143:128] * SRC2[143:128]) + (SRC1[159:144] * SRC2[159:144])
+DEST[191:160] := (SRC1[175:160] * SRC2[175:160]) + (SRC1[191:176] * SRC2[191:176])
+DEST[223:192] := (SRC1[207:192] * SRC2[207:192]) + (SRC1[223:208] * SRC2[223:208])
+DEST[255:224] := (SRC1[239:224] * SRC2[239:224]) + (SRC1[255:240] * SRC2[255:240])
+DEST[MAXVL-1:256] := 0
 </pre>
 <h3 id="vpmaddwd--evex-encoded-versions-">VPMADDWD (EVEX encoded versions)<a class="anchor" href="PMADDWD.html#vpmaddwd--evex-encoded-versions-">
 			&para;
 		</a></h3>
 <pre>(KL, VL) = (4, 128), (8, 256), (16, 512)
-FOR j&larr;0 TO KL-1
-    i&larr;j * 32
+FOR j := 0 TO KL-1
+    i := j * 32
     IF k1[j] OR *no writemask*
-        THEN DEST[i+31:i]&larr;(SRC2[i+31:i+16]* SRC1[i+31:i+16]) + (SRC2[i+15:i]*SRC1[i+15:i])
+        THEN DEST[i+31:i] := (SRC2[i+31:i+16]* SRC1[i+31:i+16]) + (SRC2[i+15:i]*SRC1[i+15:i])
         ELSE
             IF *merging-masking* ; merging-masking
                 THEN *DEST[i+31:i] remains unchanged*
@@ -246,7 +248,7 @@ FOR j&larr;0 TO KL-1
             FI
     FI;
 ENDFOR;
-DEST[MAXVL-1:VL] &larr; 0
+DEST[MAXVL-1:VL] := 0
 </pre>
 <h2 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="PMADDWD.html#intel-c-c++-compiler-intrinsic-equivalent">
 			&para;
@@ -282,10 +284,10 @@ DEST[MAXVL-1:VL] &larr; 0
 <h2 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="PMADDWD.html#other-exceptions">
 			&para;
 		</a></h2>
-<p>Non-EVEX-encoded instruction, see Exceptions Type 4.</p>
-<p>EVEX-encoded instruction, see Exceptions Type E4NF.nb.</p><footer><p>
+<p>Non-EVEX-encoded instruction, see <span class="not-imported">Table 2-21</span>, &ldquo;Type 4 Class Exception Conditions&rdquo;.</p>
+<p>EVEX-encoded instruction, see Exceptions Type E4NF.nb in <span class="not-imported">Table 2-50</span>, &ldquo;Type E4NF Class Exception Conditions&rdquo;.</p><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

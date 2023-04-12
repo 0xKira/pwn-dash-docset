@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-50"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/CALL"></a><title>CALL</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>CALL
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-58"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/CALL"></a><title>CALL</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>CALL
 		&mdash; Call Procedure</h1>
 
 <table>
@@ -154,8 +154,9 @@
 <p>When executing an inter-privilege-level far call, the code segment for the procedure being called must be accessed through a 64-bit call gate. The segment selector specified by the target operand identifies the call gate. The target operand can only specify the call gate segment selector indirectly with a memory location (<em>m16:16, m16:32</em> or <em>m16:64</em>). The processor obtains the segment selector for the new code segment and the new instruction pointer (offset) from the 16-byte call gate descriptor. (The offset from the target operand is ignored when a call gate is used.)</p>
 <p>On inter-privilege-level calls, the processor switches to the stack for the privilege level of the called procedure. The segment selector for the new stack segment is set to NULL. The new stack pointer is specified in the TSS for the currently running task. The branch to the new code segment occurs after the stack switch.</p>
 <p>Note that when using a call gate to perform a far call to a segment at the same privilege level, an implicit stack switch occurs as a result of entering 64-bit mode. The SS selector is unchanged, but stack segment accesses use a segment base of 0x0, the limit is ignored, and the default stack size is 64-bits. (The full value of RSP is used for the offset.) On the new stack, the processor pushes the segment selector and stack pointer for the calling procedure&rsquo;s stack and the segment selector and instruction pointer for the calling procedure&rsquo;s code segment. (Parameter copy is not supported in IA-32e mode.) Finally, the processor branches to the address of the procedure being called within the new code segment.</p>
+<p>Refer to Chapter 6, &ldquo;Procedure Calls, Interrupts, and Exceptions&rdquo; and Chapter 18, &ldquo;Control-Flow Enforcement Technology (CET)&rdquo; in the <em>Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 1</em> for CET details.</p>
 <p><strong>Instruction ordering.</strong> Instructions following a far call may be fetched from memory before earlier instructions complete execution, but they will not execute (even speculatively) until all instructions prior to the far call have completed execution (the later instructions may execute before data stored by the earlier instructions have become globally visible).</p>
-<p>Certain situations may lead to the next sequential instruction after a near indirect CALL being speculatively executed. If software needs to prevent this (e.g., in order to prevent a speculative execution side channel), then an INT3 or LFENCE instruction opcode can be placed after the near indirect CALL in order to block speculative execution.</p>
+<p>Instructions sequentially following a near indirect CALL instruction (i.e., those not at the target) may be executed speculatively. If software needs to prevent this (e.g., in order to prevent a speculative execution side channel), then an LFENCE instruction opcode can be placed after the near indirect CALL in order to block speculative execution.</p>
 <h2 id="operation">Operation<a class="anchor" href="CALL.html#operation">
 			&para;
 		</a></h2>
@@ -164,59 +165,95 @@
         THEN
             IF OperandSize = 64
                 THEN
-                    tempDEST &larr; SignExtend(DEST); (* DEST is rel32 *)
-                    tempRIP &larr; RIP + tempDEST;
+                    tempDEST := SignExtend(DEST); (* DEST is rel32 *)
+                    tempRIP := RIP + tempDEST;
                     IF stack not large enough for a 8-byte return address
                         THEN #SS(0); FI;
                     Push(RIP);
-                    RIP &larr; tempRIP;
+                    IF ShadowStackEnabled(CPL) AND DEST != 0
+                        ShadowStackPush8B(RIP);
+                    FI;
+                    RIP := tempRIP;
             FI;
             IF OperandSize = 32
                 THEN
-                    tempEIP &larr; EIP + DEST; (* DEST is <em>rel32</em> *)
+                    tempEIP := EIP + DEST; (* DEST is <em>rel32</em> *)
                     IF tempEIP is not within code segment limit THEN #GP(0); FI;
                     IF stack not large enough for a 4-byte return address
                         THEN #SS(0); FI;
                     Push(EIP);
-                    EIP &larr; tempEIP;
+                    IF ShadowStackEnabled(CPL) AND DEST != 0
+                        ShadowStackPush4B(EIP);
+                    FI;
+                    EIP := tempEIP;
             FI;
             IF OperandSize = 16
                 THEN
-                    tempEIP &larr; (EIP + DEST) AND 0000FFFFH; (* DEST is <em>rel16</em> *)
+                    tempEIP := (EIP + DEST) AND 0000FFFFH; (* DEST is <em>rel16</em> *)
                     IF tempEIP is not within code segment limit THEN #GP(0); FI;
                     IF stack not large enough for a 2-byte return address
                         THEN #SS(0); FI;
                     Push(IP);
-                    EIP &larr; tempEIP;
+                    IF ShadowStackEnabled(CPL) AND DEST != 0
+                        (* IP is zero extended and pushed as a 32 bit value on shadow stack *)
+                        ShadowStackPush4B(IP);
+                    FI;
+                    EIP := tempEIP;
             FI;
         ELSE (* Near absolute call *)
             IF OperandSize = 64
                 THEN
-                    tempRIP &larr; DEST; (* DEST is <em>r/m64</em> *)
+                    tempRIP := DEST; (* DEST is <em>r/m64</em> *)
                     IF stack not large enough for a 8-byte return address
                         THEN #SS(0); FI;
                     Push(RIP);
-                    RIP &larr; tempRIP;
+                    IF ShadowStackEnabled(CPL)
+                        ShadowStackPush8B(RIP);
+                    FI;
+                    RIP := tempRIP;
             FI;
             IF OperandSize = 32
                 THEN
-                    tempEIP &larr; DEST; (* DEST is <em>r/m32</em> *)
+                    tempEIP := DEST; (* DEST is <em>r/m32</em> *)
                     IF tempEIP is not within code segment limit THEN #GP(0); FI;
                     IF stack not large enough for a 4-byte return address
                         THEN #SS(0); FI;
                     Push(EIP);
-                    EIP &larr; tempEIP;
+                    IF ShadowStackEnabled(CPL)
+                        ShadowStackPush4B(EIP);
+                    FI;
+                    EIP := tempEIP;
             FI;
             IF OperandSize = 16
                 THEN
-                    tempEIP &larr; DEST AND 0000FFFFH; (* DEST is <em>r/m16</em> *)
+                    tempEIP := DEST AND 0000FFFFH; (* DEST is <em>r/m16</em> *)
                     IF tempEIP is not within code segment limit THEN #GP(0); FI;
                     IF stack not large enough for a 2-byte return address
                         THEN #SS(0); FI;
                     Push(IP);
-                    EIP &larr; tempEIP;
+                    IF ShadowStackEnabled(CPL)
+                        (* IP is zero extended and pushed as a 32 bit value on shadow stack *)
+                        ShadowStackPush4B(IP);
+                    FI;
+                    EIP := tempEIP;
             FI;
     FI;rel/abs
+    IF (Call near indirect, absolute indirect)
+        IF EndbranchEnabledAndNotSuppressed(CPL)
+            IF CPL = 3
+                THEN
+                    IF ( no 3EH prefix OR IA32_U_CET.NO_TRACK_EN == 0 )
+                        THEN
+                            IA32_U_CET.TRACKER = WAIT_FOR_ENDBRANCH
+                    FI;
+                ELSE
+                    IF ( no 3EH prefix OR IA32_S_CET.NO_TRACK_EN == 0 )
+                        THEN
+                            IA32_S_CET.TRACKER = WAIT_FOR_ENDBRANCH
+                    FI;
+            FI;
+        FI;
+    FI;
 FI; near
 IF far call and (PE = 0 or (PE = 1 and VM = 1)) (* Real-address or virtual-8086 mode *)
     THEN
@@ -227,15 +264,15 @@ IF far call and (PE = 0 or (PE = 1 and VM = 1)) (* Real-address or virtual-8086 
                 IF DEST[31:16] is not zero THEN #GP(0); FI;
                 Push(CS); (* Padded with 16 high-order bits *)
                 Push(EIP);
-                CS &larr; DEST[47:32]; (* DEST is <em>ptr16:32</em> or [<em>m16:32</em>] *)
-                EIP &larr; DEST[31:0]; (* DEST is <em>ptr16:32</em> or [<em>m16:32</em>] *)
+                CS := DEST[47:32]; (* DEST is <em>ptr16:32</em> or [<em>m16:32</em>] *)
+                EIP := DEST[31:0]; (* DEST is <em>ptr16:32</em> or [<em>m16:32</em>] *)
             ELSE (* OperandSize = 16 *)
                 IF stack not large enough for a 4-byte return address
                     THEN #SS(0); FI;
                 Push(CS);
                 Push(IP);
-                CS &larr; DEST[31:16]; (* DEST is <em>ptr16:16</em> or [<em>m16:16</em>] *)
-                EIP &larr; DEST[15:0]; (* DEST is <em>ptr16:16</em> or [<em>m16:16</em>]; clear upper 16 bits *)
+                CS := DEST[31:16]; (* DEST is <em>ptr16:16</em> or [<em>m16:16</em>] *)
+                EIP := DEST[15:0]; (* DEST is <em>ptr16:16</em> or [<em>m16:16</em>]; clear upper 16 bits *)
         FI;
 FI;
 IF far call and (PE = 1 and VM = 0) (* Protected mode or IA-32e Mode, not virtual-8086 mode*)
@@ -271,42 +308,79 @@ CONFORMING-CODE-SEGMENT:
         THEN #NP(new code segment selector); FI;
     IF stack not large enough for return address
         THEN #SS(0); FI;
-    tempEIP &larr; DEST(Offset);
+    tempEIP := DEST(Offset);
     IF target mode = Compatibility mode
-        THEN tempEIP &larr; tempEIP AND 00000000_FFFFFFFFH; FI;
+        THEN tempEIP := tempEIP AND 00000000_FFFFFFFFH; FI;
     IF OperandSize = 16
         THEN
-            tempEIP &larr; tempEIP AND 0000FFFFH; FI; (* Clear upper 16 bits *)
-    IF (EFER.LMA = 0 or target mode = Compatibility mode) and (tempEIP outside new code
-    segment limit)
+            tempEIP := tempEIP AND 0000FFFFH; FI; (* Clear upper 16 bits *)
+    IF (IA32_EFER.LMA = 0 or target mode = Compatibility mode) and (tempEIP outside new code segment limit)
         THEN #GP(0); FI;
     IF tempEIP is non-canonical
         THEN #GP(0); FI;
+    IF ShadowStackEnabled(CPL)
+        IF OperandSize = 32
+            THEN
+                tempPushLIP = CSBASE + EIP;
+            ELSE
+                IF OperandSize = 16
+                    THEN
+                        tempPushLIP = CSBASE + IP;
+                    ELSE (* OperandSize = 64 *)
+                        tempPushLIP = RIP;
+                FI;
+        FI;
+        tempPushCS = CS;
+    FI;
     IF OperandSize = 32
         THEN
             Push(CS); (* Padded with 16 high-order bits *)
             Push(EIP);
-            CS &larr; DEST(CodeSegmentSelector);
+            CS := DEST(CodeSegmentSelector);
             (* Segment descriptor information also loaded *)
-            CS(RPL) &larr; CPL;
-            EIP &larr; tempEIP;
+            CS(RPL) := CPL;
+            EIP := tempEIP;
         ELSE
             IF OperandSize = 16
                 THEN
                     Push(CS);
                     Push(IP);
-                    CS &larr; DEST(CodeSegmentSelector);
+                    CS := DEST(CodeSegmentSelector);
                     (* Segment descriptor information also loaded *)
-                    CS(RPL) &larr; CPL;
-                    EIP &larr; tempEIP;
+                    CS(RPL) := CPL;
+                    EIP := tempEIP;
                 ELSE (* OperandSize = 64 *)
                     Push(CS); (* Padded with 48 high-order bits *)
                     Push(RIP);
-                    CS &larr; DEST(CodeSegmentSelector);
+                    CS := DEST(CodeSegmentSelector);
                     (* Segment descriptor information also loaded *)
-                    CS(RPL) &larr; CPL;
-                    RIP &larr; tempEIP;
+                    CS(RPL) := CPL;
+                    RIP := tempEIP;
             FI;
+    FI;
+    IF ShadowStackEnabled(CPL)
+        IF (IA32_EFER.LMA and DEST(CodeSegmentSelector).L) = 0
+            (* If target is legacy or compatibility mode then the SSP must be in low 4GB *)
+            IF (SSP &amp; 0xFFFFFFFF00000000 != 0)
+                THEN #GP(0); FI;
+        FI;
+        (* align to 8 byte boundary if not already aligned *)
+        tempSSP = SSP;
+        Shadow_stack_store 4 bytes of 0 to (SSP &ndash; 4)
+        SSP = SSP &amp; 0xFFFFFFFFFFFFFFF8H
+        ShadowStackPush8B(tempPushCS); (* Padded with 48 high-order bits of 0 *)
+        ShadowStackPush8B(tempPushLIP); (* Padded with 32 high-order bits of 0 for 32 bit LIP*)
+        ShadowStackPush8B(tempSSP);
+    FI;
+    IF EndbranchEnabled(CPL)
+        IF CPL = 3
+            THEN
+                IA32_U_CET.TRACKER = WAIT_FOR_ENDBRANCH
+                IA32_U_CET.SUPPRESS = 0
+            ELSE
+                IA32_S_CET.TRACKER = WAIT_FOR_ENDBRANCH
+                IA32_S_CET.SUPPRESS = 0
+        FI;
     FI;
 END;
 NONCONFORMING-CODE-SEGMENT:
@@ -318,41 +392,72 @@ NONCONFORMING-CODE-SEGMENT:
         THEN #NP(new code segment selector); FI;
     IF stack not large enough for return address
         THEN #SS(0); FI;
-    tempEIP &larr; DEST(Offset);
+    tempEIP := DEST(Offset);
     IF target mode = Compatibility mode
-        THEN tempEIP &larr; tempEIP AND 00000000_FFFFFFFFH; FI;
+        THEN tempEIP := tempEIP AND 00000000_FFFFFFFFH; FI;
     IF OperandSize = 16
-        THEN tempEIP &larr; tempEIP AND 0000FFFFH; FI; (* Clear upper 16 bits *)
-    IF (EFER.LMA = 0 or target mode = Compatibility mode) and (tempEIP outside new code
-    segment limit)
+        THEN tempEIP := tempEIP AND 0000FFFFH; FI; (* Clear upper 16 bits *)
+    IF (IA32_EFER.LMA = 0 or target mode = Compatibility mode) and (tempEIP outside new code segment limit)
         THEN #GP(0); FI;
     IF tempEIP is non-canonical
         THEN #GP(0); FI;
+    IF ShadowStackEnabled(CPL)
+        IF IA32_EFER.LMA &amp; CS.L
+            tempPushLIP = RIP
+        ELSE
+            tempPushLIP = CSBASE + EIP;
+        FI;
+        tempPushCS = CS;
+    FI;
     IF OperandSize = 32
         THEN
             Push(CS); (* Padded with 16 high-order bits *)
             Push(EIP);
-            CS &larr; DEST(CodeSegmentSelector);
+            CS := DEST(CodeSegmentSelector);
             (* Segment descriptor information also loaded *)
-            CS(RPL) &larr; CPL;
-            EIP &larr; tempEIP;
+            CS(RPL) := CPL;
+            EIP := tempEIP;
         ELSE
             IF OperandSize = 16
                 THEN
                     Push(CS);
                     Push(IP);
-                    CS &larr; DEST(CodeSegmentSelector);
+                    CS := DEST(CodeSegmentSelector);
                     (* Segment descriptor information also loaded *)
-                    CS(RPL) &larr; CPL;
-                    EIP &larr; tempEIP;
+                    CS(RPL) := CPL;
+                    EIP := tempEIP;
                 ELSE (* OperandSize = 64 *)
                     Push(CS); (* Padded with 48 high-order bits *)
                     Push(RIP);
-                    CS &larr; DEST(CodeSegmentSelector);
+                    CS := DEST(CodeSegmentSelector);
                     (* Segment descriptor information also loaded *)
-                    CS(RPL) &larr; CPL;
-                    RIP &larr; tempEIP;
+                    CS(RPL) := CPL;
+                    RIP := tempEIP;
             FI;
+    FI;
+    IF ShadowStackEnabled(CPL)
+        IF (IA32_EFER.LMA and DEST(CodeSegmentSelector).L) = 0
+            (* If target is legacy or compatibility mode then the SSP must be in low 4GB *)
+            IF (SSP &amp; 0xFFFFFFFF00000000 != 0)
+                THEN #GP(0); FI;
+        FI;
+    (* align to 8 byte boundary if not already aligned *)
+    tempSSP = SSP;
+    Shadow_stack_store 4 bytes of 0 to (SSP &ndash; 4)
+    SSP = SSP &amp; 0xFFFFFFFFFFFFFFF8H
+    ShadowStackPush8B(tempPushCS); (* Padded with 48 high-order 0 bits *)
+    ShadowStackPush8B(tempPushLIP); (* Padded 32 high-order bits of 0 for 32 bit LIP*)
+    ShadowStackPush8B(tempSSP);
+    FI;
+    IF EndbranchEnabled(CPL)
+        IF CPL = 3
+            THEN
+                IA32_U_CET.TRACKER = WAIT_FOR_ENDBRANCH
+                IA32_U_CET.SUPPRESS = 0
+            ELSE
+                IA32_S_CET.TRACKER = WAIT_FOR_ENDBRANCH
+                IA32_S_CET.SUPPRESS = 0
+        FI;
     FI;
 END;
 CALL-GATE:
@@ -381,25 +486,25 @@ END;
 MORE-PRIVILEGE:
     IF current TSS is 32-bit
         THEN
-            TSSstackAddress &larr; (new code-segment DPL &lowast; 8) + 4;
+            TSSstackAddress := (new code-segment DPL &lowast; 8) + 4;
             IF (TSSstackAddress + 5) &gt; current TSS limit
                 THEN #TS(current TSS selector); FI;
-            NewSS &larr; 2 bytes loaded from (TSS base + TSSstackAddress + 4);
-            NewESP &larr; 4 bytes loaded from (TSS base + TSSstackAddress);
+            NewSS := 2 bytes loaded from (TSS base + TSSstackAddress + 4);
+            NewESP := 4 bytes loaded from (TSS base + TSSstackAddress);
         ELSE
             IF current TSS is 16-bit
                 THEN
-                    TSSstackAddress &larr; (new code-segment DPL &lowast; 4) + 2
+                    TSSstackAddress := (new code-segment DPL &lowast; 4) + 2
                     IF (TSSstackAddress + 3) &gt; current TSS limit
                         THEN #TS(current TSS selector); FI;
-                    NewSS &larr; 2 bytes loaded from (TSS base + TSSstackAddress + 2);
-                    NewESP &larr; 2 bytes loaded from (TSS base + TSSstackAddress);
+                    NewSS := 2 bytes loaded from (TSS base + TSSstackAddress + 2);
+                    NewESP := 2 bytes loaded from (TSS base + TSSstackAddress);
                 ELSE (* current TSS is 64-bit *)
-                    TSSstackAddress &larr; (new code-segment DPL &lowast; 8) + 4;
+                    TSSstackAddress := (new code-segment DPL &lowast; 8) + 4;
                     IF (TSSstackAddress + 7) &gt; current TSS limit
                         THEN #TS(current TSS selector); FI;
-                    NewSS &larr; new code-segment DPL; (* NULL selector with RPL = new CPL *)
-                    NewRSP &larr; 8 bytes loaded from (current TSS base + TSSstackAddress);
+                    NewSS := new code-segment DPL; (* NULL selector with RPL = new CPL *)
+                    NewRSP := 8 bytes loaded from (current TSS base + TSSstackAddress);
             FI;
     FI;
     IF IA32_EFER.LMA = 0 and NewSS is NULL
@@ -417,12 +522,12 @@ MORE-PRIVILEGE:
                 THEN #SS(NewSS); FI;
             IF CallGate(InstructionPointer) not within new code-segment limit
                 THEN #GP(0); FI;
-            SS &larr; newSS; (* Segment descriptor information also loaded *)
-            ESP &larr; newESP;
-            CS:EIP &larr; CallGate(CS:InstructionPointer);
+            SS:=newSS; (*Segmentdescriptorinformationalsoloaded*)
+            ESP := newESP;
+            CS:EIP := CallGate(CS:InstructionPointer);
             (* Segment descriptor information also loaded *)
             Push(oldSS:oldESP); (* From calling procedure *)
-            temp &larr; parameter count from call gate, masked to 5 bits;
+            temp := parameter count from call gate, masked to 5 bits;
             Push(parameters from calling procedure&rsquo;s stack, temp)
             Push(oldCS:oldEIP); (* Return address to calling procedure *)
         ELSE
@@ -432,12 +537,12 @@ MORE-PRIVILEGE:
                         THEN #SS(NewSS); FI;
                     IF (CallGate(InstructionPointer) AND FFFFH) not in new code-segment limit
                         THEN #GP(0); FI;
-                    SS &larr; newSS; (* Segment descriptor information also loaded *)
-                    ESP &larr; newESP;
-                    CS:IP &larr; CallGate(CS:InstructionPointer);
+                    SS:=newSS; (*Segmentdescriptorinformationalsoloaded*)
+                    ESP := newESP;
+                    CS:IP := CallGate(CS:InstructionPointer);
                     (* Segment descriptor information also loaded *)
                     Push(oldSS:oldESP); (* From calling procedure *)
-                    temp &larr; parameter count from call gate, masked to 5 bits;
+                    temp := parameter count from call gate, masked to 5 bits;
                     Push(parameters from calling procedure&rsquo;s stack, temp)
                     Push(oldCS:oldEIP); (* Return address to calling procedure *)
                 ELSE (* CallGateSize = 64 *)
@@ -445,16 +550,50 @@ MORE-PRIVILEGE:
                         THEN #SS(NewSS); FI;
                     IF (CallGate(InstructionPointer) is non-canonical)
                         THEN #GP(0); FI;
-                    SS &larr; NewSS; (* NewSS is NULL)
-                    RSP &larr; NewESP;
-                    CS:IP &larr; CallGate(CS:InstructionPointer);
+                    SS := NewSS; (* NewSS is NULL)
+                    RSP := NewESP;
+                    CS:IP := CallGate(CS:InstructionPointer);
                     (* Segment descriptor information also loaded *)
                     Push(oldSS:oldESP); (* From calling procedure *)
                     Push(oldCS:oldEIP); (* Return address to calling procedure *)
             FI;
     FI;
-    CPL &larr; CodeSegment(DPL)
-    CS(RPL) &larr; CPL
+    IF ShadowStackEnabled(CPL) AND CPL = 3
+        THEN
+            IF IA32_EFER.LMA = 0
+                THEN IA32_PL3_SSP := SSP;
+                ELSE (* adjust so bits 63:N get the value of bit N&ndash;1, where N is the CPU&rsquo;s maximum linear-address width *)
+                    IA32_PL3_SSP := LA_adjust(SSP);
+            FI;
+    FI;
+    CPL := CodeSegment(DPL)
+    CS(RPL) := CPL
+    IF ShadowStackEnabled(CPL)
+        oldSSP := SSP
+        SSP := IA32_PLi_SSP; (* where i is the CPL *)
+        IF SSP &amp; 0x07 != 0 (* if SSP not aligned to 8 bytes then #GP *)
+            THEN #GP(0); FI;
+        (* Token and CS:LIP:oldSSP pushed on shadow stack must be contained in a naturally aligned 32-byte region*)
+        IF (SSP &amp; ~0x1F) != ((SSP &ndash; 24) &amp; ~0x1F)
+            #GP(0); FI;
+        IF ((IA32_EFER.LMA and CS.L) = 0 AND SSP[63:32] != 0)
+            THEN #GP(0); FI;
+        expected_token_value = SSP (* busy bit - bit position 0 - must be clear *)
+        new_token_value = SSP | BUSY_BIT (* Set the busy bit *)
+        IF shadow_stack_lock_cmpxchg8b(SSP, new_token_value, expected_token_value) != expected_token_value
+            THEN #GP(0); FI;
+        IF oldSS.DPL != 3
+            (* These stack pushes should not cause faults, VM exits, or data breakpoints *)
+            (* Such events will apply to the earlier accesses to the token, which is in the same naturally aligned 32-byte region *)
+            ShadowStackPush8B(oldCS); (* Padded with 48 high-order bits of 0 *)
+            ShadowStackPush8B(oldCSBASE+oldRIP); (* Padded with 32 high-order bits of 0 for 32 bit LIP*)
+            ShadowStackPush8B(oldSSP);
+        FI;
+    FI;
+    IF EndbranchEnabled (CPL)
+        IA32_S_CET.TRACKER = WAIT_FOR_ENDBRANCH
+        IA32_S_CET.SUPPRESS = 0
+    FI;
 END;
 SAME-PRIVILEGE:
     IF CallGateSize = 32
@@ -463,7 +602,7 @@ SAME-PRIVILEGE:
                 THEN #SS(0); FI;
             IF CallGate(InstructionPointer) not within code segment limit
                 THEN #GP(0); FI;
-            CS:EIP &larr; CallGate(CS:EIP) (* Segment descriptor information also loaded *)
+            CS:EIP := CallGate(CS:EIP) (* Segment descriptor information also loaded *)
             Push(oldCS:oldEIP); (* Return address to calling procedure *)
         ELSE
             If CallGateSize = 16
@@ -472,7 +611,7 @@ SAME-PRIVILEGE:
                         THEN #SS(0); FI;
                     IF CallGate(InstructionPointer) not within code segment limit
                         THEN #GP(0); FI;
-                    CS:IP &larr; CallGate(CS:instruction pointer);
+                    CS:IP := CallGate(CS:instruction pointer);
                     (* Segment descriptor information also loaded *)
                     Push(oldCS:oldIP); (* Return address to calling procedure *)
                 ELSE (* CallGateSize = 64)
@@ -480,12 +619,32 @@ SAME-PRIVILEGE:
                         THEN #SS(0); FI;
                     IF RIP non-canonical
                         THEN #GP(0); FI;
-                    CS:IP &larr; CallGate(CS:instruction pointer);
+                    CS:IP := CallGate(CS:instruction pointer);
                     (* Segment descriptor information also loaded *)
                     Push(oldCS:oldIP); (* Return address to calling procedure *)
             FI;
     FI;
-    CS(RPL) &larr; CPL
+    CS(RPL) := CPL
+    IF ShadowStackEnabled(CPL)
+        (* Align to next 8 byte boundary *)
+        tempSSP = SSP;
+        Shadow_stack_store 4 bytes of 0 to (SSP &ndash; 4)
+        SSP = SSP &amp; 0xFFFFFFFFFFFFFFF8H;
+        (* push cs:lip:ssp on shadow stack *)
+        ShadowStackPush8B(oldCS); (* Padded with 48 high-order bits of 0 *)
+        ShadowStackPush8B(oldCSBASE + oldRIP); (* Padded with 32 high-order bits of 0 for 32 bit LIP*)
+        ShadowStackPush8B(tempSSP);
+    FI;
+    IF EndbranchEnabled (CPL)
+        IF CPL = 3
+            THEN
+                IA32_U_CET.TRACKER = WAIT_FOR_ENDBRANCH;
+                IA32_U_CET.SUPPRESS = 0
+            ELSE
+                IA32_S_CET.TRACKER = WAIT_FOR_ENDBRANCH;
+                IA32_S_CET.SUPPRESS = 0
+        FI;
+    FI;
 END;
 TASK-GATE:
     IF task gate DPL &lt; CPL or RPL
@@ -527,7 +686,7 @@ END;
 		</a></h2>
 <table>
 <tbody><tr>
-<td rowspan="5">#GP(0)</td>
+<td rowspan="11">#GP(0)</td>
 <td>If the target offset in destination operand is beyond the new code segment limit.</td></tr>
 <tr>
 <td>If the segment selector in the destination operand is NULL.</td></tr>
@@ -537,6 +696,18 @@ END;
 <td>If a memory operand effective address is outside the CS, DS, ES, FS, or GS segment limit.</td></tr>
 <tr>
 <td>If the DS, ES, FS, or GS register is used to access memory and it contains a NULL segment selector.</td></tr>
+<tr>
+<td>If target mode is compatibility mode and SSP is not in low 4GB.</td></tr>
+<tr>
+<td>If SSP in IA32_PLi_SSP (where i is the new CPL) is not 8 byte aligned.</td></tr>
+<tr>
+<td>If the token and the stack frame to be pushed on shadow stack are not contained in a naturally aligned 32-byte region of the shadow stack.</td></tr>
+<tr>
+<td>If &ldquo;supervisor Shadow Stack&rdquo; token on new shadow stack is marked busy.</td></tr>
+<tr>
+<td>If destination mode is 32-bit or compatibility mode, but SSP address in &ldquo;supervisor shadow stack&rdquo; token is beyond 4GB.</td></tr>
+<tr>
+<td>If SSP address in &ldquo;supervisor shadow stack&rdquo; token does not match SSP address in IA32_PLi_SSP (where i is the new CPL).</td></tr>
 <tr>
 <td rowspan="10">#GP(selector)</td>
 <td>If a code segment or gate or TSS selector index is outside descriptor table limits.</td></tr>
@@ -641,7 +812,7 @@ END;
 		</a></h2>
 <table>
 <tbody><tr>
-<td rowspan="4">#GP(0)</td>
+<td rowspan="10">#GP(0)</td>
 <td>If a memory address is non-canonical.</td></tr>
 <tr>
 <td>If target offset in destination operand is non-canonical.</td></tr>
@@ -650,7 +821,19 @@ END;
 <tr>
 <td>If the code segment selector in the 64-bit gate is NULL.</td></tr>
 <tr>
-<td rowspan="12">#GP(selector)</td>
+<td>If target mode is compatibility mode and SSP is not in low 4GB.</td></tr>
+<tr>
+<td>If SSP in IA32_PLi_SSP (where i is the new CPL) is not 8 byte aligned.</td></tr>
+<tr>
+<td>If the token and the stack frame to be pushed on shadow stack are not contained in a naturally aligned 32-byte region of the shadow stack.</td></tr>
+<tr>
+<td>If &ldquo;supervisor Shadow Stack&rdquo; token on new shadow stack is marked busy.</td></tr>
+<tr>
+<td>If destination mode is 32-bit mode or compatibility mode, but SSP address in &ldquo;super-visor shadow&rdquo; stack token is beyond 4GB.</td></tr>
+<tr>
+<td>If SSP address in &ldquo;supervisor shadow stack&rdquo; token does not match SSP address in IA32_PLi_SSP (where i is the new CPL).</td></tr>
+<tr>
+<td rowspan="8">#GP(selector)</td>
 <td>If code segment or 64-bit call gate is outside descriptor table limits.</td></tr>
 <tr>
 <td>If code segment or 64-bit call gate overlaps non-canonical space.</td></tr>
@@ -665,15 +848,7 @@ END;
 <tr>
 <td>If the DPL from a 64-bit call-gate is less than the CPL or than the RPL of the 64-bit call-gate.</td></tr>
 <tr>
-<td>If the upper type field of a 64-bit call gate is not 0x0.</td></tr>
-<tr>
-<td>If the segment selector from a 64-bit call gate is beyond the descriptor table limits.</td></tr>
-<tr>
-<td>If the DPL for a code-segment obtained from a 64-bit call gate is greater than the CPL.</td></tr>
-<tr>
-<td>If the code segment descriptor pointed to by the selector in the 64-bit gate doesn&#39;t have the L-bit set and the D-bit clear.</td></tr>
-<tr>
-<td>If the segment descriptor for a segment selector from the 64-bit call gate does not indicate it is a code segment.</td></tr>
+<td>If the upper type field of a 64-bit call gate is not 0x0. If the segment selector from a 64-bit call gate is beyond the descriptor table limits. If the DPL for a code-segment obtained from a 64-bit call gate is greater than the CPL. If the code segment descriptor pointed to by the selector in the 64-bit gate doesn&#39;t have the L-bit set and the D-bit clear. If the segment descriptor for a segment selector from the 64-bit call gate does not indicate it is a code segment.</td></tr>
 <tr>
 <td rowspan="3">#SS(0)</td>
 <td>If pushing the return offset or CS selector onto the stack exceeds the bounds of the stack segment when no stack switch occurs.</td></tr>
@@ -703,6 +878,6 @@ END;
 <td>If alignment checking is enabled and an unaligned memory reference is made while the current privilege level is 3.</td></tr></tbody></table><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

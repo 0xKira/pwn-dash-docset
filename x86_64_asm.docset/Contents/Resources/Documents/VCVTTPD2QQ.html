@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-502"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/VCVTTPD2QQ"></a><title>VCVTTPD2QQ</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>VCVTTPD2QQ
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-516"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/VCVTTPD2QQ"></a><title>VCVTTPD2QQ</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>VCVTTPD2QQ
 		&mdash; Convert with Truncation Packed Double-Precision Floating-Point Values to Packed Quadword Integers</h1>
 
 <table>
@@ -49,7 +49,7 @@
 		</a></h3>
 <p>Converts with truncation packed double-precision floating-point values in the source operand (second operand) to packed quadword integers in the destination operand (first operand).</p>
 <p>EVEX encoded versions: The source operand is a ZMM/YMM/XMM register or a 512/256/128-bit memory location. The destination operand is a ZMM/YMM/XMM register conditionally updated with writemask k1.</p>
-<p>When a conversion is inexact, the value returned is rounded according to the rounding control bits in the MXCSR register. If a converted result cannot be represented in the destination format, the floating-point invalid exception is raised, and if this exception is masked, the indefinite integer value (2<sup>w-1</sup>, where w represents the number of bits in the destination format) is returned.</p>
+<p>When a conversion is inexact, a truncated (round toward zero) value is returned. If a converted result cannot be represented in the destination format, the floating-point invalid exception is raised, and if this exception is masked, the indefinite integer value (2<sup>w</sup>-1, where w represents the number of bits in the destination format) is returned.</p>
 <p>Note: EVEX.vvvv is reserved and must be 1111b, otherwise instructions will #UD.</p>
 <h3 id="operation">Operation<a class="anchor" href="VCVTTPD2QQ.html#operation">
 			&para;
@@ -58,45 +58,45 @@
 			&para;
 		</a></h4>
 <pre>(KL, VL) = (2, 128), (4, 256), (8, 512)
-FOR j&larr;0 TO KL-1
-    i&larr;j * 64
+FOR j := 0 TO KL-1
+    i := j * 64
     IF k1[j] OR *no writemask*
-        THEN DEST[i+63:i]&larr;
+        THEN DEST[i+63:i] :=
             Convert_Double_Precision_Floating_Point_To_QuadInteger_Truncate(SRC[i+63:i])
         ELSE
             IF *merging-masking* ; merging-masking
                 THEN *DEST[i+63:i] remains unchanged*
                 ELSE ; zeroing-masking
-                    DEST[i+63:i] &larr; 0
+                    DEST[i+63:i] := 0
             FI
     FI;
 ENDFOR
-DEST[MAXVL-1:VL] &larr; 0
+DEST[MAXVL-1:VL] := 0
 </pre>
 <h4 id="vcvttpd2qq--evex-encoded-version--when-src-operand-is-a-memory-source">VCVTTPD2QQ (EVEX encoded version) when src operand is a memory source<a class="anchor" href="VCVTTPD2QQ.html#vcvttpd2qq--evex-encoded-version--when-src-operand-is-a-memory-source">
 			&para;
 		</a></h4>
 <pre>(KL, VL) = (2, 128), (4, 256), (8, 512)
-FOR j&larr;0 TO KL-1
-    i&larr;j * 64
+FOR j := 0 TO KL-1
+    i := j * 64
     IF k1[j] OR *no writemask*
         THEN
             IF (EVEX.b == 1)
                 THEN
-                    DEST[i+63:i] &larr;
+                    DEST[i+63:i] :=
                         Convert_Double_Precision_Floating_Point_To_QuadInteger_Truncate(SRC[63:0])
                 ELSE
-                    DEST[i+63:i] &larr; Convert_Double_Precision_Floating_Point_To_QuadInteger_Truncate(SRC[i+63:i])
+                    DEST[i+63:i] := Convert_Double_Precision_Floating_Point_To_QuadInteger_Truncate(SRC[i+63:i])
             FI;
         ELSE
             IF *merging-masking* ; merging-masking
                 THEN *DEST[i+63:i] remains unchanged*
                 ELSE ; zeroing-masking
-                    DEST[i+63:i] &larr; 0
+                    DEST[i+63:i] := 0
             FI
     FI;
 ENDFOR
-DEST[MAXVL-1:VL] &larr; 0
+DEST[MAXVL-1:VL] := 0
 </pre>
 <h3 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="VCVTTPD2QQ.html#intel-c-c++-compiler-intrinsic-equivalent">
 			&para;
@@ -128,13 +128,13 @@ DEST[MAXVL-1:VL] &larr; 0
 <h3 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="VCVTTPD2QQ.html#other-exceptions">
 			&para;
 		</a></h3>
-<p>EVEX-encoded instructions, see Exceptions Type E2.</p>
+<p>EVEX-encoded instructions, see <span class="not-imported">Table 2-46</span>, &ldquo;Type E2 Class Exception Conditions&rdquo;; additionally:</p>
 <table>
 <tbody><tr>
 <td>#UD</td>
 <td>If EVEX.vvvv != 1111B.</td></tr></tbody></table><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

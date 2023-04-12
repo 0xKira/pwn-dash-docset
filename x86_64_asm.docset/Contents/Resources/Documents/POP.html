@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-371"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/POP"></a><title>POP</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>POP
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-381"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/POP"></a><title>POP</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>POP
 		&mdash; Pop a Value from the Stack</h1>
 
 <table>
@@ -168,32 +168,32 @@
     THEN
         IF OperandSize = 32
                 THEN
-                    DEST &larr; SS:ESP; (* Copy a doubleword *)
-                    ESP &larr; ESP + 4;
+                    DEST := SS:ESP; (* Copy a doubleword *)
+                    ESP := ESP + 4;
                 ELSE (* OperandSize = 16*)
-                    DEST &larr; SS:ESP; (* Copy a word *)
-                    ESP &larr; ESP + 2;
+                    DEST := SS:ESP; (* Copy a word *)
+                    ESP := ESP + 2;
         FI;
     ELSE IF StackAddrSize = 64
         THEN
                 IF OperandSize = 64
                     THEN
-                        DEST &larr; SS:RSP; (* Copy quadword *)
-                        RSP &larr; RSP + 8;
+                        DEST := SS:RSP; (* Copy quadword *)
+                        RSP := RSP + 8;
                     ELSE (* OperandSize = 16*)
-                        DEST &larr; SS:RSP; (* Copy a word *)
-                        RSP &larr; RSP + 2;
+                        DEST := SS:RSP; (* Copy a word *)
+                        RSP := RSP + 2;
                 FI;
         FI;
     ELSE StackAddrSize = 16
         THEN
                 IF OperandSize = 16
                     THEN
-                        DEST &larr; SS:SP; (* Copy a word *)
-                        SP &larr; SP + 2;
+                        DEST := SS:SP; (* Copy a word *)
+                        SP := SP + 2;
                     ELSE (* OperandSize = 32 *)
-                        DEST &larr; SS:SP; (* Copy a doubleword *)
-                        SP &larr; SP + 4;
+                        DEST := SS:SP; (* Copy a doubleword *)
+                        SP := SP + 4;
                 FI;
 FI;
 Loading a segment register while in protected mode results in special actions, as described in the following listing.
@@ -204,19 +204,19 @@ IF FS, or GS is loaded with non-NULL selector;
         IF segment selector index is outside descriptor table limits
                 OR segment is not a data or readable code segment
                 OR ((segment is a data or nonconforming code segment)
-                    AND (both RPL and CPL &gt; DPL))
+                    AND ((RPL &gt; DPL) or (CPL &gt; DPL))
                         THEN #GP(selector);
                 IF segment not marked present
                     THEN #NP(selector);
         ELSE
-                SegmentRegister &larr; segment selector;
-                SegmentRegister &larr; segment descriptor;
+                SegmentRegister := segment selector;
+                SegmentRegister := segment descriptor;
         FI;
 FI;
 IF FS, or GS is loaded with a NULL selector;
         THEN
-                SegmentRegister &larr; segment selector;
-                SegmentRegister &larr; segment descriptor;
+                SegmentRegister := segment selector;
+                SegmentRegister := segment descriptor;
 FI;
 PREOTECTED MODE OR COMPATIBILITY MODE;
 IF SS is loaded;
@@ -233,8 +233,8 @@ IF SS is loaded;
         IF segment not marked present
                 THEN #SS(selector);
                 ELSE
-                    SS &larr; segment selector;
-                    SS &larr; segment descriptor;
+                    SS := segment selector;
+                    SS := segment descriptor;
         FI;
 FI;
 IF DS, ES, FS, or GS is loaded with non-NULL selector;
@@ -242,20 +242,20 @@ IF DS, ES, FS, or GS is loaded with non-NULL selector;
         IF segment selector index is outside descriptor table limits
                 or segment is not a data or readable code segment
                 or ((segment is a data or nonconforming code segment)
-                and (both RPL and CPL &gt; DPL))
+                and ((RPL &gt; DPL) or (CPL &gt; DPL))
                     THEN #GP(selector);
         FI;
         IF segment not marked present
                 THEN #NP(selector);
                 ELSE
-                    SegmentRegister &larr; segment selector;
-                    SegmentRegister &larr; segment descriptor;
+                    SegmentRegister := segment selector;
+                    SegmentRegister := segment descriptor;
             FI;
 FI;
 IF DS, ES, FS, or GS is loaded with a NULL selector
     THEN
-        SegmentRegister &larr; segment selector;
-        SegmentRegister &larr; segment descriptor;
+        SegmentRegister := segment selector;
+        SegmentRegister := segment descriptor;
 FI;
 </pre>
 <h2 id="flags-affected">Flags Affected<a class="anchor" href="POP.html#flags-affected">
@@ -363,10 +363,12 @@ FI;
 <td>#NP</td>
 <td>If the FS or GS register is being loaded and the segment pointed to is marked not present.</td></tr>
 <tr>
-<td>#UD</td>
-<td>If the LOCK prefix is used.</td></tr></tbody></table><footer><p>
+<td rowspan="2">#UD</td>
+<td>If the LOCK prefix is used.</td></tr>
+<tr>
+<td>If the DS, ES, or SS register is being loaded.</td></tr></tbody></table><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

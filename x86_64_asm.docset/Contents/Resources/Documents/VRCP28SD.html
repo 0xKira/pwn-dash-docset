@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-646"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/VRCP28SD"></a><title>VRCP28SD</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>VRCP28SD
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-674"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/VRCP28SD"></a><title>VRCP28SD</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>VRCP28SD
 		&mdash; Approximation to the Reciprocal of Scalar Double-Precision Floating-Point Value with Less Than 2^-28 Relative Error</h1>
 
 <table>
@@ -9,7 +9,7 @@
 <th>CPUID Feature Flag</th>
 <th>Description</th></tr>
 <tr>
-<td>EVEX.LIG.66.0F38.W1 CB /r VRCP28SD xmm1 {k1}{z}, xmm2, xmm3/m64 {sae}</td>
+<td>EVEX.LLIG.66.0F38.W1 CB /r VRCP28SD xmm1 {k1}{z}, xmm2, xmm3/m64 {sae}</td>
 <td>A</td>
 <td>V/V</td>
 <td>AVX512ER</td>
@@ -19,19 +19,19 @@
 		</a></h2>
 <table>
 <tbody><tr>
-<td>Op/En</td>
-<td>Tuple Type</td>
-<td>Operand 1</td>
-<td>Operand 2</td>
-<td>Operand 3</td>
-<td>Operand 4</td></tr>
+<td>Op/En Tuple Type Operand 1 Operand 2 Operand 3 Operand 4</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td></tr>
 <tr>
-<td>A</td>
-<td>Tuple1 Scalar</td>
-<td>ModRM:reg (w)</td>
-<td>EVEX.vvvv</td>
-<td>ModRM:r/m (r)</td>
-<td>NA</td></tr></tbody></table>
+<td>A Tuple1 Scalar ModRM:reg (w) EVEX.vvvv (r) ModRM:r/m (r) NA</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td></tr></tbody></table>
 <h3 id="description">Description<a class="anchor" href="VRCP28SD.html#description">
 			&para;
 		</a></h3>
@@ -52,17 +52,17 @@
 			&para;
 		</a></h4>
 <pre>IF k1[0] OR *no writemask* THEN
-        DEST[63: 0]&larr;RCP_28_DP(1.0/SRC2[63: 0]);
+        DEST[63: 0] := RCP_28_DP(1.0/SRC2[63: 0]);
 ELSE
     IF *merging-masking* ; merging-masking
         THEN *DEST[63: 0] remains unchanged*
         ELSE ; zeroing-masking
-            DEST[63: 0]&larr;0
+            DEST[63: 0] := 0
     FI;
 FI;
 ENDFOR;
-DEST[127:64]&larr;SRC1[127: 64]
-DEST[MAXVL-1:128] &larr; 0
+DEST[127:64] := SRC1[127: 64]
+DEST[MAXVL-1:128] := 0
 </pre>
 <figure id="tbl-6-36">
 <table>
@@ -123,9 +123,9 @@ DEST[MAXVL-1:128] &larr; 0
 <h3 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="VRCP28SD.html#other-exceptions">
 			&para;
 		</a></h3>
-<p>See Exceptions Type E3.</p><footer><p>
+<p>See <span class="not-imported">Table 2-47</span>, &ldquo;Type E3 Class Exception Conditions&rdquo;.</p><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

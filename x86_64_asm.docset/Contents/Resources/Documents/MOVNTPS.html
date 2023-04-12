@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-288"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/MOVNTPS"></a><title>MOVNTPS</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>MOVNTPS
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-298"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/MOVNTPS"></a><title>MOVNTPS</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>MOVNTPS
 		&mdash; Store Packed Single-Precision Floating-Point Values Using Non-Temporal Hint</h1>
 
 <table>
@@ -85,13 +85,13 @@
 			&para;
 		</a></h4>
 <pre>VL = 128, 256, 512
-DEST[VL-1:0] &larr; SRC[VL-1:0]
-DEST[MAXVL-1:VL] &larr; 0
+DEST[VL-1:0] := SRC[VL-1:0]
+DEST[MAXVL-1:VL] := 0
 </pre>
 <h4 id="movntps">MOVNTPS<a class="anchor" href="MOVNTPS.html#movntps">
 			&para;
 		</a></h4>
-<pre>DEST &larr; SRC
+<pre>DEST := SRC
 </pre>
 <h3 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="MOVNTPS.html#intel-c-c++-compiler-intrinsic-equivalent">
 			&para;
@@ -109,14 +109,15 @@ DEST[MAXVL-1:VL] &larr; 0
 <h3 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="MOVNTPS.html#other-exceptions">
 			&para;
 		</a></h3>
-<p>Non-EVEX-encoded instruction, see Exceptions Type1.SSE; additionally</p>
-<p>EVEX-encoded instruction, see Exceptions Type E1NF.</p>
+<p>Non-EVEX-encoded instruction, see Exceptions Type1.SSE in <span class="not-imported">Table 2-18</span>, &ldquo;Type 1 Class Exception Conditions&rdquo;.</p>
+<p>EVEX-encoded instruction, see <span class="not-imported">Table 2-45</span>, &ldquo;Type E1NF Class Exception Conditions&rdquo;.</p>
+<p>Additionally:</p>
 <table>
 <tbody><tr>
 <td>#UD</td>
 <td>If VEX.vvvv != 1111B or EVEX.vvvv != 1111B.</td></tr></tbody></table><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

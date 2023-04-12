@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-330"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/PBLENDVB"></a><title>PBLENDVB</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>PBLENDVB
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-339"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/PBLENDVB"></a><title>PBLENDVB</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>PBLENDVB
 		&mdash; Variable Blend Packed Bytes</h1>
 
 <table>
@@ -64,147 +64,147 @@
 <h3 id="pblendvb--128-bit-legacy-sse-version-">PBLENDVB (128-bit Legacy SSE version)<a class="anchor" href="PBLENDVB.html#pblendvb--128-bit-legacy-sse-version-">
 			&para;
 		</a></h3>
-<pre>MASK &larr; XMM0
-IF (MASK[7] = 1) THEN DEST[7:0]&larr;SRC[7:0];
-ELSE DEST[7:0]&larr;DEST[7:0];
-IF (MASK[15] = 1) THEN DEST[15:8]&larr;SRC[15:8];
-ELSE DEST[15:8]&larr;DEST[15:8];
-IF (MASK[23] = 1) THEN DEST[23:16]&larr;SRC[23:16]
-ELSE DEST[23:16]&larr;DEST[23:16];
-IF (MASK[31] = 1) THEN DEST[31:24]&larr;SRC[31:24]
-ELSE DEST[31:24]&larr;DEST[31:24];
-IF (MASK[39] = 1) THEN DEST[39:32]&larr;SRC[39:32]
-ELSE DEST[39:32]&larr;DEST[39:32];
-IF (MASK[47] = 1) THEN DEST[47:40]&larr;SRC[47:40]
-ELSE DEST[47:40]&larr;DEST[47:40];
-IF (MASK[55] = 1) THEN DEST[55:48]&larr;SRC[55:48]
-ELSE DEST[55:48]&larr;DEST[55:48];
-IF (MASK[63] = 1) THEN DEST[63:56]&larr;SRC[63:56]
-ELSE DEST[63:56]&larr;DEST[63:56];
-IF (MASK[71] = 1) THEN DEST[71:64]&larr;SRC[71:64]
-ELSE DEST[71:64]&larr;DEST[71:64];
-IF (MASK[79] = 1) THEN DEST[79:72]&larr;SRC[79:72]
-ELSE DEST[79:72]&larr;DEST[79:72];
-IF (MASK[87] = 1) THEN DEST[87:80]&larr;SRC[87:80]
-ELSE DEST[87:80]&larr;DEST[87:80];
-IF (MASK[95] = 1) THEN DEST[95:88]&larr;SRC[95:88]
-ELSE DEST[95:88]&larr; DEST[95:88];
-IF (MASK[103] = 1) THEN DEST[103:96]&larr;SRC[103:96]
-ELSE DEST[103:96]&larr; DEST[103:96];
-IF (MASK[111] = 1) THEN DEST[111:104]&larr;SRC[111:104]
-ELSE DEST[111:104]&larr;DEST[111:104];
-IF (MASK[119] = 1) THEN DEST[119:112]&larr;SRC[119:112]
-ELSE DEST[119:112]&larr;DEST[119:112];
-IF (MASK[127] = 1) THEN DEST[127:120]&larr;SRC[127:120]
-ELSE DEST[127:120]&larr;DEST[127:120])
+<pre>MASK := XMM0
+IF (MASK[7] = 1) THEN DEST[7:0] := SRC[7:0];
+ELSE DEST[7:0] := DEST[7:0];
+IF (MASK[15] = 1) THEN DEST[15:8] := SRC[15:8];
+ELSE DEST[15:8] := DEST[15:8];
+IF (MASK[23] = 1) THEN DEST[23:16] := SRC[23:16]
+ELSE DEST[23:16] := DEST[23:16];
+IF (MASK[31] = 1) THEN DEST[31:24] := SRC[31:24]
+ELSE DEST[31:24] := DEST[31:24];
+IF (MASK[39] = 1) THEN DEST[39:32] := SRC[39:32]
+ELSE DEST[39:32] := DEST[39:32];
+IF (MASK[47] = 1) THEN DEST[47:40] := SRC[47:40]
+ELSE DEST[47:40] := DEST[47:40];
+IF (MASK[55] = 1) THEN DEST[55:48] := SRC[55:48]
+ELSE DEST[55:48] := DEST[55:48];
+IF (MASK[63] = 1) THEN DEST[63:56] := SRC[63:56]
+ELSE DEST[63:56] := DEST[63:56];
+IF (MASK[71] = 1) THEN DEST[71:64] := SRC[71:64]
+ELSE DEST[71:64] := DEST[71:64];
+IF (MASK[79] = 1) THEN DEST[79:72] := SRC[79:72]
+ELSE DEST[79:72] := DEST[79:72];
+IF (MASK[87] = 1) THEN DEST[87:80] := SRC[87:80]
+ELSE DEST[87:80] := DEST[87:80];
+IF (MASK[95] = 1) THEN DEST[95:88] := SRC[95:88]
+ELSE DEST[95:88] := DEST[95:88];
+IF (MASK[103] = 1) THEN DEST[103:96] := SRC[103:96]
+ELSE DEST[103:96] := DEST[103:96];
+IF (MASK[111] = 1) THEN DEST[111:104] := SRC[111:104]
+ELSE DEST[111:104] := DEST[111:104];
+IF (MASK[119] = 1) THEN DEST[119:112] := SRC[119:112]
+ELSE DEST[119:112] := DEST[119:112];
+IF (MASK[127] = 1) THEN DEST[127:120] := SRC[127:120]
+ELSE DEST[127:120] := DEST[127:120])
 DEST[MAXVL-1:128] (Unmodified)
 </pre>
 <h3 id="vpblendvb--vex-128-encoded-version-">VPBLENDVB (VEX.128 encoded version)<a class="anchor" href="PBLENDVB.html#vpblendvb--vex-128-encoded-version-">
 			&para;
 		</a></h3>
-<pre>MASK &larr; SRC3
-IF (MASK[7] = 1) THEN DEST[7:0]&larr;SRC2[7:0];
-ELSE DEST[7:0]&larr;SRC1[7:0];
-IF (MASK[15] = 1) THEN DEST[15:8]&larr;SRC2[15:8];
-ELSE DEST[15:8]&larr;SRC1[15:8];
-IF (MASK[23] = 1) THEN DEST[23:16]&larr;SRC2[23:16]
-ELSE DEST[23:16]&larr;SRC1[23:16];
-IF (MASK[31] = 1) THEN DEST[31:24]&larr;SRC2[31:24]
-ELSE DEST[31:24]&larr;SRC1[31:24];
-IF (MASK[39] = 1) THEN DEST[39:32]&larr;SRC2[39:32]
-ELSE DEST[39:32]&larr;SRC1[39:32];
-IF (MASK[47] = 1) THEN DEST[47:40]&larr;SRC2[47:40]
-ELSE DEST[47:40]&larr;SRC1[47:40];
-IF (MASK[55] = 1) THEN DEST[55:48]&larr;SRC2[55:48]
-ELSE DEST[55:48]&larr;SRC1[55:48];
-IF (MASK[63] = 1) THEN DEST[63:56]&larr;SRC2[63:56]
-ELSE DEST[63:56]&larr;SRC1[63:56];
-IF (MASK[71] = 1) THEN DEST[71:64]&larr;SRC2[71:64]
-ELSE DEST[71:64]&larr;SRC1[71:64];
-IF (MASK[79] = 1) THEN DEST[79:72]&larr;SRC2[79:72]
-ELSE DEST[79:72]&larr;SRC1[79:72];
-IF (MASK[87] = 1) THEN DEST[87:80]&larr;SRC2[87:80]
-ELSE DEST[87:80]&larr;SRC1[87:80];
-IF (MASK[95] = 1) THEN DEST[95:88]&larr;SRC2[95:88]
-ELSE DEST[95:88]&larr; SRC1[95:88];
-IF (MASK[103] = 1) THEN DEST[103:96]&larr;SRC2[103:96]
-ELSE DEST[103:96]&larr; SRC1[103:96];
-IF (MASK[111] = 1) THEN DEST[111:104]&larr;SRC2[111:104]
-ELSE DEST[111:104]&larr;SRC1[111:104];
-IF (MASK[119] = 1) THEN DEST[119:112]&larr;SRC2[119:112]
-ELSE DEST[119:112]&larr;SRC1[119:112];
-IF (MASK[127] = 1) THEN DEST[127:120]&larr;SRC2[127:120]
-ELSE DEST[127:120]&larr;SRC1[127:120])
-DEST[MAXVL-1:128] &larr; 0
+<pre>MASK := SRC3
+IF (MASK[7] = 1) THEN DEST[7:0] := SRC2[7:0];
+ELSE DEST[7:0] := SRC1[7:0];
+IF (MASK[15] = 1) THEN DEST[15:8] := SRC2[15:8];
+ELSE DEST[15:8] := SRC1[15:8];
+IF (MASK[23] = 1) THEN DEST[23:16] := SRC2[23:16]
+ELSE DEST[23:16] := SRC1[23:16];
+IF (MASK[31] = 1) THEN DEST[31:24] := SRC2[31:24]
+ELSE DEST[31:24] := SRC1[31:24];
+IF (MASK[39] = 1) THEN DEST[39:32] := SRC2[39:32]
+ELSE DEST[39:32] := SRC1[39:32];
+IF (MASK[47] = 1) THEN DEST[47:40] := SRC2[47:40]
+ELSE DEST[47:40] := SRC1[47:40];
+IF (MASK[55] = 1) THEN DEST[55:48] := SRC2[55:48]
+ELSE DEST[55:48] := SRC1[55:48];
+IF (MASK[63] = 1) THEN DEST[63:56] := SRC2[63:56]
+ELSE DEST[63:56] := SRC1[63:56];
+IF (MASK[71] = 1) THEN DEST[71:64] := SRC2[71:64]
+ELSE DEST[71:64] := SRC1[71:64];
+IF (MASK[79] = 1) THEN DEST[79:72] := SRC2[79:72]
+ELSE DEST[79:72] := SRC1[79:72];
+IF (MASK[87] = 1) THEN DEST[87:80] := SRC2[87:80]
+ELSE DEST[87:80] := SRC1[87:80];
+IF (MASK[95] = 1) THEN DEST[95:88] := SRC2[95:88]
+ELSE DEST[95:88] := SRC1[95:88];
+IF (MASK[103] = 1) THEN DEST[103:96] := SRC2[103:96]
+ELSE DEST[103:96] := SRC1[103:96];
+IF (MASK[111] = 1) THEN DEST[111:104] := SRC2[111:104]
+ELSE DEST[111:104] := SRC1[111:104];
+IF (MASK[119] = 1) THEN DEST[119:112] := SRC2[119:112]
+ELSE DEST[119:112] := SRC1[119:112];
+IF (MASK[127] = 1) THEN DEST[127:120] := SRC2[127:120]
+ELSE DEST[127:120] := SRC1[127:120])
+DEST[MAXVL-1:128] := 0
 </pre>
 <h3 id="vpblendvb--vex-256-encoded-version-">VPBLENDVB (VEX.256 encoded version)<a class="anchor" href="PBLENDVB.html#vpblendvb--vex-256-encoded-version-">
 			&para;
 		</a></h3>
-<pre>MASK &larr; SRC3
-IF (MASK[7] == 1) THEN DEST[7:0]&larr;SRC2[7:0];
-ELSE DEST[7:0]&larr;SRC1[7:0];
-IF (MASK[15] == 1) THEN DEST[15:8]&larr;SRC2[15:8];
-ELSE DEST[15:8]&larr;SRC1[15:8];
-IF (MASK[23] == 1) THEN DEST[23:16]&larr;SRC2[23:16]
-ELSE DEST[23:16]&larr;SRC1[23:16];
-IF (MASK[31] == 1) THEN DEST[31:24]&larr;SRC2[31:24]
-ELSE DEST[31:24]&larr;SRC1[31:24];
-IF (MASK[39] == 1) THEN DEST[39:32]&larr;SRC2[39:32]
-ELSE DEST[39:32]&larr;SRC1[39:32];
-IF (MASK[47] == 1) THEN DEST[47:40]&larr;SRC2[47:40]
-ELSE DEST[47:40]&larr;SRC1[47:40];
-IF (MASK[55] == 1) THEN DEST[55:48]&larr;SRC2[55:48]
-ELSE DEST[55:48]&larr;SRC1[55:48];
-IF (MASK[63] == 1) THEN DEST[63:56]&larr;SRC2[63:56]
-ELSE DEST[63:56]&larr;SRC1[63:56];
-IF (MASK[71] == 1) THEN DEST[71:64]&larr;SRC2[71:64]
-ELSE DEST[71:64]&larr;SRC1[71:64];
-IF (MASK[79] == 1) THEN DEST[79:72]&larr;SRC2[79:72]
-ELSE DEST[79:72]&larr;SRC1[79:72];
-IF (MASK[87] == 1) THEN DEST[87:80]&larr;SRC2[87:80]
-ELSE DEST[87:80]&larr;SRC1[87:80];
-IF (MASK[95] == 1) THEN DEST[95:88]&larr;SRC2[95:88]
-ELSE DEST[95:88]&larr;SRC1[95:88];
-IF (MASK[103] == 1) THEN DEST[103:96]&larr;SRC2[103:96]
-ELSE DEST[103:96]&larr;SRC1[103:96];
-IF (MASK[111] == 1) THEN DEST[111:104]&larr;SRC2[111:104]
-ELSE DEST[111:104]&larr;SRC1[111:104];
-IF (MASK[119] == 1) THEN DEST[119:112]&larr;SRC2[119:112]
-ELSE DEST[119:112]&larr;SRC1[119:112];
-IF (MASK[127] == 1) THEN DEST[127:120]&larr;SRC2[127:120]
-ELSE DEST[127:120]&larr;SRC1[127:120])
-IF (MASK[135] == 1) THEN DEST[135:128]&larr;SRC2[135:128];
-ELSE DEST[135:128]&larr;SRC1[135:128];
-IF (MASK[143] == 1) THEN DEST[143:136]&larr;SRC2[143:136];
-ELSE DEST[[143:136]&larr;SRC1[143:136];
-IF (MASK[151] == 1) THEN DEST[151:144]&larr;SRC2[151:144]
-ELSE DEST[151:144]&larr;SRC1[151:144];
-IF (MASK[159] == 1) THEN DEST[159:152]&larr;SRC2[159:152]
-ELSE DEST[159:152]&larr;SRC1[159:152];
-IF (MASK[167] == 1) THEN DEST[167:160]&larr;SRC2[167:160]
-ELSE DEST[167:160]&larr;SRC1[167:160];
-IF (MASK[175] == 1) THEN DEST[175:168]&larr;SRC2[175:168]
-ELSE DEST[175:168]&larr;SRC1[175:168];
-IF (MASK[183] == 1) THEN DEST[183:176]&larr;SRC2[183:176]
-ELSE DEST[183:176]&larr;SRC1[183:176];
-IF (MASK[191] == 1) THEN DEST[191:184]&larr;SRC2[191:184]
-ELSE DEST[191:184]&larr;SRC1[191:184];
-IF (MASK[199] == 1) THEN DEST[199:192]&larr;SRC2[199:192]
-ELSE DEST[199:192]&larr;SRC1[199:192];
-IF (MASK[207] == 1) THEN DEST[207:200]&larr;SRC2[207:200]
-ELSE DEST[207:200]&larr;SRC1[207:200]
-IF (MASK[215] == 1) THEN DEST[215:208]&larr;SRC2[215:208]
-ELSE DEST[215:208]&larr;SRC1[215:208];
-IF (MASK[223] == 1) THEN DEST[223:216]&larr;SRC2[223:216]
-ELSE DEST[223:216]&larr;SRC1[223:216];
-IF (MASK[231] == 1) THEN DEST[231:224]&larr;SRC2[231:224]
-ELSE DEST[231:224]&larr;SRC1[231:224];
-IF (MASK[239] == 1) THEN DEST[239:232]&larr;SRC2[239:232]
-ELSE DEST[239:232]&larr;SRC1[239:232];
-IF (MASK[247] == 1) THEN DEST[247:240]&larr;SRC2[247:240]
-ELSE DEST[247:240]&larr;SRC1[247:240];
-IF (MASK[255] == 1) THEN DEST[255:248]&larr;SRC2[255:248]
-ELSE DEST[255:248]&larr;SRC1[255:248]
+<pre>MASK := SRC3
+IF (MASK[7] == 1) THEN DEST[7:0] := SRC2[7:0];
+ELSE DEST[7:0] := SRC1[7:0];
+IF (MASK[15] == 1) THEN DEST[15:8] := SRC2[15:8];
+ELSE DEST[15:8] := SRC1[15:8];
+IF (MASK[23] == 1) THEN DEST[23:16] := SRC2[23:16]
+ELSE DEST[23:16] := SRC1[23:16];
+IF (MASK[31] == 1) THEN DEST[31:24] := SRC2[31:24]
+ELSE DEST[31:24] := SRC1[31:24];
+IF (MASK[39] == 1) THEN DEST[39:32] := SRC2[39:32]
+ELSE DEST[39:32] := SRC1[39:32];
+IF (MASK[47] == 1) THEN DEST[47:40] := SRC2[47:40]
+ELSE DEST[47:40] := SRC1[47:40];
+IF (MASK[55] == 1) THEN DEST[55:48] := SRC2[55:48]
+ELSE DEST[55:48] := SRC1[55:48];
+IF (MASK[63] == 1) THEN DEST[63:56] := SRC2[63:56]
+ELSE DEST[63:56] := SRC1[63:56];
+IF (MASK[71] == 1) THEN DEST[71:64] := SRC2[71:64]
+ELSE DEST[71:64] := SRC1[71:64];
+IF (MASK[79] == 1) THEN DEST[79:72] := SRC2[79:72]
+ELSE DEST[79:72] := SRC1[79:72];
+IF (MASK[87] == 1) THEN DEST[87:80] := SRC2[87:80]
+ELSE DEST[87:80] := SRC1[87:80];
+IF (MASK[95] == 1) THEN DEST[95:88] := SRC2[95:88]
+ELSE DEST[95:88] := SRC1[95:88];
+IF (MASK[103] == 1) THEN DEST[103:96] := SRC2[103:96]
+ELSE DEST[103:96] := SRC1[103:96];
+IF (MASK[111] == 1) THEN DEST[111:104] := SRC2[111:104]
+ELSE DEST[111:104] := SRC1[111:104];
+IF (MASK[119] == 1) THEN DEST[119:112] := SRC2[119:112]
+ELSE DEST[119:112] := SRC1[119:112];
+IF (MASK[127] == 1) THEN DEST[127:120] := SRC2[127:120]
+ELSE DEST[127:120] := SRC1[127:120])
+IF (MASK[135] == 1) THEN DEST[135:128] := SRC2[135:128];
+ELSE DEST[135:128] := SRC1[135:128];
+IF (MASK[143] == 1) THEN DEST[143:136] := SRC2[143:136];
+ELSE DEST[[143:136] := SRC1[143:136];
+IF (MASK[151] == 1) THEN DEST[151:144] := SRC2[151:144]
+ELSE DEST[151:144] := SRC1[151:144];
+IF (MASK[159] == 1) THEN DEST[159:152] := SRC2[159:152]
+ELSE DEST[159:152] := SRC1[159:152];
+IF (MASK[167] == 1) THEN DEST[167:160] := SRC2[167:160]
+ELSE DEST[167:160] := SRC1[167:160];
+IF (MASK[175] == 1) THEN DEST[175:168] := SRC2[175:168]
+ELSE DEST[175:168] := SRC1[175:168];
+IF (MASK[183] == 1) THEN DEST[183:176] := SRC2[183:176]
+ELSE DEST[183:176] := SRC1[183:176];
+IF (MASK[191] == 1) THEN DEST[191:184] := SRC2[191:184]
+ELSE DEST[191:184] := SRC1[191:184];
+IF (MASK[199] == 1) THEN DEST[199:192] := SRC2[199:192]
+ELSE DEST[199:192] := SRC1[199:192];
+IF (MASK[207] == 1) THEN DEST[207:200] := SRC2[207:200]
+ELSE DEST[207:200] := SRC1[207:200]
+IF (MASK[215] == 1) THEN DEST[215:208] := SRC2[215:208]
+ELSE DEST[215:208] := SRC1[215:208];
+IF (MASK[223] == 1) THEN DEST[223:216] := SRC2[223:216]
+ELSE DEST[223:216] := SRC1[223:216];
+IF (MASK[231] == 1) THEN DEST[231:224] := SRC2[231:224]
+ELSE DEST[231:224] := SRC1[231:224];
+IF (MASK[239] == 1) THEN DEST[239:232] := SRC2[239:232]
+ELSE DEST[239:232] := SRC1[239:232];
+IF (MASK[247] == 1) THEN DEST[247:240] := SRC2[247:240]
+ELSE DEST[247:240] := SRC1[247:240];
+IF (MASK[255] == 1) THEN DEST[255:248] := SRC2[255:248]
+ELSE DEST[255:248] := SRC1[255:248]
 </pre>
 <h2 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="PBLENDVB.html#intel-c-c++-compiler-intrinsic-equivalent">
 			&para;
@@ -224,13 +224,13 @@ ELSE DEST[255:248]&larr;SRC1[255:248]
 <h2 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="PBLENDVB.html#other-exceptions">
 			&para;
 		</a></h2>
-<p>See Exceptions Type 4; additionally</p>
+<p>See <span class="not-imported">Table 2-21</span>, &ldquo;Type 4 Class Exception Conditions&rdquo;; additionally:</p>
 <table>
 <tbody><tr>
 <td>#UD</td>
 <td>If VEX.W = 1.</td></tr></tbody></table><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

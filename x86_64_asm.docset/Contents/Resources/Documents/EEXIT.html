@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-119"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/EEXIT"></a><title>EEXIT</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>EEXIT
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-126"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/EEXIT"></a><title>EEXIT</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>EEXIT
 		&mdash; Exits an Enclave</h1>
 
 <table>
@@ -17,7 +17,7 @@
 <td>IR</td>
 <td>EEXIT (In)</td>
 <td>Target address outside the enclave (In)</td>
-<td>Address of the current AEP (In)</td></tr></tbody></table>
+<td>Address of the current AEP (Out)</td></tr></tbody></table>
 <h3 id="description">Description<a class="anchor" href="EEXIT.html#description">
 			&para;
 		</a></h3>
@@ -39,40 +39,52 @@
 <h3 id="concurrency-restrictions">Concurrency Restrictions<a class="anchor" href="EEXIT.html#concurrency-restrictions">
 			&para;
 		</a></h3>
-<figure id="tbl-40-62">
+<figure id="tbl-37-62">
 <table>
 <tbody><tr>
 <th rowspan="2">Leaf</th>
 <th rowspan="2">Parameter</th>
 <th colspan="3">Base Concurrency Restrictions</th></tr>
 <tr>
-<th>Access</th>
-<th>On Conflict</th>
-<th>SGX_CONFLICT VM Exit Qualification</th></tr>
+<th></th>
+<th>On Conflict </th>
+<th></th></tr>
 <tr>
 <td>EEXIT</td>
 <td></td>
 <td>Concurrent</td>
 <td></td>
 <td></td></tr></tbody></table>
-<figcaption><span class="not-imported">Table 40-62</span>. Base Concurrency Restrictions of EEXIT</figcaption></figure>
-<figure id="tbl-40-63">
+<figcaption><span class="not-imported">Table 37-62</span>. Base Concurrency Restrictions of EEXIT</figcaption></figure>
+<figure id="tbl-37-63">
 <table>
 <tbody><tr>
 <th rowspan="3">Leaf</th>
 <th rowspan="3">Parameter</th>
 <th colspan="6">Additional Concurrency Restrictions</th></tr>
 <tr>
-<th colspan="2">vs. EACCEPT, EACCEPTCOPY, EMODPE, EMODPR, EMODT</th>
-<th colspan="2">vs. EADD, EEXTEND, EINIT</th>
+<th colspan="2">vs. EACCEPT, EACCEPTCOPY, vs. EADD, EEXTEND, EINIT
+vs. ETRACK, ETRACKC
+Access  vs. ETRACK, ETRACKC
+Access On Conflict
+Access  vs. ETRACK, ETRACKC
+Access On Conflict
+ EMODPE, EMODPR, EMODT</th>
+<th colspan="2">vs. EADD, EEXTEND, EINIT vs. EADD, EEXTEND, EINIT
+vs. ETRACK, ETRACKC
+</th>
 <th colspan="2">vs. ETRACK, ETRACKC</th></tr>
 <tr>
-<th>Access</th>
-<th>On Conflict</th>
-<th>Access</th>
-<th>On Conflict</th>
-<th>Access</th>
-<th>On Conflict</th></tr>
+<th>Access On Conflict
+Access On Conflict
+Access  Access On Conflict
+Access On Conflict
+</th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th></tr>
 <tr>
 <td>EEXIT</td>
 <td></td>
@@ -82,7 +94,7 @@
 <td></td>
 <td>Concurrent</td>
 <td></td></tr></tbody></table>
-<figcaption><span class="not-imported">Table 40-63</span>. Additional Concurrency Restrictions of EEXIT</figcaption></figure>
+<figcaption><span class="not-imported">Table 37-63</span>. Additional Concurrency Restrictions of EEXIT</figcaption></figure>
 <h3 id="operation">Operation<a class="anchor" href="EEXIT.html#operation">
 			&para;
 		</a></h3>
@@ -100,36 +112,36 @@
 <td>Effective Address</td>
 <td>32/64</td>
 <td>Saved copy of CRIP for use when creating LBR.</td></tr></tbody></table>
-<p>TMP_MODE64&larr;((IA32_EFER.LMA = 1) &amp;&amp; (CS.L = 1));</p>
+<p>TMP_MODE64 := ((IA32_EFER.LMA = 1) &amp;&amp; (CS.L = 1));</p>
 <p>IF (TMP_MODE64 = 1)</p>
 <p>THEN</p>
 <p>IF (RBX is not canonical) THEN #GP(0); FI;</p>
 <p>ELSE</p>
 <p>IF (RBX &gt; CS limit) THEN #GP(0); FI;</p>
 <p>FI;</p>
-<p>TMP_RIP &larr; CRIP;</p>
-<p>RIP &larr; RBX;</p>
+<p>TMP_RIP := CRIP;</p>
+<p>RIP := RBX;</p>
 <p>(* Return current AEP in RCX *)</p>
-<p>RCX &larr; CR_TCS_PA.AEP;</p>
+<p>RCX := CR_TCS_PA.AEP;</p>
 <p>(* Do the FS/GS swap *)</p>
-<p>FS.selector &larr; CR_SAVE_FS.selector;</p>
-<p>FS.base &larr; CR_SAVE_FS.base;</p>
-<p>FS.limit &larr; CR_SAVE_FS.limit;</p>
-<p>FS.access_rights &larr; CR_SAVE_FS.access_rights;</p>
-<p>GS.selector &larr; CR_SAVE_GS.selector;</p>
-<p>GS.base &larr; CR_SAVE_GS.base;</p>
-<p>GS.limit &larr; CR_SAVE_GS.limit;</p>
-<p>GS.access_rights &larr; CR_SAVE_GS.access_rights;</p>
+<p>FS.selector := CR_SAVE_FS.selector;</p>
+<p>FS.base := CR_SAVE_FS.base;</p>
+<p>FS.limit := CR_SAVE_FS.limit;</p>
+<p>FS.access_rights := CR_SAVE_FS.access_rights;</p>
+<p>GS.selector := CR_SAVE_GS.selector;</p>
+<p>GS.base := CR_SAVE_GS.base;</p>
+<p>GS.limit := CR_SAVE_GS.limit;</p>
+<p>GS.access_rights := CR_SAVE_GS.access_rights;</p>
 <p>(* Restore XCR0 if needed *)</p>
 <p>IF (CR4.OSXSAVE = 1)</p>
-<p>XCR0 &larr; CR_SAVE__XCR0;</p>
+<p>XCR0 := CR_SAVE__XCR0;</p>
 <p>FI;</p>
 <p>Unsuppress_all_code_breakpoints_that_are_outside_ELRANGE;</p>
 <p>IF (CR_DBGOPTIN = 0)</p>
 <p>THEN</p>
 <p>UnSuppress_all_code_breakpoints_that_overlap_with_ELRANGE;</p>
 <p>Restore suppressed breakpoint matches;</p>
-<p>RFLAGS.TF &larr; CR_SAVE_TF;</p>
+<p>RFLAGS.TF := CR_SAVE_TF;</p>
 <p>UnSuppress_montior_trap_flag;</p>
 <p>UnSuppress_LBR_Generation;</p>
 <p>UnSuppress_performance monitoring_activity;</p>
@@ -141,8 +153,27 @@
 <p>IF the &ldquo;monitor trap flag&rdquo; VM-execution control is set</p>
 <p>THEN pend a MTF VM exit at the end of EEXIT;</p>
 <p>FI;</p>
-<p>CR_ENCLAVE_MODE &larr; 0;</p>
-<p>CR_TCS_PA.STATE &larr; INACTIVE;</p>
+<p>IF (CPUID.(EAX=12H, ECX=1):EAX[6] = 1)</p>
+<p>THEN</p>
+<p>(* Record PREVSSP *)</p>
+<p>IF (IA32_U_CET.SH_STK_EN == 1)</p>
+<p>THEN CR_TCS_PA.PREVSSP = SSP; FI;</p>
+<p>FI;</p>
+<p>IF ((CPUID.(EAX=7H, ECX=0):EDX[CET_IBT] = 1) OR (CPUID.(EAX=7, ECX=0):ECX[CET_SS] = 1)</p>
+<p>THEN</p>
+<p>(* Restore enclosing app&rsquo;s CET state from the save registers *)</p>
+<p>IA32_U_CET := CR_SAVE_IA32_U_CET;</p>
+<p>IF CPUID.(EAX=07H, ECX=00h):ECX[CET_SS] = 1</p>
+<p>THEN SSP := CR_SAVE_SSP; FI;</p>
+<p>(* Update enclosing app&rsquo;s TRACKER if enclosing app has indirect branch tracking enabled *)</p>
+<p>IF (CR4.CET = 1 AND IA32_U_CET.ENDBR_EN = 1)</p>
+<p>THEN</p>
+<p>IA32_U_CET.TRACKER := WAIT_FOR_ENDBRANCH;</p>
+<p>IA32_U_CET.SUPPRESS := 0</p>
+<p>FI;</p>
+<p>FI;</p>
+<p>CR_ENCLAVE_MODE := 0;</p>
+<p>CR_TCS_PA.STATE := INACTIVE;</p>
 <p>(* Assure consistent translations *)</p>
 <p>Flush_linear_context;</p>
 <h3 id="flags-affected">Flags Affected<a class="anchor" href="EEXIT.html#flags-affected">
@@ -175,6 +206,6 @@
 <td>code) If a page fault occurs in accessing memory operands.</td></tr></tbody></table><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

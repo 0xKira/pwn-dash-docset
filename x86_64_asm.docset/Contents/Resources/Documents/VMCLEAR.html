@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-570"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/VMCLEAR"></a><title>VMCLEAR</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>VMCLEAR
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-585"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/VMCLEAR"></a><title>VMCLEAR</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>VMCLEAR
 		&mdash; Clear Virtual-Machine Control Structure</h1>
 
 <table>
@@ -42,7 +42,7 @@ ELSIF in VMX non-root operation
 ELSIF CPL &gt; 0
     THEN #GP(0);
     ELSE
-        addr &larr; contents of 64-bit in-memory operand;
+        addr := contents of 64-bit in-memory operand;
         IF addr is not 4KB-aligned OR
         addr sets any bits beyond the physical-address width<sup>1</sup>
             THEN VMfail(VMCLEAR with invalid physical address);
@@ -51,9 +51,9 @@ ELSIF CPL &gt; 0
             ELSE
                 ensure that data for VMCS referenced by the operand is in memory;
                 initialize implementation-specific data in VMCS region;
-                launch state of VMCS referenced by the operand &larr; &ldquo;clear&rdquo;
+                launch state of VMCS referenced by the operand := &ldquo;clear&rdquo;
                 IF operand addr = current-VMCS pointer
-                    THEN current-VMCS pointer &larr; FFFFFFFF_FFFFFFFFH;
+                    THEN current-VMCS pointer := FFFFFFFF_FFFFFFFFH;
                 FI;
                 VMsucceed;
         FI;
@@ -134,6 +134,6 @@ FI;
 <td>If not in VMX operation.</td></tr></tbody></table><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

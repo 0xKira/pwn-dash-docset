@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-361"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/PMOVMSKB"></a><title>PMOVMSKB</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>PMOVMSKB
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-371"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/PMOVMSKB"></a><title>PMOVMSKB</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>PMOVMSKB
 		&mdash; Move Byte Mask</h1>
 
 <table>
@@ -67,52 +67,52 @@
 <h3 id="pmovmskb--with-64-bit-source-operand-and-r32-">PMOVMSKB (with 64-bit source operand and r32)<a class="anchor" href="PMOVMSKB.html#pmovmskb--with-64-bit-source-operand-and-r32-">
 			&para;
 		</a></h3>
-<pre>    r32[0] &larr; SRC[7];
-    r32[1] &larr; SRC[15];
+<pre>    r32[0] := SRC[7];
+    r32[1] := SRC[15];
     (* Repeat operation for bytes 2 through 6 *)
-    r32[7] &larr; SRC[63];
-    r32[31:8] &larr; ZERO_FILL;
+    r32[7] := SRC[63];
+    r32[31:8] := ZERO_FILL;
 (<strong>V)PMOVMSKB (with 128-bit source operand and r32)</strong>
-    r32[0] &larr; SRC[7];
-    r32[1] &larr; SRC[15];
+    r32[0] := SRC[7];
+    r32[1] := SRC[15];
     (* Repeat operation for bytes 2 through 14 *)
-    r32[15] &larr; SRC[127];
-    r32[31:16] &larr; ZERO_FILL;
+    r32[15] := SRC[127];
+    r32[31:16] := ZERO_FILL;
 </pre>
 <h3 id="vpmovmskb--with-256-bit-source-operand-and-r32-">VPMOVMSKB (with 256-bit source operand and r32)<a class="anchor" href="PMOVMSKB.html#vpmovmskb--with-256-bit-source-operand-and-r32-">
 			&para;
 		</a></h3>
-<pre>r32[0] &larr; SRC[7];
-r32[1] &larr; SRC[15];
+<pre>r32[0] := SRC[7];
+r32[1] := SRC[15];
 (* Repeat operation for bytes 3rd through 31*)
-r32[31] &larr; SRC[255];
+r32[31] := SRC[255];
 </pre>
 <h3 id="pmovmskb--with-64-bit-source-operand-and-r64-">PMOVMSKB (with 64-bit source operand and r64)<a class="anchor" href="PMOVMSKB.html#pmovmskb--with-64-bit-source-operand-and-r64-">
 			&para;
 		</a></h3>
-<pre>r64[0] &larr; SRC[7];
-r64[1] &larr; SRC[15];
+<pre>r64[0] := SRC[7];
+r64[1] := SRC[15];
 (* Repeat operation for bytes 2 through 6 *)
-r64[7] &larr; SRC[63];
-r64[63:8] &larr; ZERO_FILL;
+r64[7] := SRC[63];
+r64[63:8] := ZERO_FILL;
 </pre>
 <h3 id="-v-pmovmskb--with-128-bit-source-operand-and-r64-">(V)PMOVMSKB (with 128-bit source operand and r64)<a class="anchor" href="PMOVMSKB.html#-v-pmovmskb--with-128-bit-source-operand-and-r64-">
 			&para;
 		</a></h3>
-<pre>r64[0] &larr; SRC[7];
-r64[1] &larr; SRC[15];
+<pre>r64[0] := SRC[7];
+r64[1] := SRC[15];
 (* Repeat operation for bytes 2 through 14 *)
-r64[15] &larr; SRC[127];
-r64[63:16] &larr; ZERO_FILL;
+r64[15] := SRC[127];
+r64[63:16] := ZERO_FILL;
 </pre>
 <h3 id="vpmovmskb--with-256-bit-source-operand-and-r64-">VPMOVMSKB (with 256-bit source operand and r64)<a class="anchor" href="PMOVMSKB.html#vpmovmskb--with-256-bit-source-operand-and-r64-">
 			&para;
 		</a></h3>
-<pre>r64[0] &larr; SRC[7];
-r64[1] &larr; SRC[15];
+<pre>r64[0] := SRC[7];
+r64[1] := SRC[15];
 (* Repeat operation for bytes 2 through 31*)
-r64[31] &larr; SRC[255];
-r64[63:32] &larr; ZERO_FILL;
+r64[31] := SRC[255];
+r64[63:32] := ZERO_FILL;
 </pre>
 <h2 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="PMOVMSKB.html#intel-c-c++-compiler-intrinsic-equivalent">
 			&para;
@@ -134,13 +134,13 @@ r64[63:32] &larr; ZERO_FILL;
 <h2 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="PMOVMSKB.html#other-exceptions">
 			&para;
 		</a></h2>
-<p>See Exceptions Type 7; additionally</p>
+<p>See <span class="not-imported">Table 2-24</span>, &ldquo;Type 7 Class Exception Conditions&rdquo;; additionally:</p>
 <table>
 <tbody><tr>
 <td>#UD</td>
 <td>If VEX.vvvv ≠ 1111B.</td></tr></tbody></table><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-470"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/SYSRET"></a><title>SYSRET</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>SYSRET
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-482"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/SYSRET"></a><title>SYSRET</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>SYSRET
 		&mdash; Return From Fast System Call</h1>
 
 <table>
@@ -59,6 +59,7 @@
 <li>Using paging to ensure that the SYSCALL instruction will never save a non-canonical value into RCX.</li>
 <li>Using the IST mechanism for gate 13 (#GP) in the IDT.</li>
 <li>Using the IST mechanism for gate 13 (#GP) in the IDT.</li></ul></li></ul>
+<p>When shadow stacks are enabled at privilege level 3 the instruction loads SSP with value from IA32_PL3_SSP MSR. Refer to Chapter 6, &ldquo;Procedure Calls, Interrupts, and Exceptions&rdquo; and Chapter 18, &ldquo;Control-Flow Enforcement Technology (CET)&rdquo; in the <em>Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 1</em> for additional CET details.</p>
 <p><strong>Instruction ordering.</strong> Instructions following a SYSRET may be fetched from memory before earlier instructions complete execution, but they will not execute (even speculatively) until all instructions prior to the SYSRET have completed execution (the later instructions may execute before data stored by the earlier instructions have become globally visible).</p>
 <h2 id="operation">Operation<a class="anchor" href="SYSRET.html#operation">
 			&para;
@@ -70,59 +71,61 @@ IF (CPL ≠ 0) THEN #GP(0); FI;
 IF (operand size is 64-bit)
     THEN (* Return to 64-Bit Mode *)
         IF (RCX is not canonical) THEN #GP(0);
-        RIP &larr; RCX;
+        RIP := RCX;
     ELSE (* Return to Compatibility Mode *)
-        RIP &larr; ECX;
+        RIP := ECX;
 FI;
-RFLAGS &larr; (R11 &amp; 3C7FD7H) | 2;
-            (* Clear RF, VM, reserved bits; set bit 1 *)
+RFLAGS := (R11 &amp; 3C7FD7H) | 2; (*
+                Clear RF, VM, reserved bits; set bit 1 *)
 IF (operand size is 64-bit)
-    THEN CS.Selector &larr; IA32_STAR[63:48]+16;
-    ELSE CS.Selector &larr; IA32_STAR[63:48];
+    THEN CS.Selector := IA32_STAR[63:48]+16;
+    ELSE CS.Selector := IA32_STAR[63:48];
 FI;
-CS.Selector &larr; CS.Selector OR 3;
+CS.Selector := CS.Selector OR 3;
             (* RPL forced to 3 *)
 (* Set rest of CS to a fixed value *)
-CS.Base &larr; 0;
+CS.Base := 0;
             (* Flat segment *)
-CS.Limit &larr; FFFFFH;
+CS.Limit := FFFFFH;
             (* With 4-KByte granularity, implies a 4-GByte limit *)
-CS.Type &larr; 11;
+CS.Type := 11;
             (* Execute/read code, accessed *)
-CS.S &larr; 1;
-CS.DPL &larr; 3;
-CS.P &larr; 1;
+CS.S := 1;
+CS.DPL := 3;
+CS.P := 1;
 IF (operand size is 64-bit)
     THEN (* Return to 64-Bit Mode *)
-        CS.L &larr; 1;
+        CS.L := 1;
             (* 64-bit code segment *)
-        CS.D &larr; 0;
+        CS.D := 0;
             (* Required if CS.L = 1 *)
     ELSE (* Return to Compatibility Mode *)
-        CS.L &larr; 0;
+        CS.L := 0;
             (* Compatibility mode *)
-        CS.D &larr; 1;
+        CS.D := 1;
             (* 32-bit code segment *)
 FI;
-CS.G &larr; 1;
+CS.G := 1;
             (* 4-KByte granularity *)
-CPL &larr; 3;
-SS.Selector &larr; (IA32_STAR[63:48]+8) OR 3;
+CPL := 3;
+IF ShadowStackEnabled(CPL)
+    SSP := IA32_PL3_SSP;
+FI;
+SS.Selector := (IA32_STAR[63:48]+8) OR 3;
             (* RPL forced to 3 *)
 (* Set rest of SS to a fixed value *)
-SS.Base &larr; 0;
+SS.Base := 0;
             (* Flat segment *)
-SS.Limit &larr; FFFFFH;
+SS.Limit := FFFFFH;
             (* With 4-KByte granularity, implies a 4-GByte limit *)
-SS.Type &larr; 3;
+SS.Type := 3;
             (* Read/write data, accessed *)
-SS.S &larr; 1;
-SS.DPL &larr; 3;
-SS.P &larr; 1;
-SS.B &larr; 1;
+SS.S := 1;
+SS.DPL := 3;
+SS.P := 1;
+SS.B := 1;
             (* 32-bit stack segment*)
-SS.G &larr; 1;
-            (* 4-KByte granularity *)
+SS.G := 1; (* 4-KByte granularity *)
 </pre>
 <h2 id="flags-affected">Flags Affected<a class="anchor" href="SYSRET.html#flags-affected">
 			&para;
@@ -172,6 +175,6 @@ SS.G &larr; 1;
 <td>If the return is to 64-bit mode and RCX contains a non-canonical address.</td></tr></tbody></table><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-602"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/VPERMILPS"></a><title>VPERMILPS</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>VPERMILPS
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-623"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/VPERMILPS"></a><title>VPERMILPS</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>VPERMILPS
 		&mdash; Permute In-Lane of Quadruples of Single-Precision Floating-Point Values</h1>
 
 <table>
@@ -116,7 +116,7 @@
 <p>EVEX version: The second source operand (third operand) is a ZMM/YMM/XMM register, a 512/256/128-bit memory location or a 512/256/128-bit vector broadcasted from a 32-bit memory location. Permuted results are written to the destination under the writemask.</p>
 <figure id="fig-5-25">
 <svg style="width: 475.77604799999995pt; height: 159.11997599999995pt" viewBox="101.24000000000001 0.0 401.48004 137.59997999999996">
-<g xmlns="http://www.w3.org/2000/svg" style="fill: none; stroke: none">
+<g xmlns="http://www.w3.org/2000/svg" style="stroke: none; fill: none">
 <rect height="131.64000000000001" style="fill: rgb(0%, 0%, 0%)" width="0.48" x="103.74000000000001" y="0.479979999999955"></rect>
 <rect height="131.64000000000001" style="fill: rgb(0%, 0%, 0%)" width="0.48004" x="499.74" y="0.479979999999955"></rect>
 <rect height="0.47998" style="fill: rgb(0%, 0%, 0%)" width="396.48" x="103.74000000000001" y="0.0"></rect>
@@ -240,28 +240,15 @@
 <path d="M 192.18 76.49997999999994 L 196.20000000000002 78.05997999999994 L 195.84 78.95997999999992 L 191.82 77.39997999999991" style="fill: rgb(0%, 0%, 0%); fill-rule: nonzero"></path>
 <path d="M 196.02 78.47997999999995 L 200.04000000000002 79.97997999999995 L 190.74 92.51997999999998 L 192.0 76.91997999999995" style="fill: rgb(0%, 0%, 0%); fill-rule: evenodd"></path>
 <path d="M 211.32 40.55997999999988 L 209.45999999999998 39.839979999999855 L 195.29999999999998 77.63997999999987 L 197.16 78.3599799999999" style="fill: rgb(0%, 0%, 0%); fill-rule: nonzero"></path>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.414416800000026pt; fill: #000" textLength="9.17216670000002" x="147.18" y="36.81087779999996">X7</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.414416800000026pt; fill: #000" textLength="9.23248510000002" x="184.32" y="36.81087779999996">X6</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.414416800000026pt; fill: #000" textLength="9.17216670000002" x="221.46" y="36.81087779999996">X5</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.414416800000026pt; fill: #000" textLength="9.172166699999991" x="258.54" y="36.81087779999996">X4</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.414416800000026pt; fill: #000" textLength="9.172166699999991" x="295.68" y="36.81087779999996">X3</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.414416800000026pt; fill: #000" textLength="9.232485099999963" x="332.82" y="36.81087779999996">X2</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.414416800000026pt; fill: #000" textLength="9.232485099999963" x="369.96" y="36.81087779999996">X1</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.414416800000026pt; fill: #000" textLength="9.172166699999991" x="407.04" y="36.81087779999996">X0</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.414416800000026pt; fill: #000" textLength="269.0321667" x="147.18" y="36.81087779999996">X7 X6 X5 X4 X3 X2 X1 X0</text>
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 8.414416800000026pt; fill: #000" textLength="19.970668259999997" x="116.10132452000002" y="38.43081829999994">SRC1</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.80058169554718pt; fill: #000" textLength="26.841217795989564" x="288.0" y="104.3838892632262">X3 ..X0</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.80058169554718pt; fill: #000" textLength="26.76825259598951" x="325.08" y="104.3838892632262">X3 ..X0</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.80058169554718pt; fill: #000" textLength="212.3482525959895" x="139.5" y="104.3838892632262">X7..X4 X7..X4 X7..X4 X7..X4 X3..X0 X3..X0</text>
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 8.414416800000026pt; fill: #000" textLength="20.024954820000005" x="115.86155888000002" y="104.31057477999991">DEST</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.414416800000026pt; fill: #000" textLength="26.69616985999997" x="139.5" y="104.31087779999996">X7 .. X4</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.414416800000026pt; fill: #000" textLength="26.69692384000001" x="176.58" y="104.31087779999996">X7 .. X4</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.414416800000026pt; fill: #000" textLength="26.69692384000001" x="217.08" y="104.31087779999996">X7 .. X4</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.414416800000026pt; fill: #000" textLength="26.699185779999965" x="254.22" y="104.31087779999996">X7 .. X4</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.414416800000026pt; fill: #000" textLength="26.699185779999937" x="362.22" y="105.9308777999999">X3 .. X0</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.414416800000026pt; fill: #000" textLength="26.635851460000083" x="399.36" y="105.9308777999999">X3 .. X0</text></g></svg>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.414416800000026pt; fill: #000" textLength="63.77585146000007" x="362.22" y="105.9308777999999">X3..X0 X3..X0</text></g></svg>
 <figcaption><a href="VPERMILPS.html#fig-5-25">Figure 5-25</a>. VPERMILPS Operation</figcaption></figure>
 <figure id="fig-5-26">
 <svg style="width: 475.77604799999995pt; height: 123.55197600000002pt" viewBox="101.24000000000001 0.0 401.48004 107.95998000000003">
-<g xmlns="http://www.w3.org/2000/svg" style="fill: none; stroke: none">
+<g xmlns="http://www.w3.org/2000/svg" style="stroke: none; fill: none">
 <rect height="102.0" style="fill: rgb(0%, 0%, 0%)" width="0.48" x="103.74000000000001" y="0.47998000000001184"></rect>
 <rect height="102.0" style="fill: rgb(0%, 0%, 0%)" width="0.48004" x="499.74" y="0.47998000000001184"></rect>
 <rect height="0.47998" style="fill: rgb(0%, 0%, 0%)" width="396.48" x="103.74000000000001" y="0.0"></rect>
@@ -296,21 +283,23 @@
 <rect height="0.48001000000000005" style="fill: rgb(0%, 0%, 0%)" width="83.22" x="384.0" y="65.51997000000006"></rect>
 <rect height="36.24" style="fill: rgb(0%, 0%, 0%)" width="0.48001000000000005" x="384.0" y="29.519980000000032"></rect>
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 11.025719999999978pt; fill: #000" textLength="12.250800000000027" x="477.24" y="17.391340000000014">Bit</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 8.015813453242515pt; fill: #000" textLength="45.625370851258424" x="347.76" y="26.223340000000007">34 33 32 31</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.704720000000009pt; fill: #000" textLength="15.479736000000003" x="470.22" y="26.223340000000007">1 0</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.494568229786182pt; fill: #000" textLength="6.625146501258428" x="386.76022435" y="25.702094776543674">31</text>
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 7.704720000000009pt; fill: #000" textLength="10.499855999999966" x="128.220216" y="26.763436000000013">255</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.704720000000009pt; fill: #000" textLength="37.8596159999999" x="195.72" y="26.223340000000007">226 225 224</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.704720000000009pt; fill: #000" textLength="10.499855999999966" x="195.72" y="26.223340000000007">226</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.704720000000009pt; fill: #000" textLength="22.679855999999944" x="210.89975999999996" y="26.223340000000007">225 224</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.704720000000009pt; fill: #000" textLength="15.660000000000082" x="363.42" y="26.223340000000007">33 32</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.704720000000009pt; fill: #000" textLength="15.479736000000003" x="470.22" y="26.223340000000007">1 0</text>
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 7.494568229786182pt; fill: #000" textLength="6.625146501258428" x="278.76" y="26.182334776543655">63</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 19.925999999999988pt; fill: #000" textLength="22.5" x="244.74" y="60.16798">.. .</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.494568229786182pt; fill: #000" textLength="6.625146501258428" x="347.76" y="26.182334776543655">34</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 19.925999999999988pt; fill: #000" textLength="22.5" x="244.74" y="60.16798">. . .</text>
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 10.55620758751894pt; fill: #000" textLength="27.66729913304374" x="303.72" y="53.77972782195491">ignored</text>
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 10.55620758751894pt; fill: #000" textLength="27.66729913304374" x="411.72" y="53.77972782195491">ignored</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 10.55620758751894pt; fill: #000" textLength="27.74125051304381" x="153.24" y="54.31972782195493">ignored</text>
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 10.55620758751894pt; fill: #000" textLength="10.089932773812308" x="217.02" y="54.79972782195489">sel</text>
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 10.55620758751894pt; fill: #000" textLength="10.149276473812336" x="368.04" y="54.79972782195489">sel</text>
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 10.55620758751894pt; fill: #000" textLength="10.126451973812323" x="475.02" y="54.79972782195489">sel</text>
 <text lengthAdjust="spacingAndGlyphs" style="font-size: 11.025719999999978pt; fill: #000" textLength="61.08567599999998" x="168.72028799999995" y="89.39134000000001">Control Field 7</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 11.025719999999978pt; fill: #000" textLength="61.09065600000008" x="316.739832" y="89.39134000000001">Control Field 2</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 11.025719999999978pt; fill: #000" textLength="61.050816" x="425.76" y="89.39134000000001">Control Field 1</text></g></svg>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 11.025719999999978pt; fill: #000" textLength="61.071731999999884" x="316.739832" y="89.39134000000001">Control Field 2</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 11.025719999999978pt; fill: #000" textLength="61.06077599999986" x="425.76" y="89.39134000000001">Control Field 1</text></g></svg>
 <figcaption><a href="VPERMILPS.html#fig-5-26">Figure 5-26</a>. VPERMILPS Shuffle Control</figcaption></figure>
 <p>(immediate control version)</p>
 <p>Permute quadruples of single-precision floating-point values in the first source operand (second operand), each quadruplet using a 2-bit control field in the imm8 byte. Each 128-bit lane in the destination operand (first operand) use the four control fields of the same imm8 byte.</p>
@@ -322,10 +311,10 @@
 		</a></h3>
 <pre>Select4(SRC, control) {
 CASE (control[1:0]) OF
-    0: TMP &larr;SRC[31:0];
-    1: TMP &larr;SRC[63:32];
-    2: TMP &larr;SRC[95:64];
-    3: TMP &larr;SRC[127:96];
+    0: TMP := SRC[31:0];
+    1: TMP := SRC[63:32];
+    2: TMP := SRC[95:64];
+    3: TMP := SRC[127:96];
 ESAC;
 RETURN TMP
 }
@@ -334,133 +323,133 @@ RETURN TMP
 			&para;
 		</a></h4>
 <pre>(KL, VL) = (4, 128), (8, 256), (16, 512)
-FOR j&larr;0 TO KL-1
-    i&larr;j * 32
+FOR j := 0 TO KL-1
+    i := j * 32
     IF (EVEX.b = 1) AND (SRC1 *is memory*)
-        THEN TMP_SRC1[i+31:i]&larr;SRC1[31:0];
-        ELSE TMP_SRC1[i+31:i]&larr;SRC1[i+31:i];
+        THEN TMP_SRC1[i+31:i] := SRC1[31:0];
+        ELSE TMP_SRC1[i+31:i] := SRC1[i+31:i];
     FI;
 ENDFOR;
-TMP_DEST[31:0]&larr;Select4(TMP_SRC1[127:0], imm8[1:0]);
-TMP_DEST[63:32]&larr;Select4(TMP_SRC1[127:0], imm8[3:2]);
-TMP_DEST[95:64]&larr;Select4(TMP_SRC1[127:0], imm8[5:4]);
-TMP_DEST[127:96]&larr;Select4(TMP_SRC1[127:0], imm8[7:6]); FI;
+TMP_DEST[31:0] := Select4(TMP_SRC1[127:0], imm8[1:0]);
+TMP_DEST[63:32] := Select4(TMP_SRC1[127:0], imm8[3:2]);
+TMP_DEST[95:64] := Select4(TMP_SRC1[127:0], imm8[5:4]);
+TMP_DEST[127:96] := Select4(TMP_SRC1[127:0], imm8[7:6]); FI;
 IF VL &gt;= 256
-    TMP_DEST[159:128]&larr;Select4(TMP_SRC1[255:128], imm8[1:0]); FI;
-    TMP_DEST[191:160]&larr;Select4(TMP_SRC1[255:128], imm8[3:2]); FI;
-    TMP_DEST[223:192]&larr;Select4(TMP_SRC1[255:128], imm8[5:4]); FI;
-    TMP_DEST[255:224]&larr;Select4(TMP_SRC1[255:128], imm8[7:6]); FI;
+    TMP_DEST[159:128] := Select4(TMP_SRC1[255:128], imm8[1:0]); FI;
+    TMP_DEST[191:160] := Select4(TMP_SRC1[255:128], imm8[3:2]); FI;
+    TMP_DEST[223:192] := Select4(TMP_SRC1[255:128], imm8[5:4]); FI;
+    TMP_DEST[255:224] := Select4(TMP_SRC1[255:128], imm8[7:6]); FI;
 FI;
 IF VL &gt;= 512
-    TMP_DEST[287:256]&larr;Select4(TMP_SRC1[383:256], imm8[1:0]); FI;
-    TMP_DEST[319:288]&larr;Select4(TMP_SRC1[383:256], imm8[3:2]); FI;
-    TMP_DEST[351:320]&larr;Select4(TMP_SRC1[383:256], imm8[5:4]); FI;
-    TMP_DEST[383:352]&larr;Select4(TMP_SRC1[383:256], imm8[7:6]); FI;
-    TMP_DEST[415:384]&larr;Select4(TMP_SRC1[511:384], imm8[1:0]); FI;
-    TMP_DEST[447:416]&larr;Select4(TMP_SRC1[511:384], imm8[3:2]); FI;
-    TMP_DEST[479:448]&larr;Select4(TMP_SRC1[511:384], imm8[5:4]); FI;
-    TMP_DEST[511:480]&larr;Select4(TMP_SRC1[511:384], imm8[7:6]); FI;
+    TMP_DEST[287:256] := Select4(TMP_SRC1[383:256], imm8[1:0]); FI;
+    TMP_DEST[319:288] := Select4(TMP_SRC1[383:256], imm8[3:2]); FI;
+    TMP_DEST[351:320] := Select4(TMP_SRC1[383:256], imm8[5:4]); FI;
+    TMP_DEST[383:352] := Select4(TMP_SRC1[383:256], imm8[7:6]); FI;
+    TMP_DEST[415:384] := Select4(TMP_SRC1[511:384], imm8[1:0]); FI;
+    TMP_DEST[447:416] := Select4(TMP_SRC1[511:384], imm8[3:2]); FI;
+    TMP_DEST[479:448] := Select4(TMP_SRC1[511:384], imm8[5:4]); FI;
+    TMP_DEST[511:480] := Select4(TMP_SRC1[511:384], imm8[7:6]); FI;
 FI;
-FOR j&larr;0 TO KL-1
-    i&larr;j * 32
+FOR j := 0 TO KL-1
+    i := j * 32
     IF k1[j] OR *no writemask*
-        THEN DEST[i+31:i]&larr;TMP_DEST[i+31:i]
+        THEN DEST[i+31:i] := TMP_DEST[i+31:i]
         ELSE
             IF *merging-masking*
                 THEN *DEST[i+31:i] remains unchanged*
-                ELSE DEST[i+31:i]&larr;0
+                ELSE DEST[i+31:i] := 0
                     ;zeroing-masking
             FI;
     FI;
 ENDFOR
-DEST[MAXVL-1:VL] &larr; 0
+DEST[MAXVL-1:VL] := 0
 </pre>
 <h4 id="vpermilps--256-bit-immediate-version-">VPERMILPS (256-bit immediate version)<a class="anchor" href="VPERMILPS.html#vpermilps--256-bit-immediate-version-">
 			&para;
 		</a></h4>
-<pre>DEST[31:0]&larr;Select4(SRC1[127:0], imm8[1:0]);
-DEST[63:32]&larr;Select4(SRC1[127:0], imm8[3:2]);
-DEST[95:64]&larr;Select4(SRC1[127:0], imm8[5:4]);
-DEST[127:96]&larr;Select4(SRC1[127:0], imm8[7:6]);
-DEST[159:128]&larr;Select4(SRC1[255:128], imm8[1:0]);
-DEST[191:160]&larr;Select4(SRC1[255:128], imm8[3:2]);
-DEST[223:192]&larr;Select4(SRC1[255:128], imm8[5:4]);
-DEST[255:224]&larr;Select4(SRC1[255:128], imm8[7:6]);
+<pre>DEST[31:0] := Select4(SRC1[127:0], imm8[1:0]);
+DEST[63:32] := Select4(SRC1[127:0], imm8[3:2]);
+DEST[95:64] := Select4(SRC1[127:0], imm8[5:4]);
+DEST[127:96] := Select4(SRC1[127:0], imm8[7:6]);
+DEST[159:128] := Select4(SRC1[255:128], imm8[1:0]);
+DEST[191:160] := Select4(SRC1[255:128], imm8[3:2]);
+DEST[223:192] := Select4(SRC1[255:128], imm8[5:4]);
+DEST[255:224] := Select4(SRC1[255:128], imm8[7:6]);
 </pre>
 <h4 id="vpermilps--128-bit-immediate-version-">VPERMILPS (128-bit immediate version)<a class="anchor" href="VPERMILPS.html#vpermilps--128-bit-immediate-version-">
 			&para;
 		</a></h4>
-<pre>DEST[31:0]&larr;Select4(SRC1[127:0], imm8[1:0]);
-DEST[63:32]&larr;Select4(SRC1[127:0], imm8[3:2]);
-DEST[95:64]&larr;Select4(SRC1[127:0], imm8[5:4]);
-DEST[127:96]&larr;Select4(SRC1[127:0], imm8[7:6]);
-DEST[MAXVL-1:128]&larr;0
+<pre>DEST[31:0] := Select4(SRC1[127:0], imm8[1:0]);
+DEST[63:32] := Select4(SRC1[127:0], imm8[3:2]);
+DEST[95:64] := Select4(SRC1[127:0], imm8[5:4]);
+DEST[127:96] := Select4(SRC1[127:0], imm8[7:6]);
+DEST[MAXVL-1:128] := 0
 </pre>
 <h4 id="vpermilps--evex-variable-versions-">VPERMILPS (EVEX variable versions)<a class="anchor" href="VPERMILPS.html#vpermilps--evex-variable-versions-">
 			&para;
 		</a></h4>
 <pre>(KL, VL) = (16, 512)
-FOR j&larr;0 TO KL-1
-    i&larr;j * 32
+FOR j := 0 TO KL-1
+    i := j * 32
     IF (EVEX.b = 1) AND (SRC2 *is memory*)
-        THEN TMP_SRC2[i+31:i]&larr;SRC2[31:0];
-        ELSE TMP_SRC2[i+31:i]&larr;SRC2[i+31:i];
+        THEN TMP_SRC2[i+31:i] := SRC2[31:0];
+        ELSE TMP_SRC2[i+31:i] := SRC2[i+31:i];
     FI;
 ENDFOR;
-TMP_DEST[31:0]&larr;Select4(SRC1[127:0], TMP_SRC2[1:0]);
-TMP_DEST[63:32]&larr;Select4(SRC1[127:0], TMP_SRC2[33:32]);
-TMP_DEST[95:64]&larr;Select4(SRC1[127:0], TMP_SRC2[65:64]);
-TMP_DEST[127:96]&larr;Select4(SRC1[127:0], TMP_SRC2[97:96]);
+TMP_DEST[31:0] := Select4(SRC1[127:0], TMP_SRC2[1:0]);
+TMP_DEST[63:32] := Select4(SRC1[127:0], TMP_SRC2[33:32]);
+TMP_DEST[95:64] := Select4(SRC1[127:0], TMP_SRC2[65:64]);
+TMP_DEST[127:96] := Select4(SRC1[127:0], TMP_SRC2[97:96]);
 IF VL &gt;= 256
-    TMP_DEST[159:128]&larr;Select4(SRC1[255:128], TMP_SRC2[129:128]);
-    TMP_DEST[191:160]&larr;Select4(SRC1[255:128], TMP_SRC2[161:160]);
-    TMP_DEST[223:192]&larr;Select4(SRC1[255:128], TMP_SRC2[193:192]);
-    TMP_DEST[255:224]&larr;Select4(SRC1[255:128], TMP_SRC2[225:224]);
+    TMP_DEST[159:128] := Select4(SRC1[255:128], TMP_SRC2[129:128]);
+    TMP_DEST[191:160] := Select4(SRC1[255:128], TMP_SRC2[161:160]);
+    TMP_DEST[223:192] := Select4(SRC1[255:128], TMP_SRC2[193:192]);
+    TMP_DEST[255:224] := Select4(SRC1[255:128], TMP_SRC2[225:224]);
 FI;
 IF VL &gt;= 512
-    TMP_DEST[287:256]&larr;Select4(SRC1[383:256], TMP_SRC2[257:256]);
-    TMP_DEST[319:288]&larr;Select4(SRC1[383:256], TMP_SRC2[289:288]);
-    TMP_DEST[351:320]&larr;Select4(SRC1[383:256], TMP_SRC2[321:320]);
-    TMP_DEST[383:352]&larr;Select4(SRC1[383:256], TMP_SRC2[353:352]);
-    TMP_DEST[415:384]&larr;Select4(SRC1[511:384], TMP_SRC2[385:384]);
-    TMP_DEST[447:416]&larr;Select4(SRC1[511:384], TMP_SRC2[417:416]);
-    TMP_DEST[479:448]&larr;Select4(SRC1[511:384], TMP_SRC2[449:448]);
-    TMP_DEST[511:480]&larr;Select4(SRC1[511:384], TMP_SRC2[481:480]);
+    TMP_DEST[287:256] := Select4(SRC1[383:256], TMP_SRC2[257:256]);
+    TMP_DEST[319:288] := Select4(SRC1[383:256], TMP_SRC2[289:288]);
+    TMP_DEST[351:320] := Select4(SRC1[383:256], TMP_SRC2[321:320]);
+    TMP_DEST[383:352] := Select4(SRC1[383:256], TMP_SRC2[353:352]);
+    TMP_DEST[415:384] := Select4(SRC1[511:384], TMP_SRC2[385:384]);
+    TMP_DEST[447:416] := Select4(SRC1[511:384], TMP_SRC2[417:416]);
+    TMP_DEST[479:448] := Select4(SRC1[511:384], TMP_SRC2[449:448]);
+    TMP_DEST[511:480] := Select4(SRC1[511:384], TMP_SRC2[481:480]);
 FI;
-FOR j&larr;0 TO KL-1
-    i&larr;j * 32
+FOR j := 0 TO KL-1
+    i := j * 32
     IF k1[j] OR *no writemask*
-        THEN DEST[i+31:i]&larr;TMP_DEST[i+31:i]
+        THEN DEST[i+31:i] := TMP_DEST[i+31:i]
         ELSE
             IF *merging-masking*
                 THEN *DEST[i+31:i] remains unchanged*
-                ELSE DEST[i+31:i]&larr;0 ;zeroing-masking
+                ELSE DEST[i+31:i] := 0 ;zeroing-masking
             FI;
     FI;
 ENDFOR
-DEST[MAXVL-1:VL] &larr; 0
+DEST[MAXVL-1:VL] := 0
 </pre>
 <h4 id="vpermilps--256-bit-variable-version-">VPERMILPS (256-bit variable version)<a class="anchor" href="VPERMILPS.html#vpermilps--256-bit-variable-version-">
 			&para;
 		</a></h4>
-<pre>DEST[31:0]&larr;Select4(SRC1[127:0], SRC2[1:0]);
-DEST[63:32]&larr;Select4(SRC1[127:0], SRC2[33:32]);
-DEST[95:64]&larr;Select4(SRC1[127:0], SRC2[65:64]);
-DEST[127:96]&larr;Select4(SRC1[127:0], SRC2[97:96]);
-DEST[159:128]&larr;Select4(SRC1[255:128], SRC2[129:128]);
-DEST[191:160]&larr;Select4(SRC1[255:128], SRC2[161:160]);
-DEST[223:192]&larr;Select4(SRC1[255:128], SRC2[193:192]);
-DEST[255:224]&larr;Select4(SRC1[255:128], SRC2[225:224]);
-DEST[MAXVL-1:256]&larr;0
+<pre>DEST[31:0] := Select4(SRC1[127:0], SRC2[1:0]);
+DEST[63:32] := Select4(SRC1[127:0], SRC2[33:32]);
+DEST[95:64] := Select4(SRC1[127:0], SRC2[65:64]);
+DEST[127:96] := Select4(SRC1[127:0], SRC2[97:96]);
+DEST[159:128] := Select4(SRC1[255:128], SRC2[129:128]);
+DEST[191:160] := Select4(SRC1[255:128], SRC2[161:160]);
+DEST[223:192] := Select4(SRC1[255:128], SRC2[193:192]);
+DEST[255:224] := Select4(SRC1[255:128], SRC2[225:224]);
+DEST[MAXVL-1:256] := 0
 </pre>
 <h4 id="vpermilps--128-bit-variable-version-">VPERMILPS (128-bit variable version)<a class="anchor" href="VPERMILPS.html#vpermilps--128-bit-variable-version-">
 			&para;
 		</a></h4>
-<pre>DEST[31:0]&larr;Select4(SRC1[127:0], SRC2[1:0]);
-DEST[63:32]&larr;Select4(SRC1[127:0], SRC2[33:32]);
-DEST[95:64]&larr;Select4(SRC1[127:0], SRC2[65:64]);
-DEST[127:96]&larr;Select4(SRC1[127:0], SRC2[97:96]);
-DEST[MAXVL-1:128]&larr;0
+<pre>DEST[31:0] := Select4(SRC1[127:0], SRC2[1:0]);
+DEST[63:32] := Select4(SRC1[127:0], SRC2[33:32]);
+DEST[95:64] :=Select4(SRC1[127:0], SRC2[65:64]);
+DEST[127:96] := Select4(SRC1[127:0], SRC2[97:96]);
+DEST[MAXVL-1:128] := 0
 </pre>
 <h3 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="VPERMILPS.html#intel-c-c++-compiler-intrinsic-equivalent">
 			&para;
@@ -508,18 +497,18 @@ DEST[MAXVL-1:128]&larr;0
 <h3 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="VPERMILPS.html#other-exceptions">
 			&para;
 		</a></h3>
-<p>Non-EVEX-encoded instruction, see Exceptions Type 4;</p>
+<p>Non-EVEX-encoded instruction, see <span class="not-imported">Table 2-21</span>, &ldquo;Type 4 Class Exception Conditions&rdquo;; additionally:</p>
 <table>
 <tbody><tr>
 <td>#UD</td>
 <td>If VEX.W = 1.</td></tr></tbody></table>
-<p>EVEX-encoded instruction, see Exceptions Type E4NF.</p>
+<p>EVEX-encoded instruction, see <span class="not-imported">Table 2-50</span>, &ldquo;Type E4NF Class Exception Conditions&rdquo;; additionally:</p>
 <table>
 <tbody><tr>
 <td>#UD</td>
 <td>If either (E)VEX.vvvv != 1111B and with imm8.</td></tr></tbody></table><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

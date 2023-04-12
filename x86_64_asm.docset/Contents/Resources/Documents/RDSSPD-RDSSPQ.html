@@ -1,0 +1,102 @@
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-423"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/RDSSPD%2FRDSSPQ"></a><title>RDSSPD/RDSSPQ</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>RDSSPD/RDSSPQ
+		&mdash; Read Shadow Stack Pointer</h1>
+
+
+<table>
+<tbody><tr>
+<th>Opcode/Instruction</th>
+<th>Op/En</th>
+<th>64/32 bit Mode Support</th>
+<th>CPUID Feature Flag</th>
+<th>Description</th></tr>
+<tr>
+<td>F3 0F 1E /1 (mod=11) RDSSPD r32</td>
+<td>R</td>
+<td>V/V</td>
+<td>CET_SS</td>
+<td>Copy low 32 bits of shadow stack pointer (SSP) to r32.</td></tr>
+<tr>
+<td>F3 REX.W 0F 1E /1 (mod=11) RDSSPQ r64</td>
+<td>R</td>
+<td>V/N.E.</td>
+<td>CET_SS</td>
+<td>Copies shadow stack pointer (SSP) to r64.</td></tr></tbody></table>
+<h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="./RDSSPD:RDSSPQ.html#instruction-operand-encoding">
+			&para;
+		</a></h2>
+<table>
+<tbody><tr>
+<td>Op/En</td>
+<td>Operand 1</td>
+<td>Operand 2</td>
+<td>Operand 3</td>
+<td>Operand 4</td></tr>
+<tr>
+<td>R</td>
+<td>ModRM:r/m (w)</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td></tr></tbody></table>
+<h2 id="description">Description<a class="anchor" href="./RDSSPD:RDSSPQ.html#description">
+			&para;
+		</a></h2>
+<p>Copies the current shadow stack pointer (SSP) register to the register destination. This opcode is a NOP when CET shadow stacks are not enabled and on processors that do not support CET.</p>
+<h2 id="operation">Operation<a class="anchor" href="./RDSSPD:RDSSPQ.html#operation">
+			&para;
+		</a></h2>
+<pre>IF CPL = 3
+    IF CR4.CET &amp; IA32_U_CET.SH_STK_EN
+        IF (operand size is 64 bit)
+            THEN
+                Dest := SSP;
+            ELSE
+                Dest := SSP[31:0];
+        FI;
+    FI;
+ELSE
+    IF CR4.CET &amp; IA32_S_CET.SH_STK_EN
+        IF (operand size is 64 bit)
+            THEN
+                Dest := SSP;
+            ELSE
+                Dest := SSP[31:0];
+        FI;
+    FI;
+FI;
+</pre>
+<h2 id="flags-affected">Flags Affected<a class="anchor" href="./RDSSPD:RDSSPQ.html#flags-affected">
+			&para;
+		</a></h2>
+<p>None.</p>
+<h2 id="c-c++-compiler-intrinsic-equivalent">C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="./RDSSPD:RDSSPQ.html#c-c++-compiler-intrinsic-equivalent">
+			&para;
+		</a></h2>
+<pre>RDSSPD __int32 _rdsspd_i32(void);
+</pre>
+<pre>RDSSPQ __int64 _rdsspq_i64(void);
+</pre>
+<h2 class="exceptions" id="protected-mode-exceptions">Protected Mode Exceptions<a class="anchor" href="./RDSSPD:RDSSPQ.html#protected-mode-exceptions">
+			&para;
+		</a></h2>
+<p>None.</p>
+<h2 class="exceptions" id="real-address-mode-exceptions">Real-Address Mode Exceptions<a class="anchor" href="./RDSSPD:RDSSPQ.html#real-address-mode-exceptions">
+			&para;
+		</a></h2>
+<p>None.</p>
+<h2 class="exceptions" id="virtual-8086-mode-exceptions">Virtual-8086 Mode Exceptions<a class="anchor" href="./RDSSPD:RDSSPQ.html#virtual-8086-mode-exceptions">
+			&para;
+		</a></h2>
+<p>None.</p>
+<h2 class="exceptions" id="compatibility-mode-exceptions">Compatibility Mode Exceptions<a class="anchor" href="./RDSSPD:RDSSPQ.html#compatibility-mode-exceptions">
+			&para;
+		</a></h2>
+<p>None.</p>
+<h2 class="exceptions" id="64-bit-mode-exceptions">64-Bit Mode Exceptions<a class="anchor" href="./RDSSPD:RDSSPQ.html#64-bit-mode-exceptions">
+			&para;
+		</a></h2>
+<p>None.</p><footer><p>
+		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
+		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+	</p></footer>
+</body></html>

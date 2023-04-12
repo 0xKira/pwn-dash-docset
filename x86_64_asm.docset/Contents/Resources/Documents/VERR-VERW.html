@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-517"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/VERR%2FVERW"></a><title>VERR/VERW</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>VERR/VERW
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-532"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/VERR%2FVERW"></a><title>VERR/VERW</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>VERR/VERW
 		&mdash; Verify a Segment for Reading or Writing</h1>
 
 
@@ -58,18 +58,20 @@
 			&para;
 		</a></h2>
 <pre>IF SRC(Offset) &gt; (GDTR(Limit) or (LDTR(Limit))
-    THEN ZF &larr; 0; FI;
+    THEN ZF := 0; FI;
 Read segment descriptor;
 IF SegmentDescriptor(DescriptorType) = 0 (* System segment *)
 or (SegmentDescriptor(Type) ≠ conforming code segment)
 and (CPL &gt; DPL) or (RPL &gt; DPL)
     THEN
-        ZF &larr; 0;
+        ZF := 0;
     ELSE
         IF ((Instruction = VERR) and (Segment readable))
         or ((Instruction = VERW) and (Segment writable))
             THEN
-                ZF &larr; 1;
+                ZF := 1;
+            ELSE
+                ZF := 0;
         FI;
 FI;
 </pre>
@@ -142,6 +144,6 @@ FI;
 <td>If the LOCK prefix is used.</td></tr></tbody></table><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

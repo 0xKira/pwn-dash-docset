@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-269"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/MOVD%2FMOVQ"></a><title>MOVD/MOVQ</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>MOVD/MOVQ
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-279"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/MOVD%2FMOVQ"></a><title>MOVD/MOVQ</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>MOVD/MOVQ
 		&mdash; Move Doubleword/Move Quadword</h1>
 
 
@@ -171,61 +171,61 @@
 <h4 id="movd--when-destination-operand-is-mmx-technology-register-">MOVD (when destination operand is MMX technology register)<a class="anchor" href="./MOVD:MOVQ.html#movd--when-destination-operand-is-mmx-technology-register-">
 			&para;
 		</a></h4>
-<pre>DEST[31:0] &larr; SRC;
-DEST[63:32] &larr; 00000000H;
+<pre>DEST[31:0] := SRC;
+DEST[63:32] := 00000000H;
 </pre>
 <h4 id="movd--when-destination-operand-is-xmm-register-">MOVD (when destination operand is XMM register)<a class="anchor" href="./MOVD:MOVQ.html#movd--when-destination-operand-is-xmm-register-">
 			&para;
 		</a></h4>
-<pre>DEST[31:0] &larr; SRC;
-DEST[127:32] &larr; 000000000000000000000000H;
+<pre>DEST[31:0] := SRC;
+DEST[127:32] := 000000000000000000000000H;
 DEST[MAXVL-1:128] (Unmodified)
 </pre>
 <h4 id="movd--when-source-operand-is-mmx-technology-or-xmm-register-">MOVD (when source operand is MMX technology or XMM register)<a class="anchor" href="./MOVD:MOVQ.html#movd--when-source-operand-is-mmx-technology-or-xmm-register-">
 			&para;
 		</a></h4>
-<pre>DEST &larr; SRC[31:0];
+<pre>DEST := SRC[31:0];
 </pre>
 <h4 id="vmovd--vex-encoded-version-when-destination-is-an-xmm-register-">VMOVD (VEX-encoded version when destination is an XMM register)<a class="anchor" href="./MOVD:MOVQ.html#vmovd--vex-encoded-version-when-destination-is-an-xmm-register-">
 			&para;
 		</a></h4>
-<pre>DEST[31:0] &larr; SRC[31:0]
-DEST[MAXVL-1:32] &larr; 0
+<pre>DEST[31:0] := SRC[31:0]
+DEST[MAXVL-1:32] := 0
 </pre>
 <h4 id="movq--when-destination-operand-is-xmm-register-">MOVQ (when destination operand is XMM register)<a class="anchor" href="./MOVD:MOVQ.html#movq--when-destination-operand-is-xmm-register-">
 			&para;
 		</a></h4>
-<pre>DEST[63:0] &larr; SRC[63:0];
-DEST[127:64] &larr; 0000000000000000H;
+<pre>DEST[63:0] := SRC[63:0];
+DEST[127:64] := 0000000000000000H;
 DEST[MAXVL-1:128] (Unmodified)
 </pre>
 <h4 id="movq--when-destination-operand-is-r-m64-">MOVQ (when destination operand is r/m64)<a class="anchor" href="./MOVD:MOVQ.html#movq--when-destination-operand-is-r-m64-">
 			&para;
 		</a></h4>
-<pre>DEST[63:0] &larr; SRC[63:0];
+<pre>DEST[63:0] := SRC[63:0];
 </pre>
 <h4 id="movq--when-source-operand-is-xmm-register-or-r-m64-">MOVQ (when source operand is XMM register or r/m64)<a class="anchor" href="./MOVD:MOVQ.html#movq--when-source-operand-is-xmm-register-or-r-m64-">
 			&para;
 		</a></h4>
-<pre>DEST &larr; SRC[63:0];
+<pre>DEST := SRC[63:0];
 </pre>
 <h4 id="vmovq--vex-encoded-version-when-destination-is-an-xmm-register-">VMOVQ (VEX-encoded version when destination is an XMM register)<a class="anchor" href="./MOVD:MOVQ.html#vmovq--vex-encoded-version-when-destination-is-an-xmm-register-">
 			&para;
 		</a></h4>
-<pre>DEST[63:0] &larr; SRC[63:0]
-DEST[MAXVL-1:64] &larr; 0
+<pre>DEST[63:0] := SRC[63:0]
+DEST[MAXVL-1:64] := 0
 </pre>
 <h4 id="vmovd--evex-encoded-version-when-destination-is-an-xmm-register-">VMOVD (EVEX-encoded version when destination is an XMM register)<a class="anchor" href="./MOVD:MOVQ.html#vmovd--evex-encoded-version-when-destination-is-an-xmm-register-">
 			&para;
 		</a></h4>
-<pre>DEST[31:0] &larr; SRC[31:0]
-DEST[MAXVL-1:32] &larr; 0
+<pre>DEST[31:0] := SRC[31:0]
+DEST[MAXVL-1:32] := 0
 </pre>
 <h4 id="vmovq--evex-encoded-version-when-destination-is-an-xmm-register-">VMOVQ (EVEX-encoded version when destination is an XMM register)<a class="anchor" href="./MOVD:MOVQ.html#vmovq--evex-encoded-version-when-destination-is-an-xmm-register-">
 			&para;
 		</a></h4>
-<pre>DEST[63:0] &larr; SRC[63:0]
-DEST[MAXVL-1:64] &larr; 0
+<pre>DEST[63:0] := SRC[63:0]
+DEST[MAXVL-1:64] := 0
 </pre>
 <h2 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="./MOVD:MOVQ.html#intel-c-c++-compiler-intrinsic-equivalent">
 			&para;
@@ -265,8 +265,9 @@ DEST[MAXVL-1:64] &larr; 0
 <h2 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="./MOVD:MOVQ.html#other-exceptions">
 			&para;
 		</a></h2>
-<p>Non-EVEX-encoded instruction, see Exceptions Type 5.</p>
-<p>EVEX-encoded instruction, see Exceptions Type E9NF.</p>
+<p>Non-EVEX-encoded instruction, see <span class="not-imported">Table 2-22</span>, &ldquo;Type 5 Class Exception Conditions&rdquo;.</p>
+<p>EVEX-encoded instruction, see <span class="not-imported">Table 2-57</span>, &ldquo;Type E9NF Class Exception Conditions&rdquo;.</p>
+<p>Additionally:</p>
 <table>
 <tbody><tr>
 <td rowspan="2">#UD</td>
@@ -275,6 +276,6 @@ DEST[MAXVL-1:64] &larr; 0
 <td>If VEX.vvvv != 1111B or EVEX.vvvv != 1111B.</td></tr></tbody></table><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

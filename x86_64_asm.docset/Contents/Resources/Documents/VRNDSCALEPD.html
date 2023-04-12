@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-652"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/VRNDSCALEPD"></a><title>VRNDSCALEPD</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>VRNDSCALEPD
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-680"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/VRNDSCALEPD"></a><title>VRNDSCALEPD</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>VRNDSCALEPD
 		&mdash; Round Packed Float64 Values To Include A Given Number Of Fraction Bits</h1>
 
 <table>
@@ -58,56 +58,56 @@
 <p>ROUND(x) = 2<sup>-M</sup>*Round_to_INT(x*2<sup>M</sup>, round_ctrl),</p>
 <p>round_ctrl = imm[3:0];</p>
 <p>M=imm[7:4];</p>
-<p>The operation of x*2<sup>M</sup> is computed as if the exponent range is unlimited (i.e. no overflow ever occurs).</p>
+<p>The operation of x*2<sup>M</sup> is computed as if the exponent range is unlimited (i.e., no overflow ever occurs).</p>
 <p>VRNDSCALEPD is a more general form of the VEX-encoded VROUNDPD instruction. In VROUNDPD, the formula of the operation on each element is</p>
 <p>ROUND(x) = Round_to_INT(x, round_ctrl),</p>
 <p>round_ctrl = imm[3:0];</p>
 <p>Note: EVEX.vvvv is reserved and must be 1111b, otherwise instructions will #UD.</p>
 <figure id="fig-5-29">
-<svg style="width: 619.0559999999999pt; height: 129.671976pt" viewBox="41.54 0.0 520.88 113.05998">
-<g xmlns="http://www.w3.org/2000/svg" style="stroke: none; fill: none">
-<rect height="107.10000000000001" style="fill: rgb(0%, 0%, 0%)" width="0.48001000000000005" x="44.04" y="0.479979999999955"></rect>
-<rect height="107.10000000000001" style="fill: rgb(0%, 0%, 0%)" width="0.47998" x="559.44" y="0.479979999999955"></rect>
-<rect height="0.47998" style="fill: rgb(0%, 0%, 0%)" width="515.88" x="44.04" y="0.0"></rect>
-<rect height="0.47998" style="fill: rgb(0%, 0%, 0%)" width="515.88" x="44.04" y="107.58000000000004"></rect>
-<rect height="13.5" style="fill: rgb(0%, 0%, 0%)" width="0.48001000000000005" x="465.84000000000003" y="27.5399799999999"></rect>
-<rect height="0.47998" style="fill: rgb(0%, 0%, 0%)" width="373.26" x="92.82000000000001" y="40.559999999999945"></rect>
-<rect height="13.5" style="fill: rgb(0%, 0%, 0%)" width="0.48" x="92.82000000000001" y="27.299980000000005"></rect>
-<rect height="0.23999" style="fill: rgb(0%, 0%, 0%)" width="0.47998" x="372.6" y="27.539989999999875"></rect>
-<rect height="13.26" style="fill: rgb(0%, 0%, 0%)" width="0.47998" x="372.6" y="27.77997999999991"></rect>
-<rect height="0.23999" style="fill: rgb(0%, 0%, 0%)" width="0.48001000000000005" x="279.3" y="27.539989999999875"></rect>
-<rect height="13.26" style="fill: rgb(0%, 0%, 0%)" width="0.48001000000000005" x="279.3" y="27.77997999999991"></rect>
-<path d="M 137.64000000000001 61.43997999999999 L 133.44000000000003 64.37998000000005" style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)"></path>
-<path d="M 139.32000000000002 63.89998000000003 L 133.44000000000003 64.37998000000005 L 135.90000000000003 59.039980000000014" style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)"></path>
-<path d="M 159.54000000000002 46.19997999999998 L 137.64000000000001 61.43997999999999" style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)"></path>
-<path d="M 440.46000000000004 53.51998000000003 L 444.48 56.69997999999998" style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)"></path>
-<path d="M 442.32000000000005 51.17998 L 444.4800000000001 56.69997999999998 L 438.66 55.799980000000005" style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)"></path>
-<path d="M 423.6 40.19997999999998 L 440.46000000000004 53.51998000000003" style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)"></path>
-<rect height="0.24005" style="fill: rgb(0%, 0%, 0%)" width="0.48001000000000005" x="327.3" y="28.439930000000004"></rect>
-<rect height="11.76" style="fill: rgb(0%, 0%, 0%)" width="0.48001000000000005" x="327.3" y="28.67998"></rect>
-<path d="M 350.46 57.059979999999996 L 351.0 62.15998000000002" style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)"></path>
-<path d="M 353.4 56.75998000000004 L 351.0 62.15998000000002 L 347.52 57.41998000000001" style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)"></path>
-<path d="M 348.59999999999997 40.67998 L 350.46 57.059979999999996" style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)"></path>
-<path d="M 280.68 52.919979999999896 L 276.06 55.19997999999987" style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)"></path>
-<path d="M 281.94 55.55997999999988 L 276.06 55.19997999999987 L 279.36 50.27997999999991" style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)"></path>
-<path d="M 302.52 42.17997999999989 L 280.68 52.919979999999896" style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)"></path>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.518pt; fill: #000" textLength="3.509999999999991" x="441.18" y="23.795979999999957">0</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.518000000000029pt; fill: #000" textLength="14.071200000000005" x="62.58000000000004" y="35.97598000000005">imm8</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.518000000000029pt; fill: #000" textLength="9.752400000000023" x="297.6" y="37.17597999999998">SPE</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.518000000000029pt; fill: #000" textLength="6.786000000000001" x="345.12000000000006" y="37.17597999999998">RS</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.518000000000029pt; fill: #000" textLength="45.73079999999996" x="164.58000000000004" y="37.65598">Fixed point length</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.518000000000029pt; fill: #000" textLength="59.081999999999766" x="391.08000000000004" y="37.65598">Round Control Override</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.518000000000029pt; fill: #000" textLength="97.74299999999991" x="224.04" y="62.55597999999998">Suppress Precision Exception: Imm8[3]</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.518000000000029pt; fill: #000" textLength="97.52819999999952" x="439.08000000000004" y="65.19597999999996">Imm8[1:0] = 00b : Round nearest even</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.518000000000029pt; fill: #000" textLength="57.25860000000023" x="342.12" y="71.49598000000003">Round Select: Imm8[2]</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.518000000000029pt; fill: #000" textLength="108.2826000000002" x="224.04" y="72.39598000000001">Imm8[3] = 0b : Use MXCSR exception mask</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.518000000000029pt; fill: #000" textLength="119.16899999999998" x="82.08000000000004" y="74.67597999999998">Imm8[7:4] : Number of fixed points to preserve</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.518000000000029pt; fill: #000" textLength="78.30720000000008" x="439.08000000000004" y="75.03598">Imm8[1:0] = 01b : Round down</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.518000000000029pt; fill: #000" textLength="75.62339999999995" x="342.12" y="81.33598000000006">Imm8[2] = 0b : Use Imm8[1:0]</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.518000000000029pt; fill: #000" textLength="61.65899999999991" x="224.04" y="82.23598000000004">Imm8[3] = 1b : Suppress</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.518000000000029pt; fill: #000" textLength="70.60859999999985" x="439.08000000000004" y="84.81597999999997">Imm8[1:0] = 10b : Round up</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.518000000000029pt; fill: #000" textLength="67.53539999999992" x="342.12" y="91.1759800000001">Imm8[2] = 1b : Use MXCSR</text>
-<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.518000000000029pt; fill: #000" textLength="69.3239999999999" x="439.08000000000004" y="94.65598">Imm8[1:0] = 11b : Truncate</text></g></svg>
+<svg style="width: 618.9840000000002pt; height: 129.671976pt" viewBox="41.06 0.0 520.8200000000002 113.05998">
+<g xmlns="http://www.w3.org/2000/svg" style="fill: none; stroke: none">
+<rect height="107.10000000000001" style="fill: rgb(0%, 0%, 0%)" width="0.47998" x="43.56" y="0.479979999999955"></rect>
+<rect height="107.10000000000001" style="fill: rgb(0%, 0%, 0%)" width="0.47998" x="558.9" y="0.479979999999955"></rect>
+<rect height="0.47998" style="fill: rgb(0%, 0%, 0%)" width="515.82" x="43.56" y="0.0"></rect>
+<rect height="0.47998" style="fill: rgb(0%, 0%, 0%)" width="515.82" x="43.56" y="107.58000000000004"></rect>
+<rect height="13.5" style="fill: rgb(0%, 0%, 0%)" width="0.47998" x="465.3" y="27.5399799999999"></rect>
+<rect height="0.47998" style="fill: rgb(0%, 0%, 0%)" width="373.26" x="92.28" y="40.559999999999945"></rect>
+<rect height="13.5" style="fill: rgb(0%, 0%, 0%)" width="0.48" x="92.28" y="27.299980000000005"></rect>
+<rect height="0.23999" style="fill: rgb(0%, 0%, 0%)" width="0.48001000000000005" x="372.06" y="27.539989999999875"></rect>
+<rect height="13.26" style="fill: rgb(0%, 0%, 0%)" width="0.48001000000000005" x="372.06" y="27.77997999999991"></rect>
+<rect height="0.23999" style="fill: rgb(0%, 0%, 0%)" width="0.47998" x="278.82" y="27.539989999999875"></rect>
+<rect height="13.26" style="fill: rgb(0%, 0%, 0%)" width="0.47998" x="278.82" y="27.77997999999991"></rect>
+<path d="M 137.1 61.43997999999999 L 132.9 64.37998000000005" style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)"></path>
+<path d="M 138.78 63.89998000000003 L 132.9 64.37998000000005 L 135.42 59.039980000000014" style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)"></path>
+<path d="M 159.0 46.19997999999998 L 137.1 61.43997999999999" style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)"></path>
+<path d="M 439.92 53.51998000000003 L 443.94 56.69997999999998" style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)"></path>
+<path d="M 441.78000000000003 51.17998 L 443.94000000000005 56.69997999999998 L 438.12 55.799980000000005" style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)"></path>
+<path d="M 423.06000000000006 40.19997999999998 L 439.9200000000001 53.51998000000003" style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)"></path>
+<rect height="0.24005" style="fill: rgb(0%, 0%, 0%)" width="0.47998" x="326.76" y="28.439930000000004"></rect>
+<rect height="11.76" style="fill: rgb(0%, 0%, 0%)" width="0.47998" x="326.76" y="28.67998"></rect>
+<path d="M 349.92 57.059979999999996 L 350.52000000000004 62.15998000000002" style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)"></path>
+<path d="M 352.86 56.75998000000004 L 350.52000000000004 62.15998000000002 L 346.98 57.41998000000001" style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)"></path>
+<path d="M 348.06 40.67998 L 349.92 57.059979999999996" style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)"></path>
+<path d="M 280.14 52.919979999999896 L 275.52 55.19997999999987" style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)"></path>
+<path d="M 281.46 55.55997999999988 L 275.52 55.19997999999987 L 278.82 50.27997999999991" style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)"></path>
+<path d="M 301.97999999999996 42.17997999999989 L 280.14 52.919979999999896" style="fill-rule: nonzero; stroke: rgb(0%, 0%, 0%)"></path>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.518pt; fill: #000" textLength="3.509999999999991" x="440.70000000000005" y="23.795979999999957">0</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.518000000000029pt; fill: #000" textLength="14.071200000000005" x="62.04000000000008" y="35.97598000000005">imm8</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.518000000000029pt; fill: #000" textLength="9.752400000000023" x="297.06" y="37.17597999999998">SPE</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.518000000000029pt; fill: #000" textLength="6.786000000000001" x="344.5800000000001" y="37.17597999999998">RS</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.518000000000029pt; fill: #000" textLength="59.081999999999766" x="390.6000000000001" y="37.65598">Round Control Override</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.518000000000029pt; fill: #000" textLength="45.73079999999996" x="164.10000000000008" y="37.65598">Fixed point length</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.518000000000029pt; fill: #000" textLength="97.74299999999994" x="223.56" y="62.55597999999998">Suppress Precision Exception: Imm8[3]</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.518000000000029pt; fill: #000" textLength="97.52819999999957" x="438.6000000000001" y="65.19597999999996">Imm8[1:0] = 00b : Round nearest even</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.518000000000029pt; fill: #000" textLength="57.25860000000023" x="341.58" y="71.49598000000003">Round Select: Imm8[2]</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.518000000000029pt; fill: #000" textLength="108.28260000000017" x="223.56" y="72.39598000000001">Imm8[3] = 0b : Use MXCSR exception mask</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.518000000000029pt; fill: #000" textLength="119.16899999999998" x="81.54000000000008" y="74.67597999999998">Imm8[7:4] : Number of fixed points to preserve</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.518000000000029pt; fill: #000" textLength="78.3078000000001" x="438.6000000000001" y="75.03598">Imm8[1:0] = 01b : Round down</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.518000000000029pt; fill: #000" textLength="75.62339999999995" x="341.58" y="81.33598000000006">Imm8[2] = 0b : Use Imm8[1:0]</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.518000000000029pt; fill: #000" textLength="61.65899999999988" x="223.56" y="82.23598000000004">Imm8[3] = 1b : Suppress</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.518000000000029pt; fill: #000" textLength="70.61399999999992" x="438.6000000000001" y="84.81597999999997">Imm8[1:0] = 10b : Round up</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.518000000000029pt; fill: #000" textLength="67.53539999999992" x="341.58" y="91.1759800000001">Imm8[2] = 1b : Use MXCSR</text>
+<text lengthAdjust="spacingAndGlyphs" style="font-size: 7.518000000000029pt; fill: #000" textLength="69.32459999999992" x="438.6000000000001" y="94.65598">Imm8[1:0] = 11b : Truncate</text></g></svg>
 <figcaption><a href="VRNDSCALEPD.html#fig-5-29">Figure 5-29</a>. Imm8 Controls for VRNDSCALEPD/SD/PS/SS</figcaption></figure>
 <p>Handling of special case of input values are listed in <a href="VRNDSCALEPD.html#tbl-5-25">Table 5-25</a>.</p>
 <figure id="tbl-5-25">
@@ -130,18 +130,20 @@
 		</a></h3>
 <pre>RoundToIntegerDP(SRC[63:0], imm8[7:0]) {
     if (imm8[2] = 1)
-        rounding_direction&larr;MXCSR:RC
+        rounding_direction := MXCSR:RC
                     ; get round control from MXCSR
     else
-        rounding_direction&larr;imm8[1:0]
-    M&larr;imm8[7:4] ; get the scaling factor
+        rounding_direction := imm8[1:0]
+                    ; get round control from imm8[1:0]
+    FI
+    M := imm8[7:4] ; get the scaling factor
     case (rounding_direction)
-    00: TMP[63:0]&larr;round_to_nearest_even_integer(2<sup>M</sup>*SRC[63:0])
-    01: TMP[63:0]&larr;round_to_equal_or_smaller_integer(2<sup>M</sup>*SRC[63:0])
-    10: TMP[63:0]&larr;round_to_equal_or_larger_integer(2<sup>M</sup>*SRC[63:0])
-    11: TMP[63:0]&larr;round_to_nearest_smallest_magnitude_integer(2<sup>M</sup>*SRC[63:0])
+    00: TMP[63:0] := round_to_nearest_even_integer(2<sup>M</sup>*SRC[63:0])
+    01: TMP[63:0] := round_to_equal_or_smaller_integer(2<sup>M</sup>*SRC[63:0])
+    10: TMP[63:0] := round_to_equal_or_larger_integer(2<sup>M</sup>*SRC[63:0])
+    11: TMP[63:0] := round_to_nearest_smallest_magnitude_integer(2<sup>M</sup>*SRC[63:0])
     ESAC
-    Dest[63:0]&larr;2<sup>-M</sup>* TMP[63:0]
+    Dest[63:0] := 2<sup>-M</sup>* TMP[63:0]
                 ; scale down back to 2<sup>-M</sup>
     if (imm8[3] = 0) Then ; check SPE
         if (SRC[63:0] != Dest[63:0]) Then
@@ -158,23 +160,22 @@
 		</a></h4>
 <pre>(KL, VL) = (2, 128), (4, 256), (8, 512)
 IF *src is a memory operand*
-    THEN TMP_SRC&larr;BROADCAST64(SRC, VL, k1)
-    ELSE TMP_SRC&larr;SRC
+    THEN TMP_SRC := BROADCAST64(SRC, VL, k1)
+    ELSE TMP_SRC := SRC
 FI;
-FOR j&larr;0 TO KL-1
-    i&larr;j * 64
+FOR j := 0 TO KL-1
+    i := j * 64
     IF k1[j] OR *no writemask*
-        THEN DEST[i+63:i]&larr;RoundToIntegerDP((TMP_SRC[i+63:i], imm8[7:0])
+        THEN DEST[i+63:i] := RoundToIntegerDP((TMP_SRC[i+63:i], imm8[7:0])
     ELSE
         IF *merging-masking* ; merging-masking
             THEN *DEST[i+63:i] remains unchanged*
-            ELSE
-                    ; zeroing-masking
-                DEST[i+63:i] &larr; 0
+            ELSE ; zeroing-masking
+                DEST[i+63:i] := 0
         FI;
     FI;
 ENDFOR;
-DEST[MAXVL-1:VL] &larr; 0
+DEST[MAXVL-1:VL] := 0
 </pre>
 <h3 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="VRNDSCALEPD.html#intel-c-c++-compiler-intrinsic-equivalent">
 			&para;
@@ -211,9 +212,9 @@ DEST[MAXVL-1:VL] &larr; 0
 <h3 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="VRNDSCALEPD.html#other-exceptions">
 			&para;
 		</a></h3>
-<p>See Exceptions Type E2.</p><footer><p>
+<p>See <span class="not-imported">Table 2-46</span>, &ldquo;Type E2 Class Exception Conditions&rdquo;.</p><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

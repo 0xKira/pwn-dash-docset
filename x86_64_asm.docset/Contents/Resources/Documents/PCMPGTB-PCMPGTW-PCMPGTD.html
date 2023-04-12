@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-337"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/PCMPGTB%2FPCMPGTW%2FPCMPGTD"></a><title>PCMPGTB/PCMPGTW/PCMPGTD</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>PCMPGTB/PCMPGTW/PCMPGTD
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-346"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/PCMPGTB%2FPCMPGTW%2FPCMPGTD"></a><title>PCMPGTB/PCMPGTW/PCMPGTD</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>PCMPGTB/PCMPGTW/PCMPGTD
 		&mdash; Compare Packed Signed Integers for Greater Than</h1>
 
 
@@ -197,194 +197,183 @@
 			&para;
 		</a></h3>
 <pre>IF DEST[7:0] &gt; SRC[7:0]
-    THEN DEST[7:0) &larr; FFH;
-    ELSE DEST[7:0] &larr; 0; FI;
+    THEN DEST[7:0) := FFH;
+    ELSE DEST[7:0] := 0; FI;
 (* Continue comparison of 2nd through 7th bytes in DEST and SRC *)
 IF DEST[63:56] &gt; SRC[63:56]
-    THEN DEST[63:56] &larr; FFH;
-    ELSE DEST[63:56] &larr; 0; FI;
+    THEN DEST[63:56] := FFH;
+    ELSE DEST[63:56] := 0; FI;
 </pre>
 <h3 id="compare_bytes_greater--src1--src2-">COMPARE_BYTES_GREATER (SRC1, SRC2)<a class="anchor" href="./PCMPGTB:PCMPGTW:PCMPGTD.html#compare_bytes_greater--src1--src2-">
 			&para;
 		</a></h3>
 <pre>    IF SRC1[7:0] &gt; SRC2[7:0]
-    THEN DEST[7:0]&larr;FFH;
-    ELSE DEST[7:0]&larr;0; FI;
+    THEN DEST[7:0] := FFH;
+    ELSE DEST[7:0] := 0; FI;
 (* Continue comparison of 2nd through 15th bytes in SRC1 and SRC2 *)
     IF SRC1[127:120] &gt; SRC2[127:120]
-    THEN DEST[127:120]&larr;FFH;
-    ELSE DEST[127:120]&larr;0; FI;
+    THEN DEST[127:120] := FFH;
+    ELSE DEST[127:120] := 0; FI;
 </pre>
 <h3 id="compare_words_greater--src1--src2-">COMPARE_WORDS_GREATER (SRC1, SRC2)<a class="anchor" href="./PCMPGTB:PCMPGTW:PCMPGTD.html#compare_words_greater--src1--src2-">
 			&para;
 		</a></h3>
 <pre>    IF SRC1[15:0] &gt; SRC2[15:0]
-    THEN DEST[15:0]&larr;FFFFH;
-    ELSE DEST[15:0]&larr;0; FI;
+    THEN DEST[15:0] := FFFFH;
+    ELSE DEST[15:0] := 0; FI;
 (* Continue comparison of 2nd through 7th 16-bit words in SRC1 and SRC2 *)
     IF SRC1[127:112] &gt; SRC2[127:112]
-    THEN DEST[127:112]&larr;FFFFH;
-    ELSE DEST[127:112]&larr;0; FI;
+    THEN DEST[127:112] := FFFFH;
+    ELSE DEST[127:112] := 0; FI;
 </pre>
 <h3 id="compare_dwords_greater--src1--src2-">COMPARE_DWORDS_GREATER (SRC1, SRC2)<a class="anchor" href="./PCMPGTB:PCMPGTW:PCMPGTD.html#compare_dwords_greater--src1--src2-">
 			&para;
 		</a></h3>
 <pre>    IF SRC1[31:0] &gt; SRC2[31:0]
-    THEN DEST[31:0]&larr;FFFFFFFFH;
-    ELSE DEST[31:0]&larr;0; FI;
+    THEN DEST[31:0] := FFFFFFFFH;
+    ELSE DEST[31:0] := 0; FI;
 (* Continue comparison of 2nd through 3rd 32-bit dwords in SRC1 and SRC2 *)
     IF SRC1[127:96] &gt; SRC2[127:96]
-    THEN DEST[127:96]&larr;FFFFFFFFH;
-    ELSE DEST[127:96]&larr;0; FI;
+    THEN DEST[127:96] := FFFFFFFFH;
+    ELSE DEST[127:96] := 0; FI;
 </pre>
 <h3 id="pcmpgtb--with-128-bit-operands-">PCMPGTB (with 128-bit operands)<a class="anchor" href="./PCMPGTB:PCMPGTW:PCMPGTD.html#pcmpgtb--with-128-bit-operands-">
 			&para;
 		</a></h3>
-<pre>DEST[127:0] &larr;COMPARE_BYTES_GREATER(DEST[127:0],SRC[127:0])
+<pre>DEST[127:0] := COMPARE_BYTES_GREATER(DEST[127:0],SRC[127:0])
 DEST[MAXVL-1:128] (Unmodified)
 </pre>
 <h3 id="vpcmpgtb--vex-128-encoded-version-">VPCMPGTB (VEX.128 encoded version)<a class="anchor" href="./PCMPGTB:PCMPGTW:PCMPGTD.html#vpcmpgtb--vex-128-encoded-version-">
 			&para;
 		</a></h3>
-<pre>DEST[127:0] &larr;COMPARE_BYTES_GREATER(SRC1,SRC2)
-DEST[MAXVL-1:128] &larr; 0
+<pre>DEST[127:0] := COMPARE_BYTES_GREATER(SRC1,SRC2)
+DEST[MAXVL-1:128] := 0
 </pre>
 <h3 id="vpcmpgtb--vex-256-encoded-version-">VPCMPGTB (VEX.256 encoded version)<a class="anchor" href="./PCMPGTB:PCMPGTW:PCMPGTD.html#vpcmpgtb--vex-256-encoded-version-">
 			&para;
 		</a></h3>
-<pre>DEST[127:0] &larr;COMPARE_BYTES_GREATER(SRC1[127:0],SRC2[127:0])
-DEST[255:128] &larr;COMPARE_BYTES_GREATER(SRC1[255:128],SRC2[255:128])
-DEST[MAXVL-1:256] &larr; 0
+<pre>DEST[127:0] := COMPARE_BYTES_GREATER(SRC1[127:0],SRC2[127:0])
+DEST[255:128] := COMPARE_BYTES_GREATER(SRC1[255:128],SRC2[255:128])
+DEST[MAXVL-1:256] := 0
 </pre>
 <h3 id="vpcmpgtb--evex-encoded-versions-">VPCMPGTB (EVEX encoded versions)<a class="anchor" href="./PCMPGTB:PCMPGTW:PCMPGTD.html#vpcmpgtb--evex-encoded-versions-">
 			&para;
 		</a></h3>
 <pre>(KL, VL) = (16, 128), (32, 256), (64, 512)
-FOR j&larr;0 TO KL-1
-    i&larr;j * 8
+FOR j := 0 TO KL-1
+    i := j * 8
     IF k2[j] OR *no writemask*
         THEN
             /* signed comparison */
-            CMP&larr;SRC1[i+7:i] &gt; SRC2[i+7:i];
+            CMP := SRC1[i+7:i] &gt; SRC2[i+7:i];
             IF CMP = TRUE
-                THEN DEST[j]&larr;1;
-                ELSE DEST[j]&larr;0; FI;
-        ELSE DEST[j]&larr;0
+                THEN DEST[j] := 1;
+                ELSE DEST[j] := 0; FI;
+        ELSE DEST[j] := 0
                     ; zeroing-masking onlyFI;
     FI;
 ENDFOR
-DEST[MAX_KL-1:KL] &larr; 0
+DEST[MAX_KL-1:KL] := 0
 </pre>
 <h3 id="pcmpgtw--with-64-bit-operands-">PCMPGTW (with 64-bit operands)<a class="anchor" href="./PCMPGTB:PCMPGTW:PCMPGTD.html#pcmpgtw--with-64-bit-operands-">
 			&para;
 		</a></h3>
 <pre>IF DEST[15:0] &gt; SRC[15:0]
-    THEN DEST[15:0] &larr; FFFFH;
-    ELSE DEST[15:0] &larr; 0; FI;
+    THEN DEST[15:0] := FFFFH;
+    ELSE DEST[15:0] := 0; FI;
 (* Continue comparison of 2nd and 3rd words in DEST and SRC *)
 IF DEST[63:48] &gt; SRC[63:48]
-    THEN DEST[63:48] &larr; FFFFH;
-    ELSE DEST[63:48] &larr; 0; FI;
+    THEN DEST[63:48] := FFFFH;
+    ELSE DEST[63:48] := 0; FI;
 </pre>
 <h3 id="pcmpgtw--with-128-bit-operands-">PCMPGTW (with 128-bit operands)<a class="anchor" href="./PCMPGTB:PCMPGTW:PCMPGTD.html#pcmpgtw--with-128-bit-operands-">
 			&para;
 		</a></h3>
-<pre>DEST[127:0] &larr;COMPARE_WORDS_GREATER(DEST[127:0],SRC[127:0])
+<pre>DEST[127:0] := COMPARE_WORDS_GREATER(DEST[127:0],SRC[127:0])
 DEST[MAXVL-1:128] (Unmodified)
 </pre>
 <h3 id="vpcmpgtw--vex-128-encoded-version-">VPCMPGTW (VEX.128 encoded version)<a class="anchor" href="./PCMPGTB:PCMPGTW:PCMPGTD.html#vpcmpgtw--vex-128-encoded-version-">
 			&para;
 		</a></h3>
-<pre>DEST[127:0] &larr;COMPARE_WORDS_GREATER(SRC1,SRC2)
-DEST[MAXVL-1:128] &larr; 0
+<pre>DEST[127:0] := COMPARE_WORDS_GREATER(SRC1,SRC2)
+DEST[MAXVL-1:128] := 0
 </pre>
 <h3 id="vpcmpgtw--vex-256-encoded-version-">VPCMPGTW (VEX.256 encoded version)<a class="anchor" href="./PCMPGTB:PCMPGTW:PCMPGTD.html#vpcmpgtw--vex-256-encoded-version-">
 			&para;
 		</a></h3>
-<pre>DEST[127:0] &larr;COMPARE_WORDS_GREATER(SRC1[127:0],SRC2[127:0])
-DEST[255:128] &larr;COMPARE_WORDS_GREATER(SRC1[255:128],SRC2[255:128])
-DEST[MAXVL-1:256] &larr; 0
+<pre>DEST[127:0] := COMPARE_WORDS_GREATER(SRC1[127:0],SRC2[127:0])
+DEST[255:128] := COMPARE_WORDS_GREATER(SRC1[255:128],SRC2[255:128])
+DEST[MAXVL-1:256] := 0
 </pre>
 <h3 id="vpcmpgtw--evex-encoded-versions-">VPCMPGTW (EVEX encoded versions)<a class="anchor" href="./PCMPGTB:PCMPGTW:PCMPGTD.html#vpcmpgtw--evex-encoded-versions-">
 			&para;
 		</a></h3>
 <pre>(KL, VL) = (8, 128), (16, 256), (32, 512)
-FOR j&larr;0 TO KL-1
-            i&larr;j * 16
-            IF k2[j] OR *no writemask*
-                THEN
-                    /* signed comparison */
-                    CMP&larr;SRC1[i+15:i] &gt; SRC2[i+15:i];
-                    IF CMP = TRUE
-                        THEN DEST[j]&larr;1;
-                        ELSE DEST[j]&larr;0; FI;
-                ELSE DEST[j]&larr;0
-                            ; zeroing-masking onlyFI;
-E
-FI;
-    N
-FI;
-        D
-FI;
-            F
-FI;
-            O
-FI;
-            R
-FI;
-            FI;
-DEST[MAX_KL-1:KL] &larr; 0
+FOR j := 0 TO KL-1
+    i := j * 16
+    IF k2[j] OR *no writemask*
+        THEN
+            /* signed comparison */
+            CMP := SRC1[i+15:i] &gt; SRC2[i+15:i];
+            IF CMP = TRUE
+                THEN DEST[j] := 1;
+                ELSE DEST[j] := 0; FI;
+        ELSE DEST[j] := 0
+                    ; zeroing-masking onlyFI;
+    FI;
+ENDFOR
+DEST[MAX_KL-1:KL] := 0
 </pre>
 <h3 id="pcmpgtd--with-64-bit-operands-">PCMPGTD (with 64-bit operands)<a class="anchor" href="./PCMPGTB:PCMPGTW:PCMPGTD.html#pcmpgtd--with-64-bit-operands-">
 			&para;
 		</a></h3>
 <pre>IF DEST[31:0] &gt; SRC[31:0]
-    THEN DEST[31:0] &larr; FFFFFFFFH;
-    ELSE DEST[31:0] &larr; 0; FI;
+    THEN DEST[31:0] := FFFFFFFFH;
+    ELSE DEST[31:0] := 0; FI;
 IF DEST[63:32] &gt; SRC[63:32]
-    THEN DEST[63:32] &larr; FFFFFFFFH;
-    ELSE DEST[63:32] &larr; 0; FI;
+    THEN DEST[63:32] := FFFFFFFFH;
+    ELSE DEST[63:32] := 0; FI;
 </pre>
 <h3 id="pcmpgtd--with-128-bit-operands-">PCMPGTD (with 128-bit operands)<a class="anchor" href="./PCMPGTB:PCMPGTW:PCMPGTD.html#pcmpgtd--with-128-bit-operands-">
 			&para;
 		</a></h3>
-<pre>DEST[127:0] &larr;COMPARE_DWORDS_GREATER(DEST[127:0],SRC[127:0])
+<pre>DEST[127:0] := COMPARE_DWORDS_GREATER(DEST[127:0],SRC[127:0])
 DEST[MAXVL-1:128] (Unmodified)
 </pre>
 <h3 id="vpcmpgtd--vex-128-encoded-version-">VPCMPGTD (VEX.128 encoded version)<a class="anchor" href="./PCMPGTB:PCMPGTW:PCMPGTD.html#vpcmpgtd--vex-128-encoded-version-">
 			&para;
 		</a></h3>
-<pre>DEST[127:0] &larr;COMPARE_DWORDS_GREATER(SRC1,SRC2)
-DEST[MAXVL-1:128] &larr; 0
+<pre>DEST[127:0] := COMPARE_DWORDS_GREATER(SRC1,SRC2)
+DEST[MAXVL-1:128] := 0
 </pre>
 <h3 id="vpcmpgtd--vex-256-encoded-version-">VPCMPGTD (VEX.256 encoded version)<a class="anchor" href="./PCMPGTB:PCMPGTW:PCMPGTD.html#vpcmpgtd--vex-256-encoded-version-">
 			&para;
 		</a></h3>
-<pre>DEST[127:0] &larr;COMPARE_DWORDS_GREATER(SRC1[127:0],SRC2[127:0])
-DEST[255:128] &larr;COMPARE_DWORDS_GREATER(SRC1[255:128],SRC2[255:128])
-DEST[MAXVL-1:256] &larr; 0
+<pre>DEST[127:0] := COMPARE_DWORDS_GREATER(SRC1[127:0],SRC2[127:0])
+DEST[255:128] := COMPARE_DWORDS_GREATER(SRC1[255:128],SRC2[255:128])
+DEST[MAXVL-1:256] := 0
 </pre>
 <h3 id="vpcmpgtd--evex-encoded-versions-">VPCMPGTD (EVEX encoded versions)<a class="anchor" href="./PCMPGTB:PCMPGTW:PCMPGTD.html#vpcmpgtd--evex-encoded-versions-">
 			&para;
 		</a></h3>
 <pre>(KL, VL) = (4, 128), (8, 256), (8, 512)
-FOR j&larr;0 TO KL-1
-    i&larr;j * 32
+FOR j := 0 TO KL-1
+    i := j * 32
     IF k2[j] OR *no writemask*
         THEN
             /* signed comparison */
             IF (EVEX.b = 1) AND (SRC2 *is memory*)
-                THEN CMP&larr;SRC1[i+31:i] &gt; SRC2[31:0];
-                ELSE CMP&larr;SRC1[i+31:i] &gt; SRC2[i+31:i];
+                THEN CMP := SRC1[i+31:i] &gt; SRC2[31:0];
+                ELSE CMP := SRC1[i+31:i] &gt; SRC2[i+31:i];
             FI;
             IF CMP = TRUE
-                THEN DEST[j]&larr;1;
-                ELSE DEST[j]&larr;0; FI;
-        ELSE DEST[j]&larr;0
+                THEN DEST[j] := 1;
+                ELSE DEST[j] := 0; FI;
+        ELSE DEST[j] := 0
                     ; zeroing-masking only
     FI;
 ENDFOR
-DEST[MAX_KL-1:KL] &larr; 0
+DEST[MAX_KL-1:KL] := 0
 </pre>
 <h2 id="intel-c-c++-compiler-intrinsic-equivalents">Intel C/C++ Compiler Intrinsic Equivalents<a class="anchor" href="./PCMPGTB:PCMPGTW:PCMPGTD.html#intel-c-c++-compiler-intrinsic-equivalents">
 			&para;
@@ -454,11 +443,11 @@ DEST[MAX_KL-1:KL] &larr; 0
 <h2 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="./PCMPGTB:PCMPGTW:PCMPGTD.html#other-exceptions">
 			&para;
 		</a></h2>
-<p>Non-EVEX-encoded instruction, see Exceptions Type 4.</p>
-<p>EVEX-encoded VPCMPGTD, see Exceptions Type E4.</p>
-<p>EVEX-encoded VPCMPGTB/W, see Exceptions Type E4.nb.</p><footer><p>
+<p>Non-EVEX-encoded instruction, see <span class="not-imported">Table 2-21</span>, &ldquo;Type 4 Class Exception Conditions&rdquo;.</p>
+<p>EVEX-encoded VPCMPGTD, see <span class="not-imported">Table 2-49</span>, &ldquo;Type E4 Class Exception Conditions&rdquo;.</p>
+<p>EVEX-encoded VPCMPGTB/W, see Exceptions Type E4.nb in <span class="not-imported">Table 2-49</span>, &ldquo;Type E4 Class Exception Conditions&rdquo;.</p><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

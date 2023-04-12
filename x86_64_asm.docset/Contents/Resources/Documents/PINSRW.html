@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-351"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/PINSRW"></a><title>PINSRW</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>PINSRW
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-361"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/PINSRW"></a><title>PINSRW</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>PINSRW
 		&mdash; Insert Word</h1>
 
 <table>
@@ -9,29 +9,29 @@
 <th>CPUID Feature Flag</th>
 <th>Description</th></tr>
 <tr>
-<td>NP 0F C4 /<em>r</em> ib<sup>1</sup> PINSRW <em>mm</em>, <em>r32/m16, imm8</em></td>
+<td>NP 0F C4 /<em>r</em> ib<sup>1</sup> PINSRW mm, r32/m16, imm8</td>
 <td>A</td>
 <td>V/V</td>
 <td>SSE</td>
-<td>Insert the low word from <em>r32</em> or from <em>m16</em> into <em>mm</em> at the word position specified by <em>imm8.</em></td></tr>
+<td>Insert the low word from r32 or from m16 into mm at the word position specified by imm8.</td></tr>
 <tr>
-<td>66 0F C4 /<em>r</em> ib PINSRW <em>xmm, r32/m16, imm8</em></td>
+<td>66 0F C4 /<em>r</em> ib PINSRW xmm, r32/m16, imm8</td>
 <td>A</td>
 <td>V/V</td>
 <td>SSE2</td>
-<td>Move the low word of <em>r32</em> or from <em>m16</em> into <em>xmm</em> at the word position specified by <em>imm8</em>.</td></tr>
+<td>Move the low word of r32 or from m16 into xmm at the word position specified by imm8.</td></tr>
 <tr>
-<td>VEX.128.66.0F.W0 C4 /r ib VPINSRW <em>xmm1, xmm2, r32/m16, imm8</em></td>
+<td>VEX.128.66.0F.W0 C4 /r ib VPINSRW xmm1, xmm2, r32/m16, imm8</td>
 <td>B</td>
 <td>V<sup>2</sup>/V</td>
 <td>AVX</td>
-<td>Insert a word integer value from <em>r32/m16</em> and rest from <em>xmm2</em> into <em>xmm1</em> at the word offset in <em>imm8</em>.</td></tr>
+<td>Insert the word from r32/m16 at the offset indicated by imm8 into the value from xmm2 and store result in xmm1.</td></tr>
 <tr>
 <td>EVEX.128.66.0F.WIG C4 /r ib VPINSRW xmm1, xmm2, r32/m16, imm8</td>
 <td>C</td>
 <td>V/V</td>
 <td>AVX512BW</td>
-<td>Insert a word integer value from r32/m16 and rest from xmm2 into xmm1 at the word offset in imm8.</td></tr></tbody></table>
+<td>Insert the word from r32/m16 at the offset indicated by imm8 into the value from xmm2 and store result in xmm1.</td></tr></tbody></table>
 <blockquote>
 <p>1. See note in Section 2.4, &ldquo;AVX and SSE Instruction Exception Specification&rdquo; in the <em>Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 2A</em> and Section 22.25.3, &ldquo;Exception Conditions of Legacy SIMD Instructions Operating on MMX Registers&rdquo; in the <em>Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 3A</em>.</p>
 <p>2. In 64-bit mode, VEX.W1 is ignored for VPINSRW (similar to legacy REX.W=1 prefix in PINSRW).</p></blockquote>
@@ -70,58 +70,34 @@
 <h2 id="description">Description<a class="anchor" href="PINSRW.html#description">
 			&para;
 		</a></h2>
-<p>Copies a word from the source operand (second operand) and inserts it in the destination operand (first operand) at the location specified with the count operand (third operand). (The other words in the destination register are left untouched.) The source operand can be a general-purpose register or a 16-bit memory location. (When the source operand is a general-purpose register, the low word of the register is copied.) The destination operand can be an MMX technology register or an XMM register. The count operand is an 8-bit immediate. When specifying a word location in an MMX technology register, the 2 least-significant bits of the count operand specify the location; for an XMM register, the 3 least-significant bits specify the location.</p>
-<p>In 64-bit mode and not encoded with VEX/EVEX, using a REX prefix in the form of REX.R permits this instruction to access additional registers (XMM8-XMM15, R8-15).</p>
-<p>128-bit Legacy SSE version: Bits (MAXVL-1:128) of the corresponding YMM destination register remain unchanged.</p>
-<p>VEX.128 encoded version: Bits (MAXVL-1:128) of the destination YMM register are zeroed. VEX.L must be 0, otherwise the instruction will #UD.</p>
-<p>EVEX.128 encoded version: Bits (MAXVL-1:128) of the destination register are zeroed. EVEX.L&rsquo;L must be 0, otherwise the instruction will #UD.</p>
+<p>Three operand MMX and SSE instructions:</p>
+<p>Copies a word from the source operand and inserts it in the destination operand at the location specified with the count operand. (The other words in the destination register are left untouched.) The source operand can be a general-purpose register or a 16-bit memory location. (When the source operand is a general-purpose register, the low word of the register is copied.) The destination operand can be an MMX technology register or an XMM register. The count operand is an 8-bit immediate. When specifying a word location in an MMX technology register, the 2 least-significant bits of the count operand specify the location; for an XMM register, the 3 least-significant bits specify the location.</p>
+<p>Bits (MAXVL-1:128) of the corresponding YMM destination register remain unchanged.</p>
+<p>Four operand AVX and AVX-512 instructions:</p>
+<p>Combines a word from the first source operand with the second source operand, and inserts it in the destination operand at the location specified with the count operand. The second source operand can be a general-purpose register or a 16-bit memory location. (When the source operand is a general-purpose register, the low word of the register is copied.) The first source and destination operands are XMM registers. The count operand is an 8-bit immediate. When specifying a word location, the 3 least-significant bits specify the location.</p>
+<p>Bits (MAXVL-1:128) of the destination YMM register are zeroed. VEX.L/EVEX.L&rsquo;L must be 0, otherwise the instruction will #UD.</p>
 <h2 id="operation">Operation<a class="anchor" href="PINSRW.html#operation">
 			&para;
 		</a></h2>
-<h3 id="pinsrw--with-64-bit-source-operand-">PINSRW (with 64-bit source operand)<a class="anchor" href="PINSRW.html#pinsrw--with-64-bit-source-operand-">
+<h3 id="pinsrw-dest--src--imm8--mmx-">PINSRW dest, src, imm8 (MMX)<a class="anchor" href="PINSRW.html#pinsrw-dest--src--imm8--mmx-">
 			&para;
 		</a></h3>
-<pre>SEL &larr; COUNT AND 3H;
-    CASE (Determine word position) OF
-        SEL&larr;0:
-            MASK &larr; 000000000000FFFFH;
-        SEL&larr;1:
-            MASK &larr; 00000000FFFF0000H;
-        SEL&larr;2:
-            MASK &larr; 0000FFFF00000000H;
-        SEL&larr;3:
-            MASK &larr; FFFF000000000000H;
-DEST &larr; (DEST AND NOT MASK) OR (((SRC &lt;&lt; (SEL &lowast; 16)) AND MASK);
+<pre>SEL := imm8[1:0]
+DEST.word[SEL] := src.word[0]
 </pre>
-<h3 id="pinsrw--with-128-bit-source-operand-">PINSRW (with 128-bit source operand)<a class="anchor" href="PINSRW.html#pinsrw--with-128-bit-source-operand-">
+<h3 id="pinsrw-dest--src--imm8--sse-">PINSRW dest, src, imm8 (SSE)<a class="anchor" href="PINSRW.html#pinsrw-dest--src--imm8--sse-">
 			&para;
 		</a></h3>
-<pre>SEL &larr; COUNT AND 7H;
-    CASE (Determine word position) OF
-        SEL&larr;0:
-            MASK &larr; 0000000000000000000000000000FFFFH;
-        SEL&larr;1:
-            MASK &larr; 000000000000000000000000FFFF0000H;
-        SEL&larr;2:
-            MASK &larr; 00000000000000000000FFFF00000000H;
-        SEL&larr;3:
-            MASK &larr; 0000000000000000FFFF000000000000H;
-        SEL&larr;4:
-            MASK &larr; 000000000000FFFF0000000000000000H;
-        SEL&larr;5:
-            MASK &larr; 00000000FFFF00000000000000000000H;
-        SEL&larr;6:
-            MASK &larr; 0000FFFF000000000000000000000000H;
-        SEL&larr;7:
-            MASK &larr; FFFF0000000000000000000000000000H;
-DEST &larr; (DEST AND NOT MASK) OR (((SRC &lt;&lt; (SEL &lowast; 16)) AND MASK);
+<pre>SEL := imm8[2:0]
+DEST.word[SEL] := src.word[0]
 </pre>
-<h3 id="vpinsrw--vex-evex-encoded-version-">VPINSRW (VEX/EVEX encoded version)<a class="anchor" href="PINSRW.html#vpinsrw--vex-evex-encoded-version-">
+<h3 id="vpinsrw-dest--src1--src2--imm8--avx-avx512-">VPINSRW dest, src1, src2, imm8 (AVX/AVX512)<a class="anchor" href="PINSRW.html#vpinsrw-dest--src1--src2--imm8--avx-avx512-">
 			&para;
 		</a></h3>
-<pre>SEL &larr; imm8[2:0]
-DEST[127:0]&larr;write_w_element(SEL, SRC2, SRC1)
-DEST[MAXVL-1:128] &larr; 0
+<pre>SEL := imm8[2:0]
+DEST := src1
+DEST.word[SEL] := src2.word[0]
+DEST[MAXVL-1:128] := 0
 </pre>
 <h2 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="PINSRW.html#intel-c-c++-compiler-intrinsic-equivalent">
 			&para;
@@ -141,14 +117,15 @@ DEST[MAXVL-1:128] &larr; 0
 <h2 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="PINSRW.html#other-exceptions">
 			&para;
 		</a></h2>
-<p>EVEX-encoded instruction, see Exceptions Type 5;</p>
-<p>EVEX-encoded instruction, see Exceptions Type E9NF.</p>
+<p>EVEX-encoded instruction, see <span class="not-imported">Table 2-22</span>, &ldquo;Type 5 Class Exception Conditions&rdquo;.</p>
+<p>EVEX-encoded instruction, see <span class="not-imported">Table 2-57</span>, &ldquo;Type E9NF Class Exception Conditions&rdquo;.</p>
+<p>Additionally:</p>
 <table>
 <tbody><tr>
 <td>#UD</td>
 <td>If VEX.L = 1 or EVEX.L&rsquo;L &gt; 0.</td></tr></tbody></table><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

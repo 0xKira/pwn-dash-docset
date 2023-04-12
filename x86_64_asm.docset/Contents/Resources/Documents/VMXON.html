@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-579"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/VMXON"></a><title>VMXON</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>VMXON
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-594"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/VMXON"></a><title>VMXON</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>VMXON
 		&mdash; Enter VMX Operation</h1>
 
 <table>
@@ -45,16 +45,16 @@ ELSIF not in VMX operation
         (outside SMX operation and bit 2 of IA32_FEATURE_CONTROL MSR is clear)
             THEN #GP(0);
             ELSE
-                addr &larr; contents of 64-bit in-memory source operand;
+                addr := contents of 64-bit in-memory source operand;
                 IF addr is not 4KB-aligned or
                 addr sets any bits beyond the physical-address width<sup>12</sup>
                     THEN VMfailInvalid;
                     ELSE
-                        rev &larr; 32 bits located at physical address addr;
+                        rev := 32 bits located at physical address addr;
                         IF rev[30:0] ≠ VMCS revision identifier supported by processor OR rev[31] = 1
                             THEN VMfailInvalid;
                             ELSE
-                                current-VMCS pointer &larr; FFFFFFFF_FFFFFFFFH;
+                                current-VMCS pointer := FFFFFFFF_FFFFFFFFH;
                                 enter VMX operation;
                                 block INIT signals;
                                 block and disable A20M;
@@ -65,7 +65,7 @@ ELSIF not in VMX operation
 <p>12. If IA32_VMX_BASIC[48] is read as 1, VMfailInvalid occurs if addr sets any bits in the range 63:32; see Appendix A.1.</p></blockquote>
 <pre>                    clear address-range monitoring;
                     IF the processor supports Intel PT but does not allow it to be used in VMX operation<sup>13</sup>
-                        THEN IA32_RTIT_CTL.TraceEn &larr; 0;
+                        THEN IA32_RTIT_CTL.TraceEn := 0;
                     FI;
                     VMsucceed;
                 FI;
@@ -161,6 +161,6 @@ FI;
 <td>If executed with CR4.VMXE = 0.</td></tr></tbody></table><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

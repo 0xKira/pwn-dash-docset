@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-250"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/LZCNT"></a><title>LZCNT</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>LZCNT
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-260"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/LZCNT"></a><title>LZCNT</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>LZCNT
 		&mdash; Count the Number of Leading Zero Bits</h1>
 
 <table>
@@ -9,38 +9,23 @@
 <th>CPUID Feature Flag</th>
 <th>Description</th></tr>
 <tr>
-<td>F3 0F BD /r</td>
+<td>F3 0F BD /r LZCNT r16, r/m16</td>
 <td>RM</td>
 <td>V/V</td>
 <td>LZCNT</td>
-<td rowspan="2">Count the number of leading zero bits in r/m16, return result in r16.</td></tr>
+<td>Count the number of leading zero bits in r/m16, return result in r16.</td></tr>
 <tr>
-<td>LZCNT r16, r/m16</td>
-<td></td>
-<td></td>
-<td></td></tr>
-<tr>
-<td>F3 0F BD /r</td>
+<td>F3 0F BD /r LZCNT r32, r/m32</td>
 <td>RM</td>
 <td>V/V</td>
 <td>LZCNT</td>
-<td rowspan="2">Count the number of leading zero bits in r/m32, return result in r32.</td></tr>
+<td>Count the number of leading zero bits in r/m32, return result in r32.</td></tr>
 <tr>
-<td>LZCNT r32, r/m32</td>
-<td></td>
-<td></td>
-<td></td></tr>
-<tr>
-<td>F3 REX.W 0F BD /r</td>
+<td>F3 REX.W 0F BD /r LZCNT r64, r/m64</td>
 <td>RM</td>
 <td>V/N.E.</td>
 <td>LZCNT</td>
-<td rowspan="2">Count the number of leading zero bits in r/m64, return result in r64.</td></tr>
-<tr>
-<td>LZCNT r64, r/m64</td>
-<td></td>
-<td></td>
-<td></td></tr></tbody></table>
+<td>Count the number of leading zero bits in r/m64, return result in r64.</td></tr></tbody></table>
 <h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="LZCNT.html#instruction-operand-encoding">
 			&para;
 		</a></h2>
@@ -66,22 +51,22 @@
 <h2 id="operation">Operation<a class="anchor" href="LZCNT.html#operation">
 			&para;
 		</a></h2>
-<pre>temp &larr; OperandSize - 1
-DEST &larr; 0
+<pre>temp := OperandSize - 1
+DEST := 0
 WHILE (temp &gt;= 0) AND (Bit(SRC, temp) = 0)
 DO
-    temp &larr; temp - 1
-    DEST &larr; DEST+ 1
+    temp := temp - 1
+    DEST := DEST+ 1
 OD
 IF DEST = OperandSize
-    CF &larr; 1
+    CF := 1
 ELSE
-    CF &larr; 0
+    CF := 0
 FI
 IF DEST = 0
-    ZF &larr; 1
+    ZF := 1
 ELSE
-    ZF &larr; 0
+    ZF := 0
 FI
 </pre>
 <h2 id="flags-affected">Flags Affected<a class="anchor" href="LZCNT.html#flags-affected">
@@ -112,7 +97,10 @@ FI
 <td>(fault-code) For a page fault.</td></tr>
 <tr>
 <td>#AC(0)</td>
-<td>If alignment checking is enabled and an unaligned memory reference is made while the current privilege level is 3.</td></tr></tbody></table>
+<td>If alignment checking is enabled and an unaligned memory reference is made while the current privilege level is 3.</td></tr>
+<tr>
+<td>#UD</td>
+<td>If LOCK prefix is used.</td></tr></tbody></table>
 <h2 class="exceptions" id="real-address-mode-exceptions">Real-Address Mode Exceptions<a class="anchor" href="LZCNT.html#real-address-mode-exceptions">
 			&para;
 		</a></h2>
@@ -122,7 +110,10 @@ FI
 <td>If any part of the operand lies outside of the effective address space from 0 to 0FFFFH.</td></tr>
 <tr>
 <td>#SS(0)</td>
-<td>For an illegal address in the SS segment.</td></tr></tbody></table>
+<td>For an illegal address in the SS segment.</td></tr>
+<tr>
+<td>#UD</td>
+<td>If LOCK prefix is used.</td></tr></tbody></table>
 <h2 class="exceptions" id="virtual-8086-mode-exceptions">Virtual 8086 Mode Exceptions<a class="anchor" href="LZCNT.html#virtual-8086-mode-exceptions">
 			&para;
 		</a></h2>
@@ -138,7 +129,10 @@ FI
 <td>(fault-code) For a page fault.</td></tr>
 <tr>
 <td>#AC(0)</td>
-<td>If alignment checking is enabled and an unaligned memory reference is made while the current privilege level is 3.</td></tr></tbody></table>
+<td>If alignment checking is enabled and an unaligned memory reference is made while the current privilege level is 3.</td></tr>
+<tr>
+<td>#UD</td>
+<td>If LOCK prefix is used.</td></tr></tbody></table>
 <h2 class="exceptions" id="compatibility-mode-exceptions">Compatibility Mode Exceptions<a class="anchor" href="LZCNT.html#compatibility-mode-exceptions">
 			&para;
 		</a></h2>
@@ -158,9 +152,12 @@ FI
 <td>(fault-code) For a page fault.</td></tr>
 <tr>
 <td>#AC(0)</td>
-<td>If alignment checking is enabled and an unaligned memory reference is made while the current privilege level is 3.</td></tr></tbody></table><footer><p>
+<td>If alignment checking is enabled and an unaligned memory reference is made while the current privilege level is 3.</td></tr>
+<tr>
+<td>#UD</td>
+<td>If LOCK prefix is used.</td></tr></tbody></table><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

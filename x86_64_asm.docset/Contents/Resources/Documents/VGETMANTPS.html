@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-563"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/VGETMANTPS"></a><title>VGETMANTPS</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>VGETMANTPS
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-578"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/VGETMANTPS"></a><title>VGETMANTPS</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>VGETMANTPS
 		&mdash; Extract Float32 Vector of Normalized Mantissas from Float32 Vector</h1>
 
 <table>
@@ -53,9 +53,7 @@
 <p><em>GetMant</em>(<em>x</em>) = <em>&plusmn;</em>2<em><sup>k</sup>|x.significand|</em></p>
 <p>where:</p>
 <p>1 <em>&lt;</em>= <em>|x.significand| &lt;</em> 2</p>
-<p>Unbiased exponent k depends on the interval range defined by interv and whether the exponent of the source is even or odd. The sign of the final result is determined by sc and the source sign.</p>
-<p>if interv != 0 then k = -1, otherwise K = 0. The encoded value of imm8[1:0] and sign control are shown</p>
-<p>in <a href="VGETMANTPD.html#fig-5-15">Figure 5-15</a>.</p>
+<p>Unbiased exponent k can be either 0 or -1, depending on the interval range defined by interv, the range of the significand and whether the exponent of the source is even or odd. The sign of the final result is determined by sc and the source sign. The encoded value of imm8[1:0] and sign control are shown in <a href="VGETMANTPD.html#fig-5-15">Figure 5-15</a>.</p>
 <p>Each converted SP FP result is encoded according to the sign control, the unbiased exponent k (adding bias) and a mantissa normalized to the range specified by interv.</p>
 <p>The GetMant() function follows <a href="VGETMANTPD.html#tbl-5-16">Table 5-16</a> when dealing with floating-point special numbers.</p>
 <p>This instruction is writemasked, so only those elements with the corresponding bit set in vector mask register k1 are computed and stored into the destination. Elements in zmm1 with the corresponding bit clear in k1 retain their previous values.</p>
@@ -63,98 +61,77 @@
 <h3 id="operation">Operation<a class="anchor" href="VGETMANTPS.html#operation">
 			&para;
 		</a></h3>
-<pre>GetNormalizeMantissaSP(SRC[31:0] , SignCtrl[1:0], Interv[1:0])
-{
-    // Extracting the SRC sign, exponent and mantissa fields
-    Dst.sign&larr;SignCtrl[0] ? 0 : Src[31]; // Get sign bit
-    Dst.exp&larr;SRC[30:23]; ; Get original exponent value
-    Dst.fraction&larr;SRC[22:0];; Get original fraction value
-    ZeroOperand&larr;(Dst.exp = 0) AND (Dst.fraction = 0);
-    DenormOperand&larr;(Dst.exp = 0h) AND (Dst.fraction != 0);
-    InfiniteOperand&larr;(Dst.exp = 0FFh) AND (Dst.fraction = 0);
-    NaNOperand&larr;(Dst.exp = 0FFh) AND (Dst.fraction != 0);
-    // Check for NAN operand
-    IF (NaNOperand)
-    { IF (SRC = SNaN) {Set #IE;}
-        Return QNAN(SRC);
-    }
-    // Check for Zero and Infinite operands
-    IF ((ZeroOperand) OR (InfiniteOperand)
-    { Dst.exp&larr;07Fh;
-                        // Override exponent with BIAS
-        Return ((Dst.sign&lt;&lt;31) | (Dst.exp&lt;&lt;23) | (Dst.fraction));
-    }
-    // Check for negative operand (including -0.0)
-    IF ((Src[31] = 1) AND SignCtrl[1])
-    { Set #IE;
-        Return QNaN_Indefinite;
-    }
-    // Checking for denormal operands
-    IF (DenormOperand)
-    { IF (MXCSR.DAZ=1) Dst.fraction&larr;0;// Zero out fraction
-        ELSE
-        {
-            // Jbit is the hidden integral bit. Zero in case of denormal operand.
-            Src.Jbit&larr;0;
-                    // Zero Src Jbit
-            Dst.exp&larr;07Fh;
-                    // Override exponent with BIAS
-            WHILE (Src.Jbit = 0) {
-                    // normalize mantissa
-                Src.Jbit&larr;Dst.fraction[22]; // Get the fraction MSB
-                Dst.fraction&larr;(Dst.fraction &lt;&lt; 1);
-                                // Start normalizing the mantissa
-                Dst.exp--; // Adjust the exponent
-            }
-            SET #DE; // Set DE bit
-        }
-    }
-    // Checking for exponent response
-    Unbiased.exp&larr;Dst.exp &ndash; 07Fh;
-                        // subtract the bias from exponent
-    IsOddExp&larr;Unbiased.exp[0];
-                        // recognized unbiased ODD exponent
-    SignalingBit &larr; Dst.fraction[22];
-    CASE (<em>interv</em>[1:0])
-        00: Dst.exp&larr;07Fh;
-                            // This is the bias
-        01: Dst.exp&larr;(IsOddExp) ? 07Eh : 07Fh;
-                                // either bias-1, or bias
-        10: Dst.exp&larr;07Eh;
-                            // bias-1
-        11: Dst.exp&larr;(SignalingBit) ? 07Eh : 07Fh;
-                                // either bias-1, or bias
-    ESAC
-    // Form the final destination
-    DEST[31:0]&larr;(Dst.sign &lt;&lt; 31) OR (Dst.exp &lt;&lt; 23) OR (Dst.fraction);
-    Return (DEST);
-}
+<pre>def getmant_fp32(src, sign_control, normalization_interval):
+    bias := 127
+    dst.sign := sign_control[0] ? 0 : src.sign
+    signed_one := sign_control[0] ? +1.0 : -1.0
+    dst.exp := src.exp
+    dst.fraction := src.fraction
+    zero := (dst.exp = 0) and ((dst.fraction = 0) or (MXCSR.DAZ=1))
+    denormal := (dst.exp = 0) and (dst.fraction != 0) and (MXCSR.DAZ=0)
+    infinity := (dst.exp = 0xFF) and (dst.fraction = 0)
+    nan := (dst.exp = 0xFF) and (dst.fraction != 0)
+    src_signaling := src.fraction[22]
+    snan := nan and (src_signaling = 0)
+    positive := (src.sign = 0)
+    negative := (src.sign = 1)
+    if nan:
+        if snan:
+            MXCSR.IE := 1
+        return qnan(src)
+    if positive and (zero or infinity):
+        return 1.0
+    if negative:
+        if zero:
+            return signed_one
+        if infinity:
+            if sign_control[1]:
+                MXCSR.IE := 1
+                return QNaN_Indefinite
+            return signed_one
+        if sign_control[1]:
+            MXCSR.IE := 1
+            return QNaN_Indefinite
+    if denormal:
+        jbit := 0
+        dst.exp := bias
+        while jbit = 0:
+            jbit := dst.fraction[22]
+            dst.fraction := dst.fraction &lt;&lt; 1
+            dst.exp : = dst.exp - 1
+        MXCSR.DE := 1
+    unbiased_exp := dst.exp - bias
+    odd_exp := unbiased_exp[0]
+    signaling_bit := dst.fraction[22]
+    if normalization_interval = 0b00:
+        dst.exp := bias
+    else if normalization_interval = 0b01:
+        dst.exp := odd_exp ? bias-1 : bias
+    else if normalization_interval = 0b10:
+        dst.exp := bias-1
+    else if normalization_interval = 0b11:
+        dst.exp := signaling_bit ? bias-1 : bias
+    return dst
 </pre>
 <h4 id="vgetmantps--evex-encoded-versions-">VGETMANTPS (EVEX encoded versions)<a class="anchor" href="VGETMANTPS.html#vgetmantps--evex-encoded-versions-">
 			&para;
 		</a></h4>
-<pre>(KL, VL) = (4, 128), (8, 256), (16, 512)
-SignCtrl[1:0] &larr; IMM8[3:2];
-Interv[1:0] &larr; IMM8[1:0];
-FOR j&larr;0 TO KL-1
-    i&larr;j * 32
-    IF k1[j] OR *no writemask*
-        THEN
-            IF (EVEX.b = 1) AND (SRC *is memory*)
-                THEN
-                    DEST[i+31:i] &larr; GetNormalizedMantissaSP(SRC[31:0], SignCtrl, Interv)
-                ELSE
-                    DEST[i+31:i] &larr; GetNormalizedMantissaSP(SRC[i+31:i], SignCtrl, Interv)
-            FI;
-        ELSE
-            IF *merging-masking* ; merging-masking
-                THEN *DEST[i+31:i] remains unchanged*
-                ELSE ; zeroing-masking
-                    DEST[i+31:i] &larr; 0
-            FI
-    FI;
-ENDFOR
-DEST[MAXVL-1:VL] &larr; 0
+<pre>VGETMANTPS dest{k1}, src, imm8
+VL = 128, 256, or 512
+KL := VL / 32
+sign_control := imm8[3:2]
+normalization_interval := imm8[1:0]
+FOR i := 0 to KL-1:
+    IF k1[i] or *no writemask*:
+        IF SRC is memory and (EVEX.b = 1):
+            tsrc := src.float[0]
+        ELSE:
+            tsrc := src.float[i]
+        DEST.float[i] := getmant_fp32(tsrc, sign_control, normalization_interval)
+    ELSE IF *zeroing*:
+        DEST.float[i] := 0
+    //else DEST.float[i] remains unchanged
+DEST[MAX_VL-1:VL] := 0
 </pre>
 <h3 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="VGETMANTPS.html#intel-c-c++-compiler-intrinsic-equivalent">
 			&para;
@@ -190,13 +167,13 @@ DEST[MAXVL-1:VL] &larr; 0
 <h3 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="VGETMANTPS.html#other-exceptions">
 			&para;
 		</a></h3>
-<p>See Exceptions Type E2.</p>
+<p>See <span class="not-imported">Table 2-46</span>, &ldquo;Type E2 Class Exception Conditions&rdquo;; additionally:</p>
 <table>
 <tbody><tr>
 <td>#UD</td>
 <td>If EVEX.vvvv != 1111B.</td></tr></tbody></table><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

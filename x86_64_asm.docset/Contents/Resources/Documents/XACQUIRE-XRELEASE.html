@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-682"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/XACQUIRE%2FXRELEASE"></a><title>XACQUIRE/XRELEASE</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>XACQUIRE/XRELEASE
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-712"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/XACQUIRE%2FXRELEASE"></a><title>XACQUIRE/XRELEASE</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>XACQUIRE/XRELEASE
 		&mdash; Hardware Lock Elision Prefix Hints</h1>
 
 
@@ -60,12 +60,12 @@
         IF (HLE_NEST_COUNT &lt; MAX_HLE_NEST_COUNT) THEN
             HLE_NEST_COUNT++
             IF (HLE_NEST_COUNT = 1) THEN
-                HLE_ACTIVE &larr; 1
+                HLE_ACTIVE := 1
                 IF 64-bit mode
                     THEN
-                        restartRIP &larr; instruction pointer of the XACQUIRE-enabled instruction
+                        restartRIP := instruction pointer of the XACQUIRE-enabled instruction
                     ELSE
-                        restartEIP &larr; instruction pointer of the XACQUIRE-enabled instruction
+                        restartEIP := instruction pointer of the XACQUIRE-enabled instruction
                 FI;
                 Enter HLE Execution (* record register state, start tracking memory state *)
             FI; (* HLE_NEST_COUNT = 1*)
@@ -108,7 +108,7 @@ FI;
                                     THEN
                                         GOTO HLE_ABORT_PROCESSING;
                                     ELSE (* commit success *)
-                                        HLE_ACTIVE &larr; 0
+                                        HLE_ACTIVE := 0
                                 FI;
                             ELSE
                                 GOTO HLE_ABORT_PROCESSING
@@ -120,16 +120,16 @@ FI;
 FI;
 (* For any HLE abort condition encountered during HLE execution *)
 HLE_ABORT_PROCESSING:
-    HLE_ACTIVE &larr; 0
-    HLE_NEST_COUNT &larr; 0
+    HLE_ACTIVE := 0
+    HLE_NEST_COUNT := 0
     Restore architectural register state
     Discard memory updates performed in transaction
     Free any allocated lock elision buffers
     IF 64-bit mode
         THEN
-            RIP &larr; restartRIP
+            RIP := restartRIP
         ELSE
-            EIP &larr; restartEIP
+            EIP := restartEIP
     FI;
     Execute and retire instruction at RIP (or EIP) and ignore any HLE hint
 END
@@ -147,6 +147,6 @@ END
 <td>If the use of prefix causes instruction length to exceed 15 bytes.</td></tr></tbody></table><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>

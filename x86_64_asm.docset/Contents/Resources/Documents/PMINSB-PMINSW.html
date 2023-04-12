@@ -1,4 +1,4 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-357"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/PMINSB%2FPMINSW"></a><title>PMINSB/PMINSW</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>May 2019</li></ul></nav></header><h1>PMINSB/PMINSW
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:x86="http://www.felixcloutier.com/x86"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><link rel="stylesheet" type="text/css" href="style.css"/><a class="dashingAutolink" name="autolink-367"></a><a class="dashAnchor" name="//apple_ref/cpp/Instruction/PMINSB%2FPMINSW"></a><title>PMINSB/PMINSW</title></head><body><header><nav><ul><li><a href="index.html">Index</a></li><li>April 2022</li></ul></nav></header><h1>PMINSB/PMINSW
 		&mdash; Minimum of Packed Signed Integers</h1>
 
 
@@ -88,7 +88,7 @@
 <td>AVX512BW</td>
 <td>Compare packed signed word integers in zmm2 and zmm3/m512 and store packed minimum values in zmm1 under writemask k1.</td></tr>
 <tr>
-<td colspan="5">NOTES: 1. See note in Section 2.4, &ldquo;AVX and SSE Instruction Exception Specification&rdquo; in the <em>Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 2A</em> and Section 22.25.3, &ldquo;Exception Conditions of Legacy SIMD Instructions Operating on MMX Registers&rdquo; in the <em>Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 3A</em>.</td></tr></tbody></table>
+<td colspan="5">NOTES: 1. See note in Section 2.4, &ldquo;AVX and SSE Instruction Exception Specification&rdquo; in the <em>Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual, Volume 2A</em> and Section 22.25.3, &ldquo;Exception Conditions of Legacy SIMD Instructions Operating on MMX structions Operating on MMX Registers&rdquo; in the <em>Intel&reg; 64 and IA-32 Architectures Software</em>  tion Conditions of Legacy SIMD Instructions Operating on MMX </td></tr></tbody></table>
 <h2 id="instruction-operand-encoding">Instruction Operand Encoding<a class="anchor" href="./PMINSB:PMINSW.html#instruction-operand-encoding">
 			&para;
 		</a></h2>
@@ -137,140 +137,140 @@
 			&para;
 		</a></h4>
 <pre>IF DEST[15:0] &lt; SRC[15:0] THEN
-    DEST[15:0] &larr; DEST[15:0];
+    DEST[15:0] := DEST[15:0];
 ELSE
-    DEST[15:0] &larr; SRC[15:0]; FI;
+    DEST[15:0] := SRC[15:0]; FI;
 (* Repeat operation for 2nd and 3rd words in source and destination operands *)
 IF DEST[63:48] &lt; SRC[63:48] THEN
-    DEST[63:48] &larr; DEST[63:48];
+    DEST[63:48] := DEST[63:48];
 ELSE
-    DEST[63:48] &larr; SRC[63:48]; FI;
+    DEST[63:48] := SRC[63:48]; FI;
 </pre>
 <h4 id="pminsb--128-bit-legacy-sse-version-">PMINSB (128-bit Legacy SSE version)<a class="anchor" href="./PMINSB:PMINSW.html#pminsb--128-bit-legacy-sse-version-">
 			&para;
 		</a></h4>
 <pre>    IF DEST[7:0] &lt; SRC[7:0] THEN
-        DEST[7:0] &larr; DEST[7:0];
+        DEST[7:0] := DEST[7:0];
     ELSE
-        DEST[15:0]&larr;SRC[7:0]; FI;
+        DEST[15:0] := SRC[7:0]; FI;
     (* Repeat operation for 2nd through 15th bytes in source and destination operands *)
     IF DEST[127:120] &lt; SRC[127:120] THEN
-        DEST[127:120] &larr; DEST[127:120];
+        DEST[127:120] := DEST[127:120];
     ELSE
-        DEST[127:120]&larr;SRC[127:120]; FI;
+        DEST[127:120] := SRC[127:120]; FI;
 DEST[MAXVL-1:128] (Unmodified)
 </pre>
 <h4 id="vpminsb--vex-128-encoded-version-">VPMINSB (VEX.128 encoded version)<a class="anchor" href="./PMINSB:PMINSW.html#vpminsb--vex-128-encoded-version-">
 			&para;
 		</a></h4>
 <pre>    IF SRC1[7:0] &lt; SRC2[7:0] THEN
-        DEST[7:0] &larr; SRC1[7:0];
+        DEST[7:0] := SRC1[7:0];
     ELSE
-        DEST[7:0]&larr;SRC2[7:0]; FI;
+        DEST[7:0] := SRC2[7:0]; FI;
     (* Repeat operation for 2nd through 15th bytes in source and destination operands *)
     IF SRC1[127:120] &lt; SRC2[127:120] THEN
-        DEST[127:120] &larr; SRC1[127:120];
+        DEST[127:120] := SRC1[127:120];
     ELSE
-        DEST[127:120]&larr;SRC2[127:120]; FI;
-DEST[MAXVL-1:128] &larr; 0
+        DEST[127:120] := SRC2[127:120]; FI;
+DEST[MAXVL-1:128] := 0
 </pre>
 <h4 id="vpminsb--vex-256-encoded-version-">VPMINSB (VEX.256 encoded version)<a class="anchor" href="./PMINSB:PMINSW.html#vpminsb--vex-256-encoded-version-">
 			&para;
 		</a></h4>
 <pre>    IF SRC1[7:0] &lt; SRC2[7:0] THEN
-        DEST[7:0] &larr; SRC1[7:0];
+        DEST[7:0] := SRC1[7:0];
     ELSE
-        DEST[15:0]&larr;SRC2[7:0]; FI;
+        DEST[15:0] := SRC2[7:0]; FI;
     (* Repeat operation for 2nd through 31st bytes in source and destination operands *)
     IF SRC1[255:248] &lt; SRC2[255:248] THEN
-        DEST[255:248] &larr; SRC1[255:248];
+        DEST[255:248] := SRC1[255:248];
     ELSE
-        DEST[255:248]&larr;SRC2[255:248]; FI;
-DEST[MAXVL-1:256] &larr; 0
+        DEST[255:248] := SRC2[255:248]; FI;
+DEST[MAXVL-1:256] := 0
 </pre>
 <h4 id="vpminsb--evex-encoded-versions-">VPMINSB (EVEX encoded versions)<a class="anchor" href="./PMINSB:PMINSW.html#vpminsb--evex-encoded-versions-">
 			&para;
 		</a></h4>
 <pre>(KL, VL) = (16, 128), (32, 256), (64, 512)
-FOR j&larr;0 TO KL-1
-    i&larr;j * 8
+FOR j := 0 TO KL-1
+    i := j * 8
     IF k1[j] OR *no writemask* THEN
         IF SRC1[i+7:i] &lt; SRC2[i+7:i]
-            THEN DEST[i+7:i]&larr;SRC1[i+7:i];
-            ELSE DEST[i+7:i]&larr;SRC2[i+7:i];
+            THEN DEST[i+7:i] := SRC1[i+7:i];
+            ELSE DEST[i+7:i] := SRC2[i+7:i];
         FI;
         ELSE
             IF *merging-masking*
                 THEN *DEST[i+7:i] remains unchanged*
                 ELSE ; zeroing-masking
-                    DEST[i+7:i] &larr; 0
+                    DEST[i+7:i] := 0
             FI
     FI;
 ENDFOR;
-DEST[MAXVL-1:VL] &larr; 0
+DEST[MAXVL-1:VL] := 0
 </pre>
 <h4 id="pminsw--128-bit-legacy-sse-version-">PMINSW (128-bit Legacy SSE version)<a class="anchor" href="./PMINSB:PMINSW.html#pminsw--128-bit-legacy-sse-version-">
 			&para;
 		</a></h4>
 <pre>    IF DEST[15:0] &lt; SRC[15:0] THEN
-        DEST[15:0] &larr; DEST[15:0];
+        DEST[15:0] := DEST[15:0];
     ELSE
-        DEST[15:0]&larr;SRC[15:0]; FI;
+        DEST[15:0] := SRC[15:0]; FI;
     (* Repeat operation for 2nd through 7th words in source and destination operands *)
     IF DEST[127:112] &lt; SRC[127:112] THEN
-        DEST[127:112] &larr; DEST[127:112];
+        DEST[127:112] := DEST[127:112];
     ELSE
-        DEST[127:112]&larr;SRC[127:112]; FI;
+        DEST[127:112] := SRC[127:112]; FI;
 DEST[MAXVL-1:128] (Unmodified)
 </pre>
 <h4 id="vpminsw--vex-128-encoded-version-">VPMINSW (VEX.128 encoded version)<a class="anchor" href="./PMINSB:PMINSW.html#vpminsw--vex-128-encoded-version-">
 			&para;
 		</a></h4>
 <pre>    IF SRC1[15:0] &lt; SRC2[15:0] THEN
-        DEST[15:0] &larr; SRC1[15:0];
+        DEST[15:0] := SRC1[15:0];
     ELSE
-        DEST[15:0]&larr;SRC2[15:0]; FI;
+        DEST[15:0] := SRC2[15:0]; FI;
     (* Repeat operation for 2nd through 7th words in source and destination operands *)
     IF SRC1[127:112] &lt; SRC2[127:112] THEN
-        DEST[127:112] &larr; SRC1[127:112];
+        DEST[127:112] := SRC1[127:112];
     ELSE
-        DEST[127:112]&larr;SRC2[127:112]; FI;
-DEST[MAXVL-1:128] &larr; 0
+        DEST[127:112] := SRC2[127:112]; FI;
+DEST[MAXVL-1:128] := 0
 </pre>
 <h4 id="vpminsw--vex-256-encoded-version-">VPMINSW (VEX.256 encoded version)<a class="anchor" href="./PMINSB:PMINSW.html#vpminsw--vex-256-encoded-version-">
 			&para;
 		</a></h4>
 <pre>    IF SRC1[15:0] &lt; SRC2[15:0] THEN
-        DEST[15:0] &larr; SRC1[15:0];
+        DEST[15:0] := SRC1[15:0];
     ELSE
-        DEST[15:0]&larr;SRC2[15:0]; FI;
+        DEST[15:0] := SRC2[15:0]; FI;
     (* Repeat operation for 2nd through 15th words in source and destination operands *)
     IF SRC1[255:240] &lt; SRC2[255:240] THEN
-        DEST[255:240] &larr; SRC1[255:240];
+        DEST[255:240] := SRC1[255:240];
     ELSE
-        DEST[255:240]&larr;SRC2[255:240]; FI;
-DEST[MAXVL-1:256] &larr; 0
+        DEST[255:240] := SRC2[255:240]; FI;
+DEST[MAXVL-1:256] := 0
 </pre>
 <h4 id="vpminsw--evex-encoded-versions-">VPMINSW (EVEX encoded versions)<a class="anchor" href="./PMINSB:PMINSW.html#vpminsw--evex-encoded-versions-">
 			&para;
 		</a></h4>
 <pre>(KL, VL) = (8, 128), (16, 256), (32, 512)
-FOR j&larr;0 TO KL-1
-    i&larr;j * 16
+FOR j := 0 TO KL-1
+    i := j * 16
     IF k1[j] OR *no writemask* THEN
         IF SRC1[i+15:i] &lt; SRC2[i+15:i]
-            THEN DEST[i+15:i]&larr;SRC1[i+15:i];
-            ELSE DEST[i+15:i]&larr;SRC2[i+15:i];
+            THEN DEST[i+15:i] := SRC1[i+15:i];
+            ELSE DEST[i+15:i] := SRC2[i+15:i];
         FI;
         ELSE
             IF *merging-masking*
                 THEN *DEST[i+15:i] remains unchanged*
                 ELSE ; zeroing-masking
-                    DEST[i+15:i] &larr; 0
+                    DEST[i+15:i] := 0
             FI
     FI;
 ENDFOR;
-DEST[MAXVL-1:VL] &larr; 0
+DEST[MAXVL-1:VL] := 0
 </pre>
 <h3 id="intel-c-c++-compiler-intrinsic-equivalent">Intel C/C++ Compiler Intrinsic Equivalent<a class="anchor" href="./PMINSB:PMINSW.html#intel-c-c++-compiler-intrinsic-equivalent">
 			&para;
@@ -320,14 +320,15 @@ DEST[MAXVL-1:VL] &larr; 0
 <h3 class="exceptions" id="other-exceptions">Other Exceptions<a class="anchor" href="./PMINSB:PMINSW.html#other-exceptions">
 			&para;
 		</a></h3>
-<p>Non-EVEX-encoded instruction, see Exceptions Type 4.</p>
-<p>EVEX-encoded instruction, see Exceptions Type E4.nb.</p>
+<p>Non-EVEX-encoded instruction, see <span class="not-imported">Table 2-21</span>, &ldquo;Type 4 Class Exception Conditions&rdquo;.</p>
+<p>EVEX-encoded instruction, see Exceptions Type E4.nb in <span class="not-imported">Table 2-49</span>, &ldquo;Type E4 Class Exception Conditions&rdquo;.</p>
+<p>Additionally:</p>
 <table>
 <tbody><tr>
 <td>#MF</td>
 <td>(64-bit operations only) If there is a pending x87 FPU exception.</td></tr></tbody></table><footer><p>
 		This UNOFFICIAL, mechanically-separated, non-verified reference is provided for convenience, but it may be
 		inc<span style="opacity: 0.2">omp</span>lete or b<sub>r</sub>oke<sub>n</sub> in various obvious or non-obvious
-		ways. Refer to <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
+		ways. Refer to <a href="https://software.intel.com/en-us/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4">Intel&reg; 64 and IA-32 Architectures Software Developer&rsquo;s Manual</a> for anything serious.
 	</p></footer>
 </body></html>
